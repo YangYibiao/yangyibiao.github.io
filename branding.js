@@ -21,3 +21,22 @@ function banner(){
 function education(){
     document.write('<h3>Education</h3><hr/>                Visiting Ph.D. in Computer Science: <br><a href="http://www.ucl.ac.uk">University College London</a> (UCL), London, UK. Oct 2013 ~ Dec 2013<br>                Research Supervisor: Prof. <a href="http://www.cs.ucl.ac.uk/staff/M.Harman">Mark Harman</a> and <a href="http://www.cs.ucl.ac.uk/staff/J.Krinke">Jens Krinke</a> (<a href="http://crest.cs.ucl.ac.uk">CREST</a> centre in <a href="http://www.cs.ucl.ac.uk">Department of Computer Science</a>)                <br><br>                Ph.D. in Computer Science: <br><a href="http://www.nju.edu.cn">Nanjing University</a> (NJU), Nanjing, China. Sep 2010 ~ Sep 2016<br>                Research Supervisor: Prof. Yuming Zhou                <br><br>                B.Sc. in Computer Software: <br><a href="http://www.swjtu.edu.cn">Southwest Jiaotong University</a> (SWJTU), Chengdu, China. Sep 2006 ~ Jun 2010                <br><br>');
 }
+
+
+function myOldFunction(projectName) {
+    var x = document.getElementById(projectName);
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+
+function myNewFunction(projectName) {
+    var x = document.getElementById(projectName);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
