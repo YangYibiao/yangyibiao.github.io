@@ -1,0 +1,52 @@
+\documentclass{ctexart}
+\usepackage{avanti}
+\everymath{\color{Solarized-magenta}}
+\pagestyle{empty} % 没有页眉和页脚
+
+\tikzset{font=\Large}
+\tikzset{base/.style={smooth, very thick, Solarized-base01}}
+\tikzset{arrow/.style={->, -{Stealth[scale=1.0]}, base}}
+\tikzset{curve/.style={base, Solarized-blue}}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+    \pgfmathsetmacro{\range}{1};
+
+    \foreach \i in {-6,-3,0,3,6}
+        {
+            \draw [arrow] (\i,-1.4) -- (\i,1.4);
+            \draw [arrow] (\i-1.4,0) -- (\i+1.4,0);
+        }
+
+    \pgfmathsetmacro{\o}{-6};
+    \draw [curve,domain=0:90,variable=\t] plot({\o-cos(\t)^4},{sin(\t)^4});
+    \draw [curve,domain=0:90,variable=\t] plot({\o-cos(\t)^4},{-sin(\t)^4});
+    \draw [curve,domain=0:90,variable=\t] plot({\o+cos(\t)^4},{-sin(\t)^4});
+    \draw [curve,domain=0:90,variable=\t] plot({\o+cos(\t)^4},{sin(\t)^4});
+    \path (\o, -1.8) node () {$\ell_{0.5}$};
+
+    \pgfmathsetmacro{\o}{-3};
+    \draw [curve] (\o-\range,0) -- (\o,\range) -- (\o+\range,0) -- (\o,-\range) -- cycle;
+    \path (\o, -1.8) node () {$\ell_1$};
+
+    \pgfmathsetmacro{\o}{0};
+    \draw [curve] (\o,0) circle (\range);
+    \path (\o, -1.8) node () {$\ell_2$};
+
+    \pgfmathsetmacro{\o}{3};
+    \draw [curve,domain=0:90,variable=\t] plot({\o-cos(\t)^(1/2)},{sin(\t)^(1/2)});
+    \draw [curve,domain=0:90,variable=\t] plot({\o-cos(\t)^(1/2)},{-sin(\t)^(1/2)});
+    \draw [curve,domain=0:90,variable=\t] plot({\o+cos(\t)^(1/2)},{-sin(\t)^(1/2)});
+    \draw [curve,domain=0:90,variable=\t] plot({\o+cos(\t)^(1/2)},{sin(\t)^(1/2)});
+    \path (\o, -1.8) node () {$\ell_4$};
+
+    \pgfmathsetmacro{\o}{6};
+    \draw [curve] (\o-\range,-\range) rectangle ++(2*\range,2*\range);
+    \path (\o, -1.8) node () {$\ell_\infty$};
+
+\end{tikzpicture}
+
+
+\end{document}
