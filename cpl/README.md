@@ -1,3 +1,3 @@
 课程主页
 
-- https://avanti1980.github.io/course-ml/
+- https://yangyibiao.github.io/cpl/
