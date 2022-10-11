@@ -63,7 +63,7 @@
 | 答疑时间 | 周一 | 周二 | 周三 | 周四 | 周五 |
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | 08:00-10:00 | 李清扬(QQ线上) | 李清扬(QQ线上) | 姜钊炜(QQ线上) | | |
-| 10:00-12:00 | <div style="width: 90pt"></div> | <div style="width: 90pt"></div> | <div style="width: 90pt"></div> | <div style="width: 90pt"></div>| <div style="width: 90pt"></div> |
+| 10:00-12:00 | <div style="width: 88pt"></div> | <div style="width: 88pt"></div> | <div style="width: 88pt"></div> | <div style="width: 88pt"></div>| <div style="width: 88pt"></div> |
 | 12:00-14:00 | | | | | |
 | 14:00-16:00 | 姜钊炜(QQ线上) | | 茆文杰(QQ线上) | 杨已彪(线下) | |
 | 16:00-18:00 | | | | 杨已彪(线下) | 茆文杰(QQ线上) |
