@@ -32,9 +32,9 @@
 | 第三讲  | [选择语句](slides/05.html)        | 逻辑表达式、if语句、switch语句    |
 |   ^    | [循环](slides/06.html)           | while语句、do-while语句、for语句 |
 | 第四讲  | [基本类型](slides/07.html)        | 整数类型、浮点类型、字符类型、类型转换 |
-|   ^    | [数组](slides/08.html)           | 一维数组、多维数组 |
-| 第五讲  | 数组        | &emsp;  |
-|   ^    | 函数        | &emsp;  |
+|   ^    | [数组](slides/08.html)           | 一维数组 |
+| 第五讲  | [数组](slides/08.html)        | 多维数组  |
+|   ^    | [函数](slides/09.html)        | 函数声明、定义、形参、实参  |
 | 第六讲  | 程序结构     | &emsp;  |
 |   ^    | 指针        | &emsp;  |
 | 第七讲  | 指针        | &emsp;  |
