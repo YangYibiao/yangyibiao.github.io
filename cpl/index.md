@@ -35,7 +35,7 @@
 |   ^    | [数组](slides/08.html)           | 一维数组 |
 | 第五讲  | [数组](slides/08.html)           | 多维数组  |
 |   ^    | [函数](slides/09-Functions.html)           | 函数声明、定义、形参、实参  |
-| 第六讲  | [程序结构](slides/10-ProgramOrganizations.html)        | &emsp;  |
+| 第六讲  | [程序结构](slides/10-ProgramOrganization.html)        | &emsp;  |
 |   ^    | [指针](slides/11-Pointers.html)          | &emsp;  |
 | 第七讲  | 指针          | &emsp;  |
 |   ^    | 指针和指针数组  | &emsp;  |
