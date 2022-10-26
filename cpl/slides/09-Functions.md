@@ -46,6 +46,8 @@ presentation:
 
 <!-- slide vertical=true data-notes="" -->
 
+
+
 ##### 提纲
 
 ---
@@ -62,7 +64,8 @@ presentation:
 
 - 递归
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
+
 
 
 ##### 函数
@@ -94,6 +97,8 @@ presentation:
 
 
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 程序: 计算平均值
 
@@ -245,6 +250,8 @@ print_count(i);
 
 <!-- slide vertical=true data-notes="" -->
 
+
+
 ##### 程序: 计算平均值
 
 ---
@@ -274,6 +281,8 @@ int main(void)
 
 <!-- slide vertical=true data-notes="" -->
 
+
+
 ##### 程序: 显示双关语(改进版)
 
 ---
@@ -296,6 +305,8 @@ print_pun();
 *pun2.c*程序测试了print_pun函数. 
 
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 程序: 显示双关语(改进版)
 
@@ -320,7 +331,9 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
+
+
 
 ##### 函数定义
 
@@ -442,7 +455,7 @@ void print_pun(void)
 
 在程序开发过程中, 留下空函数体是有意义的. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -505,10 +518,9 @@ average(x, y);  /* discards return value */
 
 此调用是表达式语句的示例: 计算出语句的值, 但不保存它. 
 
-
-
-
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 函数调用
 
@@ -530,9 +542,9 @@ num_chars = printf("Hi, Mom!\n");
 printf("Hi, Mom!\n"); /* discards return value */
 ```
 
-
-
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 函数调用
 
@@ -548,7 +560,7 @@ printf("Hi, Mom!\n"); /* discards return value */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序: 判定素数
 
@@ -603,7 +615,7 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -616,6 +628,8 @@ C不要求函数的定义在其调用之前.
 假设我们重新编排*average.c*程序, 将average函数的定义放在main函数的定义之后. 
 
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 函数声明
 
@@ -771,7 +785,7 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 调用函数时, 如果此前编译器未见其声明或定义, 会导致出错. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -881,7 +895,7 @@ decompose(3.14159, i, d);
 
 第 11 章展示了如何使decompose函数奏效. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1183,7 +1197,7 @@ int sum_two_dimensional_array(int a[][LEN], int n)
 
 C99的变长数组形式参数提供了一个更好的解决方案. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1227,14 +1241,13 @@ int sum_array(int n, int a[n])
 
 我的启示 这里交换了参数顺序, 使用变长数组形式参数时, 顺序很重要. 
 
-
-
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 变长数组形式参数 (C99)
 
 ---
-
 
 新版本的sum_array函数的原型有好几种写法. 
 
@@ -1250,9 +1263,9 @@ int sum_array(int n, int a[n]);  /* Version 1 */
 int sum_array(int n, int a[*]);  /* Version 2a */
 ```
 
-
-
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 变长数组形式参数 (C99)
 
@@ -1359,7 +1372,7 @@ int sum_two_dimensional_array(int n, int m, int a[][m]);
 int sum_two_dimensional_array(int n, int m, int a[][*]);
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1380,6 +1393,8 @@ int sum_array(int a[static 3], int n)
 
 <!-- slide vertical=true data-notes="" -->
 
+
+
 ##### 在数组参数声明中使用static(C99)
 
 ---
@@ -1390,7 +1405,7 @@ static只是一个"提示", 允许C编译器生成更快的指令来访问数组
 
 如果数组参数是多维的, 则static仅可用于第一维. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1476,7 +1491,7 @@ total = sum_array((int []){2 * i, i + j, j * k}, 3);
 (const int []){5, 4}
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1539,6 +1554,8 @@ void print_int(int i)
 
 <!-- slide vertical=true data-notes="" -->
 
+
+
 ##### return语句
 
 ---
@@ -1557,7 +1574,7 @@ void print_pun(void)
 
 如果非void函数未能执行return语句, 则程序尝试使用函数的返回值的行为是未定义的. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1611,7 +1628,7 @@ main返回的值是一个状态码, 在程序终止时可以检测 ==状态码==
 
 确保每个C程序都返回一个状态码是一种很好的做法. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1681,7 +1698,7 @@ return和exit的区别在于:
 
 - return语句仅当由main函数调用时才会导致程序终止. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1764,7 +1781,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 所有递归函数都需有终止条件以防止无限递归. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1854,7 +1871,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 既然数组已经被分割, 那么可以使用快速排序法递归地对数组的前4个元素(10、3、6和7)和后2个元素(15和18)进行排序. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
