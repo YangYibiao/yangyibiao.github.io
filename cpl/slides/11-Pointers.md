@@ -372,15 +372,19 @@ q现在指向与p相同的位置:
 ```C
 *p = 1;
 ```
+
 <div class="top-2">
-    <img src="../img/11-10.png">
+    <img src="../img/11-10.png" width=200px>
 </div>
+
 ```C
 *q = 2;
 ```
+
 <div class="top-2">
-    <img src="../img/11-11.png">
+    <img src="../img/11-11.png" width=200px>
 </div>
+
 任意数量的指针变量都可以指向同一个对象. 
 
 
@@ -419,14 +423,14 @@ q = &j;
 i = 1;
 ```
 <div class="top-2">
-    <img src="../img/11-12.png">
+    <img src="../img/11-12.png" width=200px>
 </div>
 
 ```C
 *q = *p;
 ```
 <div class="top-2">
-    <img src="../img/11-13.png">
+    <img src="../img/11-13.png" width=200px>
 </div>
 
 <!-- slide vertical=true data-notes="" -->
@@ -483,7 +487,7 @@ decompose(3.14159, &i, &d);
 作为调用的结果, 指向i的指针存储在int_part中, 指向d的指针存储在frac_part中: 
 
 <div class="top-2">
-    <img src="../img/11-14.png">
+    <img src="../img/11-14.png" width=300px>
 </div>
 
 <!-- slide vertical=true data-notes="" -->
@@ -496,7 +500,7 @@ decompose(3.14159, &i, &d);
 
 decompose函数体中的第一个赋值将x的值转换为long类型, 并将其存储在int_part指向的对象中: 
 <div class="top-2">
-    <img src="../img/11-15.png">
+    <img src="../img/11-15.png" width=300px>
 </div>
 
 <!-- slide vertical=true data-notes="" -->
@@ -509,7 +513,7 @@ decompose函数体中的第一个赋值将x的值转换为long类型, 并将其�
 
 第二个赋值把`x - *int_part`的值存储到frac_part指向的对象中: 
 <div class="top-2">
-    <img src="../img/11-16.png">
+    <img src="../img/11-16.png" width=300px>
 </div>
 
 <!-- slide vertical=true data-notes="" -->

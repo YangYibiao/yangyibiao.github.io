@@ -43,7 +43,7 @@ presentation:
 
 #### _yangyibiao@nju.edu.cn_
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 提纲
@@ -72,7 +72,7 @@ C中有两种聚合类型: ==数组== 和结构体
 本章的重点是一维数组, 它在 C 语言中的作用比多维数组更大. 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 一维数组
 
@@ -115,7 +115,7 @@ int a[10];
 int a[N];
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -127,7 +127,7 @@ int a[N];
 
 这被称为对数组取下标或进行索引. 
 
-长度为n的数组元素的索引从`0`到`n – 1`. 
+长度为n的数组元素的索引从$0$到$n – 1$. 
 
 若数组a长度为`10`, 元素依次可标记为$a[0], a[1], ..., a[9]$:
 
@@ -147,7 +147,7 @@ int a[N];
 </div>
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide vertical=true  data-notes="" -->
 
 ##### 数组下标
 
@@ -197,11 +197,10 @@ for (i = 0; i < N; i++)
 
 C不检查下标的范围; 若超出范围, 程序可能执行不可预知的行为
 
-`n`个元素的数组的索引是从`0`到`n – 1`, 而不是从`1`到`n`: 
+$n$个元素的==数组索引==是从$0$到$n – 1$, 而不是从$1$到$n$: 
 
 ```C
 int a[10], i;
- 
 for (i = 1; i <= 10; i++)
   a[i] = 0;
 ```
@@ -253,7 +252,7 @@ for (i = 0; i < N; i++)
 ```
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -301,7 +300,7 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -447,7 +446,7 @@ int b[] = {[5] = 10, [23] = 13, [11] = 36, [15] = 29};
 int c[10] = {5, 1, 9, [4] = 3, 7, 2, [8] = 6};
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -523,7 +522,7 @@ int main(void)
 ```
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 对数组使用sizeof运算符
 
@@ -595,7 +594,7 @@ for (i = 0; i < SIZE; i++)
   a[i] = 0;
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -700,7 +699,7 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 多维数组
@@ -796,7 +795,7 @@ for (row = 0; row < N; row++) {
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -894,7 +893,7 @@ double ident[2][2] = {[0][0] = 1.0, [1][1] = 1.0};
 
 像通常一样, 所有未指定值的元素都默认为0. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -929,7 +928,7 @@ const char hex_chars[] =
 
 - const常用于数组的声明, 以保护在程序执行过程中不变的信息. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1065,7 +1064,7 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 

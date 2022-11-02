@@ -29,6 +29,8 @@ presentation:
 
 <!-- slide data-notes="" -->
 
+
+
 <div class="bottom20"></div>
 
 # C语言程序设计基础
@@ -44,6 +46,8 @@ presentation:
 #### _yangyibiao@nju.edu.cn_
 
 <!-- slide vertical=true data-notes="" -->
+
+
 
 ##### 提纲
 
@@ -117,6 +121,7 @@ C 支持两种完全不同的数值类型: 整数类型和浮点类型
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 有符号整数和无符号整数
 
 ---
@@ -128,6 +133,7 @@ C 支持两种完全不同的数值类型: 整数类型和浮点类型
 无符号整数主要用于系统编程和底层与机器相关的应用
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 整数类型
@@ -178,14 +184,14 @@ long int         unsigned long int
 
 <div class="fullborder">
 
-| 类型                | 最小值          | 最大值         |
-| :--                | :--            | :--           |
-| short int          | –32,768        | 32,767        |
-| unsigned short int | 0              | 65,535        |
-| int                | –32,768        | 32,767        |
-| unsigned int       | 0              | 65,535        |
-| long int           | –2,147,483,648 | 2,147,483,647 |
-| unsigned long int  | 0              | 4,294,967,295 |
+| 类型                | 最小值            | 最大值         |
+| :--                | :--              | :--           |
+| short int          | $–32,768$        | $32,767$        |
+| unsigned short int | $0$              | $65,535$        |
+| int                | $–32,768$        | $32,767$        |
+| unsigned int       | $0$              | $65,535$        |
+| long int           | $–2,147,483,648$ | $2,147,483,647$ |
+| unsigned long int  | $0$              | $4,294,967,295$ |
 
 </div>
 
@@ -203,12 +209,12 @@ long int         unsigned long int
 
 | 类型                | 最小值          | 最大值         |
 | :--                | :--               | :--           |
-| short int          | –32,768           | 32,767         |
-| unsigned short int | 0                 | 65,535         |
-| int                | –2,147,483,648    | 2,147,483,647  |
-| unsigned int       | 0                 | 4,294,967,295  |
-| long int           | –2,147,483,648    | 2,147,483,647  |
-| unsigned long int  | 0                 | 4,294,967,295  |
+| short int          | $–32,768$           | $32,767$         |
+| unsigned short int | $0$                 | $65,535$         |
+| int                | $–2,147,483,648$    | $2,147,483,647$  |
+| unsigned int       | $0$                 | $4,294,967,295$  |
+| long int           | $–2,147,483,648$    | $2,147,483,647$  |
+| unsigned long int  | $0$                 | $4,294,967,295$  |
 
 </div>
 
@@ -225,12 +231,12 @@ long int         unsigned long int
 
 |  类型  |    最小值 | 最大值 |
 | :-- | :-- | :-- |
-| short int| –32,768 | 32,767 |
-| unsigned short int| 0|65,535 |
-| int                |–2,147,483,648| 2,147,483,647 |
-| unsigned int|  0  | 4,294,967,295 |
-| long int| $–2^{63}$ | $2^{63}–1$ |
-| unsigned long int| 0| $2^{64}–1$ |
+| short int          | $–32,768$        | $32,767$ |
+| unsigned short int | $0$              | $65,535$ |
+| int                | $–2,147,483,648$ | $2,147,483,647$ |
+| unsigned int       | $0$              | $4,294,967,295$ |
+| long int           | $–2^{63}$        | $2^{63}–1$ |
+| unsigned long int  | $0$              | $2^{64}–1$ |
 
 </div>
 
@@ -265,8 +271,8 @@ C99中把`short int, int, long int, long long int`类型(以及signed char类型
 
 除了标准的整数类型以外, C99 标准还允许在具体实现时定义扩展的整数类型(包括有符号的和无符号的)
 
-
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 整数类型
@@ -277,8 +283,8 @@ C99中把`short int, int, long int, long long int`类型(以及signed char类型
 
 C 允许用`十进制(基数为10)`、`八进制(基数为8)`和`十六进制(基数为16)`书写整数常量
 
-
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 整数类型
@@ -299,8 +305,8 @@ $2 × 8^2 + 3 × 8^1 + 7 × 8^0 = 128 + 24 + 7 = 159$
 - 十六进制数 1AF 的十进制数值为 
 $1 × 16^2 + 10 × 16^1 + 15 × 16^0 = 256 + 160 + 15 = 431$
 
-
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 整数类型
@@ -323,6 +329,7 @@ $1 × 16^2 + 10 × 16^1 + 15 × 16^0 = 256 + 160 + 15 = 431$
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 整数类型
 
 ---
@@ -337,6 +344,7 @@ $1 × 16^2 + 10 × 16^1 + 15 × 16^0 = 256 + 160 + 15 = 431$
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 整数常量
@@ -356,6 +364,8 @@ L和U的顺序和大小写无所谓
 
 <!-- slide vertical=true data-notes="" -->
 
+
+
 ##### C99 中的整数常量
 
 ---
@@ -369,6 +379,7 @@ C99 确定整数常量类型的规则与 C89 有些不同
 对于没有后缀(`U, u, L, l, LL, ll`)的十进制常量, 其类型是`int, long, long long int`中能表示该值的`最小`类型
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### C99 中的整数常量
@@ -385,6 +396,7 @@ C99 确定整数常量类型的规则与 C89 有些不同
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 整数溢出
@@ -416,6 +428,7 @@ C99 确定整数常量类型的规则与 C89 有些不同
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 读/写整数
 
 ---
@@ -436,6 +449,7 @@ printf("%x", u);   /* 以16为基数输出u */
 ```
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 读/写整数
@@ -466,6 +480,7 @@ printf("%lld", ll);
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 程序: 数列求和(改进版)
 
 ---
@@ -486,6 +501,7 @@ The sum is: -5536
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 程序: 数列求和(改进版)
@@ -520,6 +536,7 @@ int main(void)
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 浮点类型
 
 ---
@@ -534,6 +551,7 @@ C 提供了3种浮点类型, 对应三种不同的浮点格式:
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 浮点类型
@@ -553,6 +571,7 @@ C 标准没有说明float、double和long double类型提供的精度到底是�
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### IEEE 浮点标准
 
 ---
@@ -567,6 +586,7 @@ IEEE标准由IEEE开发
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 浮点类型
@@ -592,6 +612,7 @@ IEEE标准由IEEE开发
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 浮点类型
 
 ---
@@ -606,6 +627,7 @@ IEEE标准由IEEE开发
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 浮点常量
@@ -625,6 +647,7 @@ IEEE标准由IEEE开发
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 浮点常量
 
 ---
@@ -636,6 +659,7 @@ IEEE标准由IEEE开发
 要表明一个常量必须以`long double`格式存储 , 可以在常量的末尾加上字母`L`或`l`, 例如`57.0L`
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 读/写浮点数
@@ -662,6 +686,7 @@ scanf("%lf", &d);
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 字符类型
 
 ---
@@ -671,6 +696,7 @@ scanf("%lf", &d);
 char类型的值可能因计算机而异, 因为不同的计算机可能具有不同的字符集
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 字符集
@@ -684,6 +710,7 @@ ASCII码中, 数字`0~9`用`0110000~0111001`码来表示, 大写字母`A~Z`用`1
 ASCII 常被扩展用于表示 256 个字符, 相应的字符集Latin-1包含了西欧和许多非洲语言中的字符
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 字符集
@@ -706,6 +733,7 @@ ch = ' ';   /* 空格 */
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 字符操作
 
 ---
@@ -720,6 +748,7 @@ ch = ' ';   /* 空格 */
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 字符操作
@@ -743,6 +772,7 @@ ch++;          /* ch is now 'C' */
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 字符操作
 
 ---
@@ -759,6 +789,7 @@ if ('a' <= ch && ch <= 'z')
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 字符操作
@@ -784,6 +815,7 @@ for (ch = 'A'; ch <= 'Z'; ch++) …
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 有符号字符和无符号字符
 
 ---
@@ -806,6 +838,7 @@ unsigned char uch;
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 有符号字符和无符号字符
 
 ---
@@ -821,6 +854,7 @@ C99 不使用术语整值类型
 C99 的`_Bool类型`被认为是无符号整数类型
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 算术类型
@@ -841,6 +875,7 @@ C89中算术类型的分类:
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 算术类型
 
 ---
@@ -859,6 +894,7 @@ C99 分类更复杂:
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 转义序列
 
 ---
@@ -872,6 +908,7 @@ C99 分类更复杂:
 有两种转义序列: ==字符== 转义序列和 ==数字== 转义序列
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 转义序列
@@ -897,7 +934,9 @@ C99 分类更复杂:
 | Double quote    | `\"` |
 
 </div>
+
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 转义序列
@@ -917,6 +956,7 @@ C99 分类更复杂:
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 转义序列
 
 ---
@@ -929,6 +969,7 @@ C99 分类更复杂:
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 转义序列
@@ -948,6 +989,7 @@ C99 分类更复杂:
 转义序列也可以嵌入到字符串中
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 字符处理函数
@@ -971,6 +1013,7 @@ toupper返回其参数的大写版本
 C 函数库提供了许多其他有用的字符处理函数
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 用scanf和printf读/写字符
@@ -997,6 +1040,7 @@ scanf(" %c", &ch);
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 用scanf和printf读/写字符
 
 ---
@@ -1017,6 +1061,7 @@ do {
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 用getchar和putchar读/写字符
@@ -1045,6 +1090,7 @@ getchar返回一个int值而不是char值, 因此ch通常具有int类型
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 用getchar和putchar读/写字符
 
 ---
@@ -1061,6 +1107,7 @@ getchar常用于多种C语言的惯用法: 搜索字符、跳过字符等
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 用getchar和putchar读/写字符
@@ -1086,6 +1133,7 @@ do {
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 用getchar和putchar读/写字符
 
 ---
@@ -1107,6 +1155,7 @@ while (getchar() != '\n')
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 用getchar和putchar读/写字符
 
 ---
@@ -1122,6 +1171,7 @@ while ((ch = getchar()) == ' ')
 当循环终止时, ch将包含getchar遇到的第一个 ==非空白字符==
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 用getchar和putchar读/写字符
@@ -1147,6 +1197,7 @@ command = getchar();
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 程序: 确定消息的长度
 
 ---
@@ -1166,6 +1217,7 @@ scanf和getchar都可以读取字符, 但程序员大多会选择getchar
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 程序: 确定消息的长度
@@ -1199,6 +1251,7 @@ int main(void)
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 程序: 确定消息的长度
 
 ---
@@ -1226,6 +1279,7 @@ int main(void)
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 类型转换
 
 ---
@@ -1242,6 +1296,7 @@ int main(void)
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 类型转换
 
 ---
@@ -1253,6 +1308,7 @@ int main(void)
 C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 类型转换
@@ -1274,6 +1330,7 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 常用算术转换
 
 ---
@@ -1291,6 +1348,7 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 - 如果原始float数大于最大的整数或小于最小的整数, 得到的结果则毫无意义
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 常用算术转换
@@ -1312,6 +1370,7 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 常用算术转换
 
 ---
@@ -1329,11 +1388,12 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 常用算术转换
 
 ---
 
-若两种操作数类型都不是浮点类型，会先对两个操作数执行整值提升
+若操作数类型都不是浮点类型，会先对两个操作数执行整值提升
 
 然后按照下图对类型较狭小的操作数进行提升: 
 
@@ -1353,6 +1413,7 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 常用算术转换
 
 ---
@@ -1364,6 +1425,7 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 - 最好尽量避免使用无符号整数, 特别是不要将它与有符号整数混合使用
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 常用算术转换
@@ -1396,6 +1458,7 @@ ld = ld + d;   /* d is converted to long double       */
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 赋值过程中的转换
 
 ---
@@ -1415,6 +1478,7 @@ f = i;   /* i is converted to float */
 d = f;   /* f is converted to double */
 ```
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 赋值过程中的转换
@@ -1441,6 +1505,7 @@ f = 1.0e100;  /*** WRONG ***/
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 赋值过程中的转换
 
 ---
@@ -1453,9 +1518,8 @@ f = 3.14159f;
 
 如果没有后缀, 常量3.14159将是double类型, 可能会有警告消息
 
-
-
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### C99 中的隐式转换
@@ -1482,6 +1546,7 @@ C99的整数提升可以将任何等级低于int和unsigned int的类型转换�
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### C99 中的隐式转换
 
 ---
@@ -1495,6 +1560,7 @@ C99 执行常用算术转换的规则可以分为两种情况:
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### C99 中的隐式转换
 
 ---
@@ -1505,7 +1571,7 @@ C99 执行常用算术转换的规则可以分为两种情况:
 
 否则, 依次尝试以下规则: 
 
-- 若两个操作数都是有符号或都是无符号, 将整数转换等级较低的转换为等级较高的
+- 若两个操作数都是有符号或都是无符号, 将转换等级较低的转换为等级较高的
 
 - 若无符号操作数等级高于或等于有符号操作数等级, 将有符号转换为无符号类型
 
@@ -1551,6 +1617,7 @@ C的隐式转换很方便, 但有时需要从更大程度上控制类型转换
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 强制类型转换
 
 ---
@@ -1569,7 +1636,6 @@ frac_part = f - (int) f;
 ```C
 i = (int) f; /* f 转换为 int */
 ```
-
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1597,8 +1663,8 @@ quotient = (float) dividend / divisor;
 将被除数转换为float类型会迫使编译器将除数也转换为float类型
 
 
-
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 强制类型转换
@@ -1653,6 +1719,7 @@ i = (long) (j * j); /*** WRONG ***/
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 类型定义
 
 ---
@@ -1701,6 +1768,7 @@ Dollars cash_in, cash_out;
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 类型定义的优点
 
 ---
@@ -1717,6 +1785,7 @@ typedef double Dollars;
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 类型定义和可移植性
@@ -1738,6 +1807,7 @@ i = 100000;
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 类型定义和可移植性
 
 ---
@@ -1753,6 +1823,7 @@ i = 100000;
 - int类型变量占用的空间较少
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### 类型定义和可移植性
@@ -1782,6 +1853,7 @@ typedef long Quantity;
 <!-- slide vertical=true data-notes="" -->
 
 
+
 ##### 类型定义和可移植性
 
 ---
@@ -1799,6 +1871,7 @@ typedef int wchar_t;
 C99中<stdint.h>用typedef定义占特定位数整数类型名, 如int32_t
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### sizeof运算符
@@ -1837,6 +1910,7 @@ sizeof(char)的值始终为 1, 但其他类型的值可能有所不同
 - sizeof i + j会被解释为(sizeof i) + j, 因为一元运算符优先级高于二元运算符
 
 <!-- slide vertical=true data-notes="" -->
+
 
 
 ##### sizeof运算符
