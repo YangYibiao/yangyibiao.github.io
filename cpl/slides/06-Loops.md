@@ -149,7 +149,7 @@ while (i < n)
 
 当n的值为 10 时, while语句的执行情况:
 
-```C
+```C{.line-numbers}
 i = 1;          i is now 1         
 Is i < n?       Yes; continue      
 i = i * 2;      i is now 2         
@@ -275,7 +275,7 @@ while (1) …
 
 *square.c*
 
-```C
+```C{.line-numbers}
 /* 使用 while 语句打印一个平方表 */
  
 #include <stdio.h>
@@ -323,7 +323,7 @@ int main(void)
 
 *sum.c*
 
-```C
+```C{.line-numbers}
 /* 对数列求和 */
  
 #include <stdio.h>
@@ -427,7 +427,7 @@ while (i > 0);
 
 *numdigits.c*
 
-```C
+```C{.line-numbers}
 /* 计算整数的位数 */
   
 #include <stdio.h>
@@ -800,7 +800,7 @@ for (sum = 0, i = 1; i <= N; i++)
 
 *square2.c*
 
-```C
+```C{.line-numbers}
 /* 使用 for 语句打印一个平方表 */
  
 #include <stdio.h>
@@ -844,7 +844,7 @@ square3.c程序等价于square2.c, 但包含一个`for`语句, 用于初始化�
 
 *square3.c*
 
-```C
+```C{.line-numbers}
 /* 使用奇数方法打印一个平方表 */
  
 #include <stdio.h>
@@ -982,7 +982,7 @@ while (…) {
 
 使用`continue`语句的循环:
 
-```C
+```C{.line-numbers}
 n = 0;
 sum = 0;
 while (n < 10) {
@@ -1048,7 +1048,7 @@ goto 标识符;
 
 如果 `C` 没有`break语句`, 可以使用`goto语句`退出循环: 
 
-```C
+```C{.line-numbers}
 for (d = 2; d < n; d++)
   if (n % d == 0)
     goto done;
@@ -1131,7 +1131,7 @@ for (;;) {
 
 执行该命令将需要`switch`语句(或级联if语句):
 
-```C
+```C{.line-numbers}
 for (;;) {
   提示用户输入命令;
   读取命令;
@@ -1194,7 +1194,7 @@ Enter command: 4
 
 *checking.c*
 
-```C
+```C{.line-numbers}
 /* 账簿结算 */
  
 #include <stdio.h>

@@ -197,7 +197,7 @@ Average of 3.5 and 10.2: 6.85
 ---
 
 *average.c*
-```C
+```C{.line-numbers}
 /* Computes pairwise averages of three numbers */
  
 #include <stdio.h>
@@ -258,7 +258,7 @@ print_count(i);
 
 *countdown.c*
 
-```C
+```C{.line-numbers}
 /* Prints a countdown */
  
 #include <stdio.h>
@@ -314,7 +314,7 @@ print_pun();
 
 pun2.c
 
-```C
+```C{.line-numbers}
 /* Prints a bad pun */
  
 #include <stdio.h>
@@ -378,7 +378,7 @@ int main(void)
 
 一些程序员习惯把返回类型放在函数名的上边: 
 
-```C
+```C{.line-numbers}
 double
 average(double a, double b)
 {
@@ -413,7 +413,7 @@ average(double a, double b)
 
 average函数的另一个版本: 
 
-```C
+```C{.line-numbers}
 double average(double a, double b)
 {
   double sum;       /* declaration */
@@ -583,7 +583,7 @@ is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有�
 
 *prime.c*
 
-```C
+```C{.line-numbers}
 /* 判断一个数是否为素数 */
  
 #include <stdbool.h>   /* C99 only */
@@ -635,7 +635,7 @@ C不要求函数的定义在其调用之前.
 
 ---
 
-```C
+```C{.line-numbers}
 #include <stdio.h>
  
 int main(void)
@@ -729,7 +729,7 @@ double average(double a, double b)
 
 ---
 
-```C
+```C{.line-numbers}
 #include <stdio.h>
  
 double average(double a, double b);   /* DECLARATION */
@@ -821,7 +821,7 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 以下函数, 计算数字x的n次幂: $x^n$
 
-```C
+```C{.line-numbers}
 int power(int x, int n)
 {
   int i, result = 1;
@@ -843,7 +843,7 @@ int power(int x, int n)
 
 n是原始指数的副本, 函数可以安全修改它, 从而不再需要变量i: 
 
-```C
+```C{.line-numbers}
 int power(int x, int n)
 {
   int result = 1;
@@ -947,7 +947,7 @@ float类型的实际参数转换为double类型.
 
 依赖默认的实际参数提升是危险的, 例如: 
 
-```C
+```C{.line-numbers}
 #include <stdio.h>
  
 int main(void)
@@ -1019,7 +1019,7 @@ C没有为函数提供任何简单的方法来确定传递给它的数组的长�
 
 例子: 
 
-```C
+```C{.line-numbers}
 int sum_array(int a[], int n)
 {
   int i, sum = 0;
@@ -1063,7 +1063,7 @@ int sum_array(int [], int);
 
 调用sum_array时, 第一个参数是数组的名字, 第二个是它的长度: 
 
-```C
+```C{.line-numbers}
 #define LEN 100
  
 int main(void)
@@ -1168,7 +1168,7 @@ store_zeros(b, 100);
 
 修改sum_array使得a是一个二维数组, 必须指定a中的列数: 
 
-```C
+```C{.line-numbers}
 #define LEN 10
  
 int sum_two_dimensional_array(int a[][LEN], int n)
@@ -1342,7 +1342,7 @@ int concatenate(int m, int n, int a[m], int b[n], int c[m+n])
 
 通过使用变长数组形式参数, 可以将函数推广到任意列数的情况: 
 
-```C
+```C{.line-numbers}
 int sum_two_dimensional_array(int n, int m, int a[n][m])
 {
   int i, j, sum = 0;
@@ -1542,7 +1542,7 @@ return;  /* return in a void function */
 ```
 
 如: 
-```C
+```C{.line-numbers}
 void print_int(int i)
 {
   if (i < 0)
@@ -1710,7 +1710,7 @@ return和exit的区别在于:
 
 以下函数利用公式$n! = n × (n – 1)!$递归地计算$n!$:
 
-```C
+```C{.line-numbers}
 int fact(int n)
 {
   if (n <= 1)
@@ -1750,7 +1750,7 @@ i = fact(3);
 
 以下递归函数使用公式$x^n = x × x ^{n –1}$计算$x^n$. 
 
-```C
+```C{.line-numbers}
 int power(int x, int n)
 {
   if (n == 0)
@@ -1898,7 +1898,7 @@ In sorted order: 3 4 9 12 16 25 47 51 66 82
 
 *qsort.c*
 
-```C
+```C{.line-numbers}
 /* 使用快速排序算法对整数数组进行排序 */
  
 #include <stdio.h>

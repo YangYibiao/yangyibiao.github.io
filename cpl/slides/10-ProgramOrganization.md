@@ -245,7 +245,7 @@ void f(void)
 
 ---
 
-```C
+```C{.line-numbers}
 #include <stdbool.h>   /* C99 only */
  
 #define STACK_SIZE 100
@@ -343,7 +343,7 @@ int pop(void)
 
 显示$10×10$星号排列的代码: 
 
-```C
+```C{.line-numbers}
 int i;
  
 void print_one_row(void)
@@ -425,7 +425,7 @@ Play again? (Y/N) n
 
 *guess.c*
 
-```C
+```C{.line-numbers}
 /* 让用户猜一个隐藏的数字 */
  
 #include <stdio.h>
@@ -529,7 +529,7 @@ void read_guesses(void)
 
 *guess2.c*
 
-```C
+```C{.line-numbers}
 /* 让用户猜一个隐藏的数字 */
  
 #include <stdio.h>
@@ -634,7 +634,7 @@ C允许包含声明的<u>复合语句</u>:
 
 程序块示例: 
 
-```C
+```C{.line-numbers}
 if (i > j) {
   /* swap values of i and j */
   int temp = i;
@@ -709,7 +709,7 @@ C 的作用域规则使程序员(和编译器)能够确定与程序中给定点�
 
 每次使用时确定i的含义. 
 
-```C
+```C{.line-numbers}
 int i;         /* Declaration 1 */
 
 void f(int i)  /* Declaration 2 */
@@ -968,7 +968,7 @@ analyze_hand将检查这些变量, 将结果分类存储到其他外部变量中
 
 程序轮廓: 
 
-```C
+```C{.line-numbers}
 /* #include directives go here */
 /* #define directives go here */
 /* declarations of external variables go here */
@@ -1082,7 +1082,7 @@ card_exists数组仅由read_cards使用, 因此声明为函数的局部变量.
 
 *poker.c*
 
-```C
+```C{.line-numbers}
 /* Classifies a poker hand */
  
 #include <stdbool.h>   /* C99 only */

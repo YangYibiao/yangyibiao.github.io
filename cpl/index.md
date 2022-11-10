@@ -35,11 +35,11 @@
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 |
 | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
 |   ^    | [函数](slides/09-Functions.html)           | 函数声明、定义、形参、实参  |
-| 第六讲  | [程序结构](slides/10-ProgramOrganization.html)        | &emsp;  |
-|   ^    | [指针](slides/11-Pointers.html)          | &emsp;  |
-| 第七讲  | [指针](slides/11-Pointers.html)          | &emsp;  |
-|   ^    | [指针和指针数组](slides/12-PointersAndArrays.html)  | &emsp;  |
-| 第八讲  | [指针和指针数组](slides/12-PointersAndArrays.html)  | &emsp;  |
+| 第六讲  | [程序结构](slides/10-ProgramOrganization.html)        | 局部变量、全部变量、作用域等  |
+|   ^    | [指针](slides/11-Pointers.html)          | 指针变量、指针赋值、指针作为参数和返回值  |
+| 第七讲  | [指针](slides/11-Pointers.html)          | 指针变量、指针赋值、指针作为参数和返回值  |
+|   ^    | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
+| 第八讲  | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
 |   ^    | 字符串         | &emsp;  |
 | 第八讲  | 字符串         | &emsp; |
 |   ^    | 结构、联合、枚举 | &emsp; |
