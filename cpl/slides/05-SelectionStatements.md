@@ -463,7 +463,7 @@ else max = j;
 
 `if`语句嵌套在其他`if`语句中也很普遍: 
 
-```C
+```C{.line-numbers}
 if (i > j)
     if (i > k) 
         max = i;
@@ -488,7 +488,7 @@ else
 
 为避免混淆, 最好添加大括号: 
 
-```C
+```C{.line-numbers}
 if (i > j) {
     if (i > k) 
         max = i;
@@ -511,7 +511,7 @@ if (i > j) {
 
 `if`语句中尽可能多地使用大括号: 
 
-```C
+```C{.line-numbers}
 if (i > j) {
     if (i > k) {
         max = i;
@@ -551,7 +551,7 @@ if (i > j) {
 
 例子: 
 
-```C
+```C{.line-numbers}
 if (n < 0)
     printf("n is less than 0\n");
 else
@@ -572,7 +572,7 @@ else
 
 相反, 他们将每个else与原始if对齐: 
 
-```C
+```C{.line-numbers}
 if (n < 0)
     printf("n is less than 0\n");
 else if (n == 0)
@@ -651,7 +651,7 @@ Commission: `$166.00`
 
 *broker.c*
 
-```C
+```C{.line-numbers}
 /* Calculates a broker's commission */
  
 #include <stdio.h>
@@ -1000,7 +1000,7 @@ flag = true;
 
 级联if语句用于将表达式与一系列值进行比较: 
 
-```C
+```C{.line-numbers}
 if (grade == 4)
   printf("Excellent");
 else if (grade == 3)
@@ -1024,7 +1024,7 @@ else
 
 switch语句是另一种选择: 
 
-```C
+```C{.line-numbers}
 switch (grade) {
   case 4:  printf("Excellent");
            break;
@@ -1121,7 +1121,7 @@ case 标签中的常量表达式必须计算为整数(可接受字符)
 
 一组语句之前可以有几个 case 标签: 
 
-```C
+```C{.line-numbers}
 switch (grade) {
   case 4:
   case 3:
@@ -1144,7 +1144,7 @@ switch (grade) {
 
 为了节省空间, 可以将多个case标签放在同一行: 
 
-```C
+```C{.line-numbers}
 switch (grade) {
     case 4: case 3: case 2: case 1:
         printf("Passing");
@@ -1187,7 +1187,7 @@ switch (grade) {
 没有 `break`(或其他跳转语句), 控制将流入下一个 `case`
 
 例子: 
-```C
+```C{.line-numbers}
 switch (grade) {
     case 4:  printf("Excellent");
     case 3:  printf("Good");
@@ -1254,7 +1254,7 @@ Dated this 19th day of July, 2014.
 
 *date.c*
 
-```C
+```C{.line-numbers}
 /* Prints a date in legal form */
 
 #include <stdio.h>

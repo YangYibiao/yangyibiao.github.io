@@ -176,7 +176,7 @@ printf("%d\n", a[5]);
 
 对长度为N的数组a的常见操作示例: 
 
-```C
+```C{.line-numbers}
 for (i = 0; i < N; i++)
   a[i] = 0;             /* clears a */
 
@@ -276,7 +276,7 @@ for (i = 0; i < N; i++)
 
 *reverse.c*
 
-```C 
+```C{.line-numbers}
 /* 数列反向 */
 
 #include <stdio.h>
@@ -491,7 +491,7 @@ int c[10] = {5, 1, 9, [4] = 3, 7, 2, [8] = 6};
 
 *repdigit.c*
 
-```C
+```C{.line-numbers}
 /* 检查数字中是否有重复的数字 */
  
 #include <stdbool.h>   /* C99 only */
@@ -662,7 +662,7 @@ Years     6%     7%     8%     9%     10%
 
 *interest.c*
 
-```C
+```C{.line-numbers}
 /* 打印复利表 */
  
 #include <stdio.h>
@@ -779,7 +779,7 @@ int main(void)
 
 单位矩阵的数组的初始化: ==嵌套的for循环==
 
-```C
+```C{.line-numbers}
 #define N 10
 
 double ident[N][N];
@@ -1025,7 +1025,7 @@ in_hand数组用于记录已经选择过的牌.
 
 *deal.c*
 
-```C
+```C{.line-numbers}
 /* 随机发牌 */
  
 #include <stdbool.h>   /* C99 only */
@@ -1088,7 +1088,7 @@ int main(void)
 
 *reverse2.c*
 
-```C
+```C{.line-numbers}
 /* 使用变长数组反转数列 - 仅限 C99 */
  
 #include <stdio.h>
