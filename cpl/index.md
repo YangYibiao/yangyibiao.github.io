@@ -40,7 +40,7 @@
 | 第七讲  | [指针](slides/11-Pointers.html)          | 指针变量、指针赋值、指针作为参数和返回值  |
 |   ^    | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
 | 第八讲  | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
-|   ^    | 字符串         | &emsp;  |
+|   ^    | [字符串](slides/13-Strings.html)         | 字符串变量、读写等  |
 | 第八讲  | 字符串         | &emsp; |
 |   ^    | 结构、联合、枚举 | &emsp; |
 | 第九讲  | 指针的高级应用   | &emsp;  |
