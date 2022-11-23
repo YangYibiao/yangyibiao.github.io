@@ -41,9 +41,11 @@
 |   ^    | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
 | 第八讲  | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
 |   ^    | [字符串](slides/13-Strings.html)         | 字符串变量、读写等  |
-| 第八讲  | 字符串         | &emsp; |
-|   ^    | 结构、联合、枚举 | &emsp; |
-| 第九讲  | 指针的高级应用   | &emsp;  |
+| 第九讲  | [字符串](slides/13-Strings.html)         | 字符串变量、读写等 |
+|   ^    | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | &emsp; |
+| 第十讲  | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html)   | &emsp; |
+|   ^    | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | &emsp; |
+| 第十讲  | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | &emsp; |
 | .......| .............................. | .......|
 
 </div>
@@ -65,10 +67,10 @@
 | 08:00-10:00 | 李清扬(线上) | 李清扬(线上) | 姜钊炜(线上) | &emsp; | &emsp; | &emsp; | &emsp; |
 | 10:00-12:00 | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; |
 | 12:00-14:00 | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; |
-| 14:00-16:00 | 姜钊炜(线上)</div> | &emsp; | 茆文杰(线上) | &emsp; | &emsp; | 费彝民楼602(15:00~) | 费彝民楼602(14:30~) |
+| 14:00-16:00 | 姜钊炜(线上)</div> | &emsp; | 茆文杰(线上) | &emsp; | &emsp; | 蒙民伟楼602(15:00~) | 蒙民伟楼602(14:30~) |
 | 16:00-18:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼509) | 茆文杰(线上) | &emsp; | &emsp; |
-| 18:30-20:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼511) | &emsp; |费彝民楼602(19:00~) | &emsp; |
-| 20:00-22:00 | 费彝民楼602 | 费彝民楼602 | 费彝民楼602 | 费彝民楼602 | 费彝民楼602 | &emsp; | &emsp; |
+| 18:30-20:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼511) | &emsp; |蒙民伟楼602(19:00~) | &emsp; |
+| 20:00-22:00 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | &emsp; | &emsp; |
 
 </div>
 
