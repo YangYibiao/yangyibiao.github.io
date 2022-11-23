@@ -44,7 +44,7 @@ presentation:
 
 ### 计算机系 &nbsp;&nbsp; 杨已彪
 
-#### _yangyibiao@nju.edu.cn_
+### _yangyibiao@nju.edu.cn_
 
 
 
@@ -69,17 +69,18 @@ presentation:
 - <a href="#/strarr">字符串数组</a>
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 ##### 引言
 
 ---
 
-本章涵盖**字符串常量**(在 C 标准中称为字符串字面量)和**字符串变量**. 
+本章涵盖==字符串常量==(C标准中称为字符串字面量)和==字符串变量==. 
 
 字符串是字符数组, 用特殊字符(空字符)标记结束. 
 
-C 库提供了一组用于处理字符串的函数. 
+C库提供了一组用于处理字符串的函数. 
 
 
 
@@ -132,19 +133,20 @@ printf("When you come to a fork in the road, take it.  \
 
 通常, `\`字符可用于将程序的两行或多行连接成一行. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 字符串字面量
 
 ---
 
-有一种更好的方法来处理长字符串字面量. 
+一种更好的处理长字符串字面量的方法:  
 
 当两个或多个字符串字面量相邻时, 编译器会将它们连接成一个字符串. 
 
 此规则允许我们将字符串字面量拆分为两行或多行: 
+
 ```C
 printf("When you come to a fork in the road, take it. "
        "--Yogi Berra");
@@ -158,33 +160,35 @@ printf("When you come to a fork in the road, take it. "
 
 ---
 
-当 C 编译器在程序中遇到长度为 ==$n$== 的字符串字面量时, 它会为该字符串分配 ==$n + 1$== 个字节的内存. 
+当C编译器在程序中遇到长度为 ==$n$== 的字符串字面量时, 它会为该字符串分配 ==$n + 1$== 个字节的内存. 
 
-这块内存空间将用来存储字符串中的字符, 以及一个额外的字符——空字符——标记字符串的结尾. 
+这块内存空间将用来存储字符串中的字符, 以及一个额外的字符: 
+==空字符== 标记字符串的结尾. 
 
 空字符是所有位都为0的字节, 因此它用转义序列 =='\0'== 表示. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 如何存储字符串字面量
 
 ---
 
 字符串字面量"abc"存储为4个字符的数组: 
+
 <div class="top-2">
-    <img src="../img/14-1.png" height=80px>
+  <img src="../img/14-1.png" height=100px>
 </div>
 
 字符串""(空串)存储为一个空字符: 
 <div class="top-2">
-    <img src="../img/14-2.png" height=80px>
+  <img src="../img/14-2.png" height=100px>
 </div>
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 如何存储字符串字面量
 
@@ -196,11 +200,13 @@ printf和scanf都需要一个`char *`类型的值作为它们第一个参数.
 
 printf函数传递"abc"的地址(指向字母a内存中存储位置的指针): 
 
-`printf("abc");` 
+```C
+printf("abc");
+```
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 对字符串字面量的操作
 
@@ -210,14 +216,14 @@ printf函数传递"abc"的地址(指向字母a内存中存储位置的指针):
 
 ```C
 char *p;
-p = "abc";
+p = "abc"; /* 正确 */
 ```
 
 该赋值使p指向字符串的第一个字符. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 对字符串字面量的操作
 
@@ -254,7 +260,7 @@ char *p = "abc";
 *p = 'd';   /*** WRONG ***/
 ```
 
-尝试更改字符串字面量可能会导致程序崩溃或行为异常. 
+可能会导致程序崩溃或行为异常. 
 
 
 
@@ -280,9 +286,9 @@ printf("\n");
 printf('\n'); /*** 错误的 ***/
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 字符串变量
 
@@ -320,6 +326,7 @@ char str[STR_LEN+1];
 定义一个代表 80 的宏, 然后加 1 是一种<u>惯用法</u>. 
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 ##### 字符串变量
@@ -335,6 +342,7 @@ char str[STR_LEN+1];
 STR_LEN + 1 长度的字符数组可以保存长度为 0 ~ STR_LEN之间的字符串. 
 
 
+
 <!-- slide data-notes="" -->
 
 ##### 初始化字符串变量
@@ -342,6 +350,7 @@ STR_LEN + 1 长度的字符数组可以保存长度为 0 ~ STR_LEN之间的字�
 ---
 
 字符串变量可以在声明时初始化: 
+
 ```C
 char date1[8] = "June 14"; 
 ```
@@ -349,12 +358,13 @@ char date1[8] = "June 14";
 编译器将自动添加一个空字符, 使date1可以用作字符串: 
 
 <div class="top-2">
-  <img src="../img/14-3.png" height=80px>
+  <img src="../img/14-3.png" height=100px>
 </div>
 
 "June  14"在此上下文中不是字符串字面量. 
 
-C 编译器将其视为数组初始化式的缩写. 
+C编译器将其视为字符数组初始化式的缩写. 
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -363,13 +373,14 @@ C 编译器将其视为数组初始化式的缩写.
 
 ---
 
-如果初始化式太短而无法填满字符串变量, 编译器会添加额外的空字符: 
+若初始化式太短无法填满字符串变量, 编译器会添加额外空字符: 
 
 ```C
 char date2[9] = "June  14" ; 
 ```
 
 之后, date2将如下所示: 
+
 <div class="top-2">
   <img src="../img/14-4.png" height=80px>
 </div>
@@ -382,14 +393,16 @@ char date2[9] = "June  14" ;
 ---
 
 字符串变量的初始化式不能长于变量, 但长度可以相同: 
+
 ```C
 char date3[7] = "June 14";
 ```
 
 因为没有给空字符留空间, 编译器不会尝试存储空字符: 
 <div class="top-2">
-  <img src="../img/14-5.png" width=280px>
+  <img src="../img/14-5.png" height=100px>
 </div>
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -404,9 +417,9 @@ char date3[7] = "June 14";
 char date4[] = "June 14";
 ```
 
-编译器为date4分配8个字符的空间, 足以存储"June 14"中的字符加上一个空字符. 
+编译器为date4分配8个字符的空间, 以存储"June 14"+`'\0'`. 
 
-如果初始化式很长, 则省略字符串变量的长度特别有用, 因为手动计算长度容易出错. 
+如果初始化式很长, 则省略字符串变量的长度特别有用, 手动计算长度容易出错. 
 
 
 
@@ -584,7 +597,7 @@ C库还提供puts:
 
 `scanf("%s", str);`
 
-str被视为指针, 因此无需在str前添加将&运算符. 
+str被视为指针, 因此无需在str前添加`&`运算符. 
 
 scanf会跳过空白字符, 然后读入字符并存储到str中, 直到遇到空白字符. 
 
@@ -620,6 +633,7 @@ gets的特点:
 ---
 
 考虑以下程序片段: 
+
 ```C{.line-numbers}
 char sentence[SENT_LEN+1];
 printf("Enter a sentence:\n");
@@ -634,9 +648,9 @@ $\quad$`To C, or not to C: that is the question.`
 
 scanf会将字符串"To"存储到sentence中. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 用scanf和gets读字符串
 
@@ -651,9 +665,9 @@ scanf会将字符串"To"存储到sentence中.
 
 存储到sentence中. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用scanf和gets读字符串
 
@@ -1116,7 +1130,7 @@ strncat将以空字符终止str1, 该空字符不包含在第三个参数中.
 
 strcmp函数的原型: 
 
-```
+```C
 int strcmp(const char *s1, const char *s2);
 ```
 
@@ -1134,14 +1148,14 @@ strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回�
 
 ```C
 if (strcmp(str1, str2) < 0)    /* is str1 < str2? */
- …
+  …
 ```
 
 检查str1是否小于或等于str2 : 
 
 ```C
 if (strcmp(str1, str2) <= 0) /* is str1 <= str2? */
- …
+  …
 ```
 
 通过选择适当的运算符(<、 <=、 >、 >=、 ==、 !=), 可以测试str1和str2之间的任何可能的关系. 
@@ -1215,7 +1229,7 @@ Enter day and reminder: 12 Movie - "Dazed and Confused"
 Enter day and reminder: 5 Saturday class
 Enter day and reminder: 12 Saturday class
 Enter day and reminder: 0
-	 
+ 
 Day Reminder
   5 Saturday class
   5 6:00 - Dinner with Marge and Russ
@@ -1235,13 +1249,17 @@ Day Reminder
 ---
 
 总体策略: 
+
 - 读入一系列日期和提醒的组合
+
 - 按顺序存储(按日期排序)
+
 - 显示
 
 scanf将用于读取日期. 
 
 read_line将用于读入提醒. 
+
 
 
 <!-- slide data-notes="" -->
@@ -1255,8 +1273,11 @@ read_line将用于读入提醒.
 数组的每一行都包含一个字符串. 
 
 程序读取日期以及相关提醒后采取的行动: 
+
 - 使用strcmp进行比较来查找数组以确定这一天所在的位置. 
+
 - 使用strcpy将该位置之后的所有字符串往后移动一个位置. 
+
 - 将这一天复制到数组中, 并调用strcat将提醒附加到这一天之后. 
 
 
@@ -1309,7 +1330,7 @@ sprintf(day_str, "%2d", day);
 #define MSG_LEN 60      /* max length of reminder message */
  
 int read_line(char str[], int n);
- 
+
 int main(void)
 {
   char reminders[MAX_REMIND][MSG_LEN+3];
@@ -1328,30 +1349,30 @@ int main(void)
     
     sprintf(day_str, "%2d", day);
     read_line(msg_str, MSG_LEN);
- 
+
     for (i = 0; i < num_remind; i++)
       if (strcmp(day_str, reminders[i]) < 0)
         break;
     for (j = num_remind; j > i; j--)
       strcpy(reminders[j], reminders[j-1]);
- 
+
     strcpy(reminders[i], day_str);
     strcat(reminders[i], msg_str);
- 
+
     num_remind++;
   }
- 
+
   printf("\nDay Reminder\n");
   for (i = 0; i < num_remind; i++)
     printf(" %s\n", reminders[i]);
- 
+
   return 0;
 }
 
 int read_line(char str[], int n)
 {
   int ch, i = 0;
- 
+
   while ((ch = getchar()) != '\n') {
     if (i < n)
       str[i++] = ch;
@@ -1535,7 +1556,7 @@ while (*s)
 
 ```C
 while (*s++)
-  s;
+  ;
 ```
 
 
@@ -1548,10 +1569,12 @@ while (*s++)
 
 复制字符串是另一种常见的操作. 
 
-为了介绍 C 的"字符串复制"惯用法, 这里将开发两个版本的strcat函数. 
+为了介绍C的"字符串复制"惯用法, 将开发两个版本的strcat函数. 
 
-strcat的第一个版本(下一张幻灯片)使用两步算法: 
+strcat的第一个版本使用两步算法: 
+
 1. 确定s1末尾空字符的位置, 并让p指向它. 
+
 2. 将字符从s2逐个复制到p指向的位置. 
 
 
@@ -1591,7 +1614,7 @@ char *strcat(char *s1, const char *s2)
 p最初指向s1字符串的第一个字符: 
 
 <div class="top-2">
-  <img src="../img/14-6.png" heiht=200px>
+  <img src="../img/14-6.png">
 </div>
 
 
@@ -1605,7 +1628,7 @@ p最初指向s1字符串的第一个字符:
 第一个while语句定位s1末尾的空字符并让p指向它: 
 
 <div class="top-2">
-  <img src="../img/14-7.png" heiht=200px>
+  <img src="../img/14-7.png">
 </div>
 
 
@@ -1623,7 +1646,7 @@ p最初指向s1字符串的第一个字符:
 第一次循环迭代后的字符串: 
 
 <div class="top-2">
-  <img src="../img/14-8.png" heiht=200px>
+  <img src="../img/14-8.png">
 </div>
 
 
@@ -1637,14 +1660,14 @@ p最初指向s1字符串的第一个字符:
 当s2指向空字符时, 循环终止: 
 
 <div class="top-2">
-  <img src="../img/14-9.png" heiht=200px>
+  <img src="../img/14-9.png">
 </div>
 
 在p指向的位置放置一个空字符后, strcat返回. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 复制字符串
 
@@ -1738,7 +1761,7 @@ char planets[][8] = {"Mercury", "Venus", "Earth",
 不幸的是, planets数组浪费了相当多的空间(额外的空字符): 
 
 <div class="top-2">
-  <img src="../img/14-10.png" width=500px>
+  <img src="../img/14-10.png">
 </div>
 
 
@@ -1772,7 +1795,7 @@ char *planets[] = {"Mercury", "Venus", "Earth",
 这个微小的变化对planets的存储方式产生了巨大的影响: 
 
 <div class="top-2">
-  <img src="../img/14-11.png" width=500px>
+  <img src="../img/14-11.png">
 </div>
 
 
@@ -1866,13 +1889,14 @@ argv[argc]总是一个空指针——一个不指向任何东西的特殊指针.
 `ls -l remind.c`
 
 那么argc将为 3, 而argv将如下: 
+
 <div class="top-2">
-  <img src="../img/14-12.png" width=500px>
+  <img src="../img/14-12.png">
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 命令行参数
 
@@ -1880,9 +1904,9 @@ argv[argc]总是一个空指针——一个不指向任何东西的特殊指针.
 
 由于argv是一个指针数组, 访问命令行参数很容易. 
 
-通常, 需要命令行参数的程序会设置一个循环, 依次检查每个参数. 
+通常, 需要命令行参数的程序会使用循环, 依次检查每个参数. 
 
-编写这样一个循环的一种方法是使用一个整数变量作为argv数组的索引: 
+一种方法是循环: 使用一个整数变量作为argv数组的索引: 
 
 ```C{.line-number}
 int i;

@@ -787,7 +787,7 @@ r行的数组的布局:
 考虑将以下数组的所有元素初始化为0的问题:
 
 ```C{.line-numbers}
-int a[NUM_ROWS][NUM_COLS];`
+int a[NUM_ROWS][NUM_COLS];
 
 /* 方法1: 使用嵌套的for循环来进行二维数组的初始化 */
 int row, col;
