@@ -778,6 +778,7 @@ student1.name = new_name;
 示例: 存储拨打国际电话时使用的国家/地区代码的数组. 
 
 数组的元素将是存储国家名称及其代码的结构体: 
+
 ```C
 struct dialing_code {
  char *country;
@@ -795,7 +796,7 @@ struct dialing_code {
 
 ```C
 const struct dialing_code country_codes[] =
-  {{"Argentina",            54}, {"Bangladesh",      880},
+  { {"Argentina",            54}, {"Bangladesh",      880},
    {"Brazil",               55}, {"Burma (Myanmar)",  95},
    {"China",                86}, {"Colombia",         57},
    {"Congo, Dem. Rep. of", 243}, {"Egypt",            20},
@@ -810,7 +811,7 @@ const struct dialing_code country_codes[] =
    {"Spain",                34}, {"Sudan",           249},
    {"Thailand",             66}, {"Turkey",           90},
    {"Ukraine",             380}, {"United Kingdom",   44},
-   {"United States",         1}, {"Vietnam",          84}};
+   {"United States",         1}, {"Vietnam",          84} };
 ```
 
 每个结构体值两边的内层大括号是可选的. 
@@ -1897,8 +1898,8 @@ typedef struct {
 
 新结构体的使用方式与旧结构体完全相同. 
 
-新结构体的优点: 
-- 不需要INT_KIND和DOUBLE_KIND宏
-- 阐明kind只有两种可能的值: INT_KIND和DOUBLE_KIND
+新结构体的优点:
 
-<!-- slide vertical=true data-notes="" -->
+- 不需要INT_KIND和DOUBLE_KIND宏
+
+- 阐明kind只有两种可能的值: INT_KIND和DOUBLE_KIND
