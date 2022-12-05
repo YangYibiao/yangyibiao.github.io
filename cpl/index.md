@@ -42,10 +42,15 @@
 | 第八讲  | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
 |   ^    | [字符串](slides/13-Strings.html)         | 字符串变量、读写等  |
 | 第九讲  | [字符串](slides/13-Strings.html)         | 字符串变量、读写等 |
-|   ^    | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | &emsp; |
-| 第十讲  | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html)   | &emsp; |
-|   ^    | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | &emsp; |
-| 第十讲  | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | &emsp; |
+|   ^    | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | 结构体、联合、枚举等 |
+| 第十讲  | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | 结构体、联合、枚举等 |
+|   ^    | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | 动态存储分配、空间释放等 |
+| 第十讲  | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | 动态存储分配、空间释放等 |
+| 其他  | [宏](slides/14-Processor.html)   | 预处理宏等 |
+| 其他  | [大型程序](slides/15-WritingLargePrograms.html)   | 多文件组织等 |
+| 其他  | [声明](slides/18-Declarations.html)   | auto, extern, register等 |
+| 其他  | [底层程序设计](slides/20-LowLevelProgramming.html)   | 位运算等 |
+| 其他  | [底层程序设计](slides/22-InputOutput.html)   | 文件操作 |
 | .......| .............................. | .......|
 
 </div>
