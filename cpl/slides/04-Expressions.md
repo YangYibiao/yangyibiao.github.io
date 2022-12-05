@@ -27,7 +27,10 @@ presentation:
 @import "../js/anychart/pastel.min.js"
 @import "../js/anychart/venn-ml.js"
 
+
+
 <!-- slide data-notes="" -->
+
 
 <div class="bottom20"></div>
 
@@ -43,7 +46,10 @@ presentation:
 
 #### _yangyibiao@nju.edu.cn_
 
+
+
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 提纲
 
@@ -59,8 +65,9 @@ presentation:
 
 - 表达式语句
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### 运算符
@@ -86,8 +93,8 @@ C拥有丰富的运算符集合, 包括:
 - 其他运算符
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 算术运算符
@@ -112,8 +119,9 @@ C拥有丰富的运算符集合, 包括:
 
 - `-` 一元减
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 一元算术运算符
@@ -129,8 +137,9 @@ j = -i;
 
 我的批注 一元`+`运算符什么也不做, 它主要用于强调数字常数是正数
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 二元算术运算符
@@ -147,8 +156,9 @@ j = -i;
 
 > ==9 + 2.5f== 的值为11.5, 而==6.7f / 2== 的值为3.35
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### `/`和`%`运算符
@@ -165,10 +175,11 @@ j = -i;
 
 - `/`和`%`与负操作数一起使用时的行为在C89中由实现定义
 
-我的批注 在C99中, 除法的结果总是向零截断, 并且==i % j==的值与==i==有相同的符号
+我的批注 C99中, 除法结果总是向零截断, 并且==i % j==的值与==i==有相同符号
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
 
 
 ##### 由实现定义的行为
@@ -181,8 +192,9 @@ j = -i;
 
 我的启示 避免编写依赖于由具体实现所定义的行为的程序
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 运算符优先级
@@ -199,8 +211,9 @@ j = -i;
 
 我的批注 若括号被省略, C使用==运算符优先级==规则来确定表达式含义
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 运算符优先级
@@ -226,8 +239,9 @@ j = -i;
 
 </div>
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 运算符结合性
@@ -248,8 +262,9 @@ j = -i;
 
 </div>
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 运算符结合性
@@ -263,8 +278,8 @@ j = -i;
 `-+i`等价于`-(+i)`
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位
@@ -286,8 +301,8 @@ j = -i;
 - 末位数字: 校验位, 用于帮助识别前面数字中的错误
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位
@@ -309,8 +324,8 @@ j = -i;
 - 用 `9` 减去余数
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位
@@ -334,8 +349,8 @@ j = -i;
 - 结果是 $5$
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位
@@ -356,17 +371,17 @@ Check digit: 5
 我的批注 要读取单个数字, 可以在==scanf==中使用`%1d`转换说明
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位
 
 ---
 
-upc.c
+*upc.c*
 
-```C
+```C{.line-numbers}
 /* Computes a Universal Product Code check digit */
  
 #include <stdio.h>
@@ -392,8 +407,9 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 赋值运算符
@@ -404,8 +420,9 @@ int main(void)
 
 - 复合赋值: 更新已经存储在变量中的值, 如`+=`
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 简单赋值
@@ -416,14 +433,15 @@ int main(void)
 
 `e`可以是常量、变量或更复杂的表达式: 
 
-```C
+```C{.line-numbers}
 i = 5;            /* i is now 5  */
 j = i;            /* j is now 5  */
 k = 10 * i + j;   /* k is now 55 */
 ```
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 简单赋值
@@ -440,8 +458,9 @@ i = 72.99f;   /* i is now 72 */
 f = 136;      /* f is now 136.0 */
 ```
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 简单赋值
@@ -458,6 +477,8 @@ f = 136;      /* f is now 136.0 */
 i = j = 50 + 3;
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -471,6 +492,8 @@ i = j = 50 + 3;
 
 - 表达式 `i = 0` 的结果为 `0`, 它的副作用是将 `0` 赋值给`i`
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -480,15 +503,17 @@ i = j = 50 + 3;
 
 由于 ==赋值== 是一个运算符, 因此可以将多个赋值链接在一起: 
 
-```C
+```C{.line-numbers}
 i = j = k = 0;
 ```
 
 ==`=`== 运算符是右结合的, 所以这个赋值等价于
 
-```C
+```C{.line-numbers}
 i = (j = (k = 0));
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -499,7 +524,7 @@ i = (j = (k = 0));
 
 需要注意由于类型转换导致的链式赋值中产生的非预期的结果: 
 
-```C
+```C{.line-numbers}
 int i;
 float f;
 
@@ -507,6 +532,7 @@ f = i = 33.3f;
 ```
 
 `i` 被赋值为 `33`, 然后 `f` 被赋值为 `33.0`, 而不是 `33.3`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -518,7 +544,7 @@ f = i = 33.3f;
 
 允许 `v` 类型值的地方都可以进行形如 `v = e` 的赋值: 
 
-```C
+```C{.line-numbers}
 i = 1;
 k = 1 + (j = i);
 printf("%d %d %d\n", i, j, k);
@@ -526,6 +552,8 @@ printf("%d %d %d\n", i, j, k);
 ```
 
 我的批注 ==嵌入式赋值== 会使程序难以阅读, 容易隐藏错误
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -543,6 +571,7 @@ printf("%d %d %d\n", i, j, k);
 - `10`或`2 * i`这样的表达式不是左值
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -552,13 +581,15 @@ printf("%d %d %d\n", i, j, k);
 
 由于赋值运算符需要一个左值作为其左操作数, 因此将任何其他类型的表达式放在赋值表达式的左侧都是非法的: 
 
-```C
+```C{.line-numbers}
 12 = i;      /*** WRONG ***/
 i + j = 0;   /*** WRONG ***/
 -i = j;      /*** WRONG ***/
 ```
 
 我的启示 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -578,6 +609,8 @@ i + j = 0;   /*** WRONG ***/
 ```C
 i += 2;   /* same as i = i + 2; */
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -603,6 +636,8 @@ i += 2;   /* same as i = i + 2; */
 
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -619,6 +654,7 @@ i += 2;   /* same as i = i + 2; */
 - 在极少数情况下, `v += e` 不同于 `v = v + e` 因为 `v`本身有副作用(如`v`为`++i`或`i++`等)
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -630,6 +666,8 @@ i += 2;   /* same as i = i + 2; */
 
 虽然`i =+ j`能编译通过, 但意义不同, 它相当于 `i = (+j)`, 它只是将`j`的值复制到`i`中
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -639,17 +677,19 @@ i += 2;   /* same as i = i + 2; */
 
 对变量最常见的两种操作是 ==自增==(加 `1`)和 ==自减==(减 `1`): 
 
-```C
+```C{.line-numbers}
 i = i + 1;
 j = j - 1;
 ```
 
 可以使用复合赋值运算符进行自增和自减: 
 
-```C
+```C{.line-numbers}
 i += 1;
 j -= 1;
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -671,6 +711,7 @@ C 特别提供了 `++` 自增 和 `-–` 自减 运算符
 - 副作用是修改操作数的值
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -680,7 +721,7 @@ C 特别提供了 `++` 自增 和 `-–` 自减 运算符
 
 评估表达式`++i` (前缀自增) 的结果是`i + 1`, 副作用是`i`自增`1`: 
 
-```C
+```C{.line-numbers}
 i = 1;
 printf("i is %d\n", ++i);   /* prints "i is 2" */
 printf("i is %d\n", i);     /* prints "i is 2" */
@@ -688,11 +729,13 @@ printf("i is %d\n", i);     /* prints "i is 2" */
 
 评估表达式`i++` (后缀自增) 的结果是`i`, 副作用是`i`随后自增`1`: 
 
-```C
+```C{.line-numbers}
 i = 1;
 printf("i is %d\n", i++);   /* prints "i is 1" */
 printf("i is %d\n", i);     /* prints "i is 2" */
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -706,6 +749,7 @@ printf("i is %d\n", i);     /* prints "i is 2" */
 - 稍后是多久后？C语言标准没有指定精确的时间, 但可以放心的是`i`将在执行下一条语句之前一定会自增
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -715,7 +759,7 @@ printf("i is %d\n", i);     /* prints "i is 2" */
 
 `--`运算符与`++`运算符相似: 
 
-```C
+```C{.line-numbers}
 i = 1;
 printf("i is %d\n", --i);   /* prints "i is 0" */
 printf("i is %d\n", i);     /* prints "i is 0" */
@@ -723,6 +767,8 @@ i = 1;
 printf("i is %d\n", i--);   /* prints "i is 1" */
 printf("i is %d\n", i);     /* prints "i is 0" */
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -733,7 +779,7 @@ printf("i is %d\n", i);     /* prints "i is 0" */
 
 当`++`或`--`在同一个表达式中多次使用时, 结果通常很难理解, 如: 
 
-```C
+```C{.line-numbers}
 i = 1;
 j = 2;
 k = ++i + j++;
@@ -741,12 +787,13 @@ k = ++i + j++;
 
 最后一条语句等价于:
 
-```C
+```C{.line-numbers}
 i = i + 1;
 k = i + j;
 j = j + 1;
 ```
-i 、 j和k的最终值分别为 2、3 和 4。
+i, j和k的最终值分别为 2, 3和4.
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -758,13 +805,14 @@ i 、 j和k的最终值分别为 2、3 和 4。
 
 相反, 执行语句
 
-```C
+```C{.line-numbers}
 i = 1;
 j = 2;
 k = i++ + j++;
 ```
 
 `i`、`j`和`k`的值最终为`2`、`3`和`3`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -792,6 +840,8 @@ k = i++ + j++;
 
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -818,6 +868,8 @@ k = i++ + j++;
 
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -831,6 +883,8 @@ k = i++ + j++;
 
 - 在表达式 `(a + b) * (c - d)` 中并未定义是应该先计算 `(a + b)` 还是应该先计算 `(c – d)`
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -842,12 +896,14 @@ k = i++ + j++;
 
 - 当子表达式修改其操作数时, 则上述表述不成立: 
 
-```C
+```C{.line-numbers}
 a = 5;
 c = (b = a + 2) - (a = 1);
 ```
 
-> 第二条语句的执行结果是未定义的
+- 第二条语句的执行结果是未定义的
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -861,6 +917,7 @@ c = (b = a + 2) - (a = 1);
 在遇到这样的表达式时可能会产生编译警告消息, 例如"对`a`的操作可能未定义" 
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -872,7 +929,7 @@ c = (b = a + 2) - (a = 1);
 
 相反, 建议使用一串分离的赋值表达式: 
 
-```C
+```C{.line-numbers}
 a = 5;
 b = a + 2;
 a = 1;
@@ -880,6 +937,7 @@ c = b - a;
 ```
 
 `c`的值是确定的, 将始终为 `6`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -893,7 +951,7 @@ c = b - a;
 
 我的启示 使用这些运算符时, 需注意表达式不能依赖于特定的求值顺序
 
-```C
+```C{.line-numbers}
 i = 2;
 j = i * i++;
 ```
@@ -905,6 +963,8 @@ j = i * i++;
 - 第一个操作数( i的新值)
 
 - i的新值和旧值相乘, 得到 6
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -927,6 +987,8 @@ j = i * i++;
 
 我的启示 应避免未定义的行为
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -938,10 +1000,11 @@ C 有一个不寻常的规则, 即任何表达式都可以用作语句
 例子: 
 
 ```C
-  ++i; 
+++i;
 ```
 
 i首先递增, 然后获取i的新值, 然后丢弃
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -959,6 +1022,8 @@ i--;       /* useful */
 i * j - 1; /* not useful */
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -970,6 +1035,6 @@ i * j - 1; /* not useful */
 
 例如: `i = j;` 误编写为 `i + j;`
 
-一些编译器会检测无意义的表达式语句；给出一个警告, 比如`"statement with no effect"`。
+一些编译器会检测无意义的表达式语句；给出一个警告, 比如`"statement with no effect"`.
 
 

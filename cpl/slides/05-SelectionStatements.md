@@ -27,7 +27,10 @@ presentation:
 @import "../js/anychart/pastel.min.js"
 @import "../js/anychart/venn-ml.js"
 
+
+
 <!-- slide data-notes="" -->
+
 
 <div class="bottom20"></div>
 
@@ -43,7 +46,10 @@ presentation:
 
 #### _yangyibiao@nju.edu.cn_
 
+
+
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 提纲
 
@@ -77,8 +83,8 @@ presentation:
 - 其他语句: 复合语句 和 空语句(Null)
 
 
-<!-- slide data-notes="" -->
 
+<!-- slide data-notes="" -->
 
 
 ##### 逻辑表达式
@@ -101,14 +107,15 @@ presentation:
 ```
 
 
+
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 关系运算符
 
 ---
 
 `C` 的关系运算符: 
-
 
 <div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
 
@@ -125,8 +132,9 @@ presentation:
 
 关系运算符可用于比较整数和浮点数, 允许不同类型的混合运算
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 关系运算符
@@ -147,8 +155,9 @@ i + j < k – 1
 
 关系运算符是左结合的
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 关系运算符
@@ -168,6 +177,7 @@ i + j < k – 1
 - 并非测试`j`是否位于`i`与`k`之间
 
 我的批注 正确的表达式是 `i < j && j < k`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -197,6 +207,7 @@ C 提供了两个判等运算符:
 `(i < j) == (j < k)`
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -222,6 +233,8 @@ C 提供了两个判等运算符:
 
 逻辑运算符将任何非零操作数视为真值, 零值操作数视为假值
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -238,6 +251,7 @@ C 提供了两个判等运算符:
 - 如果 ==表达式1== 或 ==表达式2== 中任意一个不为零, 则 ==表达式1 || 表达式2== 的值为 `1`
 
 - 其他情况下, 这些运算符产生的值都为 `0`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -260,6 +274,7 @@ C 提供了两个判等运算符:
 - 如果没有短路计算, 就会发生除零
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -274,6 +289,7 @@ C 提供了两个判等运算符:
 - 如果`i > 0`为假, 则不会计算`++j > 0`, `j`也就不会自增
 
 - 可以将条件表达式修改为 ==`++j > 0 && i > 0`==, 更好的方法是`j`先自增
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -296,6 +312,7 @@ C 提供了两个判等运算符:
 - `&&`和`||`是左结合的
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -309,15 +326,16 @@ C 提供了两个判等运算符:
 
 ==[if语句]== &emsp; `if (表达式) 语句`
 
-当执行 `if` 语句时, 计算表达式; 如果其值为非零, 则执行语句
+当执行 `if` 语句时, 计算表达式; 如果其值为非零, 则执行语句, 例子: 
 
-例子: 
-```C
+```C{.line-numbers}
 if (line_num == MAX_LINES)
-    line_num = 0;
+  line_num = 0;
 ```
 
 我的批注 表达式两边的圆括号是必须的，它是`if`语句的组成部分
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -328,13 +346,15 @@ if (line_num == MAX_LINES)
 
 我的启示 将`==`(判等)和`=`(赋值)混淆是常见的 ==C== 语言编程错误
 
-```C
+```C{.line-numbers}
 if (i == 0) …  
 /* 检查i是否等于0 */
 
 if (i = 0) … 
 /* 将0赋值给i, 然后检查结果是否为非零 */
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -352,6 +372,7 @@ if (i = 0) …
 要判定相反的条件(`i`超出范围):
 
 `if (i < 0 || i >= n) …`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -372,6 +393,7 @@ if (i = 0) …
 在一组语句周围放置大括号会强制编译器将其视为单个语句
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -389,12 +411,14 @@ if (i = 0) …
 
 ```C
 {
-    line_num = 0;
-    page_num++;
+  line_num = 0;
+  page_num++;
 }
 ```
 
 每个内部语句仍然以分号结尾, 但复合语句本身没有分号
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -407,11 +431,13 @@ if语句中使用的复合语句示例:
 
 ```C
 if (line_num == MAX_LINES) {
-    line_num = 0;
-    page_num++;
+  line_num = 0;
+  page_num++;
 }
 ```
+
 复合语句在循环和其他C语法要求单个语句的地方也很常见
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -429,12 +455,14 @@ if (line_num == MAX_LINES) {
 
 例子: 
 
-```C
+```C{.line-numbers}
 if (i > j)
-    max = i;
+  max = i;
 else
-    max = j;
+  max = j;
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -449,10 +477,12 @@ else
 
 当内部语句很短, `if`和`else`可放在同一行: 
 
-```C
+```C{.line-numbers}
 if (i > j) max = i;
 else max = j;
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -465,18 +495,19 @@ else max = j;
 
 ```C{.line-numbers}
 if (i > j)
-    if (i > k) 
-        max = i;
-    else 
-        max = k;
+  if (i > k)
+    max = i;
+  else 
+    max = k;
 else
-    if (j > k) 
-        max = j;
-    else 
-        max = k;
+  if (j > k)
+    max = j;
+  else 
+    max = k;
 ```
 
 `else`与匹配的`if`对齐可以使嵌套层次更易辨别
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -490,17 +521,19 @@ else
 
 ```C{.line-numbers}
 if (i > j) {
-    if (i > k) 
-        max = i;
-    else 
-        max = k;
+  if (i > k) 
+    max = i;
+  else 
+    max = k;
 } else {
-    if (j > k) 
-        max = j;
-    else 
-        max = k;
+  if (j > k) 
+    max = j;
+  else 
+    max = k;
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -513,19 +546,21 @@ if (i > j) {
 
 ```C{.line-numbers}
 if (i > j) {
-    if (i > k) {
-        max = i;
-    } else {
-        max = k;
-    }
+  if (i > k) {
+    max = i;
+  } else {
+    max = k;
+  }
 } else {
-    if (j > k) {
-        max = j;
-    } else {
-        max = k;
-    }
+  if (j > k) {
+    max = j;
+  } else {
+    max = k;
+  }
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -540,6 +575,8 @@ if (i > j) {
 
 - 避免使用`if`或`else`子句时忘记使用大括号而导致的错误
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -553,13 +590,15 @@ if (i > j) {
 
 ```C{.line-numbers}
 if (n < 0)
-    printf("n is less than 0\n");
+  printf("n is less than 0\n");
 else
-    if (n == 0)
-        printf("n is equal to 0\n");
-    else
-        printf("n is greater than 0\n");
+  if (n == 0)
+    printf("n is equal to 0\n");
+  else
+    printf("n is greater than 0\n");
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -574,12 +613,14 @@ else
 
 ```C{.line-numbers}
 if (n < 0)
-    printf("n is less than 0\n");
+  printf("n is less than 0\n");
 else if (n == 0)
-    printf("n is equal to 0\n");
+  printf("n is equal to 0\n");
 else
-    printf("n is greater than 0\n"); 
+  printf("n is greater than 0\n"); 
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -592,15 +633,18 @@ else
 
 ```C
 if (表达式)
-    语句
+  语句
 else if (表达式)
-    语句
+  语句
 …
 else if (表达式)
-    语句
+  语句
 else
-    语句
+  语句
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -628,6 +672,7 @@ else
 最低收费为 `$39`
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -641,6 +686,8 @@ Enter value of trade: <u>30000</u>
 Commission: `$166.00`
 
 该程序的核心是一个级联的`if`语句, 用于判定交易属于哪个范围
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -685,6 +732,8 @@ int main(void)
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -696,15 +745,17 @@ int main(void)
 
 ```C
 if (y != 0)
-    if (x != 0)
-        result = x / y;
+  if (x != 0)
+    result = x / y;
 else
-    printf("Error: y is equal to 0\n");
+  printf("Error: y is equal to 0\n");
 ```
 
 缩进暗示`else`子句属于外部if语句
 
 然而, 根据C 语言的规则, `else`子句实际上属于尚未与`else`配对的最近的`if`语句
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -715,13 +766,15 @@ else
 
 正确缩进的版本如下: 
 
-```C
+```C{.line-numbers}
 if (y != 0)
-    if (x != 0)
-        result = x / y;
-    else
-        printf("Error: y is equal to 0\n");
+  if (x != 0)
+    result = x / y;
+  else
+    printf("Error: y is equal to 0\n");
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -734,13 +787,15 @@ if (y != 0)
 
 ```C
 if (y != 0) {
-    if (x != 0)
+  if (x != 0)
     result = x / y;
 } else
-    printf("Error: y is equal to 0\n");
+  printf("Error: y is equal to 0\n");
 ```
 
 我的启示 `if`语句中使用大括号可以避免这一问题
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -759,6 +814,8 @@ if (y != 0) {
 
 - 结果表达式被称为条件表达式
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -776,6 +833,8 @@ if (y != 0) {
 
 - 如果`表达式1`的值为零, 那么`表达式3`的值就是整个条件表达式的值
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -785,7 +844,7 @@ if (y != 0) {
 
 例子: 
 
-```C
+```C{.line-numbers}
 int i, j, k;
 
 i = 1;
@@ -795,6 +854,8 @@ k = (i >= 0 ? i : 0) + j;   /* k is now 3 */
 ```
 
 括号是必需的, 因为条件运算符的优先级低于到目前为止讨论的其他运算符的优先级, 赋值运算符除外
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -811,6 +872,8 @@ k = (i >= 0 ? i : 0) + j;   /* k is now 3 */
 return i > j ? i : j;
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -820,7 +883,7 @@ return i > j ? i : j;
 
 printf函数调用有时可以从条件表达式中受益, 我们可以将
 
-```C
+```C{.line-numbers}
 if (i > j)
   printf("%d\n", i);
 else
@@ -835,6 +898,8 @@ printf("%d\n", i > j ? i : j);
 
 条件表达式在某些类型的宏定义中也很常见
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -846,7 +911,7 @@ printf("%d\n", i > j ? i : j);
 
 一种解决的方法是声明一个int变量, 然后将其赋值为 0 或 1: 
 
-```C
+```C{.line-numbers}
 int flag;
  
 flag = 0;
@@ -855,6 +920,8 @@ flag = 1;
 ```
 
 虽然这个方案有效, 但它对程序的可读性贡献不大
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -865,18 +932,20 @@ flag = 1;
 
 为了使程序更易于理解, C89的程序员用TRUE和FALSE等名称定义宏: 
 
-```C
+```C{.line-numbers}
 #define TRUE 1
 #define FALSE 0
 ```
 
 对标志flag的赋值现在看起来更加自然: 
 
-```C
+```C{.line-numbers}
 flag = FALSE;
 …
 flag = TRUE;
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -899,6 +968,15 @@ if (flag) …
 
 后一种形式更简洁, 如果flag的值不是 0 或 1, 它也可以正常工作
 
+
+
+<!-- slide vertical=true data-notes="" -->
+
+
+##### C89中的布尔值
+
+---
+
 要测试标志flag是否为假, 我们可以写
 
 ```C
@@ -910,6 +988,8 @@ if (flag == FALSE) …
 ```C
 if (!flag) …
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -927,6 +1007,7 @@ if (!flag) …
 `BOOL flag;`
 
 这样就很清楚看出flag不是一个普通的整数变量, 而是代表一个布尔变量
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -950,6 +1031,8 @@ if (!flag) …
 
 `flag = 5;   /* flag is assigned 1 */`
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -967,6 +1050,8 @@ if (!flag) …
 if (flag)   /* tests whether flag is 1 */
   …
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -991,6 +1076,8 @@ flag = false;
 flag = true;
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1014,6 +1101,8 @@ else if (grade == 0)
 else
   printf("Illegal grade"); 
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1041,6 +1130,8 @@ switch (grade) {
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1054,7 +1145,7 @@ switch (grade) {
 
 `switch`语句最常见的形式: 
 
-```C
+```C{.line-numbers}
 switch (表达式) {
   case 常量表达式: 语句
   …
@@ -1062,6 +1153,8 @@ switch (表达式) {
   default: 语句
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1075,6 +1168,7 @@ switch (表达式) {
 字符在 `C` 中被视为整数, 因此可以在`switch`语句中进行判定
 
 但是, 浮点数和字符串不符合条件
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1095,6 +1189,7 @@ switch (表达式) {
 case 标签中的常量表达式必须计算为整数(可接受字符)
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1107,6 +1202,8 @@ case 标签中的常量表达式必须计算为整数(可接受字符)
 语句周围不需要大括号
 
 每组中的最后一条语句通常是break
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1135,6 +1232,8 @@ switch (grade) {
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1146,19 +1245,21 @@ switch (grade) {
 
 ```C{.line-numbers}
 switch (grade) {
-    case 4: case 3: case 2: case 1:
-        printf("Passing");
-        break;
-    case 0: 
-        printf("Failing");
-        break;
-    default: 
-        printf("Illegal grade");
-        break;
+  case 4: case 3: case 2: case 1:
+    printf("Passing");
+    break;
+  case 0: 
+    printf("Failing");
+    break;
+  default: 
+    printf("Illegal grade");
+    break;
 }
 ```
 
 如果缺少`default`, 且控制表达式的值与任何case都不匹配, 则控制传递到switch之后的下一条语句
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1177,6 +1278,8 @@ switch (grade) {
 
 - case 标签是一个标记, 表示switch中的一个位置
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1189,17 +1292,18 @@ switch (grade) {
 例子: 
 ```C{.line-numbers}
 switch (grade) {
-    case 4:  printf("Excellent");
-    case 3:  printf("Good");
-    case 2:  printf("Average");
-    case 1:  printf("Poor");
-    case 0:  printf("Failing");
-    default: printf("Illegal grade");
+  case 4:  printf("Excellent");
+  case 3:  printf("Good");
+  case 2:  printf("Average");
+  case 1:  printf("Poor");
+  case 0:  printf("Failing");
+  default: printf("Illegal grade");
 }
 ```
 
 如果`grade`的值为 `3`, 则打印的消息为
 `GoodAveragePoorFailingIllegal grade`
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1213,13 +1317,13 @@ switch (grade) {
 
 明确指出故意省略`break`语句是个好的习惯: 
 
-```C
+```C{.line-numbers}
 switch (grade) {
-    case 4: case 3: case 2: case 1:
-        num_passing++;
-        /* FALL THROUGH */
-    case 0: total_grades++;
-        break;
+  case 4: case 3: case 2: case 1:
+    num_passing++;
+    /* FALL THROUGH */
+  case 0: total_grades++;
+    break;
 }
 ```
 
@@ -1244,6 +1348,8 @@ Enter date (mm/dd/yy): <u>7/19/14</u>
 Dated this 19th day of July, 2014.
 
 该程序使用`switch`语句将`"th"`(或`"st"`或`"nd"`或`"rd"`)添加到日期, 并将月份打印为单词而不是数字
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1297,28 +1403,3 @@ int main(void)
   return 0;
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

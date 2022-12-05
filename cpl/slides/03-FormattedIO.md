@@ -44,8 +44,9 @@ presentation:
 
 #### _yangyibiao@nju.edu.cn_
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### printf函数
@@ -56,15 +57,17 @@ presentation:
 
 - scanf函数
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### printf函数
 
 ---
 
-==`printf`== 函数必须提供格式字符串, 后跟在打印期间要插入到字符串中的任何值: 
+==`printf`== 函数必须提供格式字符串, 后跟打印期间要插入到串中的任何值: 
+
 ```C
 printf(字符串, 表达式1, 表达式2, ...);
 ```
@@ -78,7 +81,9 @@ printf(字符串, 表达式1, 表达式2, ...);
 - ==`%f`== 用于 ==`float`== 值
 
 
+
 <!-- slide data-notes="" -->
+
 
 ##### printf函数
 
@@ -90,7 +95,7 @@ printf(字符串, 表达式1, 表达式2, ...);
 
 - ==转换说明== 则需用待显示的值来替换填充
 
-```C
+```C{.line-numbers}
 int i, j;
 float x, y;
  
@@ -105,25 +110,32 @@ printf("i = %d, j = %d, x = %f, y = %f\n", i, j, x, y);
 i = 10, j = 20, x = 43.289200, y = 5527.000000
 ```
 
+
+
 <!-- slide data-notes="" -->
+
 
 ##### printf函数
 
 ---
 
-编译器不会去检查格式字符串中转换说明的数量是否与输出项的数量相匹配
+编译器不会检查格式字符串中转换说明数量与输出项数量是否匹配
 
 - 转换说明过多: 
 
 ```C
 printf("%d %d\n", i); /*** WRONG ***/
 ```
+
 - 转换说明太少: 
+
 ```C
 printf("%d\n", i, j); /*** WRONG ***/
 ```
-<!-- slide data-notes="" -->
 
+
+
+<!-- slide data-notes="" -->
 
 
 ##### printf函数
@@ -134,14 +146,15 @@ printf("%d\n", i, j); /*** WRONG ***/
 
 - 如果程序员使用了不正确的转换说明, 程序将产生无意义的输出
 
-```C
+```C{.line-numbers}
 int i;
 float x;
 printf("%f %d\n", i, x); /*** WRONG ***/
 ```
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### 转换说明
@@ -164,26 +177,28 @@ printf("%f %d\n", i, x); /*** WRONG ***/
 
 在转换规约 ==`%.2f`== 中, ==`p`== 为 ==`2`==  且缺少 ==`m`==
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### 转换说明
 
 ---
 
-最小字段宽度 ==`m`== 指定要打印的最小字符数
+最小字段宽度 ==m== 指定要打印的最小字符数
 
-- 如果要打印的值需要少于 ==`m`== 个字符, 则在字段内右对齐
+- 如果要打印的值需要少于 ==m== 个字符, 则在字段内右对齐
 
 转换说明 ==`%4d`== 会将数字 ==`123`== 显示为 ==`•123`==(==`•`== 表示空格字符)
 
-- 如果要打印的值需要超过 ==`m`== 个字符, 则字段宽度会自动扩展为所需的大小, 若 ==`m`== 前面加上减号会导致左对齐
+- 如果要打印的值需要超过 ==m== 个字符, 则字段宽度会自动扩展为所需的大小, 若 ==m== 前面加上减号会导致左对齐
 
 转换说明 ==`%-4d`== 会将数字 ==`123`== 显示为 ==`123•`==
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### 转换说明
@@ -196,8 +211,9 @@ printf("%f %d\n", i, x); /*** WRONG ***/
 
 - 如果 ==p== 省略, 则默认它的值为 ==1==
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### 转换说明
@@ -212,16 +228,18 @@ printf("%f %d\n", i, x); /*** WRONG ***/
 
 - ==`%g`== — 指数格式或固定十进制格式, 取决于数字的大小; ==p== 表示要显示的最大有效位数; ==%g== 不会显示尾随零. 如果在小数点后没有数字, 则 ==%g== 不显示小数点
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 使用printf格式化数字
 
 ---
 
-*tprintf.c*程序使用 ==`printf`== 以各种格式显示整数和浮点数
-```C
+*tprintf.c*程序使用 ==printf== 以各种格式显示整数和浮点数
+
+```C{.line-numbers}
 /* Prints int and float values in various formats */ 
 #include <stdio.h>
  
@@ -243,6 +261,8 @@ Output:
 |40|•••40|40•••|••040|
 |•••839.210|•8.392e+02|839.21••••|
 ```
+
+
 
 <!-- slide data-notes="" -->
 
@@ -267,6 +287,8 @@ Output:
 
 </div>
 
+
+
 <!-- slide data-notes="" -->
 
 
@@ -286,6 +308,9 @@ printf("Item\tUnit\tPurchase\n\tPrice\tDate\n");
 Item    Unit    Purchase
         Price   Date
 ```
+
+
+
 <!-- slide data-notes="" -->
 
 
@@ -305,6 +330,8 @@ printf("\"Hello!\""); /* prints "Hello!" */
 printf("\\"); /* prints one \ character */
 ```
 
+
+
 <!-- slide data-notes="" -->
 
 
@@ -318,6 +345,8 @@ printf("\\"); /* prints one \ character */
 
 ==`scanf`== 接受的 ==转换说明== 与 ==`printf`== 基本相同
 
+
+
 <!-- slide data-notes="" -->
 
 
@@ -327,7 +356,7 @@ printf("\\"); /* prints one \ character */
 
 我的批注 在多数情况下, ==`scanf`== 格式字符串只包含转换说明: 
 
-```C
+```C{.line-numbers}
 int i, j;
 float x, y;
 
@@ -339,6 +368,7 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 `1 -20 .3 -4.0e3`
 
 ==`scanf`== 将变量 `i`、`j`、`x`和`y`赋值为 `1`、`–20`、`0.3` 和 `–4000.0`
+
 
 
 <!-- slide data-notes="" -->
@@ -359,6 +389,7 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 ==`&`== 通常(但不总是)是必需的, 在读取输入至变量时需记住使用它
 
 
+
 <!-- slide data-notes="" -->
 
 
@@ -368,7 +399,7 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 - ==`scanf`== 尝试将输入字符组与格式字符串中的转换说明进行匹配
 
-- 对于每个转换说明, ==`scanf`== 会尝试在输入数据中寻找适当类型的数据, 并在必要时跳过空格
+- 对每个转换说明, ==`scanf`== 尝试在输入数据中寻找适当类型数据, 必要时跳过空格
 
 - ==`scanf`== 然后读取该数据, 当它到达不属于该数据类型的字符时停止
 
@@ -376,8 +407,9 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 - 如果数据读取不成功, ==`scanf`== 立即返回
 
-<!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
 
 
 ##### scanf工作原理
@@ -387,18 +419,23 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 - ==`scanf`== 搜索数字时会忽略空白字符(空格、水平和垂直制表符、换页符和换行符)
 
 - 读取四个数字的 ==`scanf`== 调用: 
+
 ```C
 scanf("%d%d%f%f", &i, &j, &x, &y);
 ```
 
 - 输入的数字可以在一行上, 也可以分布在多行上: 
+
 ```
 ••1
 -20•••.3
 •••-4.0e3
 ```
 
+
+
 <!-- slide data-notes="" -->
+
 
 ##### scanf工作原理
 
@@ -419,16 +456,20 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 - ssrsrrrsssrrssssrrrrrr(`s` = 跳过； `r` = 读取)
 
+
+
 <!-- slide data-notes="" -->
+
 
 ##### scanf工作原理
 
 ---
 
-我的启示 ==`scanf`== *偷看* 当前的下一个字符, 若不符合要求就不读进它, 留到下一次调用scanf时继续读取字符流中的数据时检查是否符合要求，如果字符流中没有可用的数据就会等待用户输入
+我的启示 ==scanf== ==偷看== 当前的下一个字符, 若不符合要求就不读进它, 留到下次调用scanf时继续读取字符流中数据时检查是否符合要求，如果字符流中没有可用的数据就会等待用户输入
+
+
 
 <!-- slide data-notes="" -->
-
 
 
 ##### scanf工作原理
@@ -451,6 +492,7 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 ---
 
 我的启示 当 ==`scanf`== 遇到不能成为当前变量一部分的字符时, 会 ==*放回*== 该字符以在扫描下一个 ==输入变量== 或在下一次 ==`scanf`== 调用时再读取
+
 
 
 <!-- slide data-notes="" -->
@@ -480,6 +522,8 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 - `%f` 将`–4.0×103`存储到y中并放回换行符
 
+
+
 <!-- slide data-notes="" -->
 
 
@@ -495,6 +539,8 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 - 若不匹配, 则 ==`scanf`== 会将有问题的字符放回输入中, 然后中止
 
+
+
 <!-- slide data-notes="" -->
 
 
@@ -504,11 +550,13 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 例子: 
 
-> 如果格式字符串是 ==`"%d/%d"`== 并且输入是 ==`•5/•96`==, ==`scanf`== 成功
+- 如果格式字符串是 ==`"%d/%d"`== 并且输入是 ==`•5/•96`==, ==`scanf`== 成功
 
-> 如果输入为 ==`•5•/•96`==, 则 ==`scanf`== 失败, 因为格式字符串中的 ==`/`== 与输入中的空格不匹配
+- 如果输入 ==`•5•/•96`==, 则 ==`scanf`== 失败, 因为格式字符串中的 ==`/`== 与输入中的空格不匹配
 
 我的批注 要在第一个数字后允许空格, 需改用格式字符串 ==`"%d /%d"`==
+
+
 
 <!-- slide data-notes="" -->
 
@@ -524,6 +572,8 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 ```C
 printf("%d %d\n", &i, &j);  /*** WRONG ***/
 ```
+
+
 
 <!-- slide data-notes="" -->
 
@@ -546,6 +596,8 @@ scanf("%d, %d", &i, &j);
 
 - 如果下一个输入字符是空格, 而不是逗号, 则scanf将终止而不读取j的值
 
+
+
 <!-- slide data-notes="" -->
 
 
@@ -563,11 +615,12 @@ scanf("%d, %d", &i, &j);
 
 - 这种格式字符串会导致交互式程序 ==`挂起`== 直到用户输入下一个非空格字符为止
 
+
+
 <!-- slide data-notes="" -->
 
 
-
-#### 程序: 分数相加
+##### 程序: 分数相加
 
 ---
 
@@ -579,16 +632,18 @@ Enter first fraction: <u>5/6</u>
 Enter second fraction: <u>3/4</u>
 The sum is 38/24
 
+
+
 <!-- slide data-notes="" -->
 
 
-#### 程序: 添加分数
+##### 程序: 添加分数
 
 ---
 
 *addfrac.c*
 
-```C
+```C{.line-numbers}
 /* Adds two fractions */
  
 #include <stdio.h>
@@ -610,6 +665,3 @@ int main(void)
   return 0;
 }
 ```
-
-
-
