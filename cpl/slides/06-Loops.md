@@ -27,7 +27,10 @@ presentation:
 @import "../js/anychart/pastel.min.js"
 @import "../js/anychart/venn-ml.js"
 
+
+
 <!-- slide data-notes="" -->
+
 
 <div class="bottom20"></div>
 
@@ -42,6 +45,8 @@ presentation:
 ### 计算机系 &nbsp;&nbsp; 杨已彪
 
 #### _yangyibiao@nju.edu.cn_
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -61,7 +66,9 @@ presentation:
 - 空语句
 
 
+
 <!-- slide data-notes="" -->
+
 
 ##### 重复语句
 
@@ -77,7 +84,10 @@ C语言的重复语句用于设置循环
 
 如果表达式为真(值不为零), 则循环继续执行
 
+
+
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 重复语句
 
@@ -90,6 +100,8 @@ C 提供了三种重复语句:
 - ==do-while语句== 在循环体执行之后测试控制表达式
 
 - ==for语句== 非常适合`递增`或`递减`计数变量的循环
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -112,6 +124,8 @@ while (表达式)  语句
 
 我的批注 语句可以是`单条语句`, 也可以是使用`{}`括起来的`复合语句`
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -121,7 +135,7 @@ while (表达式)  语句
 
 while语句示例: 
 
-```C
+```C{.line-numbers}
 while (i < n) /* 控制表达式 */
   i = i * 2; /* 循环体 */
 ```
@@ -132,6 +146,8 @@ while (i < n) /* 控制表达式 */
 
 - 该过程持续进行, 直到控制表达式的值变为零才停止. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -141,7 +157,7 @@ while (i < n) /* 控制表达式 */
 
 使用while语句计算大于或等于数字`n`的最小的2的幂: 
 
-```C
+```C{.line-numbers}
 i = 1;
 while (i < n)
   i = i * 2;
@@ -162,6 +178,8 @@ i = i * 2;      i is now 16
 Is i < n?       No; exit from loop 
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -173,20 +191,22 @@ Is i < n?       No; exit from loop
 
 如果需要多个语句, 只要用一对大括号构造成一条复合语句:
 
-```C
+```C{.line-numbers}
 while (i > 0) {
-    printf("T minus %d and counting\n", i);
-    i--;
+  printf("T minus %d and counting\n", i);
+  i--;
 }
 ```
 
 即使在没有严格要求的时候, 一些程序员也总是使用大括号:
 
-```C
+```C{.line-numbers}
 while (i < n) {
-    i = i * 2;
+  i = i * 2;
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -197,15 +217,17 @@ while (i < n) {
 
 以下语句显示一串"倒计数"信息: 
 
-```C
+```C{.line-numbers}
 i = 10;
 while (i > 0) {
-    printf("T minus %d and counting\n", i);
-    i--;
+  printf("T minus %d and counting\n", i);
+  i--;
 }
 ```
 
 最后打印的消息是`T minus 1 and counting`
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -222,10 +244,12 @@ while (i > 0) {
 
 - while语句通常可以有多种写法. 倒计数循环的更简洁版本: 
 
-```C
+```C{.line-numbers}
 while (i > 0)
-    printf("T minus %d and counting\n", i--);
+  printf("T minus %d and counting\n", i--);
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -244,6 +268,8 @@ while (1) …
 
 这样的while语句将永远执行, 除非它的循环体中含有跳出循环控制的语句(break, goto, return)或调用导致程序终止的函数
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -255,16 +281,16 @@ while (1) …
 
 用户指定表中的条目数: 
 
-`This program prints a table of squares.`
-`Enter number of entries in table: ` <u>5</u>
-
 ```
+This program prints a table of squares.
+Enter number of entries in table: 5
 1         1
 2         4
 3         9
 4        16
 5        25
 ```
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -298,6 +324,8 @@ int main(void)
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -313,6 +341,8 @@ int main(void)
 `总和是: 107`
 
 该程序需要一个循环, 循环中使用scanf读取一个数字并将其累加
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -346,8 +376,9 @@ int main(void)
 }
 ```
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### do语句
@@ -364,6 +395,8 @@ do 语句 while (表达式);
 
 表达式的值不为零 $\rightarrow$ 执行循环体 $\rightarrow$ 计算表达式的值 $\rightarrow$ ....
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -373,7 +406,7 @@ do 语句 while (表达式);
 
 将前面的`倒计数`程序用do语句重写: 
 
-```C
+```C{.line-numbers}
 i = 10;
 do {
   printf("T minus %d and counting\n", i);
@@ -384,6 +417,8 @@ do {
 do语句和while语句往往没有什么区别
 
 唯一的区别是do语句的循环体总是`至少执行一次`
+
+
 
 <!-- slide vertical=false data-notes="" -->
 
@@ -396,11 +431,13 @@ do语句和while语句往往没有什么区别
 
 ```C
 do
-    printf("T minus %d and counting\n", i--);
+  printf("T minus %d and counting\n", i--);
 while (i > 0);
 ```
 
 粗心的读者可能会认为单词while是while语句的开始. 
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -411,12 +448,16 @@ while (i > 0);
 
 *numdigits.c*程序计算用户输入的整数的位数: 
 
-  `Enter a nonnegative integer: ` <u>60</u>
-  `The number has 2 digit(s).`
+```
+Enter a nonnegative integer: 60
+The number has 2 digit(s).
+```
 
 程序会反复将用户输入除以`10`, 直到变为`0`; 除法的次数就是所求的位数
 
 此循环用do语句编写比使用while语句更好, 因为每个整数(包括`0`)都至少有一位数字
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -429,7 +470,7 @@ while (i > 0);
 
 ```C{.line-numbers}
 /* 计算整数的位数 */
-  
+ 
 #include <stdio.h>
  
 int main(void)
@@ -449,6 +490,8 @@ int main(void)
   return 0;
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -473,8 +516,10 @@ for (表达式1; 表达式2; 表达式3) 语句
 
 ```C
 for (i = 10; i > 0; i--) 
-    printf("T minus %d and counting\n", i);
+  printf("T minus %d and counting\n", i);
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -490,12 +535,14 @@ for语句与while语句密切相关
 ```C
 表达式1;
 while (表达式2) {
-    语句
-    表达式3;
+  语句
+  表达式3;
 }
 ```
 
 表达式1是一个初始化步骤, 只在循环开始之前执行一次
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -513,10 +560,13 @@ while (表达式2) {
 ```C
 i = 10;
 while (i > 0) {
-    printf("T minus %d and counting\n", i);
-    i--;
+  printf("T minus %d and counting\n", i);
+  i--;
 }
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -530,7 +580,7 @@ while (i > 0) {
 
 ```C
 for (i = 10; i > 0; --i) 
-    printf("T minus %d and counting\n", i);
+  printf("T minus %d and counting\n", i);
 ```
 
 等效的while循环表明这种更改对循环没有影响:
@@ -538,10 +588,12 @@ for (i = 10; i > 0; --i)
 ```C
 i = 10;
 while (i > 0) {
-    printf("T minus %d and counting\n", i);
-    --i;
+  printf("T minus %d and counting\n", i);
+  --i;
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -554,6 +606,8 @@ for语句中的第一个和第三个表达式都是以语句的方式执行的, 
 
 因此, 这两个表达式通常是赋值递增/递减表达式
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -565,12 +619,14 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 
 对于向上或向下计数总共n次的情况, for语句通常具有以下形式:
 
-```C
-从0计数到n – 1:            for (i = 0; i < n; i++) ...
-从1计数到n:                for (i = 1; i <= n; i++) ...
-从n – 1倒数到0:            for (i = n - 1; i >= 0; i--) ...
-从n倒数到1:                for (i = n; i > 0; i--) ...
+```C{.line-numbers}
+/* 从0计数到n – 1 */       for (i = 0; i < n; i++) ...
+/* 从1计数到n */           for (i = 1; i <= n; i++) ...
+/* 从n – 1倒数到0 */       for (i = n - 1; i >= 0; i--) ...
+/* 从n倒数到1 */           for (i = n; i > 0; i--) ...
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -587,6 +643,8 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 
 - 循环次数差一错误, 例如在控制表达式中把`i < n`写为`i <= n`
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -598,18 +656,20 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 
 如果省略第一个表达式, 则在执行循环之前没有初始化的操作:
 
-```C
+```C{.line-numbers}
 i = 10; 
 for (; i > 0; --i) 
-    printf("T minus %d and counting\n", i);
+  printf("T minus %d and counting\n", i);
 ```
 
 如果省略第三个表达式, 则循环体需要确保第二个表达式的值最终变为`false`:
 
-```C
+```C{.line-numbers}
 for (i = 10; i > 0;) 
-    printf("T minus %d and counting\n", i--);
+  printf("T minus %d and counting\n", i--);
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -620,19 +680,21 @@ for (i = 10; i > 0;)
 
 当`for`语句同时省略第一个和第三个表达式时, 它和`while`语句没有任何分别:
 
-```C
+```C{.line-numbers}
 for (; i > 0;) 
-    printf("T minus %d and counting\n", i--);
+  printf("T minus %d and counting\n", i--);
 ```
 
 等价于
 
-```C
+```C{.line-numbers}
 while (i > 0)
-    printf("T minus %d and counting\n", i--);
+  printf("T minus %d and counting\n", i--);
 ```
 
 `while`版本更清晰, 因此更推荐
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -648,6 +710,8 @@ while (i > 0)
 ```C
   for (;;) …
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -667,6 +731,8 @@ for (int i = 0; i < n; i++)
 
 变量i不需要在此语句之前声明
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -676,15 +742,16 @@ for (int i = 0; i < n; i++)
 
 由`for`语句声明的变量不能在循环外访问(在循环外不可见):
 
-```C
+```C{.line-numbers}
 for (int i = 0; i < n; i++) {
   …
-  printf("%d", i);   
-    /* 合法的; i 在循环内可见 */
+  printf("%d", i); /* 合法的; i 在循环内可见 */
   …
 }
 printf("%d", i); /*** WRONG ***/
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -699,10 +766,13 @@ printf("%d", i); /*** WRONG ***/
 
 `for`语句可以声明多个变量, 只要它们的类型相同:
 
-```C
+```C{.line-numbers}
 for (int i = 0, j = 0; i < n; i++)
-   …
+  …
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -721,6 +791,8 @@ for (int i = 0, j = 0; i < n; i++)
 ```
 
 其中表达式1和表达式2是任意两个表达式
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -741,6 +813,8 @@ for (int i = 0, j = 0; i < n; i++)
 
 - 如果`i`和`j`的值分别为 `1` 和 `5`, 则表达式的值为 `7`, 并且`i`将自增到 `2`
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -751,14 +825,16 @@ for (int i = 0, j = 0; i < n; i++)
 逗号运算符是左结合的, 因此编译器会将
 
 ```C
-  i = 1, j = 2, k = i + j
+i = 1, j = 2, k = i + j
 ```
 解释为
 ```C
-  ((i = 1), (j = 2)), (k = (i + j))
+((i = 1), (j = 2)), (k = (i + j))
 ```
 
 由于逗号表达式中的左操作数在右操作数之前求值, 因此`i = 1`、 `j = 2`和`k = i + j`将从左到右执行
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -775,13 +851,15 @@ for语句是可能使用逗号运算符的其他语句
 
 例子:
 
-```C
+```C{.line-numbers}
 for (sum = 0, i = 1; i <= N; i++)
   sum += i;
 ```
 
 使用额外的逗号, `for`语句可以初始化更多的变量
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -789,16 +867,7 @@ for (sum = 0, i = 1; i <= N; i++)
 
 ---
 
-可以通过将其 `while` 循环转换为 `for` 循环来改进 *square.c* 程序(第6.1节)
-
-<!-- slide vertical=true data-notes="" -->
-
-
-##### 程序: 打印平方表
-
----
-
-*square2.c*
+*square2.c* 通过将其 `while` 循环转换为 `for` 循环来改进 *square.c* 程序(第6.1节)
 
 ```C{.line-numbers}
 /* 使用 for 语句打印一个平方表 */
@@ -820,6 +889,8 @@ int main(void)
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -834,6 +905,8 @@ int main(void)
 square3.c程序等价于square2.c, 但包含一个`for`语句, 用于初始化一个变量(square)、判定另一个变量(i)并增加第三个变量(odd)
 
 `for`语句的灵活性有时会很有用, 但在这种情况下, 原始程序更清晰
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -869,6 +942,8 @@ int main(void)
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -879,6 +954,8 @@ int main(void)
 循环的正常退出点是在开始处(如在`while`或`for`语句中)或结束处(do语句)
 
 使用`break`语句, 可以编写一个循环中间退出点的循环, 甚至可以设置多个退出点
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -891,11 +968,13 @@ int main(void)
 
 检查数字`n`是否为素数的循环可以在找到约数(因子)后立即使用break语句终止循环:
 
-```C
+```C{.line-numbers}
 for (d = 2; d < n; d++)
   if (n % d == 0)
     break;
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -906,12 +985,15 @@ for (d = 2; d < n; d++)
 
 循环终止后, 可以使用`if语句`来确定循环是提前终止(因此n不是素数)还是正常终止(n是素数):
 
-```C
+```C{.line-numbers}
 if (d < n)
   printf("%d is divisible by %d\n", n, d);
 else
   printf("%d is prime\n", n);
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -923,7 +1005,7 @@ else
 
 读取用户输入并在输入特定值时终止的循环通常属于这种类别:
 
-```C
+```C{.line-numbers}
 for (;;) {
   printf("Enter a number (enter 0 to stop): ");
   scanf("%d", &n);
@@ -932,6 +1014,8 @@ for (;;) {
   printf("%d cubed is %d\n", n, n * n * n);
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -944,7 +1028,7 @@ for (;;) {
 
 当这些语句嵌套时, `break语句`只能跳出一层嵌套. 例子:
 
-```C
+```C{.line-numbers}
 while (…) {
   switch (…) {
     …
@@ -955,6 +1039,8 @@ while (…) {
 ```
 
 `break`语句把程序控制从`switch`语句中转移出来, 但是不能跳出`while`循环
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -972,6 +1058,8 @@ while (…) {
 使用`break`会使程序控制跳出循环; 而`continue`会把程序控制保留在循环内
 
 `break`和`continue`之间还有另一个区别: `break`可用于`switch`语句和循环(`while`、`do`和`for`), 而`continue`仅限于循环
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -995,6 +1083,8 @@ while (n < 10) {
 }
 ```
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1004,7 +1094,7 @@ while (n < 10) {
 
 不使用`continue`编写的相同循环:
 
-```C
+```C{.line-numbers}
 n = 0;
 sum = 0;
 while (n < 10) {
@@ -1015,6 +1105,8 @@ while (n < 10) {
   }
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1039,6 +1131,8 @@ goto 标识符;
 
 执行语句`goto L;`会跳转到`标签L`之后的语句, 该语句必须与`goto语句`在同一函数中
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1053,12 +1147,15 @@ for (d = 2; d < n; d++)
   if (n % d == 0)
     goto done;
 
-done: 
+done:
 if (d < n)
   printf("%d is divisible by %d\n", n, d);
 else
   printf("%d is prime\n", n);
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1071,6 +1168,8 @@ C中很少需要`goto`语句
 `break`、`continue`、`return语句`(本质上是受限的`goto`语句)和`exit函数`足以处理在其他语言中需要`goto`的大多数情况
 
 尽管如此, `goto`语句偶尔还是有用的
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1085,7 +1184,7 @@ C中很少需要`goto`语句
 
 goto语句解决了这个问题:
 
-```C
+```C{.line-numbers}
 while (…) {
   switch (…) {
     …
@@ -1114,13 +1213,15 @@ loop_done: …
 
 这类程序的核心是循环:
 
-```C
+```C{.line-numbers}
 for (;;) {
   提示用户输入命令;
   读取命令;
   执行命令;
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1146,6 +1247,9 @@ for (;;) {
   }
 }
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1157,6 +1261,8 @@ for (;;) {
 
 允许用户清除账户余额, 往账户上存钱, 从账户取钱, 显示当前余额, 退出程序
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1166,9 +1272,9 @@ for (;;) {
 
 `*** ACME 账簿结算程序 ***`
 
-```
+```{.line-numbers}
 Commands: 0=clear, 1=credit, 2=debit, 3=balance, 4=exit
- 
+
 Enter command: 1
 Enter amount of credit: 1042.56
 Enter command: 2
@@ -1185,6 +1291,9 @@ Enter command: 3
 Current balance: $1145.09
 Enter command: 4
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1237,6 +1346,9 @@ int main(void)
   }
 }
 ```
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1254,6 +1366,8 @@ i = 0; ; j = 1;
 
 空语句主要有一个好处: 编写空循环体的循环. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -1263,7 +1377,7 @@ i = 0; ; j = 1;
 
 考虑以下寻找素数的循环:
 
-```C
+```C{.line-numbers}
 for (d = 2; d < n; d++)
   if (n % d == 0)
     break;
@@ -1271,12 +1385,14 @@ for (d = 2; d < n; d++)
 
 如果 `n % d == 0` 条件被移到循环的控制表达式中, 循环体就会变为空:
 
-```C
+```C{.line-numbers}
 for (d = 2; d < n && n % d != 0; d++)
   ; /* 空循环体 */
 ```
 
 为避免混淆, C 程序员习惯上将空语句单独放在一行. 
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1288,14 +1404,17 @@ for (d = 2; d < n && n % d != 0; d++)
 `if`、`while`或`for`语句的圆括号后放置分号会创建空语句
 
 - 示例 1:
-```C
+
+```C{.line-numbers}
 if (d == 0);                          /*** WRONG ***/
   printf("Error: Division by zero\n");
 ```
+
 `printf`的调用不在if语句中, 所以不管d是否等于 0 都会执行
 
 - 示例 2:
-```C
+
+```C{.line-numbers}
 i = 10;
 while (i > 0);                        /*** WRONG ***/
 {
@@ -1303,7 +1422,10 @@ while (i > 0);                        /*** WRONG ***/
   --i;
 }
 ```
+
 额外的分号会创建一个无限循环
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1313,19 +1435,22 @@ while (i > 0);                        /*** WRONG ***/
 ---
 
 - 示例 3:
-```C
+
+```C{.line-numbers}
 i = 11;
 while (--i > 0);                /*** WRONG ***/
   printf("T minus %d and counting\n", i);
 ```
+
 循环体只执行一次; 打印的信息是:
 
 `T minus 0 and counting`
 
 - 示例 4:
-```C
+
+```C{.line-numbers}
 for (i = 10; i > 0; i--);       /*** WRONG ***/
   printf("T minus %d and counting\n", i);
 ```
-同样, 循环体只执行一次, 并打印与示例 3 中相同的信息. 
 
+同样, 循环体只执行一次, 并打印与示例 3 中相同的信息. 

@@ -1691,6 +1691,33 @@ char *strcat(char *s1, const char *s2)
 ```
 
 
+<!-- slide vertical=true data-notes="" -->
+
+##### 复制字符串
+
+---
+
+strcat的精简版(存在`缺陷`): 
+
+```C{.line-numbers}
+char *strcat(char *s1, const char *s2) 
+{
+  char *p = s1;
+
+  /*
+  while (*p)
+    p++;
+    */
+  while (*p++)
+    ;
+
+  while (*p++ = *s2++)
+    ;
+
+  return s1;
+}
+```
+
 
 <!-- slide data-notes="" -->
 

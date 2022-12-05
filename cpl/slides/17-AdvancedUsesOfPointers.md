@@ -142,7 +142,7 @@ C 的数据结构, 包括数组, 通常是固定大小的.
 ---
 
 malloc的返回值的示例: 
-```C
+```C{.line-numbers}
 p = malloc(10000);
 if (p == NULL) {
  /* allocation failed; take appropriate action */
@@ -170,30 +170,34 @@ if ((p = malloc(10000)) == NULL) {
 
 所有非空指针都为真; 只有空指针是假的. 
 
-因此, 语句 `if (p == NULL) …`
+```C{.line-numbers}
+if (p == NULL) …
+if (!p) …
 
-可以写成 `if (!p) …`
+if (p != NULL) …
+if (p) …
+```
 
-而语句 `if (p != NULL) …`
+语句1-2等价, 4-5等价 
 
-则可以写成 `if (p) …`
+
 
 <!-- slide vertical=true data-notes="" -->
-
 
 
 ##### 动态分配字符串
 
 ---
 
-动态存储分配对于处理字符串通常很有用. 
+动态存储分配常用于处理字符串. 
 
-字符串存储在字符数组中, 很难预测这些数组需要的长度. 
+若字符串存储在字符数组中, 很难预测数组需要的长度. 
 
-通过动态分配字符串, 可以推迟到程序运行时才做决定. 
+动态分配字符串, 则允许在程序运行时决定长度. 
+
+
 
 <!-- slide id="das" vertical=true data-notes="" -->
-
 
 
 ##### 使用malloc为字符串分配内存
@@ -204,7 +208,7 @@ malloc函数的原型:
 
 `void *malloc(size_t size);`
 
-malloc分配size个字节的内存块并返回一个指向它的指针. 
+malloc分配size个字节的内存块并返回一个指向它的(类型为void*)指针. 
 
 size_t是库中定义的无符号整数类型. 
 
@@ -212,24 +216,29 @@ size_t是库中定义的无符号整数类型.
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### 使用malloc为字符串分配内存
 
 ---
 
 为n个字符的字符串分配内存的malloc调用: 
 
-`p = malloc(n + 1);`
-
-p是一个char *类型变量. 
+```C{.line-numbers}
+char *p;
+p = malloc(n + 1);
+```
 
 每个字符需要一个字节的内存; 加1是为空字符留出空间. 
 
-一些程序员更喜欢强制转换malloc的返回值, 尽管不是必需的: 
+一些程序员更喜欢强制转换malloc的返回值: 
 
-`p = (char *) malloc(n + 1);`
+```C
+p = (char *) malloc(n + 1);
+```
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
 
 
 ##### 使用malloc为字符串分配内存
@@ -242,8 +251,9 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
   <img src="../img/16-1.png">
 </div>
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 使用malloc为字符串分配内存
@@ -252,7 +262,9 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
 
 调用strcpy是初始化此数组的一种方法: 
 
-`strcpy(p, "abc");`
+```C
+strcpy(p, "abc");
+```
 
 数组中的前四个字符现在将是a、b、c和`\0`: 
 <div class="top-2">
@@ -263,6 +275,7 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### 在字符串函数中使用动态存储分配
 
 ---
@@ -271,17 +284,23 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
 
 编写一个函数, 连接两个字符串而不更改任何一个字符串. 
 
-该函数将测量要连接的两个字符串的长度, 然后调用malloc为结果分配适量的空间. 
+该函数先计算要拼接的两个字符串的长度, 然后调用malloc为结果分配适量的空间. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### 在字符串函数中使用动态存储分配
 
 ---
 
-```C
+```C{.line-numbers}
+/* 
+ * two macros defined in <stdlib.h>
+ * #define EXIT_SUCCESS 0
+ * #define EXIT_FAILURE 1
+ */
 char *concat(const char *s1, const char *s2)
 {
   char *result;
@@ -289,13 +308,16 @@ char *concat(const char *s1, const char *s2)
   result = malloc(strlen(s1) + strlen(s2) + 1);
   if (result == NULL) {
     printf("Error: malloc failed in concat\n");
-    exit(EXIT_FAILURE);
+    exit(EXIT_FAILURE); // 等价于 exit(1);
   }
+
   strcpy(result, s1);
   strcat(result, s2);
   return result;
 }
 ```
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -307,13 +329,16 @@ char *concat(const char *s1, const char *s2)
 
 调用concat函数: 
 
-`p = concat("abc", "def");`
+```C
+char * p = concat("abc", "def");
+```
 
-调用后, p将指向字符串"abcdef", 该字符串存储在动态分配的数组中. 
+指针p将指向字符串"abcdef", 该字符串存储在动态分配的数组中. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 在字符串函数中使用动态存储分配
 
@@ -321,13 +346,14 @@ char *concat(const char *s1, const char *s2)
 
 必须小心使用动态分配存储的concat等函数. 
 
-当不再需要concat返回的字符串时, 需要调用free函数来释放字符串占用的空间. 
+当不再需要concat返回的字符串时, 需要调用==free函数==来`释放`字符串占用的空间. 
 
-如果不这样做, 程序最终可能会耗尽内存. 
+否则, 程序最终可能会耗尽内存. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 程序: 打印一个月的提醒链表(改进版)
 
@@ -337,11 +363,12 @@ char *concat(const char *s1, const char *s2)
 
 最初的*remind.c*程序将提醒字符串存储在一个二维字符数组中. 
 
-在新程序中, 数组将是一维的; 它的元素将是指向动态分配的字符串的指针. 
+在新程序中, 存储在元素是指向动态分配字符串指针的一维数组. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### 程序: 打印一个月的提醒链表(改进版)
 
@@ -349,15 +376,16 @@ char *concat(const char *s1, const char *s2)
 
 换成动态分配的字符串的优点: 
 
-- 可以为要存储的提醒分配确切字符数量的空间, 更有效地使用空间. 
+- 空间利用更高效: 可为要存储的提醒分配确切字符数量的空间. 
 
-- 不需要为了给新提醒腾出空间而调用strcpy来移动现有的字符串. 
+- 无需移动字符串: 不需要为了给新提醒腾出空间而调用strcpy来移动现有字符串. 
 
 从二维数组切换到指针数组只需要更改程序的八行. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### remind2.c
 
@@ -434,15 +462,14 @@ int read_line(char str[], int n)
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### 动态分配数组
 
 ---
 
-动态分配的数组与动态分配的字符串具有相同的优点. 
+动态分配的数组与动态分配的字符串具有相同的优点, 动态分配的数组和普通数组一样易于使用. 
 
-数组和指针之间的密切关系使得动态分配的数组和普通数组一样易于使用. 
-
-尽管`malloc`可以为数组分配空间, 但有时会使用`calloc`函数, 因为它会初始化它分配的内存. 
+可以使用`malloc`为数组分配空间, 也可以使用`calloc`函数, 后者会初始化它分配的内存. 
 
 `realloc`函数允许我们根据需要使数组==扩展==或==缩减==. 
 
@@ -450,33 +477,37 @@ int read_line(char str[], int n)
 
 <!-- slide id="daa" vertical=true data-notes="" -->
 
+
 ##### 使用malloc为数组分配存储空间
 
 ---
 
-假设一个程序需要一个包含n个整数的数组, 其中n是在程序执行期间计算的. 
+假设需要一个包含n个整数的数组, n是在程序运行期间计算的. 
 
-首先声明一个指针变量: 
-`int *a;`
+先声明一个指针变量, 依据n, 调用malloc为数组分配空间: 
 
-一旦知道n的值, 程序就可以调用malloc为数组分配空间: 
-`a = malloc(n * sizeof(int));`
+```C
+int *a;
+a = malloc(n * sizeof(int)); 
+// int *a = (int *) malloc(n * sizeof(int));
+```
 
 始终使用sizeof运算符来计算每个元素所需的空间量. 
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
 
-
 ##### 使用malloc为数组分配存储空间
 
 ---
 
-一旦a指向动态分配的内存块, 就可以忽略a是指针的事实, 将其用作数组名称. 
+一旦a指向动态分配的内存块, 就可以将指针a用作数组名称. 
 
 例如, 可以使用以下循环来初始化a指向的数组: 
 
-```C
+```C{.line-numbers}
 for (i = 0; i < n; i++)
   a[i] = 0;
 ```
@@ -486,6 +517,7 @@ for (i = 0; i < n; i++)
 
 
 <!-- slide vertical=true data-notes="" -->
+
 
 ##### calloc函数
 
@@ -509,6 +541,7 @@ calloc的规则:
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### calloc函数
 
 ---
@@ -528,6 +561,7 @@ p = calloc(1, sizeof(struct point));
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### realloc函数
 
 ---
@@ -541,6 +575,8 @@ realloc的原型:
 ptr必须指向通过先前调用malloc、calloc或realloc获得的内存块. 
 
 size表示块的新大小, 可能大于或小于原始大小. 
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -564,6 +600,7 @@ realloc的规则:
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### realloc函数
 
 ---
@@ -582,6 +619,7 @@ realloc的规则:
 
 <!-- slide vertical=true data-notes="" -->
 
+
 ##### 释放存储空间
 
 ---
@@ -595,6 +633,7 @@ malloc和其他内存分配函数从称为**堆**的存储池中获取内存块.
 
 
 <!-- slide id="deallocate" vertical=true data-notes="" -->
+
 
 ##### 释放存储空间
 
@@ -842,11 +881,9 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 
 ---
 
-使用指针访问结构的成员是如此普遍, 以至于 C 为此提供了一个特殊的运算符. 
+为了便于使用指针访问结构体的成员, C提供了名为**右箭头选择(->)**的运算符. 
 
-此运算符称为**右箭头选择**, 由一个`-`后跟`>`组成. 
-
-使用`->`运算符, 可以写
+使用`->`运算符: 
 
 `new_node->value = 10;`
 
