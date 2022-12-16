@@ -1293,7 +1293,7 @@ i = (+k);
 
 当空参数是#或##运算符的操作数时, 适用特殊规则. 
 
-#运算符将空参数"字符串化", 则结果为"" (空字符串): 
+`#`运算符将空参数"字符串化", 则结果为"" (空字符串): 
 
 ```C
 #define MK_STR(x) #x
@@ -1314,7 +1314,7 @@ char empty_string[] = "";
 
 ---
 
-##运算符之后的一个实际参数为空, 则将其替换为不可见的"位置标记". 
+`##`运算符之后的一个实际参数为空, 则将其替换为不可见的"位置标记". 
 
 将普通标记与位置标记连接得到的还是原始的标记(位置标记消失). 
 
@@ -1481,7 +1481,7 @@ C 预处理器识别许多支持条件编译的指令.
 #define DEBUG 1
 ```
 
-#if - #endif对包围每组printf调用: 
+`#if - #endif`对包围每组printf调用: 
 ```C
 #if DEBUG
 printf("Value of i: %d\n", i);
@@ -1514,7 +1514,8 @@ printf("Value of j: %d\n", j);
 
 ---
 
-#if和#endif指令的一般形式: 
+`#if`和#endif指令的一般形式: 
+
 ```C
 #if 常量表达式
 #endif
@@ -1534,7 +1535,7 @@ printf("Value of j: %d\n", j);
 
 ---
 
-#if指令将未定义的标识符视为值为 0 的宏. 
+`#if`指令将未定义的标识符视为值为 0 的宏. 
 
 如果省略DEBUG的定义, 测试
 ```C
@@ -1547,6 +1548,7 @@ printf("Value of j: %d\n", j);
 #if !DEBUG
 ```
 将会成功. 
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1597,7 +1599,7 @@ DEBUG两侧的括号不是必需的:
 
 ---
 
-#ifdef指令测试标识符当前是否定义为宏: 
+`#ifdef`指令测试标识符当前是否定义为宏: 
 ```C
 #ifdef 标识符
 ```
@@ -1607,7 +1609,7 @@ DEBUG两侧的括号不是必需的:
 #if defined(identifier)
 ```
 
-#ifndef指令测试标识符是否未定义为宏: 
+`#ifndef`指令测试标识符是否未定义为宏: 
 ```C
 #ifndef identifier
 ```
@@ -1768,7 +1770,7 @@ Lines containing comments
 
 ---
 
-#error指令的形式:  
+`#error`指令的形式: 
 `#error message`
 
 message是任何标记序列. 
@@ -1785,7 +1787,7 @@ message是任何标记序列.
 
 ---
 
-#error指令经常与条件编译结合使用. 
+`#error`指令经常与条件编译结合使用. 
 
 使用#error指令测试int类型最大值的示例: 
 ```C
@@ -1802,7 +1804,7 @@ message是任何标记序列.
 
 ---
 
-#error指令经常出现在#if - #elif - #else序列的#else部分: 
+`#error`指令经常出现在#if - #elif - #else序列的#else部分: 
 ```C
 #if defined(WIN32)
 …
@@ -1825,12 +1827,12 @@ message是任何标记序列.
 
 `#line`指令用于改变程序行的编号方式. 
 
-#line指令的第一种形式:  
+`#line`指令的第一种形式:  
 `#line n`
 
 程序中的后续行将编号为n、n + 1、n + 2 等等. 
 
-#line指令的第二种形式:   
+`#line`指令的第二种形式:   
 `#line n "file"`
 
 后续行会被认为来自file, 行号从n开始. 
@@ -1852,7 +1854,7 @@ message是任何标记序列.
 
 在foo.c的第 5 行检测到错误, 则该出错消息会指向bar.c的第 13 行. 
 
-#line指令主要由生成 C 代码作为输出的程序使用. 
+`#line`指令主要由生成 C 代码作为输出的程序使用. 
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1885,7 +1887,7 @@ y.tab.c编译期间产生的错误消息将指向原始文件中的行.
 `#pragma`指令的形式:  
 `#pragma 标记`
 
-#pragma指令可以非常简单(单个标记), 也可以更复杂:  
+`#pragma`指令可以非常简单(单个标记), 也可以更复杂:  
 `#pragma data(heap_size => 1000, stack_size => 2000)`
 
 <!-- slide vertical=true data-notes="" -->
@@ -1972,7 +1974,5 @@ _Pragma表达式具有以下形式:
 传递给DO_PRAGMA的标记被字符串化为"GCC dependency \"parse.y\"". 
 
 `_Pragma`运算符对该字符串进行去字符串化, 生成`#pragma`指令. 
-
-<!-- slide vertical=true data-notes="" -->
 
 
