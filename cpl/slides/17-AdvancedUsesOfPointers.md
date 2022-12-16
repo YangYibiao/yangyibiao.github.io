@@ -550,7 +550,8 @@ calloc的规则:
 
 `a = calloc(n, sizeof(int));`
 
-以1作为第一个参数调用calloc, 可以为任何类型的数据项分配空间: 
+以1作为第一个参数调用calloc, 可为任何类型数据项分配空间: 
+
 ```C
 struct point { int x, y; } *p;
 
