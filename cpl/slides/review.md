@@ -534,16 +534,16 @@ void *binary_search(const void *base, const void *key, int nelem, int size, Comp
   const char *p = (const char *) base;
   int n = nelem;
   for (; n > 0;) {
-    int mid = n >> 1;
-    const char *q = p + size * mid;
+    int mid = n >> 1; // 中间位置 或 n / 2
+    const char *q = p + size * mid; // q指向的内存地址为 p + size * mid
     const int val = cmp(key, q);
-    if (val < 0) { // key小于当前q指向的元素
+    if (val == 0) { // key与q相等, 直接返回当前指针q
+      return q;
+    } else if (val < 0) { // key小于当前q指向的元素
       n = mid; // 前面还剩余mid个元素, 下标标号为[0, 1, 2, ..., mid - 1]
     } else if (val > 0) { // key大于当前q指向的元素
       p = q + size; // 从q的下一个元素开始寻找
       n -= (mid + 1); // 后面还剩余n - (mid + 1)个元素, 下标标号为 [mid + 1, mid + 2, ... n - 1]
-    } else if (val == 0) { // key与q相等, 直接返回当前指针q
-      return q;
     }
   }
 
@@ -555,13 +555,13 @@ int main() {
   char arr_str[8][6] = {"abc", "def", "hij", "lmn", "opq", "rst", "uvw", "xyz"};
 
   int key_int = 44; // 查找int
-  int *ki = binary_search(arr_int, &key_int, 10, 4, compare_int);
+  int *ki = binary_search(arr_int, &key_int, 10, sizeof(int), compare_int);
   if (ki) {
     printf("%d\n", *ki);
   }
 
   char key_str[6] = "abc"; // 查找字符串
-  char *ks = binary_search(arr_str, key_str, 8, 6, compare_str);
+  char *ks = binary_search(arr_str, key_str, 8, sizeof(char[6]), compare_str);
   if (ks) {
     printf("%s\n", ks);
   }
