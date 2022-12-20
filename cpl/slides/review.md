@@ -502,7 +502,7 @@ int main()
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 二分查找(递归)
+##### 二分查找(基于函数指针的通用实现)
 
 ---
 
@@ -554,16 +554,16 @@ int main() {
   int arr_int[10] = {10, 14, 19, 26, 27, 31, 33, 35, 42, 44};
   char arr_str[8][6] = {"abc", "def", "hij", "lmn", "opq", "rst", "uvw", "xyz"};
 
-  int key_int = 44;
+  int key_int = 44; // 查找int
   int *ki = binary_search(arr_int, &key_int, 10, 4, compare_int);
   if (ki) {
-      printf("%d\n", *ki);
+    printf("%d\n", *ki);
   }
 
-  char key_str[6] = "abc";
+  char key_str[6] = "abc"; // 查找字符串
   char *ks = binary_search(arr_str, key_str, 8, 6, compare_str);
   if (ks) {
-      printf("%s\n", ks);
+    printf("%s\n", ks);
   }
 
   return 0;
