@@ -530,20 +530,36 @@ int compare_str(void *a, const void *b) {
   return strcmp(stra, strb);
 }
 
-void *binary_search(const void *base, const void *key, int nelem, int size, CompareFunc cmp) {
+void *binary_search(const void *key, const void *base, size_t nelem, size_t size, CompareFunc cmp) {
+  // 初始化数组首地址p为0号元素地址base和数组元素个数nelem
   const void *p = base;
-  int n = nelem;
-  while (n > 0) { // 当要寻找的数组长度大于等于1就继续二分查找
-    int mid = n >> 1; // 中间位置 或 n / 2
-    const void *q = p + size * mid; // q指向的内存地址为 p + size * mid
-    int val = cmp(key, q); // 比较key与当前q指向的元素大小
-    if (val == 0) { // key与q相等, 直接返回当前指针q
+  size_t n = nelem; 
+  // 从内存地址p开始，依次比较后n个元素
+  // 只要数组长度大于等于1就继续二分查找
+  while (n > 0) {
+    // 从最中间的元素开始比较
+    size_t mid = n >> 1;
+    // 第mid号元素的地址为p + size * mid
+    const void *q = p + size * mid; 
+    // 比较key与当前q指向的元素大小
+    int val = cmp(key, q);
+    if (val < 0) {
+      /*
+      * key小于当前q指向的元素，只需寻找mid之前的元素
+      * 需寻找数组元素下标为[0, 1, 2, ..., mid - 1]的元素
+      * 前面还剩余mid个元素
+      */
+      n = mid;
+    } else if (val > 0) { 
+      /* 
+      * key大于当前q指向的元素，只需寻找mid之后的元素
+      * 需寻找数组元素下标为[mid + 1, mid + 2, ... n - 1]的元素
+      * 后面还剩余n - (mid + 1)个元素
+      */
+      p = q + size;
+      n -= (mid + 1);
+    } else if (val == 0) { // key与q相等, 直接返回当前指针q
       return q;
-    } else if (val < 0) { // key小于当前q指向的元素
-      n = mid; // 前面还剩余mid个元素, 下标标号为[0, 1, 2, ..., mid - 1]
-    } else if (val > 0) { // key大于当前q指向的元素
-      p = q + size; // 从q的下一个元素开始寻找
-      n -= (mid + 1); // 后面还剩余n - (mid + 1)个元素, 下标标号为 [mid + 1, mid + 2, ... n - 1]
     }
   }
 
@@ -555,13 +571,13 @@ int main() {
   char arr_str[8][6] = {"abc", "def", "hij", "lmn", "opq", "rst", "uvw", "xyz"};
 
   int key_int = 44; // 查找int
-  int *ki = binary_search(arr_int, &key_int, 10, sizeof(int), compare_int);
+  int *ki = binary_search(&key_int, arr_int, 10, sizeof(int), compare_int);
   if (ki) {
     printf("%d\n", *ki);
   }
 
   char key_str[6] = "abc"; // 查找字符串
-  char *ks = binary_search(arr_str, key_str, 8, sizeof(char[6]), compare_str);
+  char *ks = binary_search(key_str, arr_str, 8, sizeof(char[6]), compare_str);
   if (ks) {
     printf("%s\n", ks);
   }
