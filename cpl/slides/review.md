@@ -531,12 +531,12 @@ int compare_str(void *a, const void *b) {
 }
 
 void *binary_search(const void *base, const void *key, int nelem, int size, CompareFunc cmp) {
-  const char *p = (const char *) base;
+  const void *p = base;
   int n = nelem;
-  for (; n > 0;) {
+  while (n > 0) { // 当要寻找的数组长度大于等于1就继续二分查找
     int mid = n >> 1; // 中间位置 或 n / 2
-    const char *q = p + size * mid; // q指向的内存地址为 p + size * mid
-    const int val = cmp(key, q);
+    const void *q = p + size * mid; // q指向的内存地址为 p + size * mid
+    int val = cmp(key, q); // 比较key与当前q指向的元素大小
     if (val == 0) { // key与q相等, 直接返回当前指针q
       return q;
     } else if (val < 0) { // key小于当前q指向的元素
