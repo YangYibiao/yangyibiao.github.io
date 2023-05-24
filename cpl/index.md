@@ -46,7 +46,7 @@
 | 第十讲  | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | 结构体、联合、枚举等 |
 |   ^    | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | 动态存储分配、空间释放等 |
 | 第十一讲  | [链表](slides/17-AdvancedUsesOfPointers.html)   | 动态存储分配、空间释放等 |
-| 第十二讲  | [宏](slides/14-Processor.html)   | 预处理宏等 |
+| 第十二讲  | [宏](slides/14-Preprocessor.html)   | 预处理宏等 |
 |   ^     | [大型程序](slides/15-WritingLargePrograms.html)   | 多文件组织等 |
 | 第十三讲  | [声明](slides/18-Declarations.html)   | auto, extern, register等 |
 | ^ | [底层程序设计](slides/20-LowLevelProgramming.html)   | 位运算等 |
