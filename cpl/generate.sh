@@ -3,3 +3,4 @@ for i in {1..9}; do
 done
 mpe2html slides/10.md 1
 mpe2html index.md 1
+mpe2html slides/01-IntroducingC.md 1
