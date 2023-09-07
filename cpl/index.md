@@ -1,7 +1,7 @@
 @import "css/theme/solarized.css"
 @import "css/index.css"
 
-## C语言程序设计基础 <span style="font-weight:900">2022</span> 秋
+## C语言程序设计基础 <span style="font-weight:900">2023</span> 秋
 
 ---
 
@@ -9,7 +9,7 @@
 
 授课：杨已彪 _yangyibiao@nju.edu.cn_
 
-- 42 学时理论，周四 2-4 节课 (第 3 ~ 16 周)
+- 48 学时理论，周二 5-7 节课 (第 2 ~ 17 周)
 
 <div class="top-2"></div>
 
@@ -66,7 +66,9 @@
 
 #### 答疑安排
 
-<div class="threelines outline head-highlight" style="width=400pt">
+待定
+
+<!-- <div class="threelines outline head-highlight" style="width=400pt">
 
 | 答疑时间     | 周一 | 周二 | 周三 | 周四 | 周五 | 周六 | 周日 |
 | :--:        | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -78,6 +80,6 @@
 | 18:30-20:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼511) | &emsp; |蒙民伟楼602(19:00~) | &emsp; |
 | 20:00-22:00 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | &emsp; | &emsp; |
 
-</div>
+</div> -->
 
 
