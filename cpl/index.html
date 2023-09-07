@@ -3,545 +3,213 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
-      
-      
-      
-      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
       
       
       
       
       
       <style>
-      /**
- * prism.js Github theme based on GitHub's theme.
- * @author Sam Clarke
- */
-code[class*="language-"],
-pre[class*="language-"] {
-  color: #333;
-  background: none;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.4;
-
-  -moz-tab-size: 8;
-  -o-tab-size: 8;
-  tab-size: 8;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-/* Code blocks */
-pre[class*="language-"] {
-  padding: .8em;
-  overflow: auto;
-  /* border: 1px solid #ddd; */
-  border-radius: 3px;
-  /* background: #fff; */
-  background: #f5f5f5;
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  padding: .1em;
-  border-radius: .3em;
-  white-space: normal;
-  background: #f5f5f5;
-}
-
-.token.comment,
-.token.blockquote {
-  color: #969896;
-}
-
-.token.cdata {
-  color: #183691;
-}
-
-.token.doctype,
-.token.punctuation,
-.token.variable,
-.token.macro.property {
-  color: #333;
-}
-
-.token.operator,
-.token.important,
-.token.keyword,
-.token.rule,
-.token.builtin {
-  color: #a71d5d;
-}
-
-.token.string,
-.token.url,
-.token.regex,
-.token.attr-value {
-  color: #183691;
-}
-
-.token.property,
-.token.number,
-.token.boolean,
-.token.entity,
-.token.atrule,
-.token.constant,
-.token.symbol,
-.token.command,
-.token.code {
-  color: #0086b3;
-}
-
-.token.tag,
-.token.selector,
-.token.prolog {
-  color: #63a35c;
-}
-
-.token.function,
-.token.namespace,
-.token.pseudo-element,
-.token.class,
-.token.class-name,
-.token.pseudo-class,
-.token.id,
-.token.url-reference .token.variable,
-.token.attr-name {
-  color: #795da3;
-}
-
-.token.entity {
-  cursor: help;
-}
-
-.token.title,
-.token.title .token.punctuation {
-  font-weight: bold;
-  color: #1d3e81;
-}
-
-.token.list {
-  color: #ed6a43;
-}
-
-.token.inserted {
-  background-color: #eaffea;
-  color: #55a532;
-}
-
-.token.deleted {
-  background-color: #ffecec;
-  color: #bd2c00;
-}
-
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-
-/* JSON */
-.language-json .token.property {
-  color: #183691;
-}
-
-.language-markup .token.tag .token.punctuation {
-  color: #333;
-}
-
-/* CSS */
-code.language-css,
-.language-css .token.function {
-  color: #0086b3;
-}
-
-/* YAML */
-.language-yaml .token.atrule {
-  color: #63a35c;
-}
-
-code.language-yaml {
-  color: #183691;
-}
-
-/* Ruby */
-.language-ruby .token.function {
-  color: #333;
-}
-
-/* Markdown */
-.language-markdown .token.url {
-  color: #795da3;
-}
-
-/* Makefile */
-.language-makefile .token.symbol {
-  color: #795da3;
-}
-
-.language-makefile .token.variable {
-  color: #183691;
-}
-
-.language-makefile .token.builtin {
-  color: #0086b3;
-}
-
-/* Bash */
-.language-bash .token.keyword {
-  color: #0086b3;
-}
-
-/* highlight */
-pre[data-line] {
-  position: relative;
-  padding: 1em 0 1em 3em;
-}
-pre[data-line] .line-highlight-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  display: block;
-  width: 100%;
-}
-
-pre[data-line] .line-highlight {
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: inherit 0;
-  margin-top: 1em;
-  background: hsla(24, 20%, 50%,.08);
-  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-  pointer-events: none;
-  line-height: inherit;
-  white-space: pre;
-}
-
-pre[data-line] .line-highlight:before, 
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-start);
-  position: absolute;
-  top: .4em;
-  left: .6em;
-  min-width: 1em;
-  padding: 0 .5em;
-  background-color: hsla(24, 20%, 50%,.4);
-  color: hsl(24, 20%, 95%);
-  font: bold 65%/1.5 sans-serif;
-  text-align: center;
-  vertical-align: .3em;
-  border-radius: 999px;
-  text-shadow: none;
-  box-shadow: 0 1px white;
-}
-
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-end);
-  top: auto;
-  bottom: .4em;
-}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em!important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em!important;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em!important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([for=preview]) .code-chunk .btn-group{display:none}.markdown-preview:not([for=preview]) .code-chunk .status{display:none}.markdown-preview:not([for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
 /* Please visit the URL below for more information: */
 /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
 
       </style>
     </head>
     <body for="html-export">
-      <div class="mume markdown-preview  ">
+      <div class="crossnote markdown-preview  ">
       <link rel="stylesheet" href="css/theme/solarized.css">
 <link rel="stylesheet" href="css/index.css">
-<h2 class="mume-header" id="c%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80-span-stylefont-weight9002022span-%E7%A7%8B">C&#x8BED;&#x8A00;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;&#x57FA;&#x7840; <span style="font-weight:900">2022</span> &#x79CB;</h2>
+<h2 class="crossnote-header" id="c%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80-span-stylefont-weight9002023span-%E7%A7%8B">C语言程序设计基础 <span style="font-weight:900">2023</span> 秋</h2>
 
 <hr>
-<h4 class="mume-header" id="%E6%A6%82%E5%86%B5">&#x6982;&#x51B5;</h4>
+<h4 class="crossnote-header" id="%E6%A6%82%E5%86%B5">概况</h4>
 
-<p>&#x6388;&#x8BFE;&#xFF1A;&#x6768;&#x5DF2;&#x5F6A; <em><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></em></p>
+<p>授课：杨已彪 <em><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></em></p>
 <ul>
-<li>42 &#x5B66;&#x65F6;&#x7406;&#x8BBA;&#xFF0C;&#x5468;&#x56DB; 2-4 &#x8282;&#x8BFE; (&#x7B2C; 3 ~ 16 &#x5468;)</li>
+<li>48 学时理论，周二 5-7 节课 (第 2 ~ 17 周)</li>
 </ul>
 <div class="top-2"></div>
-<h4 class="mume-header" id="%E8%80%83%E6%A0%B8">&#x8003;&#x6838;</h4>
+<h4 class="crossnote-header" id="%E8%80%83%E6%A0%B8">考核</h4>
 
-<p><a href="http://docs.cpl.icu/#/hw">&#x8003;&#x6838;&#x65B9;&#x5F0F;</a></p>
-<h4 class="mume-header" id="%E8%AF%BE%E4%BB%B6">&#x8BFE;&#x4EF6;</h4>
+<p><a href="http://docs.cpl.icu/#/hw">考核方式</a></p>
+<h4 class="crossnote-header" id="%E8%AF%BE%E4%BB%B6">课件</h4>
 
-<p>&#x5728;&#x7EBF;&#x6D4F;&#x89C8;&#xFF0C;Space &#x7FFB;&#x9875;&#xFF0C;Esc &#x5BFC;&#x822A;&#xFF0C;&#x53EF;&#x80FD;&#x9700;<mark>&#x79D1;&#x5B66;&#x4E0A;&#x7F51;</mark>&#x624D;&#x80FD;&#x6253;&#x5F00;</p>
+<p>在线浏览，Space 翻页，Esc 导航，可能需<mark>科学上网</mark>才能打开</p>
 <div class="threelines outline head-highlight">
 <table>
 <thead>
 <tr>
 <th style="text-align:center"></th>
-<th style="text-align:left">&#x8BB2;&#x4E49;</th>
-<th style="text-align:left">&#x5185;&#x5BB9;</th>
+<th style="text-align:left">讲义</th>
+<th style="text-align:left">内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x4E00;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/01-IntroducingC.html">&#x7EEA;&#x8BBA;</a></td>
-<td style="text-align:left">C&#x8BED;&#x8A00;&#x4ECB;&#x7ECD;</td>
+<td style="text-align:center" rowspan="2">第一讲</td>
+<td style="text-align:left"><a href="slides/01-IntroducingC.html">绪论</a></td>
+<td style="text-align:left">C语言介绍</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/02-CFundamentals.html">&#x57FA;&#x672C;&#x6982;&#x5FF5;</a></td>
-<td style="text-align:left">C&#x8BED;&#x8A00;&#x57FA;&#x672C;&#x6982;&#x5FF5;</td>
+<td style="text-align:left"><a href="slides/02-CFundamentals.html">基本概念</a></td>
+<td style="text-align:left">C语言基本概念</td>
 </tr>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x4E8C;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/03-FormattedIO.html">&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x5165;/&#x8F93;&#x51FA;</a></td>
-<td style="text-align:left">&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x5165;&#x8F93;&#x51FA;</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/04-Expressions.html">&#x8868;&#x8FBE;&#x5F0F;</a></td>
-<td style="text-align:left">&#x8FD0;&#x7B97;&#x7B26;&#x3001;&#x8868;&#x8FBE;&#x5F0F;&#x6C42;&#x503C;</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x4E09;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/05-SelectionStatements.html">&#x9009;&#x62E9;&#x8BED;&#x53E5;</a></td>
-<td style="text-align:left">&#x903B;&#x8F91;&#x8868;&#x8FBE;&#x5F0F;&#x3001;if&#x8BED;&#x53E5;&#x3001;switch&#x8BED;&#x53E5;</td>
+<td style="text-align:center" rowspan="2">第二讲</td>
+<td style="text-align:left"><a href="slides/03-FormattedIO.html">格式化输入/输出</a></td>
+<td style="text-align:left">格式化输入输出</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/06-Loops.html">&#x5FAA;&#x73AF;</a></td>
-<td style="text-align:left">while&#x8BED;&#x53E5;&#x3001;do-while&#x8BED;&#x53E5;&#x3001;for&#x8BED;&#x53E5;</td>
+<td style="text-align:left"><a href="slides/04-Expressions.html">表达式</a></td>
+<td style="text-align:left">运算符、表达式求值</td>
 </tr>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x56DB;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/07-BasicTypes.html">&#x57FA;&#x672C;&#x7C7B;&#x578B;</a></td>
-<td style="text-align:left">&#x6574;&#x6570;&#x7C7B;&#x578B;&#x3001;&#x6D6E;&#x70B9;&#x7C7B;&#x578B;&#x3001;&#x5B57;&#x7B26;&#x7C7B;&#x578B;&#x3001;&#x7C7B;&#x578B;&#x8F6C;&#x6362;</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/08-Arrays.html">&#x6570;&#x7EC4;</a></td>
-<td style="text-align:left">&#x4E00;&#x7EF4;&#x6570;&#x7EC4;</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x4E94;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/08-Arrays.html">&#x6570;&#x7EC4;</a></td>
-<td style="text-align:left">&#x591A;&#x7EF4;&#x6570;&#x7EC4;</td>
+<td style="text-align:center" rowspan="2">第三讲</td>
+<td style="text-align:left"><a href="slides/05-SelectionStatements.html">选择语句</a></td>
+<td style="text-align:left">逻辑表达式、if语句、switch语句</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/09-Functions.html">&#x51FD;&#x6570;</a></td>
-<td style="text-align:left">&#x51FD;&#x6570;&#x58F0;&#x660E;&#x3001;&#x5B9A;&#x4E49;&#x3001;&#x5F62;&#x53C2;&#x3001;&#x5B9E;&#x53C2;</td>
+<td style="text-align:left"><a href="slides/06-Loops.html">循环</a></td>
+<td style="text-align:left">while语句、do-while语句、for语句</td>
 </tr>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x516D;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/10-ProgramOrganization.html">&#x7A0B;&#x5E8F;&#x7ED3;&#x6784;</a></td>
-<td style="text-align:left">&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x3001;&#x5168;&#x90E8;&#x53D8;&#x91CF;&#x3001;&#x4F5C;&#x7528;&#x57DF;&#x7B49;</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/11-Pointers.html">&#x6307;&#x9488;</a></td>
-<td style="text-align:left">&#x6307;&#x9488;&#x53D8;&#x91CF;&#x3001;&#x6307;&#x9488;&#x8D4B;&#x503C;&#x3001;&#x6307;&#x9488;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x548C;&#x8FD4;&#x56DE;&#x503C;</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x4E03;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/11-Pointers.html">&#x6307;&#x9488;</a></td>
-<td style="text-align:left">&#x6307;&#x9488;&#x53D8;&#x91CF;&#x3001;&#x6307;&#x9488;&#x8D4B;&#x503C;&#x3001;&#x6307;&#x9488;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x548C;&#x8FD4;&#x56DE;&#x503C;</td>
+<td style="text-align:center" rowspan="2">第四讲</td>
+<td style="text-align:left"><a href="slides/07-BasicTypes.html">基本类型</a></td>
+<td style="text-align:left">整数类型、浮点类型、字符类型、类型转换</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/12-PointersAndArrays.html">&#x6307;&#x9488;&#x548C;&#x6307;&#x9488;&#x6570;&#x7EC4;</a></td>
-<td style="text-align:left">&#x6307;&#x9488;&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x3001;&#x6307;&#x9488;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x6570;&#x7EC4;&#x3001;&#x6570;&#x7EC4;&#x540D;&#x4F5C;&#x4E3A;&#x6307;&#x9488;&#x3001;&#x6307;&#x9488;&#x548C;&#x591A;&#x7EF4;&#x6570;&#x7EC4;</td>
+<td style="text-align:left"><a href="slides/08-Arrays.html">数组</a></td>
+<td style="text-align:left">一维数组</td>
 </tr>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x516B;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/12-PointersAndArrays.html">&#x6307;&#x9488;&#x548C;&#x6307;&#x9488;&#x6570;&#x7EC4;</a></td>
-<td style="text-align:left">&#x6307;&#x9488;&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x3001;&#x6307;&#x9488;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x6570;&#x7EC4;&#x3001;&#x6570;&#x7EC4;&#x540D;&#x4F5C;&#x4E3A;&#x6307;&#x9488;&#x3001;&#x6307;&#x9488;&#x548C;&#x591A;&#x7EF4;&#x6570;&#x7EC4;</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/13-Strings.html">&#x5B57;&#x7B26;&#x4E32;</a></td>
-<td style="text-align:left">&#x5B57;&#x7B26;&#x4E32;&#x53D8;&#x91CF;&#x3001;&#x8BFB;&#x5199;&#x7B49;</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x4E5D;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/13-Strings.html">&#x5B57;&#x7B26;&#x4E32;</a></td>
-<td style="text-align:left">&#x5B57;&#x7B26;&#x4E32;&#x53D8;&#x91CF;&#x3001;&#x8BFB;&#x5199;&#x7B49;</td>
+<td style="text-align:center" rowspan="2">第五讲</td>
+<td style="text-align:left"><a href="slides/08-Arrays.html">数组</a></td>
+<td style="text-align:left">多维数组</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/16-StructuresUnionsAndEnumerations.html">&#x7ED3;&#x6784;&#x3001;&#x8054;&#x5408;&#x3001;&#x679A;&#x4E3E;</a></td>
-<td style="text-align:left">&#x7ED3;&#x6784;&#x4F53;&#x3001;&#x8054;&#x5408;&#x3001;&#x679A;&#x4E3E;&#x7B49;</td>
+<td style="text-align:left"><a href="slides/09-Functions.html">函数</a></td>
+<td style="text-align:left">函数声明、定义、形参、实参</td>
 </tr>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x5341;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/16-StructuresUnionsAndEnumerations.html">&#x7ED3;&#x6784;&#x3001;&#x8054;&#x5408;&#x3001;&#x679A;&#x4E3E;</a></td>
-<td style="text-align:left">&#x7ED3;&#x6784;&#x4F53;&#x3001;&#x8054;&#x5408;&#x3001;&#x679A;&#x4E3E;&#x7B49;</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/17-AdvancedUsesOfPointers.html">&#x6307;&#x9488;&#x7684;&#x9AD8;&#x7EA7;&#x5E94;&#x7528;</a></td>
-<td style="text-align:left">&#x52A8;&#x6001;&#x5B58;&#x50A8;&#x5206;&#x914D;&#x3001;&#x7A7A;&#x95F4;&#x91CA;&#x653E;&#x7B49;</td>
-</tr>
-<tr>
-<td style="text-align:center">&#x7B2C;&#x5341;&#x4E00;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/17-AdvancedUsesOfPointers.html">&#x94FE;&#x8868;</a></td>
-<td style="text-align:left">&#x52A8;&#x6001;&#x5B58;&#x50A8;&#x5206;&#x914D;&#x3001;&#x7A7A;&#x95F4;&#x91CA;&#x653E;&#x7B49;</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x5341;&#x4E8C;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/14-Preprocessor.html">&#x5B8F;</a></td>
-<td style="text-align:left">&#x9884;&#x5904;&#x7406;&#x5B8F;&#x7B49;</td>
+<td style="text-align:center" rowspan="2">第六讲</td>
+<td style="text-align:left"><a href="slides/10-ProgramOrganization.html">程序结构</a></td>
+<td style="text-align:left">局部变量、全部变量、作用域等</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/15-WritingLargePrograms.html">&#x5927;&#x578B;&#x7A0B;&#x5E8F;</a></td>
-<td style="text-align:left">&#x591A;&#x6587;&#x4EF6;&#x7EC4;&#x7EC7;&#x7B49;</td>
+<td style="text-align:left"><a href="slides/11-Pointers.html">指针</a></td>
+<td style="text-align:left">指针变量、指针赋值、指针作为参数和返回值</td>
 </tr>
 <tr>
-<td style="text-align:center" rowspan="2">&#x7B2C;&#x5341;&#x4E09;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/18-Declarations.html">&#x58F0;&#x660E;</a></td>
-<td style="text-align:left">auto, extern, register&#x7B49;</td>
+<td style="text-align:center" rowspan="2">第七讲</td>
+<td style="text-align:left"><a href="slides/11-Pointers.html">指针</a></td>
+<td style="text-align:left">指针变量、指针赋值、指针作为参数和返回值</td>
 </tr>
 <tr>
 
-<td style="text-align:left"><a href="slides/20-LowLevelProgramming.html">&#x5E95;&#x5C42;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;</a></td>
-<td style="text-align:left">&#x4F4D;&#x8FD0;&#x7B97;&#x7B49;</td>
+<td style="text-align:left"><a href="slides/12-PointersAndArrays.html">指针和指针数组</a></td>
+<td style="text-align:left">指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组</td>
 </tr>
 <tr>
-<td style="text-align:center">&#x7B2C;&#x5341;&#x56DB;&#x8BB2;</td>
-<td style="text-align:left"><a href="slides/review.html">&#x89E3;&#x91CA;&#x590D;&#x6742;&#x58F0;&#x660E;</a></td>
-<td style="text-align:left">&#x89E3;&#x91CA;&#x590D;&#x6742;&#x58F0;&#x660E;&#x3001;&#x4E8C;&#x5206;&#x67E5;&#x627E;&#x7B49;</td>
+<td style="text-align:center" rowspan="2">第八讲</td>
+<td style="text-align:left"><a href="slides/12-PointersAndArrays.html">指针和指针数组</a></td>
+<td style="text-align:left">指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组</td>
 </tr>
 <tr>
-<td style="text-align:center">&#x5176;&#x4ED6;</td>
-<td style="text-align:left"><a href="slides/22-InputOutput.html">&#x5E95;&#x5C42;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;</a></td>
-<td style="text-align:left">&#x6587;&#x4EF6;&#x64CD;&#x4F5C;</td>
+
+<td style="text-align:left"><a href="slides/13-Strings.html">字符串</a></td>
+<td style="text-align:left">字符串变量、读写等</td>
 </tr>
 <tr>
-<td style="text-align:center">&#x2026;</td>
-<td style="text-align:left">&#x2026;</td>
-<td style="text-align:left">&#x2026;</td>
+<td style="text-align:center" rowspan="2">第九讲</td>
+<td style="text-align:left"><a href="slides/13-Strings.html">字符串</a></td>
+<td style="text-align:left">字符串变量、读写等</td>
+</tr>
+<tr>
+
+<td style="text-align:left"><a href="slides/16-StructuresUnionsAndEnumerations.html">结构、联合、枚举</a></td>
+<td style="text-align:left">结构体、联合、枚举等</td>
+</tr>
+<tr>
+<td style="text-align:center" rowspan="2">第十讲</td>
+<td style="text-align:left"><a href="slides/16-StructuresUnionsAndEnumerations.html">结构、联合、枚举</a></td>
+<td style="text-align:left">结构体、联合、枚举等</td>
+</tr>
+<tr>
+
+<td style="text-align:left"><a href="slides/17-AdvancedUsesOfPointers.html">指针的高级应用</a></td>
+<td style="text-align:left">动态存储分配、空间释放等</td>
+</tr>
+<tr>
+<td style="text-align:center">第十一讲</td>
+<td style="text-align:left"><a href="slides/17-AdvancedUsesOfPointers.html">链表</a></td>
+<td style="text-align:left">动态存储分配、空间释放等</td>
+</tr>
+<tr>
+<td style="text-align:center" rowspan="2">第十二讲</td>
+<td style="text-align:left"><a href="slides/14-Preprocessor.html">宏</a></td>
+<td style="text-align:left">预处理宏等</td>
+</tr>
+<tr>
+
+<td style="text-align:left"><a href="slides/15-WritingLargePrograms.html">大型程序</a></td>
+<td style="text-align:left">多文件组织等</td>
+</tr>
+<tr>
+<td style="text-align:center" rowspan="2">第十三讲</td>
+<td style="text-align:left"><a href="slides/18-Declarations.html">声明</a></td>
+<td style="text-align:left">auto, extern, register等</td>
+</tr>
+<tr>
+
+<td style="text-align:left"><a href="slides/20-LowLevelProgramming.html">底层程序设计</a></td>
+<td style="text-align:left">位运算等</td>
+</tr>
+<tr>
+<td style="text-align:center">第十四讲</td>
+<td style="text-align:left"><a href="slides/review.html">解释复杂声明</a></td>
+<td style="text-align:left">解释复杂声明、二分查找等</td>
+</tr>
+<tr>
+<td style="text-align:center">其他</td>
+<td style="text-align:left"><a href="slides/22-InputOutput.html">底层程序设计</a></td>
+<td style="text-align:left">文件操作</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:left">…</td>
+<td style="text-align:left">…</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h4 class="mume-header" id="%E6%95%99%E6%9D%90">&#x6559;&#x6750;</h4>
+<h4 class="crossnote-header" id="%E6%95%99%E6%9D%90">教材</h4>
 
-<p><a href="book/.pdf"><em>C&#x8BED;&#x8A00;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;&#x73B0;&#x4EE3;&#x65B9;&#x6CD5; &#x7B2C;&#x4E8C;&#x7248; &#x4FEE;&#x8BA2;&#x7248;</em></a> <br>K.N. King &#x8457;&#xFF0C;&#x5415;&#x79C0;&#x5CF0;&#x3001;&#x9EC4;&#x5029; &#x8BD1;</p>
-<h4 class="mume-header" id="%E5%9C%A8%E7%BA%BF%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F">&#x5728;&#x7EBF;&#x8BC4;&#x6D4B;&#x7CFB;&#x7EDF;</h4>
+<p><a href="book/.pdf"><em>C语言程序设计现代方法 第二版 修订版</em></a> <br>K.N. King 著，吕秀峰、黄倩 译</p>
+<h4 class="crossnote-header" id="%E5%9C%A8%E7%BA%BF%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F">在线评测系统</h4>
 
 <p><a href="https://oj.cpl.icu/">https://oj.cpl.icu</a></p>
-<h4 class="mume-header" id="%E7%AD%94%E7%96%91%E5%AE%89%E6%8E%92">&#x7B54;&#x7591;&#x5B89;&#x6392;</h4>
+<h4 class="crossnote-header" id="%E7%AD%94%E7%96%91%E5%AE%89%E6%8E%92">答疑安排</h4>
 
-<div class="threelines outline head-highlight" style="width=400pt">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">&#x7B54;&#x7591;&#x65F6;&#x95F4;</th>
-<th style="text-align:left">&#x5468;&#x4E00;</th>
-<th style="text-align:left">&#x5468;&#x4E8C;</th>
-<th style="text-align:left">&#x5468;&#x4E09;</th>
-<th style="text-align:left">&#x5468;&#x56DB;</th>
-<th style="text-align:left">&#x5468;&#x4E94;</th>
-<th style="text-align:left">&#x5468;&#x516D;</th>
-<th style="text-align:left">&#x5468;&#x65E5;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">08:00-10:00</td>
-<td style="text-align:left">&#x674E;&#x6E05;&#x626C;(&#x7EBF;&#x4E0A;)</td>
-<td style="text-align:left">&#x674E;&#x6E05;&#x626C;(&#x7EBF;&#x4E0A;)</td>
-<td style="text-align:left">&#x59DC;&#x948A;&#x709C;(&#x7EBF;&#x4E0A;)</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-</tr>
-<tr>
-<td style="text-align:center">10:00-12:00</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-</tr>
-<tr>
-<td style="text-align:center">12:00-14:00</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-</tr>
-<tr>
-<td style="text-align:center">14:00-16:00</td>
-<td style="text-align:left">&#x59DC;&#x948A;&#x709C;(&#x7EBF;&#x4E0A;)</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x8306;&#x6587;&#x6770;(&#x7EBF;&#x4E0A;)</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602(15:00~)</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602(14:30~)</td>
-</tr>
-<tr>
-<td style="text-align:center">16:00-18:00</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x6768;&#x5DF2;&#x5F6A;(&#x5357;&#x56ED;&#x7EFC;&#x5408;&#x697C;509)</td>
-<td style="text-align:left">&#x8306;&#x6587;&#x6770;(&#x7EBF;&#x4E0A;)</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-</tr>
-<tr>
-<td style="text-align:center">18:30-20:00</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x6768;&#x5DF2;&#x5F6A;(&#x5357;&#x56ED;&#x7EFC;&#x5408;&#x697C;511)</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602(19:00~)</td>
-<td style="text-align:left">&#x2003;</td>
-</tr>
-<tr>
-<td style="text-align:center">20:00-22:00</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602</td>
-<td style="text-align:left">&#x8499;&#x6C11;&#x4F1F;&#x697C;602</td>
-<td style="text-align:left">&#x2003;</td>
-<td style="text-align:left">&#x2003;</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>待定</p>
 
       </div>
       <div class="md-sidebar-toc">
 <div class="md-toc">
-<div class="md-toc-link-wrapper" style="padding:0.25rem 0;">
-          <a href="#c&#x8BED;&#x8A00;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;&#x57FA;&#x7840;-span-stylefont-weight9002022span-&#x79CB;" class="md-toc-link" style="padding-left: 0px;;">
-            <p>C&#x8BED;&#x8A00;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;&#x57FA;&#x7840; <span style="font-weight:900">2022</span> &#x79CB;</p>
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#c语言程序设计基础-span-stylefont-weight9002023span-秋" class="md-toc-link">
+            <p>C语言程序设计基础 <span style="font-weight:900">2023</span> 秋</p>
 
           </a></div>
 </div>
 </div>
-      <a id="sidebar-toc-btn">&#x2261;</a>
-    
-    
+      <a id="sidebar-toc-btn">≡</a>
     
     
     

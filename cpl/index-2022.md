@@ -66,9 +66,7 @@
 
 #### 答疑安排
 
-待定
-
-<!-- <div class="threelines outline head-highlight" style="width=400pt">
+<div class="threelines outline head-highlight" style="width=400pt">
 
 | 答疑时间     | 周一 | 周二 | 周三 | 周四 | 周五 | 周六 | 周日 |
 | :--:        | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -80,6 +78,6 @@
 | 18:30-20:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼511) | &emsp; |蒙民伟楼602(19:00~) | &emsp; |
 | 20:00-22:00 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | &emsp; | &emsp; |
 
-</div> -->
+</div>
 
 
