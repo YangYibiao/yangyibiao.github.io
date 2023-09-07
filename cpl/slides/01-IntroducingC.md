@@ -63,7 +63,7 @@ presentation:
 
 - 实验: 在线测试(OJ: Online Judge)
 
-我的启示 =="Talk is cheap. Show me the code."== -- Linus Torvalds
+<span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 我的启示 ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
 
 
