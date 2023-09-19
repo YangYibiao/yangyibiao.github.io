@@ -64,7 +64,7 @@ presentation:
 - 实验: 在线测试(OJ: Online Judge)
 
 <span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
-我的启示 ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
+<span class="blue">:fa-lightbulb-o:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
 
 
 
@@ -240,7 +240,7 @@ Java基于C++, 因此继承了许多C特性
 
 C#是从C++和Java派生的新的语言
 
-Perl吸收了C的许多特性。
+Perl吸收了C的许多特性
 
 
 
@@ -284,7 +284,7 @@ Perl吸收了C的许多特性。
 
 <!-- slide data-notes="" -->
 
-##### C的弱点
+##### C的缺点
 
 ---
 
