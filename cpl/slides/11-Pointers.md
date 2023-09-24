@@ -563,7 +563,7 @@ scanf("%d", &p); /*** 错误的 ***/
 向函数传递需要的指针却失败了可能会导致灾难性的后果. 
 缺少&运算符的decompose调用: 
 ```C
-decompose(3.14159, i, d)；
+decompose(3.14159, i, d); 
 ```
 当decompose在 `*int_part` 和 `*frac_part` 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 
 如果我们为decompose提供了原型, 编译器将检测到错误. 
