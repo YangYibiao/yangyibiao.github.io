@@ -122,7 +122,7 @@ presentation:
 | 符号 | 含义 |
 | :-- | :-- |
 | `<` | 小于 |
-| `>` | 大于 |
+| '>' | 大于 |
 | `<=`| 小于或等于 |
 | `>=`| 大于或等于 |
 
@@ -176,7 +176,7 @@ i + j < k – 1
 
 - 并非测试`j`是否位于`i`与`k`之间
 
-我的批注 正确的表达式是 `i < j && j < k`
+<span class="yellow">:fa-weixin:</span> 正确的表达式是 `i < j && j < k`
 
 
 
@@ -223,7 +223,7 @@ C 提供了两个判等运算符:
 | :-- | :-- |
 | `!` | 逻辑非 |
 | `&&` | 逻辑与 |
-| `||` | 逻辑或 |
+| `\|\|` | 逻辑或 |
 
 </div>
 
@@ -333,7 +333,7 @@ if (line_num == MAX_LINES)
   line_num = 0;
 ```
 
-我的批注 表达式两边的圆括号是必须的，它是`if`语句的组成部分
+<span class="yellow">:fa-weixin:</span> 表达式两边的圆括号是必须的，它是`if`语句的组成部分
 
 
 
@@ -344,7 +344,7 @@ if (line_num == MAX_LINES)
 
 ---
 
-我的启示 将`==`(判等)和`=`(赋值)混淆是常见的 ==C== 语言编程错误
+<span class="blue">:fa-lightbulb-o:</span> 将`==`(判等)和`=`(赋值)混淆是常见的 ==C== 语言编程错误
 
 ```C{.line-numbers}
 if (i == 0) …  
@@ -741,7 +741,7 @@ int main(void)
 
 ---
 
-我的启示 当 `if` 语句嵌套时, 千万当心出现"悬空else"问题
+<span class="blue">:fa-lightbulb-o:</span> 当 `if` 语句嵌套时, 千万当心出现"悬空else"问题
 
 ```C
 if (y != 0)
@@ -793,7 +793,7 @@ if (y != 0) {
   printf("Error: y is equal to 0\n");
 ```
 
-我的启示 `if`语句中使用大括号可以避免这一问题
+<span class="blue">:fa-lightbulb-o:</span> `if`语句中使用大括号可以避免这一问题
 
 
 
@@ -864,7 +864,7 @@ k = (i >= 0 ? i : 0) + j;   /* k is now 3 */
 
 ---
 
-我的启示 条件表达式往往会使程序更短但更难理解, 因此最好谨慎使用它们
+<span class="blue">:fa-lightbulb-o:</span> 条件表达式往往会使程序更短但更难理解, 因此最好谨慎使用它们
 
 条件表达式常用于返回语句: 
 

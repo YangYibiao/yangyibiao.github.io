@@ -161,7 +161,7 @@ int unsigned      int
 long int          unsigned long int
 ```
 
-我的批注 说明符的顺序无关紧要, 单词`int`可以省略(`long int`可以缩写为`long`)
+<span class="yellow">:fa-weixin:</span> 说明符的顺序无关紧要, 单词`int`可以省略(`long int`可以缩写为`long`)
 
 
 
@@ -709,7 +709,7 @@ double d;
 scanf("%lf", &d);
 ```
 
-我的批注 字母 $l$ 仅用于scanf函数格式串, 不用于printf函数格式串
+<span class="yellow">:fa-weixin:</span> 字母 $l$ 仅用于scanf函数格式串, 不用于printf函数格式串
 
 - printf函数格式串中, 转换e、f和g可用于写float或double类型的值
 
@@ -773,7 +773,7 @@ ch = '0';   /* 0 */
 ch = ' ';   /* 空格 */
 ```
 
-我的启示 字符常量需要用==单引号==括起来, 而不是双引号
+<span class="blue">:fa-lightbulb-o:</span> 字符常量需要用==单引号==括起来, 而不是双引号
 
 
 
@@ -1252,7 +1252,7 @@ while ((ch = getchar()) == ' ')
 
 ---
 
-我的启示 混合使用getchar和scanf时要小心
+<span class="blue">:fa-lightbulb-o:</span> 混合使用getchar和scanf时要小心
 
 scanf函数倾向于遗留下它==扫视==过但未读取的字符(包括换行符): 
 
@@ -1948,7 +1948,7 @@ Quantity q;
 typedef long Quantity;
 ```
 
-我的启示 更改Quantity的定义可能会影响Quantity类型变量的使用方式
+<span class="blue">:fa-lightbulb-o:</span> 更改Quantity的定义可能会影响Quantity类型变量的使用方式
 
 
 
