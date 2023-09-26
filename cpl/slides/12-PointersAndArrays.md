@@ -222,9 +222,9 @@ i = q - p; /* i is -4 */
 
 ---
 
-我的启示 对不指向数组元素的指针执行算术运算导致未定义的行为
+<span class="blue">:fa-lightbulb-o:</span> 对不指向数组元素的指针执行算术运算导致未定义的行为
 
-我的启示 只有两个指针指向同一个数组时, 把它们相减才有意义
+<span class="blue">:fa-lightbulb-o:</span> 只有两个指针指向同一个数组时, 把它们相减才有意义
 
 
 <!-- slide vertical=true data-notes="" -->

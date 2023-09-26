@@ -1239,7 +1239,7 @@ int sum_array(int n, int a[n])
 
 第一个参数(n)的值指定第二个参数(a)的长度. 
 
-我的启示 这里交换了参数顺序, 使用变长数组形式参数时, 顺序很重要. 
+<span class="blue">:fa-lightbulb-o:</span> 这里交换了参数顺序, 使用变长数组形式参数时, 顺序很重要. 
 
 <!-- slide vertical=true data-notes="" -->
 

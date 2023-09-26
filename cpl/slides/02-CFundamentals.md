@@ -358,7 +358,7 @@ printf("Hello, World!\n");
 
 ---
 
-我的批注 忘记终止注释可能会导致编译器忽略程序部分代码
+<span class="yellow">:fa-weixin:</span> 忘记终止注释可能会导致编译器忽略程序部分代码
 
 ```C{.line-numbers}
 /* This is a comment */
@@ -419,7 +419,7 @@ printf("Hello, World!\n");
 
 - ==float== 在计算机中是近似存储的
 
-我的批注 需要注意: 
+<span class="yellow">:fa-weixin:</span> 需要注意: 
 
 - ==float== 型变量所存储的数值往往只是实际数值的一个近似值
 - ==float== 型变量中存储0.1, 可能发现变量值为$0.099 999 999 999 999 87$
@@ -447,7 +447,7 @@ int main(void)
 }
 ```
 
-我的批注 在C99中, 声明可以不必出现在语句之前
+<span class="yellow">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
 
 
 
@@ -705,7 +705,7 @@ printf("%d", volume);
 printf("%d", height * length * width);
 ```
 
-我的启示 ==C== 语言的一个通用原则: ==在任何需要数值的地方, 都可使用具有相同类型的表达式==
+<span class="blue">:fa-lightbulb-o:</span> ==C== 语言的一个通用原则: ==在任何需要数值的地方, 都可使用具有相同类型的表达式==
 
 
 
@@ -726,7 +726,7 @@ scanf("%d", &i);
 /* reads an integer; stores into i */
 ```
 
-我的批注 ==&== 符号通常(但不总是)在使用 ==`scanf`== 时是必需的
+<span class="yellow">:fa-weixin:</span> ==&== 符号通常(但不总是)在使用 ==`scanf`== 时是必需的
 
 
 
@@ -826,7 +826,7 @@ weight = (volume + 166 - 1) / 166;
 #define SCALE_FACTOR (5.0f / 9.0f)
 ```
 
-我的批注 宏的名字只用大写字母是常见的约定
+<span class="yellow">:fa-weixin:</span> 宏的名字只用大写字母是常见的约定
 
 
 
@@ -885,7 +885,7 @@ int main(void)
 
 - `10times get-next-char`
 
-我的批注 避免使用以下划线开头的标识符
+<span class="yellow">:fa-weixin:</span> 避免使用以下划线开头的标识符
 
 
 
@@ -1025,7 +1025,7 @@ printf("Celsius equivalent: %.1f\n", celsius);return 0;}
 
 - 以这种方式压缩程序不是一个好的风格
 
-我的启示 在程序中 ==添加空格和空行== 可以使其更易于阅读和理解.
+<span class="blue">:fa-lightbulb-o:</span> 在程序中 ==添加空格和空行== 可以使其更易于阅读和理解.
 
 
 
