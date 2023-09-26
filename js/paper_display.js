@@ -46,7 +46,7 @@ window.onload = function() {
                 <tr bgcolor='#ffffff'>\
                     <td width='60%' valign='middle'>\
                     <p>\
-                        <a href=" + url + " style='font-size:18px'>" + title + "</a> &nbsp&nbsp\
+                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
                         <br>" + author_str + 
                         "<br>\
                         <em>"+ publisher + "  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
