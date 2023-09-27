@@ -55,9 +55,9 @@ window.onload = function() {
                             <br>\
                             " + meta_str + " <br> \
                         </font>\
-                            <br>\
                         </td>\
                     </tr>\
+                    <br>\
                     "
                 } else {
                     html += 
@@ -72,9 +72,9 @@ window.onload = function() {
                             <br>\
                             " + meta_str + " <br> \
                         </font>\
-                            <br>\
                         </td>\
                     </tr>\
+                    <br>\
                     "
                 }
             }
