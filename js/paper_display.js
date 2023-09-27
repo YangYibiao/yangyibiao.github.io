@@ -17,6 +17,7 @@ window.onload = function() {
                 var year = obj[i].year
                 var equal = obj[i].equal
                 var tier = obj[i].tier
+                var highlight = obj[i].highlight
 
                 var equal_str = ""
                 if(equal == true) {
@@ -41,22 +42,41 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
             
 
-                html += 
-                "\
-                <tr bgcolor='#ffffff'>\
-                    <td width='60%' valign='middle'>\
-                    <p>\
-                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
-                        <br>" + author_str + 
-                        "<br>\
-                        <em>"+ publisher + "  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
-                        <br>\
-                        " + meta_str + " <br> \
-                    </font>\
-                        <br>\
-                    </td>\
-                </tr>\
-                "
+                if (highlight == true) {
+                    html += 
+                    "\
+                    <tr bgcolor='#ffffd0'>\
+                        <td width='60%' valign='middle'>\
+                        <p>\
+                            <a href=" + url + " style='font-size:18px'>" + title + "</a>\
+                            <br>" + author_str + 
+                            "<br>\
+                            <em>"+ publisher + "  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
+                            <br>\
+                            " + meta_str + " <br> \
+                        </font>\
+                            <br>\
+                        </td>\
+                    </tr>\
+                    "
+                } else {
+                    html += 
+                    "\
+                    <tr bgcolor='#ffffff'>\
+                        <td width='60%' valign='middle'>\
+                        <p>\
+                            <a href=" + url + " style='font-size:18px'>" + title + "</a>\
+                            <br>" + author_str + 
+                            "<br>\
+                            <em>"+ publisher + "  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
+                            <br>\
+                            " + meta_str + " <br> \
+                        </font>\
+                            <br>\
+                        </td>\
+                    </tr>\
+                    "
+                }
             }
             document.getElementById("paper").innerHTML = html;
         }
