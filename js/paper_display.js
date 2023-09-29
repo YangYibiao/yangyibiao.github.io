@@ -55,7 +55,7 @@ window.onload = function() {
                         "<br>\
                         <em>"+ publisher + "  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
                         <br>\
-                        " + meta_str + " <br> \
+                        " + meta_str + "\
                     </font>\
                     </td>\
                 </tr>\
