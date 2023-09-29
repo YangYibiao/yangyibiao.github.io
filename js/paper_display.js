@@ -41,17 +41,13 @@ window.onload = function() {
                 }
                 var meta_str = meta_array.join('  /  ')
 
+                var bgcolor_str = "'#ffffff'"
                 if (highlight == true) {
-                    html += 
-                    "\
-                    <tr bgcolor='#ffffd0'>"
-                } else {
-                    html += 
-                    "\
-                    <tr bgcolor='#ffffff'>"
+                    bgcolor_str = "'#ffffd0'"
                 }
                 html += 
                 "\
+                <tr bgcolor=" + bgcolor_str + ">\
                     <td width='60%' valign='middle'>\
                     <p>\
                         <a href=" + url + " style='font-size:18px'>" + title + "</a>\
