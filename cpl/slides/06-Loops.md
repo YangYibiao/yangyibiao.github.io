@@ -1454,3 +1454,35 @@ for (i = 10; i > 0; i--);       /*** WRONG ***/
 ```
 
 同样, 循环体只执行一次, 并打印与示例 3 中相同的信息. 
+
+
+
+<!-- slide vertical=true data-notes="" -->
+
+
+##### 习题1
+
+---
+
+for语句的输出?
+
+```C{.line-numbers}
+for (i = 5, j = i - 1; i > 0, j > 0; --i, j = i - 1)
+  printf("%d ", i);
+```
+
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 习题2
+
+---
+
+哪条语句和其他语句不等价（假设循环体一样）
+
+```C{.line-numbers}
+for (i = 0; i < 10; i++) { printf("%d", i); }
+for (i = 0; i < 10; ++i) { printf("%d", i); }
+for (i = 0; i++ < 10; ) { printf("%d", i); }
+```
