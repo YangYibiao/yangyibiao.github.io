@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int binary(int arr[], int l, int r, int x);
+int binary(int arr[], int l, int r, int k);
 
 int main(void)
 {
@@ -21,8 +21,10 @@ int main(void)
     return 0;
 }
 
+// 搜索[l, r]闭区间有没有某元素等于k
 int binary(int arr[], int l, int r, int k)
 {
+    // 当前区间不合法，未检索到k
     if (l > r) {
         return -1;
     }
@@ -30,11 +32,11 @@ int binary(int arr[], int l, int r, int k)
     int m = (l + r) / 2;
     if (k == arr[m]) {
         return m;
+    } else if (k < arr[m]) {
+        // 闭区间[l, m - 1]是否有元素等于k
+        return binary(arr, l, m - 1, k);
     } else {
-        if (k < arr[m]) {
-            return binary(arr, l, m - 1, k);
-        } else {
-            return binary(arr, m + 1, r, k);
-        }
+        // 闭区间[m + 1, r]是否有元素等于k
+        return binary(arr, m + 1, r, k);
     }
 }
