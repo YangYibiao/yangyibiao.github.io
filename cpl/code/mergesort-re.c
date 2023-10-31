@@ -46,7 +46,7 @@ void mergeSort(int arr[], int start, int end)
   }
 }
 
-// 合并arr两个子数组: 子数组1[start,mid], 子数组2[mid+1, end]
+// 合并arr两个子数组: 子数组1 arr[start,mid], 子数组2 arr[mid+1, end]
 void merge(int arr[], int start, int mid, int end)
 {
   int len = end - start + 1;
@@ -71,7 +71,7 @@ void merge(int arr[], int start, int mid, int end)
     narr[index++] = arr[iterb++];
 
   for (int i = 0; i < len; i++) {
-    // 更新数组arr [start, end]的所有值
+    // 更新数组arr[start, end]的所有值
     arr[start + i] = narr[i];
   }
 }
