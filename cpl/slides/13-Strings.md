@@ -118,6 +118,7 @@ Is quicker.
   --Ogden Nash
 ```
 
+--
 
 <!-- slide data-notes="" -->
 
@@ -151,6 +152,8 @@ printf("When you come to a fork in the road, take it.  \
 printf("When you come to a fork in the road, take it. "
        "--Yogi Berra");
 ```
+
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -204,7 +207,7 @@ printf函数传递"abc"的地址(指向字母a内存中存储位置的指针):
 printf("abc");
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -244,6 +247,8 @@ char digit_to_hex_char(int digit)
   return "0123456789ABCDEF"[digit];
 }
 ```
+
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -286,7 +291,7 @@ printf("\n");
 printf('\n'); /*** 错误的 ***/
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -794,7 +799,7 @@ int count_spaces(const char s[])
 }
 ```
 
-
+--
 
 <!-- slide data-notes="" -->
 
@@ -818,7 +823,7 @@ int count_spaces(const char *s)
 } 
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -883,7 +888,7 @@ str2 = str1;   /*** WRONG ***/
 char str1[10] = "abc";
 ```
 
-
+--
 
 <!-- slide data-notes="" -->
 
@@ -955,7 +960,7 @@ strcpy(str1, str2);
 /* str1 现在包含 "abcd" */
 ```
 
-
+--
 
 <!-- slide data-notes="" -->
 
@@ -1035,7 +1040,7 @@ strcpy(str1, "abc");
 len = strlen(str1);   /* len is now 3 */
 ```
 
-示例
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1063,7 +1068,7 @@ strcat(str1, str2);
  /* str1 now contains "abcdef" */ 
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1084,7 +1089,7 @@ strcat(str1, strcat(str2, "ghi"));
    str2 contains "defghi" */
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1242,7 +1247,7 @@ Day Reminder
  26 Movie - "Chinatown"
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1314,7 +1319,7 @@ sprintf(day_str, "%2d", day);
 
 `scanf("%2d", &day);`
 
-
+--
 
 <!-- slide data-notes="" -->
 
@@ -1385,7 +1390,7 @@ int read_line(char str[], int n)
 }
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1419,7 +1424,7 @@ size_t strlen(const char *s)
 }
 ```
 
-示例
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1443,7 +1448,7 @@ size_t strlen(const char *s)
 }
 ```
 
-示例
+--
 
 
 <!-- slide data-notes="" -->
@@ -1469,7 +1474,7 @@ size_t strlen(const char *s)
 }
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1515,7 +1520,7 @@ size_t strlen(const char *s)
 }
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1539,7 +1544,7 @@ size_t strlen(const char *s)
 }
 ```
 
-示例
+--
 
 
 <!-- slide data-notes="" -->
@@ -1564,7 +1569,7 @@ while (*s++)
   ;
 ```
 
-示例
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1609,7 +1614,7 @@ char *strcat(char *s1, const char *s2)
 }
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1696,7 +1701,7 @@ char *strcat(char *s1, const char *s2)
 }
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1725,7 +1730,7 @@ char *strcat(char *s1, const char *s2)
 }
 ```
 
-示例
+--
 
 
 <!-- slide data-notes="" -->
@@ -1854,7 +1859,7 @@ for (i = 0; i < 9; i++)
     printf("%s begins with M\n", planets[i]);
 ```
 
-示例
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1874,7 +1879,7 @@ ls –l
 ls -l remind.c
 ```
 
-
+--
 
 <!-- slide data-notes="" -->
 
@@ -1951,7 +1956,7 @@ for (i = 1; i < argc; i++)
   printf("%s\n", argv[i]);
 ```
 
-分页
+--
 
 
 <!-- slide data-notes="" -->
@@ -1969,7 +1974,7 @@ for (p = &argv[1]; *p != NULL; p++)
   printf("%s\n", *p);
 ```
 
-分页
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2034,7 +2039,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-分页
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2060,7 +2065,7 @@ char *strncat (char *dst, char const *src, size_t len);
 int strncmp (char const *s1, char const *s2, size_t len);
 ```
 
-分页
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2089,4 +2094,4 @@ size_t *strcspn(char const *str, char const *group);
 char *strtok(char *str, char const *sep);
 ```
 
-示例：strtok.c
+--
