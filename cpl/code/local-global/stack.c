@@ -5,48 +5,55 @@
  
 /* external variables */
 int contents[STACK_SIZE];
-int top = 0;
+int top = -1;
 
 void stack_overflow()
 {
   printf("Stack overflow\n");
-  exit(1);
+  // exit(1);
 }
 
 void stack_underflow()
 {
   printf("Stack underflow\n");
-  exit(1);
+  // exit(1);
 }
 
-void make_empty(void)
-{
-  top = 0;
-}
+// void make_empty(void)
+// {
+//   top = 0;
+// }
  
 int is_empty(void)
 {
-  return top == 0;
+  return top == -1;
 }
-int  is_full(void)
+
+int is_full(void)
 {
-  return top == STACK_SIZE;
+  return top == (STACK_SIZE - 1);
 }
 
 void push(int i)
 {
-  if (is_full())
+  if (is_full()) {
     stack_overflow();
-  else
-    contents[top++] = i;
+  } else {
+    top = top + 1;
+    contents[top] = i;
+    // ++top;
+  }
 }
  
 int pop(void)
 {
-  if (is_empty())
+  if (is_empty()) {
     stack_underflow();
-  else
-    return contents[--top];
+  } else {
+    int temp = contents[top];
+    top = top - 1;
+    return temp;
+  }
 }
 
 int main(){
