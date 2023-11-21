@@ -1,26 +1,26 @@
-#include<stdio.h>
-#include<string.h>
-int Strlen(const char *str);
+#include <stdio.h>
+#include <string.h>
 
-size_t StrLenStd(const char *s);
+int strlen(const char *str);
+size_t strLenStd(const char *s);
 
 int main(){
     char msg[20] = "Hello world";
     char* msg2 = "Hello world";
-    //strlen();
-    printf("%s: %d\n", msg, Strlen(msg));
-    printf("%s: %d\n", msg, StrLenStd(msg));
-    printf("%s: %d\n", msg2, Strlen(msg2));
-    printf("%s: %d\n", msg2, StrLenStd(msg2));
+    printf("%s: %d\n", msg, strlen(msg));
+    printf("%s: %d\n", msg, strLenStd(msg));
+    printf("%s: %d\n", msg2, strlen(msg2));
+    printf("%s: %d\n", msg2, strLenStd(msg2));
 
     msg[0] = 'N';
-    printf("%s: %d\n", msg, Strlen(msg));
+    printf("%s: %d\n", msg, strlen(msg));
     *msg2 = 'N';
-    printf("%s: %d\n", msg2, Strlen(msg2));
+    printf("%s: %d\n", msg2, strlen(msg2));
 
     return 0;
 }
-int Strlen(const char *str){
+
+int strlen(const char *str){
     int cnt = 0;
     while (*str++!='\0')//str[cnt]
     {
@@ -28,7 +28,14 @@ int Strlen(const char *str){
     }
     return cnt;
 }
-size_t StrLenStd(const char *s){
+
+size_t strLen(char *ptr) {
+    char *nptr = ptr;
+    while (*nptr) { nptr++; }
+    return nptr - ptr;
+}
+
+size_t strLenStd(const char *s){
     const char *sc;
     for(sc = s; *sc!='\0'; sc++);
 

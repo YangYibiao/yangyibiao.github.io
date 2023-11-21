@@ -8,6 +8,7 @@ void StrCpy3(char *dest, const char *src);
 void StrCpy4(char *dest, const char *src);
 void StrCpy5(char *dest, const char *src);
 char *StrCpyStd(char *dest, const char *src);
+
 int main(){
     const char *src = "Hello world";
     char dest[strlen(src) + 1];
@@ -18,6 +19,7 @@ int main(){
     printf("%s\n", StrCpyStd(dest, src));
     return 0;
 }
+
 void StrCpy(char *dest, const char *src){
     int i = 0;
     while (src[i] != '\0')
