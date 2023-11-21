@@ -44,7 +44,7 @@ presentation:
 
 ### 计算机系 &nbsp;&nbsp; 杨已彪
 
-### _yangyibiao@nju.edu.cn_
+### yangyibiao@nju.edu.cn
 
 
 
@@ -1035,6 +1035,7 @@ strcpy(str1, "abc");
 len = strlen(str1);   /* len is now 3 */
 ```
 
+示例
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1062,6 +1063,7 @@ strcat(str1, str2);
  /* str1 now contains "abcdef" */ 
 ```
 
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1082,7 +1084,7 @@ strcat(str1, strcat(str2, "ghi"));
    str2 contains "defghi" */
 ```
 
-
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1383,7 +1385,7 @@ int read_line(char str[], int n)
 }
 ```
 
-
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1417,6 +1419,7 @@ size_t strlen(const char *s)
 }
 ```
 
+示例
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1440,6 +1443,7 @@ size_t strlen(const char *s)
 }
 ```
 
+示例
 
 
 <!-- slide data-notes="" -->
@@ -1465,7 +1469,7 @@ size_t strlen(const char *s)
 }
 ```
 
-
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1488,7 +1492,7 @@ size_t strlen(const char *s)
 } 
 ```
 
-
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1535,6 +1539,7 @@ size_t strlen(const char *s)
 }
 ```
 
+示例
 
 
 <!-- slide data-notes="" -->
@@ -1559,6 +1564,7 @@ while (*s++)
   ;
 ```
 
+示例
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1603,7 +1609,7 @@ char *strcat(char *s1, const char *s2)
 }
 ```
 
-
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1690,6 +1696,7 @@ char *strcat(char *s1, const char *s2)
 }
 ```
 
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1717,6 +1724,8 @@ char *strcat(char *s1, const char *s2)
   return s1;
 }
 ```
+
+示例
 
 
 <!-- slide data-notes="" -->
@@ -1845,7 +1854,7 @@ for (i = 0; i < 9; i++)
     printf("%s begins with M\n", planets[i]);
 ```
 
-
+示例
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1942,6 +1951,7 @@ for (i = 1; i < argc; i++)
   printf("%s\n", argv[i]);
 ```
 
+分页
 
 
 <!-- slide data-notes="" -->
@@ -1959,7 +1969,7 @@ for (p = &argv[1]; *p != NULL; p++)
   printf("%s\n", *p);
 ```
 
-
+分页
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1984,6 +1994,7 @@ Earth is planet 3
 fred is not a planet
 ```
 
+分页
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2022,3 +2033,60 @@ int main(int argc, char *argv[])
   return 0;
 }
 ```
+
+分页
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### string.h
+
+---
+
+常见的字符串函数
+
+- 不受限制的字符串函数
+```C
+size_t strlen (char const *string);
+char *strcpy (char *dst, char const *src);
+char *strcat (char *dst, char const *src);
+int strcmp (char const *s1, char const *s2);
+```
+
+- 长度受限的字符串函数
+```C
+char *strncpy (char *dst, char const *src, size_t len);
+char *strncat (char *dst, char const *src, size_t len);
+int strncmp (char const *s1, char const *s2, size_t len);
+```
+
+分页
+
+<!-- slide vertical=true data-notes="" -->
+
+##### string.h
+
+---
+
+常见的字符串函数
+
+- 查找字符或子串函数
+```C
+char *strchr(char const *str, int ch);
+char *strrchr(char const *str, int ch);
+char *strpbrk(char const *str, char const *group);
+char *strstr(char const *s1, char const *s2);
+```
+
+- 查找计数
+```C
+size_t *strspn(char const *str, char const *group);
+size_t *strcspn(char const *str, char const *group);
+```
+
+- 查找标记
+```C
+char *strtok(char *str, char const *sep);
+```
+
+示例：strtok.c
