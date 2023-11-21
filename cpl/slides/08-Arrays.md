@@ -107,7 +107,6 @@ int a[10];
 
 元素可以是任何类型; 数组的长度可以是任何(整数)常量表达式. 
 
-可以用宏来定义数组的长度: 
 
 ```C
 #define N 10
@@ -115,7 +114,10 @@ int a[10];
 int a[N];
 ```
 
-<!-- slide data-notes="" -->
+可以用宏来定义数组的长度
+
+
+<!-- slide vertical=true data-notes="" -->
 
 
 
@@ -131,18 +133,12 @@ int a[N];
 
 若数组a长度为`10`, 元素依次可标记为$a[0], a[1], ..., a[9]$:
 
-<!-- <div class="fullborder">
+<div class="row1-2-column1-10-fullborder">
+<!-- <div class="fullborder"> -->
 
-| `a[0]` | `a[1]` | `a[2]` | `a[3]` | `a[4]` | `a[5]` | `a[6]` | `a[7]` | `a[8]` | `a[9]` |
-| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-
-</div> -->
-
-<div class="row1-2-column2-10-fullborder">
-
-| | $a[0]$ | $a[1]$ | $a[2]$ | $a[3]$ | $a[4]$ | $a[5]$ | $a[6]$ | $a[7]$ | $a[8]$ |
-| :-: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-| | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+| a[0] | $a[1]$ | $a[2]$ | $a[3]$ | $a[4]$ | $a[5]$ | $a[6]$ | $a[7]$ | $a[8]$ | $a[9]$ |
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
 
 </div>
 
@@ -187,6 +183,8 @@ for (i = 0; i < N; i++)
   sum += a[i];          /* sums the elements of a */
 ```
 
+示例
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -228,6 +226,8 @@ while (i < N)
   a[i++] = 0;
 ```
 
+示例
+
 <!-- slide vertical=true data-notes="" -->
 
 ##### 数组下标
@@ -250,6 +250,8 @@ while (i < N)
 for (i = 0; i < N; i++)
   a[i] = b[i];
 ```
+
+示例
 
 
 <!-- slide data-notes="" -->
@@ -300,9 +302,10 @@ int main(void)
 }
 ```
 
+示例
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 数组初始化
 
@@ -316,9 +319,10 @@ int main(void)
 int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 ```
 
+分页
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组初始化
 
@@ -358,9 +362,8 @@ int a[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 编译器利用初始化式的长度来确定数组的大小
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指定初始化式 (C99)
 
@@ -376,9 +379,8 @@ int a[15] = {0, 0, 29, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 48};
 
 对于大数组, 以这种方式初始化既冗长又容易出错. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指定初始化式 (C99)
 
@@ -412,6 +414,9 @@ int a[15] = {[2] = 29, [9] = 7, [14] = 48};
 int a[15] = {[14] = 48, [9] = 7, [2] = 29};
 ```
 
+顺序无关
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -432,9 +437,10 @@ int a[15] = {[14] = 48, [9] = 7, [2] = 29};
 int b[] = {[5] = 10, [23] = 13, [11] = 36, [15] = 29};
 ```
 
+长度自动推导
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指定初始化式 (C99)
 
@@ -521,6 +527,8 @@ int main(void)
 }
 ```
 
+示例
+
 
 <!-- slide data-notes="" -->
 
@@ -594,6 +602,9 @@ for (i = 0; i < SIZE; i++)
   a[i] = 0;
 ```
 
+宏表达式的括号需要加上，防止出现运算顺序不一致
+
+
 <!-- slide data-notes="" -->
 
 
@@ -629,6 +640,8 @@ Years     6%     7%     8%     9%     10%
   4     126.25 131.08 136.05 141.16 146.41
   5     133.82 140.26 146.93 153.86 161.05
 ```
+
+打印n * m的二维数组
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -698,6 +711,8 @@ int main(void)
   return 0;
 }
 ```
+
+双循环
 
 <!-- slide data-notes="" -->
 
@@ -795,9 +810,10 @@ for (row = 0; row < N; row++) {
 }
 ```
 
+嵌套for循环
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 多维数组初始化
 
@@ -835,6 +851,9 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
                 {0, 1, 0, 1, 1, 0, 0, 1, 0} };
 ```
 
+分页
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -852,6 +871,9 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
                 {1, 1, 0, 1, 0, 0, 0, 1},
                 {1, 1, 0, 1, 0, 0, 1, 1, 1} };
 ```
+
+分页
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -893,9 +915,8 @@ double ident[2][2] = {[0][0] = 1.0, [1][1] = 1.0};
 
 像通常一样, 所有未指定值的元素都默认为0. 
 
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 常量数组
 
@@ -908,11 +929,11 @@ const char hex_chars[] =
   {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
    'A', 'B', 'C', 'D', 'E', 'F'};
 ```
+
 程序不应修改声明为const的数组. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 常量数组
 
@@ -942,9 +963,8 @@ const char hex_chars[] =
 
 标准套牌中的每张牌都有花色{梅花&clubs;(`c`), 方块&diams;(`d`), 红桃&hearts;(`h`), 黑桃&spades;(`s`)}和等级{$2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A$}. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 发牌
 
@@ -979,9 +999,9 @@ const char hex_chars[] =
 
 通过使用%运算符, 缩放rand函数返回值, 使其介于0和3之间(表示花色)或介于0和12之间(表示等级). 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 发牌
 
@@ -999,9 +1019,9 @@ in_hand数组用于记录已经选择过的牌.
 
 - 如果为假, 就把ture存储到对应的元素中, 以便稍后提醒我们这张牌已经被选中. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 发牌
 
@@ -1015,9 +1035,9 @@ in_hand数组用于记录已经选择过的牌.
 
 数组在程序执行期间不会改变, 因此被声明为`const`. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 发牌
 
@@ -1063,6 +1083,8 @@ int main(void)
   return 0;
 }
 ```
+
+发牌程序（颜色、大小）
 
 <!-- slide data-notes="" -->
 
@@ -1115,9 +1137,10 @@ int main(void)
 }
 ```
 
+不推荐使用变长数组
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 变长数组 (C99)
 
@@ -1131,8 +1154,9 @@ int main(void)
 
 如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错). 
 
-<!-- slide vertical=true data-notes="" -->
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 变长数组 (C99)
