@@ -150,6 +150,8 @@ C支持三种(且只有三种)==指针运算==形式:
 int a[10], *p, *q, i;
 ```
 
+-- 
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -214,6 +216,8 @@ i = p - q; /* i is  4 */
 i = q - p; /* i is -4 */
 ```
 
+-- 
+
 <!-- slide data-notes="" -->
 
 
@@ -269,6 +273,8 @@ int a[] = {3, 0, 3, 4, 1};
 int *p = &a[0];
 ```
 
+--
+
 <!-- slide id="arr" vertical=true data-notes="" -->
 
 
@@ -290,7 +296,7 @@ sum = 0;
 for (p = &a[0]; p < &a[N]; p++)
     sum += *p;
 ```
-
+   
 <!-- slide data-notes="" -->
 
 
@@ -387,6 +393,8 @@ while (p < &a[N])
     sum += *p++;
 ```
 
+--
+
 <!-- slide data-notes="" -->
 
 
@@ -406,6 +414,8 @@ while (p < &a[N])
 ```C
 int *top_ptr = &contents[0]; 
 ```
+
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -434,6 +444,9 @@ int pop(void)
         return *--top_ptr;
 }
 ```
+
+--
+
 <!-- slide id="arrname" vertical=true data-notes="" -->
 
 
@@ -491,6 +504,9 @@ for (p = &a[0]; p < &a[N]; p++)
 for (p = a; p < a + N; p++)
     sum += *p;
 ```
+
+--
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -563,6 +579,8 @@ int main(void)
 }
 ```
 
+--
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -595,6 +613,7 @@ int main(){
 }
 ```
 
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -618,6 +637,8 @@ void store_zeros(int a[], int n)
         a[i] = 0;
 }
 ```
+
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -689,6 +710,8 @@ int a[10]; /* 编译器为数组a留出10个整数的空间 */
 int *a; /* 编译器仅为指针变量分配空间 */
 ```
 
+--
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -723,6 +746,8 @@ int b[20] = {0};
 ...
 largest = find_largest(&b[5], 10);
 ```
+
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -803,7 +828,7 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
     *p = 0;
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -837,7 +862,7 @@ p = &a[i][0];
 p = a[i];
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -898,7 +923,7 @@ int a[NUM_ROWS][NUM_COLS] = {0};
 largest = find_largest(a[i], NUM_COLS);
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1017,7 +1042,7 @@ void f(int n)
 }
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 

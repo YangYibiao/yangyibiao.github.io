@@ -87,7 +87,7 @@ int sum_digits(int n)
 }
 ```
 
-<!-- slide data-notes="" -->
+<!-- slide vertical=true data-notes="" -->
 
 
 
