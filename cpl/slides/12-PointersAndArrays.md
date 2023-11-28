@@ -417,9 +417,8 @@ int *top_ptr = &contents[0]; 
 
 --
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结合*和++运算符
 
@@ -447,9 +446,8 @@ int pop(void)
 
 --
 
+
 <!-- slide id="arrname" vertical=true data-notes="" -->
-
-
 
 ##### 使用数组名称作为指针
 
@@ -507,9 +505,8 @@ for (p = a; p < a + N; p++)
 
 --
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用数组名称作为指针
 
@@ -529,9 +526,11 @@ p = a;
 while (*p != 0)
     p++;
 ```
+
+--
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 程序: 数列反向(改进版)
 
@@ -545,8 +544,6 @@ while (*p != 0)
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 数列反向(改进版)
 
@@ -581,9 +578,8 @@ int main(void)
 
 --
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -615,8 +611,8 @@ int main(){
 
 --
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 ##### 数组型实际参数（改进版）
 
@@ -640,9 +636,8 @@ void store_zeros(int a[], int n)
 
 --
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -658,9 +653,8 @@ int find_largest(const int a[], int n)
 
 编译器会检查find_largest函数体没有对a中元素进行赋值. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -688,9 +682,8 @@ int find_largest(int *a, int n)
 ```
 声明a为指针, 相当于将其声明为数组; 编译器将这两类声明视为相同. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -712,9 +705,8 @@ int *a; /* 编译器仅为指针变量分配空间 */
 
 --
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -748,6 +740,7 @@ largest = find_largest(&b[5], 10);
 ```
 
 --
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -829,6 +822,7 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 ```
 
 --
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -995,8 +989,10 @@ for (p = a; p < a + NUM_ROWS; p++)
   (*p)[i] = 0;
 ```
 
-<!-- slide vertical=true data-notes="" -->
+--
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 用多维数组名作为指针
@@ -1092,9 +1088,9 @@ p = a;
 
 最重要的限制: 可变类型声明必须出现在函数体内或函数原型中. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针和变长数组 (C99)
 
