@@ -766,17 +766,15 @@ Bool is_full(void);
 
 ---
 
-安全起见, 保护所有头文件不被多次包含可能是个好主意. 
+安全起见, 不要多次包含所有头文件. 
 
-这样, 可以稍后将类型定义添加到文件中, 而不会有忘记保护文件的风险. 
+这样, 可以将类型定义添加到文件中, 而不会有忘记保护文件的风险. 
 
 此外, 在程序开发过程中, 避免不必要地重新编译相同的头文件可以节省一些时间. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 保护头文件
 
@@ -797,6 +795,8 @@ typedef int Bool;
 #endif
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -805,15 +805,13 @@ typedef int Bool;
 
 ---
 
-使宏的名称类似于头文件的名称是避免与其他宏冲突的好方法. 
+使宏的名称类似于头文件的名称可以避免与其他宏名冲突. 
 
-由于不能命名宏BOOLEAN.H, 所以像BOOLEAN_H这样的名称是一个不错的选择. 
+由于宏不能命名为BOOLEAN.H, 所以使用BOOLEAN_H. 
 
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 头文件中的#error指令
 
@@ -831,6 +829,8 @@ typedef int Bool;
 #endif
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -846,8 +846,6 @@ typedef int Bool;
 
 
 <!-- slide vertical=true id="DivideProg" data-notes="" -->
-
-
 
 ##### 将程序划分为文件
 
@@ -868,7 +866,6 @@ foo.c也将包含foo.h, 编译器检查函数原型与定义是否匹配.
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 将程序划分为文件
 
@@ -902,6 +899,8 @@ enormous   success.      Although accidents of   history
 of   environments.   
                      --      Dennis     M.        Ritchie
 ```
+
+--
 
 
 
@@ -1016,6 +1015,7 @@ for (;;) {
 }
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1063,6 +1063,8 @@ void read_word(char *word, int len);
  
 #endif
 ```
+
+--
 
 
 
@@ -1132,6 +1134,8 @@ void flush_line(void);
 #endif
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1183,6 +1187,8 @@ int main(void)
   }
 }
 ```
+
+--
 
 
 
@@ -1252,9 +1258,11 @@ void read_word(char *word, int len)
 }
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 文本格式化
 
@@ -1337,6 +1345,8 @@ void flush_line(void)
     puts(line);
 }
 ```
+
+--
 
 
 
@@ -1444,11 +1454,11 @@ line.o: line.c line.h
         gcc -c line.c
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### makefile
 
@@ -1665,11 +1675,11 @@ int read_char(void)
 int read_word(char *word, int len);
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 重新构建程序
 
@@ -1693,6 +1703,8 @@ int read_word(char *word, int len)
 }
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1715,6 +1727,8 @@ int main(void)
   }
 }
 ```
+
+--
 
 
 
