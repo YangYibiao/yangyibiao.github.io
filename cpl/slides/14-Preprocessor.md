@@ -172,6 +172,8 @@ int main(void)
 }
 ```
 
+--
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -203,6 +205,8 @@ int main(void)
   return 0;
 } 
 ```
+
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -247,9 +251,9 @@ int main(void)
 
 其他的编译器会提供一个类似于集成的预处理器的独立程序. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 预处理器的工作原理
 
@@ -298,7 +302,7 @@ int main(void)
 #   define     N     100
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -317,26 +321,28 @@ int main(void)
                        BYTES_PER_SECTOR)
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 预处理指令
 
 ---
 
-**指令可以出现在程序的任何位置.**
+**指令可以出现在程序的任何位置**
 
-    但通常将`#define`和`#include`指令放在文件的开头, 其他指令放在后面. 
+  但通常将`#define`和`#include`指令放在文件的开头, 其他指令放在后面. 
 
-**注释可以与指令放在同一行.**
+**注释可以与指令放在同一行**
 
-    在宏定义的末尾添加注释是一种很好的做法: 
+  在宏定义的末尾添加注释是一种很好的做法: 
 
 ```C
 #define FREEZING_PT 32.0f /* freezing point of water */
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -388,7 +394,7 @@ int main(void)
 int a[N];        /* becomes int a[= 100]; */
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -430,7 +436,7 @@ int a[N];       /* becomes int a[100;]; */
 #define MEM_ERR "Error: not enough memory"
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -497,7 +503,7 @@ int a[N];       /* becomes int a[100;]; */
 #define DEBUG
 ```
 
-
+--
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -576,6 +582,7 @@ i = ((j+k)>(m-n)?(j+k):(m-n));
 if (((i)%2==0)) i++; 
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -642,6 +649,7 @@ n = MAX(i, MAX(j, k));
 n = ((i)>(((j)>(k)?(j):(k)))?(i):(((j)>(k)?(j):(k))));
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -725,6 +733,7 @@ PRINT_INT(i/j);
 printf("%d\n", i/j);
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -785,6 +794,7 @@ printf("i/j" " = %d\n", i/j);
 printf("i/j = %d\n", i/j);
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -819,9 +829,9 @@ printf("i/j = %d\n", i/j);
 预处理后:  
 `int i1, i2, i3;`
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `##`运算符
 
@@ -865,9 +875,10 @@ GENERIC_MAX(float)
 float float_max(float x, float y) { return x > y ? x : y; }
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 宏的通用属性
 
@@ -915,9 +926,10 @@ if (BUFFER_SIZE > 256)
   puts("Error: SIZE exceeded");
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 宏的通用属性
 
@@ -925,13 +937,13 @@ if (BUFFER_SIZE > 256)
 
 **宏定义的作用范围通常到出现这个宏的文件末尾.**
 
-    宏不遵守通常的作用域规则. 
+  宏不遵守通常的作用域规则. 
 
-    函数体内定义的宏不是仅在该函数内起作用, 而是作用到到文件末尾. 
+  函数体内定义的宏不是仅在该函数内起作用, 而是作用到到文件末尾. 
 
 **宏不可以被定义两遍, 除非新的定义与旧的定义相同.**
 
-    小的间距上的差异是允许的, 但是宏的替换列表(和参数, 如果有的话)中的标记必须相同. 
+  小的间距上的差异是允许的, 但是宏的替换列表(和参数, 如果有的话)中的标记必须相同. 
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -969,9 +981,8 @@ if (BUFFER_SIZE > 256)
 
 如果没有括号, 我们不能保证编译器会将替换列表和参数视为完整的表达式. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 宏定义中的括号
 
@@ -1014,9 +1025,10 @@ j = SCALE(i+1);
 j = (i+1*10);
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 创建更长的宏
 
@@ -1037,9 +1049,10 @@ gets和puts的调用是表达式, 因此使用逗号运算符连接它们是合�
 ECHO(str);  /* becomes (gets(str), puts(str)); */
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 创建更长的宏
 
@@ -1063,9 +1076,10 @@ else
  gets(str);
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 创建更长的宏
 
@@ -1081,9 +1095,8 @@ if (echo_flag)
 
 记住不要在每次调用ECHO后加上分号可以解决这个问题, 但是这样程序就会看起来很奇怪. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 创建更长的宏
 
@@ -1101,9 +1114,8 @@ do { … } while (0)
 
 注意, do语句末尾缺少一个分号. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 创建更长的宏
 
@@ -1125,9 +1137,10 @@ ECHO(str);
 /* becomes do { gets(str); puts(str); } while (0); */
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 预定义宏
 
@@ -1150,9 +1163,8 @@ Compiled on Dec 23 2010 at 22:18:48
 
 此信息有助于区分同一程序的不同版本. 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 预定义宏
 
@@ -1175,9 +1187,10 @@ CHECK_ZERO(j);
 k = i / j;
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 预定义宏
 
@@ -1217,7 +1230,6 @@ C的实现包括编译器和执行 C 程序所需的其他软件.
 
 <!-- slide vertical=true data-notes="" -->
 
-
 ##### C99 中的其他预定义宏
 
 ---
@@ -1231,7 +1243,6 @@ __STDC__VERSION__宏提供了一种检查编译器识别哪个版本的 C 标准
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### C99 中的其他预定义宏
 
@@ -1259,9 +1270,9 @@ C99 允许宏调用中的任何或所有参数为空.
 
 如果替换列表种出现相应的形式参数名, 那么只要在替换列表中不出现实际参数即可, 不需要作替换. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 空的宏参数 (C99)
 
@@ -1283,9 +1294,10 @@ i = ADD(,k);
 i = (+k);
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 空的宏参数 (C99)
 
@@ -1306,9 +1318,10 @@ char empty_string[] = MK_STR();
 char empty_string[] = "";
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 空的宏参数 (C99)
 
@@ -1489,9 +1502,10 @@ printf("Value of j: %d\n", j);
 #endif
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #if和#endif指令
 
@@ -1527,9 +1541,9 @@ printf("Value of j: %d\n", j);
 
 否则, #if和#endif之间的行将保留. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #if和#endif指令
 
@@ -1550,9 +1564,8 @@ printf("Value of j: %d\n", j);
 将会成功. 
 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### defined运算符
 
@@ -1564,9 +1577,9 @@ printf("Value of j: %d\n", j);
 
 defined运算符通常与#if指令一起使用. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### defined运算符
 
@@ -1591,9 +1604,11 @@ DEBUG两侧的括号不是必需的:
 #define DEBUG
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #ifdef和#ifndef指令
 
@@ -1619,9 +1634,10 @@ DEBUG两侧的括号不是必需的:
 #if !defined(identifier)
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #elif和#else指令
 
@@ -1638,9 +1654,11 @@ DEBUG两侧的括号不是必需的:
 #endif /* DEBUG */
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `#elif`和`#else`指令
 
@@ -1660,9 +1678,9 @@ Lines to be included otherwise
 
 任意数量的`#elif`指令(但最多一个`#else`)可以出现在#if和#endif之间. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用条件编译
 
@@ -1683,9 +1701,10 @@ Lines to be included otherwise
 #endif
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用条件编译
 
@@ -1704,9 +1723,9 @@ Old-style function declarations
 
 如果编译器不符合 C 标准, 则使用旧式函数声明而不是函数原型. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用条件编译
 
@@ -1721,9 +1740,11 @@ Old-style function declarations
 #endif
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用条件编译
 
@@ -1740,9 +1761,11 @@ Lines containing comments
 #endif
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用条件编译
 
@@ -1750,9 +1773,9 @@ Lines containing comments
 
 第 15 章讨论了条件编译的另一个常见用途: 保护头文件不被多次包含. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 其他指令
 
@@ -1762,9 +1785,9 @@ Lines containing comments
 
 这些指令的使用频率要低得多. 
 
+
+
 <!-- slide vertical=true id="MiscellaneousDirectives" data-notes="" -->
-
-
 
 ##### #error指令
 
@@ -1779,9 +1802,9 @@ message是任何标记序列.
 
 如果处理了#error指令, 一些编译器会立即终止编译, 而不尝试查找其他错误. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #error指令
 
@@ -1796,9 +1819,11 @@ message是任何标记序列.
 #endif
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #error指令
 
@@ -1817,9 +1842,11 @@ message是任何标记序列.
 #endif
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #line指令
 
@@ -1837,9 +1864,9 @@ message是任何标记序列.
 
 后续行会被认为来自file, 行号从n开始. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #line指令
 
@@ -1856,9 +1883,9 @@ message是任何标记序列.
 
 `#line`指令主要由生成 C 代码作为输出的程序使用. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #line指令
 
@@ -1874,9 +1901,9 @@ yacc从此文件生成一个 C 程序y.tab.c, 并合并程序员提供的代码.
 
 y.tab.c编译期间产生的错误消息将指向原始文件中的行. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #pragma指令
 
@@ -1890,9 +1917,9 @@ y.tab.c编译期间产生的错误消息将指向原始文件中的行.
 `#pragma`指令可以非常简单(单个标记), 也可以更复杂:  
 `#pragma data(heap_size => 1000, stack_size => 2000)`
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### #pragma指令
 
@@ -1906,9 +1933,9 @@ C89中没有标准的编译提示——它们都是在实现中定义的.
 
 C99有三个标准的编译提示, 都使用STDC作为`#pragma`之后的第一个标记. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `_Pragma`运算符 (C99)
 
@@ -1924,9 +1951,9 @@ _Pragma表达式具有以下形式:
 - \\"替换为". 
 - \\\替换为\. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `_Pragma`运算符 (C99)
 
@@ -1940,9 +1967,9 @@ _Pragma表达式具有以下形式:
 等价于:  
 `#pragma data(heap_size => 1000, stack_size => 2000)`
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `_Pragma`运算符 (C99)
 
@@ -1954,9 +1981,9 @@ _Pragma表达式具有以下形式:
 
 这使得我们能够在`#pragma`指令后面进行宏的扩展. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `_Pragma`运算符 (C99)
 
@@ -1974,5 +2001,3 @@ _Pragma表达式具有以下形式:
 传递给DO_PRAGMA的标记被字符串化为"GCC dependency \"parse.y\"". 
 
 `_Pragma`运算符对该字符串进行去字符串化, 生成`#pragma`指令. 
-
-
