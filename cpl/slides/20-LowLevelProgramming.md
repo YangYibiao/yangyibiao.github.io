@@ -146,6 +146,7 @@ j = i << 2;  /* j is now 52(binary 0000000000110100) */
 j = i >> 2;  /* j is now  3(binary 0000000000000011) */
 ```
 
+--
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -164,9 +165,10 @@ i <<= 2;  /* i is now 52(binary 0000000000110100) */
 i >>= 2;  /* i is now 13(binary 0000000000001101) */
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 移位运算符
 
@@ -176,11 +178,11 @@ i >>= 2;  /* i is now 13(binary 0000000000001101) */
 
 i << 2 + 1 等同于 i <<(2 + 1), 而不是(i << 2) + 1
 
+
+
 <!-- slide vertical=true data-notes="" -->
 
-
-
-##### 按位求反, 按位与, 按位异或和按位或运算符
+##### 按位(求反/与/异或/或)运算符
 
 ---
 
@@ -210,9 +212,9 @@ i << 2 + 1 等同于 i <<(2 + 1), 而不是(i << 2) + 1
 
 当两个操作数的位都是 1 时, `^`运算符产生 0 而`|`产生 1 . 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 按位求反, 按位与, 按位异或和按位或运算符
 
@@ -242,9 +244,10 @@ k = i | j;
   /* k is now    61(binary 0000000000111101) */
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 按位求反, 按位与, 按位异或和按位或运算符
 
@@ -256,9 +259,9 @@ k = i | j;
 
 - 一个整数, 除最后五位外其他位全为 1: `~0x1f`
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 按位求反, 按位与, 按位异或和按位或运算符
 
@@ -282,9 +285,9 @@ i ^ j & ~k;  /* 等价于 */ i ^(j &(~k));
 
 使用括号有助于避免混淆. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 按位求反, 按位与, 按位异或和按位或运算符
 
@@ -309,10 +312,11 @@ i |= j;
   /* i is now 56(binary 0000000000111000) */
 ```
 
+--
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位
 
@@ -335,9 +339,8 @@ i |= j;
 - 最左边(或最高有效)位编号为 15 , 最低有效位编号为 0 . 
 
 
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位
 
@@ -364,8 +367,6 @@ i |= 1 << j;        /* sets bit j */
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 用位运算符访问位
 
 ---
@@ -386,9 +387,11 @@ i &= ~0x0010;
 i &= ~(1 << j);     /* clears bit j */
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位
 
@@ -406,9 +409,10 @@ if(i & 0x0010) …   /* tests bit 4 */
 if(i & 1 << j) …   /* tests bit j */ 
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位
 
@@ -426,9 +430,10 @@ if(i & 1 << j) …   /* tests bit j */ 
 #define RED   4
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位
 
@@ -442,9 +447,11 @@ i &= ~BLUE;       /* clears BLUE bit */
 if(i & BLUE) …   /* tests BLUE bit  */
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位
 
@@ -469,8 +476,6 @@ if语句测试是否设置了BLUE位或GREEN位.
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 用位运算符访问位域
 
 ---
@@ -486,8 +491,6 @@ if语句测试是否设置了BLUE位或GREEN位.
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位域
 
@@ -512,8 +515,6 @@ i = i & ~0x0070 | 0x0050;
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 用位运算符访问位域
 
 ---
@@ -533,9 +534,11 @@ i =(i & ~0x0070) |(j << 4);
 i = i & ~0x0070 | j << 4;
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用位运算符访问位域
 
@@ -555,9 +558,10 @@ j =(i >> 4) & 0x0007;
   /* retrieves bits 4-6 */
 ```
 
+--
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -575,11 +579,11 @@ XOR 01111010 (z的ASCII码)
     01011100 (\的ASCII码)
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -593,11 +597,11 @@ XOR 01011100 (\的ASCII码)
     01111010 (z的ASCII码)
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -609,9 +613,9 @@ xor.c程序通过将每个字符与&字符进行异或来加密消息.
 
 加密的消息可以在屏幕上查看或使用输出重定向保存在文件中. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -637,11 +641,11 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
             --lINGHH mGUVGT jGPGRCT(1741-1801)
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -651,9 +655,9 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 
 `xor <newmsg`
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -667,9 +671,9 @@ xor.c程序不会更改某些字符, 包括数字.
 
 如果不是, 程序将写原始字符而不是新字符. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### xor.c
 
@@ -699,9 +703,11 @@ int main(void)
 }
 ```
 
+--
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结构中的位域
 
@@ -711,9 +717,9 @@ int main(void)
 
 幸运的是, C 提供了另一种选择: 声明其成员表示位域的结构. 
 
+
+
 <!-- slide id="BitFinStruct" vertical=true data-notes="" -->
-
-
 
 ##### 结构中的位域
 
@@ -729,9 +735,9 @@ DOS 只为日期分配了16位, 其中5位用于日, 4位用于月, 7位用于�
   <img src="../img/19-1.png">
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结构中的位域
 
@@ -755,10 +761,11 @@ struct file_date {
 };
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 结构中的位域
 
@@ -775,8 +782,6 @@ C99 编译器可能允许额外的位域类型.
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结构中的位域
 
@@ -798,9 +803,9 @@ fd变量的形式:
   <img src="../img/19-2.png">
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结构中的位域
 
@@ -820,8 +825,6 @@ scanf("%d", &fd.day); /*** 错误的 ***/
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 位域的存储方式
 
 ---
@@ -834,9 +837,9 @@ C 标准允许编译器在选择如何存储位域方面有相当大的自由度
 
 - 通常为 8 位, 16 位和 32 位. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 位域的存储方式
 
@@ -851,8 +854,6 @@ C 标准允许编译器在选择如何存储位域方面有相当大的自由度
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 位域的存储方式
 
@@ -869,8 +870,6 @@ file_date示例中的假设:
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 位域的存储方式
 
@@ -890,10 +889,11 @@ struct file_time {
 };
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 位域的存储方式
 
@@ -961,7 +961,6 @@ struct s {
 
 <!-- slide id="OtherLowLTech" vertical=true data-notes="" -->
 
-
 ##### 定义机器相关类型
 
 ---
@@ -982,10 +981,11 @@ x86平台的一个有用类型:
 typedef unsigned short WORD;
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -999,9 +999,9 @@ typedef unsigned short WORD;
 
 一个file_date结构正好放入两个字节, 因此任何两个字节的数据都可以被认为是一个file_date结构.
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -1018,10 +1018,11 @@ union int_date {
 };
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -1040,10 +1041,11 @@ void print_date(unsigned short n)
 }
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -1060,7 +1062,6 @@ x86处理器具有名为AX, BX, CX和DX的16位寄存器.
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -1082,7 +1083,6 @@ x86处理器具有名为AX, BX, CX和DX的16位寄存器.
 
 <!-- slide vertical=true data-notes="" -->
 
-
 ##### 使用联合提供数据的多个视角
 
 ---
@@ -1100,10 +1100,11 @@ union {
 } regs;
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -1128,7 +1129,6 @@ printf("AX: %hx\n", regs.word.ax);
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用联合提供数据的多个视角
 
@@ -1163,7 +1163,6 @@ x86处理器按小端方式存储.
 
 <!-- slide vertical=true data-notes="" -->
 
-
 ##### 使用指针作为地址
 
 ---
@@ -1179,10 +1178,11 @@ p =(BYTE *) 0x1000;
   /* p contains address 0x1000 */
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 程序: 查看内存单元
 
@@ -1198,8 +1198,8 @@ viewmemory.c程序允许用户查看计算机内存段.
 
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 ##### 程序: 查看内存单元
 
@@ -1218,7 +1218,6 @@ viewmemory.c程序允许用户查看计算机内存段.
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### viewmemory.c
 
@@ -1272,10 +1271,11 @@ int main(void)
 }
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 程序: 查看内存单元
 
@@ -1303,7 +1303,6 @@ Enter number of bytes to view: 40
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 程序: 查看内存单元
 
@@ -1364,6 +1363,8 @@ volatile BYTE *p;
   /* p will point to a volatile byte */
 ```
 
+--
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1385,6 +1386,8 @@ while(缓冲区未满) {
     break;
 }
 ```
+
+--
 
 
 
@@ -1408,6 +1411,8 @@ while(缓冲区未满) {
     break;
 }
 ```
+
+--
 
 
 
