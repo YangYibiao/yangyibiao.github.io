@@ -42,5 +42,11 @@ int main()
   int arr[] = {1, 3, 2, 5, 4};
 
   int len = sizeof(arr) / sizeof(arr[0]);
-  
+
+  qsort(arr, len);
+  for (int i = 0; i < len; i++) {
+    printf("%d ", arr[i]);
+  }
+  printf("\n");
+  return 0;
 }
