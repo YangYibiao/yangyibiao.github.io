@@ -147,7 +147,7 @@ int main(void)
 
 - [CLion](https://www.jetbrains.com/clion/): ==推荐==, 学生邮箱可注册免费License
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/zh-hans/vs/community/) 等: 社区版(Community Edition)免费、需配置安全检查
+- [Visual Studio IDE](https://visualstudio.microsoft.com/zh-hans/vs/community/): 免费社区版(Community Edition)、需配置安全检查
 
 
 
