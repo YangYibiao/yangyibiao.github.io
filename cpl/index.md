@@ -1,7 +1,7 @@
 @import "css/theme/solarized.css"
 @import "css/index.css"
 
-## C语言程序设计基础 <span style="font-weight:900">2023</span> 秋
+## C语言程序设计基础 <span style="font-weight:900">2024</span> 秋
 
 ---
 
