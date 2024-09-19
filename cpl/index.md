@@ -9,7 +9,7 @@
 
 授课：杨已彪 _yangyibiao@nju.edu.cn_
 
-- 48 学时理论，周二 5-7 节课 (第 2 ~ 17 周)
+- 45 学时理论，周五 2-4 节课 (第 3 ~ 17 周)
 
 <div class="top-2"></div>
 
@@ -58,7 +58,7 @@
 
 #### 教材
 
-[_C语言程序设计现代方法 第二版 修订版_](book/.pdf) <br>K.N. King 著，吕秀峰、黄倩 译
+[_C语言程序设计现代方法 第二版 修订版_](book/c-programming-a-modern-approach.pdf) <br>K.N. King 著，吕秀峰、黄倩 译
 
 #### 在线评测系统
 
@@ -66,7 +66,7 @@
 
 #### 答疑安排
 
-待定
+[https://docs.cpl.icu/#/qa](https://docs.cpl.icu/#/qa)
 
 <!-- <div class="threelines outline head-highlight" style="width=400pt">
 
