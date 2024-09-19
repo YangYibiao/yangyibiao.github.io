@@ -238,6 +238,7 @@ $g(y, z) = y^2 - z^2$  对应C代码:
 return y * y + z * z;
 ```
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -299,6 +300,8 @@ hw.c调用 ==printf== 函数来显示一个字符串:
 ```C
   printf("Hello, World!\n");
 ```
+
+---
 
 
 
@@ -372,6 +375,9 @@ printf("Hello, World!\n");
 // Purpose: prints a bad pun
 // Author: K.N. King
 ```
+
+
+---
 
 
 
