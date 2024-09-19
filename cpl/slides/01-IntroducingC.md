@@ -41,7 +41,7 @@ presentation:
 
 <div class="bottom8"></div>
 
-### 计算机系 &nbsp;&nbsp; 杨已彪
+### 计算机学院 &nbsp;&nbsp; 杨已彪
 
 #### _yangyibiao@nju.edu.cn_
 
