@@ -145,7 +145,7 @@ int main(void)
 
 集编辑、编译、运行、调试的开发环境
 
-- [CLion](https://www.jetbrains.com/clion/): 强烈推荐, 学生邮箱可注册免费License
+- [CLion](https://www.jetbrains.com/clion/): ==推荐==, 学生邮箱可注册免费License
 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/zh-hans/vs/community/) 等: 社区版(Community Edition)免费、需配置安全检查
 
