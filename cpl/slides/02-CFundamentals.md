@@ -454,6 +454,7 @@ int main(void)
   语句
 }
 ```
+---
 
 <span class="yellow">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
 
