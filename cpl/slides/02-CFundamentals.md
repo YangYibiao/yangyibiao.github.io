@@ -454,6 +454,8 @@ int main(void)
   语句
 }
 ```
+
+
 ---
 
 <span class="yellow">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
@@ -481,7 +483,7 @@ int height, length, width, volume;
 float profit, loss;
 ```
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -527,6 +529,9 @@ double类型的变量赋值不要加字母f:
 ```C
 double pi = 3.14159;
 ```
+
+---
+
 
 
 <!-- slide data-notes="" -->
@@ -616,6 +621,8 @@ printf("profit: %.2f", profit);
 printf("Height: %d Length: %d", height, lenght);
 ```
 
+---
+
 
 
 <!-- slide data-notes="" -->
@@ -650,6 +657,8 @@ int main(void)
 }
 ```
 
+
+---
 
 
 <!-- slide data-notes="" -->
@@ -691,6 +700,9 @@ int height = 8, length = 12, width = 10;
 ```C
 int height, length, width = 10;
 ```
+
+
+---
 
 
 
@@ -813,6 +825,9 @@ int main(void)
 ```
 
 
+---
+
+
 
 <!-- slide data-notes="" -->
 
@@ -842,6 +857,9 @@ weight = (volume + INCHES_PER_POUND - 1) / INCHES_PER_POUND;
 ```C
 weight = (volume + 166 - 1) / 166;
 ```
+
+
+---
 
 
 
@@ -893,6 +911,8 @@ int main(void)
   return 0;
 }
 ```
+
+---
 
 
 
