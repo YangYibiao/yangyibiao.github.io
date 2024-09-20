@@ -455,10 +455,9 @@ int main(void)
 }
 ```
 
+<span class="yellow">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
 
 ---
-
-<span class="yellow">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
 
 
 
@@ -773,10 +772,9 @@ scanf("%f", &x);
 
 ---
 
--- 任务分解
+[游戏页面](https://www.abcya.com/games/guess_the_number)
 
-[Guess the number](https://www.abcya.com/games/guess_the_number)
-
+[随机数rand函数](https://en.cppreference.com/w/c/numeric/random/rand)
 
 
 <!-- slide data-notes="" -->
@@ -786,7 +784,41 @@ scanf("%f", &x);
 
 ---
 
-[随机数rand函数](https://en.cppreference.com/w/c/numeric/random/rand)
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(void)
+{
+  int total_tries = 0;
+  int limit, guess, reward;
+  printf("请输入所猜数字最大值:\n");
+  scanf("%d", &limit);
+  srand(time(NULL));
+  reward = rand() % limit + 1;
+
+  // printf("正确数值: %d\n", reward);
+  while (total_tries < 7) {
+    printf("请猜数字\n");
+    scanf("%d", &guess);
+    // 检查是否猜对
+    if (guess == reward) {
+      printf("YOU WIN!\n");
+      return 0;
+    } else if (guess < reward) {
+      printf("偏小!\n");
+    } else {
+      printf("偏大!\n");
+    }
+    total_tries++; // number_of_tries = number_of_tries -1;
+  }
+
+  printf("YOU LOSE!\n");
+  return 0;
+}
+```
+---
 
 
 
