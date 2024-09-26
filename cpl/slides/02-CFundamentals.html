@@ -613,7 +613,65 @@ volume <span class="token operator">=</span> height <span class="token operator"
 </ul>
 <p><a href="mol.c">演示</a></p>
 <hr>
-</section><section data-notes="" lineno="904" class="slide " data-source-line="904" data-h="37" data-v="0"><h5 id="程序-盒子空间重量">程序: 盒子空间重量 </h5>
+</section><section data-notes="" lineno="904" class="slide " data-source-line="904" data-h="37" data-v="0"><h5 id="a-naive-administration-system">A naive administration system </h5>
+<hr>
+<ul>
+<li><mark>录入信息</mark></li>
+</ul>
+<ol>
+<li>
+<p>Name (EN)     Gender (F/M)  （姓名、性别）</p>
+</li>
+<li>
+<p>Birthday (mm-dd-yyyy)     Weekday (Xyz.) （出生日期、星期几）</p>
+</li>
+<li>
+<p>C  Music Medicine （三门课程成绩）</p>
+</li>
+<li>
+<p>Mean (.d)     Standard Deviation (.dd)    Ranking (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">%</span></span></span></span>) （平均成绩、标准差、排名）</p>
+</li>
+</ol>
+<ul>
+<li><mark>录入要求</mark></li>
+</ul>
+<ol>
+<li>
+<p>每组信息占一行</p>
+</li>
+<li>
+<p>各项信息使用 <code>\t</code> 间隔</p>
+</li>
+<li>
+<p>各项信息遵循特定格式要求</p>
+</li>
+</ol>
+<p>Xiaojing Nan  F<br>
+05-20-1902    Tue.<br>
+100   90   80<br>
+90    5%</p>
+</section><section data-notes="" lineno="936" class="slide " data-source-line="936" data-h="38" data-v="0"><h5 id="char">char </h5>
+<hr>
+<p><img src="../img/char-image.png" alt=""></p>
+<p>A <code>char</code> is actually an <code>int</code>.</p>
+</section><section data-notes="" lineno="946" class="slide " data-source-line="946" data-h="39" data-v="0"><h5 id="c-string">c string </h5>
+<hr>
+<h1 id="codefont-color–yellowc-stringfontcode"><code><font color="yellow">C string</font></code> </h1>
+<p><code><font color="yellow" size="8">char first_name[] = “Tayu”;</font></code></p>
+<p>A C string is a null-terminated (<code>\0</code>) sequence of characters.</p>
+<p>String literal: ‘T’, ‘a’, ‘y’, ‘u’, ‘\0’</p>
+</section><section data-notes="" lineno="961" class="slide " data-source-line="961" data-h="40" data-v="0"><h5 id="conversion-specification">Conversion Specification </h5>
+<hr>
+<p><code><font color="yellow"><font color="red">%</font>[flags][width][.[precision]]<font color="red">specifier</font></font></code></p>
+<ul>
+<li><code><font color="red" size="7">%d</font></code>: decimal <code>int</code></li>
+<li><code><font color="red" size="7">%f</font></code>: <code>double</code></li>
+<li><code><font color="red" size="7">%e %E</font></code>: <code>double</code> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>d</mi><mi mathvariant="normal">.</mi><mi>d</mi><mi>d</mi><mi>d</mi><mtext>  </mtext><mtext>e</mtext><mo>±</mo><mi>d</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">-d.ddd \;\text{e} \pm dd</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord mathnormal">d</span><span class="mord">.</span><span class="mord mathnormal">ddd</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text"><span class="mord">e</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">dd</span></span></span></span>)</li>
+<li><code><font color="red" size="7">%c</font></code>: <code>char</code></li>
+<li><code><font color="red" size="7">%s</font></code>: <code>C string</code></li>
+<li><code><font color="red" size="7">%%</font></code>: <code>%</code></li>
+</ul>
+</section><section data-notes="" lineno="978" class="slide " data-source-line="978" data-h="41" data-v="0"><h5 id="程序-盒子空间重量">程序: 盒子空间重量 </h5>
 <hr>
 <p><em>dweight.c</em></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Computes the dimensional weight of a 12" x 10" x 8" box */</span>
@@ -637,7 +695,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section data-notes="" lineno="945" class="slide " data-source-line="945" data-h="38" data-v="0"><h5 id="程序-盒子空间重量改进版">程序: 盒子空间重量(改进版) </h5>
+</section><section data-notes="" lineno="1018" class="slide " data-source-line="1018" data-h="42" data-v="0"><h5 id="程序-盒子空间重量改进版">程序: 盒子空间重量(改进版) </h5>
 <hr>
 <p><em>dweight2.c</em></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Computes the dimensional weight of a box from input provided by the user */</span>
@@ -663,7 +721,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section data-notes="" lineno="984" class="slide " data-source-line="984" data-h="39" data-v="0"><h5 id="定义常量的名字">定义常量的名字 </h5>
+</section><section data-notes="" lineno="1057" class="slide " data-source-line="1057" data-h="43" data-v="0"><h5 id="定义常量的名字">定义常量的名字 </h5>
 <hr>
 <p>dweight.c和dweight2.c依赖于常量 166, 阅读程序的人可能不清楚其含义.</p>
 <p>使用称为宏定义的功能, 可以命名此常量:</p>
@@ -680,14 +738,14 @@ volume <span class="token operator">=</span> height <span class="token operator"
 </code></pre><p>会变成</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>weight <span class="token operator">=</span> <span class="token punctuation">(</span>volume <span class="token operator">+</span> <span class="token number">166</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">166</span><span class="token punctuation">;</span>
 </code></pre><hr>
-</section><section data-notes="" lineno="1018" class="slide " data-source-line="1018" data-h="40" data-v="0"><h5 id="定义常量的名字-1">定义常量的名字 </h5>
+</section><section data-notes="" lineno="1091" class="slide " data-source-line="1091" data-h="44" data-v="0"><h5 id="定义常量的名字-1">定义常量的名字 </h5>
 <hr>
 <ul>
 <li>当宏包含运算符时, 必须用括号把表达式括起来</li>
 </ul>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCALE_FACTOR</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">5.0f</span> <span class="token operator">/</span> <span class="token number">9.0f</span><span class="token punctuation">)</span></span></span>
 </code></pre><p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 宏的名字只用大写字母是常见的约定</p>
-</section><section data-notes="" lineno="1035" class="slide " data-source-line="1035" data-h="41" data-v="0"><h5 id="程序-从华氏温度转为摄氏温度">程序: 从华氏温度转为摄氏温度 </h5>
+</section><section data-notes="" lineno="1108" class="slide " data-source-line="1108" data-h="45" data-v="0"><h5 id="程序-从华氏温度转为摄氏温度">程序: 从华氏温度转为摄氏温度 </h5>
 <hr>
 <p><em>celsius.c</em></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* Converts a Fahrenheit temperature to Celsius */</span>
@@ -711,7 +769,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre><hr>
-</section><section data-notes="" lineno="1071" class="slide " data-source-line="1071" data-h="42" data-v="0"><h5 id="标识符">标识符 </h5>
+</section><section data-notes="" lineno="1144" class="slide " data-source-line="1144" data-h="46" data-v="0"><h5 id="标识符">标识符 </h5>
 <hr>
 <p>变量、函数、宏和其他实体的名称称为标识符</p>
 <p><mark>标识符</mark>可包含字母、数字和下划线, 但必须以<mark>字母</mark>或<mark>下划线</mark>开头:</p>
@@ -727,7 +785,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
 <li><code>10times get-next-char</code></li>
 </ul>
 <p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 避免使用以下划线开头的标识符</p>
-</section><section data-notes="" lineno="1096" class="slide " data-source-line="1096" data-h="43" data-v="0"><h5 id="标识符-1">标识符 </h5>
+</section><section data-notes="" lineno="1169" class="slide " data-source-line="1169" data-h="47" data-v="0"><h5 id="标识符-1">标识符 </h5>
 <hr>
 <p>许多程序员在标识符(宏除外)中只使用小写字母, 并插入下划线以提高可读性:</p>
 <ul>
@@ -738,7 +796,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
 <li><code>symbolTable  currentPage  nameAndAddress</code></li>
 </ul>
 <p>C对标识符的最大长度没有限制</p>
-</section><section data-notes="" lineno="1115" class="slide " data-source-line="1115" data-h="44" data-v="0"><h5 id="标识符-2">标识符 </h5>
+</section><section data-notes="" lineno="1188" class="slide " data-source-line="1188" data-h="48" data-v="0"><h5 id="标识符-2">标识符 </h5>
 <hr>
 <p><mark>关键字</mark> 不能作为标识符</p>
 <div class="fullborder">
@@ -809,7 +867,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
 </tbody>
 </table>
 </div>
-</section><section data-notes="" lineno="1142" class="slide " data-source-line="1142" data-h="45" data-v="0"><h5 id="标识符-3">标识符 </h5>
+</section><section data-notes="" lineno="1215" class="slide " data-source-line="1215" data-h="49" data-v="0"><h5 id="标识符-3">标识符 </h5>
 <hr>
 <ul>
 <li>
@@ -819,7 +877,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
 <p>库函数的名称(例如 <mark><code>printf</code></mark> )也是小写</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="1155" class="slide " data-source-line="1155" data-h="46" data-v="0"><h5 id="c程序的布局">C程序的布局 </h5>
+</section><section data-notes="" lineno="1228" class="slide " data-source-line="1228" data-h="50" data-v="0"><h5 id="c程序的布局">C程序的布局 </h5>
 <hr>
 <p>一个C程序由一系列标记组成, 标记包括:</p>
 <ul>
@@ -842,7 +900,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
 <p>字符串字面量</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="1178" class="slide " data-source-line="1178" data-h="47" data-v="0"><h5 id="c程序的布局-1">C程序的布局 </h5>
+</section><section data-notes="" lineno="1251" class="slide " data-source-line="1251" data-h="51" data-v="0"><h5 id="c程序的布局-1">C程序的布局 </h5>
 <hr>
 <p>语句</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Height: %d\n"</span><span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -883,7 +941,7 @@ volume <span class="token operator">=</span> height <span class="token operator"
 </tbody>
 </table>
 </div>
-</section><section data-notes="" lineno="1208" class="slide " data-source-line="1208" data-h="48" data-v="0"><h5 id="c程序的布局-2">C程序的布局 </h5>
+</section><section data-notes="" lineno="1281" class="slide " data-source-line="1281" data-h="52" data-v="0"><h5 id="c程序的布局-2">C程序的布局 </h5>
 <hr>
 <p>标记之间的空白通常并不重要, 标记间的空格可以全部去掉, 只要不会导致两个标记合并:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Converts a Fahrenheit temperature to Celsius */</span>
@@ -903,7 +961,7 @@ celsius<span class="token operator">=</span><span class="token punctuation">(</s
 </li>
 </ul>
 <p><span class="blue">:fa-lightbulb-o:</span> 在程序中 <mark>添加空格和空行</mark> 可以使其更易于阅读和理解.</p>
-</section><section data-notes="" lineno="1236" class="slide " data-source-line="1236" data-h="49" data-v="0"><h5 id="c程序的布局-3">C程序的布局 </h5>
+</section><section data-notes="" lineno="1309" class="slide " data-source-line="1309" data-h="53" data-v="0"><h5 id="c程序的布局-3">C程序的布局 </h5>
 <hr>
 <p>C允许在标记之间使用任意数量空格符: 空格、制表符和换行符</p>
 <p>程序布局:</p>
@@ -921,7 +979,7 @@ celsius<span class="token operator">=</span><span class="token punctuation">(</s
 <p>空行可以将程序划分为逻辑单元</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="1257" class="slide " data-source-line="1257" data-h="50" data-v="0"><h5 id="c程序的布局-4">C程序的布局 </h5>
+</section><section data-notes="" lineno="1330" class="slide " data-source-line="1330" data-h="54" data-v="0"><h5 id="c程序的布局-4">C程序的布局 </h5>
 <hr>
 <p>尽管可以在标记之间添加额外的空格, 但不能在标记内添加空格, 会改变程序含义或导致错误, 写作</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>fl oat fahrenheit<span class="token punctuation">,</span> celsius<span class="token punctuation">;</span>  <span class="token comment">/*** WRONG ***/</span>
@@ -929,7 +987,7 @@ celsius<span class="token operator">=</span><span class="token punctuation">(</s
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>fl
 oat fahrenheit<span class="token punctuation">,</span> celsius<span class="token punctuation">;</span>     <span class="token comment">/*** WRONG ***/</span>
 </code></pre><p>会产生编译错误</p>
-</section><section data-notes="" lineno="1281" class="slide " data-source-line="1281" data-h="51" data-v="0"><h5 id="c程序的布局-5">C程序的布局 </h5>
+</section><section data-notes="" lineno="1354" class="slide " data-source-line="1354" data-h="55" data-v="0"><h5 id="c程序的布局-5">C程序的布局 </h5>
 <hr>
 <p>可以在字符串中放置一个空格, 不过会改变字符串的含义.</p>
 <p>在字符串中放入换行符(将字符串分成两行)是非法的:</p>

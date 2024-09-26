@@ -904,6 +904,79 @@ $Q = 6 / 32 \times 6.02 \times 10^{23}$
 <!-- slide data-notes="" -->
 
 
+##### A naive administration system
+
+---
+
+- ==录入信息==
+
+1. Name (EN)     Gender (F/M)  （姓名、性别）
+
+2. Birthday (mm-dd-yyyy)     Weekday (Xyz.) （出生日期、星期几）
+
+3. C  Music Medicine （三门课程成绩）
+
+4. Mean (.d)     Standard Deviation (.dd)    Ranking ($\%$) （平均成绩、标准差、排名）
+
+- ==录入要求==
+
+1. 每组信息占一行
+
+2. 各项信息使用 `\t` 间隔
+
+3. 各项信息遵循特定格式要求
+
+
+Xiaojing Nan  F
+05-20-1902    Tue.
+100   90   80
+90    5%
+
+
+<!-- slide data-notes="" -->
+
+##### char
+
+---
+
+![alt text](../img/char-image.png)
+
+A `char` is actually an `int`.
+
+<!-- slide data-notes="" -->
+
+##### c string
+
+--- 
+
+# <code><font color = yellow>C string</font></code>
+<code><font color = yellow size = 8>char first_name[] = "Tayu";</code></font>
+
+A C string is a null-terminated (`\0`) sequence of characters.
+
+String literal: 'T', 'a', 'y', 'u', '\0'
+
+
+
+<!-- slide data-notes="" -->
+
+##### Conversion Specification
+
+---
+
+<!--fit--> <code><font color = yellow><font color = red>%</font>[flags][width][.[precision]]<font color = red>specifier</font></font></code>
+
+- <code><font color = red size = 7>%d</font></code>: decimal `int`
+- <code><font color = red size = 7>%f</font></code>: `double`
+- <code><font color = red size = 7>%e %E</font></code>: `double` ($-d.ddd \;\text{e} \pm dd$)
+- <code><font color = red size = 7>%c</font></code>: `char`
+- <code><font color = red size = 7>%s</font></code>: `C string`
+- <code><font color = red size = 7>%%</font></code>: `%`
+
+
+
+<!-- slide data-notes="" -->
+
 ##### 程序: 盒子空间重量
 
 ---
