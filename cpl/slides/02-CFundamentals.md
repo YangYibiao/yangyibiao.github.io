@@ -380,6 +380,65 @@ printf("Hello, World!\n");
 // Author: K.N. King
 ```
 
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 猜数字游戏
+
+---
+
+[游戏页面](https://www.abcya.com/games/guess_the_number)
+
+[随机数rand函数](https://en.cppreference.com/w/c/numeric/random/rand)
+
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 猜数字游戏
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(void)
+{
+  int total_tries = 0;
+  int limit, guess, reward;
+  printf("Please choose the limit value:\n");
+  scanf("%d", &limit);
+  srand(time(NULL));
+  reward = rand() % limit + 1;
+
+  // printf("正确数值: %d\n", reward);
+  while (total_tries < 7) {
+    printf("Please guess the number\n");
+    scanf("%d", &guess);
+    // 检查是否猜对
+    if (guess == reward) {
+      printf("YOU WIN!\n");
+      return 0;
+    } else if (guess < reward) {
+      printf("Smaller than the reward!\n");
+    } else {
+      printf("Larger than the reward!\n");
+    }
+    total_tries++; // number_of_tries = number_of_tries -1;
+  }
+
+  printf("YOU LOSE!\n");
+  return 0;
+}
+```
 
 ---
 
@@ -684,68 +743,6 @@ printf("Height: %d Length: %d", height, lenght);
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-
-##### Circle.c
-
----
-
-- ==输入半径 $r$: radius==
-- ==输出:==
-1. 周长  $L = 2\pi r$
-2. 面积  $S = \pi r^2$
-3. 球面面积 $A = 4 \pi r^2$
-4. 体积 $V = \frac{4}{3} \pi r^3$
-- ==要求:==
-1. 每个结果占 $1$ 行
-2. 小数点后保留 $4$ 位
-3. 每个结果至少占 $15$ 字符, 左对齐
-  > `_______________ : surface_area`
-  > `_______________ : volume`
-
-[演示](circle.c)
----
-
-
-
-<!-- slide data-notes="" -->
-
-
-##### 程序: 盒子空间重量
-
----
-
-*dweight.c*
-
-```C{.line-numbers}
-/* Computes the dimensional weight of a 12" x 10" x 8" box */
-
-#include <stdio.h>
- 
-int main(void)
-{
-  int height, length, width, volume, weight;
- 
-  height = 8;
-  length = 12;
-  width = 10;
-  volume = height * length * width;
-  weight = (volume + 165) / 166;
- 
-  printf("Dimensions: %dx%dx%d\n", length, width, height);
-  printf("Volume (cubic inches): %d\n", volume);
-  printf("Dimensional weight (pounds): %d\n", weight);
- 
-  return 0;
-}
-```
-
-
----
-
-
 <!-- slide data-notes="" -->
 
 
@@ -851,60 +848,97 @@ scanf("%f", &x);
 - ==`%f`== 告诉 ==`scanf`== 查找浮点格式的输入值(数字可能包含小数点, 但不是必须的)
 
 
-<!-- slide data-notes="" -->
-
-
-##### 猜数字游戏
-
----
-
-[游戏页面](https://www.abcya.com/games/guess_the_number)
-
-[随机数rand函数](https://en.cppreference.com/w/c/numeric/random/rand)
-
 
 <!-- slide data-notes="" -->
 
 
-##### 猜数字游戏
+##### Circle.c
 
 ---
 
-```C
+- ==输入半径 $r$: radius==
+- ==输出:==
+1. 周长  $L = 2\pi r$
+2. 面积  $S = \pi r^2$
+3. 球面面积 $A = 4 \pi r^2$
+4. 体积 $V = \frac{4}{3} \pi r^3$
+- ==要求:==
+1. 每个结果占 $1$ 行
+2. 小数点后保留 $4$ 位
+3. 每个结果至少占 $15$ 字符, 左对齐
+  > `_______________ : surface_area`
+  > `_______________ : volume`
+
+[演示](circle.c)
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### mol.c
+
+---
+
+<font size = "7">$6$ 克氧气的分子数是多少?</font>
+
+<br>
+
+$Q = 6 / 32 \times 6.02 \times 10^{23}$
+
+<br>
+
+两种格式输出, 结果均使用<mark>科学计数法</mark>表示
+
+- 第一行结果, 小数点后保留 $3$ 位
+- 第二行结果, 保留 $5$ 位有效数字
+
+
+[演示](mol.c)
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 盒子空间重量
+
+---
+
+*dweight.c*
+
+```C{.line-numbers}
+/* Computes the dimensional weight of a 12" x 10" x 8" box */
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
+ 
 int main(void)
 {
-  int total_tries = 0;
-  int limit, guess, reward;
-  printf("Please choose the limit value:\n");
-  scanf("%d", &limit);
-  srand(time(NULL));
-  reward = rand() % limit + 1;
-
-  // printf("正确数值: %d\n", reward);
-  while (total_tries < 7) {
-    printf("Please guess the number\n");
-    scanf("%d", &guess);
-    // 检查是否猜对
-    if (guess == reward) {
-      printf("YOU WIN!\n");
-      return 0;
-    } else if (guess < reward) {
-      printf("Smaller than the reward!\n");
-    } else {
-      printf("Larger than the reward!\n");
-    }
-    total_tries++; // number_of_tries = number_of_tries -1;
-  }
-
-  printf("YOU LOSE!\n");
+  int height, length, width, volume, weight;
+ 
+  height = 8;
+  length = 12;
+  width = 10;
+  volume = height * length * width;
+  weight = (volume + 165) / 166;
+ 
+  printf("Dimensions: %dx%dx%d\n", length, width, height);
+  printf("Volume (cubic inches): %d\n", volume);
+  printf("Dimensional weight (pounds): %d\n", weight);
+ 
   return 0;
 }
 ```
+
+
 ---
+
+
+
+
 
 
 
