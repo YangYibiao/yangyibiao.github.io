@@ -42,7 +42,7 @@ presentation:
 
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
-#### _yangyibiao@nju.edu.cn_
+#### [yangyibiao@nju.edu.cn](yangyibiao@nju.edu.cn)
 
 
 
@@ -79,6 +79,12 @@ printf(字符串, 表达式1, 表达式2, ...);
 - ==`%d`== 用于 ==`int`== 值
 
 - ==`%f`== 用于 ==`float`== 值
+
+- ==`%c`== 用于 ==`char`== 值
+
+- ==`%s`== 用于 ==`char []`== 值
+
+
 
 
 
