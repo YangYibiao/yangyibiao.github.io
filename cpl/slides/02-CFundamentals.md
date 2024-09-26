@@ -68,7 +68,7 @@ presentation:
 <!-- slide vertical=true data-notes="" -->
 
 
-##### 程序: 打印Hello World
+##### 程序: 打印Hello NJU
 
 ---
 
@@ -77,7 +77,7 @@ presentation:
 
 int main(void)
 {
-  printf("Hello, World!\n");
+  printf("Hello, NJU!\n");
   return 0;
 }
 ```
@@ -93,7 +93,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 程序: 打印Hello World
+##### 程序: 打印Hello NJU
 
 ---
 
@@ -102,7 +102,7 @@ int main(void)
 
 int main(void)
 {
-  printf("Hello, World!\n");
+  printf("Hello, NJU!\n");
   return 0;
 }
 ```
