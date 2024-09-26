@@ -394,7 +394,7 @@ printf("Hello, World!\n");
 
 ==变量==: (Variable)程序执行过程中临时存储数据的单元
 
-==类型==: (type)每一个变量都有一个类型, 类型用来说明变量所存储的数据的种类
+==类型==: (type)每一个变量都有一个类型, 类型用来说明变量所存储的数据的种类, ==int, float, double, char, char []==
 
 <!-- slide data-notes="" -->
 
@@ -411,6 +411,20 @@ printf("Hello, World!\n");
 - (整数integer的缩写)存储整数, 如`0`, `1`, `392`或`-2553`
 
 - 整形的取值范围是受限的, 最大的整数通常是$2 147 483 647$($2^{31}-1$), 16位机最大整数是$32 767$
+
+- INT_MAX, INT_MIN
+
+```C
+#include <stdio.h>
+#include <limits.h>
+
+int main(void) {
+  printf("Max: %d, Min: %d", INT_MAX, INT_MIN);
+  return 0;
+}
+```
+
+---
 
 
 
@@ -432,6 +446,7 @@ printf("Hello, World!\n");
 - ==float== 型变量所存储的数值往往只是实际数值的一个近似值
 - ==float== 型变量中存储0.1, 可能发现变量值为$0.099 999 999 999 999 87$
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -473,6 +488,8 @@ int main(void)
 ```C{.line-numbers}
 int height;
 float profit;
+char gender;
+char name[20];
 ```
 
 - 可以同时声明多个变量: 
@@ -480,6 +497,8 @@ float profit;
 ```C{.line-numbers}
 int height, length, width, volume;
 float profit, loss;
+char gender;
+char name[30], nation[20], address[60];
 ```
 
 ---
@@ -497,11 +516,18 @@ float profit, loss;
 height = 8;
 lenght = 12;
 width = 10;
+gender = 'M';
 ```
 
 `8`, `12`, `10`为常量
 
+```C
+char name[30] = "Alex";
+char nation[20] = "China";
+char address[60] = "XianLin Avenue, Qixia District, Nanjing, China 210023";
+```
 
+---
 
 <!-- slide data-notes="" -->
 
