@@ -685,6 +685,30 @@ printf("Height: %d Length: %d", height, lenght);
 ---
 
 
+<!-- slide data-notes="" -->
+
+
+##### Circle.c
+
+---
+
+- ==输入半径 $r$: radius==
+- ==输出:==
+1. 周长  $L = 2\pi r$
+2. 面积  $S = \pi r^2$
+3. 球面面积 $A = 4 \pi r^2$
+4. 体积 $V = \frac{4}{3} \pi r^3$
+- ==要求:==
+1. 每个结果占 $1$ 行
+2. 小数点后保留 $4$ 位
+3. 每个结果至少占 $15$ 字符, 左对齐
+  > `_______________ : surface_area`
+  > `_______________ : volume`
+
+[演示](circle.c)
+---
+
+
 
 <!-- slide data-notes="" -->
 
@@ -855,23 +879,23 @@ int main(void)
 {
   int total_tries = 0;
   int limit, guess, reward;
-  printf("请输入所猜数字最大值:\n");
+  printf("Please choose the limit value:\n");
   scanf("%d", &limit);
   srand(time(NULL));
   reward = rand() % limit + 1;
 
   // printf("正确数值: %d\n", reward);
   while (total_tries < 7) {
-    printf("请猜数字\n");
+    printf("Please guess the number\n");
     scanf("%d", &guess);
     // 检查是否猜对
     if (guess == reward) {
       printf("YOU WIN!\n");
       return 0;
     } else if (guess < reward) {
-      printf("偏小!\n");
+      printf("Smaller than the reward!\n");
     } else {
-      printf("偏大!\n");
+      printf("Larger than the reward!\n");
     }
     total_tries++; // number_of_tries = number_of_tries -1;
   }
