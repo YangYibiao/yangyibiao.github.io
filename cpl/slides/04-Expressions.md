@@ -407,6 +407,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -439,6 +440,7 @@ j = i;            /* j is now 5  */
 k = 10 * i + j;   /* k is now 55 */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -458,6 +460,7 @@ i = 72.99f;   /* i is now 72 */
 f = 136;      /* f is now 136.0 */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -477,6 +480,7 @@ f = 136;      /* f is now 136.0 */
 i = j = 50 + 3;
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -513,7 +517,7 @@ i = j = k = 0;
 i = (j = (k = 0));
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -533,7 +537,7 @@ f = i = 33.3f;
 
 `i` 被赋值为 `33`, 然后 `f` 被赋值为 `33.0`, 而不是 `33.3`
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -550,6 +554,8 @@ k = 1 + (j = i);
 printf("%d %d %d\n", i, j, k);
 /* prints "1 1 2" */
 ```
+
+---
 
 <span class="yellow">:fa-weixin:</span> ==嵌入式赋值== 会使程序难以阅读, 容易隐藏错误
 
@@ -610,6 +616,7 @@ i + j = 0;   /*** WRONG ***/
 i += 2;   /* same as i = i + 2; */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -689,6 +696,7 @@ i += 1;
 j -= 1;
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -735,6 +743,7 @@ printf("i is %d\n", i++);   /* prints "i is 1" */
 printf("i is %d\n", i);     /* prints "i is 2" */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -768,6 +777,7 @@ printf("i is %d\n", i--);   /* prints "i is 1" */
 printf("i is %d\n", i);     /* prints "i is 0" */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1022,6 +1032,7 @@ i--;       /* useful */
 i * j - 1; /* not useful */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->

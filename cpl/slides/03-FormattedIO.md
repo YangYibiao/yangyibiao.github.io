@@ -116,6 +116,7 @@ printf("i = %d, j = %d, x = %f, y = %f\n", i, j, x, y);
 i = 10, j = 20, x = 43.289200, y = 5527.000000
 ```
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -139,6 +140,8 @@ printf("%d %d\n", i); /*** WRONG ***/
 printf("%d\n", i, j); /*** WRONG ***/
 ```
 
+---
+
 
 
 <!-- slide data-notes="" -->
@@ -158,6 +161,7 @@ float x;
 printf("%f %d\n", i, x); /*** WRONG ***/
 ```
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -268,6 +272,7 @@ Output:
 |•••839.210|•8.392e+02|839.21••••|
 ```
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -315,6 +320,7 @@ Item    Unit    Purchase
         Price   Date
 ```
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -335,6 +341,8 @@ printf("\"Hello!\""); /* prints "Hello!" */
 ```C
 printf("\\"); /* prints one \ character */
 ```
+
+---
 
 
 
@@ -438,7 +446,7 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 •••-4.0e3
 ```
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -579,7 +587,7 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 printf("%d %d\n", &i, &j);  /*** WRONG ***/
 ```
 
-
+---
 
 <!-- slide data-notes="" -->
 
