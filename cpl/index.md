@@ -54,7 +54,7 @@
 | 第十三讲  | [声明](slides/18-Declarations.html)   | auto, extern, register等 |
 | ^ | [底层程序设计](slides/20-LowLevelProgramming.html)   | 位运算等 |
 | 第十四讲 | [解释复杂声明](slides/review.html) | 解释复杂声明、二分查找等 |
-| 其他  | [底层程序设计](slides/22-InputOutput.html)   | 文件操作 |
+| ^ | [底层程序设计](slides/22-InputOutput.html)   | 文件操作 |
 | .......| .............................. | .......|
 
 </div>
