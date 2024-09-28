@@ -50,29 +50,34 @@ presentation:
 <!-- slide vertical=true data-notes="" -->
 
 
-##### Review
+##### 
 
 ---
 
-- Variables(变量)
+# Review
 
-- Data Types(数据类型)
+### <font color = "blue">Variables (变量) &emsp; Data Types (数据类型)</font>
 
-- Operators(运算符)
+<br>
 
-- Expressions(表达式)
+### <font color = "red">Operators (运算符) &emsp; Expressions (表达式)
+### Assignment Statements (赋值语句)</font>
 
-- Assignment Statement(赋值语句)
+<br>
 
-- I/O(Input/Output;输入输出)
+### <font color = "purple">I/O (Input/Output; 输入输出)</font>
+
 
 
 <!-- slide vertical=true data-notes="" -->
 
 
-##### Overview
+##### 
 
 ---
+
+# Overview
+<br>
 
 <font color = red>
 
@@ -85,10 +90,11 @@ presentation:
 ### <font color = blue>Array (数组)</font>
 
 
+
 <!-- slide data-notes="" -->
 
 
-##### 演示代码
+#####
 
 --- 
 
@@ -97,8 +103,8 @@ presentation:
 ## <mark>min.c &ensp; leap.c &ensp; min-array.c</mark>
 
 
-<!-- slide vertical=true data-notes="" -->
 
+<!-- slide vertical=true data-notes="" -->
 
 #####
 
