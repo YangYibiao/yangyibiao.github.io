@@ -30,11 +30,13 @@
 | 第一讲  | [课程介绍](slides/00-CourseIntroduction.html)           | 课程介绍                       |
 |   ^    | [绪论](slides/01-IntroducingC.html)        | C语言介绍                    |
 |   ^    | [基本概念](slides/02-CFundamentals.html)        | C语言基本概念                    |
-| 第二讲  | [格式化输入/输出](slides/03-FormattedIO.html)  | 格式化输入输出                    |
+| 第二讲  | [数据类型](slides/02-CFundamentals.html)  | 变量、数据类型                    |
+|   ^    | [输入/输出](slides/03-FormattedIO.html)  | 格式化输入输出                    |
 |   ^    | [表达式](slides/04-Expressions.html)          | 运算符、表达式求值                |
-| 第三讲  | [选择语句](slides/05-SelectionStatements.html)        | 逻辑表达式、if语句、switch语句    |
+| 第三讲  | [选择](slides/05-SelectionStatements.html)        | 逻辑表达式、if语句、switch语句    |
 |   ^    | [循环](slides/06-Loops.html)           | while语句、do-while语句、for语句 |
-|   ^    | [数组](slides/03w-Arrays.html)           | 一维数组  |
+|   ^    | [数组](slides/2w-Arrays.html)           | 一维数组  |
+|   ^    | [演示](slides/2w-if-for-array.html)     | 代码演示  |
 <!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
 <!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
