@@ -30,7 +30,7 @@
 | 第一讲  | [课程介绍](slides/00-CourseIntroduction.html)           | 课程介绍                       |
 |   ^    | [绪论](slides/01-IntroducingC.html)        | C语言介绍                    |
 |   ^    | [基本概念](slides/02-CFundamentals.html)        | C语言基本概念                    |
-| 第二讲  | [数据类型](slides/02-CFundamentals.html)  | 变量、数据类型                    |
+| 第二讲  | [数据类型](slides/02-Variables.html)  | 变量、数据类型                    |
 |   ^    | [输入/输出](slides/03-FormattedIO.html)  | 格式化输入输出                    |
 |   ^    | [表达式](slides/04-Expressions.html)          | 运算符、表达式求值                |
 | 第三讲  | [选择](slides/05-SelectionStatements.html)        | 逻辑表达式、if语句、switch语句    |
