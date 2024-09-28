@@ -144,7 +144,7 @@ $min = \min\{a, b\}$
 # Min of Two
 <br>
 
-## <code><font color = yellow>min = a >= b <font color = red>?</font> b <font color = red>:</font> a;</font></code>
+## <code><font color = green>min = a >= b <font color = red>?</font> b <font color = red>:</font> a;</font></code>
 #### (条件表达式; 三目运算符)
 <br>
 
@@ -327,7 +327,7 @@ $\min\{3, 5, 2, 7\} = \min(\min(\min(3, 5), 2), 7)$
 <br>
 <br>
 
-<font color = yellow size = 50>
+<font color = green size = 50>
 
     i = 2;
     j = i * i++;
@@ -340,14 +340,14 @@ $\min\{3, 5, 2, 7\} = \min(\min(\min(3, 5), 2), 7)$
 
 ---
 
- <code><font color = yellow>#define NUM 5</font></code>
+ <code><font color = green>#define NUM 5</font></code>
 <br>
 <br>
 
 ### Symbolic Constants (符号常量)
 <br>
 
-## <code><font color = yellow>int numbers[NUM] = {0};</font></code> has a <mark>*fixed*</mark> size.
+## <code><font color = green>int numbers[NUM] = {0};</font></code> has a <mark>*fixed*</mark> size.
 <!-- <br>
 
 ## `NUM` is known at <mark>*compiler*</mark> time. -->
@@ -362,13 +362,13 @@ $\min\{3, 5, 2, 7\} = \min(\min(\min(3, 5), 2), 7)$
 Array Initializer
 <br>
 
-* <code><font color = yellow size = 8>int numbers[NUM] = {1};</font></code>
+* <code><font color = green size = 8>int numbers[NUM] = {1};</font></code>
 <br>
 
-* <code><font color = yellow size = 8>int numbers[] = {0};</font></code>
+* <code><font color = green size = 8>int numbers[] = {0};</font></code>
 <br>
 
-* <code><font color = yellow size = 8>int numbers[NUM] = {[2] = 1};</font></code>
+* <code><font color = green size = 8>int numbers[NUM] = {[2] = 1};</font></code>
 
 
 
@@ -382,7 +382,7 @@ Array Initializer
 Array Initializer (DON'T)
 <br>
 
-<code><font color = yellow size = 8>int numbers[NUM] = {};</font></code>
+<code><font color = green size = 8>int numbers[NUM] = {};</font></code>
 <br>
 
 ## Forbidden in C99 (Unfortunately!)
@@ -400,7 +400,7 @@ Array Initializer (DON'T)
 Array Initializer (DON'T)
 <br>
 
-<code><font color = yellow size = 8>int numbers[NUM];</font></code>
+<code><font color = green size = 8>int numbers[NUM];</font></code>
 <br>
 
 ## `numbers` may contain garbage values;
@@ -418,7 +418,7 @@ Array Initializer (DON'T)
 Array Initializer (DON'T)
 <br>
 
-<code><font color = yellow size = 8>int numbers[];</font></code>
+<code><font color = green size = 8>int numbers[];</font></code>
 <br>
 
 ## You <mark>must</mark> specify the size so that the compiler/runtime can allocate memory for it.
