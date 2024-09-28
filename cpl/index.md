@@ -34,9 +34,10 @@
 |   ^    | [表达式](slides/04-Expressions.html)          | 运算符、表达式求值                |
 | 第三讲  | [选择语句](slides/05-SelectionStatements.html)        | 逻辑表达式、if语句、switch语句    |
 |   ^    | [循环](slides/06-Loops.html)           | while语句、do-while语句、for语句 |
-| 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
-|   ^    | [数组](slides/08-Arrays.html)           | 一维数组 |
-| 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
+|   ^    | [数组](slides/03w-Arrays.html)           | 一维数组  |
+<!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
+|   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
+<!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
 |   ^    | [函数](slides/09-Functions.html)           | 函数声明、定义、形参、实参  |
 | 第六讲  | [程序结构](slides/10-ProgramOrganization.html)        | 局部变量、全部变量、作用域等  |
 |   ^    | [指针](slides/11-Pointers.html)          | 指针变量、指针赋值、指针作为参数和返回值  |
@@ -55,7 +56,7 @@
 | ^ | [底层程序设计](slides/20-LowLevelProgramming.html)   | 位运算等 |
 | 第十四讲 | [解释复杂声明](slides/review.html) | 解释复杂声明、二分查找等 |
 | ^ | [底层程序设计](slides/22-InputOutput.html)   | 文件操作 |
-| .......| .............................. | .......|
+| .......| .............................. | .......| -->
 
 </div>
 
