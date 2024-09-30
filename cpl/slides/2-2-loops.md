@@ -178,6 +178,7 @@ i = i * 2;      i is now 16
 Is i < n?       No; exit from loop 
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -206,6 +207,7 @@ while (i < n) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -249,6 +251,7 @@ while (i > 0)
   printf("T minus %d and counting\n", i--);
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -290,6 +293,7 @@ Enter number of entries in table: 5
 4        16
 5        25
 ```
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -324,6 +328,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -376,6 +381,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -491,6 +497,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -518,6 +525,8 @@ for (表达式1; 表达式2; 表达式3) 语句
 for (i = 10; i > 0; i--) 
   printf("T minus %d and counting\n", i);
 ```
+
+---
 
 
 
@@ -565,6 +574,7 @@ while (i > 0) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -593,6 +603,7 @@ while (i > 0) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -626,6 +637,7 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 /* 从n倒数到1 */           for (i = n; i > 0; i--) ...
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -669,6 +681,7 @@ for (i = 10; i > 0;)
   printf("T minus %d and counting\n", i--);
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -711,6 +724,7 @@ while (i > 0)
   for (;;) …
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -751,6 +765,7 @@ for (int i = 0; i < n; i++) {
 printf("%d", i); /*** WRONG ***/
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -771,6 +786,7 @@ for (int i = 0, j = 0; i < n; i++)
   …
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -889,6 +905,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -942,6 +959,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -974,6 +992,7 @@ for (d = 2; d < n; d++)
     break;
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -992,6 +1011,7 @@ else
   printf("%d is prime\n", n);
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1015,6 +1035,7 @@ for (;;) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1083,6 +1104,7 @@ while (n < 10) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1106,6 +1128,7 @@ while (n < 10) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1154,6 +1177,7 @@ else
   printf("%d is prime\n", n);
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1221,6 +1245,7 @@ for (;;) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1248,6 +1273,7 @@ for (;;) {
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1292,6 +1318,7 @@ Current balance: $1145.09
 Enter command: 4
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1347,6 +1374,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1471,7 +1499,7 @@ for (i = 5, j = i - 1; i > 0, j > 0; --i, j = i - 1)
   printf("%d ", i);
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
