@@ -140,7 +140,7 @@ presentation:
 ---
 
 <div class="top-2">
-  <img src="../img/book/cpm.jpg" width=200px height=270px>
+  <img src="figs/img/book/cpm.jpg" width=200px height=270px>
 </div>
 
 - 书名: C语言程序设计 现代方法 第2版·修订版 (吕秀锋, 黄倩 译)
@@ -158,7 +158,7 @@ presentation:
 ---
 
 <div class="top-2">
-  <img src="../img/book/The_C_Programming_Language.png" width=200px height=270px>
+  <img src="figs/img/book/The_C_Programming_Language.png" width=200px height=270px>
 </div>
 
 - 书名: C程序设计语言
