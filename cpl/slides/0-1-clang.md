@@ -49,24 +49,6 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-<div class="bottom20"></div>
-
-# C语言程序设计基础
-
-<hr class="width50 center">
-
-## C语言概述
-
-<div class="bottom8"></div>
-
-### 计算机学院 &nbsp;&nbsp; 杨已彪
-
-#### [yangyibiao@nju.edu.cn](yangyibiao@nju.edu.cn)
-
-
-
-<!-- slide data-notes="" -->
-
 ##### 概述
 
 ---
