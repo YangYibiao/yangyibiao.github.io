@@ -28,11 +28,11 @@
 |        |              讲义                | 内容                           |
 | :----: | :--                             | :--                            |
 | 第一讲  | [课程介绍](slides/0-intro.html)           |     课程介绍 C语言介绍   |
-|   ^    | [基本概念](slides/00-basic.html)        | C语言基本概念                    |
-| 第二讲  | [数据类型](slides/02-Variables.html)  | 变量、数据类型                    |
-|   ^    | [输入/输出](slides/03-FormattedIO.html)  | 格式化输入输出                    |
-|   ^    | [表达式](slides/04-Expressions.html)          | 运算符、表达式求值                |
-|   ^    | [演示](slides/1w-types-io.html)          | 代码演示                |
+|   ^    | [基本概念](slides/0-basic.html)        | C语言基本概念                    |
+| 第二讲  | [数据类型](slides/1-variables.html)  | 变量、数据类型                    |
+|   ^    | [输入/输出](slides/1-FormattedIO.html)  | 格式化输入输出                    |
+|   ^    | [表达式](slides/1-Expressions.html)          | 运算符、表达式求值                |
+|   ^    | [演示](slides/1-types-io.html)          | 代码演示                |
 | 第三讲  | [选择](slides/05-SelectionStatements.html)        | 逻辑表达式、if语句、switch语句    |
 |   ^    | [循环](slides/06-Loops.html)           | while语句、do-while语句、for语句 |
 |   ^    | [数组](slides/2w-Arrays.html)           | 一维数组  |
