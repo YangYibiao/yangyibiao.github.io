@@ -181,7 +181,9 @@ for (i = 0; i < N; i++)
   sum += a[i];          /* sums the elements of a */
 ```
 
-示例
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -224,7 +226,8 @@ while (i < N)
   a[i++] = 0;
 ```
 
-示例
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -249,7 +252,9 @@ for (i = 0; i < N; i++)
   a[i] = b[i];
 ```
 
-示例
+---
+
+
 
 
 <!-- slide data-notes="" -->
@@ -300,7 +305,8 @@ int main(void)
 }
 ```
 
-示例
+---
+
 
 
 <!-- slide data-notes="" -->
@@ -317,7 +323,7 @@ int main(void)
 int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 ```
 
-分页
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -393,6 +399,8 @@ int a[15] = {[2] = 29, [9] = 7, [14] = 48};
 ```
 
 括号中的数字称为指示符. 
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -525,7 +533,8 @@ int main(void)
 }
 ```
 
-示例
+---
+
 
 
 <!-- slide data-notes="" -->
@@ -710,7 +719,7 @@ int main(void)
 }
 ```
 
-双循环
+---
 
 
 
@@ -765,7 +774,7 @@ int main(void)
 }
 ```
 
-不推荐使用变长数组
+---
 
 
 <!-- slide vertical=true data-notes="" -->
