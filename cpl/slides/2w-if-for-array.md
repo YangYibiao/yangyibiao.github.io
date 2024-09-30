@@ -110,7 +110,7 @@ presentation:
 
 ---
 
-# Min
+## Min
 
 ![w:800](figs/minimum.jpg)
 
@@ -123,7 +123,7 @@ presentation:
 
 --- 
 
-# Min of Two
+## Min of Two
 <br>
 <br>
 
@@ -141,7 +141,7 @@ $min = \min\{a, b\}$
 
 ---
 
-# Min of Two
+## Min of Two
 <br>
 
 ## <code><font color = green>min = a >= b <font color = red>?</font> b <font color = red>:</font> a;</font></code>
@@ -169,7 +169,7 @@ $\mathit{min} = \min\{a, b\}$ -->
 
 ---
 
-# Min of Three
+## Min of Three
 <br>
 <br>
 
@@ -187,7 +187,7 @@ $\mathit{min} = \min\{a, b, c\}$
 
 ---
 
-# Min of a Set of Numbers
+## Min of a Set of Numbers
 <br>
 
 #### Given a set $A$ of integers, to compute their minimum.
