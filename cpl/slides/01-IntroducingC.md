@@ -55,7 +55,7 @@ presentation:
 
 - 计算机与编程语言
 
-- 为什么学习C语言
+- 为什么学习==C语言==
 
 
 <!-- slide vertical=true data-notes="" -->
