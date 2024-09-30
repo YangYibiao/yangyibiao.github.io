@@ -31,13 +31,13 @@
 |   ^    | [编程语言](slides/0-1-clang.html)        | 编程语言                    |
 |   ^    | [代码框架](slides/0-2-hello.html)        | C代码基本结构                    |
 | 第二讲  | [变量类型](slides/1-1-variables.html)  | 变量、数据类型                    |
-|   ^    | [输入/输出](slides/1-2-io.html)  | 格式化输入输出                    |
+|   ^    | [输入输出](slides/1-2-io.html)  | 格式化输入输出                    |
 |   ^    | [表达式](slides/1-3-expr.html)          | 运算符、表达式求值                |
 |   ^    | [演示](slides/1-4-coding.html)          | 代码演示                |
-| 第三讲  | [选择](slides/05-SelectionStatements.html)        | 逻辑表达式、if语句、switch语句    |
-|   ^    | [循环](slides/06-Loops.html)           | while语句、do-while语句、for语句 |
-|   ^    | [数组](slides/2w-Arrays.html)           | 一维数组  |
-|   ^    | [演示](slides/2w-if-for-array.html)     | 代码演示  |
+| 第三讲  | [选择](slides/2-1-if.html)        | 逻辑表达式、if语句、switch语句    |
+|   ^    | [循环](slides/2-2-loops.html)           | while语句、do-while语句、for语句 |
+|   ^    | [数组](slides/2-3-arrays.html)           | 一维数组  |
+|   ^    | [演示](slides/2-4-coding.html)     | 代码演示  |
 <!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
 <!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
