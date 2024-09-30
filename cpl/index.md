@@ -27,9 +27,10 @@
 
 |        |              讲义                | 内容                           |
 | :----: | :--                             | :--                            |
-| 第一讲  | [课程介绍](slides/0-intro.html)           |     课程介绍 C语言介绍   |
-|   ^    | [基本概念](slides/0-basic.html)        | C语言基本概念                    |
-| 第二讲  | [数据类型](slides/1-variables.html)  | 变量、数据类型                    |
+| 第一讲  | [课程介绍](slides/0-0-intro.html)           |     课程介绍   |
+|   ^    | [编程语言](slides/0-1-clang.html)        | 编程语言                    |
+|   ^    | [代码框架](slides/0-2-hello.html)        | C代码基本结构                    |
+| 第二讲  | [变量类型](slides/1-variables.html)  | 变量、数据类型                    |
 |   ^    | [输入/输出](slides/1-FormattedIO.html)  | 格式化输入输出                    |
 |   ^    | [表达式](slides/1-Expressions.html)          | 运算符、表达式求值                |
 |   ^    | [演示](slides/1-types-io.html)          | 代码演示                |
