@@ -1,0 +1,1531 @@
+<!DOCTYPE html><html><head>
+      <title>07-BasicTypes</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <style>
+      /*!
+* reveal.js 4.5.0
+* https://revealjs.com
+* MIT licensed
+*
+* Copyright (C) 2011-2023 Hakim El Hattab, https://hakim.se
+*/
+.reveal .r-stretch,.reveal .stretch{max-width:none;max-height:none}.reveal pre.r-stretch code,.reveal pre.stretch code{height:100%;max-height:100%;box-sizing:border-box}.reveal .r-fit-text{display:inline-block;white-space:nowrap}.reveal .r-stack{display:grid}.reveal .r-stack>*{grid-area:1/1;margin:auto}.reveal .r-hstack,.reveal .r-vstack{display:flex}.reveal .r-hstack img,.reveal .r-hstack video,.reveal .r-vstack img,.reveal .r-vstack video{min-width:0;min-height:0;object-fit:contain}.reveal .r-vstack{flex-direction:column;align-items:center;justify-content:center}.reveal .r-hstack{flex-direction:row;align-items:center;justify-content:center}.reveal .items-stretch{align-items:stretch}.reveal .items-start{align-items:flex-start}.reveal .items-center{align-items:center}.reveal .items-end{align-items:flex-end}.reveal .justify-between{justify-content:space-between}.reveal .justify-around{justify-content:space-around}.reveal .justify-start{justify-content:flex-start}.reveal .justify-center{justify-content:center}.reveal .justify-end{justify-content:flex-end}html.reveal-full-page{width:100%;height:100%;height:100vh;height:calc(var(--vh,1vh) * 100);overflow:hidden}.reveal-viewport{height:100%;overflow:hidden;position:relative;line-height:1;margin:0;background-color:#fff;color:#000}.reveal-viewport:fullscreen{top:0!important;left:0!important;width:100%!important;height:100%!important;transform:none!important}.reveal .fragment{transition:all .2s ease}.reveal .fragment:not(.custom){opacity:0;visibility:hidden;will-change:opacity}.reveal .fragment.visible{opacity:1;visibility:inherit}.reveal .fragment.disabled{transition:none}.reveal .fragment.grow{opacity:1;visibility:inherit}.reveal .fragment.grow.visible{transform:scale(1.3)}.reveal .fragment.shrink{opacity:1;visibility:inherit}.reveal .fragment.shrink.visible{transform:scale(.7)}.reveal .fragment.zoom-in{transform:scale(.1)}.reveal .fragment.zoom-in.visible{transform:none}.reveal .fragment.fade-out{opacity:1;visibility:inherit}.reveal .fragment.fade-out.visible{opacity:0;visibility:hidden}.reveal .fragment.semi-fade-out{opacity:1;visibility:inherit}.reveal .fragment.semi-fade-out.visible{opacity:.5;visibility:inherit}.reveal .fragment.strike{opacity:1;visibility:inherit}.reveal .fragment.strike.visible{text-decoration:line-through}.reveal .fragment.fade-up{transform:translate(0,40px)}.reveal .fragment.fade-up.visible{transform:translate(0,0)}.reveal .fragment.fade-down{transform:translate(0,-40px)}.reveal .fragment.fade-down.visible{transform:translate(0,0)}.reveal .fragment.fade-right{transform:translate(-40px,0)}.reveal .fragment.fade-right.visible{transform:translate(0,0)}.reveal .fragment.fade-left{transform:translate(40px,0)}.reveal .fragment.fade-left.visible{transform:translate(0,0)}.reveal .fragment.current-visible,.reveal .fragment.fade-in-then-out{opacity:0;visibility:hidden}.reveal .fragment.current-visible.current-fragment,.reveal .fragment.fade-in-then-out.current-fragment{opacity:1;visibility:inherit}.reveal .fragment.fade-in-then-semi-out{opacity:0;visibility:hidden}.reveal .fragment.fade-in-then-semi-out.visible{opacity:.5;visibility:inherit}.reveal .fragment.fade-in-then-semi-out.current-fragment{opacity:1;visibility:inherit}.reveal .fragment.highlight-blue,.reveal .fragment.highlight-current-blue,.reveal .fragment.highlight-current-green,.reveal .fragment.highlight-current-red,.reveal .fragment.highlight-green,.reveal .fragment.highlight-red{opacity:1;visibility:inherit}.reveal .fragment.highlight-red.visible{color:#ff2c2d}.reveal .fragment.highlight-green.visible{color:#17ff2e}.reveal .fragment.highlight-blue.visible{color:#1b91ff}.reveal .fragment.highlight-current-red.current-fragment{color:#ff2c2d}.reveal .fragment.highlight-current-green.current-fragment{color:#17ff2e}.reveal .fragment.highlight-current-blue.current-fragment{color:#1b91ff}.reveal:after{content:"";font-style:italic}.reveal iframe{z-index:1}.reveal a{position:relative}@keyframes bounce-right{0%,10%,25%,40%,50%{transform:translateX(0)}20%{transform:translateX(10px)}30%{transform:translateX(-5px)}}@keyframes bounce-left{0%,10%,25%,40%,50%{transform:translateX(0)}20%{transform:translateX(-10px)}30%{transform:translateX(5px)}}@keyframes bounce-down{0%,10%,25%,40%,50%{transform:translateY(0)}20%{transform:translateY(10px)}30%{transform:translateY(-5px)}}.reveal .controls{display:none;position:absolute;top:auto;bottom:12px;right:12px;left:auto;z-index:11;color:#000;pointer-events:none;font-size:10px}.reveal .controls button{position:absolute;padding:0;background-color:transparent;border:0;outline:0;cursor:pointer;color:currentColor;transform:scale(.9999);transition:color .2s ease,opacity .2s ease,transform .2s ease;z-index:2;pointer-events:auto;font-size:inherit;visibility:hidden;opacity:0;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}.reveal .controls .controls-arrow:after,.reveal .controls .controls-arrow:before{content:"";position:absolute;top:0;left:0;width:2.6em;height:.5em;border-radius:.25em;background-color:currentColor;transition:all .15s ease,background-color .8s ease;transform-origin:.2em 50%;will-change:transform}.reveal .controls .controls-arrow{position:relative;width:3.6em;height:3.6em}.reveal .controls .controls-arrow:before{transform:translateX(.5em) translateY(1.55em) rotate(45deg)}.reveal .controls .controls-arrow:after{transform:translateX(.5em) translateY(1.55em) rotate(-45deg)}.reveal .controls .controls-arrow:hover:before{transform:translateX(.5em) translateY(1.55em) rotate(40deg)}.reveal .controls .controls-arrow:hover:after{transform:translateX(.5em) translateY(1.55em) rotate(-40deg)}.reveal .controls .controls-arrow:active:before{transform:translateX(.5em) translateY(1.55em) rotate(36deg)}.reveal .controls .controls-arrow:active:after{transform:translateX(.5em) translateY(1.55em) rotate(-36deg)}.reveal .controls .navigate-left{right:6.4em;bottom:3.2em;transform:translateX(-10px)}.reveal .controls .navigate-left.highlight{animation:bounce-left 2s 50 both ease-out}.reveal .controls .navigate-right{right:0;bottom:3.2em;transform:translateX(10px)}.reveal .controls .navigate-right .controls-arrow{transform:rotate(180deg)}.reveal .controls .navigate-right.highlight{animation:bounce-right 2s 50 both ease-out}.reveal .controls .navigate-up{right:3.2em;bottom:6.4em;transform:translateY(-10px)}.reveal .controls .navigate-up .controls-arrow{transform:rotate(90deg)}.reveal .controls .navigate-down{right:3.2em;bottom:-1.4em;padding-bottom:1.4em;transform:translateY(10px)}.reveal .controls .navigate-down .controls-arrow{transform:rotate(-90deg)}.reveal .controls .navigate-down.highlight{animation:bounce-down 2s 50 both ease-out}.reveal .controls[data-controls-back-arrows=faded] .navigate-up.enabled{opacity:.3}.reveal .controls[data-controls-back-arrows=faded] .navigate-up.enabled:hover{opacity:1}.reveal .controls[data-controls-back-arrows=hidden] .navigate-up.enabled{opacity:0;visibility:hidden}.reveal .controls .enabled{visibility:visible;opacity:.9;cursor:pointer;transform:none}.reveal .controls .enabled.fragmented{opacity:.5}.reveal .controls .enabled.fragmented:hover,.reveal .controls .enabled:hover{opacity:1}.reveal:not(.rtl) .controls[data-controls-back-arrows=faded] .navigate-left.enabled{opacity:.3}.reveal:not(.rtl) .controls[data-controls-back-arrows=faded] .navigate-left.enabled:hover{opacity:1}.reveal:not(.rtl) .controls[data-controls-back-arrows=hidden] .navigate-left.enabled{opacity:0;visibility:hidden}.reveal.rtl .controls[data-controls-back-arrows=faded] .navigate-right.enabled{opacity:.3}.reveal.rtl .controls[data-controls-back-arrows=faded] .navigate-right.enabled:hover{opacity:1}.reveal.rtl .controls[data-controls-back-arrows=hidden] .navigate-right.enabled{opacity:0;visibility:hidden}.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-down,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-up{display:none}.reveal:not(.has-vertical-slides) .controls .navigate-left,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-left{bottom:1.4em;right:5.5em}.reveal:not(.has-vertical-slides) .controls .navigate-right,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-right{bottom:1.4em;right:.5em}.reveal:not(.has-horizontal-slides) .controls .navigate-up{right:1.4em;bottom:5em}.reveal:not(.has-horizontal-slides) .controls .navigate-down{right:1.4em;bottom:.5em}.reveal.has-dark-background .controls{color:#fff}.reveal.has-light-background .controls{color:#000}.reveal.no-hover .controls .controls-arrow:active:before,.reveal.no-hover .controls .controls-arrow:hover:before{transform:translateX(.5em) translateY(1.55em) rotate(45deg)}.reveal.no-hover .controls .controls-arrow:active:after,.reveal.no-hover .controls .controls-arrow:hover:after{transform:translateX(.5em) translateY(1.55em) rotate(-45deg)}@media screen and (min-width:500px){.reveal .controls[data-controls-layout=edges]{top:0;right:0;bottom:0;left:0}.reveal .controls[data-controls-layout=edges] .navigate-down,.reveal .controls[data-controls-layout=edges] .navigate-left,.reveal .controls[data-controls-layout=edges] .navigate-right,.reveal .controls[data-controls-layout=edges] .navigate-up{bottom:auto;right:auto}.reveal .controls[data-controls-layout=edges] .navigate-left{top:50%;left:.8em;margin-top:-1.8em}.reveal .controls[data-controls-layout=edges] .navigate-right{top:50%;right:.8em;margin-top:-1.8em}.reveal .controls[data-controls-layout=edges] .navigate-up{top:.8em;left:50%;margin-left:-1.8em}.reveal .controls[data-controls-layout=edges] .navigate-down{bottom:-.3em;left:50%;margin-left:-1.8em}}.reveal .progress{position:absolute;display:none;height:3px;width:100%;bottom:0;left:0;z-index:10;background-color:rgba(0,0,0,.2);color:#fff}.reveal .progress:after{content:"";display:block;position:absolute;height:10px;width:100%;top:-10px}.reveal .progress span{display:block;height:100%;width:100%;background-color:currentColor;transition:transform .8s cubic-bezier(.26,.86,.44,.985);transform-origin:0 0;transform:scaleX(0)}.reveal .slide-number{position:absolute;display:block;right:8px;bottom:8px;z-index:31;font-family:Helvetica,sans-serif;font-size:12px;line-height:1;color:#fff;background-color:rgba(0,0,0,.4);padding:5px}.reveal .slide-number a{color:currentColor}.reveal .slide-number-delimiter{margin:0 3px}.reveal{position:relative;width:100%;height:100%;overflow:hidden;touch-action:pinch-zoom}.reveal.embedded{touch-action:pan-y}.reveal .slides{position:absolute;width:100%;height:100%;top:0;right:0;bottom:0;left:0;margin:auto;pointer-events:none;overflow:visible;z-index:1;text-align:center;perspective:600px;perspective-origin:50% 40%}.reveal .slides>section{perspective:600px}.reveal .slides>section,.reveal .slides>section>section{display:none;position:absolute;width:100%;pointer-events:auto;z-index:10;transform-style:flat;transition:transform-origin .8s cubic-bezier(.26,.86,.44,.985),transform .8s cubic-bezier(.26,.86,.44,.985),visibility .8s cubic-bezier(.26,.86,.44,.985),opacity .8s cubic-bezier(.26,.86,.44,.985)}.reveal[data-transition-speed=fast] .slides section{transition-duration:.4s}.reveal[data-transition-speed=slow] .slides section{transition-duration:1.2s}.reveal .slides section[data-transition-speed=fast]{transition-duration:.4s}.reveal .slides section[data-transition-speed=slow]{transition-duration:1.2s}.reveal .slides>section.stack{padding-top:0;padding-bottom:0;pointer-events:none;height:100%}.reveal .slides>section.present,.reveal .slides>section>section.present{display:block;z-index:11;opacity:1}.reveal .slides>section:empty,.reveal .slides>section>section:empty,.reveal .slides>section>section[data-background-interactive],.reveal .slides>section[data-background-interactive]{pointer-events:none}.reveal.center,.reveal.center .slides,.reveal.center .slides section{min-height:0!important}.reveal .slides>section:not(.present),.reveal .slides>section>section:not(.present){pointer-events:none}.reveal.overview .slides>section,.reveal.overview .slides>section>section{pointer-events:auto}.reveal .slides>section.future,.reveal .slides>section.future>section,.reveal .slides>section.past,.reveal .slides>section.past>section,.reveal .slides>section>section.future,.reveal .slides>section>section.past{opacity:0}.reveal .slides>section[data-transition=slide].past,.reveal .slides>section[data-transition~=slide-out].past,.reveal.slide .slides>section:not([data-transition]).past{transform:translate(-150%,0)}.reveal .slides>section[data-transition=slide].future,.reveal .slides>section[data-transition~=slide-in].future,.reveal.slide .slides>section:not([data-transition]).future{transform:translate(150%,0)}.reveal .slides>section>section[data-transition=slide].past,.reveal .slides>section>section[data-transition~=slide-out].past,.reveal.slide .slides>section>section:not([data-transition]).past{transform:translate(0,-150%)}.reveal .slides>section>section[data-transition=slide].future,.reveal .slides>section>section[data-transition~=slide-in].future,.reveal.slide .slides>section>section:not([data-transition]).future{transform:translate(0,150%)}.reveal .slides>section[data-transition=linear].past,.reveal .slides>section[data-transition~=linear-out].past,.reveal.linear .slides>section:not([data-transition]).past{transform:translate(-150%,0)}.reveal .slides>section[data-transition=linear].future,.reveal .slides>section[data-transition~=linear-in].future,.reveal.linear .slides>section:not([data-transition]).future{transform:translate(150%,0)}.reveal .slides>section>section[data-transition=linear].past,.reveal .slides>section>section[data-transition~=linear-out].past,.reveal.linear .slides>section>section:not([data-transition]).past{transform:translate(0,-150%)}.reveal .slides>section>section[data-transition=linear].future,.reveal .slides>section>section[data-transition~=linear-in].future,.reveal.linear .slides>section>section:not([data-transition]).future{transform:translate(0,150%)}.reveal .slides section[data-transition=default].stack,.reveal.default .slides section.stack{transform-style:preserve-3d}.reveal .slides>section[data-transition=default].past,.reveal .slides>section[data-transition~=default-out].past,.reveal.default .slides>section:not([data-transition]).past{transform:translate3d(-100%,0,0) rotateY(-90deg) translate3d(-100%,0,0)}.reveal .slides>section[data-transition=default].future,.reveal .slides>section[data-transition~=default-in].future,.reveal.default .slides>section:not([data-transition]).future{transform:translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0)}.reveal .slides>section>section[data-transition=default].past,.reveal .slides>section>section[data-transition~=default-out].past,.reveal.default .slides>section>section:not([data-transition]).past{transform:translate3d(0,-300px,0) rotateX(70deg) translate3d(0,-300px,0)}.reveal .slides>section>section[data-transition=default].future,.reveal .slides>section>section[data-transition~=default-in].future,.reveal.default .slides>section>section:not([data-transition]).future{transform:translate3d(0,300px,0) rotateX(-70deg) translate3d(0,300px,0)}.reveal .slides section[data-transition=convex].stack,.reveal.convex .slides section.stack{transform-style:preserve-3d}.reveal .slides>section[data-transition=convex].past,.reveal .slides>section[data-transition~=convex-out].past,.reveal.convex .slides>section:not([data-transition]).past{transform:translate3d(-100%,0,0) rotateY(-90deg) translate3d(-100%,0,0)}.reveal .slides>section[data-transition=convex].future,.reveal .slides>section[data-transition~=convex-in].future,.reveal.convex .slides>section:not([data-transition]).future{transform:translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0)}.reveal .slides>section>section[data-transition=convex].past,.reveal .slides>section>section[data-transition~=convex-out].past,.reveal.convex .slides>section>section:not([data-transition]).past{transform:translate3d(0,-300px,0) rotateX(70deg) translate3d(0,-300px,0)}.reveal .slides>section>section[data-transition=convex].future,.reveal .slides>section>section[data-transition~=convex-in].future,.reveal.convex .slides>section>section:not([data-transition]).future{transform:translate3d(0,300px,0) rotateX(-70deg) translate3d(0,300px,0)}.reveal .slides section[data-transition=concave].stack,.reveal.concave .slides section.stack{transform-style:preserve-3d}.reveal .slides>section[data-transition=concave].past,.reveal .slides>section[data-transition~=concave-out].past,.reveal.concave .slides>section:not([data-transition]).past{transform:translate3d(-100%,0,0) rotateY(90deg) translate3d(-100%,0,0)}.reveal .slides>section[data-transition=concave].future,.reveal .slides>section[data-transition~=concave-in].future,.reveal.concave .slides>section:not([data-transition]).future{transform:translate3d(100%,0,0) rotateY(-90deg) translate3d(100%,0,0)}.reveal .slides>section>section[data-transition=concave].past,.reveal .slides>section>section[data-transition~=concave-out].past,.reveal.concave .slides>section>section:not([data-transition]).past{transform:translate3d(0,-80%,0) rotateX(-70deg) translate3d(0,-80%,0)}.reveal .slides>section>section[data-transition=concave].future,.reveal .slides>section>section[data-transition~=concave-in].future,.reveal.concave .slides>section>section:not([data-transition]).future{transform:translate3d(0,80%,0) rotateX(70deg) translate3d(0,80%,0)}.reveal .slides section[data-transition=zoom],.reveal.zoom .slides section:not([data-transition]){transition-timing-function:ease}.reveal .slides>section[data-transition=zoom].past,.reveal .slides>section[data-transition~=zoom-out].past,.reveal.zoom .slides>section:not([data-transition]).past{visibility:hidden;transform:scale(16)}.reveal .slides>section[data-transition=zoom].future,.reveal .slides>section[data-transition~=zoom-in].future,.reveal.zoom .slides>section:not([data-transition]).future{visibility:hidden;transform:scale(.2)}.reveal .slides>section>section[data-transition=zoom].past,.reveal .slides>section>section[data-transition~=zoom-out].past,.reveal.zoom .slides>section>section:not([data-transition]).past{transform:scale(16)}.reveal .slides>section>section[data-transition=zoom].future,.reveal .slides>section>section[data-transition~=zoom-in].future,.reveal.zoom .slides>section>section:not([data-transition]).future{transform:scale(.2)}.reveal.cube .slides{perspective:1300px}.reveal.cube .slides section{padding:30px;min-height:700px;backface-visibility:hidden;box-sizing:border-box;transform-style:preserve-3d}.reveal.center.cube .slides section{min-height:0}.reveal.cube .slides section:not(.stack):before{content:"";position:absolute;display:block;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,.1);border-radius:4px;transform:translateZ(-20px)}.reveal.cube .slides section:not(.stack):after{content:"";position:absolute;display:block;width:90%;height:30px;left:5%;bottom:0;background:0 0;z-index:1;border-radius:4px;box-shadow:0 95px 25px rgba(0,0,0,.2);transform:translateZ(-90px) rotateX(65deg)}.reveal.cube .slides>section.stack{padding:0;background:0 0}.reveal.cube .slides>section.past{transform-origin:100% 0;transform:translate3d(-100%,0,0) rotateY(-90deg)}.reveal.cube .slides>section.future{transform-origin:0 0;transform:translate3d(100%,0,0) rotateY(90deg)}.reveal.cube .slides>section>section.past{transform-origin:0 100%;transform:translate3d(0,-100%,0) rotateX(90deg)}.reveal.cube .slides>section>section.future{transform-origin:0 0;transform:translate3d(0,100%,0) rotateX(-90deg)}.reveal.page .slides{perspective-origin:0 50%;perspective:3000px}.reveal.page .slides section{padding:30px;min-height:700px;box-sizing:border-box;transform-style:preserve-3d}.reveal.page .slides section.past{z-index:12}.reveal.page .slides section:not(.stack):before{content:"";position:absolute;display:block;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,.1);transform:translateZ(-20px)}.reveal.page .slides section:not(.stack):after{content:"";position:absolute;display:block;width:90%;height:30px;left:5%;bottom:0;background:0 0;z-index:1;border-radius:4px;box-shadow:0 95px 25px rgba(0,0,0,.2);-webkit-transform:translateZ(-90px) rotateX(65deg)}.reveal.page .slides>section.stack{padding:0;background:0 0}.reveal.page .slides>section.past{transform-origin:0 0;transform:translate3d(-40%,0,0) rotateY(-80deg)}.reveal.page .slides>section.future{transform-origin:100% 0;transform:translate3d(0,0,0)}.reveal.page .slides>section>section.past{transform-origin:0 0;transform:translate3d(0,-40%,0) rotateX(80deg)}.reveal.page .slides>section>section.future{transform-origin:0 100%;transform:translate3d(0,0,0)}.reveal .slides section[data-transition=fade],.reveal.fade .slides section:not([data-transition]),.reveal.fade .slides>section>section:not([data-transition]){transform:none;transition:opacity .5s}.reveal.fade.overview .slides section,.reveal.fade.overview .slides>section>section{transition:none}.reveal .slides section[data-transition=none],.reveal.none .slides section:not([data-transition]){transform:none;transition:none}.reveal .pause-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:#000;visibility:hidden;opacity:0;z-index:100;transition:all 1s ease}.reveal .pause-overlay .resume-button{position:absolute;bottom:20px;right:20px;color:#ccc;border-radius:2px;padding:6px 14px;border:2px solid #ccc;font-size:16px;background:0 0;cursor:pointer}.reveal .pause-overlay .resume-button:hover{color:#fff;border-color:#fff}.reveal.paused .pause-overlay{visibility:visible;opacity:1}.reveal .no-transition,.reveal .no-transition *,.reveal .slides.disable-slide-transitions section{transition:none!important}.reveal .slides.disable-slide-transitions section{transform:none!important}.reveal .backgrounds{position:absolute;width:100%;height:100%;top:0;left:0;perspective:600px}.reveal .slide-background{display:none;position:absolute;width:100%;height:100%;opacity:0;visibility:hidden;overflow:hidden;background-color:rgba(0,0,0,0);transition:all .8s cubic-bezier(.26,.86,.44,.985)}.reveal .slide-background-content{position:absolute;width:100%;height:100%;background-position:50% 50%;background-repeat:no-repeat;background-size:cover}.reveal .slide-background.stack{display:block}.reveal .slide-background.present{opacity:1;visibility:visible;z-index:2}.print-pdf .reveal .slide-background{opacity:1!important;visibility:visible!important}.reveal .slide-background video{position:absolute;width:100%;height:100%;max-width:none;max-height:none;top:0;left:0;object-fit:cover}.reveal .slide-background[data-background-size=contain] video{object-fit:contain}.reveal>.backgrounds .slide-background[data-background-transition=none],.reveal[data-background-transition=none]>.backgrounds .slide-background:not([data-background-transition]){transition:none}.reveal>.backgrounds .slide-background[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background:not([data-background-transition]){opacity:1}.reveal>.backgrounds .slide-background.past[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background.past:not([data-background-transition]){transform:translate(-100%,0)}.reveal>.backgrounds .slide-background.future[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background.future:not([data-background-transition]){transform:translate(100%,0)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){transform:translate(0,-100%)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){transform:translate(0,100%)}.reveal>.backgrounds .slide-background.past[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(-100%,0,0) rotateY(-90deg) translate3d(-100%,0,0)}.reveal>.backgrounds .slide-background.future[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(0,-100%,0) rotateX(90deg) translate3d(0,-100%,0)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(0,100%,0) rotateX(-90deg) translate3d(0,100%,0)}.reveal>.backgrounds .slide-background.past[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(-100%,0,0) rotateY(90deg) translate3d(-100%,0,0)}.reveal>.backgrounds .slide-background.future[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(100%,0,0) rotateY(-90deg) translate3d(100%,0,0)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(0,-100%,0) rotateX(-90deg) translate3d(0,-100%,0)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(0,100%,0) rotateX(90deg) translate3d(0,100%,0)}.reveal>.backgrounds .slide-background[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background:not([data-background-transition]){transition-timing-function:ease}.reveal>.backgrounds .slide-background.past[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background.past:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(16)}.reveal>.backgrounds .slide-background.future[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background.future:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(.2)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(16)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(.2)}.reveal[data-transition-speed=fast]>.backgrounds .slide-background{transition-duration:.4s}.reveal[data-transition-speed=slow]>.backgrounds .slide-background{transition-duration:1.2s}.reveal [data-auto-animate-target^=unmatched]{will-change:opacity}.reveal section[data-auto-animate]:not(.stack):not([data-auto-animate=running]) [data-auto-animate-target^=unmatched]{opacity:0}.reveal.overview{perspective-origin:50% 50%;perspective:700px}.reveal.overview .slides{-moz-transform-style:preserve-3d}.reveal.overview .slides section{height:100%;top:0!important;opacity:1!important;overflow:hidden;visibility:visible!important;cursor:pointer;box-sizing:border-box}.reveal.overview .slides section.present,.reveal.overview .slides section:hover{outline:10px solid rgba(150,150,150,.4);outline-offset:10px}.reveal.overview .slides section .fragment{opacity:1;transition:none}.reveal.overview .slides section:after,.reveal.overview .slides section:before{display:none!important}.reveal.overview .slides>section.stack{padding:0;top:0!important;background:0 0;outline:0;overflow:visible}.reveal.overview .backgrounds{perspective:inherit;-moz-transform-style:preserve-3d}.reveal.overview .backgrounds .slide-background{opacity:1;visibility:visible;outline:10px solid rgba(150,150,150,.1);outline-offset:10px}.reveal.overview .backgrounds .slide-background.stack{overflow:visible}.reveal.overview .slides section,.reveal.overview-deactivating .slides section{transition:none}.reveal.overview .backgrounds .slide-background,.reveal.overview-deactivating .backgrounds .slide-background{transition:none}.reveal.rtl .slides,.reveal.rtl .slides h1,.reveal.rtl .slides h2,.reveal.rtl .slides h3,.reveal.rtl .slides h4,.reveal.rtl .slides h5,.reveal.rtl .slides h6{direction:rtl;font-family:sans-serif}.reveal.rtl code,.reveal.rtl pre{direction:ltr}.reveal.rtl ol,.reveal.rtl ul{text-align:right}.reveal.rtl .progress span{transform-origin:100% 0}.reveal.has-parallax-background .backgrounds{transition:all .8s ease}.reveal.has-parallax-background[data-transition-speed=fast] .backgrounds{transition-duration:.4s}.reveal.has-parallax-background[data-transition-speed=slow] .backgrounds{transition-duration:1.2s}.reveal>.overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1000;background:rgba(0,0,0,.9);transition:all .3s ease}.reveal>.overlay .spinner{position:absolute;display:block;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;z-index:10;background-image:url(data:image/gif;base64,R0lGODlhIAAgAPMAAJmZmf%2F%2F%2F6%2Bvr8nJybW1tcDAwOjo6Nvb26ioqKOjo7Ozs%2FLy8vz8%2FAAAAAAAAAAAACH%2FC05FVFNDQVBFMi4wAwEAAAAh%2FhpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh%2BQQJCgAAACwAAAAAIAAgAAAE5xDISWlhperN52JLhSSdRgwVo1ICQZRUsiwHpTJT4iowNS8vyW2icCF6k8HMMBkCEDskxTBDAZwuAkkqIfxIQyhBQBFvAQSDITM5VDW6XNE4KagNh6Bgwe60smQUB3d4Rz1ZBApnFASDd0hihh12BkE9kjAJVlycXIg7CQIFA6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YJvpJivxNaGmLHT0VnOgSYf0dZXS7APdpB309RnHOG5gDqXGLDaC457D1zZ%2FV%2FnmOM82XiHRLYKhKP1oZmADdEAAAh%2BQQJCgAAACwAAAAAIAAgAAAE6hDISWlZpOrNp1lGNRSdRpDUolIGw5RUYhhHukqFu8DsrEyqnWThGvAmhVlteBvojpTDDBUEIFwMFBRAmBkSgOrBFZogCASwBDEY%2FCZSg7GSE0gSCjQBMVG023xWBhklAnoEdhQEfyNqMIcKjhRsjEdnezB%2BA4k8gTwJhFuiW4dokXiloUepBAp5qaKpp6%2BHo7aWW54wl7obvEe0kRuoplCGepwSx2jJvqHEmGt6whJpGpfJCHmOoNHKaHx61WiSR92E4lbFoq%2BB6QDtuetcaBPnW6%2BO7wDHpIiK9SaVK5GgV543tzjgGcghAgAh%2BQQJCgAAACwAAAAAIAAgAAAE7hDISSkxpOrN5zFHNWRdhSiVoVLHspRUMoyUakyEe8PTPCATW9A14E0UvuAKMNAZKYUZCiBMuBakSQKG8G2FzUWox2AUtAQFcBKlVQoLgQReZhQlCIJesQXI5B0CBnUMOxMCenoCfTCEWBsJColTMANldx15BGs8B5wlCZ9Po6OJkwmRpnqkqnuSrayqfKmqpLajoiW5HJq7FL1Gr2mMMcKUMIiJgIemy7xZtJsTmsM4xHiKv5KMCXqfyUCJEonXPN2rAOIAmsfB3uPoAK%2B%2BG%2Bw48edZPK%2BM6hLJpQg484enXIdQFSS1u6UhksENEQAAIfkECQoAAAAsAAAAACAAIAAABOcQyEmpGKLqzWcZRVUQnZYg1aBSh2GUVEIQ2aQOE%2BG%2BcD4ntpWkZQj1JIiZIogDFFyHI0UxQwFugMSOFIPJftfVAEoZLBbcLEFhlQiqGp1Vd140AUklUN3eCA51C1EWMzMCezCBBmkxVIVHBWd3HHl9JQOIJSdSnJ0TDKChCwUJjoWMPaGqDKannasMo6WnM562R5YluZRwur0wpgqZE7NKUm%2BFNRPIhjBJxKZteWuIBMN4zRMIVIhffcgojwCF117i4nlLnY5ztRLsnOk%2BaV%2BoJY7V7m76PdkS4trKcdg0Zc0tTcKkRAAAIfkECQoAAAAsAAAAACAAIAAABO4QyEkpKqjqzScpRaVkXZWQEximw1BSCUEIlDohrft6cpKCk5xid5MNJTaAIkekKGQkWyKHkvhKsR7ARmitkAYDYRIbUQRQjWBwJRzChi9CRlBcY1UN4g0%2FVNB0AlcvcAYHRyZPdEQFYV8ccwR5HWxEJ02YmRMLnJ1xCYp0Y5idpQuhopmmC2KgojKasUQDk5BNAwwMOh2RtRq5uQuPZKGIJQIGwAwGf6I0JXMpC8C7kXWDBINFMxS4DKMAWVWAGYsAdNqW5uaRxkSKJOZKaU3tPOBZ4DuK2LATgJhkPJMgTwKCdFjyPHEnKxFCDhEAACH5BAkKAAAALAAAAAAgACAAAATzEMhJaVKp6s2nIkolIJ2WkBShpkVRWqqQrhLSEu9MZJKK9y1ZrqYK9WiClmvoUaF8gIQSNeF1Er4MNFn4SRSDARWroAIETg1iVwuHjYB1kYc1mwruwXKC9gmsJXliGxc%2BXiUCby9ydh1sOSdMkpMTBpaXBzsfhoc5l58Gm5yToAaZhaOUqjkDgCWNHAULCwOLaTmzswadEqggQwgHuQsHIoZCHQMMQgQGubVEcxOPFAcMDAYUA85eWARmfSRQCdcMe0zeP1AAygwLlJtPNAAL19DARdPzBOWSm1brJBi45soRAWQAAkrQIykShQ9wVhHCwCQCACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiRMDjI0Fd30%2FiI2UA5GSS5UDj2l6NoqgOgN4gksEBgYFf0FDqKgHnyZ9OX8HrgYHdHpcHQULXAS2qKpENRg7eAMLC7kTBaixUYFkKAzWAAnLC7FLVxLWDBLKCwaKTULgEwbLA4hJtOkSBNqITT3xEgfLpBtzE%2FjiuL04RGEBgwWhShRgQExHBAAh%2BQQJCgAAACwAAAAAIAAgAAAE7xDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfZiCqGk5dTESJeaOAlClzsJsqwiJwiqnFrb2nS9kmIcgEsjQydLiIlHehhpejaIjzh9eomSjZR%2BipslWIRLAgMDOR2DOqKogTB9pCUJBagDBXR6XB0EBkIIsaRsGGMMAxoDBgYHTKJiUYEGDAzHC9EACcUGkIgFzgwZ0QsSBcXHiQvOwgDdEwfFs0sDzt4S6BK4xYjkDOzn0unFeBzOBijIm1Dgmg5YFQwsCMjp1oJ8LyIAACH5BAkKAAAALAAAAAAgACAAAATwEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GGl6NoiPOH16iZKNlH6KmyWFOggHhEEvAwwMA0N9GBsEC6amhnVcEwavDAazGwIDaH1ipaYLBUTCGgQDA8NdHz0FpqgTBwsLqAbWAAnIA4FWKdMLGdYGEgraigbT0OITBcg5QwPT4xLrROZL6AuQAPUS7bxLpoWidY0JtxLHKhwwMJBTHgPKdEQAACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GAULDJCRiXo1CpGXDJOUjY%2BYip9DhToJA4RBLwMLCwVDfRgbBAaqqoZ1XBMHswsHtxtFaH1iqaoGNgAIxRpbFAgfPQSqpbgGBqUD1wBXeCYp1AYZ19JJOYgH1KwA4UBvQwXUBxPqVD9L3sbp2BNk2xvvFPJd%2BMFCN6HAAIKgNggY0KtEBAAh%2BQQJCgAAACwAAAAAIAAgAAAE6BDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfYIDMaAFdTESJeaEDAIMxYFqrOUaNW4E4ObYcCXaiBVEgULe0NJaxxtYksjh2NLkZISgDgJhHthkpU4mW6blRiYmZOlh4JWkDqILwUGBnE6TYEbCgevr0N1gH4At7gHiRpFaLNrrq8HNgAJA70AWxQIH1%2BvsYMDAzZQPC9VCNkDWUhGkuE5PxJNwiUK4UfLzOlD4WvzAHaoG9nxPi5d%2BjYUqfAhhykOFwJWiAAAIfkECQoAAAAsAAAAACAAIAAABPAQyElpUqnqzaciSoVkXVUMFaFSwlpOCcMYlErAavhOMnNLNo8KsZsMZItJEIDIFSkLGQoQTNhIsFehRww2CQLKF0tYGKYSg%2BygsZIuNqJksKgbfgIGepNo2cIUB3V1B3IvNiBYNQaDSTtfhhx0CwVPI0UJe0%2Bbm4g5VgcGoqOcnjmjqDSdnhgEoamcsZuXO1aWQy8KAwOAuTYYGwi7w5h%2BKr0SJ8MFihpNbx%2B4Erq7BYBuzsdiH1jCAzoSfl0rVirNbRXlBBlLX%2BBP0XJLAPGzTkAuAOqb0WT5AH7OcdCm5B8TgRwSRKIHQtaLCwg1RAAAOwAAAAAAAAAAAA%3D%3D);visibility:visible;opacity:.6;transition:all .3s ease}.reveal>.overlay header{position:absolute;left:0;top:0;width:100%;padding:5px;z-index:2;box-sizing:border-box}.reveal>.overlay header a{display:inline-block;width:40px;height:40px;line-height:36px;padding:0 10px;float:right;opacity:.6;box-sizing:border-box}.reveal>.overlay header a:hover{opacity:1}.reveal>.overlay header a .icon{display:inline-block;width:20px;height:20px;background-position:50% 50%;background-size:100%;background-repeat:no-repeat}.reveal>.overlay header a.close .icon{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABkklEQVRYR8WX4VHDMAxG6wnoJrABZQPYBCaBTWAD2g1gE5gg6OOsXuxIlr40d81dfrSJ9V4c2VLK7spHuTJ/5wpM07QXuXc5X0opX2tEJcadjHuV80li/FgxTIEK/5QBCICBD6xEhSMGHgQPgBgLiYVAB1dpSqKDawxTohFw4JSEA3clzgIBPCURwE2JucBR7rhPJJv5OpJwDX+SfDjgx1wACQeJG1aChP9K/IMmdZ8DtESV1WyP3Bt4MwM6sj4NMxMYiqUWHQu4KYA/SYkIjOsm3BXYWMKFDwU2khjCQ4ELJUJ4SmClRArOCmSXGuKma0fYD5CbzHxFpCSGAhfAVSSUGDUk2BWZaff2g6GE15BsBQ9nwmpIGDiyHQddwNTMKkbZaf9fajXQca1EX44puJZUsnY0ObGmITE3GVLCbEhQUjGVt146j6oasWN+49Vph2w1pZ5EansNZqKBm1txbU57iRRcZ86RWMDdWtBJUHBHwoQPi1GV+JCbntmvok7iTX4/Up9mgyTc/FJYDTcndgH/AA5A/CHsyEkVAAAAAElFTkSuQmCC)}.reveal>.overlay header a.external .icon{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAcElEQVRYR+2WSQoAIQwEzf8f7XiOMkUQxUPlGkM3hVmiQfQR9GYnH1SsAQlI4DiBqkCMoNb9y2e90IAEJPAcgdznU9+engMaeJ7Azh5Y1U67gAho4DqBqmB1buAf0MB1AlVBek83ZPkmJMGc1wAR+AAqod/B97TRpQAAAABJRU5ErkJggg==)}.reveal>.overlay .viewport{position:absolute;display:flex;top:50px;right:0;bottom:0;left:0}.reveal>.overlay.overlay-preview .viewport iframe{width:100%;height:100%;max-width:100%;max-height:100%;border:0;opacity:0;visibility:hidden;transition:all .3s ease}.reveal>.overlay.overlay-preview.loaded .viewport iframe{opacity:1;visibility:visible}.reveal>.overlay.overlay-preview.loaded .viewport-inner{position:absolute;z-index:-1;left:0;top:45%;width:100%;text-align:center;letter-spacing:normal}.reveal>.overlay.overlay-preview .x-frame-error{opacity:0;transition:opacity .3s ease .3s}.reveal>.overlay.overlay-preview.loaded .x-frame-error{opacity:1}.reveal>.overlay.overlay-preview.loaded .spinner{opacity:0;visibility:hidden;transform:scale(.2)}.reveal>.overlay.overlay-help .viewport{overflow:auto;color:#fff}.reveal>.overlay.overlay-help .viewport .viewport-inner{width:600px;margin:auto;padding:20px 20px 80px 20px;text-align:center;letter-spacing:normal}.reveal>.overlay.overlay-help .viewport .viewport-inner .title{font-size:20px}.reveal>.overlay.overlay-help .viewport .viewport-inner table{border:1px solid #fff;border-collapse:collapse;font-size:16px}.reveal>.overlay.overlay-help .viewport .viewport-inner table td,.reveal>.overlay.overlay-help .viewport .viewport-inner table th{width:200px;padding:14px;border:1px solid #fff;vertical-align:middle}.reveal>.overlay.overlay-help .viewport .viewport-inner table th{padding-top:20px;padding-bottom:20px}.reveal .playback{position:absolute;left:15px;bottom:20px;z-index:30;cursor:pointer;transition:all .4s ease;-webkit-tap-highlight-color:transparent}.reveal.overview .playback{opacity:0;visibility:hidden}.reveal .hljs{min-height:100%}.reveal .hljs table{margin:initial}.reveal .hljs-ln-code,.reveal .hljs-ln-numbers{padding:0;border:0}.reveal .hljs-ln-numbers{opacity:.6;padding-right:.75em;text-align:right;vertical-align:top}.reveal .hljs.has-highlights tr:not(.highlight-line){opacity:.4}.reveal .hljs.has-highlights.fragment{transition:all .2s ease}.reveal .hljs:not(:first-child).fragment{position:absolute;top:0;left:0;width:100%;box-sizing:border-box}.reveal pre[data-auto-animate-target]{overflow:hidden}.reveal pre[data-auto-animate-target] code{height:100%}.reveal .roll{display:inline-block;line-height:1.2;overflow:hidden;vertical-align:top;perspective:400px;perspective-origin:50% 50%}.reveal .roll:hover{background:0 0;text-shadow:none}.reveal .roll span{display:block;position:relative;padding:0 2px;pointer-events:none;transition:all .4s ease;transform-origin:50% 0;transform-style:preserve-3d;backface-visibility:hidden}.reveal .roll:hover span{background:rgba(0,0,0,.5);transform:translate3d(0,0,-45px) rotateX(90deg)}.reveal .roll span:after{content:attr(data-title);display:block;position:absolute;left:0;top:0;padding:0 2px;backface-visibility:hidden;transform-origin:50% 0;transform:translate3d(0,110%,0) rotateX(-90deg)}.reveal aside.notes{display:none}.reveal .speaker-notes{display:none;position:absolute;width:33.3333333333%;height:100%;top:0;left:100%;padding:14px 18px 14px 18px;z-index:1;font-size:18px;line-height:1.4;border:1px solid rgba(0,0,0,.05);color:#222;background-color:#f5f5f5;overflow:auto;box-sizing:border-box;text-align:left;font-family:Helvetica,sans-serif;-webkit-overflow-scrolling:touch}.reveal .speaker-notes .notes-placeholder{color:#ccc;font-style:italic}.reveal .speaker-notes:focus{outline:0}.reveal .speaker-notes:before{content:"Speaker notes";display:block;margin-bottom:10px;opacity:.5}.reveal.show-notes{max-width:75%;overflow:visible}.reveal.show-notes .speaker-notes{display:block}@media screen and (min-width:1600px){.reveal .speaker-notes{font-size:20px}}@media screen and (max-width:1024px){.reveal.show-notes{border-left:0;max-width:none;max-height:70%;max-height:70vh;overflow:visible}.reveal.show-notes .speaker-notes{top:100%;left:0;width:100%;height:30vh;border:0}}@media screen and (max-width:600px){.reveal.show-notes{max-height:60%;max-height:60vh}.reveal.show-notes .speaker-notes{top:100%;height:40vh}.reveal .speaker-notes{font-size:14px}}.reveal .jump-to-slide{position:absolute;top:15px;left:15px;z-index:30;font-size:32px;-webkit-tap-highlight-color:transparent}.reveal .jump-to-slide-input{background:0 0;padding:8px;font-size:inherit;color:currentColor;border:0}.reveal .jump-to-slide-input::placeholder{color:currentColor;opacity:.5}.reveal.has-dark-background .jump-to-slide-input{color:#fff}.reveal.has-light-background .jump-to-slide-input{color:#222}.reveal .jump-to-slide-input:focus{outline:0}.zoomed .reveal *,.zoomed .reveal :after,.zoomed .reveal :before{backface-visibility:visible!important}.zoomed .reveal .controls,.zoomed .reveal .progress{opacity:0}.zoomed .reveal .roll span{background:0 0}.zoomed .reveal .roll span:after{visibility:hidden}html.print-pdf *{-webkit-print-color-adjust:exact}html.print-pdf{width:100%;height:100%;overflow:visible}html.print-pdf body{margin:0 auto!important;border:0;padding:0;float:none!important;overflow:visible}html.print-pdf .nestedarrow,html.print-pdf .reveal .controls,html.print-pdf .reveal .playback,html.print-pdf .reveal .progress,html.print-pdf .reveal.overview,html.print-pdf .state-background{display:none!important}html.print-pdf .reveal pre code{overflow:hidden!important}html.print-pdf .reveal{width:auto!important;height:auto!important;overflow:hidden!important}html.print-pdf .reveal .slides{position:static;width:100%!important;height:auto!important;zoom:1!important;pointer-events:initial;left:auto;top:auto;margin:0!important;padding:0!important;overflow:visible;display:block;perspective:none;perspective-origin:50% 50%}html.print-pdf .reveal .slides .pdf-page{position:relative;overflow:hidden;z-index:1;page-break-after:always}html.print-pdf .reveal .slides section{visibility:visible!important;display:block!important;position:absolute!important;margin:0!important;padding:0!important;box-sizing:border-box!important;min-height:1px;opacity:1!important;transform-style:flat!important;transform:none!important}html.print-pdf .reveal section.stack{position:relative!important;margin:0!important;padding:0!important;page-break-after:avoid!important;height:auto!important;min-height:auto!important}html.print-pdf .reveal img{box-shadow:none}html.print-pdf .reveal .backgrounds{display:none}html.print-pdf .reveal .slide-background{display:block!important;position:absolute;top:0;left:0;width:100%;height:100%;z-index:auto!important}html.print-pdf .reveal.show-notes{max-width:none;max-height:none}html.print-pdf .reveal .speaker-notes-pdf{display:block;width:100%;height:auto;max-height:none;top:auto;right:auto;bottom:auto;left:auto;z-index:100}html.print-pdf .reveal .speaker-notes-pdf[data-layout=separate-page]{position:relative;color:inherit;background-color:transparent;padding:20px;page-break-after:always;border:0}html.print-pdf .reveal .slide-number-pdf{display:block;position:absolute;font-size:14px}html.print-pdf .aria-status{display:none}@media print{html:not(.print-pdf){overflow:visible;width:auto;height:auto}html:not(.print-pdf) body{margin:0;padding:0;overflow:visible}html:not(.print-pdf) .reveal{background:#fff;font-size:20pt}html:not(.print-pdf) .reveal .backgrounds,html:not(.print-pdf) .reveal .controls,html:not(.print-pdf) .reveal .progress,html:not(.print-pdf) .reveal .slide-number,html:not(.print-pdf) .reveal .state-background{display:none!important}html:not(.print-pdf) .reveal li,html:not(.print-pdf) .reveal p,html:not(.print-pdf) .reveal td{font-size:20pt!important;color:#000}html:not(.print-pdf) .reveal h1,html:not(.print-pdf) .reveal h2,html:not(.print-pdf) .reveal h3,html:not(.print-pdf) .reveal h4,html:not(.print-pdf) .reveal h5,html:not(.print-pdf) .reveal h6{color:#000!important;height:auto;line-height:normal;text-align:left;letter-spacing:normal}html:not(.print-pdf) .reveal h1{font-size:28pt!important}html:not(.print-pdf) .reveal h2{font-size:24pt!important}html:not(.print-pdf) .reveal h3{font-size:22pt!important}html:not(.print-pdf) .reveal h4{font-size:22pt!important;font-variant:small-caps}html:not(.print-pdf) .reveal h5{font-size:21pt!important}html:not(.print-pdf) .reveal h6{font-size:20pt!important;font-style:italic}html:not(.print-pdf) .reveal a:link,html:not(.print-pdf) .reveal a:visited{color:#000!important;font-weight:700;text-decoration:underline}html:not(.print-pdf) .reveal div,html:not(.print-pdf) .reveal ol,html:not(.print-pdf) .reveal p,html:not(.print-pdf) .reveal ul{visibility:visible;position:static;width:auto;height:auto;display:block;overflow:visible;margin:0;text-align:left!important}html:not(.print-pdf) .reveal pre,html:not(.print-pdf) .reveal table{margin-left:0;margin-right:0}html:not(.print-pdf) .reveal pre code{padding:20px}html:not(.print-pdf) .reveal blockquote{margin:20px 0}html:not(.print-pdf) .reveal .slides{position:static!important;width:auto!important;height:auto!important;left:0!important;top:0!important;margin-left:0!important;margin-top:0!important;padding:0!important;zoom:1!important;transform:none!important;overflow:visible!important;display:block!important;text-align:left!important;perspective:none;perspective-origin:50% 50%}html:not(.print-pdf) .reveal .slides section{visibility:visible!important;position:static!important;width:auto!important;height:auto!important;display:block!important;overflow:visible!important;left:0!important;top:0!important;margin-left:0!important;margin-top:0!important;padding:60px 20px!important;z-index:auto!important;opacity:1!important;page-break-after:always!important;transform-style:flat!important;transform:none!important;transition:none!important}html:not(.print-pdf) .reveal .slides section.stack{padding:0!important}html:not(.print-pdf) .reveal .slides section:last-of-type{page-break-after:avoid!important}html:not(.print-pdf) .reveal .slides section .fragment{opacity:1!important;visibility:visible!important;transform:none!important}html:not(.print-pdf) .reveal .r-fit-text{white-space:normal!important}html:not(.print-pdf) .reveal section img{display:block;margin:15px 0;background:#fff;border:1px solid #666;box-shadow:none}html:not(.print-pdf) .reveal section small{font-size:.8em}html:not(.print-pdf) .reveal .hljs{max-height:100%;white-space:pre-wrap;word-wrap:break-word;word-break:break-word;font-size:15pt}html:not(.print-pdf) .reveal .hljs .hljs-ln-numbers{white-space:nowrap}html:not(.print-pdf) .reveal .hljs td{font-size:inherit!important;color:inherit!important}}
+      
+      </style>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      
+        <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-] ::-moz-selection,code[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:#b3d4fc}code[class*=language-] ::selection,code[class*=language-]::selection,pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export" data-presentation-mode="">
+    
+    
+      <div class="crossnote markdown-preview  " data-presentation-mode="">
+      
+    <div style="display:none;"><link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="../css/theme/solarized.css">
+<link rel="stylesheet" href="../css/logo.css">
+<link rel="stylesheet" href="../css/font.css">
+<link rel="stylesheet" href="../css/color.css">
+<link rel="stylesheet" href="../css/margin.css">
+<link rel="stylesheet" href="../css/table.css">
+<link rel="stylesheet" href="../css/main.css">
+<script type="text/javascript" src="../plugin/zoom/zoom.js"></script>
+<script type="text/javascript" src="../plugin/customcontrols/plugin.js"></script>
+<link rel="stylesheet" href="../plugin/customcontrols/style.css">
+<script type="text/javascript" src="../plugin/chalkboard/plugin.js"></script>
+<link rel="stylesheet" href="../plugin/chalkboard/style.css">
+<script type="text/javascript" src="../plugin/menu/menu.js"></script>
+<script type="text/javascript" src="../js/anychart/anychart-core.min.js"></script>
+<script type="text/javascript" src="../js/anychart/anychart-venn.min.js"></script>
+<script type="text/javascript" src="../js/anychart/pastel.min.js"></script>
+<script type="text/javascript" src="../js/anychart/venn-ml.js"></script>
+</div>
+    <div class="reveal">
+      <div class="slides">
+        <section><section data-notes="" lineno="31" class="slide " data-line="31" data-h="0" data-v="0">
+<div class="bottom20"></div>
+<h1 class="crossnote-header" id="c%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80">C语言程序设计基础</h1>
+
+<hr class="width50 center">
+<h2 class="crossnote-header" id="%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B">基本类型</h2>
+
+<div class="bottom8"></div>
+<h3 class="crossnote-header" id="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB-nbspnbsp-%E6%9D%A8%E5%B7%B2%E5%BD%AA">计算机系 &nbsp;&nbsp; 杨已彪</h3>
+
+<h4 class="crossnote-header" id="_yangyibiaonjueducn_"><em><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></em></h4>
+
+</section><section vertical="true" data-notes="" lineno="50" class="slide " data-line="50" data-h="0" data-v="1">
+<h5 class="crossnote-header" id="%E6%8F%90%E7%BA%B2">提纲</h5>
+
+<hr>
+<ul>
+<li>
+<p>整数类型</p>
+</li>
+<li>
+<p>浮点类型</p>
+</li>
+<li>
+<p>字符类型</p>
+</li>
+<li>
+<p>类型转换</p>
+</li>
+<li>
+<p>类型定义</p>
+</li>
+<li>
+<p>sizeof运算符</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="69" class="slide " data-line="69" data-h="0" data-v="2">
+<h5 class="crossnote-header" id="%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B-1">基本类型</h5>
+
+<hr>
+<p>C 的基本(内置)类型:</p>
+<ul>
+<li>
+<p>整数类型, 包括长整型、短整型和无符号整型</p>
+</li>
+<li>
+<p>浮点类型(float, double, long double)</p>
+</li>
+<li>
+<p>char</p>
+</li>
+<li>
+<p>_Bool(C99)</p>
+</li>
+</ul>
+</section></section><section><section data-notes="" lineno="89" class="slide " data-line="89" data-h="1" data-v="0">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B">整数类型</h5>
+
+<hr>
+<p>C 支持两种完全不同的数值类型: 整数类型和浮点类型</p>
+<ul>
+<li>
+<p>整数类型的值是整数</p>
+</li>
+<li>
+<p>浮点类型的值可以有小数部分</p>
+</li>
+</ul>
+<p>整数类型又分为两类: 有符号型和无符号型</p>
+</section><section vertical="true" data-notes="" lineno="106" class="slide " data-line="106" data-h="1" data-v="1">
+<h5 class="crossnote-header" id="%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0">有符号整数和无符号整数</h5>
+
+<hr>
+<p>有符号整数: 如果为正数或<code>0</code>, 最左边位(符号位)为<code>0</code>; 如果为负数, 则符号位为<code>1</code></p>
+<ul>
+<li>
+<p>最大的<code>16</code>位整数的二进制表示形式是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0111111111111111</mn></mrow><annotation encoding="application/x-tex">0111111111111111</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0111111111111111</span></span></span></span>, 其值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mo separator="true">,</mo><mn>767</mn></mrow><annotation encoding="application/x-tex">32,767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">767</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>15</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{15} – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">15</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span>)</p>
+</li>
+<li>
+<p>最大的<code>32</code>位整数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>01111111111111111111111111111111</mn></mrow><annotation encoding="application/x-tex">01111111111111111111111111111111</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">01111111111111111111111111111111</span></span></span></span>, 其值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>647</mn></mrow><annotation encoding="application/x-tex">2,147,483,647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">647</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{31} – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span>)</p>
+</li>
+</ul>
+<p>无符号位的整数(最左边的位是数值的一部分)称为无符号整数</p>
+<ul>
+<li>
+<p>最大的<code>16</code>位无符号整数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>65</mn><mo separator="true">,</mo><mn>535</mn></mrow><annotation encoding="application/x-tex">65,535</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">65</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">535</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{16} – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span>)</p>
+</li>
+<li>
+<p>最大的<code>32</code>位无符号整数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo separator="true">,</mo><mn>294</mn><mo separator="true">,</mo><mn>967</mn><mo separator="true">,</mo><mn>295</mn></mrow><annotation encoding="application/x-tex">4,294,967,295</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">294</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">967</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">295</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32} – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span>)</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="127" class="slide " data-line="127" data-h="1" data-v="2">
+<h5 class="crossnote-header" id="%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0-1">有符号整数和无符号整数</h5>
+
+<hr>
+<p>默认情况下, <mark>C</mark>中整数变量都是有符号的——最左位是符号位</p>
+<p>要告诉编译器变量没有符号位, 需要把它声明为<code>unsigned</code>类型</p>
+<p>无符号整数主要用于系统编程和底层与机器相关的应用</p>
+</section><section vertical="true" data-notes="" lineno="142" class="slide " data-line="142" data-h="1" data-v="3">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-1">整数类型</h5>
+
+<hr>
+<ul>
+<li>
+<p><code>int</code>类型通常是<code>32</code>位, 但在老的CPU上可能是<code>16</code>位</p>
+</li>
+<li>
+<p>长整型(<code>long</code>)可能比普通整型有更多位; 短整型(<code>short</code>)可能有更少的位</p>
+</li>
+<li>
+<p>说明符<code>long</code>和<code>short</code>以及<code>signed</code>和<code>unsigned</code>可以与<code>int</code>组合起来</p>
+</li>
+</ul>
+<p>只有6种组合可以产生不同的类型:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-short">short</span> <span class="token keyword keyword-int">int</span>         <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span> <span class="token keyword keyword-int">int</span>
+<span class="token keyword keyword-int">int</span> <span class="token keyword keyword-unsigned">unsigned</span>      <span class="token keyword keyword-int">int</span>
+<span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span>          <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span>
+</code></pre><p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 说明符的顺序无关紧要, 单词<code>int</code>可以省略(<code>long int</code>可以缩写为<code>long</code>)</p>
+</section><section vertical="true" data-notes="" lineno="167" class="slide " data-line="167" data-h="1" data-v="4">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-2">整数类型</h5>
+
+<hr>
+<p>6种整数类型中的每一种表示的取值范围因机器而异</p>
+<p><mark>C</mark>标准要求:</p>
+<ul>
+<li>
+<p><code>short int</code>、<code>int</code>和<code>long int</code>都必须都覆盖一个确定的最小取值范围</p>
+</li>
+<li>
+<p><code>int</code>不得短于<code>short int</code>, <code>long int</code>不得短于<code>int</code></p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="184" class="slide " data-line="184" data-h="1" data-v="5">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-3">整数类型</h5>
+
+<hr>
+<p><code>16</code>位机上整数类型通常的取值范围:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">最小值</th>
+<th style="text-align:left">最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">short int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>32</mn><mo separator="true">,</mo><mn>768</mn></mrow><annotation encoding="application/x-tex">–32,768</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">768</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mo separator="true">,</mo><mn>767</mn></mrow><annotation encoding="application/x-tex">32,767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">767</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned short int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>65</mn><mo separator="true">,</mo><mn>535</mn></mrow><annotation encoding="application/x-tex">65,535</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">65</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">535</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>32</mn><mo separator="true">,</mo><mn>768</mn></mrow><annotation encoding="application/x-tex">–32,768</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">768</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mo separator="true">,</mo><mn>767</mn></mrow><annotation encoding="application/x-tex">32,767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">767</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>65</mn><mo separator="true">,</mo><mn>535</mn></mrow><annotation encoding="application/x-tex">65,535</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">65</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">535</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">long int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>648</mn></mrow><annotation encoding="application/x-tex">–2,147,483,648</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">648</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>647</mn></mrow><annotation encoding="application/x-tex">2,147,483,647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">647</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned long int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo separator="true">,</mo><mn>294</mn><mo separator="true">,</mo><mn>967</mn><mo separator="true">,</mo><mn>295</mn></mrow><annotation encoding="application/x-tex">4,294,967,295</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">294</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">967</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">295</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section vertical="true" data-notes="" lineno="208" class="slide " data-line="208" data-h="1" data-v="6">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-4">整数类型</h5>
+
+<hr>
+<p><code>32</code> 位机上整数类型通常的取值范围:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">最小值</th>
+<th style="text-align:left">最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">short int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>32</mn><mo separator="true">,</mo><mn>768</mn></mrow><annotation encoding="application/x-tex">–32,768</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">768</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mo separator="true">,</mo><mn>767</mn></mrow><annotation encoding="application/x-tex">32,767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">767</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned short int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>65</mn><mo separator="true">,</mo><mn>535</mn></mrow><annotation encoding="application/x-tex">65,535</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">65</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">535</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>648</mn></mrow><annotation encoding="application/x-tex">–2,147,483,648</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">648</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>647</mn></mrow><annotation encoding="application/x-tex">2,147,483,647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">647</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo separator="true">,</mo><mn>294</mn><mo separator="true">,</mo><mn>967</mn><mo separator="true">,</mo><mn>295</mn></mrow><annotation encoding="application/x-tex">4,294,967,295</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">294</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">967</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">295</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">long int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>648</mn></mrow><annotation encoding="application/x-tex">–2,147,483,648</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">648</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>647</mn></mrow><annotation encoding="application/x-tex">2,147,483,647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">647</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned long int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo separator="true">,</mo><mn>294</mn><mo separator="true">,</mo><mn>967</mn><mo separator="true">,</mo><mn>295</mn></mrow><annotation encoding="application/x-tex">4,294,967,295</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">294</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">967</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">295</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section vertical="true" data-notes="" lineno="232" class="slide " data-line="232" data-h="1" data-v="7">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-5">整数类型</h5>
+
+<hr>
+<p>64 位机上整数类型通常的取值范围:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">最小值</th>
+<th style="text-align:left">最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">short int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>32</mn><mo separator="true">,</mo><mn>768</mn></mrow><annotation encoding="application/x-tex">–32,768</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">768</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn><mo separator="true">,</mo><mn>767</mn></mrow><annotation encoding="application/x-tex">32,767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">32</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">767</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned short int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>65</mn><mo separator="true">,</mo><mn>535</mn></mrow><annotation encoding="application/x-tex">65,535</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">65</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">535</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>648</mn></mrow><annotation encoding="application/x-tex">–2,147,483,648</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">–2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">648</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>147</mn><mo separator="true">,</mo><mn>483</mn><mo separator="true">,</mo><mn>647</mn></mrow><annotation encoding="application/x-tex">2,147,483,647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">647</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo separator="true">,</mo><mn>294</mn><mo separator="true">,</mo><mn>967</mn><mo separator="true">,</mo><mn>295</mn></mrow><annotation encoding="application/x-tex">4,294,967,295</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">294</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">967</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">295</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">long int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><msup><mn>2</mn><mn>63</mn></msup></mrow><annotation encoding="application/x-tex">–2^{63}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">–</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">63</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>63</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{63}–1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">63</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left">unsigned long int</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{64}–1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">64</span></span></span></span></span></span></span></span></span><span class="mord">–1</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>&lt;limits.h&gt;</code>头文件定义了每种整数类型最小值和最大值的宏</p>
+</section><section vertical="true" data-notes="" lineno="258" class="slide " data-line="258" data-h="1" data-v="8">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-6">整数类型</h5>
+
+<hr>
+<p>C99 提供了两个额外的标准整数类型: <code>long long int, unsigned long long int</code></p>
+<p>这两个<code>long long</code>类型都至少<code>64</code>位宽</p>
+<p><code>long long int</code>类型值的范围通常为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>–</mtext><msup><mn>2</mn><mn>63</mn></msup><mo stretchy="false">(</mo><mtext>–</mtext><mn>9</mn><mo separator="true">,</mo><mn>223</mn><mo separator="true">,</mo><mn>372</mn><mo separator="true">,</mo><mn>036</mn><mo separator="true">,</mo><mn>854</mn><mo separator="true">,</mo><mn>775</mn><mo separator="true">,</mo><mn>808</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">–2^{63} (–9,223,372,036,854,775,808)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord">–</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">63</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">–9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">223</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">372</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">036</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">854</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">775</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">808</span><span class="mclose">)</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>63</mn></msup><mtext>–</mtext><mn>1</mn><mo stretchy="false">(</mo><mn>9</mn><mo separator="true">,</mo><mn>223</mn><mo separator="true">,</mo><mn>372</mn><mo separator="true">,</mo><mn>036</mn><mo separator="true">,</mo><mn>854</mn><mo separator="true">,</mo><mn>775</mn><mo separator="true">,</mo><mn>807</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">2^{63} – 1 (9,223,372,036,854,775,807)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">63</span></span></span></span></span></span></span></span></span><span class="mord">–1</span><span class="mopen">(</span><span class="mord">9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">223</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">372</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">036</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">854</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">775</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">807</span><span class="mclose">)</span></span></span></span></p>
+<p><code>unsigned long long int</code>类型值的范围通常为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup><mtext>–</mtext><mn>1</mn><mo stretchy="false">(</mo><mn>18</mn><mo separator="true">,</mo><mn>446</mn><mo separator="true">,</mo><mn>744</mn><mo separator="true">,</mo><mn>073</mn><mo separator="true">,</mo><mn>709</mn><mo separator="true">,</mo><mn>551</mn><mo separator="true">,</mo><mn>615</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">2^{64} – 1 (18,446,744,073,709,551,615)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">64</span></span></span></span></span></span></span></span></span><span class="mord">–1</span><span class="mopen">(</span><span class="mord">18</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">446</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">744</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">073</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">709</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">551</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">615</span><span class="mclose">)</span></span></span></span></p>
+</section><section vertical="true" data-notes="" lineno="275" class="slide " data-line="275" data-h="1" data-v="9">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-7">整数类型</h5>
+
+<hr>
+<p>C99中把<code>short int, int, long int, long long int</code>类型(以及signed char类型)称为标准有符号整型</p>
+<p><code>unsigned short int, unsigned int, unsigned long int, unsigned long long int</code>类型(以及unsigned char类型和_Bool类型)称为标准无符号整型</p>
+<p>除了标准的整数类型以外, C99 标准还允许在具体实现时定义扩展的整数类型(包括有符号的和无符号的)</p>
+</section><section vertical="true" data-notes="" lineno="290" class="slide " data-line="290" data-h="1" data-v="10">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-8">整数类型</h5>
+
+<hr>
+<p>常量是在程序中以文本形式出现的数</p>
+<p>C 允许用<code>十进制(基数为10)</code>、<code>八进制(基数为8)</code>和<code>十六进制(基数为16)</code>书写整数常量</p>
+</section><section vertical="true" data-notes="" lineno="303" class="slide " data-line="303" data-h="1" data-v="11">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-9">整数类型</h5>
+
+<hr>
+<p>八进制数仅使用数字<code>0</code>到<code>7</code></p>
+<ul>
+<li>
+<p>八进制数中的每一位表示一个<code>8</code>的幂</p>
+</li>
+<li>
+<p>八进制数 237 表示成十进制数就是<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><msup><mn>8</mn><mn>2</mn></msup><mo>+</mo><mn>3</mn><mo>×</mo><msup><mn>8</mn><mn>1</mn></msup><mo>+</mo><mn>7</mn><mo>×</mo><msup><mn>8</mn><mn>0</mn></msup><mo>=</mo><mn>128</mn><mo>+</mo><mn>24</mn><mo>+</mo><mn>7</mn><mo>=</mo><mn>159</mn></mrow><annotation encoding="application/x-tex">2 × 8^2 + 3 × 8^1 + 7 × 8^0 = 128 + 24 + 7 = 159</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">128</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">24</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">159</span></span></span></span></p>
+</li>
+</ul>
+<p>十六进制数是用数字<code>0~9</code>加上字母<code>A~F</code>(代表<code>10~15</code>)书写的</p>
+<ul>
+<li>
+<p>十六进制数中的每一位表示一个<code>16</code>的幂</p>
+</li>
+<li>
+<p>十六进制数 1AF 的十进制数值为<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>2</mn></msup><mo>+</mo><mn>10</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>1</mn></msup><mo>+</mo><mn>15</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>0</mn></msup><mo>=</mo><mn>256</mn><mo>+</mo><mn>160</mn><mo>+</mo><mn>15</mn><mo>=</mo><mn>431</mn></mrow><annotation encoding="application/x-tex">1 × 16^2 + 10 × 16^1 + 15 × 16^0 = 256 + 160 + 15 = 431</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">15</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">256</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">160</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">15</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">431</span></span></span></span></p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="326" class="slide " data-line="326" data-h="1" data-v="12">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-10">整数类型</h5>
+
+<hr>
+<p>十进制常量包含0~9 中的数字, 但不能以零开头:<br>
+<code>15    255    32767</code></p>
+<p>八进制常量只包含0~7中的数字, 并且必须以零开头:<br>
+<code>017   0377   077777</code></p>
+<p>十六进制常量包含<code>0~9</code>中的数字和<code>a~f</code>中的字母, 且总以0x开头:<br>
+<code>0xf   0xff   0x7fff</code></p>
+<p>十六进制常量中的字母可以是大写, 也可以是小写:<br>
+<code>0xff  0xfF   0xFf   0xFF   0Xff   0XfF   0XFf   0XFF</code></p>
+</section><section vertical="true" data-notes="" lineno="347" class="slide " data-line="347" data-h="1" data-v="13">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B-11">整数类型</h5>
+
+<hr>
+<p>十进制整数常量的类型通常是<code>int</code></p>
+<p>如果常量的值太大而无法存储在<code>int</code>型中, 就用<code>long int</code>类型</p>
+<p>如果出现<code>long int</code>不够用的罕见情况, 编译器会用<code>unsigned long int</code>作为最后的尝试</p>
+<p>对于八进制或十六进制常量, 规则略有不同: 编译器将依次尝试<code>int, unsigned int, long int, unsigned long int</code>类型, 直到找到能表示该常数的类型</p>
+</section><section vertical="true" data-notes="" lineno="364" class="slide " data-line="364" data-h="1" data-v="14">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E5%B8%B8%E9%87%8F">整数常量</h5>
+
+<hr>
+<p>强制编译器把常量作为长整型来处理, 需在后面加上字母L(或l):<br>
+<code>15L  0377L  0x7fffL</code></p>
+<p>为了指明是无符号常数, 可以在常量后面加上字母U(或u):<br>
+<code>15U  0377U  0x7fffU</code></p>
+<p>L和U可以结合使用:<br>
+<code>0xffffffffUL</code></p>
+<p>L和U的顺序和大小写无所谓</p>
+</section><section vertical="true" data-notes="" lineno="384" class="slide " data-line="384" data-h="1" data-v="15">
+<h5 class="crossnote-header" id="c99-%E4%B8%AD%E7%9A%84%E6%95%B4%E6%95%B0%E5%B8%B8%E9%87%8F">C99 中的整数常量</h5>
+
+<hr>
+<p>以LL或ll(两个字母的大小写必须匹配)结尾的整数常量是<code>long long int</code>型的</p>
+<p>在LL或ll之前或之后添加字母U(或u)表示该整数常量是<code>unsigned long long int</code>型</p>
+<p>C99 确定整数常量类型的规则与 C89 有些不同</p>
+<p>对于没有后缀(<code>U, u, L, l, LL, ll</code>)的十进制常量, 其类型是<code>int, long, long long int</code>中能表示该值的<code>最小</code>类型</p>
+</section><section vertical="true" data-notes="" lineno="401" class="slide " data-line="401" data-h="1" data-v="16">
+<h5 class="crossnote-header" id="c99-%E4%B8%AD%E7%9A%84%E6%95%B4%E6%95%B0%E5%B8%B8%E9%87%8F-1">C99 中的整数常量</h5>
+
+<hr>
+<p>对于八进制或十六进制常量, 可能的类型顺序是<code>int、unsigned int、long int、unsigned long int、long long int和unsigned long long int</code></p>
+<p>常量后面的任何后缀都会改变可能类型的列表</p>
+<ul>
+<li>
+<p>以U(或u)结尾的常量类型一定是<code>unsigned int</code>、<code>unsigned long int</code>和<code>unsigned long long int</code>中的一种</p>
+</li>
+<li>
+<p>以L(或l)结尾的十进制常量类型一定是<code>long int</code>或 <code>long long int</code></p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="418" class="slide " data-line="418" data-h="1" data-v="17">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA">整数溢出</h5>
+
+<hr>
+<p>整数溢出是对整数执行算术运算时, 其结果因为太大而无法表示</p>
+<ul>
+<li>
+<p>对两个int值进行算术运算时, 结果必须仍然能用int类型来表示</p>
+</li>
+<li>
+<p>否则(表示结果所需的位数太多), 就会发生溢出</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="433" class="slide " data-line="433" data-h="1" data-v="18">
+<h5 class="crossnote-header" id="%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA-1">整数溢出</h5>
+
+<hr>
+<p>整数溢出时的行为要根据操作数是有符号型还是无符号型来确定</p>
+<p><mark>有符号整数运算</mark>中发生溢出时, 行为是未定义的(不确定的)</p>
+<p><mark>无符号整数运算</mark>中发生溢出时, 结果是有定义的:</p>
+<ul>
+<li>对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span>取模, <code>n</code>是用于存储结果的位数(如一般<code>unsigned int</code>是<code>32</code>位)</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="450" class="slide " data-line="450" data-h="1" data-v="19">
+<h5 class="crossnote-header" id="%E8%AF%BB%E5%86%99%E6%95%B4%E6%95%B0">读/写整数</h5>
+
+<hr>
+<p>读写无符号整数、短整数和长整数需要一些新的转换说明符</p>
+<p>读写无符号整数时, 使用字母u、o或x代替转换说明中的d</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> u<span class="token punctuation">;</span>
+ 
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%u"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以10为基数读取u */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%u"</span><span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以10为基数输出u */</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%o"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以8为基数读取u */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%o"</span><span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以8为基数输出u */</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以16为基数读取u */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以16为基数输出u */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="474" class="slide " data-line="474" data-h="1" data-v="20">
+<h5 class="crossnote-header" id="%E8%AF%BB%E5%86%99%E6%95%B4%E6%95%B0-1">读/写整数</h5>
+
+<hr>
+<p>读写短整数时, 在d、o、u或x前面加上字母h:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-short">short</span> s<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%hd"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%hd"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><p>读写长整数时, 在d、o、u或x前面加上字母l:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-long">long</span> l<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><p>读写长长整数(仅限 C99)时, 在d、o、u或x前面加上字母ll:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-long">long</span> <span class="token keyword keyword-long">long</span> ll<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ll<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld"</span><span class="token punctuation">,</span> ll<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="507" class="slide " data-line="507" data-h="1" data-v="21">
+<h5 class="crossnote-header" id="%E7%A8%8B%E5%BA%8F-%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C%E6%94%B9%E8%BF%9B%E7%89%88">程序: 数列求和(改进版)</h5>
+
+<hr>
+<p><em>sum.c</em>程序(第 6 章)对整数数列求和</p>
+<p>该程序的一个问题是sum的值可能超出int型变量允许的最大值</p>
+<p>如果程序在整数长度为16位机器上运行, 可能会发生以下情况:</p>
+<p>This program sums a series of integers.<br>
+Enter integers (0 to terminate): <u>10000 20000 30000 0</u><br>
+The sum is: -5536</p>
+<p>当有符号整数发生溢出时, 结果是未定义的</p>
+<p>可以把变量改换成long型来改进程序</p>
+</section><section vertical="true" data-notes="" lineno="530" class="slide " data-line="530" data-h="1" data-v="22">
+<h5 class="crossnote-header" id="%E7%A8%8B%E5%BA%8F-%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C%E6%94%B9%E8%BF%9B%E7%89%88-1">程序: 数列求和(改进版)</h5>
+
+<hr>
+<p><em>sum2.c</em></p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 对数列求和(使用长整型变量)*/</span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-long">long</span> n<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"This program sums a series of integers.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter integers (0 to terminate): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    sum <span class="token operator">+=</span> n<span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The sum is: %ld\n"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="564" class="slide " data-line="564" data-h="1" data-v="23">
+<h5 class="crossnote-header" id="%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B">浮点类型</h5>
+
+<hr>
+<p>C 提供了3种浮点类型, 对应三种不同的浮点格式:</p>
+<ul>
+<li>
+<p>float         单精度浮点数</p>
+</li>
+<li>
+<p>double        双精度浮点</p>
+</li>
+<li>
+<p>long double     扩展精度浮点数</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="581" class="slide " data-line="581" data-h="1" data-v="24">
+<h5 class="crossnote-header" id="%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B-1">浮点类型</h5>
+
+<hr>
+<p>当精度要求不严格时, float是合适的</p>
+<p>double为大多数程序提供了足够的精度</p>
+<p>long double很少使用</p>
+<p>C 标准没有说明float、double和long double类型提供的精度到底是多少, 因为不同的计算机可以用不同的方法存储浮点数</p>
+<p>大多数现代计算机都遵循 IEEE 标准 754(即IEC 60559)的规范</p>
+</section><section vertical="true" data-notes="" lineno="600" class="slide " data-line="600" data-h="1" data-v="25">
+<h5 class="crossnote-header" id="ieee-%E6%B5%AE%E7%82%B9%E6%A0%87%E5%87%86">IEEE 浮点标准</h5>
+
+<hr>
+<p>IEEE标准由IEEE开发</p>
+<p>它提供了两种主要的浮点数格式: 单精度(32 位)和双精度(64 位)</p>
+<p>数值以科学记数法的形式存储, 每一个数都由三部分组成: 符号、指数和小数</p>
+<p>在单精度格式中, 指数长度为<code>8</code>位, 而小数为<code>23</code>位最大值约为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3.40</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>38</mn></msup></mrow><annotation encoding="application/x-tex">3.40 × 10^{38}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3.40</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">38</span></span></span></span></span></span></span></span></span></span></span></span>, 精度是6 个十进制数字</p>
+</section><section vertical="true" data-notes="" lineno="617" class="slide " data-line="617" data-h="1" data-v="26">
+<h5 class="crossnote-header" id="%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B-2">浮点类型</h5>
+
+<hr>
+<p>根据 IEEE 标准实现时float和double的特征:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">最大值</th>
+<th style="text-align:left">最小值</th>
+<th style="text-align:left">精度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.17549</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mtext>–</mtext><mn>38</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.17549 × 10^{–38}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.17549</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">–38</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3.40282</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>38</mn></msup></mrow><annotation encoding="application/x-tex">3.40282 × 10^{38}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3.40282</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">38</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left">6位</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.22507</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mtext>–</mtext><mn>308</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.22507 × 10^{–308}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2.22507</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">–308</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.79769</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>308</mn></msup></mrow><annotation encoding="application/x-tex">1.79769 × 10^{308}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.79769</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">308</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align:left">15位</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在不遵循 IEEE 标准的计算机上, 此表无效</p>
+<p>事实上, 在某些机器上, float可以有和double相同的数值集合, 或者double可以有和long double相同的数值集合</p>
+</section><section vertical="true" data-notes="" lineno="641" class="slide " data-line="641" data-h="1" data-v="27">
+<h5 class="crossnote-header" id="%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B-3">浮点类型</h5>
+
+<hr>
+<p>定义浮点类型特征的宏可以在<code>&lt;float.h&gt;</code>头文件中找到</p>
+<p>在 C99 中, 浮点类型分为两类</p>
+<p>实浮点类型(<code>float, double, long double</code>)</p>
+<p>复数类型(<code>float _Complex, double _Complex, long double _Complex</code>)</p>
+</section><section vertical="true" data-notes="" lineno="658" class="slide " data-line="658" data-h="1" data-v="28">
+<h5 class="crossnote-header" id="%E6%B5%AE%E7%82%B9%E5%B8%B8%E9%87%8F">浮点常量</h5>
+
+<hr>
+<p>浮点常量可以有多种书写方式</p>
+<p>书写数字 <code>57.0</code> 的有效方式:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">57.0</span>  <span class="token number">57.</span>  <span class="token number">57.0e0</span>  <span class="token number">57E0</span>  <span class="token number">5.7e1</span>  <span class="token number">5.7e+1</span> <span class="token number">.57e2</span>  <span class="token number">570.e-1</span>
+</code></pre><p>浮点常量必须包含小数点或指数; 指数指明了对前面的数进行缩放所需的10 的幂次</p>
+<p>指数必须以字母E(或e)开头可选符号+或-在E(或e)之后</p>
+</section><section vertical="true" data-notes="" lineno="679" class="slide " data-line="679" data-h="1" data-v="29">
+<h5 class="crossnote-header" id="%E6%B5%AE%E7%82%B9%E5%B8%B8%E9%87%8F-1">浮点常量</h5>
+
+<hr>
+<p>默认情况下, 浮点常量以双精度数的形式存储</p>
+<p>要表明只需要单精度, 可以在常量的末尾加上字母F或f, 如57.0F</p>
+<p>要表明一个常量必须以long double格式存储, 可以在常量的末尾加上字母L或l, 如57.0L</p>
+</section><section vertical="true" data-notes="" lineno="694" class="slide " data-line="694" data-h="1" data-v="30">
+<h5 class="crossnote-header" id="%E8%AF%BB%E5%86%99%E6%B5%AE%E7%82%B9%E6%95%B0">读/写浮点数</h5>
+
+<hr>
+<p>转换说明符<code>%e</code>、<code>%f</code>和<code>%g</code>用于读写单精度浮点数</p>
+<p>读取double类型的值时, 将字母l放在e、f或g前面:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 字母 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span> 仅用于scanf函数格式串, 不用于printf函数格式串</p>
+<ul>
+<li>
+<p>printf函数格式串中, 转换e、f和g可用于写float或double类型的值</p>
+</li>
+<li>
+<p>读写long double类型的值时, 将字母L放在e、f或g前</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="719" class="slide " data-line="719" data-h="1" data-v="31">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B">字符类型</h5>
+
+<hr>
+<p>唯一还没讨论的基本类型是char类型</p>
+<p>char类型的值可能因计算机而异, 不同的计算机可能有不同的字符集</p>
+</section><section vertical="true" data-notes="" lineno="732" class="slide " data-line="732" data-h="1" data-v="32">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E9%9B%86">字符集</h5>
+
+<hr>
+<p>最常用的字符集是ASCII(美国信息交换标准码)字符集, 它用7位代码表示128个字符</p>
+<p>ASCII码中, 数字<code>0~9</code>用<code>0110000~0111001</code>码来表示, 大写字母<code>A~Z</code>用<code>1000001~1011010</code>码表示</p>
+<div class="fulltable">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数字</th>
+<th style="text-align:center">码</th>
+<th style="text-align:center">数字</th>
+<th style="text-align:center">码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0110000</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0110100</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0110001</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0110101</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0110010</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0110111</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0110011</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">0111000</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0110100</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">0111001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section vertical="true" data-notes="" lineno="757" class="slide " data-line="757" data-h="1" data-v="33">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E9%9B%86-1">字符集</h5>
+
+<hr>
+<p>char类型的变量可以用任何单字符赋值:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
+ 
+ch <span class="token operator">=</span> <span class="token char">'a'</span><span class="token punctuation">;</span>   <span class="token comment">/* 小写字母 a */</span>
+ch <span class="token operator">=</span> <span class="token char">'A'</span><span class="token punctuation">;</span>   <span class="token comment">/* 大写字母 A */</span>
+ch <span class="token operator">=</span> <span class="token char">'0'</span><span class="token punctuation">;</span>   <span class="token comment">/* 0 */</span>
+ch <span class="token operator">=</span> <span class="token char">' '</span><span class="token punctuation">;</span>   <span class="token comment">/* 空格 */</span>
+</code></pre><p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 字符常量需要用<mark>单引号</mark>括起来, 而不是双引号</p>
+</section><section vertical="true" data-notes="" lineno="779" class="slide " data-line="779" data-h="1" data-v="34">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E6%93%8D%E4%BD%9C">字符操作</h5>
+
+<hr>
+<p>在 C 中字符的操作很简单, 因为C把字符当作小整数进行处理</p>
+<p>在 ASCII 码中, 字符的取值范围是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0000000</mn><mo>∼</mo><mn>1111111</mn></mrow><annotation encoding="application/x-tex">0000000 \sim 1111111</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0000000</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1111111</span></span></span></span>, 可以看成是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mtext>&nbsp;</mtext><mn>127</mn></mrow><annotation encoding="application/x-tex">0~127</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mspace nobreak">&nbsp;</span><span class="mord">127</span></span></span></span>的整数</p>
+<p>字符<code>'a'</code>的值是<code>97</code>, <code>'A'</code>的值是<code>65</code>, <code>'0'</code>的值是<code>48</code>, <code>' '</code>的值是<code>32</code></p>
+<p>字符常量实际上是<code>int类型</code>而不是<code>char类型</code></p>
+</section><section vertical="true" data-notes="" lineno="796" class="slide " data-line="796" data-h="1" data-v="35">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E6%93%8D%E4%BD%9C-1">字符操作</h5>
+
+<hr>
+<p>当计算中出现字符时, C 使用它对应的整数值</p>
+<p>考虑以下示例, 假设采用ASCII字符集:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+ 
+i <span class="token operator">=</span> <span class="token char">'a'</span><span class="token punctuation">;</span>       <span class="token comment">/* i is now 97   */</span>
+ch <span class="token operator">=</span> <span class="token number">65</span><span class="token punctuation">;</span>       <span class="token comment">/* ch is now 'A' */</span>
+ch <span class="token operator">=</span> ch <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>   <span class="token comment">/* ch is now 'B' */</span> 
+ch<span class="token operator">++</span><span class="token punctuation">;</span>          <span class="token comment">/* ch is now 'C' */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="819" class="slide " data-line="819" data-h="1" data-v="36">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E6%93%8D%E4%BD%9C-2">字符操作</h5>
+
+<hr>
+<p>可以像数字那样对字符进行比较<br>
+将小写字母转换为大写字母的if语句:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token char">'a'</span> <span class="token operator">&lt;=</span> ch <span class="token operator">&amp;&amp;</span> ch <span class="token operator">&lt;=</span> <span class="token char">'z'</span><span class="token punctuation">)</span>
+  ch <span class="token operator">=</span> ch <span class="token operator">-</span> <span class="token char">'a'</span> <span class="token operator">+</span> <span class="token char">'A'</span><span class="token punctuation">;</span>
+</code></pre><p><code>'a' &lt;= ch</code> 这样的比较使用的是字符所对应的整数值</p>
+<p>这些值取决于使用的字符集, 因此使用<code>&lt;、&lt;=、&gt;</code>和<code>&gt;=</code>比较字符的程序可能不可移植</p>
+</section><section vertical="true" data-notes="" lineno="838" class="slide " data-line="838" data-h="1" data-v="37">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E6%93%8D%E4%BD%9C-3">字符操作</h5>
+
+<hr>
+<p>字符具有与数字相同的属性, 这一事实会带来好处</p>
+<p>例如, 可以让for语句中的控制变量遍历所有大写字母:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>ch <span class="token operator">=</span> <span class="token char">'A'</span><span class="token punctuation">;</span> ch <span class="token operator">&lt;=</span> <span class="token char">'Z'</span><span class="token punctuation">;</span> ch<span class="token operator">++</span><span class="token punctuation">)</span> …
+</code></pre><p>将字符视为数字的缺点:</p>
+<ul>
+<li>
+<p>可能导致编译器无法捕获的错误</p>
+</li>
+<li>
+<p>允许无明确含义的表达式, 例如: <code>'a' * 'b' / 'c'</code></p>
+</li>
+<li>
+<p>可能会妨碍可移植性, 因为程序可能依赖于对字符集的假设</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="863" class="slide " data-line="863" data-h="1" data-v="38">
+<h5 class="crossnote-header" id="%E6%9C%89%E7%AC%A6%E5%8F%B7%E5%AD%97%E7%AC%A6%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%AD%97%E7%AC%A6">有符号字符和无符号字符</h5>
+
+<hr>
+<p>char类型与整数类型一样存在有符号和无符号两种</p>
+<ul>
+<li>
+<p>有符号字符的取值范围是<code>–128~127</code></p>
+</li>
+<li>
+<p>无符号字符的取值范围是<code>0~255</code></p>
+</li>
+</ul>
+<p>一些编译器将char视为有符号类型, 有些则视为无符号类型</p>
+<p>C 允许使用signed和unsigned来修饰char:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-signed">signed</span> <span class="token keyword keyword-char">char</span> sch<span class="token punctuation">;</span>
+<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> uch<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="887" class="slide " data-line="887" data-h="1" data-v="39">
+<h5 class="crossnote-header" id="%E6%9C%89%E7%AC%A6%E5%8F%B7%E5%AD%97%E7%AC%A6%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E5%AD%97%E7%AC%A6-1">有符号字符和无符号字符</h5>
+
+<hr>
+<p>C89 使用术语<mark>整值类型</mark>来统称整数类型和字符类型</p>
+<p>枚举类型也属于整数类型</p>
+<p>C99 不使用术语整值类型</p>
+<p>相反, 它将整数类型的含义扩展为包括字符类型和枚举类型</p>
+<p>C99 的<code>_Bool类型</code>被认为是无符号整数类型</p>
+</section><section vertical="true" data-notes="" lineno="906" class="slide " data-line="906" data-h="1" data-v="40">
+<h5 class="crossnote-header" id="%E7%AE%97%E6%9C%AF%E7%B1%BB%E5%9E%8B">算术类型</h5>
+
+<hr>
+<p>整数类型和浮点类型统称为算术类型</p>
+<p>C89中算术类型的分类:</p>
+<ul>
+<li>
+<p>整值类型</p>
+</li>
+<li>
+<p>字符类型(<code>char</code>)</p>
+</li>
+<li>
+<p>有符号整型(<code>signed char, short int, int, long int</code>)</p>
+</li>
+<li>
+<p>无符号整型(<code>unsigned char, unsigned short int, unsigned int, unsigned long int</code>)</p>
+</li>
+<li>
+<p>枚举类型</p>
+</li>
+<li>
+<p>浮点类型(<code>float、double, long double</code>)</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="931" class="slide " data-line="931" data-h="1" data-v="41">
+<h5 class="crossnote-header" id="%E7%AE%97%E6%9C%AF%E7%B1%BB%E5%9E%8B-1">算术类型</h5>
+
+<hr>
+<p>C99 分类更复杂:</p>
+<ul>
+<li>
+<p>整数类型</p>
+</li>
+<li>
+<p>字符类型(<code>char</code>)</p>
+</li>
+<li>
+<p>有符号整型, 包括标准的(<code>signed char, short int, int, long int, long long int</code>)和扩展的</p>
+</li>
+<li>
+<p>无符号整型, 包括标准的(<code>unsigned char, unsigned short int, unsigned int, unsigned long int, unsigned long long int, _Bool</code>)和扩展的</p>
+</li>
+<li>
+<p>枚举类型</p>
+</li>
+<li>
+<p>浮点类型</p>
+</li>
+<li>
+<p>实数浮点类型(<code>float, double, long double</code>)</p>
+</li>
+<li>
+<p>复数类型(<code>float_Complex, double_Complex, long double_Complex</code>)</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="958" class="slide " data-line="958" data-h="1" data-v="42">
+<h5 class="crossnote-header" id="%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97">转义序列</h5>
+
+<hr>
+<p>字符常量通常是用单引号括起来的单个字符</p>
+<p>某些特殊字符(包括换行符)不能以这种方式书写, 不可见的(非打印字符)或者无法从键盘输入</p>
+<p>转义序列提供了一种表示这些字符的方法</p>
+<p>有两种转义序列: <mark>字符</mark>转义序列和<mark>数字</mark>转义序列</p>
+</section><section vertical="true" data-notes="" lineno="975" class="slide " data-line="975" data-h="1" data-v="43">
+<h5 class="crossnote-header" id="%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97-1">转义序列</h5>
+
+<hr>
+<p>完整的字符转义序列集合:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Escape Sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Alert (bell)</td>
+<td style="text-align:left"><code>\a</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Backspace</td>
+<td style="text-align:left"><code>\b</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Form feed</td>
+<td style="text-align:left"><code>\f</code></td>
+</tr>
+<tr>
+<td style="text-align:left">New line</td>
+<td style="text-align:left"><code>\n</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Carriage return</td>
+<td style="text-align:left"><code>\r</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Horizontal tab</td>
+<td style="text-align:left"><code>\t</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Vertical tab</td>
+<td style="text-align:left"><code>\v</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Backslash</td>
+<td style="text-align:left"><code>\\</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Question mark</td>
+<td style="text-align:left"><code>\?</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Single quote</td>
+<td style="text-align:left"><code>\'</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Double quote</td>
+<td style="text-align:left"><code>\"</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section vertical="true" data-notes="" lineno="1004" class="slide " data-line="1004" data-h="1" data-v="44">
+<h5 class="crossnote-header" id="%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97-2">转义序列</h5>
+
+<hr>
+<p>字符转义很方便, 但并非所有无法打印的ASCII字符都存在转义</p>
+<p>字符转义也无法用于表示基本128个ASCII字符之外的字符</p>
+<p>数字转义序列可以表示任何字符, 可以解决此问题</p>
+<p>特殊字符的数字转义序列使用字符的八进制或十六进制值</p>
+<p>例如, 某个ASCII转义字符(十进制值为27)的八进制值为<code>33</code>, 十六进制值为<code>1B</code></p>
+</section><section vertical="true" data-notes="" lineno="1023" class="slide " data-line="1023" data-h="1" data-v="45">
+<h5 class="crossnote-header" id="%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97-3">转义序列</h5>
+
+<hr>
+<p>八进制转义序列由<code>\</code>后跟一个最多三个数字的八进制数组成, 例如<code>\33</code>或<code>\033</code></p>
+<p>十六进制转义序列由<code>\x</code>后跟一个十六进制数组成, 例如<code>\x1b</code>或<code>\x1B</code></p>
+<p><code>x</code>必须小写, 但十六进制数字不限大小写</p>
+</section><section vertical="true" data-notes="" lineno="1038" class="slide " data-line="1038" data-h="1" data-v="46">
+<h5 class="crossnote-header" id="%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97-4">转义序列</h5>
+
+<hr>
+<p>当用作字符常量时, 转义序列必须用单引号括起来</p>
+<p>例如, 表示转义字符的常量可以写作<code>'\33'</code>(或<code>'\x1b'</code>)</p>
+<p>转义序列往往有点隐晦, 可以使用#define给它们命名:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ESC</span> <span class="token char">'\33'</span></span>
+</code></pre><p>转义序列也可以嵌入到字符串中</p>
+</section><section vertical="true" data-notes="" lineno="1059" class="slide " data-line="1059" data-h="1" data-v="47">
+<h5 class="crossnote-header" id="%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0">字符处理函数</h5>
+
+<hr>
+<p><mark>C</mark>的<code>toupper库函数</code>是一种快速且可移植的大小写转换方法:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>ch <span class="token operator">=</span> <span class="token function">toupper</span><span class="token punctuation">(</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>toupper返回其参数的大写版本</p>
+<p>调用toupper的程序需要包含头文件:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
+</code></pre><p>C 函数库提供了许多其他有用的字符处理函数</p>
+</section><section vertical="true" data-notes="" lineno="1084" class="slide " data-line="1084" data-h="1" data-v="48">
+<h5 class="crossnote-header" id="%E7%94%A8scanf%E5%92%8Cprintf%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6">用scanf和printf读/写字符</h5>
+
+<hr>
+<p>转换说明<code>%c</code>允许<code>scanf</code>和<code>printf</code>读写单个字符:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
+
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 读取一个字符 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> ch<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 写入一个字符 */</span>
+</code></pre><p>scanf不会跳过空白字符</p>
+<p>强制scanf读取字符前<mark>跳过</mark>空白字符, 需在转换说明<code>%c</code>前加空格:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">" %c"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1110" class="slide " data-line="1110" data-h="1" data-v="49">
+<h5 class="crossnote-header" id="%E7%94%A8scanf%E5%92%8Cprintf%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6-1">用scanf和printf读/写字符</h5>
+
+<hr>
+<p>scanf读字符不会跳过空格, 可检查读取的字符是否是换行符</p>
+<p>以下代码循环读取并忽略当前输入行中剩余的所有字符:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ch <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><ul>
+<li>
+<p>循环退出时, ch变量一定是换行符</p>
+</li>
+<li>
+<p>下次调用scanf时, 它将读取下一输入行中的第一个字符</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1133" class="slide " data-line="1133" data-h="1" data-v="50">
+<h5 class="crossnote-header" id="%E7%94%A8getchar%E5%92%8Cputchar%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6">用getchar和putchar读/写字符</h5>
+
+<hr>
+<p>单字符输入和输出, getchar和putchar是scanf和printf的替代方法</p>
+<p>putchar用于输出单个字符:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">putchar</span><span class="token punctuation">(</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>每次调用getchar时, 它都会读取一个字符并将其返回:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>getchar返回一个int值而不是char值, 因此ch通常具有int类型</p>
+<p>与scanf一样, getchar在读取时不会跳过空白字符</p>
+</section><section vertical="true" data-notes="" lineno="1160" class="slide " data-line="1160" data-h="1" data-v="51">
+<h5 class="crossnote-header" id="%E7%94%A8getchar%E5%92%8Cputchar%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6-1">用getchar和putchar读/写字符</h5>
+
+<hr>
+<p>使用getchar和putchar(而不是scanf和printf)可以节省执行时间</p>
+<p>getchar和putchar比scanf和printf逻辑简单得多</p>
+<p>scanf和printf旨在按不同格式读写多种类型的数据</p>
+<p>getchar和putchar通常被实现为宏以提高速度</p>
+<p>getchar常用于多种C语言的惯用法: 搜索字符、跳过字符等</p>
+</section><section vertical="true" data-notes="" lineno="1179" class="slide " data-line="1179" data-h="1" data-v="52">
+<h5 class="crossnote-header" id="%E7%94%A8getchar%E5%92%8Cputchar%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6-2">用getchar和putchar读/写字符</h5>
+
+<hr>
+<p>考虑以下scanf循环, 我们曾用它来跳过输入行剩余部分:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ch <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><p>使用getchar重写可以得到以下代码:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
+  ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ch <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="1204" class="slide " data-line="1204" data-h="1" data-v="53">
+<h5 class="crossnote-header" id="%E7%94%A8getchar%E5%92%8Cputchar%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6-3">用getchar和putchar读/写字符</h5>
+
+<hr>
+<p>将getchar的调用移到控制表达式中可以精简循环:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">;</span>
+</code></pre><p>不需要ch变量也可以将getchar的返回值与换行符进行比较:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">;</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1227" class="slide " data-line="1227" data-h="1" data-v="54">
+<h5 class="crossnote-header" id="%E7%94%A8getchar%E5%92%8Cputchar%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6-4">用getchar和putchar读/写字符</h5>
+
+<hr>
+<p>getchar在跳过字符的循环以及搜索字符的循环中很有用</p>
+<p>使用getchar语句跳过空白字符:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token char">' '</span><span class="token punctuation">)</span>
+  <span class="token punctuation">;</span>
+</code></pre><p>当循环终止时, ch将包含getchar遇到的第一个<mark>非空白字符</mark></p>
+</section><section vertical="true" data-notes="" lineno="1246" class="slide " data-line="1246" data-h="1" data-v="55">
+<h5 class="crossnote-header" id="%E7%94%A8getchar%E5%92%8Cputchar%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6-5">用getchar和putchar读/写字符</h5>
+
+<hr>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 混合使用getchar和scanf时要小心</p>
+<p>scanf函数倾向于遗留下它<mark>扫视</mark>过但未读取的字符(包括换行符):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入一个整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入命令: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+command <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><ul>
+<li>
+<p>在读取输入至i的同时, scanf调用将会留下没有消耗掉的任意字符(不用, <mark>放回</mark>)</p>
+</li>
+<li>
+<p>getchar函数随后将取回第一个剩余字符(用掉, <mark>不放回</mark>)</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1271" class="slide " data-line="1271" data-h="1" data-v="56">
+<h5 class="crossnote-header" id="%E7%A8%8B%E5%BA%8F-%E7%A1%AE%E5%AE%9A%E6%B6%88%E6%81%AF%E7%9A%84%E9%95%BF%E5%BA%A6">程序: 确定消息的长度</h5>
+
+<hr>
+<p><em>length.c</em>程序显示用户输入的消息的长度:</p>
+<pre data-role="codeBlock" data-info="" class="language-text text"><code>Enter a message: Brevity is the soul of wit.
+Your message was 27 character(s) long.
+</code></pre><p>长度包括空格和标点符号, 但不包括消息末尾的换行符</p>
+<p>scanf和getchar都可以读取字符, 但程序员大多会选择getchar</p>
+<p><em>length2.c</em>没有使用变量存储由getchar读取的字符</p>
+</section><section vertical="true" data-notes="" lineno="1293" class="slide " data-line="1293" data-h="1" data-v="57">
+<h5 class="crossnote-header" id="%E7%A8%8B%E5%BA%8F-%E7%A1%AE%E5%AE%9A%E6%B6%88%E6%81%AF%E7%9A%84%E9%95%BF%E5%BA%A6-1">程序: 确定消息的长度</h5>
+
+<hr>
+<p><em>length.c</em></p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 确定消息的长度 */</span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter a message: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ch <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    len<span class="token operator">++</span><span class="token punctuation">;</span>
+    ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Your message was %d character(s) long.\n"</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="1326" class="slide " data-line="1326" data-h="1" data-v="58">
+<h5 class="crossnote-header" id="%E7%A8%8B%E5%BA%8F-%E7%A1%AE%E5%AE%9A%E6%B6%88%E6%81%AF%E7%9A%84%E9%95%BF%E5%BA%A6-2">程序: 确定消息的长度</h5>
+
+<hr>
+<p><em>length2.c</em></p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 确定消息的长度 */</span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter a message: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span>
+    len<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Your message was %d character(s) long.\n"</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="1355" class="slide " data-line="1355" data-h="1" data-v="59">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">类型转换</h5>
+
+<hr>
+<p>为了让计算机执行算术运算, 通常要求操作数有相同的大小(相同的位数), 并以相同的方式存储</p>
+<p>表达式中可以混合使用不同基本类型, C编译器可能需要生成将某些操作数转换成不同类型的指令, 使硬件能对表达式进行计算</p>
+<ul>
+<li>
+<p>如果将16位short型数和32位int型数相加, 编译器会将short型值转换为32位值</p>
+</li>
+<li>
+<p>如果将int型数和float型数相加, 编译器会将int型值转换为float</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1372" class="slide " data-line="1372" data-h="1" data-v="60">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-1">类型转换</h5>
+
+<hr>
+<p><mark>隐式转换</mark>: 编译器自动处理而无需程序员介入的转换(implicit)</p>
+<p><mark>显式转换</mark>: 程序员使用强制运算符进行的转换(explicit)</p>
+<p>C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂</p>
+</section><section vertical="true" data-notes="" lineno="1387" class="slide " data-line="1387" data-h="1" data-v="61">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-2">类型转换</h5>
+
+<hr>
+<p>进行隐式转换的情况:</p>
+<ul>
+<li>
+<p>当算术或逻辑表达式中的操作数类型不相同时</p>
+</li>
+<li>
+<p>当赋值运算符右侧表达式的类型与左侧变量的类型不匹配时</p>
+</li>
+<li>
+<p>当函数调用中的实参类型与对应形参的类型不匹配时</p>
+</li>
+<li>
+<p>当return语句中表达式的类型与函数返回的类型不匹配时</p>
+</li>
+</ul>
+<p>第 9 章将讨论后两种情况</p>
+</section><section vertical="true" data-notes="" lineno="1408" class="slide " data-line="1408" data-h="1" data-v="62">
+<h5 class="crossnote-header" id="%E5%B8%B8%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2">常用算术转换</h5>
+
+<hr>
+<p>常用算术转换适用于大多数二元运算符的操作数</p>
+<p>表达式<code>f + i</code>, 若f的类型为<code>float</code>, i的类型为<code>int</code>, 则常用算术转换将会应用在表达式的各个操作数上</p>
+<p>将i转换为float类型比将f转换为int类型更安全</p>
+<ul>
+<li>
+<p>当整数转换为float时, 可能发生的最坏情况是精度的轻微损失</p>
+</li>
+<li>
+<p>相反, 将浮点数转换为int会导致数字的小数部分的损失</p>
+</li>
+<li>
+<p>如果原始float数大于最大的整数或小于最小的整数, 得到的结果则毫无意义</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1429" class="slide " data-line="1429" data-h="1" data-v="63">
+<h5 class="crossnote-header" id="%E5%B8%B8%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2-1">常用算术转换</h5>
+
+<hr>
+<p>常用算术转换的策略: 将操作数转换为可以安全适用于两个数值的<mark>最狭小的</mark>数据类型</p>
+<p>为了统一操作数的类型, 通常可以将相对狭小类型的操作数转换为另一个操作数的类型来实现(即所谓的<mark>提升</mark>)</p>
+<p>最常用的是<mark>整值提升</mark>, 将字符或短整数转换为int类型(或在某些情况下转换为unsigned int)</p>
+<p>执行常用算术转换的规则可以分为两种情况:</p>
+<ul>
+<li>
+<p>任一操作数的类型是浮点类型</p>
+</li>
+<li>
+<p>两种操作数类型都不是浮点类型</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1450" class="slide " data-line="1450" data-h="1" data-v="64">
+<h5 class="crossnote-header" id="%E5%B8%B8%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2-2">常用算术转换</h5>
+
+<hr>
+<p>任一操作数的类型是浮点类型</p>
+<ul>
+<li>
+<p>如果一个操作数的类型为long double, 那么将另一操作数转换为long double类型</p>
+</li>
+<li>
+<p>否则, 如果一个操作数的类型为double, 那么将另一操作数转换为double类型</p>
+</li>
+<li>
+<p>否则, 如果一个操作数的类型为float, 那么将另一操作数转换为float类型</p>
+</li>
+</ul>
+<p>例如: 如果一个操作数的类型为long int, 另一个操作数的类型为double, 则long int类型的操作数会被转换为double类型</p>
+</section><section vertical="true" data-notes="" lineno="1469" class="slide " data-line="1469" data-h="1" data-v="65">
+<h5 class="crossnote-header" id="%E5%B8%B8%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2-3">常用算术转换</h5>
+
+<hr>
+<p>若操作数类型都不是浮点类型，会先对两个操作数执行整值提升</p>
+<p>然后按照下图对类型较狭小的操作数进行提升:</p>
+<div class="fulltable">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>unsigned long int</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⇑</mo></mrow><annotation encoding="application/x-tex">\Uparrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel">⇑</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>long int</code></td>
+</tr>
+<tr>
+<td style="text-align:left">  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⇑</mo></mrow><annotation encoding="application/x-tex">\Uparrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel">⇑</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>unsigned int</code></td>
+</tr>
+<tr>
+<td style="text-align:left">  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⇑</mo></mrow><annotation encoding="application/x-tex">\Uparrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel">⇑</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>int</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section vertical="true" data-notes="" lineno="1495" class="slide " data-line="1495" data-h="1" data-v="66">
+<h5 class="crossnote-header" id="%E5%B8%B8%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2-4">常用算术转换</h5>
+
+<hr>
+<p>当有符号与无符号操作数组合时, 把有符号操作数转换为无符号</p>
+<ul>
+<li>
+<p>此规则可能会导致隐蔽的编程错误</p>
+</li>
+<li>
+<p>最好尽量避免使用无符号整数, 特别是不要将它与有符号整数混合使用</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1510" class="slide " data-line="1510" data-h="1" data-v="67">
+<h5 class="crossnote-header" id="%E5%B8%B8%E7%94%A8%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2-5">常用算术转换</h5>
+
+<hr>
+<p>常用算术转换示例:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-char">char</span> c<span class="token punctuation">;</span>
+<span class="token keyword keyword-short">short</span> <span class="token keyword keyword-int">int</span> s<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> u<span class="token punctuation">;</span>
+<span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span> l<span class="token punctuation">;</span>
+<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span> ul<span class="token punctuation">;</span>
+<span class="token keyword keyword-float">float</span> f<span class="token punctuation">;</span>
+<span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token keyword keyword-long">long</span> <span class="token keyword keyword-double">double</span> ld<span class="token punctuation">;</span>
+ 
+i <span class="token operator">=</span> i <span class="token operator">+</span> c<span class="token punctuation">;</span>     <span class="token comment">/* c is converted to int               */</span>
+i <span class="token operator">=</span> i <span class="token operator">+</span> s<span class="token punctuation">;</span>     <span class="token comment">/* s is converted to int               */</span>
+u <span class="token operator">=</span> u <span class="token operator">+</span> i<span class="token punctuation">;</span>     <span class="token comment">/* i is converted to unsigned int      */</span>
+l <span class="token operator">=</span> l <span class="token operator">+</span> u<span class="token punctuation">;</span>     <span class="token comment">/* u is converted to long int          */</span>
+ul <span class="token operator">=</span> ul <span class="token operator">+</span> l<span class="token punctuation">;</span>   <span class="token comment">/* l is converted to unsigned long int */</span>
+f <span class="token operator">=</span> f <span class="token operator">+</span> ul<span class="token punctuation">;</span>    <span class="token comment">/* ul is converted to float            */</span>
+d <span class="token operator">=</span> d <span class="token operator">+</span> f<span class="token punctuation">;</span>     <span class="token comment">/* f is converted to double            */</span>
+ld <span class="token operator">=</span> ld <span class="token operator">+</span> d<span class="token punctuation">;</span>   <span class="token comment">/* d is converted to long double       */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></section><section vertical="true" data-notes="" lineno="1542" class="slide " data-line="1542" data-h="1" data-v="68">
+<h5 class="crossnote-header" id="%E8%B5%8B%E5%80%BC%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E8%BD%AC%E6%8D%A2">赋值过程中的转换</h5>
+
+<hr>
+<p>常用算术转换不适用于赋值运算</p>
+<p>赋值运算右边的表达式会被转换为左边变量的类型:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> c<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-float">float</span> f<span class="token punctuation">;</span>
+<span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+ 
+i <span class="token operator">=</span> c<span class="token punctuation">;</span>   <span class="token comment">/* c is converted to int   */</span>
+f <span class="token operator">=</span> i<span class="token punctuation">;</span>   <span class="token comment">/* i is converted to float */</span>
+d <span class="token operator">=</span> f<span class="token punctuation">;</span>   <span class="token comment">/* f is converted to double */</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1566" class="slide " data-line="1566" data-h="1" data-v="69">
+<h5 class="crossnote-header" id="%E8%B5%8B%E5%80%BC%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E8%BD%AC%E6%8D%A2-1">赋值过程中的转换</h5>
+
+<hr>
+<p>把浮点数赋值给整型变量会丢掉该数的小数部分:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+ 
+i <span class="token operator">=</span> <span class="token number">842.97</span><span class="token punctuation">;</span>    <span class="token comment">/* i is now 842 */</span>
+i <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">842.97</span><span class="token punctuation">;</span>   <span class="token comment">/* i is now -842 */</span>
+</code></pre><p>把某种类型的值赋给类型更狭小的变量时, 如果该值超出变量类型的范围, 将会得到无意义的结果:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>c <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>    <span class="token comment">/*** WRONG ***/</span>
+i <span class="token operator">=</span> <span class="token number">1.0e20</span><span class="token punctuation">;</span>   <span class="token comment">/*** WRONG ***/</span>
+f <span class="token operator">=</span> <span class="token number">1.0e100</span><span class="token punctuation">;</span>  <span class="token comment">/*** WRONG ***/</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1592" class="slide " data-line="1592" data-h="1" data-v="70">
+<h5 class="crossnote-header" id="%E8%B5%8B%E5%80%BC%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E8%BD%AC%E6%8D%A2-2">赋值过程中的转换</h5>
+
+<hr>
+<p>如果要将浮点常量赋值给float型变量, 最好加上f后缀:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>f <span class="token operator">=</span> <span class="token number">3.14159f</span><span class="token punctuation">;</span>
+</code></pre><p>如果没有后缀, 常量3.14159将是double类型, 可能会有警告消息</p>
+</section><section vertical="true" data-notes="" lineno="1609" class="slide " data-line="1609" data-h="1" data-v="71">
+<h5 class="crossnote-header" id="c99-%E4%B8%AD%E7%9A%84%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2">C99 中的隐式转换</h5>
+
+<hr>
+<p>C99的隐式转换规则略有不同</p>
+<p>每个整数类型都有一个<mark>整数转换等级</mark></p>
+<p>从高到低排列:</p>
+<ol>
+<li>long long int, unsigned long long int</li>
+<li>long int, unsigned long int</li>
+<li>int, unsigned int</li>
+<li>short int, unsigned short int</li>
+<li>char, signed char, unsigned char</li>
+<li>_Bool</li>
+</ol>
+<p>C99的整数提升可以将任何等级低于int和unsigned int的类型转换为int(只要该类型的所有值都可以用int类型表示)或unsigned int</p>
+</section><section vertical="true" data-notes="" lineno="1634" class="slide " data-line="1634" data-h="1" data-v="72">
+<h5 class="crossnote-header" id="c99-%E4%B8%AD%E7%9A%84%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2-1">C99 中的隐式转换</h5>
+
+<hr>
+<p>C99 执行常用算术转换的规则可以分为两种情况:</p>
+<ul>
+<li>
+<p>任一操作数的类型是浮点类型, 且都不是复数类型, 规则和以前一样</p>
+</li>
+<li>
+<p>两种操作数类型都不是浮点类型</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1649" class="slide " data-line="1649" data-h="1" data-v="73">
+<h5 class="crossnote-header" id="c99-%E4%B8%AD%E7%9A%84%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2-2">C99 中的隐式转换</h5>
+
+<hr>
+<p>两种操作数类型都不是浮点类型.</p>
+<p>若两个操作数的类型相同, 过程结束</p>
+<p>否则, 依次尝试以下规则:</p>
+<ul>
+<li>
+<p>若两个操作数都是有符号或都是无符号, 将转换等级较低的转换为等级较高的</p>
+</li>
+<li>
+<p>若无符号操作数等级高于或等于有符号操作数等级, 将有符号转换为无符号类型</p>
+</li>
+<li>
+<p>若有符号操作数类型可表示无符号操作数类型的所有值, 将无符号操作数转换为有符号操作数类型</p>
+</li>
+<li>
+<p>否则, 将两个操作数都转换为与有符号操作数的类型相对应的无符号类型</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1672" class="slide " data-line="1672" data-h="1" data-v="74">
+<h5 class="crossnote-header" id="c99-%E4%B8%AD%E7%9A%84%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2-3">C99 中的隐式转换</h5>
+
+<hr>
+<p>所有算术类型都可以转换为_Bool类型</p>
+<blockquote>
+<p>如果原始值为0, 则转换结果为0; 否则结果为1</p>
+</blockquote>
+</section><section vertical="true" data-notes="" lineno="1685" class="slide " data-line="1685" data-h="1" data-v="75">
+<h5 class="crossnote-header" id="%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">强制类型转换</h5>
+
+<hr>
+<p>C的隐式转换很方便, 但有时需要从更大程度上控制类型转换</p>
+<p>出于这个原因, C 提供了强制类型转换</p>
+<p>强制类型转换<u>表达式格式</u>:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code> <span class="token punctuation">(</span>类型名<span class="token punctuation">)</span>表达式
+</code></pre><p><mark>类型名</mark>指定表达式应转换成的类型</p>
+</section><section vertical="true" data-notes="" lineno="1706" class="slide " data-line="1706" data-h="1" data-v="76">
+<h5 class="crossnote-header" id="%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-1">强制类型转换</h5>
+
+<hr>
+<p>使用强制类型转换表达式计算float类型值的小数部分:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> f<span class="token punctuation">,</span> frac_part<span class="token punctuation">;</span>
+frac_part <span class="token operator">=</span> f <span class="token operator">-</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> f<span class="token punctuation">;</span>
+</code></pre><p><code>f</code>和<code>(int)f</code>的区别在于小数部分在强制类型转换时被丢弃</p>
+<p>强制类型转换表达式可用于显示那些肯定会发生的类型转换:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> f<span class="token punctuation">;</span> <span class="token comment">/* f 转换为 int */</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1730" class="slide " data-line="1730" data-h="1" data-v="77">
+<h5 class="crossnote-header" id="%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-2">强制类型转换</h5>
+
+<hr>
+<p>强制转换表达式可以用来强制编译器进行转换</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> quotient<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> dividend<span class="token punctuation">,</span> divisor<span class="token punctuation">;</span>
+
+quotient <span class="token operator">=</span> dividend <span class="token operator">/</span> divisor<span class="token punctuation">;</span> 
+</code></pre><p>为了避免除法的结果丢弃小数部分, 需要转换操作数的类型:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>quotient <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> dividend <span class="token operator">/</span> divisor<span class="token punctuation">;</span>
+</code></pre><p>将被除数转换为float类型会迫使编译器将除数也转换为float类型</p>
+</section><section vertical="true" data-notes="" lineno="1756" class="slide " data-line="1756" data-h="1" data-v="78">
+<h5 class="crossnote-header" id="%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-3">强制类型转换</h5>
+
+<hr>
+<p>C将==(类型名)==视为一元运算符</p>
+<p>一元运算符优先级<mark>高于</mark>二元运算符, 编译器会将表达式</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> dividend <span class="token operator">/</span> divisor
+</code></pre><p>解释为:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> dividend<span class="token punctuation">)</span> <span class="token operator">/</span> divisor
+</code></pre><p>其他实现相同效果的方法:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>quotient <span class="token operator">=</span> dividend <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> divisor<span class="token punctuation">;</span>
+quotient <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> dividend <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> divisor<span class="token punctuation">;</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1783" class="slide " data-line="1783" data-h="1" data-v="79">
+<h5 class="crossnote-header" id="%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-4">强制类型转换</h5>
+
+<hr>
+<p>有时需要使用强制类型转换以避免溢出:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+ 
+i <span class="token operator">=</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>    <span class="token comment">/* 可能发生溢出 */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p>使用强制类型转换可避免数据溢出问题:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span></span></pre><p>注意, 语句</p>
+<pre data-role="codeBlock" data-info="C {.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span></span></pre><p>是不对的, 因为溢出在强制类型转换之前已经发生了</p>
+</section><section vertical="true" data-notes="" lineno="1815" class="slide " data-line="1815" data-h="1" data-v="80">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89">类型定义</h5>
+
+<hr>
+<p><code>#define</code>指令可用于创建一个宏, 定义布尔型数据:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BOOL</span> <span class="token expression"><span class="token keyword keyword-int">int</span></span></span>
+</code></pre><p>更好的方法是利用类型定义的特性:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Bool<span class="token punctuation">;</span>
+</code></pre><p>现在, Bool类型可以和内置的类型名一样使用, 例如</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>Bool flag<span class="token punctuation">;</span>    <span class="token comment">/* 与 int flag相同;  */</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1842" class="slide " data-line="1842" data-h="1" data-v="81">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E7%9A%84%E4%BC%98%E7%82%B9">类型定义的优点</h5>
+
+<hr>
+<p>类型定义使程序更易于理解</p>
+<p>如果cash_in和cash_out用于存储美元数量, 则将代码</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> cash_in<span class="token punctuation">,</span> cash_out<span class="token punctuation">;</span>
+</code></pre><p>改写为下面的写法更有实际意义:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-float">float</span> Dollars<span class="token punctuation">;</span>
+Dollars cash_in<span class="token punctuation">,</span> cash_out<span class="token punctuation">;</span>
+</code></pre></section><section vertical="true" data-notes="" lineno="1866" class="slide " data-line="1866" data-h="1" data-v="82">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E7%9A%84%E4%BC%98%E7%82%B9-1">类型定义的优点</h5>
+
+<hr>
+<p>类型定义还可以使程序更易于修改</p>
+<p>要将Dollars重新定义为double类型, 只需更改类型定义:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-double">double</span> Dollars<span class="token punctuation">;</span>
+</code></pre><p>如果不使用类型定义, 就需要找到所有存储美元数量的float类型变量并更改它们的声明</p>
+</section><section vertical="true" data-notes="" lineno="1885" class="slide " data-line="1885" data-h="1" data-v="83">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E5%92%8C%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7">类型定义和可移植性</h5>
+
+<hr>
+<p>类型定义是编写可移植程序的重要工具</p>
+<p>将程序从一台计算机移动到另一台计算机可能引发的问题是不同计算机上的类型取值范围可能不同</p>
+<p>如果i是int型变量, 则赋值语句</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">100000</span><span class="token punctuation">;</span>
+</code></pre><p>在整数为32位的机器上没问题, 但在16位的机器上会出错</p>
+</section><section vertical="true" data-notes="" lineno="1906" class="slide " data-line="1906" data-h="1" data-v="84">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E5%92%8C%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-1">类型定义和可移植性</h5>
+
+<hr>
+<p>为了更大的可移植性, 考虑使用typedef定义新的整数类型名</p>
+<p>假设编写的程序需用变量存储产品数量, 取值范围<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>−</mo><mn>50</mn><mo separator="true">,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">0-50,000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">50</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">000</span></span></span></span></p>
+<p>可以使用long类型的变量, 但更倾向于使用int类型的变量:</p>
+<ul>
+<li>
+<p>算术运算时int比long运算速度快</p>
+</li>
+<li>
+<p>int类型变量占用的空间较少</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1925" class="slide " data-line="1925" data-h="1" data-v="85">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E5%92%8C%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-2">类型定义和可移植性</h5>
+
+<hr>
+<p>可以定义自己的<mark>数量</mark>类型, 而不使用int类型来声明数量变量:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Quantity<span class="token punctuation">;</span>
+</code></pre><p>并使用此类型声明变量:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>Quantity q<span class="token punctuation">;</span>
+</code></pre><p>当把程序传输到使用较短整数的机器上时, 需更改类型定义:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-long">long</span> Quantity<span class="token punctuation">;</span>
+</code></pre><p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 更改Quantity的定义可能会影响Quantity类型变量的使用方式</p>
+</section><section vertical="true" data-notes="" lineno="1954" class="slide " data-line="1954" data-h="1" data-v="86">
+<h5 class="crossnote-header" id="%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E5%92%8C%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-3">类型定义和可移植性</h5>
+
+<hr>
+<p>C语言库用typedef为因不同的实现而可能不同的类型创建类型名</p>
+<p>这些类型的名称通常以<code>_t</code>结尾, 常见的例子:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span> <span class="token class-name">ptrdiff_t</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span> <span class="token class-name">size_t</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> <span class="token class-name">wchar_t</span><span class="token punctuation">;</span>
+</code></pre><p>C99中&lt;stdint.h&gt;用typedef定义占特定位数整数类型名, 如int32_t</p>
+</section><section vertical="true" data-notes="" lineno="1975" class="slide " data-line="1975" data-h="1" data-v="87">
+<h5 class="crossnote-header" id="sizeof%E8%BF%90%E7%AE%97%E7%AC%A6">sizeof运算符</h5>
+
+<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-sizeof">sizeof</span> <span class="token punctuation">(</span>类型名<span class="token punctuation">)</span>
+</code></pre><p>表达式的值是无符号整数, 表示存储属于类型名的值所需<mark>字节数</mark></p>
+<p>sizeof(char)的值始终为 1, 但其他类型的值可能有所不同</p>
+<p>在 32 位机器上, sizeof(int)通常为 4</p>
+</section><section vertical="true" data-notes="" lineno="1994" class="slide " data-line="1994" data-h="1" data-v="88">
+<h5 class="crossnote-header" id="sizeof%E8%BF%90%E7%AE%97%E7%AC%A6-1">sizeof运算符</h5>
+
+<hr>
+<p>通常情况下sizeof运算符也可应用于常量、变量和表达式</p>
+<p>如果i和j是int型变量, 则sizeof(i)和sizeof(i + j)在32位机器上均为4</p>
+<ul>
+<li>
+<p>与应用于类型时不同, sizeof应用于表达式时不需要括号</p>
+</li>
+<li>
+<p>可以用sizeof i代替sizeof(i)</p>
+</li>
+<li>
+<p>若考虑运算符优先级, 可能需要括号</p>
+</li>
+<li>
+<p>sizeof i + j会被解释为(sizeof i) + j, 因为一元运算符优先级高于二元运算符</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="2015" class="slide " data-line="2015" data-h="1" data-v="89">
+<h5 class="crossnote-header" id="sizeof%E8%BF%90%E7%AE%97%E7%AC%A6-2">sizeof运算符</h5>
+
+<hr>
+<p>显示sizeof值需要小心, 因为sizeof表达式的类型是size_t, 这是由实现定义的类型</p>
+<p>在 C89 中, 最好在显示之前将表达式的值转换为已知类型:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Size of int: %lu\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>C99 中的printf可以直接显示size_t值, 在转换说明中的一般整数代码前使用字母z:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Size of int: %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></section></section>
+      </div>
+    </div>
+    
+      </div>
+      
+      
+    
+    
+      <script>
+        Reveal.initialize({"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
+      </script>
+      
+    
+    
+    
+    
+  
+    </body></html>

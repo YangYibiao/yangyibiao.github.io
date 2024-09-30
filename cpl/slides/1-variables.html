@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>1w-types-io</title>
+      <title>1-variables</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -16,7 +16,7 @@
       </style>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
       
         <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
       
@@ -76,13 +76,240 @@
 <p>数据类型</p>
 </li>
 <li>
-<p>表达式</p>
-</li>
-<li>
-<p>输入输出</p>
+<p>赋值语句</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="67" class="slide " data-source-line="67" data-h="2" data-v="0"><h5 id="circlec">Circle.c </h5>
+</section><section data-notes="" lineno="66" class="slide " data-source-line="66" data-h="2" data-v="0"><h5 id="变量与赋值">变量与赋值 </h5>
+<hr>
+<p>大多数程序在产生输出之前往往需要执行一系列计算, 因此需要在程序执行过程中有一种 <mark>临时存储数据</mark> 的方法</p>
+<p><mark>变量</mark>: (Variable)程序执行过程中临时存储数据的单元</p>
+<p><mark>类型</mark>: (type)每一个变量都有一个类型, 类型用来说明变量所存储的数据的种类, <mark>int, float, double, char, char []</mark></p>
+<hr>
+</section><section data-notes="" lineno="83" class="slide " data-source-line="83" data-h="3" data-v="0"><h5 id="变量与赋值—类型">变量与赋值 - 类型 </h5>
+<hr>
+<p><mark>C</mark> 有多种类型, 包括int、float、double、char等类型的变量</p>
+<p><mark>int</mark>变量:</p>
+<ul>
+<li>
+<p>(整数integer的缩写)存储整数, 如<code>0</code>, <code>1</code>, <code>392</code>或<code>-2553</code></p>
+</li>
+<li>
+<p>整形的取值范围是受限的, 最大的整数通常是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2147483647</mn></mrow><annotation encoding="application/x-tex">2 147 483 647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2147483647</span></span></span></span>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{31}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>), 16位机最大整数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32767</mn></mrow><annotation encoding="application/x-tex">32 767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32767</span></span></span></span></p>
+</li>
+<li>
+<p>INT_MAX, INT_MIN</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;limits.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Max: %d, Min: %d"</span><span class="token punctuation">,</span> INT_MAX<span class="token punctuation">,</span> INT_MIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="113" class="slide " data-source-line="113" data-h="4" data-v="0"><h5 id="变量与赋值—类型-1">变量与赋值 - 类型 </h5>
+<hr>
+<p><mark>float/double</mark> 变量: 存储浮点数/双精度浮点数, 即可以带小数位, 如<code>379.125</code></p>
+<ul>
+<li>
+<p><mark>float/double</mark> 型变量算术运算通常比int型变量慢</p>
+</li>
+<li>
+<p><mark>float/double</mark> 在计算机中是近似存储的</p>
+</li>
+</ul>
+<p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 需要注意:</p>
+<ul>
+<li><mark>float/double</mark> 型变量所存储的数值往往只是实际数值的一个近似值</li>
+<li><mark>float/double</mark> 型变量中存储0.1, 可能发现变量值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.09999999999999987</mn></mrow><annotation encoding="application/x-tex">0.099 999 999 999 999 87</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.09999999999999987</span></span></span></span></li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="134" class="slide " data-source-line="134" data-h="5" data-v="0"><h5 id="变量与赋值—类型-2">变量与赋值 - 类型 </h5>
+<hr>
+<p><mark>char</mark> 变量: 存储字符, 如’A’</p>
+<ul>
+<li>
+<p>单引号</p>
+</li>
+<li>
+<p>0000000 ～ 1111111, 0 ~ 127的整数</p>
+</li>
+<li>
+<p>字符’a’的值是97, 'A’的值是65, '0’的值是48, ’ '的值是32</p>
+</li>
+<li>
+<p>%c</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> gender <span class="token operator">=</span> <span class="token char">'M'</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> <span class="token function">toupper</span><span class="token punctuation">(</span>gender<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> gender <span class="token operator">+</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="166" class="slide " data-source-line="166" data-h="6" data-v="0"><h5 id="变量与赋值—声明">变量与赋值 - 声明 </h5>
+<hr>
+<p><mark>声明</mark>: 变量使用前必须对其进行 <mark>声明</mark>(为编译器所做的描述)</p>
+<ul>
+<li>
+<p>指定变量的类型</p>
+</li>
+<li>
+<p>说明变量的名字</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  声明
+  语句
+<span class="token punctuation">}</span>
+</code></pre><p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 在C99中, 声明可以不必出现在语句之前</p>
+<hr>
+</section><section data-notes="" lineno="193" class="slide " data-source-line="193" data-h="7" data-v="0"><h5 id="变量与赋值—声明-1">变量与赋值 - 声明 </h5>
+<hr>
+<ul>
+<li>可以一次声明一个变量:</li>
+</ul>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> height<span class="token punctuation">;</span>
+<span class="token keyword keyword-float">float</span> profit<span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> gender<span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><ul>
+<li>可以同时声明多个变量:</li>
+</ul>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> height<span class="token punctuation">,</span> length<span class="token punctuation">,</span> width<span class="token punctuation">,</span> volume<span class="token punctuation">;</span>
+<span class="token keyword keyword-float">float</span> profit<span class="token punctuation">,</span> loss<span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> gender<span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">]</span><span class="token punctuation">,</span> nation<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">,</span> address<span class="token punctuation">[</span><span class="token number">60</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="8" data-v="0"><h5 id="变量与赋值—赋值">变量与赋值 - 赋值 </h5>
+<hr>
+<p><mark>赋值</mark>: 通过赋值的方式获得值</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+lenght <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+gender <span class="token operator">=</span> <span class="token char">'M'</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p><code>8</code>, <code>12</code>, <code>10</code>为常量</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Alex"</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> nation<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"China"</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> address<span class="token punctuation">[</span><span class="token number">60</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"XianLin Avenue, Qixia District, Nanjing, China 210023"</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="246" class="slide " data-source-line="246" data-h="9" data-v="0"><h5 id="变量与赋值—赋值-1">变量与赋值 - 赋值 </h5>
+<hr>
+<p>变量在赋值或者以其他方式使用之前必须先声明</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span>
+<span class="token keyword keyword-int">int</span> height<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>把包含小数点常量赋值给float型变量时, 最好在常量后加字母f:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> profit <span class="token operator">=</span> <span class="token number">2150.48f</span><span class="token punctuation">;</span>
+</code></pre><p>double类型的变量赋值不要加字母f:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="10" data-v="0"><h5 id="变量与赋值—赋值-2">变量与赋值 - 赋值 </h5>
+<hr>
+<p>混合类型赋值:</p>
+<ul>
+<li>
+<p>可以把int型的值赋给double型变量</p>
+</li>
+<li>
+<p>也可以把double型值赋给int型变量, 但不一定安全</p>
+</li>
+</ul>
+</section><section data-notes="" lineno="291" class="slide " data-source-line="291" data-h="11" data-v="0"><h5 id="变量与赋值—赋值-3">变量与赋值 - 赋值 </h5>
+<hr>
+<ul>
+<li>一旦一个变量被赋值, 它就可以用来帮助计算另一个变量的值:</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+length <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+volume <span class="token operator">=</span> height <span class="token operator">*</span> length <span class="token operator">*</span> width<span class="token punctuation">;</span>
+<span class="token comment">/* volume is now 960 */</span>
+</code></pre><ul>
+<li>赋值的右侧可以是涉及常量、变量和运算符的公式(或C术语中表达式)</li>
+</ul>
+</section><section data-notes="" lineno="312" class="slide " data-source-line="312" data-h="12" data-v="0"><h5 id="变量与赋值—打印变量的值">变量与赋值 - 打印变量的值 </h5>
+<hr>
+<p><mark><code>printf</code></mark> 可用于打印变量的当前值</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> height <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> ch <span class="token operator">=</span> <span class="token char">'a'</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-float">float</span> profit <span class="token operator">=</span> <span class="token number">1500f</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-double">double</span> pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>
+
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Height: %d\n"</span><span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Character: %c\n"</span><span class="token punctuation">,</span> ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Profit: %f\n"</span><span class="token punctuation">,</span> profit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Pi: %lf\n"</span><span class="token punctuation">,</span> pi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p><mark>%d</mark>: int型变量占位符, 用来指明变量<code>height</code>的值显示的位置<br>
+<mark>%c</mark>: char型变量占位符, 用来指明变量<code>ch</code>的值显示的位置<br>
+<mark>%f</mark>: float型变量占位符, 用来指明变量<code>profit</code>的值显示的位置<br>
+<mark>%lf</mark>: double型变量占位符, 用来指明变量<code>pi</code>的值显示的位置</p>
+</section><section data-notes="" lineno="340" class="slide " data-source-line="340" data-h="13" data-v="0"><h5 id="变量与赋值—打印变量的值-1">变量与赋值 - 打印变量的值 </h5>
+<hr>
+<p>浮点数</p>
+<ul>
+<li>
+<p>要显示<code>float</code>型变量, 需使用 <mark><code>%f</code></mark> 代替 <mark><code>%d</code></mark>, <mark><code>%f</code></mark> 默认会显示出小数点后6位</p>
+</li>
+<li>
+<p>如果要强制 <mark><code>%f</code></mark> 显示小数点后 <mark><code>p</code></mark> 位数字, 可以把 <mark><code>.p</code></mark> 放置在 <mark><code>%</code></mark> 和 <mark><code>f</code></mark> 之间, 如:</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"profit: %.2f"</span><span class="token punctuation">,</span> profit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><ul>
+<li><mark><code>printf</code></mark> 打印的变量数量没有限制</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Height: %d Length: %d"</span><span class="token punctuation">,</span> height<span class="token punctuation">,</span> lenght<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="365" class="slide " data-source-line="365" data-h="14" data-v="0"><h5 id="变量与赋值—初始化">变量与赋值 - 初始化 </h5>
+<hr>
+<p>当程序开始执行时, 某些变量会自动设零, 而大多数则不会</p>
+<ul>
+<li>
+<p>没有默认值并且尚未在程序中赋值的变量是 <mark>未初始化的</mark>(uninitialized)</p>
+</li>
+<li>
+<p>若试图访问未初始化的变量, 可能会得到不可预知的结果</p>
+</li>
+</ul>
+</section><section data-notes="" lineno="380" class="slide " data-source-line="380" data-h="15" data-v="0"><h5 id="变量与赋值—初始化-1">变量与赋值 - 初始化 </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+</code></pre><p>这里, 数值8是一个<code>初始化式</code>.</p>
+<p>同一个声明中可以对任意数量的变量进行初始化, 如:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> length <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+</code></pre><p>或</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> height<span class="token punctuation">,</span> length<span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="410" class="slide " data-source-line="410" data-h="16" data-v="0"><h5 id="变量与赋值—打印表达式">变量与赋值 - 打印表达式 </h5>
+<hr>
+<p><mark><code>printf</code></mark> 的功能不局限于显示变量中存储的数, 它还可以显示任意数值表达式的值, 如:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> volume <span class="token operator">=</span> height <span class="token operator">*</span> length <span class="token operator">*</span> width<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>可改写成:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> height <span class="token operator">*</span> length <span class="token operator">*</span> width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p><span class="blue">:fa-lightbulb-o:</span> <mark>C</mark> 语言的一个通用原则: <mark>在任何需要数值的地方, 都可使用具有相同类型的表达式</mark></p>
+</section><section data-notes="" lineno="434" class="slide " data-source-line="434" data-h="17" data-v="0"><h5 id="读取输入">读取输入 </h5>
+<hr>
+<p><mark><code>scanf</code></mark> 函数: C语言中对应于 <mark><code>printf</code></mark> 的库函数</p>
+<p><mark><code>scanf</code></mark> 与 <mark><code>printf</code></mark> 中的字母 <mark><code>f</code></mark> 含义相同, 都表示<code>格式化</code></p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment">/* reads an integer; stores into i */</span>
+</code></pre><p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> <mark>&amp;</mark> 符号通常(但不总是)在使用 <mark><code>scanf</code></mark> 时是必需的</p>
+</section><section data-notes="" lineno="455" class="slide " data-source-line="455" data-h="18" data-v="0"><h5 id="读取输入-1">读取输入 </h5>
+<hr>
+<p>读取浮点值的scanf调用:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+</code></pre><ul>
+<li><mark><code>%f</code></mark> 告诉 <mark><code>scanf</code></mark> 查找浮点格式的输入值(数字可能包含小数点, 但不是必须的)</li>
+</ul>
+</section><section data-notes="" lineno="471" class="slide " data-source-line="471" data-h="19" data-v="0"><h5 id="circlec">Circle.c </h5>
 <hr>
 <ul>
 <li><mark>输入半径 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>: radius</mark></li>
@@ -106,9 +333,9 @@
 <p><code>_______________ : surface_area</code><br>
 <code>_______________ : volume</code></p>
 </blockquote>
-<p><a href="../code/1-types-io/circle.c">演示-circle.c</a></p>
+<p><a href="circle.c">演示</a></p>
 <hr>
-</section><section data-notes="" lineno="92" class="slide " data-source-line="92" data-h="3" data-v="0"><h5 id="molc">mol.c </h5>
+</section><section data-notes="" lineno="496" class="slide " data-source-line="496" data-h="20" data-v="0"><h5 id="molc">mol.c </h5>
 <hr>
 <p><font size="7"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span> 克氧气的分子数是多少?</font></p>
 <br>
@@ -119,45 +346,58 @@
 <li>第一行结果, 小数点后保留 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span> 位</li>
 <li>第二行结果, 保留 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> 位有效数字</li>
 </ul>
-<p><a href="../code/1-types-io/mol.c">演示mol.c</a></p>
+<p><a href="mol.c">演示</a></p>
 <hr>
-</section><section data-notes="" lineno="119" class="slide " data-source-line="119" data-h="4" data-v="0"><h5 id="a-naive-administration-system">A naive administration system </h5>
+</section><section data-notes="" lineno="523" class="slide " data-source-line="523" data-h="21" data-v="0"><h5 id="a-naive-administration-system">A naive administration system </h5>
 <hr>
 <ul>
 <li><mark>录入信息</mark></li>
 </ul>
 <ol>
-<li>Name (EN)     Gender (F/M)  （姓名、性别）</li>
-<li>Birthday (mm-dd-yyyy)     Weekday (Xyz.) （出生日期、星期几）</li>
-<li>C  Music Medicine （三门课程成绩）</li>
-<li>Mean (.d)     Standard Deviation (.dd)    Ranking (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">%</span></span></span></span>) （平均成绩、标准差、排名）</li>
+<li>
+<p>Name (EN)     Gender (F/M)  （姓名、性别）</p>
+</li>
+<li>
+<p>Birthday (mm-dd-yyyy)     Weekday (Xyz.) （出生日期、星期几）</p>
+</li>
+<li>
+<p>C  Music Medicine （三门课程成绩）</p>
+</li>
+<li>
+<p>Mean (.d)     Standard Deviation (.dd)    Ranking (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">%</span></span></span></span>) （平均成绩、标准差、排名）</p>
+</li>
 </ol>
 <ul>
 <li><mark>录入要求</mark></li>
 </ul>
 <ol>
-<li>每组信息占一行</li>
-<li>各项信息使用 <code>\t</code> 间隔</li>
-<li>各项信息遵循特定格式要求</li>
+<li>
+<p>每组信息占一行</p>
+</li>
+<li>
+<p>各项信息使用 <code>\t</code> 间隔</p>
+</li>
+<li>
+<p>各项信息遵循特定格式要求</p>
+</li>
 </ol>
 <p>Xiaojing Nan  F<br>
 05-20-1902    Tue.<br>
-100           90     80<br>
-90            5%</p>
-<p><a href="../code/1-types-io/admin.c">演示-admin.c</a></p>
-</section><section data-notes="" lineno="146" class="slide " data-source-line="146" data-h="5" data-v="0"><h5 id="char">char </h5>
+100   90   80<br>
+90    5%</p>
+</section><section data-notes="" lineno="555" class="slide " data-source-line="555" data-h="22" data-v="0"><h5 id="char">char </h5>
 <hr>
-<p><img src="figs/img/char-image.png" alt=""></p>
+<p><img src="../img/char-image.png" alt=""></p>
 <p>A <code>char</code> is actually an <code>int</code>.</p>
-</section><section data-notes="" lineno="156" class="slide " data-source-line="156" data-h="6" data-v="0"><h5 id="c-string">c string </h5>
+</section><section data-notes="" lineno="565" class="slide " data-source-line="565" data-h="23" data-v="0"><h5 id="c-string">c string </h5>
 <hr>
-<h1 id="codefont-color–redc-stringfontcode"><code><font color="red">C string</font></code> </h1>
-<p><code><font color="red" size="8">char first_name[] = “Tayu”;</font></code></p>
+<h1 id="codefont-color–yellowc-stringfontcode"><code><font color="yellow">C string</font></code> </h1>
+<p><code><font color="yellow" size="8">char first_name[] = “Tayu”;</font></code></p>
 <p>A C string is a null-terminated (<code>\0</code>) sequence of characters.</p>
 <p>String literal: ‘T’, ‘a’, ‘y’, ‘u’, ‘\0’</p>
-</section><section data-notes="" lineno="171" class="slide " data-source-line="171" data-h="7" data-v="0"><h5 id="conversion-specification">Conversion Specification </h5>
+</section><section data-notes="" lineno="580" class="slide " data-source-line="580" data-h="24" data-v="0"><h5 id="conversion-specification">Conversion Specification </h5>
 <hr>
-<p><code><font color="green"><font color="red">%</font>[flags][width][.[precision]]<font color="red">specifier</font></font></code></p>
+<p><code><font color="yellow"><font color="red">%</font>[flags][width][.[precision]]<font color="red">specifier</font></font></code></p>
 <ul>
 <li><code><font color="red" size="7">%d</font></code>: decimal <code>int</code></li>
 <li><code><font color="red" size="7">%f</font></code>: <code>double</code></li>
@@ -166,6 +406,330 @@
 <li><code><font color="red" size="7">%s</font></code>: <code>C string</code></li>
 <li><code><font color="red" size="7">%%</font></code>: <code>%</code></li>
 </ul>
+</section><section data-notes="" lineno="597" class="slide " data-source-line="597" data-h="25" data-v="0"><h5 id="程序-盒子空间重量">程序: 盒子空间重量 </h5>
+<hr>
+<p><em>dweight.c</em></p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Computes the dimensional weight of a 12" x 10" x 8" box */</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> height<span class="token punctuation">,</span> length<span class="token punctuation">,</span> width<span class="token punctuation">,</span> volume<span class="token punctuation">,</span> weight<span class="token punctuation">;</span>
+ 
+  height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+  length <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+  width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+  volume <span class="token operator">=</span> height <span class="token operator">*</span> length <span class="token operator">*</span> width<span class="token punctuation">;</span>
+  weight <span class="token operator">=</span> <span class="token punctuation">(</span>volume <span class="token operator">+</span> <span class="token number">165</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">166</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Dimensions: %dx%dx%d\n"</span><span class="token punctuation">,</span> length<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Volume (cubic inches): %d\n"</span><span class="token punctuation">,</span> volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Dimensional weight (pounds): %d\n"</span><span class="token punctuation">,</span> weight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section data-notes="" lineno="637" class="slide " data-source-line="637" data-h="26" data-v="0"><h5 id="程序-盒子空间重量改进版">程序: 盒子空间重量(改进版) </h5>
+<hr>
+<p><em>dweight2.c</em></p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Computes the dimensional weight of a box from input provided by the user */</span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> height<span class="token punctuation">,</span> length<span class="token punctuation">,</span> width<span class="token punctuation">,</span> volume<span class="token punctuation">,</span> weight<span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter height of box: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter length of box: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter width of box: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  volume <span class="token operator">=</span> height <span class="token operator">*</span> length <span class="token operator">*</span> width<span class="token punctuation">;</span>
+  weight <span class="token operator">=</span> <span class="token punctuation">(</span>volume <span class="token operator">+</span> <span class="token number">165</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">166</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Volume (cubic inches): %d\n"</span><span class="token punctuation">,</span> volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Dimensional weight (pounds): %d\n"</span><span class="token punctuation">,</span> weight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section data-notes="" lineno="676" class="slide " data-source-line="676" data-h="27" data-v="0"><h5 id="定义常量的名字">定义常量的名字 </h5>
+<hr>
+<p>dweight.c和dweight2.c依赖于常量 166, 阅读程序的人可能不清楚其含义.</p>
+<p>使用称为宏定义的功能, 可以命名此常量:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INCHES_PER_POUND</span> <span class="token expression"><span class="token number">166</span></span></span>
+</code></pre><ul>
+<li>
+<p><mark><code>#define</code></mark> 为预处理指令</p>
+</li>
+<li>
+<p>编译程序时, 预处理器将每个宏替换为它所代表的值, 语句:</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>weight <span class="token operator">=</span> <span class="token punctuation">(</span>volume <span class="token operator">+</span> INCHES_PER_POUND <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> INCHES_PER_POUND<span class="token punctuation">;</span>
+</code></pre><p>会变成</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>weight <span class="token operator">=</span> <span class="token punctuation">(</span>volume <span class="token operator">+</span> <span class="token number">166</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">166</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="710" class="slide " data-source-line="710" data-h="28" data-v="0"><h5 id="定义常量的名字-1">定义常量的名字 </h5>
+<hr>
+<ul>
+<li>当宏包含运算符时, 必须用括号把表达式括起来</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCALE_FACTOR</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">5.0f</span> <span class="token operator">/</span> <span class="token number">9.0f</span><span class="token punctuation">)</span></span></span>
+</code></pre><p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 宏的名字只用大写字母是常见的约定</p>
+</section><section data-notes="" lineno="727" class="slide " data-source-line="727" data-h="29" data-v="0"><h5 id="程序-从华氏温度转为摄氏温度">程序: 从华氏温度转为摄氏温度 </h5>
+<hr>
+<p><em>celsius.c</em></p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* Converts a Fahrenheit temperature to Celsius */</span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">FREEZING_PT</span> <span class="token expression"><span class="token number">32.0f</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCALE_FACTOR</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">5.0f</span> <span class="token operator">/</span> <span class="token number">9.0f</span><span class="token punctuation">)</span></span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-float">float</span> fahrenheit<span class="token punctuation">,</span> celsius<span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter Fahrenheit temperature: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>fahrenheit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  celsius <span class="token operator">=</span> <span class="token punctuation">(</span>fahrenheit <span class="token operator">-</span> FREEZING_PT<span class="token punctuation">)</span> <span class="token operator">*</span> SCALE_FACTOR<span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Celsius equivalent: %.1f\n"</span><span class="token punctuation">,</span> celsius<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+</section><section data-notes="" lineno="763" class="slide " data-source-line="763" data-h="30" data-v="0"><h5 id="标识符">标识符 </h5>
+<hr>
+<p>变量、函数、宏和其他实体的名称称为标识符</p>
+<p><mark>标识符</mark>可包含字母、数字和下划线, 但必须以<mark>字母</mark>或<mark>下划线</mark>开头:</p>
+<ul>
+<li><code>times10 get_next_char _done</code></li>
+</ul>
+<p>标识符区分大小写, 大小写敏感, 例如, 以下标识符均不同:</p>
+<ul>
+<li><code>job  joB  jOb  jOB  Job  JoB  JOb  JOB</code></li>
+</ul>
+<p>非法标识符示例:</p>
+<ul>
+<li><code>10times get-next-char</code></li>
+</ul>
+<p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 避免使用以下划线开头的标识符</p>
+</section><section data-notes="" lineno="788" class="slide " data-source-line="788" data-h="31" data-v="0"><h5 id="标识符-1">标识符 </h5>
+<hr>
+<p>许多程序员在标识符(宏除外)中只使用小写字母, 并插入下划线以提高可读性:</p>
+<ul>
+<li><code>symbol_table current_page name_and_address</code></li>
+</ul>
+<p>其他程序员使用大写字母来开始标识符中的每个单词:</p>
+<ul>
+<li><code>symbolTable  currentPage  nameAndAddress</code></li>
+</ul>
+<p>C对标识符的最大长度没有限制</p>
+</section><section data-notes="" lineno="807" class="slide " data-source-line="807" data-h="32" data-v="0"><h5 id="标识符-2">标识符 </h5>
+<hr>
+<p><mark>关键字</mark> 不能作为标识符</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">auto</th>
+<th style="text-align:left">enum</th>
+<th style="text-align:left">restrict</th>
+<th style="text-align:left">unsigned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">break</td>
+<td style="text-align:left">extern</td>
+<td style="text-align:left">return</td>
+<td style="text-align:left">void</td>
+</tr>
+<tr>
+<td style="text-align:left">case</td>
+<td style="text-align:left">float</td>
+<td style="text-align:left">short</td>
+<td style="text-align:left">volatile</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">for</td>
+<td style="text-align:left">signed</td>
+<td style="text-align:left">while</td>
+</tr>
+<tr>
+<td style="text-align:left">const</td>
+<td style="text-align:left">goto</td>
+<td style="text-align:left">sizeof</td>
+<td style="text-align:left">_Bool</td>
+</tr>
+<tr>
+<td style="text-align:left">continue</td>
+<td style="text-align:left">if</td>
+<td style="text-align:left">static</td>
+<td style="text-align:left">_Complex</td>
+</tr>
+<tr>
+<td style="text-align:left">default</td>
+<td style="text-align:left">inline</td>
+<td style="text-align:left">struct</td>
+<td style="text-align:left">_Imaginary</td>
+</tr>
+<tr>
+<td style="text-align:left">do</td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">switch</td>
+<td style="text-align:left"> </td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">long</td>
+<td style="text-align:left">typedef</td>
+<td style="text-align:left"> </td>
+</tr>
+<tr>
+<td style="text-align:left">else</td>
+<td style="text-align:left">register</td>
+<td style="text-align:left">union</td>
+<td style="text-align:left"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section data-notes="" lineno="834" class="slide " data-source-line="834" data-h="33" data-v="0"><h5 id="标识符-3">标识符 </h5>
+<hr>
+<ul>
+<li>
+<p>关键字(<mark><code>_Bool</code></mark>, <mark><code>_Complex</code></mark>, <mark><code>_Imaginary</code></mark> 除外)必须仅使用小写字母编写</p>
+</li>
+<li>
+<p>库函数的名称(例如 <mark><code>printf</code></mark> )也是小写</p>
+</li>
+</ul>
+</section><section data-notes="" lineno="847" class="slide " data-source-line="847" data-h="34" data-v="0"><h5 id="c程序的布局">C程序的布局 </h5>
+<hr>
+<p>一个C程序由一系列标记组成, 标记包括:</p>
+<ul>
+<li>
+<p>标识符</p>
+</li>
+<li>
+<p>关键字</p>
+</li>
+<li>
+<p>运算符</p>
+</li>
+<li>
+<p>标点</p>
+</li>
+<li>
+<p>常数</p>
+</li>
+<li>
+<p>字符串字面量</p>
+</li>
+</ul>
+</section><section data-notes="" lineno="870" class="slide " data-source-line="870" data-h="35" data-v="0"><h5 id="c程序的布局-1">C程序的布局 </h5>
+<hr>
+<p>语句</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Height: %d\n"</span><span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>由七个标记组成:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">printf</th>
+<th style="text-align:left">标识符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(</td>
+<td style="text-align:left">标点</td>
+</tr>
+<tr>
+<td style="text-align:left">“Height: %d\n”</td>
+<td style="text-align:left">字符串字面量</td>
+</tr>
+<tr>
+<td style="text-align:left">,</td>
+<td style="text-align:left">标点</td>
+</tr>
+<tr>
+<td style="text-align:left">height</td>
+<td style="text-align:left">标识符</td>
+</tr>
+<tr>
+<td style="text-align:left">)</td>
+<td style="text-align:left">标点</td>
+</tr>
+<tr>
+<td style="text-align:left">;</td>
+<td style="text-align:left">标点</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section data-notes="" lineno="900" class="slide " data-source-line="900" data-h="36" data-v="0"><h5 id="c程序的布局-2">C程序的布局 </h5>
+<hr>
+<p>标记之间的空白通常并不重要, 标记间的空格可以全部去掉, 只要不会导致两个标记合并:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Converts a Fahrenheit temperature to Celsius */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">FREEZING_PT</span> <span class="token expression"><span class="token number">32.0f</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCALE_FACTOR</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">5.0f</span><span class="token operator">/</span><span class="token number">9.0f</span><span class="token punctuation">)</span></span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword keyword-float">float</span> fahrenheit<span class="token punctuation">,</span>celsius<span class="token punctuation">;</span><span class="token function">printf</span><span class="token punctuation">(</span>
+<span class="token string">"Enter Fahrenheit temperature: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>fahrenheit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+celsius<span class="token operator">=</span><span class="token punctuation">(</span>fahrenheit<span class="token operator">-</span>FREEZING_PT<span class="token punctuation">)</span><span class="token operator">*</span>SCALE_FACTOR<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Celsius equivalent: %.1f\n"</span><span class="token punctuation">,</span> celsius<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><ul>
+<li>
+<p>整个程序不能放在一行, 因为每个预处理指令都需要单独的一行</p>
+</li>
+<li>
+<p>以这种方式压缩程序不是一个好的风格</p>
+</li>
+</ul>
+<p><span class="blue">:fa-lightbulb-o:</span> 在程序中 <mark>添加空格和空行</mark> 可以使其更易于阅读和理解.</p>
+</section><section data-notes="" lineno="928" class="slide " data-source-line="928" data-h="37" data-v="0"><h5 id="c程序的布局-3">C程序的布局 </h5>
+<hr>
+<p>C允许在标记之间使用任意数量空格符: 空格、制表符和换行符</p>
+<p>程序布局:</p>
+<ul>
+<li>
+<p>语句可以分成任意数量的行</p>
+</li>
+<li>
+<p>标记之间的空格(如每个运算符之前和之后, 以及每个逗号之后)更容易阅读</p>
+</li>
+<li>
+<p>缩进可以使嵌套更容易被发现</p>
+</li>
+<li>
+<p>空行可以将程序划分为逻辑单元</p>
+</li>
+</ul>
+</section><section data-notes="" lineno="949" class="slide " data-source-line="949" data-h="38" data-v="0"><h5 id="c程序的布局-4">C程序的布局 </h5>
+<hr>
+<p>尽管可以在标记之间添加额外的空格, 但不能在标记内添加空格, 会改变程序含义或导致错误, 写作</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>fl oat fahrenheit<span class="token punctuation">,</span> celsius<span class="token punctuation">;</span>  <span class="token comment">/*** WRONG ***/</span>
+</code></pre><p>或者</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>fl
+oat fahrenheit<span class="token punctuation">,</span> celsius<span class="token punctuation">;</span>     <span class="token comment">/*** WRONG ***/</span>
+</code></pre><p>会产生编译错误</p>
+</section><section data-notes="" lineno="973" class="slide " data-source-line="973" data-h="39" data-v="0"><h5 id="c程序的布局-5">C程序的布局 </h5>
+<hr>
+<p>可以在字符串中放置一个空格, 不过会改变字符串的含义.</p>
+<p>在字符串中放入换行符(将字符串分成两行)是非法的:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token function">printf</span><span class="token punctuation">(</span>"Hello<span class="token punctuation">,</span> 
+World<span class="token operator">!</span>\n"<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">/*** WRONG ***/</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
 </section>
       </div>
     </div>
