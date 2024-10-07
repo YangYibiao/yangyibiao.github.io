@@ -1,5 +1,5 @@
  // from http://www.robots.ox.ac.uk/~vedaldi/javascripts/hidebib.js
-function hideallbibs()
+function listfullpubs()
 {
     var el = document.getElementsByTagName("div") ;
     for (var i = 0 ; i < el.length ; ++i) {
