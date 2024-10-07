@@ -19,7 +19,12 @@ window.onload = function() {
                 var tier = obj[i].tier
                 var highlight = obj[i].highlight
 
+                if(tier.search("CCF-A") == -1) {
+                    continue;
+                }
+
                 var equal_str = ""
+
                 if(equal == true) {
                     equal_str = "  (* Equal contribution)"
                 }
