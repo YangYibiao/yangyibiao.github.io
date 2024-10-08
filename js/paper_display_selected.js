@@ -30,7 +30,7 @@ window.onload = function() {
                 }
 
                 for(var j=0 ; j<author.length ; j++){
-                    if(author[j] == "Yibiao Yang" || author[j] == "Yibiao Yang*"){
+                    if(author[j] == "Yibiao Yang" || author[j] == "Yibiao Yang*" || author[j] == "杨已彪" || author[j] == "杨已彪*"){
                         author[j] = "<b>" + author[j] + "</b>";
                     }
                 }
