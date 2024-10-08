@@ -18,7 +18,7 @@ window.onload = function() {
                 var volume = obj[i].volume
                 var page = obj[i].page
                 var equal = obj[i].equal
-                var confernce = obj[i].confernce
+                var conference = obj[i].conference
                 var tier = obj[i].tier
                 var highlight = obj[i].highlight
 
@@ -50,7 +50,7 @@ window.onload = function() {
                     bgcolor_str = "'#ffffd0'"
                 }
                 suffix = publisher + ", " + volume + ": " + page + ", " + year
-                if (confernce == true) {
+                if (conference == true) {
                     suffix = publisher + ", " + volume + ", " + year + ": " + page
                 }
                 html += 
