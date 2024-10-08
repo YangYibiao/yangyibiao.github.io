@@ -47,9 +47,9 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
-                if (highlight == true) {
-                    bgcolor_str = "'#ffffd0'"
-                }
+                // if (highlight == true) {
+                //     bgcolor_str = "'#ffffd0'"
+                // }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
