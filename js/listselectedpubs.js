@@ -1,5 +1,3 @@
- // from http://www.robots.ox.ac.uk/~vedaldi/javascripts/hidebib.js
-
 function listselectedpubs()
 {
     var el = document.getElementsByTagName("div") ;

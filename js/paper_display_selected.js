@@ -19,8 +19,8 @@ window.onload = function() {
                 var tier = obj[i].tier
                 var highlight = obj[i].highlight
 
-                if(tier.search("CCF-A") == -1 && highlight == true) {
-                    continue;
+                if(tier.search("CCF-A") == -1 || highlight == false) {
+                    next
                 }
 
                 var equal_str = ""
