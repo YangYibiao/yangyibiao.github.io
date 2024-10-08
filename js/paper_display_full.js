@@ -18,6 +18,7 @@ window.onload = function() {
                 var volume = obj[i].volume
                 var page = obj[i].page
                 var equal = obj[i].equal
+                var confernce = obj[i].confernce
                 var tier = obj[i].tier
                 var highlight = obj[i].highlight
 
@@ -48,6 +49,10 @@ window.onload = function() {
                 if (highlight == true) {
                     bgcolor_str = "'#ffffd0'"
                 }
+                suffix = publisher + ", " + volume + ": " + page + ", " + year
+                if (confernce == true) {
+                    suffix = publisher + ", " + volume + ", " + year + ": " + page
+                }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
@@ -56,7 +61,7 @@ window.onload = function() {
                         <a href=" + url + " style='font-size:18px'>" + title + "</a>\
                         <br>" + author_str + 
                         "<br>\
-                        <em>"+ publisher + ", " + volume + ": " + page + ", " + year + ". (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
+                        <em>"+ suffix + ". (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
                         <br>\
                         " + meta_str + "\
                     </font>\
