@@ -20,7 +20,7 @@ window.onload = function() {
                 var highlight = obj[i].highlight
 
                 if(tier.search("CCF-A") == -1 || highlight == false) {
-                    next
+                    continue;
                 }
 
                 var equal_str = ""
