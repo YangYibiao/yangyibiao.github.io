@@ -58,7 +58,7 @@ window.onload = function() {
                         <a href=" + url + " style='font-size:18px'>" + title + "</a>\
                         <br>" + author_str + 
                         "<br>\
-                        <em>"+ publisher + "  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
+                        <em>"+ publisher + ",  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
                         <br>\
                         " + meta_str + "\
                     </font>\
