@@ -38,6 +38,7 @@
 |   ^    | [循环](slides/2-2-loops.html)           | while语句、do-while语句、for语句 |
 |   ^    | [数组](slides/2-3-arrays.html)           | 一维数组  |
 |   ^    | [演示](slides/2-4-coding.html)     | 代码演示  |
+| 第四讲  | [循环](slides/3-1-coding.html)        | for while do-while coding    |
 <!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
 <!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
