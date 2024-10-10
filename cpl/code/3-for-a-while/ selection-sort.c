@@ -1,23 +1,35 @@
 #include <stdio.h>
 
-int main(void) {
-  int numbers[10] = {1, 1, 3, 5, 8, 13, 21, 35, 56};
-  int target;
-  scanf("%d", &target);
+#define LEN 20
+int numbers[LEN] = {0};
 
-  int left = 0;
-  int right = 9;
-  while (left <= right) {
-    int middle = (left + right) / 2;
-    if (numbers[middle] == target) {
-      printf("Found at index %d\n", middle);
-      return 0;
-    } else if (numbers[middle] < target) {
-      left = middle + 1;
-    } else {
-      right = middle - 1;
-    }
+int main(void) {
+  int len = -1;
+  while (scanf("%d", &numbers[++len]) != EOF);
+
+  for (int i = 0; i < len; i++) {
+    printf("%d ", numbers[i]);
   }
-  printf("Not found\n");
+  printf("\n");
+
+  for (int i = 0; i < len; i++) {
+    int min = numbers[i];
+    int min_index = i;
+    for (int j = i + 1; j < len; ++j) {
+      if (numbers[j] < min) {
+        min = numbers[j];
+        min_index = j;
+      }
+    }
+    int temp = numbers[min_index];
+    numbers[min_index] = numbers[i];
+    numbers[i] = temp;
+  }
+
+  for (int i = 0; i < len; i++) {
+    printf("%d ", numbers[i]);
+  }
+  printf("\n");
+
   return 0;
 }
