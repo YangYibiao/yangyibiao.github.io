@@ -183,7 +183,8 @@ for (i = 0; i < N; i++)
   sum += a[i];          /* sums the elements of a */
 ```
 
-示例
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -226,7 +227,7 @@ while (i < N)
   a[i++] = 0;
 ```
 
-示例
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -251,7 +252,7 @@ for (i = 0; i < N; i++)
   a[i] = b[i];
 ```
 
-示例
+---
 
 
 <!-- slide data-notes="" -->
@@ -302,7 +303,7 @@ int main(void)
 }
 ```
 
-示例
+---
 
 
 <!-- slide data-notes="" -->
@@ -319,7 +320,7 @@ int main(void)
 int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 ```
 
-分页
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -451,6 +452,9 @@ int b[] = {[5] = 10, [23] = 13, [11] = 36, [15] = 29};
 ```C
 int c[10] = {5, 1, 9, [4] = 3, 7, 2, [8] = 6};
 ```
+---
+
+
 
 <!-- slide data-notes="" -->
 
@@ -527,7 +531,7 @@ int main(void)
 }
 ```
 
-示例
+---
 
 
 <!-- slide data-notes="" -->
@@ -712,7 +716,8 @@ int main(void)
 }
 ```
 
-双循环
+---
+
 
 <!-- slide data-notes="" -->
 
