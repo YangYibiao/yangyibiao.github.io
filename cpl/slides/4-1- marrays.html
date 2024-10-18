@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>08-Arrays</title>
+      <title>4-1- marrays</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -62,7 +62,7 @@
         <section data-notes="" lineno="30" class="slide " data-source-line="30" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="c语言程序设计基础">C语言程序设计基础 </h1>
 <hr class="width50 center">
-<h2 id="数组">数组 </h2>
+<h2 id="多维数组">多维数组 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
@@ -70,384 +70,13 @@
 <hr>
 <ul>
 <li>
-<p>一维数组</p>
-</li>
-<li>
 <p>多维数组</p>
 </li>
 <li>
 <p>C99中的变长数组</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="59" class="slide " data-source-line="59" data-h="2" data-v="0"><h5 id="标量变量与聚合变量">标量变量与聚合变量 </h5>
-<hr>
-<p>到目前为止, 我们所见的变量都是<code>标量</code>: 用于保存单一数据项.</p>
-<p>C 还支持聚合变量, 它可以存储一组一组的数值.</p>
-<p>C中有两种聚合类型: <mark>数组</mark> 和结构体</p>
-<p>本章的重点是一维数组, 它在 C 语言中的作用比多维数组更大.</p>
-</section><section><section data-notes="" lineno="75" class="slide " data-source-line="75" data-h="3" data-v="0"><h5 id="一维数组">一维数组 </h5>
-<hr>
-<p>数组是包含多个数据值的数据结构, 每个数据值具有相同类型.</p>
-<p>数据值称为元素, 可以根据它们在数组中的位置选择出来.</p>
-<p>最简单的数组是一维数组, 一维数组中的元素一个接一个地排列在单独一行中:</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-</tr>
-</thead>
-</table>
-</div>
-</section><section vertical="true" data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="1"><h5 id="一维数组-1">一维数组 </h5>
-<hr>
-<p>要声明一个数组, 必须指定数组元素的类型和数量:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-</code></pre><p>元素可以是任何类型; 数组的长度可以是任何(整数)常量表达式.</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token number">10</span></span></span>
-…
-<span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-</code></pre><p>可以用宏来定义数组的长度</p>
-</section><section vertical="true" data-notes="" lineno="120" class="slide " data-source-line="120" data-h="3" data-v="2"><h5 id="数组下标">数组下标 </h5>
-<hr>
-<p>要访问数组元素, 可在数组名后加上一个方括号括起来的整数值.</p>
-<p>这被称为对数组取下标或进行索引.</p>
-<p>长度为n的数组元素的索引从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">n – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">n</span><span class="mord">–1</span></span></span></span>.</p>
-<p>若数组a长度为<code>10</code>, 元素依次可标记为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mi>a</mi><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>a</mi><mo stretchy="false">[</mo><mn>9</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[0], a[1], ..., a[9]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">9</span><span class="mclose">]</span></span></span></span>:</p>
-<div class="row1-2-column1-10-fullborder">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">a[0]</th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">2</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">3</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>4</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[4]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">4</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>5</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[5]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">5</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>6</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[6]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">6</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>7</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[7]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>8</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[8]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">8</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>9</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[9]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">9</span><span class="mclose">]</span></span></span></span></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section><section vertical="true" data-notes="" lineno="146" class="slide " data-source-line="146" data-h="3" data-v="3"><h5 id="数组下标-1">数组下标 </h5>
-<hr>
-<p>形如<code>a[i]</code>的表达式是左值, 因此可以像普通变量一样使用它们:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">++</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-</code></pre><p>如果数组包含T类型的元素, 则每个元素都被视为T类型的变量.</p>
-</section><section vertical="true" data-notes="" lineno="163" class="slide " data-source-line="163" data-h="3" data-v="4"><h5 id="数组下标-2">数组下标 </h5>
-<hr>
-<p>许多程序包含for循环, 对数组中的每个元素执行一些操作.</p>
-<p>对长度为N的数组a的常见操作示例:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>             <span class="token comment">/* clears a */</span>
-
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* reads data into a */</span>
-
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* sums the elements of a */</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="189" class="slide " data-source-line="189" data-h="3" data-v="5"><h5 id="数组下标-3">数组下标 </h5>
-<hr>
-<p>C不检查下标的范围; 若超出范围, 程序可能执行不可预知的行为</p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>个元素的<mark>数组索引</mark>是从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">n – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">n</span><span class="mord">–1</span></span></span></span>, 而不是从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-</code></pre><p>对于某些编译器, 这种表面上正确的for语句会导致无限循环.</p>
-</section><section vertical="true" data-notes="" lineno="210" class="slide " data-source-line="210" data-h="3" data-v="6"><h5 id="数组下标-4">数组下标 </h5>
-<hr>
-<p>数组下标可以是任何整数表达式:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>a<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-</code></pre><p>表达式甚至可能会产生副作用:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="232" class="slide " data-source-line="232" data-h="3" data-v="7"><h5 id="数组下标-5">数组下标 </h5>
-<hr>
-<p>当数组下标有副作用时要小心:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-</code></pre><p>表达式<code>a[i] = b[i++]</code>访问并修改<code>i</code>的值, 导致未定义的行为.</p>
-<p>可通过从下标中移走自增操作来避免该问题:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section></section><section><section data-notes="" lineno="258" class="slide " data-source-line="258" data-h="4" data-v="0"><h5 id="程序-数列反向">程序: 数列反向 </h5>
-<hr>
-<p><em>reverse.c</em>程序提示用户输入一串数, 然后以相反的顺序输出这些数:</p>
-<p>输入 10 个号码: <u>34 82 49 102 7 94 23 11 50 31</u><br>
-逆序: 31 50 11 23 94 7 102 49 82 34</p>
-<p>程序在读取数字时将它们存储在一个数组中, 然后反向遍历数组, 挨个打印元素.</p>
-</section><section vertical="true" data-notes="" lineno="274" class="slide " data-source-line="274" data-h="4" data-v="1"><h5 id="程序-数列反向-1">程序: 数列反向 </h5>
-<hr>
-<p><em>reverse.c</em></p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 数列反向 */</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token number">10</span></span></span>
- 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d numbers: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"In reverse order:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> N <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %d"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section></section><section><section data-notes="" lineno="309" class="slide " data-source-line="309" data-h="5" data-v="0"><h5 id="数组初始化">数组初始化 </h5>
-<hr>
-<p>与其他变量一样, 数组可以在声明时获得一个初始值.</p>
-<p>数组初始化式最常见的格式是用大括号括起来的常量表达式列表, 常量表达式之间用逗号分隔:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="326" class="slide " data-source-line="326" data-h="5" data-v="1"><h5 id="数组初始化-1">数组初始化 </h5>
-<hr>
-<p>如果初始化式比数组短, 则将数组的其余元素赋值为0:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token comment">/* a 的初始值为 {1, 2、 3、 4、 5、 6、 0, 0, 0, 0} */</span>
-</code></pre><p>利用这一特性, 可以轻松地将数组初始化为全0:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token comment">/* a 的初始值为 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0} */</span>
-</code></pre><p>大括号内只有一个 0, 因为初始化式完全为空是非法的</p>
-<p>初始化式比要初始化的数组长也是非法的</p>
-</section><section vertical="true" data-notes="" lineno="350" class="slide " data-source-line="350" data-h="5" data-v="2"><h5 id="数组初始化-2">数组初始化 </h5>
-<hr>
-<p>如果给定了初始化式, 可以省略数组的长度:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>编译器利用初始化式的长度来确定数组的大小</p>
-</section><section vertical="true" data-notes="" lineno="367" class="slide " data-source-line="367" data-h="5" data-v="3"><h5 id="指定初始化式-c99">指定初始化式 (C99) </h5>
-<hr>
-<p>通常, 数组中只有相对较少的元素需要显式初始化.</p>
-<p>其他元素可以进行默认赋值, 一个例子:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">48</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>对于大数组, 以这种方式初始化既冗长又容易出错.</p>
-</section><section vertical="true" data-notes="" lineno="384" class="slide " data-source-line="384" data-h="5" data-v="4"><h5 id="指定初始化式-c99-1">指定初始化式 (C99) </h5>
-<hr>
-<p>C99的指定初始化式可用来解决这个问题.</p>
-<p>前面的例子可以使用指定初始化式写为:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">48</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>括号中的数字称为指示符.</p>
-</section><section vertical="true" data-notes="" lineno="400" class="slide " data-source-line="400" data-h="5" data-v="5"><h5 id="指定初始化式-c99-2">指定初始化式 (C99) </h5>
-<hr>
-<p>指定初始值化式可以使赋值更短且更易读.</p>
-<p>此外, 赋值的顺序不再是一个问题.</p>
-<p>前面例子的另一种写法:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">48</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>顺序无关</p>
-</section><section vertical="true" data-notes="" lineno="421" class="slide " data-source-line="421" data-h="5" data-v="6"><h5 id="指定初始化式-c99-3">指定初始化式 (C99) </h5>
-<hr>
-<p>指示符必须是整型常量表达式</p>
-<p>如果要初始化的数组长度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>, 则指示符的值必须在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">n–1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">n</span><span class="mord">–1</span></span></span></span>之间</p>
-<p>如果省略数组的长度, 则指示符可以是任何非负整数</p>
-<p>编译器将从最大指示符推导出数组长度, 以下数组将有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn></mrow><annotation encoding="application/x-tex">24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">24</span></span></span></span>个元素:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">23</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">36</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>长度自动推导</p>
-</section><section vertical="true" data-notes="" lineno="444" class="slide " data-source-line="444" data-h="5" data-v="7"><h5 id="指定初始化式-c99-4">指定初始化式 (C99) </h5>
-<hr>
-<p>初始化式可同时使用逐元素初始化和指定初始化式:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> c<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section></section><section><section data-notes="" lineno="459" class="slide " data-source-line="459" data-h="6" data-v="0"><h5 id="程序-检查重复数字">程序: 检查重复数字 </h5>
-<hr>
-<p><em>repdigit.c</em>程序检查数中的数字是否出现多次.</p>
-<p>用户输入数后, 程序会显示重复数字或无重复数字:</p>
-<p>输入号码: <u>28212</u><br>
-重复数字</p>
-<p>数字28212有一个重复的数字 <code>2</code>; 而<code>9357</code>这样的数字没有.</p>
-</section><section vertical="true" data-notes="" lineno="477" class="slide " data-source-line="477" data-h="6" data-v="1"><h5 id="程序-检查重复数字-1">程序: 检查重复数字 </h5>
-<hr>
-<p>程序使用一个由<code>10</code>个布尔值的数组来跟踪数字中出现的数字.</p>
-<p>最初, <code>digit_seen</code>数组的每个元素为假.</p>
-<p>程序每次取出n中的一个数字, 并存储在变量<code>digit</code>中:</p>
-<ul>
-<li>
-<p>如果<code>digit_seen[digit]</code>为真, 则<code>digit</code>在n中至少出现两次.</p>
-</li>
-<li>
-<p>如果<code>digit_seen[digit]</code>为假, 则<code>digit</code>之前未出现过, 将其设置为真并继续.</p>
-</li>
-</ul>
-</section><section vertical="true" data-notes="" lineno="495" class="slide " data-source-line="495" data-h="6" data-v="2"><h5 id="程序-检查重复数字-2">程序: 检查重复数字 </h5>
-<hr>
-<p><em>repdigit.c</em></p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 检查数字中是否有重复的数字 */</span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span>   <span class="token comment">/* C99 only */</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  bool digit_seen<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>false<span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> digit<span class="token punctuation">;</span>
-  <span class="token keyword keyword-long">long</span> n<span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter a number: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    digit <span class="token operator">=</span> n <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>digit_seen<span class="token punctuation">[</span>digit<span class="token punctuation">]</span><span class="token punctuation">)</span>
-      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    digit_seen<span class="token punctuation">[</span>digit<span class="token punctuation">]</span> <span class="token operator">=</span> true<span class="token punctuation">;</span>
-    n <span class="token operator">/=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
- <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Repeated digit\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No repeated digit\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section></section><section><section data-notes="" lineno="537" class="slide " data-source-line="537" data-h="7" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
-<hr>
-<p><code>sizeof</code>运算符可以确定数组的大小(字节数)</p>
-<p>若数组<code>a</code>有<code>10</code>个整数, 则<code>sizeof(a)</code>为<code>40</code>(假定每个整数<code>4</code>字节)</p>
-<p>我们还可以用<code>sizeof</code>来计算数组元素(如<code>a[0]</code>)的大小</p>
-<p>将数组大小除以元素大小可以得出数组的长度:</p>
-<p><code>sizeof(a) / sizeof(a[0])</code></p>
-</section><section vertical="true" data-notes="" lineno="553" class="slide " data-source-line="553" data-h="7" data-v="1"><h5 id="对数组使用sizeof运算符-1">对数组使用sizeof运算符 </h5>
-<hr>
-<p>一些程序员在需要数组长度时使用sizeof表达式.</p>
-<p>如数组<code>a</code>清零操作的循环:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-</code></pre><p>即使数组长度在日后需改变, 也无需修改循环</p>
-</section><section vertical="true" data-notes="" lineno="572" class="slide " data-source-line="572" data-h="7" data-v="2"><h5 id="对数组使用sizeof运算符-2">对数组使用sizeof运算符 </h5>
-<hr>
-<p>编译器可能会为表达式<code>i &lt; sizeof(a) / sizeof(a[0])</code>生成警告信息.</p>
-<p>变量i类型可能是int(有符号), 而sizeof返回值类型为size_t无符号.</p>
-<p>将有符号整数与无符号整数进行比较可能危险, 但这里是安全的.</p>
-</section><section vertical="true" data-notes="" lineno="586" class="slide " data-source-line="586" data-h="7" data-v="3"><h5 id="对数组使用sizeof运算符-3">对数组使用sizeof运算符 </h5>
-<hr>
-<p>为避免警告, 可将<code>sizeof(a) / sizeof(a[0])</code>强制转换为有符号整数:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-</code></pre><p>为数组大小的计算定义一个宏通常很有帮助:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SIZE</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
- 
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-</code></pre><p>宏表达式的括号需要加上，防止出现运算顺序不一致</p>
-</section></section><section><section data-notes="" lineno="612" class="slide " data-source-line="612" data-h="8" data-v="0"><h5 id="程序-计算利息">程序: 计算利息 </h5>
-<hr>
-<p><em>interest.c</em>程序打印一张表格, 显示在几年内以不同利率投资的<code>100</code>美元的价值</p>
-<p>用户输入利率和投资的年数</p>
-<p>投资总价值每年计算一次, 表格将显示出在输入利率和紧随其后的4个更高利率下投资的总价值.</p>
-</section><section vertical="true" data-notes="" lineno="626" class="slide " data-source-line="626" data-h="8" data-v="1"><h5 id="程序-计算利息-1">程序: 计算利息 </h5>
-<hr>
-<p>程序会话如下:</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>Enter interest rate: 6
-Enter number of years: 5
-&nbsp;
-Years     6%     7%     8%     9%     10%
-  1     106.00 107.00 108.00 109.00 110.00
-  2     112.36 114.49 116.64 118.81 121.00
-  3     119.10 122.50 125.97 129.50 133.10
-  4     126.25 131.08 136.05 141.16 146.41
-  5     133.82 140.26 146.93 153.86 161.05
-</code></pre><p>打印n * m的二维数组</p>
-</section><section vertical="true" data-notes="" lineno="650" class="slide " data-source-line="650" data-h="8" data-v="2"><h5 id="程序-计算利息-2">程序: 计算利息 </h5>
-<hr>
-<p>第二行数字的值取决于第一行数字, 因此:</p>
-<ul>
-<li>
-<p>将第一行存储在数组中.</p>
-</li>
-<li>
-<p>使用数组中的值来计算第二行.</p>
-</li>
-<li>
-<p>对第三行和后面的行重复此过程.</p>
-</li>
-</ul>
-<p>该程序使用嵌套的for语句.</p>
-<ul>
-<li>
-<p>外层循环从1计数到用户要求的年数.</p>
-</li>
-<li>
-<p>内层循环将从利率的最低值递增到最高值.</p>
-</li>
-</ul>
-</section><section vertical="true" data-notes="" lineno="672" class="slide " data-source-line="672" data-h="8" data-v="3"><h5 id="程序-计算利息-3">程序: 计算利息 </h5>
-<hr>
-<p><em>interest.c</em></p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 打印复利表 */</span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NUM_RATES</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>value<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INITIAL_BALANCE</span> <span class="token expression"><span class="token number">100.00</span></span></span>
- 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> low_rate<span class="token punctuation">,</span> num_years<span class="token punctuation">,</span> year<span class="token punctuation">;</span>
-  <span class="token keyword keyword-double">double</span> value<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter interest rate: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>low_rate<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of years: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>num_years<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nYears"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> NUM_RATES<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%6d%%"</span><span class="token punctuation">,</span> low_rate <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    value<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> INITIAL_BALANCE<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>year <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> year <span class="token operator">&lt;=</span> num_years<span class="token punctuation">;</span> year<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%3d    "</span><span class="token punctuation">,</span> year<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> NUM_RATES<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      value<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">(</span>low_rate <span class="token operator">+</span> i<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">100.0</span> <span class="token operator">*</span> value<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%7.2f"</span><span class="token punctuation">,</span> value<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
- 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section></section><section><section data-notes="" lineno="722" class="slide " data-source-line="722" data-h="9" data-v="0"><h5 id="多维数组">多维数组 </h5>
+</section><section><section data-notes="" lineno="59" class="slide " data-source-line="59" data-h="2" data-v="0"><h5 id="多维数组-1">多维数组 </h5>
 <hr>
 <p>数组可以有任意维数</p>
 <p>下面的声明创建了一个二维数组(数学术语称为矩阵):</p>
@@ -533,21 +162,21 @@ Years     6%     7%     8%     9%     10%
 </tbody>
 </table>
 </div>
-</section><section vertical="true" data-notes="" lineno="750" class="slide " data-source-line="750" data-h="9" data-v="1"><h5 id="多维数组-1">多维数组 </h5>
+</section><section vertical="true" data-notes="" lineno="87" class="slide " data-source-line="87" data-h="2" data-v="1"><h5 id="多维数组-2">多维数组 </h5>
 <hr>
 <p>为了访问i行j列的元素, 需要写成<code>m[i][j]</code>的形式.</p>
 <p>表达式<code>m[i]</code>指定数组m第i行, 而<code>m[i][j]</code>选择该行中第j个元素.</p>
 <p>不要把<code>m[i][j]</code>写成<code>m[i,j]</code></p>
 <p>这里, C将逗号视为 <mark>逗号运算符</mark>, 因此<code>m[i,j]</code>等同于<code>m[j]</code></p>
-</section><section vertical="true" data-notes="" lineno="766" class="slide " data-source-line="766" data-h="9" data-v="2"><h5 id="多维数组-2">多维数组 </h5>
+</section><section vertical="true" data-notes="" lineno="105" class="slide " data-source-line="105" data-h="2" data-v="2"><h5 id="多维数组-3">多维数组 </h5>
 <hr>
 <p>虽然我们以表格形式显示二维数组, 但这并不是它们在计算机内存中实际存储的方式.<br>
 行主序存储数组, 从第 0 行开始, 接着第 1 行, 依此类推.<br>
 数组m的存储方式:</p>
 <div class="top-2">
-    <img src="../img/8-4.png" width="400px">
+    <img src="figs/img/8-4.png" width="400px">
 </div>
-</section><section vertical="true" data-notes="" lineno="790" class="slide " data-source-line="790" data-h="9" data-v="3"><h5 id="多维数组-3">多维数组 </h5>
+</section><section vertical="true" data-notes="" lineno="128" class="slide " data-source-line="128" data-h="2" data-v="3"><h5 id="多维数组-4">多维数组 </h5>
 <hr>
 <p>嵌套for循环非常适合处理多维数组.</p>
 <p>单位矩阵的数组的初始化: <mark>嵌套的for循环</mark></p>
@@ -564,8 +193,8 @@ Years     6%     7%     8%     9%     10%
       ident<span class="token punctuation">[</span>row<span class="token punctuation">]</span><span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>嵌套for循环</p>
-</section></section><section><section data-notes="" lineno="821" class="slide " data-source-line="821" data-h="10" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section></section><section><section data-notes="" lineno="159" class="slide " data-source-line="159" data-h="3" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>通过嵌套一维初始化式的方法可以产生二维数组的初始化式:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -575,15 +204,15 @@ Years     6%     7%     8%     9%     10%
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><p>高维数组的初始化式以类似的方式构造.</p>
 <p>C 提供了多种方法来缩写多维数组的初始化式</p>
-</section><section vertical="true" data-notes="" lineno="841" class="slide " data-source-line="841" data-h="10" data-v="1"><h5 id="多维数组初始化-1">多维数组初始化 </h5>
+</section><section vertical="true" data-notes="" lineno="181" class="slide " data-source-line="181" data-h="3" data-v="1"><h5 id="多维数组初始化-1">多维数组初始化 </h5>
 <hr>
 <p>如果初始值化式不足以填充整个多维数组, 则剩余元素赋值为0.</p>
 <p>下面初始化式只填充了数组m的前三行; 后两行将赋值为0:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>分页</p>
-</section><section vertical="true" data-notes="" lineno="862" class="slide " data-source-line="862" data-h="10" data-v="2"><h5 id="多维数组初始化-2">多维数组初始化 </h5>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="200" class="slide " data-source-line="200" data-h="3" data-v="2"><h5 id="多维数组初始化-2">多维数组初始化 </h5>
 <hr>
 <p>如果内层列表的长度不足以填满数组的一行, 则该行中的剩余元素将初始化为<code>0</code>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -591,8 +220,8 @@ Years     6%     7%     8%     9%     10%
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>分页</p>
-</section><section vertical="true" data-notes="" lineno="883" class="slide " data-source-line="883" data-h="10" data-v="3"><h5 id="多维数组初始化-3">多维数组初始化 </h5>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="219" class="slide " data-source-line="219" data-h="3" data-v="3"><h5 id="多维数组初始化-3">多维数组初始化 </h5>
 <hr>
 <p>内层的花括号可以 <mark>省略</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
@@ -602,20 +231,20 @@ Years     6%     7%     8%     9%     10%
                <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><p>一旦编译器发现数值足以填满一行, 它就会开始填充下一行.</p>
 <p>多维数组中省略内层大括号有风险, 额外的元素或缺失的元素会影响剩下的初始化式, 省略的花括号会引起编译警告</p>
-</section><section vertical="true" data-notes="" lineno="905" class="slide " data-source-line="905" data-h="10" data-v="4"><h5 id="多维数组初始化-4">多维数组初始化 </h5>
+</section><section vertical="true" data-notes="" lineno="243" class="slide " data-source-line="243" data-h="3" data-v="4"><h5 id="多维数组初始化-4">多维数组初始化 </h5>
 <hr>
 <p>C99 的指定初始化式也适用于多维数组.</p>
 <p>创建2×2单位矩阵:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><p>像通常一样, 所有未指定值的元素都默认为0.</p>
-</section></section><section><section data-notes="" lineno="924" class="slide " data-source-line="924" data-h="11" data-v="0"><h5 id="常量数组">常量数组 </h5>
+</section></section><section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="4" data-v="0"><h5 id="常量数组">常量数组 </h5>
 <hr>
 <p>在声明数组的最开始处加上 <mark>const</mark> 可以使数组成为 <mark>常量</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
   <span class="token punctuation">{</span><span class="token char">'0'</span><span class="token punctuation">,</span> <span class="token char">'1'</span><span class="token punctuation">,</span> <span class="token char">'2'</span><span class="token punctuation">,</span> <span class="token char">'3'</span><span class="token punctuation">,</span> <span class="token char">'4'</span><span class="token punctuation">,</span> <span class="token char">'5'</span><span class="token punctuation">,</span> <span class="token char">'6'</span><span class="token punctuation">,</span> <span class="token char">'7'</span><span class="token punctuation">,</span> <span class="token char">'8'</span><span class="token punctuation">,</span> <span class="token char">'9'</span><span class="token punctuation">,</span>
    <span class="token char">'A'</span><span class="token punctuation">,</span> <span class="token char">'B'</span><span class="token punctuation">,</span> <span class="token char">'C'</span><span class="token punctuation">,</span> <span class="token char">'D'</span><span class="token punctuation">,</span> <span class="token char">'E'</span><span class="token punctuation">,</span> <span class="token char">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><p>程序不应修改声明为const的数组.</p>
-</section><section vertical="true" data-notes="" lineno="941" class="slide " data-source-line="941" data-h="11" data-v="1"><h5 id="常量数组-1">常量数组 </h5>
+</section><section vertical="true" data-notes="" lineno="279" class="slide " data-source-line="279" data-h="4" data-v="1"><h5 id="常量数组-1">常量数组 </h5>
 <hr>
 <p>将数组声明为const的优点:</p>
 <ul>
@@ -632,12 +261,12 @@ Years     6%     7%     8%     9%     10%
 <p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
 </li>
 </ul>
-</section></section><section><section data-notes="" lineno="957" class="slide " data-source-line="957" data-h="12" data-v="0"><h5 id="程序-发牌">程序: 发牌 </h5>
+</section></section><section><section data-notes="" lineno="297" class="slide " data-source-line="297" data-h="5" data-v="0"><h5 id="程序-发牌">程序: 发牌 </h5>
 <hr>
 <p><em>deal.c</em>程序说明了二维数组和常量数组的用法.</p>
 <p>该程序从一副标准的扑克牌中随机处理一手牌.</p>
 <p>标准套牌中的每张牌都有花色{梅花♣(<code>c</code>), 方块♦(<code>d</code>), 红桃♥(<code>h</code>), 黑桃♠(<code>s</code>)}和等级{<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>6</mn><mo separator="true">,</mo><mn>7</mn><mo separator="true">,</mo><mn>8</mn><mo separator="true">,</mo><mn>9</mn><mo separator="true">,</mo><mn>10</mn><mo separator="true">,</mo><mi>J</mi><mo separator="true">,</mo><mi>Q</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">10</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">Q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">A</span></span></span></span>}.</p>
-</section><section vertical="true" data-notes="" lineno="972" class="slide " data-source-line="972" data-h="12" data-v="1"><h5 id="程序-发牌-1">程序: 发牌 </h5>
+</section><section vertical="true" data-notes="" lineno="310" class="slide " data-source-line="310" data-h="5" data-v="1"><h5 id="程序-发牌-1">程序: 发牌 </h5>
 <hr>
 <p>用户将指定手中应该有多少张牌:</p>
 <p>输入手牌数量: <u>5</u><br>
@@ -651,7 +280,7 @@ Years     6%     7%     8%     9%     10%
 <p>如何避免两次选择同一张牌？</p>
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="989" class="slide " data-source-line="989" data-h="12" data-v="2"><h5 id="程序-发牌-2">程序: 发牌 </h5>
+</section><section vertical="true" data-notes="" lineno="327" class="slide " data-source-line="327" data-h="5" data-v="2"><h5 id="程序-发牌-2">程序: 发牌 </h5>
 <hr>
 <p>为了随机挑选卡片, 可以采用一些 C 库函数:</p>
 <ul>
@@ -666,7 +295,7 @@ Years     6%     7%     8%     9%     10%
 </li>
 </ul>
 <p>通过使用%运算符, 缩放rand函数返回值, 使其介于0和3之间(表示花色)或介于0和12之间(表示等级).</p>
-</section><section vertical="true" data-notes="" lineno="1009" class="slide " data-source-line="1009" data-h="12" data-v="3"><h5 id="程序-发牌-3">程序: 发牌 </h5>
+</section><section vertical="true" data-notes="" lineno="347" class="slide " data-source-line="347" data-h="5" data-v="3"><h5 id="程序-发牌-3">程序: 发牌 </h5>
 <hr>
 <p>in_hand数组用于记录已经选择过的牌.</p>
 <p>数组有4行13列; 每个元素对应52 张牌中的一张.</p>
@@ -680,13 +309,13 @@ Years     6%     7%     8%     9%     10%
 <p>如果为假, 就把ture存储到对应的元素中, 以便稍后提醒我们这张牌已经被选中.</p>
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="1029" class="slide " data-source-line="1029" data-h="12" data-v="4"><h5 id="程序-发牌-4">程序: 发牌 </h5>
+</section><section vertical="true" data-notes="" lineno="367" class="slide " data-source-line="367" data-h="5" data-v="4"><h5 id="程序-发牌-4">程序: 发牌 </h5>
 <hr>
 <p>一旦验证了一张卡片是<code>"新"</code>的, 就需要将它的等级和花色转换成字符, 然后显示出来.</p>
 <p>为了将等级和花色转换为字符形式, 程序设置两个字符数组: 一个用于等级, 一个用于花色</p>
 <p>然后用等级和花色作为下标取数组元素.</p>
 <p>数组在程序执行期间不会改变, 因此被声明为<code>const</code>.</p>
-</section><section vertical="true" data-notes="" lineno="1045" class="slide " data-source-line="1045" data-h="12" data-v="5"><h5 id="程序-发牌-5">程序: 发牌 </h5>
+</section><section vertical="true" data-notes="" lineno="383" class="slide " data-source-line="383" data-h="5" data-v="5"><h5 id="程序-发牌-5">程序: 发牌 </h5>
 <hr>
 <p><em>deal.c</em></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 随机发牌 */</span>
@@ -725,13 +354,13 @@ Years     6%     7%     8%     9%     10%
  
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>发牌程序（颜色、大小）</p>
-</section></section><section><section data-notes="" lineno="1094" class="slide " data-source-line="1094" data-h="13" data-v="0"><h5 id="变长数组-c99">变长数组 (C99) </h5>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section></section><section><section data-notes="" lineno="433" class="slide " data-source-line="433" data-h="6" data-v="0"><h5 id="变长数组-c99">变长数组 (C99) </h5>
 <hr>
 <p>在C89中, 数组变量的长度必须由常量表达式指定.</p>
 <p>在C99中, 数组变量的长度也可使用非常量表达式(<mark>变长数组</mark>).</p>
 <p><em>reverse2.c</em>程序(<em>reverse.c</em>的修改版)展示了这种用法.</p>
-</section><section vertical="true" data-notes="" lineno="1108" class="slide " data-source-line="1108" data-h="13" data-v="1"><h5 id="程序-使用变长数组-c99">程序: 使用变长数组 (C99) </h5>
+</section><section vertical="true" data-notes="" lineno="449" class="slide " data-source-line="449" data-h="6" data-v="1"><h5 id="程序-使用变长数组-c99">程序: 使用变长数组 (C99) </h5>
 <hr>
 <p><em>reverse2.c</em></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 使用变长数组反转数列 - 仅限 C99 */</span>
@@ -758,14 +387,14 @@ Years     6%     7%     8%     9%     10%
  
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>不推荐使用变长数组</p>
-</section><section vertical="true" data-notes="" lineno="1148" class="slide " data-source-line="1148" data-h="13" data-v="2"><h5 id="变长数组-c99-1">变长数组 (C99) </h5>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="487" class="slide " data-source-line="487" data-h="6" data-v="2"><h5 id="变长数组-c99-1">变长数组 (C99) </h5>
 <hr>
 <p><em>reverse2.c</em>程序中的数组a是变长数组.</p>
 <p>变长数组的长度是在程序执行时计算的.</p>
 <p>变长数组的主要优点是程序可以准确计算需要多少元素.</p>
 <p>如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错).</p>
-</section><section vertical="true" data-notes="" lineno="1164" class="slide " data-source-line="1164" data-h="13" data-v="3"><h5 id="变长数组-c99-2">变长数组 (C99) </h5>
+</section><section vertical="true" data-notes="" lineno="503" class="slide " data-source-line="503" data-h="6" data-v="3"><h5 id="变长数组-c99-2">变长数组 (C99) </h5>
 <hr>
 <p>变长数组的长度不一定要用变量来指定. 任意表达式都可以:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
