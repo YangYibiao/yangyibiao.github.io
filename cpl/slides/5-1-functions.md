@@ -173,6 +173,7 @@ printf("Average: %g\n", average(x, y));
 ```C
 avg = average(x, y); 
 ```
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -220,10 +221,10 @@ int main(void)
   return 0;
 }
 ```
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 显示倒计时
 
@@ -278,10 +279,11 @@ int main(void)
   return 0;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 显示双关语(改进版)
 
@@ -330,10 +332,10 @@ int main(void)
   return 0;
 }
 ```
+---
+
 
 <!-- slide data-notes="" -->
-
-
 
 ##### 函数定义
 
@@ -422,10 +424,10 @@ double average(double a, double b)
   return sum / 2;   /* statement */
 }
 ```
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 函数定义
 
@@ -437,9 +439,9 @@ double average(double a, double b)
 
 在C99中, 变量声明和语句可混合, 只要变量在使用前声明过即可. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 函数定义
 
@@ -455,9 +457,9 @@ void print_pun(void)
 
 在程序开发过程中, 留下空函数体是有意义的. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 函数调用
 
@@ -479,9 +481,9 @@ print_pun;   /*** WRONG ***/
 
 该语句是合法的, 但没有任何作用. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 函数调用
 
@@ -502,6 +504,7 @@ if (average(x, y) > 0)
   printf("Average is positive\n");
 printf("The average is %g\n", average(x, y));
 ```
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -541,10 +544,11 @@ num_chars = printf("Hi, Mom!\n");
 ```C
 printf("Hi, Mom!\n"); /* discards return value */
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 函数调用
 
@@ -614,10 +618,11 @@ int main(void)
   return 0;
 }
 ```
+---
+
+
 
 <!-- slide data-notes="" -->
-
-
 
 ##### 函数声明
 
@@ -656,6 +661,8 @@ double average(double a, double b)
   return (a + b) / 2;
 }
 ```
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -752,10 +759,10 @@ double average(double a, double b)    /* DEFINITION */
   return (a + b) / 2;
 }
 ```
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 函数声明
 
@@ -832,10 +839,11 @@ int power(int x, int n)
   return result;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 实际参数
 
@@ -854,6 +862,8 @@ int power(int x, int n)
   return result;
 }
 ```
+
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -876,10 +886,11 @@ void decompose(double x, long int_part, double frac_part)
   frac_part = x - int_part;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 实际参数
 
@@ -895,9 +906,9 @@ decompose(3.14159, i, d);
 
 第 11 章展示了如何使decompose函数奏效. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 实际参数的转换
 
@@ -907,9 +918,9 @@ C允许实际参数的类型与形式参数的类型不匹配的函数调用.
 
 实际参数如何转换取决于编译器在调用函数之前是否已经遇到函数的原型(或函数的完整定义). 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 实际参数的转换
 
@@ -921,9 +932,9 @@ C允许实际参数的类型与形式参数的类型不匹配的函数调用.
 
 示例: 如果将int型的实际参数传递给期望得到double型参数的函数, 则该实际参数将自动转换为double类型. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 实际参数的转换
 
@@ -937,9 +948,9 @@ float类型的实际参数转换为double类型.
 
 执行整值提升, 把char和short类型的实际参数转换为int类型. (C99为整数提升)
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 实际参数的转换
 
@@ -988,9 +999,9 @@ printf("Square: %d\n", square((int) x));
 
 C99中, 没有提供函数声明或定义时调用square函数是错误的. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1009,9 +1020,9 @@ C没有为函数提供任何简单的方法来确定传递给它的数组的长�
 
 我们必须提供长度(如果函数需要它)作为额外的参数. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1033,9 +1044,9 @@ int sum_array(int a[], int n)
 
 由于需要知道数组a的长度, 必须将它作为第二个参数提供. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1052,10 +1063,11 @@ int sum_array(int a[], int n);
 ```C
 int sum_array(int [], int);
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1080,10 +1092,11 @@ int main(void)
 ```C
 total = sum_array(b[], LEN);   /*** WRONG ***/
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1100,9 +1113,11 @@ total = sum_array(b[], LEN);   /*** WRONG ***/
 ```C
 total = sum_array(b, 50);
 ```
+---
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1116,9 +1131,9 @@ total = sum_array(b, 150);    /*** WRONG ***/
 
 sum_array函数将超出数组的末尾, 导致未定义的行为. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1137,10 +1152,11 @@ void store_zeros(int a[], int n)
     a[i] = 0;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1156,9 +1172,9 @@ store_zeros(b, 100);
 
 第12章将解释了为什么实际上并不矛盾. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1182,10 +1198,11 @@ int sum_two_dimensional_array(int a[][LEN], int n)
   return sum;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数
 
@@ -1197,9 +1214,9 @@ int sum_two_dimensional_array(int a[][LEN], int n)
 
 C99的变长数组形式参数提供了一个更好的解决方案. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 变长数组形式参数 (C99)
 
@@ -1220,9 +1237,9 @@ int sum_array(int a[], int n)
 
 尽管函数体将n视为a的长度, 但数组实际长度可能大于或小于n. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 变长数组形式参数 (C99)
 
@@ -1241,9 +1258,9 @@ int sum_array(int n, int a[n])
 
 <span class="blue">:fa-lightbulb-o:</span> 这里交换了参数顺序, 使用变长数组形式参数时, 顺序很重要. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 变长数组形式参数 (C99)
 
@@ -1262,10 +1279,11 @@ int sum_array(int n, int a[n]);  /* Version 1 */
 ```C
 int sum_array(int n, int a[*]);  /* Version 2a */
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 变长数组形式参数 (C99)
 
@@ -1278,6 +1296,8 @@ int sum_array(int n, int a[*]);  /* Version 2a */
 ```C
 int sum_array(int, int [*]);     /* Version 2b */
 ```
+---
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1330,9 +1350,9 @@ int concatenate(int m, int n, int a[m], int b[n], int c[m+n])
 
 不会执行额外的错误检查, 数组参数仍然可能太长或太短. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 变长数组形式参数 (C99)
 
@@ -1354,10 +1374,11 @@ int sum_two_dimensional_array(int n, int m, int a[n][m])
   return sum;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 变长数组形式参数 (C99)
 
@@ -1371,10 +1392,11 @@ int sum_two_dimensional_array(int n, int m, int a[*][*]);
 int sum_two_dimensional_array(int n, int m, int a[][m]);
 int sum_two_dimensional_array(int n, int m, int a[][*]);
 ```
+---
+
+
 
 <!-- slide data-notes="" -->
-
-
 
 ##### 在数组参数声明中使用static(C99)
 
@@ -1390,10 +1412,11 @@ int sum_array(int a[static 3], int n)
   …
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 在数组参数声明中使用static(C99)
 
@@ -1405,9 +1428,9 @@ static只是一个"提示", 允许C编译器生成更快的指令来访问数组
 
 如果数组参数是多维的, 则static仅可用于第一维. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 复合字面量 (C99)
 
@@ -1426,9 +1449,9 @@ b必须声明为变量, 并在调用前初始化.
 
 如果b不作它用, 仅出于调用sum_array的目的创建它可能有点浪费. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 复合字面量 (C99)
 
@@ -1452,10 +1475,11 @@ total = sum_array((int []){3, 0, 3, 4, 1}, 5);
 (int [4]){1, 9, 2, 1}
 (int [ ]){1, 9, 2, 1}
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 复合字面量 (C99)
 
@@ -1490,10 +1514,11 @@ total = sum_array((int []){2 * i, i + j, j * k}, 3);
 ```C
 (const int []){5, 4}
 ```
+---
+
+
 
 <!-- slide data-notes="" -->
-
-
 
 ##### return语句
 
@@ -1514,10 +1539,11 @@ return 0;
 return status;
 return n >= 0 ? n : 0;
 ```
+----
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### return语句
 
@@ -1527,9 +1553,10 @@ return n >= 0 ? n : 0;
 
 *如果声明函数返回int型值, 但return语句包含double类型表达式, 则表达式的值将被转换为int类型.*
 
+
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### return语句
 
@@ -1550,11 +1577,11 @@ void print_int(int i)
   printf("%d", i);
 }
 ```
+---
+
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### return语句
 
@@ -1574,9 +1601,9 @@ void print_pun(void)
 
 如果非void函数未能执行return语句, 则程序尝试使用函数的返回值的行为是未定义的. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 程序终止
 
@@ -1599,10 +1626,11 @@ main()
   …
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序终止
 
@@ -1612,9 +1640,9 @@ main()
 
 在main的参数列表中省略void是合法的, 但最好包含它. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序终止
 
@@ -1628,9 +1656,9 @@ main返回的值是一个状态码, 在程序终止时可以检测 ==状态码==
 
 确保每个C程序都返回一个状态码是一种很好的做法. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### exit函数
 
@@ -1647,10 +1675,11 @@ main中执行return语句是终止程序的一种方法.
 ```C
 exit(0);   /* normal termination */
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### exit函数
 
@@ -1672,9 +1701,9 @@ exit(EXIT_FAILURE);
 
 - `EXIT_SUCCESS`和`EXIT_FAILURE`的值是由实现定义的, 通常为0和1. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### exit函数
 
@@ -1698,9 +1727,9 @@ return和exit的区别在于:
 
 - return语句仅当由main函数调用时才会导致程序终止. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 递归
 
@@ -1719,10 +1748,11 @@ int fact(int n)
     return n * fact(n - 1);
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 递归
 
@@ -1740,9 +1770,9 @@ i = fact(3);
 4. &emsp; fact(2) 返回 $2 × 1 = 2$, 导致
 2. fact(3) 返回 $3 × 2 = 6$.
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 递归
 
@@ -1759,10 +1789,11 @@ int power(int x, int n)
     return x * power(x, n - 1);
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 递归
 
@@ -1781,9 +1812,9 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 所有递归函数都需有终止条件以防止无限递归. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 快速排序算法
 
@@ -1795,9 +1826,9 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 分治法把大问题分成多个小问题, 采用相同算法分别解决小问题. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 快速排序算法
 
@@ -1813,9 +1844,9 @@ fact和power都会在调用时小心地测试==终止条件==.
 2. 通过递归地采用快速排序方法对元素$1, \dots, i – 1$进行排序. 
 3. 通过递归地采用快速排序方法对元素$i + 1, \dots, n$进行排序.  
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 快速排序算法
 
@@ -1829,9 +1860,9 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 该算法依赖于两个名为low和high的"标记", 跟踪数组中的位置. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 快速排序算法
 
@@ -1845,9 +1876,9 @@ fact和power都会在调用时小心地测试==终止条件==.
 - 重复该过程, 直到low和high在一个空位处相遇. 
 - 最后, 将分割元素复制给空位. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 快速排序算法
 
@@ -1859,9 +1890,9 @@ fact和power都会在调用时小心地测试==终止条件==.
   <img src="../img/9-1.png">
 </div>
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 快速排序算法
 
@@ -1871,9 +1902,9 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 既然数组已经被分割, 那么可以使用快速排序法递归地对数组的前4个元素(10、3、6和7)和后2个元素(15和18)进行排序. 
 
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 程序: 快速排序
 
@@ -1888,9 +1919,9 @@ In sorted order: 3 4 9 12 16 25 47 51 66 82
 
 对数组进行分割的代码位于一个名为split的独立函数中. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 快速排序
 
@@ -1956,10 +1987,11 @@ int split(int a[], int low, int high)
   return high;
 }
 ```
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 快速排序
 
@@ -1972,6 +2004,4 @@ int split(int a[], int low, int high)
 - 采用不同的方法对小数组进行排序. 
 
 - 使用非递归的快速排序. 
-
-
 
