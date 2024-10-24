@@ -13,7 +13,7 @@ int main(void) {
       }
     }
     if (is_prime) {
-      printf("%d\n", number);
+      printf("%d is a prime number.\n", number);
     }
   }
   return 0;
