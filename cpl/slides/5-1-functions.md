@@ -35,7 +35,7 @@ presentation:
 
 <hr class="width50 center">
 
-## 函数
+## Data Types
 
 
 <div class="bottom8"></div>
