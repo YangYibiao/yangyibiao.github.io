@@ -43,10 +43,9 @@ presentation:
 
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
-#### _yangyibiao@nju.edu.cn_
+#### yangyibiao@nju.edu.cn
 
 <!-- slide vertical=true data-notes="" -->
-
 
 
 ##### 提纲
@@ -65,9 +64,9 @@ presentation:
 
 - 指针作为返回值
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针变量
 
@@ -82,9 +81,9 @@ presentation:
 
 每个字节都有一个唯一的地址. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针变量
 
@@ -95,6 +94,8 @@ presentation:
 <div class="top-2">
     <img src="../img/11-2.png" width=280px>
 </div>
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
