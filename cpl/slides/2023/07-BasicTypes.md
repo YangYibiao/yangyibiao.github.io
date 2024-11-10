@@ -44,9 +44,10 @@ presentation:
 
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
-#### _yangyibiao@nju.edu.cn_
+#### yangyibiao@nju.edu.cn
 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -66,6 +67,10 @@ presentation:
 - 类型定义
 
 - sizeof运算符
+
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -161,9 +166,9 @@ int unsigned      int
 long int          unsigned long int
 ```
 
-<span class="yellow">:fa-weixin:</span> 说明符的顺序无关紧要, 单词`int`可以省略(`long int`可以缩写为`long`)
+说明符的顺序无关紧要, 单词`int`可以省略(`long int`可以缩写为`long`)
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -180,6 +185,7 @@ long int          unsigned long int
 
 - `int`不得短于`short int`, `long int`不得短于`int`
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -203,6 +209,8 @@ long int          unsigned long int
 | unsigned long int  | $0$              | $4,294,967,295$ |
 
 </div>
+
+---
 
 
 
@@ -229,6 +237,7 @@ long int          unsigned long int
 </div>
 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -272,6 +281,7 @@ C99 提供了两个额外的标准整数类型: `long long int, unsigned long lo
 `unsigned long long int`类型值的范围通常为 $0$ 到 $2^{64} – 1 (18,446,744,073,709,551,615)$
 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -470,7 +480,7 @@ scanf("%x", &u);   /* 以16为基数读取u */
 printf("%x", u);   /* 以16为基数输出u */
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -503,7 +513,7 @@ scanf("%lld", &ll);
 printf("%lld", ll);
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -560,7 +570,7 @@ int main(void)
 }
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -753,7 +763,7 @@ ASCII码中, 数字`0~9`用`0110000~0111001`码来表示, 大写字母`A~Z`用`1
 
 </div>
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -773,7 +783,7 @@ ch = '0';   /* 0 */
 ch = ' ';   /* 空格 */
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 字符常量需要用==单引号==括起来, 而不是双引号
+字符常量需要用==单引号==括起来, 而不是双引号
 
 
 
@@ -815,6 +825,7 @@ ch = ch + 1;   /* ch is now 'B' */
 ch++;          /* ch is now 'C' */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -883,7 +894,7 @@ signed char sch;
 unsigned char uch;
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1106,6 +1117,7 @@ scanf不会跳过空白字符
 scanf(" %c", &ch);
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1200,6 +1212,7 @@ do {
 } while (ch != '\n');
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1223,6 +1236,7 @@ while (getchar() != '\n')
   ;
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1322,6 +1336,8 @@ int main(void)
 }
 ```
 
+---
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1351,6 +1367,7 @@ int main(void)
 }
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1491,6 +1508,7 @@ C有大量不同的算术类型, 因此执行隐式转换的规则较为复杂
 
 </div>
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1538,6 +1556,7 @@ d = d + f;     /* f is converted to double            */
 ld = ld + d;   /* d is converted to long double       */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1562,6 +1581,7 @@ f = i;   /* i is converted to float */
 d = f;   /* f is converted to double */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1588,7 +1608,7 @@ i = 1.0e20;   /*** WRONG ***/
 f = 1.0e100;  /*** WRONG ***/
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1726,6 +1746,7 @@ frac_part = f - (int) f;
 i = (int) f; /* f 转换为 int */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1779,6 +1800,7 @@ quotient = dividend / (float) divisor;
 quotient = (float) dividend / (float) divisor;
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1838,6 +1860,7 @@ typedef int Bool;
 Bool flag;    /* 与 int flag相同;  */
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1862,6 +1885,7 @@ typedef float Dollars;
 Dollars cash_in, cash_out;
 ```
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1881,6 +1905,7 @@ typedef double Dollars;
 
 如果不使用类型定义, 就需要找到所有存储美元数量的float类型变量并更改它们的声明
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1902,6 +1927,7 @@ i = 100000;
 
 在整数为32位的机器上没问题, 但在16位的机器上会出错
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1922,6 +1948,7 @@ i = 100000;
 - int类型变量占用的空间较少
 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2011,6 +2038,7 @@ sizeof(char)的值始终为 1, 但其他类型的值可能有所不同
 
 - sizeof i + j会被解释为(sizeof i) + j, 因为一元运算符优先级高于二元运算符
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2033,3 +2061,5 @@ C99 中的printf可以直接显示size_t值, 在转换说明中的一般整数�
 ```C
 printf("Size of int: %zu\n", sizeof(int));
 ```
+
+---
