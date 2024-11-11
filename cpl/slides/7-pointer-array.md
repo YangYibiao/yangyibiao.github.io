@@ -90,7 +90,11 @@ presentation:
 
 如果内存中有n个字节, 我们可以将地址视为$0 \sim n – 1$的数字
 
-![w:10 h:50](img/11-2.png)
+<div class="top-2">
+    <img src="img/11-2.png" width=200px>
+</div>
+
+<!-- ![w:10 h:50](img/11-2.png) -->
 
 $1GB = 2^{30}$字节, $4GB = 4 \times 2^{30} = 2^{32}$字节
 其内存地址编号：$0 \sim 2^{32} - 1$
