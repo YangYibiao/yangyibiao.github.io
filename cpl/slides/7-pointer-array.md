@@ -88,7 +88,7 @@ presentation:
 
 ---
 
-如果内存中有n个字节, 我们可以将地址视为$0 \sim n – 1$的数字
+如果内存中有n个字节, 其地址区间可编号为: $0 \sim n – 1$
 
 <div class="top-2">
     <img src="img/11-2.png" width=200px>
