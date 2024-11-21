@@ -44,6 +44,7 @@
 | 第六讲  | [多维数组](slides/5-1-functions.html)       | 函数 |
 | 第七讲  | [数据类型](slides/6-1-data-types.html)       | 数据类型 |
 | 第八讲  | [指针与数组](slides/7-pointer-array.html)       | 指针与数组 |
+| 第九讲  | [字符串](slides/8-pointers-c-strings.html)            | 字符串 |
 
 <!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
