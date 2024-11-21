@@ -410,9 +410,9 @@ p <span class="token operator">=</span> <span class="token operator">&amp;</span
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
 </section><section vertical="true" data-notes="" lineno="810" class="slide " data-source-line="810" data-h="0" data-v="39"><h5 id="使用const保护参数">使用const保护参数 </h5>
 <hr>
-<p>当参数是指向变量x的指针时, 我们通常假设x将被修改:</p>
+<p>当参数是指向变量x的指针时, x的内容在函数中有可能被(有意无意)修改:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">f</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><p>但是, 有可能 f 只读 x 的值, 而不是修改它.</p>
+</code></pre><p>然而, 常常函数f只通过指针去读值指向的值, 而不是修改它所指向的内容.</p>
 <hr>
 </section><section vertical="true" data-notes="" lineno="828" class="slide " data-source-line="828" data-h="0" data-v="40"><h5 id="使用const保护参数-1">使用const保护参数 </h5>
 <hr>
@@ -489,8 +489,8 @@ p <span class="token operator">=</span> <span class="token function">max</span><
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
 a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">free</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><p>申请后需要释放</p>
-</section><section vertical="true" data-notes="" lineno="985" class="slide " data-source-line="985" data-h="0" data-v="47"><h5 id="函数malloc">函数malloc </h5>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="987" class="slide " data-source-line="987" data-h="0" data-v="47"><h5 id="函数malloc">函数malloc </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdlib.h&gt;</span></span>
 <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> _Size<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -500,7 +500,7 @@ a <span class="token operator">=</span> <span class="token punctuation">(</span>
 <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>array <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>len <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>array <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>len <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>array<span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre><p>示例: <code>malloc.c</code></p>
-</section><section vertical="true" data-notes="" lineno="1009" class="slide " data-source-line="1009" data-h="0" data-v="48"><h5 id="free">free </h5>
+</section><section vertical="true" data-notes="" lineno="1011" class="slide " data-source-line="1011" data-h="0" data-v="48"><h5 id="free">free </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdlib.h&gt;</span></span>
 <span class="token keyword keyword-void">void</span> <span class="token function">free</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span>pointer<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -511,7 +511,7 @@ a <span class="token operator">=</span> <span class="token punctuation">(</span>
 <li>内存泄漏memory leak</li>
 </ul>
 <p>示例: <code>malloc_space.c</code></p>
-</section><section vertical="true" data-notes="" lineno="1032" class="slide " data-source-line="1032" data-h="0" data-v="49"><h5 id="动态内存分配的常见错误">动态内存分配的常见错误 </h5>
+</section><section vertical="true" data-notes="" lineno="1034" class="slide " data-source-line="1034" data-h="0" data-v="49"><h5 id="动态内存分配的常见错误">动态内存分配的常见错误 </h5>
 <hr>
 <ul>
 <li>
@@ -533,7 +533,7 @@ a <span class="token operator">=</span> <span class="token punctuation">(</span>
 <p>释放后依旧试图继续使用</p>
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="1054" class="slide " data-source-line="1054" data-h="0" data-v="50"><h5 id="一些其他memory-allocation函数">一些其他memory allocation函数 </h5>
+</section><section vertical="true" data-notes="" lineno="1056" class="slide " data-source-line="1056" data-h="0" data-v="50"><h5 id="一些其他memory-allocation函数">一些其他memory allocation函数 </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">calloc</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> nitems<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
