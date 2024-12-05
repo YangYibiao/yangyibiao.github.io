@@ -1,0 +1,1165 @@
+<!DOCTYPE html><html><head>
+      <title>10-struct</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <style>
+      /*!
+* reveal.js 4.5.0
+* https://revealjs.com
+* MIT licensed
+*
+* Copyright (C) 2011-2023 Hakim El Hattab, https://hakim.se
+*/
+.reveal .r-stretch,.reveal .stretch{max-width:none;max-height:none}.reveal pre.r-stretch code,.reveal pre.stretch code{height:100%;max-height:100%;box-sizing:border-box}.reveal .r-fit-text{display:inline-block;white-space:nowrap}.reveal .r-stack{display:grid}.reveal .r-stack>*{grid-area:1/1;margin:auto}.reveal .r-hstack,.reveal .r-vstack{display:flex}.reveal .r-hstack img,.reveal .r-hstack video,.reveal .r-vstack img,.reveal .r-vstack video{min-width:0;min-height:0;object-fit:contain}.reveal .r-vstack{flex-direction:column;align-items:center;justify-content:center}.reveal .r-hstack{flex-direction:row;align-items:center;justify-content:center}.reveal .items-stretch{align-items:stretch}.reveal .items-start{align-items:flex-start}.reveal .items-center{align-items:center}.reveal .items-end{align-items:flex-end}.reveal .justify-between{justify-content:space-between}.reveal .justify-around{justify-content:space-around}.reveal .justify-start{justify-content:flex-start}.reveal .justify-center{justify-content:center}.reveal .justify-end{justify-content:flex-end}html.reveal-full-page{width:100%;height:100%;height:100vh;height:calc(var(--vh,1vh) * 100);overflow:hidden}.reveal-viewport{height:100%;overflow:hidden;position:relative;line-height:1;margin:0;background-color:#fff;color:#000}.reveal-viewport:fullscreen{top:0!important;left:0!important;width:100%!important;height:100%!important;transform:none!important}.reveal .fragment{transition:all .2s ease}.reveal .fragment:not(.custom){opacity:0;visibility:hidden;will-change:opacity}.reveal .fragment.visible{opacity:1;visibility:inherit}.reveal .fragment.disabled{transition:none}.reveal .fragment.grow{opacity:1;visibility:inherit}.reveal .fragment.grow.visible{transform:scale(1.3)}.reveal .fragment.shrink{opacity:1;visibility:inherit}.reveal .fragment.shrink.visible{transform:scale(.7)}.reveal .fragment.zoom-in{transform:scale(.1)}.reveal .fragment.zoom-in.visible{transform:none}.reveal .fragment.fade-out{opacity:1;visibility:inherit}.reveal .fragment.fade-out.visible{opacity:0;visibility:hidden}.reveal .fragment.semi-fade-out{opacity:1;visibility:inherit}.reveal .fragment.semi-fade-out.visible{opacity:.5;visibility:inherit}.reveal .fragment.strike{opacity:1;visibility:inherit}.reveal .fragment.strike.visible{text-decoration:line-through}.reveal .fragment.fade-up{transform:translate(0,40px)}.reveal .fragment.fade-up.visible{transform:translate(0,0)}.reveal .fragment.fade-down{transform:translate(0,-40px)}.reveal .fragment.fade-down.visible{transform:translate(0,0)}.reveal .fragment.fade-right{transform:translate(-40px,0)}.reveal .fragment.fade-right.visible{transform:translate(0,0)}.reveal .fragment.fade-left{transform:translate(40px,0)}.reveal .fragment.fade-left.visible{transform:translate(0,0)}.reveal .fragment.current-visible,.reveal .fragment.fade-in-then-out{opacity:0;visibility:hidden}.reveal .fragment.current-visible.current-fragment,.reveal .fragment.fade-in-then-out.current-fragment{opacity:1;visibility:inherit}.reveal .fragment.fade-in-then-semi-out{opacity:0;visibility:hidden}.reveal .fragment.fade-in-then-semi-out.visible{opacity:.5;visibility:inherit}.reveal .fragment.fade-in-then-semi-out.current-fragment{opacity:1;visibility:inherit}.reveal .fragment.highlight-blue,.reveal .fragment.highlight-current-blue,.reveal .fragment.highlight-current-green,.reveal .fragment.highlight-current-red,.reveal .fragment.highlight-green,.reveal .fragment.highlight-red{opacity:1;visibility:inherit}.reveal .fragment.highlight-red.visible{color:#ff2c2d}.reveal .fragment.highlight-green.visible{color:#17ff2e}.reveal .fragment.highlight-blue.visible{color:#1b91ff}.reveal .fragment.highlight-current-red.current-fragment{color:#ff2c2d}.reveal .fragment.highlight-current-green.current-fragment{color:#17ff2e}.reveal .fragment.highlight-current-blue.current-fragment{color:#1b91ff}.reveal:after{content:"";font-style:italic}.reveal iframe{z-index:1}.reveal a{position:relative}@keyframes bounce-right{0%,10%,25%,40%,50%{transform:translateX(0)}20%{transform:translateX(10px)}30%{transform:translateX(-5px)}}@keyframes bounce-left{0%,10%,25%,40%,50%{transform:translateX(0)}20%{transform:translateX(-10px)}30%{transform:translateX(5px)}}@keyframes bounce-down{0%,10%,25%,40%,50%{transform:translateY(0)}20%{transform:translateY(10px)}30%{transform:translateY(-5px)}}.reveal .controls{display:none;position:absolute;top:auto;bottom:12px;right:12px;left:auto;z-index:11;color:#000;pointer-events:none;font-size:10px}.reveal .controls button{position:absolute;padding:0;background-color:transparent;border:0;outline:0;cursor:pointer;color:currentColor;transform:scale(.9999);transition:color .2s ease,opacity .2s ease,transform .2s ease;z-index:2;pointer-events:auto;font-size:inherit;visibility:hidden;opacity:0;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}.reveal .controls .controls-arrow:after,.reveal .controls .controls-arrow:before{content:"";position:absolute;top:0;left:0;width:2.6em;height:.5em;border-radius:.25em;background-color:currentColor;transition:all .15s ease,background-color .8s ease;transform-origin:.2em 50%;will-change:transform}.reveal .controls .controls-arrow{position:relative;width:3.6em;height:3.6em}.reveal .controls .controls-arrow:before{transform:translateX(.5em) translateY(1.55em) rotate(45deg)}.reveal .controls .controls-arrow:after{transform:translateX(.5em) translateY(1.55em) rotate(-45deg)}.reveal .controls .controls-arrow:hover:before{transform:translateX(.5em) translateY(1.55em) rotate(40deg)}.reveal .controls .controls-arrow:hover:after{transform:translateX(.5em) translateY(1.55em) rotate(-40deg)}.reveal .controls .controls-arrow:active:before{transform:translateX(.5em) translateY(1.55em) rotate(36deg)}.reveal .controls .controls-arrow:active:after{transform:translateX(.5em) translateY(1.55em) rotate(-36deg)}.reveal .controls .navigate-left{right:6.4em;bottom:3.2em;transform:translateX(-10px)}.reveal .controls .navigate-left.highlight{animation:bounce-left 2s 50 both ease-out}.reveal .controls .navigate-right{right:0;bottom:3.2em;transform:translateX(10px)}.reveal .controls .navigate-right .controls-arrow{transform:rotate(180deg)}.reveal .controls .navigate-right.highlight{animation:bounce-right 2s 50 both ease-out}.reveal .controls .navigate-up{right:3.2em;bottom:6.4em;transform:translateY(-10px)}.reveal .controls .navigate-up .controls-arrow{transform:rotate(90deg)}.reveal .controls .navigate-down{right:3.2em;bottom:-1.4em;padding-bottom:1.4em;transform:translateY(10px)}.reveal .controls .navigate-down .controls-arrow{transform:rotate(-90deg)}.reveal .controls .navigate-down.highlight{animation:bounce-down 2s 50 both ease-out}.reveal .controls[data-controls-back-arrows=faded] .navigate-up.enabled{opacity:.3}.reveal .controls[data-controls-back-arrows=faded] .navigate-up.enabled:hover{opacity:1}.reveal .controls[data-controls-back-arrows=hidden] .navigate-up.enabled{opacity:0;visibility:hidden}.reveal .controls .enabled{visibility:visible;opacity:.9;cursor:pointer;transform:none}.reveal .controls .enabled.fragmented{opacity:.5}.reveal .controls .enabled.fragmented:hover,.reveal .controls .enabled:hover{opacity:1}.reveal:not(.rtl) .controls[data-controls-back-arrows=faded] .navigate-left.enabled{opacity:.3}.reveal:not(.rtl) .controls[data-controls-back-arrows=faded] .navigate-left.enabled:hover{opacity:1}.reveal:not(.rtl) .controls[data-controls-back-arrows=hidden] .navigate-left.enabled{opacity:0;visibility:hidden}.reveal.rtl .controls[data-controls-back-arrows=faded] .navigate-right.enabled{opacity:.3}.reveal.rtl .controls[data-controls-back-arrows=faded] .navigate-right.enabled:hover{opacity:1}.reveal.rtl .controls[data-controls-back-arrows=hidden] .navigate-right.enabled{opacity:0;visibility:hidden}.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-down,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-up{display:none}.reveal:not(.has-vertical-slides) .controls .navigate-left,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-left{bottom:1.4em;right:5.5em}.reveal:not(.has-vertical-slides) .controls .navigate-right,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-right{bottom:1.4em;right:.5em}.reveal:not(.has-horizontal-slides) .controls .navigate-up{right:1.4em;bottom:5em}.reveal:not(.has-horizontal-slides) .controls .navigate-down{right:1.4em;bottom:.5em}.reveal.has-dark-background .controls{color:#fff}.reveal.has-light-background .controls{color:#000}.reveal.no-hover .controls .controls-arrow:active:before,.reveal.no-hover .controls .controls-arrow:hover:before{transform:translateX(.5em) translateY(1.55em) rotate(45deg)}.reveal.no-hover .controls .controls-arrow:active:after,.reveal.no-hover .controls .controls-arrow:hover:after{transform:translateX(.5em) translateY(1.55em) rotate(-45deg)}@media screen and (min-width:500px){.reveal .controls[data-controls-layout=edges]{top:0;right:0;bottom:0;left:0}.reveal .controls[data-controls-layout=edges] .navigate-down,.reveal .controls[data-controls-layout=edges] .navigate-left,.reveal .controls[data-controls-layout=edges] .navigate-right,.reveal .controls[data-controls-layout=edges] .navigate-up{bottom:auto;right:auto}.reveal .controls[data-controls-layout=edges] .navigate-left{top:50%;left:.8em;margin-top:-1.8em}.reveal .controls[data-controls-layout=edges] .navigate-right{top:50%;right:.8em;margin-top:-1.8em}.reveal .controls[data-controls-layout=edges] .navigate-up{top:.8em;left:50%;margin-left:-1.8em}.reveal .controls[data-controls-layout=edges] .navigate-down{bottom:-.3em;left:50%;margin-left:-1.8em}}.reveal .progress{position:absolute;display:none;height:3px;width:100%;bottom:0;left:0;z-index:10;background-color:rgba(0,0,0,.2);color:#fff}.reveal .progress:after{content:"";display:block;position:absolute;height:10px;width:100%;top:-10px}.reveal .progress span{display:block;height:100%;width:100%;background-color:currentColor;transition:transform .8s cubic-bezier(.26,.86,.44,.985);transform-origin:0 0;transform:scaleX(0)}.reveal .slide-number{position:absolute;display:block;right:8px;bottom:8px;z-index:31;font-family:Helvetica,sans-serif;font-size:12px;line-height:1;color:#fff;background-color:rgba(0,0,0,.4);padding:5px}.reveal .slide-number a{color:currentColor}.reveal .slide-number-delimiter{margin:0 3px}.reveal{position:relative;width:100%;height:100%;overflow:hidden;touch-action:pinch-zoom}.reveal.embedded{touch-action:pan-y}.reveal .slides{position:absolute;width:100%;height:100%;top:0;right:0;bottom:0;left:0;margin:auto;pointer-events:none;overflow:visible;z-index:1;text-align:center;perspective:600px;perspective-origin:50% 40%}.reveal .slides>section{perspective:600px}.reveal .slides>section,.reveal .slides>section>section{display:none;position:absolute;width:100%;pointer-events:auto;z-index:10;transform-style:flat;transition:transform-origin .8s cubic-bezier(.26,.86,.44,.985),transform .8s cubic-bezier(.26,.86,.44,.985),visibility .8s cubic-bezier(.26,.86,.44,.985),opacity .8s cubic-bezier(.26,.86,.44,.985)}.reveal[data-transition-speed=fast] .slides section{transition-duration:.4s}.reveal[data-transition-speed=slow] .slides section{transition-duration:1.2s}.reveal .slides section[data-transition-speed=fast]{transition-duration:.4s}.reveal .slides section[data-transition-speed=slow]{transition-duration:1.2s}.reveal .slides>section.stack{padding-top:0;padding-bottom:0;pointer-events:none;height:100%}.reveal .slides>section.present,.reveal .slides>section>section.present{display:block;z-index:11;opacity:1}.reveal .slides>section:empty,.reveal .slides>section>section:empty,.reveal .slides>section>section[data-background-interactive],.reveal .slides>section[data-background-interactive]{pointer-events:none}.reveal.center,.reveal.center .slides,.reveal.center .slides section{min-height:0!important}.reveal .slides>section:not(.present),.reveal .slides>section>section:not(.present){pointer-events:none}.reveal.overview .slides>section,.reveal.overview .slides>section>section{pointer-events:auto}.reveal .slides>section.future,.reveal .slides>section.future>section,.reveal .slides>section.past,.reveal .slides>section.past>section,.reveal .slides>section>section.future,.reveal .slides>section>section.past{opacity:0}.reveal .slides>section[data-transition=slide].past,.reveal .slides>section[data-transition~=slide-out].past,.reveal.slide .slides>section:not([data-transition]).past{transform:translate(-150%,0)}.reveal .slides>section[data-transition=slide].future,.reveal .slides>section[data-transition~=slide-in].future,.reveal.slide .slides>section:not([data-transition]).future{transform:translate(150%,0)}.reveal .slides>section>section[data-transition=slide].past,.reveal .slides>section>section[data-transition~=slide-out].past,.reveal.slide .slides>section>section:not([data-transition]).past{transform:translate(0,-150%)}.reveal .slides>section>section[data-transition=slide].future,.reveal .slides>section>section[data-transition~=slide-in].future,.reveal.slide .slides>section>section:not([data-transition]).future{transform:translate(0,150%)}.reveal .slides>section[data-transition=linear].past,.reveal .slides>section[data-transition~=linear-out].past,.reveal.linear .slides>section:not([data-transition]).past{transform:translate(-150%,0)}.reveal .slides>section[data-transition=linear].future,.reveal .slides>section[data-transition~=linear-in].future,.reveal.linear .slides>section:not([data-transition]).future{transform:translate(150%,0)}.reveal .slides>section>section[data-transition=linear].past,.reveal .slides>section>section[data-transition~=linear-out].past,.reveal.linear .slides>section>section:not([data-transition]).past{transform:translate(0,-150%)}.reveal .slides>section>section[data-transition=linear].future,.reveal .slides>section>section[data-transition~=linear-in].future,.reveal.linear .slides>section>section:not([data-transition]).future{transform:translate(0,150%)}.reveal .slides section[data-transition=default].stack,.reveal.default .slides section.stack{transform-style:preserve-3d}.reveal .slides>section[data-transition=default].past,.reveal .slides>section[data-transition~=default-out].past,.reveal.default .slides>section:not([data-transition]).past{transform:translate3d(-100%,0,0) rotateY(-90deg) translate3d(-100%,0,0)}.reveal .slides>section[data-transition=default].future,.reveal .slides>section[data-transition~=default-in].future,.reveal.default .slides>section:not([data-transition]).future{transform:translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0)}.reveal .slides>section>section[data-transition=default].past,.reveal .slides>section>section[data-transition~=default-out].past,.reveal.default .slides>section>section:not([data-transition]).past{transform:translate3d(0,-300px,0) rotateX(70deg) translate3d(0,-300px,0)}.reveal .slides>section>section[data-transition=default].future,.reveal .slides>section>section[data-transition~=default-in].future,.reveal.default .slides>section>section:not([data-transition]).future{transform:translate3d(0,300px,0) rotateX(-70deg) translate3d(0,300px,0)}.reveal .slides section[data-transition=convex].stack,.reveal.convex .slides section.stack{transform-style:preserve-3d}.reveal .slides>section[data-transition=convex].past,.reveal .slides>section[data-transition~=convex-out].past,.reveal.convex .slides>section:not([data-transition]).past{transform:translate3d(-100%,0,0) rotateY(-90deg) translate3d(-100%,0,0)}.reveal .slides>section[data-transition=convex].future,.reveal .slides>section[data-transition~=convex-in].future,.reveal.convex .slides>section:not([data-transition]).future{transform:translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0)}.reveal .slides>section>section[data-transition=convex].past,.reveal .slides>section>section[data-transition~=convex-out].past,.reveal.convex .slides>section>section:not([data-transition]).past{transform:translate3d(0,-300px,0) rotateX(70deg) translate3d(0,-300px,0)}.reveal .slides>section>section[data-transition=convex].future,.reveal .slides>section>section[data-transition~=convex-in].future,.reveal.convex .slides>section>section:not([data-transition]).future{transform:translate3d(0,300px,0) rotateX(-70deg) translate3d(0,300px,0)}.reveal .slides section[data-transition=concave].stack,.reveal.concave .slides section.stack{transform-style:preserve-3d}.reveal .slides>section[data-transition=concave].past,.reveal .slides>section[data-transition~=concave-out].past,.reveal.concave .slides>section:not([data-transition]).past{transform:translate3d(-100%,0,0) rotateY(90deg) translate3d(-100%,0,0)}.reveal .slides>section[data-transition=concave].future,.reveal .slides>section[data-transition~=concave-in].future,.reveal.concave .slides>section:not([data-transition]).future{transform:translate3d(100%,0,0) rotateY(-90deg) translate3d(100%,0,0)}.reveal .slides>section>section[data-transition=concave].past,.reveal .slides>section>section[data-transition~=concave-out].past,.reveal.concave .slides>section>section:not([data-transition]).past{transform:translate3d(0,-80%,0) rotateX(-70deg) translate3d(0,-80%,0)}.reveal .slides>section>section[data-transition=concave].future,.reveal .slides>section>section[data-transition~=concave-in].future,.reveal.concave .slides>section>section:not([data-transition]).future{transform:translate3d(0,80%,0) rotateX(70deg) translate3d(0,80%,0)}.reveal .slides section[data-transition=zoom],.reveal.zoom .slides section:not([data-transition]){transition-timing-function:ease}.reveal .slides>section[data-transition=zoom].past,.reveal .slides>section[data-transition~=zoom-out].past,.reveal.zoom .slides>section:not([data-transition]).past{visibility:hidden;transform:scale(16)}.reveal .slides>section[data-transition=zoom].future,.reveal .slides>section[data-transition~=zoom-in].future,.reveal.zoom .slides>section:not([data-transition]).future{visibility:hidden;transform:scale(.2)}.reveal .slides>section>section[data-transition=zoom].past,.reveal .slides>section>section[data-transition~=zoom-out].past,.reveal.zoom .slides>section>section:not([data-transition]).past{transform:scale(16)}.reveal .slides>section>section[data-transition=zoom].future,.reveal .slides>section>section[data-transition~=zoom-in].future,.reveal.zoom .slides>section>section:not([data-transition]).future{transform:scale(.2)}.reveal.cube .slides{perspective:1300px}.reveal.cube .slides section{padding:30px;min-height:700px;backface-visibility:hidden;box-sizing:border-box;transform-style:preserve-3d}.reveal.center.cube .slides section{min-height:0}.reveal.cube .slides section:not(.stack):before{content:"";position:absolute;display:block;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,.1);border-radius:4px;transform:translateZ(-20px)}.reveal.cube .slides section:not(.stack):after{content:"";position:absolute;display:block;width:90%;height:30px;left:5%;bottom:0;background:0 0;z-index:1;border-radius:4px;box-shadow:0 95px 25px rgba(0,0,0,.2);transform:translateZ(-90px) rotateX(65deg)}.reveal.cube .slides>section.stack{padding:0;background:0 0}.reveal.cube .slides>section.past{transform-origin:100% 0;transform:translate3d(-100%,0,0) rotateY(-90deg)}.reveal.cube .slides>section.future{transform-origin:0 0;transform:translate3d(100%,0,0) rotateY(90deg)}.reveal.cube .slides>section>section.past{transform-origin:0 100%;transform:translate3d(0,-100%,0) rotateX(90deg)}.reveal.cube .slides>section>section.future{transform-origin:0 0;transform:translate3d(0,100%,0) rotateX(-90deg)}.reveal.page .slides{perspective-origin:0 50%;perspective:3000px}.reveal.page .slides section{padding:30px;min-height:700px;box-sizing:border-box;transform-style:preserve-3d}.reveal.page .slides section.past{z-index:12}.reveal.page .slides section:not(.stack):before{content:"";position:absolute;display:block;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,.1);transform:translateZ(-20px)}.reveal.page .slides section:not(.stack):after{content:"";position:absolute;display:block;width:90%;height:30px;left:5%;bottom:0;background:0 0;z-index:1;border-radius:4px;box-shadow:0 95px 25px rgba(0,0,0,.2);-webkit-transform:translateZ(-90px) rotateX(65deg)}.reveal.page .slides>section.stack{padding:0;background:0 0}.reveal.page .slides>section.past{transform-origin:0 0;transform:translate3d(-40%,0,0) rotateY(-80deg)}.reveal.page .slides>section.future{transform-origin:100% 0;transform:translate3d(0,0,0)}.reveal.page .slides>section>section.past{transform-origin:0 0;transform:translate3d(0,-40%,0) rotateX(80deg)}.reveal.page .slides>section>section.future{transform-origin:0 100%;transform:translate3d(0,0,0)}.reveal .slides section[data-transition=fade],.reveal.fade .slides section:not([data-transition]),.reveal.fade .slides>section>section:not([data-transition]){transform:none;transition:opacity .5s}.reveal.fade.overview .slides section,.reveal.fade.overview .slides>section>section{transition:none}.reveal .slides section[data-transition=none],.reveal.none .slides section:not([data-transition]){transform:none;transition:none}.reveal .pause-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:#000;visibility:hidden;opacity:0;z-index:100;transition:all 1s ease}.reveal .pause-overlay .resume-button{position:absolute;bottom:20px;right:20px;color:#ccc;border-radius:2px;padding:6px 14px;border:2px solid #ccc;font-size:16px;background:0 0;cursor:pointer}.reveal .pause-overlay .resume-button:hover{color:#fff;border-color:#fff}.reveal.paused .pause-overlay{visibility:visible;opacity:1}.reveal .no-transition,.reveal .no-transition *,.reveal .slides.disable-slide-transitions section{transition:none!important}.reveal .slides.disable-slide-transitions section{transform:none!important}.reveal .backgrounds{position:absolute;width:100%;height:100%;top:0;left:0;perspective:600px}.reveal .slide-background{display:none;position:absolute;width:100%;height:100%;opacity:0;visibility:hidden;overflow:hidden;background-color:rgba(0,0,0,0);transition:all .8s cubic-bezier(.26,.86,.44,.985)}.reveal .slide-background-content{position:absolute;width:100%;height:100%;background-position:50% 50%;background-repeat:no-repeat;background-size:cover}.reveal .slide-background.stack{display:block}.reveal .slide-background.present{opacity:1;visibility:visible;z-index:2}.print-pdf .reveal .slide-background{opacity:1!important;visibility:visible!important}.reveal .slide-background video{position:absolute;width:100%;height:100%;max-width:none;max-height:none;top:0;left:0;object-fit:cover}.reveal .slide-background[data-background-size=contain] video{object-fit:contain}.reveal>.backgrounds .slide-background[data-background-transition=none],.reveal[data-background-transition=none]>.backgrounds .slide-background:not([data-background-transition]){transition:none}.reveal>.backgrounds .slide-background[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background:not([data-background-transition]){opacity:1}.reveal>.backgrounds .slide-background.past[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background.past:not([data-background-transition]){transform:translate(-100%,0)}.reveal>.backgrounds .slide-background.future[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background.future:not([data-background-transition]){transform:translate(100%,0)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){transform:translate(0,-100%)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=slide],.reveal[data-background-transition=slide]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){transform:translate(0,100%)}.reveal>.backgrounds .slide-background.past[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(-100%,0,0) rotateY(-90deg) translate3d(-100%,0,0)}.reveal>.backgrounds .slide-background.future[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(0,-100%,0) rotateX(90deg) translate3d(0,-100%,0)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=convex],.reveal[data-background-transition=convex]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(0,100%,0) rotateX(-90deg) translate3d(0,100%,0)}.reveal>.backgrounds .slide-background.past[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(-100%,0,0) rotateY(90deg) translate3d(-100%,0,0)}.reveal>.backgrounds .slide-background.future[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(100%,0,0) rotateY(-90deg) translate3d(100%,0,0)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){opacity:0;transform:translate3d(0,-100%,0) rotateX(-90deg) translate3d(0,-100%,0)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=concave],.reveal[data-background-transition=concave]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){opacity:0;transform:translate3d(0,100%,0) rotateX(90deg) translate3d(0,100%,0)}.reveal>.backgrounds .slide-background[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background:not([data-background-transition]){transition-timing-function:ease}.reveal>.backgrounds .slide-background.past[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background.past:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(16)}.reveal>.backgrounds .slide-background.future[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background.future:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(.2)}.reveal>.backgrounds .slide-background>.slide-background.past[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background>.slide-background.past:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(16)}.reveal>.backgrounds .slide-background>.slide-background.future[data-background-transition=zoom],.reveal[data-background-transition=zoom]>.backgrounds .slide-background>.slide-background.future:not([data-background-transition]){opacity:0;visibility:hidden;transform:scale(.2)}.reveal[data-transition-speed=fast]>.backgrounds .slide-background{transition-duration:.4s}.reveal[data-transition-speed=slow]>.backgrounds .slide-background{transition-duration:1.2s}.reveal [data-auto-animate-target^=unmatched]{will-change:opacity}.reveal section[data-auto-animate]:not(.stack):not([data-auto-animate=running]) [data-auto-animate-target^=unmatched]{opacity:0}.reveal.overview{perspective-origin:50% 50%;perspective:700px}.reveal.overview .slides{-moz-transform-style:preserve-3d}.reveal.overview .slides section{height:100%;top:0!important;opacity:1!important;overflow:hidden;visibility:visible!important;cursor:pointer;box-sizing:border-box}.reveal.overview .slides section.present,.reveal.overview .slides section:hover{outline:10px solid rgba(150,150,150,.4);outline-offset:10px}.reveal.overview .slides section .fragment{opacity:1;transition:none}.reveal.overview .slides section:after,.reveal.overview .slides section:before{display:none!important}.reveal.overview .slides>section.stack{padding:0;top:0!important;background:0 0;outline:0;overflow:visible}.reveal.overview .backgrounds{perspective:inherit;-moz-transform-style:preserve-3d}.reveal.overview .backgrounds .slide-background{opacity:1;visibility:visible;outline:10px solid rgba(150,150,150,.1);outline-offset:10px}.reveal.overview .backgrounds .slide-background.stack{overflow:visible}.reveal.overview .slides section,.reveal.overview-deactivating .slides section{transition:none}.reveal.overview .backgrounds .slide-background,.reveal.overview-deactivating .backgrounds .slide-background{transition:none}.reveal.rtl .slides,.reveal.rtl .slides h1,.reveal.rtl .slides h2,.reveal.rtl .slides h3,.reveal.rtl .slides h4,.reveal.rtl .slides h5,.reveal.rtl .slides h6{direction:rtl;font-family:sans-serif}.reveal.rtl code,.reveal.rtl pre{direction:ltr}.reveal.rtl ol,.reveal.rtl ul{text-align:right}.reveal.rtl .progress span{transform-origin:100% 0}.reveal.has-parallax-background .backgrounds{transition:all .8s ease}.reveal.has-parallax-background[data-transition-speed=fast] .backgrounds{transition-duration:.4s}.reveal.has-parallax-background[data-transition-speed=slow] .backgrounds{transition-duration:1.2s}.reveal>.overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1000;background:rgba(0,0,0,.9);transition:all .3s ease}.reveal>.overlay .spinner{position:absolute;display:block;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;z-index:10;background-image:url(data:image/gif;base64,R0lGODlhIAAgAPMAAJmZmf%2F%2F%2F6%2Bvr8nJybW1tcDAwOjo6Nvb26ioqKOjo7Ozs%2FLy8vz8%2FAAAAAAAAAAAACH%2FC05FVFNDQVBFMi4wAwEAAAAh%2FhpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh%2BQQJCgAAACwAAAAAIAAgAAAE5xDISWlhperN52JLhSSdRgwVo1ICQZRUsiwHpTJT4iowNS8vyW2icCF6k8HMMBkCEDskxTBDAZwuAkkqIfxIQyhBQBFvAQSDITM5VDW6XNE4KagNh6Bgwe60smQUB3d4Rz1ZBApnFASDd0hihh12BkE9kjAJVlycXIg7CQIFA6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YJvpJivxNaGmLHT0VnOgSYf0dZXS7APdpB309RnHOG5gDqXGLDaC457D1zZ%2FV%2FnmOM82XiHRLYKhKP1oZmADdEAAAh%2BQQJCgAAACwAAAAAIAAgAAAE6hDISWlZpOrNp1lGNRSdRpDUolIGw5RUYhhHukqFu8DsrEyqnWThGvAmhVlteBvojpTDDBUEIFwMFBRAmBkSgOrBFZogCASwBDEY%2FCZSg7GSE0gSCjQBMVG023xWBhklAnoEdhQEfyNqMIcKjhRsjEdnezB%2BA4k8gTwJhFuiW4dokXiloUepBAp5qaKpp6%2BHo7aWW54wl7obvEe0kRuoplCGepwSx2jJvqHEmGt6whJpGpfJCHmOoNHKaHx61WiSR92E4lbFoq%2BB6QDtuetcaBPnW6%2BO7wDHpIiK9SaVK5GgV543tzjgGcghAgAh%2BQQJCgAAACwAAAAAIAAgAAAE7hDISSkxpOrN5zFHNWRdhSiVoVLHspRUMoyUakyEe8PTPCATW9A14E0UvuAKMNAZKYUZCiBMuBakSQKG8G2FzUWox2AUtAQFcBKlVQoLgQReZhQlCIJesQXI5B0CBnUMOxMCenoCfTCEWBsJColTMANldx15BGs8B5wlCZ9Po6OJkwmRpnqkqnuSrayqfKmqpLajoiW5HJq7FL1Gr2mMMcKUMIiJgIemy7xZtJsTmsM4xHiKv5KMCXqfyUCJEonXPN2rAOIAmsfB3uPoAK%2B%2BG%2Bw48edZPK%2BM6hLJpQg484enXIdQFSS1u6UhksENEQAAIfkECQoAAAAsAAAAACAAIAAABOcQyEmpGKLqzWcZRVUQnZYg1aBSh2GUVEIQ2aQOE%2BG%2BcD4ntpWkZQj1JIiZIogDFFyHI0UxQwFugMSOFIPJftfVAEoZLBbcLEFhlQiqGp1Vd140AUklUN3eCA51C1EWMzMCezCBBmkxVIVHBWd3HHl9JQOIJSdSnJ0TDKChCwUJjoWMPaGqDKannasMo6WnM562R5YluZRwur0wpgqZE7NKUm%2BFNRPIhjBJxKZteWuIBMN4zRMIVIhffcgojwCF117i4nlLnY5ztRLsnOk%2BaV%2BoJY7V7m76PdkS4trKcdg0Zc0tTcKkRAAAIfkECQoAAAAsAAAAACAAIAAABO4QyEkpKqjqzScpRaVkXZWQEximw1BSCUEIlDohrft6cpKCk5xid5MNJTaAIkekKGQkWyKHkvhKsR7ARmitkAYDYRIbUQRQjWBwJRzChi9CRlBcY1UN4g0%2FVNB0AlcvcAYHRyZPdEQFYV8ccwR5HWxEJ02YmRMLnJ1xCYp0Y5idpQuhopmmC2KgojKasUQDk5BNAwwMOh2RtRq5uQuPZKGIJQIGwAwGf6I0JXMpC8C7kXWDBINFMxS4DKMAWVWAGYsAdNqW5uaRxkSKJOZKaU3tPOBZ4DuK2LATgJhkPJMgTwKCdFjyPHEnKxFCDhEAACH5BAkKAAAALAAAAAAgACAAAATzEMhJaVKp6s2nIkolIJ2WkBShpkVRWqqQrhLSEu9MZJKK9y1ZrqYK9WiClmvoUaF8gIQSNeF1Er4MNFn4SRSDARWroAIETg1iVwuHjYB1kYc1mwruwXKC9gmsJXliGxc%2BXiUCby9ydh1sOSdMkpMTBpaXBzsfhoc5l58Gm5yToAaZhaOUqjkDgCWNHAULCwOLaTmzswadEqggQwgHuQsHIoZCHQMMQgQGubVEcxOPFAcMDAYUA85eWARmfSRQCdcMe0zeP1AAygwLlJtPNAAL19DARdPzBOWSm1brJBi45soRAWQAAkrQIykShQ9wVhHCwCQCACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiRMDjI0Fd30%2FiI2UA5GSS5UDj2l6NoqgOgN4gksEBgYFf0FDqKgHnyZ9OX8HrgYHdHpcHQULXAS2qKpENRg7eAMLC7kTBaixUYFkKAzWAAnLC7FLVxLWDBLKCwaKTULgEwbLA4hJtOkSBNqITT3xEgfLpBtzE%2FjiuL04RGEBgwWhShRgQExHBAAh%2BQQJCgAAACwAAAAAIAAgAAAE7xDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfZiCqGk5dTESJeaOAlClzsJsqwiJwiqnFrb2nS9kmIcgEsjQydLiIlHehhpejaIjzh9eomSjZR%2BipslWIRLAgMDOR2DOqKogTB9pCUJBagDBXR6XB0EBkIIsaRsGGMMAxoDBgYHTKJiUYEGDAzHC9EACcUGkIgFzgwZ0QsSBcXHiQvOwgDdEwfFs0sDzt4S6BK4xYjkDOzn0unFeBzOBijIm1Dgmg5YFQwsCMjp1oJ8LyIAACH5BAkKAAAALAAAAAAgACAAAATwEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GGl6NoiPOH16iZKNlH6KmyWFOggHhEEvAwwMA0N9GBsEC6amhnVcEwavDAazGwIDaH1ipaYLBUTCGgQDA8NdHz0FpqgTBwsLqAbWAAnIA4FWKdMLGdYGEgraigbT0OITBcg5QwPT4xLrROZL6AuQAPUS7bxLpoWidY0JtxLHKhwwMJBTHgPKdEQAACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GAULDJCRiXo1CpGXDJOUjY%2BYip9DhToJA4RBLwMLCwVDfRgbBAaqqoZ1XBMHswsHtxtFaH1iqaoGNgAIxRpbFAgfPQSqpbgGBqUD1wBXeCYp1AYZ19JJOYgH1KwA4UBvQwXUBxPqVD9L3sbp2BNk2xvvFPJd%2BMFCN6HAAIKgNggY0KtEBAAh%2BQQJCgAAACwAAAAAIAAgAAAE6BDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfYIDMaAFdTESJeaEDAIMxYFqrOUaNW4E4ObYcCXaiBVEgULe0NJaxxtYksjh2NLkZISgDgJhHthkpU4mW6blRiYmZOlh4JWkDqILwUGBnE6TYEbCgevr0N1gH4At7gHiRpFaLNrrq8HNgAJA70AWxQIH1%2BvsYMDAzZQPC9VCNkDWUhGkuE5PxJNwiUK4UfLzOlD4WvzAHaoG9nxPi5d%2BjYUqfAhhykOFwJWiAAAIfkECQoAAAAsAAAAACAAIAAABPAQyElpUqnqzaciSoVkXVUMFaFSwlpOCcMYlErAavhOMnNLNo8KsZsMZItJEIDIFSkLGQoQTNhIsFehRww2CQLKF0tYGKYSg%2BygsZIuNqJksKgbfgIGepNo2cIUB3V1B3IvNiBYNQaDSTtfhhx0CwVPI0UJe0%2Bbm4g5VgcGoqOcnjmjqDSdnhgEoamcsZuXO1aWQy8KAwOAuTYYGwi7w5h%2BKr0SJ8MFihpNbx%2B4Erq7BYBuzsdiH1jCAzoSfl0rVirNbRXlBBlLX%2BBP0XJLAPGzTkAuAOqb0WT5AH7OcdCm5B8TgRwSRKIHQtaLCwg1RAAAOwAAAAAAAAAAAA%3D%3D);visibility:visible;opacity:.6;transition:all .3s ease}.reveal>.overlay header{position:absolute;left:0;top:0;width:100%;padding:5px;z-index:2;box-sizing:border-box}.reveal>.overlay header a{display:inline-block;width:40px;height:40px;line-height:36px;padding:0 10px;float:right;opacity:.6;box-sizing:border-box}.reveal>.overlay header a:hover{opacity:1}.reveal>.overlay header a .icon{display:inline-block;width:20px;height:20px;background-position:50% 50%;background-size:100%;background-repeat:no-repeat}.reveal>.overlay header a.close .icon{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABkklEQVRYR8WX4VHDMAxG6wnoJrABZQPYBCaBTWAD2g1gE5gg6OOsXuxIlr40d81dfrSJ9V4c2VLK7spHuTJ/5wpM07QXuXc5X0opX2tEJcadjHuV80li/FgxTIEK/5QBCICBD6xEhSMGHgQPgBgLiYVAB1dpSqKDawxTohFw4JSEA3clzgIBPCURwE2JucBR7rhPJJv5OpJwDX+SfDjgx1wACQeJG1aChP9K/IMmdZ8DtESV1WyP3Bt4MwM6sj4NMxMYiqUWHQu4KYA/SYkIjOsm3BXYWMKFDwU2khjCQ4ELJUJ4SmClRArOCmSXGuKma0fYD5CbzHxFpCSGAhfAVSSUGDUk2BWZaff2g6GE15BsBQ9nwmpIGDiyHQddwNTMKkbZaf9fajXQca1EX44puJZUsnY0ObGmITE3GVLCbEhQUjGVt146j6oasWN+49Vph2w1pZ5EansNZqKBm1txbU57iRRcZ86RWMDdWtBJUHBHwoQPi1GV+JCbntmvok7iTX4/Up9mgyTc/FJYDTcndgH/AA5A/CHsyEkVAAAAAElFTkSuQmCC)}.reveal>.overlay header a.external .icon{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAcElEQVRYR+2WSQoAIQwEzf8f7XiOMkUQxUPlGkM3hVmiQfQR9GYnH1SsAQlI4DiBqkCMoNb9y2e90IAEJPAcgdznU9+engMaeJ7Azh5Y1U67gAho4DqBqmB1buAf0MB1AlVBek83ZPkmJMGc1wAR+AAqod/B97TRpQAAAABJRU5ErkJggg==)}.reveal>.overlay .viewport{position:absolute;display:flex;top:50px;right:0;bottom:0;left:0}.reveal>.overlay.overlay-preview .viewport iframe{width:100%;height:100%;max-width:100%;max-height:100%;border:0;opacity:0;visibility:hidden;transition:all .3s ease}.reveal>.overlay.overlay-preview.loaded .viewport iframe{opacity:1;visibility:visible}.reveal>.overlay.overlay-preview.loaded .viewport-inner{position:absolute;z-index:-1;left:0;top:45%;width:100%;text-align:center;letter-spacing:normal}.reveal>.overlay.overlay-preview .x-frame-error{opacity:0;transition:opacity .3s ease .3s}.reveal>.overlay.overlay-preview.loaded .x-frame-error{opacity:1}.reveal>.overlay.overlay-preview.loaded .spinner{opacity:0;visibility:hidden;transform:scale(.2)}.reveal>.overlay.overlay-help .viewport{overflow:auto;color:#fff}.reveal>.overlay.overlay-help .viewport .viewport-inner{width:600px;margin:auto;padding:20px 20px 80px 20px;text-align:center;letter-spacing:normal}.reveal>.overlay.overlay-help .viewport .viewport-inner .title{font-size:20px}.reveal>.overlay.overlay-help .viewport .viewport-inner table{border:1px solid #fff;border-collapse:collapse;font-size:16px}.reveal>.overlay.overlay-help .viewport .viewport-inner table td,.reveal>.overlay.overlay-help .viewport .viewport-inner table th{width:200px;padding:14px;border:1px solid #fff;vertical-align:middle}.reveal>.overlay.overlay-help .viewport .viewport-inner table th{padding-top:20px;padding-bottom:20px}.reveal .playback{position:absolute;left:15px;bottom:20px;z-index:30;cursor:pointer;transition:all .4s ease;-webkit-tap-highlight-color:transparent}.reveal.overview .playback{opacity:0;visibility:hidden}.reveal .hljs{min-height:100%}.reveal .hljs table{margin:initial}.reveal .hljs-ln-code,.reveal .hljs-ln-numbers{padding:0;border:0}.reveal .hljs-ln-numbers{opacity:.6;padding-right:.75em;text-align:right;vertical-align:top}.reveal .hljs.has-highlights tr:not(.highlight-line){opacity:.4}.reveal .hljs.has-highlights.fragment{transition:all .2s ease}.reveal .hljs:not(:first-child).fragment{position:absolute;top:0;left:0;width:100%;box-sizing:border-box}.reveal pre[data-auto-animate-target]{overflow:hidden}.reveal pre[data-auto-animate-target] code{height:100%}.reveal .roll{display:inline-block;line-height:1.2;overflow:hidden;vertical-align:top;perspective:400px;perspective-origin:50% 50%}.reveal .roll:hover{background:0 0;text-shadow:none}.reveal .roll span{display:block;position:relative;padding:0 2px;pointer-events:none;transition:all .4s ease;transform-origin:50% 0;transform-style:preserve-3d;backface-visibility:hidden}.reveal .roll:hover span{background:rgba(0,0,0,.5);transform:translate3d(0,0,-45px) rotateX(90deg)}.reveal .roll span:after{content:attr(data-title);display:block;position:absolute;left:0;top:0;padding:0 2px;backface-visibility:hidden;transform-origin:50% 0;transform:translate3d(0,110%,0) rotateX(-90deg)}.reveal aside.notes{display:none}.reveal .speaker-notes{display:none;position:absolute;width:33.3333333333%;height:100%;top:0;left:100%;padding:14px 18px 14px 18px;z-index:1;font-size:18px;line-height:1.4;border:1px solid rgba(0,0,0,.05);color:#222;background-color:#f5f5f5;overflow:auto;box-sizing:border-box;text-align:left;font-family:Helvetica,sans-serif;-webkit-overflow-scrolling:touch}.reveal .speaker-notes .notes-placeholder{color:#ccc;font-style:italic}.reveal .speaker-notes:focus{outline:0}.reveal .speaker-notes:before{content:"Speaker notes";display:block;margin-bottom:10px;opacity:.5}.reveal.show-notes{max-width:75%;overflow:visible}.reveal.show-notes .speaker-notes{display:block}@media screen and (min-width:1600px){.reveal .speaker-notes{font-size:20px}}@media screen and (max-width:1024px){.reveal.show-notes{border-left:0;max-width:none;max-height:70%;max-height:70vh;overflow:visible}.reveal.show-notes .speaker-notes{top:100%;left:0;width:100%;height:30vh;border:0}}@media screen and (max-width:600px){.reveal.show-notes{max-height:60%;max-height:60vh}.reveal.show-notes .speaker-notes{top:100%;height:40vh}.reveal .speaker-notes{font-size:14px}}.reveal .jump-to-slide{position:absolute;top:15px;left:15px;z-index:30;font-size:32px;-webkit-tap-highlight-color:transparent}.reveal .jump-to-slide-input{background:0 0;padding:8px;font-size:inherit;color:currentColor;border:0}.reveal .jump-to-slide-input::placeholder{color:currentColor;opacity:.5}.reveal.has-dark-background .jump-to-slide-input{color:#fff}.reveal.has-light-background .jump-to-slide-input{color:#222}.reveal .jump-to-slide-input:focus{outline:0}.zoomed .reveal *,.zoomed .reveal :after,.zoomed .reveal :before{backface-visibility:visible!important}.zoomed .reveal .controls,.zoomed .reveal .progress{opacity:0}.zoomed .reveal .roll span{background:0 0}.zoomed .reveal .roll span:after{visibility:hidden}html.print-pdf *{-webkit-print-color-adjust:exact}html.print-pdf{width:100%;height:100%;overflow:visible}html.print-pdf body{margin:0 auto!important;border:0;padding:0;float:none!important;overflow:visible}html.print-pdf .nestedarrow,html.print-pdf .reveal .controls,html.print-pdf .reveal .playback,html.print-pdf .reveal .progress,html.print-pdf .reveal.overview,html.print-pdf .state-background{display:none!important}html.print-pdf .reveal pre code{overflow:hidden!important}html.print-pdf .reveal{width:auto!important;height:auto!important;overflow:hidden!important}html.print-pdf .reveal .slides{position:static;width:100%!important;height:auto!important;zoom:1!important;pointer-events:initial;left:auto;top:auto;margin:0!important;padding:0!important;overflow:visible;display:block;perspective:none;perspective-origin:50% 50%}html.print-pdf .reveal .slides .pdf-page{position:relative;overflow:hidden;z-index:1;page-break-after:always}html.print-pdf .reveal .slides section{visibility:visible!important;display:block!important;position:absolute!important;margin:0!important;padding:0!important;box-sizing:border-box!important;min-height:1px;opacity:1!important;transform-style:flat!important;transform:none!important}html.print-pdf .reveal section.stack{position:relative!important;margin:0!important;padding:0!important;page-break-after:avoid!important;height:auto!important;min-height:auto!important}html.print-pdf .reveal img{box-shadow:none}html.print-pdf .reveal .backgrounds{display:none}html.print-pdf .reveal .slide-background{display:block!important;position:absolute;top:0;left:0;width:100%;height:100%;z-index:auto!important}html.print-pdf .reveal.show-notes{max-width:none;max-height:none}html.print-pdf .reveal .speaker-notes-pdf{display:block;width:100%;height:auto;max-height:none;top:auto;right:auto;bottom:auto;left:auto;z-index:100}html.print-pdf .reveal .speaker-notes-pdf[data-layout=separate-page]{position:relative;color:inherit;background-color:transparent;padding:20px;page-break-after:always;border:0}html.print-pdf .reveal .slide-number-pdf{display:block;position:absolute;font-size:14px}html.print-pdf .aria-status{display:none}@media print{html:not(.print-pdf){overflow:visible;width:auto;height:auto}html:not(.print-pdf) body{margin:0;padding:0;overflow:visible}html:not(.print-pdf) .reveal{background:#fff;font-size:20pt}html:not(.print-pdf) .reveal .backgrounds,html:not(.print-pdf) .reveal .controls,html:not(.print-pdf) .reveal .progress,html:not(.print-pdf) .reveal .slide-number,html:not(.print-pdf) .reveal .state-background{display:none!important}html:not(.print-pdf) .reveal li,html:not(.print-pdf) .reveal p,html:not(.print-pdf) .reveal td{font-size:20pt!important;color:#000}html:not(.print-pdf) .reveal h1,html:not(.print-pdf) .reveal h2,html:not(.print-pdf) .reveal h3,html:not(.print-pdf) .reveal h4,html:not(.print-pdf) .reveal h5,html:not(.print-pdf) .reveal h6{color:#000!important;height:auto;line-height:normal;text-align:left;letter-spacing:normal}html:not(.print-pdf) .reveal h1{font-size:28pt!important}html:not(.print-pdf) .reveal h2{font-size:24pt!important}html:not(.print-pdf) .reveal h3{font-size:22pt!important}html:not(.print-pdf) .reveal h4{font-size:22pt!important;font-variant:small-caps}html:not(.print-pdf) .reveal h5{font-size:21pt!important}html:not(.print-pdf) .reveal h6{font-size:20pt!important;font-style:italic}html:not(.print-pdf) .reveal a:link,html:not(.print-pdf) .reveal a:visited{color:#000!important;font-weight:700;text-decoration:underline}html:not(.print-pdf) .reveal div,html:not(.print-pdf) .reveal ol,html:not(.print-pdf) .reveal p,html:not(.print-pdf) .reveal ul{visibility:visible;position:static;width:auto;height:auto;display:block;overflow:visible;margin:0;text-align:left!important}html:not(.print-pdf) .reveal pre,html:not(.print-pdf) .reveal table{margin-left:0;margin-right:0}html:not(.print-pdf) .reveal pre code{padding:20px}html:not(.print-pdf) .reveal blockquote{margin:20px 0}html:not(.print-pdf) .reveal .slides{position:static!important;width:auto!important;height:auto!important;left:0!important;top:0!important;margin-left:0!important;margin-top:0!important;padding:0!important;zoom:1!important;transform:none!important;overflow:visible!important;display:block!important;text-align:left!important;perspective:none;perspective-origin:50% 50%}html:not(.print-pdf) .reveal .slides section{visibility:visible!important;position:static!important;width:auto!important;height:auto!important;display:block!important;overflow:visible!important;left:0!important;top:0!important;margin-left:0!important;margin-top:0!important;padding:60px 20px!important;z-index:auto!important;opacity:1!important;page-break-after:always!important;transform-style:flat!important;transform:none!important;transition:none!important}html:not(.print-pdf) .reveal .slides section.stack{padding:0!important}html:not(.print-pdf) .reveal .slides section:last-of-type{page-break-after:avoid!important}html:not(.print-pdf) .reveal .slides section .fragment{opacity:1!important;visibility:visible!important;transform:none!important}html:not(.print-pdf) .reveal .r-fit-text{white-space:normal!important}html:not(.print-pdf) .reveal section img{display:block;margin:15px 0;background:#fff;border:1px solid #666;box-shadow:none}html:not(.print-pdf) .reveal section small{font-size:.8em}html:not(.print-pdf) .reveal .hljs{max-height:100%;white-space:pre-wrap;word-wrap:break-word;word-break:break-word;font-size:15pt}html:not(.print-pdf) .reveal .hljs .hljs-ln-numbers{white-space:nowrap}html:not(.print-pdf) .reveal .hljs td{font-size:inherit!important;color:inherit!important}}
+      
+      </style>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+      
+      
+        <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-] ::-moz-selection,code[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:#b3d4fc}code[class*=language-] ::selection,code[class*=language-]::selection,pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export" data-presentation-mode="">
+    
+    
+      <div class="crossnote markdown-preview  " data-presentation-mode="">
+      
+    <div style="display:none;">
+<p><link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.css"><br>
+<link rel="stylesheet" href="../css/theme/solarized.css"><br>
+<link rel="stylesheet" href="../css/logo.css"><br>
+<link rel="stylesheet" href="../css/font.css"><br>
+<link rel="stylesheet" href="../css/color.css"><br>
+<link rel="stylesheet" href="../css/margin.css"><br>
+<link rel="stylesheet" href="../css/table.css"><br>
+<link rel="stylesheet" href="../css/main.css"><br>
+<script type="text/javascript" src="../plugin/zoom/zoom.js"></script><br>
+<script type="text/javascript" src="../plugin/customcontrols/plugin.js"></script><br>
+<link rel="stylesheet" href="../plugin/customcontrols/style.css"><br>
+<script type="text/javascript" src="../plugin/chalkboard/plugin.js"></script><br>
+<link rel="stylesheet" href="../plugin/chalkboard/style.css"><br>
+<script type="text/javascript" src="../plugin/menu/menu.js"></script><br>
+<script type="text/javascript" src="../js/anychart/anychart-core.min.js"></script><br>
+<script type="text/javascript" src="../js/anychart/anychart-venn.min.js"></script><br>
+<script type="text/javascript" src="../js/anychart/pastel.min.js"></script><br>
+<script type="text/javascript" src="../js/anychart/venn-ml.js"></script><br>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script></p>
+</div>
+    <div class="reveal">
+      <div class="slides">
+        <section><section data-notes="" lineno="33" class="slide " data-source-line="33" data-h="0" data-v="0"><div class="bottom20"></div>
+<h1 id="c语言程序设计基础">C语言程序设计基础 </h1>
+<hr class="width50 center">
+<h2 id="结构体-联合和枚举">结构体、联合和枚举 </h2>
+<div class="bottom8"></div>
+<h3 id="计算机系-nbspnbsp-杨已彪">计算机系 &nbsp;&nbsp; 杨已彪 </h3>
+<h4 id="yangyibiaonjueducn"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
+</section><section vertical="true" data-notes="" lineno="52" class="slide " data-source-line="52" data-h="0" data-v="1"><h5 id="提纲">提纲 </h5>
+<hr>
+<ul>
+<li>
+<p><a href="#/structvar">结构体变量</a></p>
+</li>
+<li>
+<p><a href="#/structtype">结构体类型</a></p>
+</li>
+<li>
+<p><a href="#/nestedarrandstruct">嵌套的数组和结构体</a></p>
+</li>
+<li>
+<p><a href="#/union">联合</a></p>
+</li>
+<li>
+<p><a href="#/enum">枚举</a></p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="70" class="slide " data-source-line="70" data-h="0" data-v="2"><h5 id="结构体变量">结构体变量 </h5>
+<hr>
+<p>结构体与数组的特性不同.</p>
+<ul>
+<li>
+<p>结构体的元素(成员)不需要具有相同的类型.</p>
+</li>
+<li>
+<p>结构体的成员有名字; 为了选择特定的成员, 需要指明它的名字, 而不是它的位置.</p>
+</li>
+</ul>
+<p>在某些语言中, 结构体称为记录, 成员称为字段.</p>
+</section><section id="structvar" vertical="true" data-notes="" lineno="86" class="slide " data-source-line="86" data-h="0" data-v="3"><h5 id="声明结构体变量">声明结构体变量 </h5>
+<hr>
+<p>在存储相关数据项的集合时, 结构体是个好选择.</p>
+<p>声明两个结构体变量, 用于存储仓库中零件的信息:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="107" class="slide " data-source-line="107" data-h="0" data-v="4"><h5 id="声明结构体变量-1">声明结构体变量 </h5>
+<hr>
+<p>结构体的成员按照声明的顺序存储在内存中. part1:</p>
+<div class="top-2">
+  <img src="img/15-1.png" height="500px">
+</div>
+</section><section vertical="true" data-notes="" lineno="121" class="slide " data-source-line="121" data-h="0" data-v="5"><h5 id="声明结构体变量-2">声明结构体变量 </h5>
+<hr>
+<p>假设:</p>
+<ul>
+<li>
+<p>part1位于地址2000.</p>
+</li>
+<li>
+<p>整数占用4个字节.</p>
+</li>
+<li>
+<p>NAME_LEN的值为25.</p>
+</li>
+<li>
+<p>成员之间没有间隙.</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="139" class="slide " data-source-line="139" data-h="0" data-v="6"><h5 id="声明结构体变量-3">声明结构体变量 </h5>
+<hr>
+<p>结构体的抽象表示:</p>
+<div class="top-2">
+  <img src="img/15-2.png">
+</div>
+<p>成员的值将在稍后放入盒子中.</p>
+</section><section vertical="true" data-notes="" lineno="155" class="slide " data-source-line="155" data-h="0" data-v="7"><h5 id="声明结构体变量-4">声明结构体变量 </h5>
+<hr>
+<p>每个结构体代表一种新的作用域.</p>
+<p>在该作用域内声明的任何名称都不会与程序中的其他名称冲突.</p>
+<p>每个结构体都为它的成员设置了独立的名字空间.</p>
+</section><section vertical="true" data-notes="" lineno="169" class="slide " data-source-line="169" data-h="0" data-v="8"><h5 id="声明结构体变量-5">声明结构体变量 </h5>
+<hr>
+<p>例如, 以下声明可以出现在同一程序中:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> sex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> employee1<span class="token punctuation">,</span> employee2<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="194" class="slide " data-source-line="194" data-h="0" data-v="9"><h5 id="初始化结构体变量">初始化结构体变量 </h5>
+<hr>
+<p>结构体变量可以在声明的同时进行初始化:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+ <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  part2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">914</span><span class="token punctuation">,</span> <span class="token string">"Printer cable"</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>part1初始化后的样子:</p>
+<div class="top-2">
+  <img src="img/15-3.png">
+</div>
+</section><section vertical="true" data-notes="" lineno="219" class="slide " data-source-line="219" data-h="0" data-v="10"><h5 id="初始化结构体变量-1">初始化结构体变量 </h5>
+<hr>
+<p>结构体初始化式遵循类似于数组初始化式的规则.</p>
+<p>结构体初始化式中使用的表达式必须是常量. (这个限制在 C99 中放宽了)</p>
+<p>初始化式的成员数可以少于它所初始化的结构体.</p>
+<p>任何"剩余的"成员用 0 作为其初始值.</p>
+</section><section vertical="true" data-notes="" lineno="235" class="slide " data-source-line="235" data-h="0" data-v="11"><h5 id="指定初始化式c99">指定初始化式(C99) </h5>
+<hr>
+<p>C99 的结构体也可以使用指定初始化.</p>
+<p>前面示例中part1的初始化式:</p>
+<p><code>{528, "Disk drive", 10}</code></p>
+<p>指定初始化式在初始化时需要对每个元素名赋值:</p>
+<p><code>{.number = 528, .name = "Disk drive", .on_hand = 10}</code></p>
+<p>点号和成员名称的组合称为<strong>指示符</strong>.</p>
+</section><section vertical="true" data-notes="" lineno="255" class="slide " data-source-line="255" data-h="0" data-v="12"><h5 id="指定初始化式c99-1">指定初始化式(C99) </h5>
+<hr>
+<p>指定初始化式更容易阅读和检查正确性.</p>
+<p>此外, 指定初始化式中的值不必与成员在结构体中的顺序一致.</p>
+<ul>
+<li>
+<p>程序员不必记住最初声明成员的顺序.</p>
+</li>
+<li>
+<p>将来可以更改成员的顺序, 而不会影响指定初始值化式.</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="272" class="slide " data-source-line="272" data-h="0" data-v="13"><h5 id="指定初始化式c99-2">指定初始化式(C99) </h5>
+<hr>
+<p>指定初始化式中列出的值的前面不一定要有指示符.</p>
+<p>例子:</p>
+<p><code>{.number = 528, "Disk drive", .on_hand = 10}</code></p>
+<p>编译器认为"Disk drive"用于初始化结构体中number后面的成员.</p>
+<p>初始化式中没有涉及的成员都设为0.</p>
+</section><section vertical="true" data-notes="" lineno="290" class="slide " data-source-line="290" data-h="0" data-v="14"><h5 id="对结构体的操作">对结构体的操作 </h5>
+<hr>
+<p>要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称.</p>
+<p>打印part1的成员的值的语句:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part number: %d\n"</span><span class="token punctuation">,</span> part1<span class="token punctuation">.</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part name: %s\n"</span><span class="token punctuation">,</span> part1<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Quantity on hand: %d\n"</span><span class="token punctuation">,</span> part1<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="309" class="slide " data-source-line="309" data-h="0" data-v="15"><h5 id="对结构体的操作-1">对结构体的操作 </h5>
+<hr>
+<p>结构体的成员是左值.</p>
+<p>它们可以出现在赋值的左侧, 也可以作为自增或自减表达式中的操作数:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>part1<span class="token punctuation">.</span>number <span class="token operator">=</span> <span class="token number">258</span><span class="token punctuation">;</span>     
+ <span class="token comment">/* changes part1's part number */</span>
+part1<span class="token punctuation">.</span>on_hand<span class="token operator">++</span><span class="token punctuation">;</span>
+ <span class="token comment">/* increments part1's quantity on hand */</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="330" class="slide " data-source-line="330" data-h="0" data-v="16"><h5 id="对结构体的操作-2">对结构体的操作 </h5>
+<hr>
+<p>用于访问结构体成员的句点实际上是一个 C 运算符.</p>
+<p>它优先于几乎所有其他运算符. 例子:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>part1<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p><code>.</code>运算符优先级高于<code>&amp;</code>运算符, 因此<code>&amp;</code>计算part1.on_hand的地址.</p>
+</section><section vertical="true" data-notes="" lineno="348" class="slide " data-source-line="348" data-h="0" data-v="17"><h5 id="对结构体的操作-3">对结构体的操作 </h5>
+<hr>
+<p>另一个主要的结构体操作是赋值:</p>
+<p><code>part2 = part1;</code></p>
+<p>该语句的效果是将 part1.number 复制到part2.number, 将 <a href="http://part1.name">part1.name</a> 复制到 <a href="http://part2.name">part2.name</a> , 依此类推.</p>
+</section><section vertical="true" data-notes="" lineno="362" class="slide " data-source-line="362" data-h="0" data-v="18"><h5 id="对结构体的操作-4">对结构体的操作 </h5>
+<hr>
+<p><code>=</code>运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组.</p>
+<p>一些程序员利用此属性创建"空"结构体来封装稍后将复制的数组来:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">;</span>
+a1 <span class="token operator">=</span> a2<span class="token punctuation">;</span>
+ <span class="token comment">/* legal, since a1 and a2 are structures */</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="382" class="slide " data-source-line="382" data-h="0" data-v="19"><h5 id="对结构体的操作-5">对结构体的操作 </h5>
+<hr>
+<p><code>=</code>运算符只能用于类型兼容的结构体.</p>
+<p>两个同时声明的结构体(如part1和part2)是兼容的.</p>
+<p>使用相同"结构体标记"或相同类型名声明的结构体也是兼容的.</p>
+<p>除了赋值之外, C 不提供对整个结构体的操作.</p>
+<p>特别是, <code>==</code>和<code>!=</code>运算符不能用于判定两个结构体是否相等.</p>
+</section><section vertical="true" data-notes="" lineno="400" class="slide " data-source-line="400" data-h="0" data-v="20"><h5 id="结构体类型">结构体类型 </h5>
+<hr>
+<p>假设程序需要声明几个具有相同成员的结构体变量.</p>
+<p>需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量.</p>
+<p>命名结构体的方法:</p>
+<ul>
+<li>
+<p>声明一个"结构体标记"</p>
+</li>
+<li>
+<p>使用typedef定义类型名</p>
+</li>
+</ul>
+</section><section id="structtype" vertical="true" data-notes="" lineno="418" class="slide " data-source-line="418" data-h="0" data-v="21"><h5 id="声明结构体标记">声明结构体标记 </h5>
+<hr>
+<p>结构体标记是用于标识特定类型结构体的名称.</p>
+<p>名为part的结构体标记的声明:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><p>请注意, 分号必须跟在右大括号后面.</p>
+</section><section vertical="true" data-notes="" lineno="440" class="slide " data-source-line="440" data-h="0" data-v="22"><h5 id="声明结构体标记-1">声明结构体标记 </h5>
+<hr>
+<p>part标记可用于声明变量:</p>
+<p><code>struct part part1, part2;</code></p>
+<p>struct不能省略:</p>
+<p><code>part part1, part2;   /*** WRONG ***/</code></p>
+<p>part不是类型名; 没有struct这个词, 它是没有意义的.</p>
+<p>结构体标记只有在struct后才有意义, 因此它们不会与程序中使用的其他名称冲突.</p>
+</section><section vertical="true" data-notes="" lineno="460" class="slide " data-source-line="460" data-h="0" data-v="23"><h5 id="声明结构体标记-2">声明结构体标记 </h5>
+<hr>
+<p>结构体标记的声明可以与结构体变量的声明相结合:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+ <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="480" class="slide " data-source-line="480" data-h="0" data-v="24"><h5 id="声明结构体标记-3">声明结构体标记 </h5>
+<hr>
+<p>所有声明为struct part类型的结构体相互兼容:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> part1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> part2<span class="token punctuation">;</span>
+
+part2 <span class="token operator">=</span> part1<span class="token punctuation">;</span> <span class="token comment">/* legal; both parts have the same type */</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="500" class="slide " data-source-line="500" data-h="0" data-v="25"><h5 id="定义结构体类型">定义结构体类型 </h5>
+<hr>
+<p>除了声明结构体标记, 还可以使用typedef来定义真实的类型名.</p>
+<p>一个名为Part的类型的定义:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> Part<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><p>Part的使用方式与内置类型相同:</p>
+<p><code>Part part1, part2;</code></p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="527" class="slide " data-source-line="527" data-h="0" data-v="26"><h5 id="定义结构体类型-1">定义结构体类型 </h5>
+<hr>
+<p>当需要命名结构体时, 通常可以选择声明结构体标记或typedef.</p>
+<p>但是, 当要在链表中使用结构体时, 必须声明结构体标记.</p>
+</section><section vertical="true" data-notes="" lineno="537" class="slide " data-source-line="537" data-h="0" data-v="27"><h5 id="结构体作为参数和返回值">结构体作为参数和返回值 </h5>
+<hr>
+<p>函数可以有结构体类型的参数和返回值.</p>
+<p>带有结构体参数的函数:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_part</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> p<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part number: %d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part name: %s\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Quantity on hand: %d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>调用print_part:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_part</span><span class="token punctuation">(</span>part1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="568" class="slide " data-source-line="568" data-h="0" data-v="28"><h5 id="结构体作为参数和返回值-1">结构体作为参数和返回值 </h5>
+<hr>
+<p>返回part结构体的函数:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> <span class="token function">build_part</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> number<span class="token punctuation">,</span>
+                       <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span>
+                       <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> p<span class="token punctuation">;</span>
+
+  p<span class="token punctuation">.</span>number <span class="token operator">=</span> number<span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>name<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  p<span class="token punctuation">.</span>on_hand <span class="token operator">=</span> on_hand<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> p<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>调用build_part:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>part1 <span class="token operator">=</span> <span class="token function">build_part</span><span class="token punctuation">(</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="600" class="slide " data-source-line="600" data-h="0" data-v="29"><h5 id="结构体作为参数和返回值-2">结构体作为参数和返回值 </h5>
+<hr>
+<p>将结构体传递给函数和从函数返回结构体都需要复制结构体中的所有成员.</p>
+<p>为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身.</p>
+<p>第17章给出了以结构体指针作为参数或作为返回值的函数示例.</p>
+</section><section vertical="true" data-notes="" lineno="614" class="slide " data-source-line="614" data-h="0" data-v="30"><h5 id="结构体作为参数和返回值-3">结构体作为参数和返回值 </h5>
+<hr>
+<p>避免复制结构体还有其他原因.</p>
+<p>例如, &lt;stdio.h&gt;头文件定义了一个名为FILE的类型, 它通常是一个结构体.</p>
+<p>每个FILE结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的.</p>
+<p>&lt;stdio.h&gt;中打开文件的每个函数都返回一个指向FILE结构体的指针.</p>
+<p>每个对已打开文件执行操作的函数都需要一个FILE指针作为参数.</p>
+</section><section vertical="true" data-notes="" lineno="632" class="slide " data-source-line="632" data-h="0" data-v="31"><h5 id="结构体作为参数和返回值-4">结构体作为参数和返回值 </h5>
+<hr>
+<p>在函数中, 结构体变量的初始化式可以是另一个结构体:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> part1<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> part2 <span class="token operator">=</span> part1<span class="token punctuation">;</span>
+  …
+<span class="token punctuation">}</span>
+</code></pre><p>初始化的结构体具有自动存储期限.</p>
+</section><section vertical="true" data-notes="" lineno="652" class="slide " data-source-line="652" data-h="0" data-v="32"><h5 id="复合字面量c99">复合字面量(C99) </h5>
+<hr>
+<p>第 9 章介绍了称为复合字面量的 C99 特性.</p>
+<p>复合字面量可用于"即时"创建结构体, 而无需先将其存储在变量中.</p>
+<p>生成的结构体可以作为参数传递、由函数返回或赋值给变量.</p>
+</section><section vertical="true" data-notes="" lineno="666" class="slide " data-source-line="666" data-h="0" data-v="33"><h5 id="复合字面量c99-1">复合字面量(C99) </h5>
+<hr>
+<p>复合字面量可用于创建将传递给函数的结构体:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_part</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>复合字面量也可以赋值给变量:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>part1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>复合字面量由圆括号中的类型名称和花括号中的一组值组成.</p>
+<p>当复合字面量表示结构体时, 类型名称可以是结构体标记, 前面带有单词struct或typedef.</p>
+</section><section vertical="true" data-notes="" lineno="690" class="slide " data-source-line="690" data-h="0" data-v="34"><h5 id="复合字面量c99-2">复合字面量(C99) </h5>
+<hr>
+<p>复合字面量可以包含指示符, 就像指定初始值式一样:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_part</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span>on_hand <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
+                          <span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span>
+                          <span class="token punctuation">.</span>number <span class="token operator">=</span> <span class="token number">528</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>复合字面量不会提供完全的初始化, 所以任何未初始化的成员默认为0.</p>
+</section><section vertical="true" data-notes="" lineno="707" class="slide " data-source-line="707" data-h="0" data-v="35"><h5 id="嵌套的数组和结构体">嵌套的数组和结构体 </h5>
+<hr>
+<p>结构体和数组可以无限制地组合.</p>
+<p>数组可以有结构体作为元素, 结构体可以包含数组和结构体作为成员.</p>
+</section><section id="nestedarrandstruct" vertical="true" data-notes="" lineno="719" class="slide " data-source-line="719" data-h="0" data-v="36"><h5 id="嵌套结构体">嵌套结构体 </h5>
+<hr>
+<p>将一个结构体嵌套在另一个结构体中通常很有用.</p>
+<p>假设person_name是以下结构体:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">person_name</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> first<span class="token punctuation">[</span>FIRST_NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> middle_initial<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> last<span class="token punctuation">[</span>LAST_NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="741" class="slide " data-source-line="741" data-h="0" data-v="37"><h5 id="嵌套结构体-1">嵌套结构体 </h5>
+<hr>
+<p>我们可以使用person_name作为更大结构体的一部分:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">student</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-struct">struct</span> <span class="token class-name">person_name</span> name<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> id<span class="token punctuation">,</span> age<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> sex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> student1<span class="token punctuation">,</span> student2<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><p>访问student1的名字、中间名首字母或姓氏需两次应用<code>.</code>运算符:</p>
+<p><code>strcpy(student1.name.first, "Fred");</code></p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="765" class="slide " data-source-line="765" data-h="0" data-v="38"><h5 id="嵌套结构体-2">嵌套结构体 </h5>
+<hr>
+<p>将name作为结构体可以更容易地将名称视为数据单元.</p>
+<p>显示名称的函数可以只传递一个person_name结构体的实际参数而不是三个参数:<br>
+<code>display_name(student1.name);</code></p>
+<p>person_name结构体中的信息复制到student结构体的name成员只需要一次赋值, 而不是三次:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">person_name</span> new_name<span class="token punctuation">;</span>
+…
+student1<span class="token punctuation">.</span>name <span class="token operator">=</span> new_name<span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="787" class="slide " data-source-line="787" data-h="0" data-v="39"><h5 id="结构体数组">结构体数组 </h5>
+<hr>
+<p>数组和结构体的最常见组合之一是其元素是结构体的数组.</p>
+<p>这种数组可以作为一个简单的数据库.</p>
+<p>能够存储100个零件信息的结构体part数组:</p>
+<p><code>struct part inventory[100];</code></p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="804" class="slide " data-source-line="804" data-h="0" data-v="40"><h5 id="结构体数组-1">结构体数组 </h5>
+<hr>
+<p>通过取下标来访问数组中的零件:<br>
+<code>print_part(inventory[i]);</code></p>
+<p>访问结构体part中的成员需要结合使用下标和成员选择:<br>
+<code>inventory[i].number = 883;</code></p>
+<p>访问零件名称中的单个字符需要先取下标, 然后是选择成员, 然后再取下标:<br>
+<code>inventory[i].name[0] = '\0';</code></p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="822" class="slide " data-source-line="822" data-h="0" data-v="41"><h5 id="初始化结构体数组">初始化结构体数组 </h5>
+<hr>
+<p>初始化结构体数组的方式与初始化多维数组的方式大致相同.</p>
+<p>每个结构体都有自己的大括号括起来的初始化式; 数组的初始化式将另一组大括号包裹在结构体初始化式的外围.</p>
+</section><section vertical="true" data-notes="" lineno="834" class="slide " data-source-line="834" data-h="0" data-v="42"><h5 id="初始化结构体数组-1">初始化结构体数组 </h5>
+<hr>
+<p>初始化结构体数组的一个原因是它包含在程序执行期间不会改变的信息.</p>
+<p>示例: 存储拨打国际电话时使用的国家/地区代码的数组.</p>
+<p>数组的元素将是存储国家名称及其代码的结构体:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">dialing_code</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>country<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> code<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="857" class="slide " data-source-line="857" data-h="0" data-v="43"><h5 id="初始化结构体数组-2">初始化结构体数组 </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-struct">struct</span> <span class="token class-name">dialing_code</span> country_codes<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+  <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token string">"Argentina"</span><span class="token punctuation">,</span>            <span class="token number">54</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Bangladesh"</span><span class="token punctuation">,</span>      <span class="token number">880</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Brazil"</span><span class="token punctuation">,</span>               <span class="token number">55</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Burma (Myanmar)"</span><span class="token punctuation">,</span>  <span class="token number">95</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"China"</span><span class="token punctuation">,</span>                <span class="token number">86</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Colombia"</span><span class="token punctuation">,</span>         <span class="token number">57</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Congo, Dem. Rep. of"</span><span class="token punctuation">,</span> <span class="token number">243</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Egypt"</span><span class="token punctuation">,</span>            <span class="token number">20</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Ethiopia"</span><span class="token punctuation">,</span>            <span class="token number">251</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"France"</span><span class="token punctuation">,</span>           <span class="token number">33</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Germany"</span><span class="token punctuation">,</span>              <span class="token number">49</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"India"</span><span class="token punctuation">,</span>            <span class="token number">91</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Indonesia"</span><span class="token punctuation">,</span>            <span class="token number">62</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Iran"</span><span class="token punctuation">,</span>             <span class="token number">98</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Italy"</span><span class="token punctuation">,</span>                <span class="token number">39</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Japan"</span><span class="token punctuation">,</span>            <span class="token number">81</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Mexico"</span><span class="token punctuation">,</span>               <span class="token number">52</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Nigeria"</span><span class="token punctuation">,</span>         <span class="token number">234</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Pakistan"</span><span class="token punctuation">,</span>             <span class="token number">92</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Philippines"</span><span class="token punctuation">,</span>      <span class="token number">63</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Poland"</span><span class="token punctuation">,</span>               <span class="token number">48</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Russia"</span><span class="token punctuation">,</span>            <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"South Africa"</span><span class="token punctuation">,</span>         <span class="token number">27</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"South Korea"</span><span class="token punctuation">,</span>      <span class="token number">82</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Spain"</span><span class="token punctuation">,</span>                <span class="token number">34</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Sudan"</span><span class="token punctuation">,</span>           <span class="token number">249</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Thailand"</span><span class="token punctuation">,</span>             <span class="token number">66</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Turkey"</span><span class="token punctuation">,</span>           <span class="token number">90</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Ukraine"</span><span class="token punctuation">,</span>             <span class="token number">380</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"United Kingdom"</span><span class="token punctuation">,</span>   <span class="token number">44</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"United States"</span><span class="token punctuation">,</span>         <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Vietnam"</span><span class="token punctuation">,</span>          <span class="token number">84</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>每个结构体值两边的内层大括号是可选的.</p>
+</section><section vertical="true" data-notes="" lineno="887" class="slide " data-source-line="887" data-h="0" data-v="44"><h5 id="初始化结构体数组-3">初始化结构体数组 </h5>
+<hr>
+<p>C99 的指定初始化式允许每一项有多个指示符.</p>
+<p>声明inventory数组, 使用指定初始化式来包含一个零件:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> inventory<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span> <span class="token operator">=</span> 
+ <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>number <span class="token operator">=</span> <span class="token number">528</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token char">'\0'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>初始化式中的前两项使用两个指示符; 最后一项使用三个.</p>
+</section><section vertical="true" data-notes="" lineno="905" class="slide " data-source-line="905" data-h="0" data-v="45"><h5 id="程序-维护零件数据库">程序: 维护零件数据库 </h5>
+<hr>
+<p>inventory.c程序说明了在实践中如何使用嵌套数组和结构体.</p>
+<p>该程序跟踪存储在仓库中的零件.</p>
+<p>有关零件的信息存储在结构体数组中.</p>
+<p>每个结构体包含的信息:</p>
+<ul>
+<li>
+<p>零件号</p>
+</li>
+<li>
+<p>名称</p>
+</li>
+<li>
+<p>数量</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="928" class="slide " data-source-line="928" data-h="0" data-v="46"><h5 id="程序-维护零件数据库-1">程序: 维护零件数据库 </h5>
+<hr>
+<p>程序支持的操作:</p>
+<ul>
+<li>
+<p>添加新的零件编号、名称和初始数量</p>
+</li>
+<li>
+<p>给定零件编号, 打印零件名称和当前数量</p>
+</li>
+<li>
+<p>给定零件编号, 更改现有数量</p>
+</li>
+<li>
+<p>打印一个表格, 显示数据库中的所有信息</p>
+</li>
+<li>
+<p>终止程序执行</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="949" class="slide " data-source-line="949" data-h="0" data-v="47"><h5 id="程序-维护零件数据库-2">程序: 维护零件数据库 </h5>
+<hr>
+<p>代码i(插入)、s(搜索)、u(更新)、p(打印)和q(退出)将用于表示这些操作.</p>
+<p>与程序的会话:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Enter operation code: i
+Enter part number: 528
+Enter part name: Disk drive
+Enter quantity on hand: 10
+
+Enter operation code: s
+Enter part number: 528
+Part name: Disk drive
+Quantity on hand: 10
+
+Enter operation code: s
+Enter part number: 914
+Part not found.
+
+Enter operation code: i
+Enter part number: 914
+Enter part name: Printer cable
+Enter quantity on hand: 5
+
+Enter operation code: u
+Enter part number: 528
+Enter change in quantity on hand: -2
+
+Enter operation code: s
+Enter part number: 528
+Part name: Disk drive
+Quantity on hand: 8
+
+Enter operation code: p
+Part Number   Part Name             Quantity on Hand
+   528       Disk drive                    8
+   914       Printer cable                 5
+
+Enter operation code: q
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="999" class="slide " data-source-line="999" data-h="0" data-v="48"><h5 id="程序-维护零件数据库-3">程序: 维护零件数据库 </h5>
+<hr>
+<p>该程序将在结构体中存储每种零件的信息.</p>
+<p>这些结构体将存储在inventory数组中.</p>
+<p>num_parts变量将跟踪当前存储在数组中的零件数.</p>
+</section><section vertical="true" data-notes="" lineno="1011" class="slide " data-source-line="1011" data-h="0" data-v="49"><h5 id="程序-维护零件数据库-4">程序: 维护零件数据库 </h5>
+<hr>
+<p>程序主循环的概要:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ prompt user to enter operation code<span class="token punctuation">;</span>
+ read code<span class="token punctuation">;</span>
+ <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword keyword-case">case</span> <span class="token char">'i'</span><span class="token operator">:</span> perform insert operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token char">'s'</span><span class="token operator">:</span> perform search operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token char">'u'</span><span class="token operator">:</span> perform update operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token char">'p'</span><span class="token operator">:</span> perform print operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token char">'q'</span><span class="token operator">:</span> terminate program<span class="token punctuation">;</span>
+   <span class="token keyword keyword-default">default</span><span class="token operator">:</span>  print error message<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1039" class="slide " data-source-line="1039" data-h="0" data-v="50"><h5 id="对结构体的操作-6">对结构体的操作 </h5>
+<hr>
+<p>分别设置不同的函数执行插入、搜索、更新和打印操作.</p>
+<p>由于这些函数都需要访问inventory和num_parts, 因此这些变量设置为外部变量.</p>
+<p>该程序分为三个文件:</p>
+<ul>
+<li>
+<p>inventory.c (包含程序的大部分内容)</p>
+</li>
+<li>
+<p>readline.h (包含read_line函数的原型)</p>
+</li>
+<li>
+<p>readline.c (包含read_line函数的定义)</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1057" class="slide " data-source-line="1057" data-h="0" data-v="51"><h5 id="inventoryc">inventory.c </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Maintains a parts database (array version) */</span> 
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"readline.h"</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NAME_LEN</span> <span class="token expression"><span class="token number">25</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MAX_PARTS</span> <span class="token expression"><span class="token number">100</span></span></span>
+
+<span class="token keyword keyword-struct">struct</span> <span class="token class-name">part</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> inventory<span class="token punctuation">[</span>MAX_PARTS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-int">int</span> num_parts <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* number of parts currently stored */</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">find_part</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/********************************************************** 
+ * main: Prompts the user to enter an operation code,     * 
+ *       then calls a function to perform the requested   * 
+ *       action. Repeats until the user enters the        * 
+ *       command 'q'. Prints an error message if the user * 
+ *       enters an illegal code.                          * 
+ **********************************************************/</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> code<span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter operation code: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">" %c"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span>   <span class="token comment">/* skips to end of line */</span>
+      <span class="token punctuation">;</span>
+    <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-case">case</span> <span class="token char">'i'</span><span class="token operator">:</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+                <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-case">case</span> <span class="token char">'s'</span><span class="token operator">:</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-case">case</span> <span class="token char">'u'</span><span class="token operator">:</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-case">case</span> <span class="token char">'p'</span><span class="token operator">:</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-case">case</span> <span class="token char">'q'</span><span class="token operator">:</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-default">default</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal code\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/********************************************************** 
+ * find_part: Looks up a part number in the inventory     * 
+ *            array. Returns the array index if the part  * 
+ *            number is found; otherwise, returns -1.     * 
+ **********************************************************/</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">find_part</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> number<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> num_parts<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>number <span class="token operator">==</span> number<span class="token punctuation">)</span>
+      <span class="token keyword keyword-return">return</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/********************************************************** 
+ * insert: Prompts the user for information about a new   * 
+ *         part and then inserts the part into the        * 
+ *         database. Prints an error message and returns  * 
+ *         prematurely if the part already exists or the  * 
+ *         database is full.                              * 
+ **********************************************************/</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> part_number<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>num_parts <span class="token operator">==</span> MAX_PARTS<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Database is full; can't add more parts.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter part number: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>part_number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">find_part</span><span class="token punctuation">(</span>part_number<span class="token punctuation">)</span> <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part already exists.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  inventory<span class="token punctuation">[</span>num_parts<span class="token punctuation">]</span><span class="token punctuation">.</span>number <span class="token operator">=</span> part_number<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter part name: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">read_line</span><span class="token punctuation">(</span>inventory<span class="token punctuation">[</span>num_parts<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span> NAME_LEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter quantity on hand: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>inventory<span class="token punctuation">[</span>num_parts<span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  num_parts<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/********************************************************** 
+ * search: Prompts the user to enter a part number, then  * 
+ *         looks up the part in the database. If the part * 
+ *         exists, prints the name and quantity on hand;  * 
+ *         if not, prints an error message.               * 
+ **********************************************************/</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> number<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter part number: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i <span class="token operator">=</span> <span class="token function">find_part</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part name: %s\n"</span><span class="token punctuation">,</span> inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Quantity on hand: %d\n"</span><span class="token punctuation">,</span> inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part not found.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/********************************************************** 
+ * update: Prompts the user to enter a part number.       * 
+ *         Prints an error message if the part doesn't    * 
+ *         exist; otherwise, prompts the user to enter    * 
+ *         change in quantity on hand and updates the     * 
+ *         database.                                      * 
+ **********************************************************/</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> number<span class="token punctuation">,</span> change<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter part number: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i <span class="token operator">=</span> <span class="token function">find_part</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter change in quantity on hand: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>change<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand <span class="token operator">+=</span> change<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part not found.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/********************************************************** 
+ * print: Prints a listing of all parts in the database,  * 
+ *        showing the part number, part name, and         * 
+ *        quantity on hand. Parts are printed in the      * 
+ *        order in which they were entered into the       * 
+ *        database.                                       * 
+ **********************************************************/</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part Number   Part Name                  "</span>
+         <span class="token string">"Quantity on Hand\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> num_parts<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%7d       %-25s%11d\n"</span><span class="token punctuation">,</span> inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>number<span class="token punctuation">,</span>
+           inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span> inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1229" class="slide " data-source-line="1229" data-h="0" data-v="52"><h5 id="程序-维护零件数据库-5">程序: 维护零件数据库 </h5>
+<hr>
+<p>read_line在当前程序版本中将无法正常工作.</p>
+<p>考虑当用户插入零件时会发生什么:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Enter part number: 528
+Enter part name: Disk drive
+</code></pre><p>用户在输入零件编号后按 Enter 键, 留下一个程序必须读取的不可见换行符.</p>
+<p>当scanf读取部件号时, 它会吸收5、2和8, 但不会读取换行符.</p>
+</section><section vertical="true" data-notes="" lineno="1249" class="slide " data-source-line="1249" data-h="0" data-v="53"><h5 id="程序-维护零件数据库-6">程序: 维护零件数据库 </h5>
+<hr>
+<p>如果我们尝试使用原始的read_line函数读取零件名称, 它将立即遇到换行符并停止读取.</p>
+<p>当数字输入后跟字符输入时, 此问题很常见.</p>
+<p>一种解决方案是编写一个read_line函数, 在开始存储字符之前跳过空白字符.</p>
+<p>这解决了换行问题, 也可以避免在零件名称之前存储空白.</p>
+</section><section vertical="true" data-notes="" lineno="1266" class="slide " data-source-line="1266" data-h="0" data-v="54"><h5 id="readlineh">readline.h </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">READLINE_H</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">READLINE_H</span></span>
+
+<span class="token comment">/**********************************************************
+ * read_line: Skips leading white-space characters, then  *
+ *            reads the remainder of the input line and   *
+ *            stores it in str. Truncates the line if its *
+ *            length exceeds n. Returns the number of     *
+ *            characters stored.                          *
+ **********************************************************/</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">read_line</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"readline.h"</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">read_line</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> ch<span class="token punctuation">,</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">isspace</span><span class="token punctuation">(</span>ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ch <span class="token operator">!=</span> <span class="token char">'\n'</span> <span class="token operator">&amp;&amp;</span> ch <span class="token operator">!=</span> <span class="token constant">EOF</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> n<span class="token punctuation">)</span>
+      str<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> ch<span class="token punctuation">;</span>
+    ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  str<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token char">'\0'</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> i<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1312" class="slide " data-source-line="1312" data-h="0" data-v="55"><h5 id="联合">联合 </h5>
+<hr>
+<p>像结构体一样, 联合由一个或多个成员组成, 这些成员可能是不同类型的.</p>
+<p>编译器只为最大的成员分配足够的空间, 联合的成员在这个空间内彼此覆盖.</p>
+<p>为一个成员赋予新值也会改变其他成员的值.</p>
+</section><section id="union" vertical="true" data-notes="" lineno="1324" class="slide " data-source-line="1324" data-h="0" data-v="56"><h5 id="联合-1">联合 </h5>
+<hr>
+<p>联合变量的示例:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> u<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p>联合声明与结构体声明非常相似:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> s<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1353" class="slide " data-source-line="1353" data-h="0" data-v="57"><h5 id="联合-2">联合 </h5>
+<hr>
+<p>结构体s和联合变量u只有一处不同.</p>
+<p>s的成员存储在不同的内存地址中.</p>
+<p>u的成员存储在同一个地址.</p>
+<div class="top-2">
+  <img src="img/15-4.png" height="400px">
+</div>
+</section><section vertical="true" data-notes="" lineno="1373" class="slide " data-source-line="1373" data-h="0" data-v="58"><h5 id="联合-3">联合 </h5>
+<hr>
+<p>联合成员的访问方式与结构体成员的访问方式相同:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>u<span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">82</span><span class="token punctuation">;</span>
+u<span class="token punctuation">.</span>d <span class="token operator">=</span> <span class="token number">74.8</span><span class="token punctuation">;</span>
+</code></pre><p>更改联合的一个成员会更改以前存储在任何其他成员中的值.</p>
+<ul>
+<li>
+<p>把一个值存储到u.d中会导致之前存储在u.i中的值丢失.</p>
+</li>
+<li>
+<p>更改u.i也会影响u.d.</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1394" class="slide " data-source-line="1394" data-h="0" data-v="59"><h5 id="联合-4">联合 </h5>
+<hr>
+<p>联合的性质与结构体的性质几乎相同.</p>
+<p>可以像声明结构体标记和类型一样声明联合标记和类型.</p>
+<p>与结构体一样, 联合可以使用=运算符复制、传递给函数和由函数返回.</p>
+</section><section vertical="true" data-notes="" lineno="1408" class="slide " data-source-line="1408" data-h="0" data-v="60"><h5 id="联合-5">联合 </h5>
+<hr>
+<p>只有联合的第一个成员可以被赋予初始值.</p>
+<p>将u的i成员初始化为0:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> u <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p>大括号内的表达式必须是常量. (C99 中的规则略有不同.)</p>
+</section><section vertical="true" data-notes="" lineno="1429" class="slide " data-source-line="1429" data-h="0" data-v="61"><h5 id="联合-6">联合 </h5>
+<hr>
+<p>指定初始化式也可以用在联合中.</p>
+<p>指定初始化式允许我们指定应初始化联合的哪个成员:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+ <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> u <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">.</span>d <span class="token operator">=</span> <span class="token number">10.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p>只能初始化一个成员, 但不必是第一个.</p>
+</section><section vertical="true" data-notes="" lineno="1450" class="slide " data-source-line="1450" data-h="0" data-v="62"><h5 id="联合-7">联合 </h5>
+<hr>
+<p>联合的应用:</p>
+<ul>
+<li>
+<p>节省空间</p>
+</li>
+<li>
+<p>构造混合的数据结构体</p>
+</li>
+<li>
+<p>以不同的方式查看存储(在第 20 章中讨论)</p>
+</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1466" class="slide " data-source-line="1466" data-h="0" data-v="63"><h5 id="使用联合来节省空间">使用联合来节省空间 </h5>
+<hr>
+<p>联合可用于节省结构体中的空间.</p>
+<p>假设我们正在设计一个结构体, 该结构体将包含有关通过礼品册销售的物品的信息.</p>
+<p>每个项目都有库存量、价格以及与商品类型相关的其他信息:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Books: Title, author, number of pages
+Mugs: Design
+Shirts: Design, colors available, sizes available
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1488" class="slide " data-source-line="1488" data-h="0" data-v="64"><h5 id="使用联合来节省空间-1">使用联合来节省空间 </h5>
+<hr>
+<p>catalog_item结构体的最初设计:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">catalog_item</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> stock_number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> price<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> item_type<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> title<span class="token punctuation">[</span>TITLE_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> author<span class="token punctuation">[</span>AUTHOR_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> num_pages<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> design<span class="token punctuation">[</span>DESIGN_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> colors<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> sizes<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1514" class="slide " data-source-line="1514" data-h="0" data-v="65"><h5 id="使用联合来节省空间-2">使用联合来节省空间 </h5>
+<hr>
+<p>成员item_type的值将是BOOK、MUG或SHIRT之一.</p>
+<p>成员colors和sizes将存储颜色和尺寸的组合代码.</p>
+<p>这种结构体浪费空间, 因为结构体中只有部分信息对礼品册中的所有商品是通用的.</p>
+<p>在结构体catalog_item中放置一个联合, 可以减少结构体所需的空间.</p>
+</section><section vertical="true" data-notes="" lineno="1531" class="slide " data-source-line="1531" data-h="0" data-v="66"><h5 id="使用联合来节省空间-3">使用联合来节省空间 </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token class-name">catalog_item</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> stock_number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> price<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> item_type<span class="token punctuation">;</span>
+  <span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-char">char</span> title<span class="token punctuation">[</span>TITLE_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-char">char</span> author<span class="token punctuation">[</span>AUTHOR_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-int">int</span> num_pages<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> book<span class="token punctuation">;</span>
+    <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-char">char</span> design<span class="token punctuation">[</span>DESIGN_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> mug<span class="token punctuation">;</span>
+    <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-char">char</span> design<span class="token punctuation">[</span>DESIGN_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-int">int</span> colors<span class="token punctuation">;</span>
+      <span class="token keyword keyword-int">int</span> sizes<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> shirt<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> item<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1565" class="slide " data-source-line="1565" data-h="0" data-v="67"><h5 id="使用联合来节省空间-4">使用联合来节省空间 </h5>
+<hr>
+<p>如果c是表示一本书的结构体catalog_item, 可以通过以下方式打印书名:<br>
+<code>printf("%s", c.item.book.title);</code></p>
+<p>如本例所示, 访问嵌套在结构体内的联合是很困难的.</p>
+</section><section vertical="true" data-notes="" lineno="1578" class="slide " data-source-line="1578" data-h="0" data-v="68"><h5 id="使用联合来节省空间-5">使用联合来节省空间 </h5>
+<hr>
+<p>catalog_item结构体可用于说明联合有趣的一面.</p>
+<p>通常, 将值存储到联合的一个成员中然后通过另一个名字来访问该数据不太可取.</p>
+<p>但是, 有一种特殊情况: 联合的两个或多个成员是结构体, 并且结构体最初的一个或多个成员是匹配的.</p>
+<p>如果当前某个结构体有效, 则其他结构体中的匹配成员也有效.</p>
+</section><section vertical="true" data-notes="" lineno="1594" class="slide " data-source-line="1594" data-h="0" data-v="69"><h5 id="使用联合来节省空间-6">使用联合来节省空间 </h5>
+<hr>
+<p>catalog_item结构体中嵌入的联合包含三个结构体成员.</p>
+<p>其中两个结构体(nug和shirt)的起始成员(design)相匹配.</p>
+<p>现在, 假设我们为其中一个design成员赋值:<br>
+<code>strcpy(c.item.mug.design, "Cats");</code></p>
+<p>另一个结构体中的design成员也会被定义, 并具有相同的值:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span>item<span class="token punctuation">.</span>shirt<span class="token punctuation">.</span>design<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment">/* prints "Cats" */</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1618" class="slide " data-source-line="1618" data-h="0" data-v="70"><h5 id="使用联合构建混合数据结构体">使用联合构建混合数据结构体 </h5>
+<hr>
+<p>联合可用于创建包含不同类型的混合数据的数据结构体.</p>
+<p>假设我们需要一个数组, 其元素是int和double值的混合.</p>
+<p>首先, 我们定义一个联合类型, 其成员代表要存储在数组中的不同类型的数据:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+ <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> Number<span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1640" class="slide " data-source-line="1640" data-h="0" data-v="71"><h5 id="使用联合构建混合数据结构体-1">使用联合构建混合数据结构体 </h5>
+<hr>
+<p>接下来, 我们创建一个数组, 其元素为Number类型的值:<br>
+<code>Number number_array[1000];</code></p>
+<p>Number联合既可以存储int类型的值又可以存储double类型的值.</p>
+<p>所以可以在数组number_array中存储int和double的混合值:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>number_array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+number_array<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>d <span class="token operator">=</span> <span class="token number">8.395</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1661" class="slide " data-source-line="1661" data-h="0" data-v="72"><h5 id="为联合添加标记字段">为联合添加"标记字段" </h5>
+<hr>
+<p>不容易确定联合最后改变的成员, 因此包含的值可能是无意义的.</p>
+<p>考虑编写一个显示存储在联合Number中的值的函数:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_number</span><span class="token punctuation">(</span>Number n<span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+ <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n contains an integer<span class="token punctuation">)</span>
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword keyword-else">else</span>
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%g"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>print_number无法确定n包含的是整数还是浮点数.</p>
+</section><section vertical="true" data-notes="" lineno="1685" class="slide " data-source-line="1685" data-h="0" data-v="73"><h5 id="为联合添加标记字段-1">为联合添加"标记字段" </h5>
+<hr>
+<p>为了跟踪这些信息, 我们可以将联合嵌入到一个结构体中, 且此结构体还含有另一个成员: “标记字段"或"判别式”.</p>
+<p>标记字段的目的是提示当前存储在联合中的内容.</p>
+<p>结构体catalog_item中的item_type用于此目的.</p>
+</section><section vertical="true" data-notes="" lineno="1699" class="slide " data-source-line="1699" data-h="0" data-v="74"><h5 id="为联合添加标记字段-2">为联合添加"标记字段" </h5>
+<hr>
+<p>把Number类型转换成具有嵌入联合的结构体类型:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INT_KIND</span> <span class="token expression"><span class="token number">0</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DOUBLE_KIND</span> <span class="token expression"><span class="token number">1</span></span></span>
+
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> kind<span class="token punctuation">;</span>   <span class="token comment">/* tag field */</span>
+ <span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+   <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span> u<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> Number<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>kind的值可能是INT_KIND或DOUBLE_KIND.</p>
+</section><section vertical="true" data-notes="" lineno="1724" class="slide " data-source-line="1724" data-h="0" data-v="75"><h5 id="为联合添加标记字段-3">为联合添加"标记字段" </h5>
+<hr>
+<p>每次为u的成员赋值时, 也会改变kind, 从而提示出修改的是u的哪个成员.</p>
+<p>对u的成员i进行赋值操作的示例:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>n<span class="token punctuation">.</span>kind <span class="token operator">=</span> INT_KIND<span class="token punctuation">;</span>
+n<span class="token punctuation">.</span>u<span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">82</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>假定n为Number类型的变量.</p>
+</section><section vertical="true" data-notes="" lineno="1743" class="slide " data-source-line="1743" data-h="0" data-v="76"><h5 id="为联合添加标记字段-4">为联合添加"标记字段" </h5>
+<hr>
+<p>当检索存储在Number变量中的数字时,  kind将表明联合的哪个成员是最后被赋值的.</p>
+<p>利用此功能的函数:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_number</span><span class="token punctuation">(</span>Number n<span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+ <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>kind <span class="token operator">==</span> INT_KIND<span class="token punctuation">)</span> 
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>u<span class="token punctuation">.</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword keyword-else">else</span> 
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%g"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>u<span class="token punctuation">.</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1765" class="slide " data-source-line="1765" data-h="0" data-v="77"><h5 id="枚举">枚举 </h5>
+<hr>
+<p>在许多程序中, 我们需要只有少量有意义的值的变量.</p>
+<p>存储扑克牌花色的变量应该只有4种可能的值: “梅花”、“方片”、“红心"和"黑桃”.</p>
+</section><section id="enum" vertical="true" data-notes="" lineno="1777" class="slide " data-source-line="1777" data-h="0" data-v="78"><h5 id="枚举-1">枚举 </h5>
+<hr>
+<p>可以将花色变量声明为一个整数, 并用一组编码表示变量的可能值:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> s<span class="token punctuation">;</span>   <span class="token comment">/* s will store a suit */</span>
+…
+s <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 2 represents "hearts" */</span>
+</code></pre><p>这种方法的问题:</p>
+<ul>
+<li>读程序时不会意识到s只有4个可能的值.</li>
+<li>2的意义不明确.</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1796" class="slide " data-source-line="1796" data-h="0" data-v="79"><h5 id="枚举-2">枚举 </h5>
+<hr>
+<p>使用宏定义花色"类型"和各种花色的名称是朝着正确方向迈出的一步:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SUIT</span>     <span class="token expression"><span class="token keyword keyword-int">int</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">CLUBS</span>    <span class="token expression"><span class="token number">0</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DIAMONDS</span> <span class="token expression"><span class="token number">1</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">HEARTS</span>   <span class="token expression"><span class="token number">2</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SPADES</span>   <span class="token expression"><span class="token number">3</span></span></span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><p>上一个示例的改进版本:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>SUIT s<span class="token punctuation">;</span>
+…
+s <span class="token operator">=</span> HEARTS<span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1823" class="slide " data-source-line="1823" data-h="0" data-v="80"><h5 id="枚举-3">枚举 </h5>
+<hr>
+<p>这种方法的问题:</p>
+<ul>
+<li>没有指出宏表示具有相同"类型"的值.</li>
+<li>如果可能值的数量很多, 那么为每个值定义一个宏是很麻烦的.</li>
+<li>预处理器会删除名称CLUBS、DIAMONDS、HEARTS和SPADES, 因此它们在调试期间将不可用.</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1839" class="slide " data-source-line="1839" data-h="0" data-v="81"><h5 id="枚举-4">枚举 </h5>
+<hr>
+<p>C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.</p>
+<p><strong>枚举类型</strong>是其值由程序员列出(“枚举”)的类型.</p>
+<p>每个值都必须有一个名称(枚举常量).</p>
+</section><section vertical="true" data-notes="" lineno="1851" class="slide " data-source-line="1851" data-h="0" data-v="82"><h5 id="枚举-5">枚举 </h5>
+<hr>
+<p>尽管枚举与结构体和联合几乎没有共同之处, 但它们的声明方式类似:</p>
+<p><code>enum {CLUBS, DIAMONDS, HEARTS, SPADES} s1, s2;</code></p>
+<p>枚举常量的名称必须与作用域范围内声明的其他标识符不同.</p>
+</section><section vertical="true" data-notes="" lineno="1865" class="slide " data-source-line="1865" data-h="0" data-v="83"><h5 id="枚举-6">枚举 </h5>
+<hr>
+<p>枚举常量类似于使用#define指令创建的常量, 但它们并不等价.</p>
+<p>如果枚举在函数内部声明, 则其常量在函数外部将不可见.</p>
+</section><section vertical="true" data-notes="" lineno="1877" class="slide " data-source-line="1877" data-h="0" data-v="84"><h5 id="枚举标记和类型名称">枚举标记和类型名称 </h5>
+<hr>
+<p>与结构体和联合一样, 有两种命名枚举的方法: 声明标记或使用typedef创建真正的类型名称.</p>
+<p>枚举标记类似于结构体和联合标记:<br>
+<code>enum suit {CLUBS, DIAMONDS, HEARTS, SPADES};</code></p>
+<p>suit变量将以下列方式声明:<br>
+<code>enum suit s1, s2;</code></p>
+</section><section vertical="true" data-notes="" lineno="1893" class="slide " data-source-line="1893" data-h="0" data-v="85"><h5 id="枚举标记和类型名称-1">枚举标记和类型名称 </h5>
+<hr>
+<p>也可以使用typedef把Suit定义为类型名称:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span> <span class="token punctuation">{</span>CLUBS<span class="token punctuation">,</span> DIAMONDS<span class="token punctuation">,</span> HEARTS<span class="token punctuation">,</span> SPADES<span class="token punctuation">}</span> Suit<span class="token punctuation">;</span>
+Suit s1<span class="token punctuation">,</span> s2<span class="token punctuation">;</span>
+</code></pre><p>在 C89 中, 使用typedef命名枚举是创建布尔类型的极好方法:<br>
+<code>typedef enum {FALSE, TRUE} Bool;</code></p>
+</section><section vertical="true" data-notes="" lineno="1910" class="slide " data-source-line="1910" data-h="0" data-v="86"><h5 id="枚举作为整数">枚举作为整数 </h5>
+<hr>
+<p>在系统内部, C 将枚举变量和常量视为整数.</p>
+<p>默认情况下, 编译器将整数 0, 1, 2, … 赋给特定枚举中的常量.</p>
+<p>在花色枚举中, CLUBS、DIAMONDS、HEARTS和SPADES分别代表 0、1、2和3.</p>
+</section><section vertical="true" data-notes="" lineno="1924" class="slide " data-source-line="1924" data-h="0" data-v="87"><h5 id="枚举作为整数-1">枚举作为整数 </h5>
+<hr>
+<p>程序员可以为枚举常量选择不同的值:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-enum">enum</span> <span class="token class-name">suit</span> <span class="token punctuation">{</span>CLUBS <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> DIAMONDS <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+          HEARTS <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> SPADES <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>枚举常量的值可以是任意整数, 不用按特定顺序列出:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-enum">enum</span> <span class="token class-name">dept</span> <span class="token punctuation">{</span>RESEARCH <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span>
+          PRODUCTION <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> SALES <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>两个或多个枚举常量具有相同的值甚至也是合法的.</p>
+</section><section vertical="true" data-notes="" lineno="1946" class="slide " data-source-line="1946" data-h="0" data-v="88"><h5 id="枚举作为整数-2">枚举作为整数 </h5>
+<hr>
+<p>当没有为枚举常量指定值时, 它的值比前一个常量的值大1.</p>
+<p>第一个枚举常量的值默认为0.</p>
+<p>例子:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-enum">enum</span> <span class="token class-name">EGA_colors</span> <span class="token punctuation">{</span>BLACK<span class="token punctuation">,</span> LT_GRAY <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span>
+                DK_GRAY<span class="token punctuation">,</span> WHITE <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>BLACK的值为0, LT_GRAY为7, DK_GRAY为8, WHITE为15.</p>
+</section><section vertical="true" data-notes="" lineno="1968" class="slide " data-source-line="1968" data-h="0" data-v="89"><h5 id="枚举作为整数-3">枚举作为整数 </h5>
+<hr>
+<p>枚举值可以与普通整数混合:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-enum">enum</span> <span class="token punctuation">{</span>CLUBS<span class="token punctuation">,</span> DIAMONDS<span class="token punctuation">,</span> HEARTS<span class="token punctuation">,</span> SPADES<span class="token punctuation">}</span> s<span class="token punctuation">;</span>
+
+i <span class="token operator">=</span> DIAMONDS<span class="token punctuation">;</span>   <span class="token comment">/* i is now 1            */</span>
+s <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>          <span class="token comment">/* s is now 0 (CLUBS)    */</span>
+s<span class="token operator">++</span><span class="token punctuation">;</span>            <span class="token comment">/* s is now 1 (DIAMONDS) */</span>
+i <span class="token operator">=</span> s <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>      <span class="token comment">/* i is now 3            */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>s被视为整型变量.</p>
+<p>CLUBS、DIAMONDS、HEARTS和SPADES是整数0、1、2和3的名称.</p>
+</section><section vertical="true" data-notes="" lineno="1992" class="slide " data-source-line="1992" data-h="0" data-v="90"><h5 id="枚举作为整数-4">枚举作为整数 </h5>
+<hr>
+<p>虽然把枚举值作为整数使用很方便, 但把整数用作枚举的值是危险的.</p>
+<p>例如, 我们可能会不小心将数字4(它不对应任何花色)存储到s中.</p>
+</section><section vertical="true" data-notes="" lineno="2005" class="slide " data-source-line="2005" data-h="0" data-v="91"><h5 id="用枚举声明标记字段">用枚举声明"标记字段" </h5>
+<hr>
+<p>枚举非常适合用来确定联合中最后一个被赋值的成员.</p>
+<p>在Number结构体中, 可以将kind成员声明为枚举而不是int:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-enum">enum</span> <span class="token punctuation">{</span>INT_KIND<span class="token punctuation">,</span> DOUBLE_KIND<span class="token punctuation">}</span> kind<span class="token punctuation">;</span>
+ <span class="token keyword keyword-union">union</span> <span class="token punctuation">{</span>
+   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+   <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span> u<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> Number<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="2029" class="slide " data-source-line="2029" data-h="0" data-v="92"><h5 id="用枚举声明标记字段-1">用枚举声明"标记字段" </h5>
+<hr>
+<p>新结构体的使用方式与旧结构体完全相同.</p>
+<p>新结构体的优点:</p>
+<ul>
+<li>
+<p>不需要INT_KIND和DOUBLE_KIND宏</p>
+</li>
+<li>
+<p>阐明kind只有两种可能的值: INT_KIND和DOUBLE_KIND</p>
+</li>
+</ul>
+</section></section>
+      </div>
+    </div>
+    
+      </div>
+      
+      
+    
+    
+      <script>
+        Reveal.initialize({"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
+      </script>
+      
+    
+    
+    
+    
+  
+    </body></html>
