@@ -69,71 +69,51 @@ presentation:
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 结构体变量
+##### 结构体
 
 ---
 
-结构体与数组的特性不同. 
+结构体是具有不同类型的值（成员）的集合. 
 
-- 结构体的元素(成员)不需要具有相同的类型. 
-
-- 结构体的成员有名字; 为了选择特定的成员, 需要指明它的名字, 而不是它的位置. 
-
-在某些语言中, 结构体称为记录, 成员称为字段. 
-
-
-
-<!-- slide id="structvar" vertical=true data-notes="" -->
-
-##### 声明结构体变量
-
----
-
-在存储相关数据项的集合时, 结构体是个好选择. 
-
-声明两个结构体变量, 用于存储仓库中零件的信息: 
+结构体可用于存储相关数据项的集合. 
 
 ```C{.line-numbers}
 struct {
-  int number;
+  int id;
   char name[NAME_LEN+1];
-  int on_hand;
-} part1, part2;
+  double score;
+} stu1, stu2;
+```
+
+初始化方式:
+```C
+{1, "Allen", 98.5};
+{.name = "Su", .score = 88.0, .id = 2};
+{.name = "Su", 88.0, .id = 2};
+{.name = "Su", .score = 88.0};
 ```
 
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide id="structvar" vertical=true data-notes="" -->
 
-##### 声明结构体变量
-
----
-
-结构体的成员按照声明的顺序存储在内存中. part1:
-
-<div class="top-2">
-  <img src="img/15-1.png" height=500px>
-</div>
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 声明结构体变量
+##### 结构体
 
 ---
 
-假设: 
+结构体与数组的特性不同. 
 
-- part1位于地址2000. 
+- 结构体中的元素(成员)不需要具有相同的类型. 
 
-- 整数占用4个字节. 
+- 结构体的成员有名字.
 
-- NAME_LEN的值为25. 
+- 选择特定的成员, 需指定名字, 而非位置. 
 
-- 成员之间没有间隙. 
+在某些语言中, 结构体称为记录, 成员称为字段. 
 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -141,6 +121,15 @@ struct {
 ##### 声明结构体变量
 
 ---
+
+结构体的成员按照声明的顺序存储在内存中. 
+```C
+struct {
+  int number;    // 零件编号
+  char name[25]; // 零件名称
+  int on_hand;   // 库存数量
+} item1;
+```
 
 结构体的抽象表示: 
 
@@ -148,7 +137,20 @@ struct {
   <img src="img/15-2.png">
 </div>
 
-成员的值将在稍后放入盒子中. 
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 声明结构体变量
+
+---
+
+<div class="top-2">
+  <img src="img/15-1.png" height=500px>
+</div>
+
+---
 
 
 
@@ -158,22 +160,9 @@ struct {
 
 ---
 
-每个结构体代表一种新的作用域. 
-
-在该作用域内声明的任何名称都不会与程序中的其他名称冲突. 
-
-每个结构体都为它的成员设置了独立的名字空间. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 声明结构体变量
-
----
+每个结构体都为它的成员设置了独立的名字空间. 在该作用域内声明的任何名称都不会与程序中的其他名称冲突. 
 
 例如, 以下声明可以出现在同一程序中: 
-
 ```C{.line-numbers}
 struct {
   int number;
@@ -189,6 +178,8 @@ struct {
 ```
 
 ---
+
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -214,6 +205,8 @@ part1初始化后的样子:
   <img src="img/15-3.png">
 </div>
 
+---
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -223,8 +216,6 @@ part1初始化后的样子:
 ---
 
 结构体初始化式遵循类似于数组初始化式的规则. 
-
-结构体初始化式中使用的表达式必须是常量. (这个限制在 C99 中放宽了)
 
 初始化式的成员数可以少于它所初始化的结构体. 
 
@@ -403,15 +394,13 @@ a1 = a2;
 
 ---
 
-假设程序需要声明几个具有相同成员的结构体变量. 
-
-需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量. 
+假设程序需要声明几个具有相同成员的结构体变量, 可声明一个代表一种结构体类型的名称
 
 命名结构体的方法: 
 
 - 声明一个"结构体标记"
 
-- 使用typedef定义类型名
+- 使用typedef定义结构体类型
 
 
 
@@ -421,39 +410,19 @@ a1 = a2;
 
 ---
 
-结构体标记是用于标识特定类型结构体的名称. 
-
-名为part的结构体标记的声明: 
-
+结构体标记是用于标识特定类型结构体的名称, 名为part的结构体标记的声明: 
 ```C{.line-numbers}
 struct part {
   int number;
   char name[NAME_LEN+1];
   int on_hand;
-};
+}; // 分号必须跟在右大括号后面
+// part标记可用于声明变量: 
+struct part part1, part2; // struct关键字不能省略
+part part3, part4;   // WRONG！！！因为part不是类型名
 ```
 
-请注意, 分号必须跟在右大括号后面. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 声明结构体标记
-
 ---
-
-part标记可用于声明变量: 
-
-`struct part part1, part2;`
-
-struct不能省略: 
-
-`part part1, part2;   /*** WRONG ***/`
-
-part不是类型名; 没有struct这个词, 它是没有意义的. 
-
-结构体标记只有在struct后才有意义, 因此它们不会与程序中使用的其他名称冲突. 
 
 
 
@@ -479,23 +448,21 @@ struct part {
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 声明结构体标记
 
 ---
 
-所有声明为struct part类型的结构体相互兼容: 
+所有声明为struct part类型的结构体可直接赋值: 
 ```C
 struct part part1 = {528, "Disk drive", 10};
 struct part part2;
 
-part2 = part1; /* legal; both parts have the same type */
+part2 = part1;
 ```
 
+
+
 ---
-
-
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -503,36 +470,20 @@ part2 = part1; /* legal; both parts have the same type */
 
 ---
 
-除了声明结构体标记, 还可以使用typedef来定义真实的类型名. 
-
-一个名为Part的类型的定义: 
-
+此外, 还可使用typedef来定义结构体类型: 
 ```C{.line-numbers}
 typedef struct {
   int number;
   char name[NAME_LEN+1];
   int on_hand;
 } Part;
+// Part的使用方式与内置类型相同: 
+Part part1, part2;
 ```
 
-Part的使用方式与内置类型相同: 
-
-`Part part1, part2;`
-
 ---
 
 
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 定义结构体类型
-
----
-
-当需要命名结构体时, 通常可以选择声明结构体标记或typedef. 
-
-但是, 当要在链表中使用结构体时, 必须声明结构体标记. 
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -544,6 +495,8 @@ Part的使用方式与内置类型相同:
 
 函数可以有结构体类型的参数和返回值. 
 
+[struct.c](xxx)
+
 带有结构体参数的函数: 
 
 ```C{.line-numbers}
@@ -553,12 +506,11 @@ void print_part(struct part p)
   printf("Part name: %s\n", p.name);
   printf("Quantity on hand: %d\n", p.on_hand);
 }
-```
 
-调用print_part: 
-
-```C
-print_part(part1);
+int main () {
+  struct part part1 = {28, "disk", 1};
+  print_part(part1); // 调用print_part
+}
 ```
 
 ---
@@ -574,10 +526,7 @@ print_part(part1);
 返回part结构体的函数: 
 
 ```C{.line-numbers}
-struct part build_part(int number,
-                       const char *name,
-                       int on_hand)
-{
+struct part build_part(int number, const char *name, int on_hand) {
   struct part p;
 
   p.number = number;
@@ -862,7 +811,7 @@ struct dialing_code {
 
 ```C
 const struct dialing_code country_codes[] =
-  { {"Argentina",            54}, {"Bangladesh",      880},
+  {{"Argentina",            54}, {"Bangladesh",      880},
    {"Brazil",               55}, {"Burma (Myanmar)",  95},
    {"China",                86}, {"Colombia",         57},
    {"Congo, Dem. Rep. of", 243}, {"Egypt",            20},
@@ -877,7 +826,7 @@ const struct dialing_code country_codes[] =
    {"Spain",                34}, {"Sudan",           249},
    {"Thailand",             66}, {"Turkey",           90},
    {"Ukraine",             380}, {"United Kingdom",   44},
-   {"United States",         1}, {"Vietnam",          84} };
+   {"United States",         1}, {"Vietnam",          84}};
 ```
 
 每个结构体值两边的内层大括号是可选的. 
@@ -1774,8 +1723,20 @@ void print_number(Number n)
 
 存储扑克牌花色的变量应该只有4种可能的值: "梅花"、"方片"、"红心"和"黑桃". 
 
-<!-- slide id="enum" vertical=true data-notes="" -->
+```C
+enum {Monday, Tuesday, Wednesday, Thursday, Friday,
+Saturday, Sunday};
+typedef enum {False, True} Bool;
+enum {RED=20, YELLOW, GREE=5};
+enum {RED, YELLOW, GREEN, NumOfColors};
 
+```
+
+---
+
+
+
+<!-- slide id="enum" vertical=true data-notes="" -->
 
 
 ##### 枚举
