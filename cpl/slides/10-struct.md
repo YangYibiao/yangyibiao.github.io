@@ -844,7 +844,8 @@ struct dialing_code {
 
 ```C
 const struct dialing_code country_codes[] =
-  {{"Argentina",            54}, {"Bangladesh",      880},
+  {
+   {"Argentina",            54}, {"Bangladesh",      880},
    {"Brazil",               55}, {"Burma (Myanmar)",  95},
    {"China",                86}, {"Colombia",         57},
    {"Congo, Dem. Rep. of", 243}, {"Egypt",            20},
@@ -859,7 +860,8 @@ const struct dialing_code country_codes[] =
    {"Spain",                34}, {"Sudan",           249},
    {"Thailand",             66}, {"Turkey",           90},
    {"Ukraine",             380}, {"United Kingdom",   44},
-   {"United States",         1}, {"Vietnam",          84}};
+   {"United States",         1}, {"Vietnam",          84}
+   };
 ```
 
 每个结构体值两边的内层大括号是可选的. 
