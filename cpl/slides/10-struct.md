@@ -484,10 +484,43 @@ Part part1, part2;
 ---
 
 
+<!-- slide vertical=true data-notes="" -->
+
+##### 结构体示例
+
+---
+
+[struct.c](11-structs/struct.c)
+
+---
+
+
 
 <!-- slide vertical=true data-notes="" -->
 
+##### 结构体内存对齐
 
+---
+
+每个结构体的成员
+- 第一个成员都位于偏移为0的位置
+- 每个数据成员的偏移量`min{#pragma pack()指定的数，数据成员的自身长度}`的倍数
+- 不指定#pragma pack(), 默认长度32位系统是4字节, 64位系统是8字节
+
+在数据完成各自对齐之后，结构体本身也要对齐
+- 结构体的大小是结构体内最大元素大小的倍数, 不够补齐
+
+结构体内套用结构体
+- 嵌套结构体内要内存对齐; 
+- 嵌套结构体的起始位的偏移量必须是嵌套结构体内的占用最大内存属性的倍数
+
+**结构体内存大小并非所有成员占用内存大小之和**
+
+---
+
+
+
+<!-- slide vertical=true data-notes="" -->
 
 ##### 结构体作为参数和返回值
 
@@ -865,11 +898,9 @@ inventory.c程序说明了在实践中如何使用嵌套数组和结构体.
 
 每个结构体包含的信息: 
 
-- 零件号
-
-- 名称
-
-- 数量
+- 零件编号
+- 零件名称
+- 库存数量
 
 
 
@@ -957,9 +988,9 @@ Enter operation code: q
 
 num_parts变量将跟踪当前存储在数组中的零件数. 
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 维护零件数据库
 
@@ -1003,9 +1034,9 @@ for (;;) {
 
 - readline.c (包含read_line函数的定义)
 
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### inventory.c
 
@@ -1315,7 +1346,7 @@ u的成员存储在同一个地址.
   <img src="img/15-4.png" height=400px>
 </div>
 
-
+---
 
 
 
@@ -1728,8 +1759,7 @@ enum {Monday, Tuesday, Wednesday, Thursday, Friday,
 Saturday, Sunday};
 typedef enum {False, True} Bool;
 enum {RED=20, YELLOW, GREE=5};
-enum {RED, YELLOW, GREEN, NumOfColors};
-
+enum {RED, YELLOW, GREEN, NumOfColors}; // NumOfColors
 ```
 
 ---
@@ -1754,9 +1784,10 @@ s = 2;   /* 2 represents "hearts" */
 - 读程序时不会意识到s只有4个可能的值. 
 - 2的意义不明确. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举
 

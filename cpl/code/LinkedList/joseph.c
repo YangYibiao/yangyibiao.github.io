@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include <assert.h>
 
-struct node
-{
+struct node {
   int data;
   struct node *next;
 };
 
-struct linkedlist
-{
+struct linkedlist {
   struct node *head;
   struct node *tail;
 };
@@ -22,8 +20,7 @@ void initList(struct linkedlist *ll)
 
 void append(struct linkedlist *ll, struct node *newnode)
 {
-  if (!ll->head && !ll->tail)
-  {
+  if (!ll->head && !ll->tail) {
     ll->head = newnode;
     ll->tail = newnode;
     newnode->next = ll->head;
