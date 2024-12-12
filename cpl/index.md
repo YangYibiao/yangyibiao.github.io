@@ -47,6 +47,7 @@
 | 第九讲  | [字符串](slides/8-pointers-c-strings.html)            | 字符串 |
 | 第十讲  | [高级指针](slides/9-double-pointers.html)            | 指针与多维数组 |
 | 第十一讲  | [结构体](slides/10-struct.html)            | 结构体 |
+| 第十二讲  | [链表](slides/11-linkedlist.html)            | 链表 |
 <!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
 <!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |

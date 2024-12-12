@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 //struct SELF {
 //  int a;
 //  struct SELF b;
@@ -27,3 +29,14 @@ typedef struct SELF_TAG {
  struct SELF_TAG *b;
  float c;
 } SELF;
+
+int main() {
+  SELF s;
+  s.a = 10;
+  s.b = NULL;
+  s.c = 3.14;
+  printf("s.a = %d\n", s.a);
+  printf("s.b = %p\n", s.b);
+  printf("s.c = %f\n", s.c);
+  return 0;
+}
