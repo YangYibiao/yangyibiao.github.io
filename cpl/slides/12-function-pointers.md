@@ -256,7 +256,7 @@ int (*ff(int))(int *, int);
 int (*(ff(int))(int *, int));
 ```
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
