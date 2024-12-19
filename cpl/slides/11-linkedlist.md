@@ -36,7 +36,7 @@ presentation:
 
 <hr class="width50 center">
 
-## 指针的高级应用
+## 链表
 
 
 <div class="bottom8"></div>
