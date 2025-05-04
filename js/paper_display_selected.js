@@ -47,15 +47,12 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
-                // if (highlight == true) {
-                //     bgcolor_str = "'#ffffd0'"
-                // }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
                     <td width='60%' valign='middle'>\
                     <p>\
-                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
+                        <a href='" + url + "' style='font-size:18px'>" + title + "</a>\
                         <br>" + author_str + 
                         "<br>\
                         <em>"+ publisher + ",  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
