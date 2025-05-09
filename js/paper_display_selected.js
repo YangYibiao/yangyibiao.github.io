@@ -23,6 +23,10 @@ window.onload = function() {
                     continue;
                 }
 
+                if("ATC" in tier || "ASPLOS" in tier) {
+                    tier = "<b>"+tier+"</b>"
+                }
+
                 var equal_str = ""
 
                 if(equal == true) {
