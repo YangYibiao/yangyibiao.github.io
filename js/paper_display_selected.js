@@ -23,7 +23,7 @@ window.onload = function() {
                     continue;
                 }
 
-                if("ATC" in tier || "ASPLOS" in tier) {
+                if(tier.search("ATC") != -1 || tier.search("ASPLOS") != -1) {
                     tier = "<b>"+tier+"</b>"
                 }
 
