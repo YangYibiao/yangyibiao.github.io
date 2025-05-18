@@ -51,12 +51,15 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
+                if (url != "") {
+                    url = "<a href=" + url + " style='font-size:18px'>" + title + "</a>"
+                }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
                     <td width='60%' valign='middle'>\
                     <p>\
-                        <a href='" + url + "' style='font-size:18px'>" + title + "</a>\
+                    " + url + "\
                         <br>" + author_str + 
                         "<br>\
                         <em>"+ publisher + ",  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
