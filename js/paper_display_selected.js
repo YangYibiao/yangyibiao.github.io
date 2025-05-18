@@ -51,17 +51,15 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
-                if (url !== "") {
-                    url = "<a href=" + url + " style='font-size:18px'>" + title + "</a>"
-                } else {
-                    url = '<span style="font-size:18px">' + title + '</span>'
+                if (url == "") {
+                    url = "https://yangyibiao.github.io"
                 }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
                     <td width='60%' valign='middle'>\
                     <p>\
-                    " + url + "\
+                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
                         <br>" + author_str + 
                         "<br>\
                         <em>"+ publisher + ",  " + year + " (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
