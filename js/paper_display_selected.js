@@ -51,8 +51,10 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
-                if (url != "") {
+                if (url !== "") {
                     url = "<a href=" + url + " style='font-size:18px'>" + title + "</a>"
+                } else {
+                    url = '<span style="font-size:18px">' + title + '</span>'
                 }
                 html += 
                 "\
