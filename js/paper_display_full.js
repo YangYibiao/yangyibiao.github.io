@@ -53,12 +53,15 @@ window.onload = function() {
                 if (conference == true) {
                     suffix = publisher + ", " + volume + ", " + year + ": " + page
                 }
+                if (url != "") {
+                    url = "<a href=" + url + " style='font-size:18px'>" + title + "</a>"
+                }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
                     <td width='60%' valign='middle'>\
                     <p>\
-                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
+                        " + url + "\
                         <br>" + author_str + 
                         "<br>\
                         <em>"+ suffix + ". (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
