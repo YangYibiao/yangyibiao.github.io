@@ -53,17 +53,15 @@ window.onload = function() {
                 if (conference == true) {
                     suffix = publisher + ", " + volume + ", " + year + ": " + page
                 }
-                if (url !== "") {
-                    url = "<a href=" + url + " style='font-size:18px'>" + title + "</a>"
-                } else {
-                    url = '<span style="font-size:18px">' + title + '</span>'
+                if (url == "") {
+                    url = "https://yangyibiao.github.io/fullpub.html"
                 }
                 html += 
                 "\
                 <tr bgcolor=" + bgcolor_str + ">\
                     <td width='60%' valign='middle'>\
                     <p>\
-                        " + url + "\
+                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
                         <br>" + author_str + 
                         "<br>\
                         <em>"+ suffix + ". (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
