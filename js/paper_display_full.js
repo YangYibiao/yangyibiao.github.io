@@ -53,8 +53,10 @@ window.onload = function() {
                 if (conference == true) {
                     suffix = publisher + ", " + volume + ", " + year + ": " + page
                 }
-                if (url != "") {
+                if (url !== "") {
                     url = "<a href=" + url + " style='font-size:18px'>" + title + "</a>"
+                } else {
+                    url = '<span style="font-size:18px">' + title + '</span>'
                 }
                 html += 
                 "\
