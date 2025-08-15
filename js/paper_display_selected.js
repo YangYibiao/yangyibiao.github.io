@@ -48,7 +48,7 @@ window.onload = function() {
                         meta_array.push("<a href=" + meta[key] + ">" + key + "</a>")
                     }
                 }
-                var meta_str = meta_array.join('  /  ') + "<br>"
+                var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
                 if (url == "") {
