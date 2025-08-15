@@ -45,7 +45,7 @@ window.onload = function() {
                 var meta_array = []
                 for(let key in meta){
                     if(meta[key] != false){ 
-                        meta_array.push("<a href=" + meta[key] + ">" + key + "</a>")
+                        meta_array.push("<a href=" + meta[key] + ">" + key + "</a><br>")
                     }
                 }
                 var meta_str = meta_array.join('  /  ')
