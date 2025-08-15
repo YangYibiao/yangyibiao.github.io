@@ -45,10 +45,10 @@ window.onload = function() {
                 var meta_array = []
                 for(let key in meta){
                     if(meta[key] != false){ 
-                        meta_array.push("<a href=" + meta[key] + ">" + key + "</a><br>")
+                        meta_array.push("<a href=" + meta[key] + ">" + key + "</a>")
                     }
                 }
-                var meta_str = meta_array.join('  /  ')
+                var meta_str = meta_array.join('  /  ') + "<br>"
 
                 var bgcolor_str = "'#ffffff'"
                 if (url == "") {
