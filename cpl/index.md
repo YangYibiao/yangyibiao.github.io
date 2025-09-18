@@ -9,9 +9,8 @@
 
 授课：杨已彪 _yangyibiao@nju.edu.cn_
 
-- **2024学年：45 学时理论，周五 2-4 节课 (第 3 ~ 17 周)**
+- **2025学年：45 学时理论，第 4 ~ 18 周，每周三学时**
 
-<!-- - 2023学年：48 学时理论，周二 5-7 节课 (第 2 ~ 17 周) -->
 
 <div class="top-2"></div>
 
@@ -48,7 +47,8 @@
 | 第十讲  | [高级指针](slides/9-double-pointers.html)            | 指针与多维数组 |
 | 第十一讲  | [结构体](slides/10-struct.html)            | 结构体 |
 | 第十二讲  | [链表](slides/11-linkedlist.html)            | 链表 |
-| 第十三讲  | [函数指针](slides/12-function-pointers.html)            | 函数指针 |
+| 第十三讲  | [链表](slides/11-linkedlist.html)            | 链表 |
+| 第十四讲  | [函数指针](slides/12-function-pointers.html)            | 函数指针 |
 <!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
 |   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
 <!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
