@@ -1,7 +1,7 @@
 @import "css/theme/solarized.css"
 @import "css/index.css"
 
-## C语言程序设计基础 <span style="font-weight:900">2024</span> 秋
+## C语言程序设计基础 <span style="font-weight:900">2025</span> 秋
 
 ---
 
@@ -49,28 +49,6 @@
 | 第十二讲  | [链表](slides/11-linkedlist.html)            | 链表 |
 | 第十三讲  | [链表](slides/11-linkedlist.html)            | 链表 |
 | 第十四讲  | [函数指针](slides/12-function-pointers.html)            | 函数指针 |
-<!-- | 第四讲  | [基本类型](slides/07-BasicTypes.html)        | 整数类型、浮点类型、字符类型、类型转换 |
-|   ^    | [数组](slides/08-Arrays.html)           | 一维数组 | -->
-<!-- | 第五讲  | [数组](slides/08-Arrays.html)           | 多维数组  |
-|   ^    | [函数](slides/09-Functions.html)           | 函数声明、定义、形参、实参  |
-| 第六讲  | [程序结构](slides/10-ProgramOrganization.html)        | 局部变量、全部变量、作用域等  |
-|   ^    | [指针](slides/11-Pointers.html)          | 指针变量、指针赋值、指针作为参数和返回值  |
-| 第七讲  | [指针](slides/11-Pointers.html)          | 指针变量、指针赋值、指针作为参数和返回值  |
-|   ^    | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
-| 第八讲  | [指针和指针数组](slides/12-PointersAndArrays.html)  | 指针算术运算、指针用于处理数组、数组名作为指针、指针和多维数组 |
-|   ^    | [字符串](slides/13-Strings.html)         | 字符串变量、读写等  |
-| 第九讲  | [字符串](slides/13-Strings.html)         | 字符串变量、读写等 |
-|   ^    | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | 结构体、联合、枚举等 |
-| 第十讲  | [结构、联合、枚举](slides/16-StructuresUnionsAndEnumerations.html) | 结构体、联合、枚举等 |
-|   ^    | [指针的高级应用](slides/17-AdvancedUsesOfPointers.html)   | 动态存储分配、空间释放等 |
-| 第十一讲  | [链表](slides/17-AdvancedUsesOfPointers.html)   | 动态存储分配、空间释放等 |
-| 第十二讲  | [宏](slides/14-Preprocessor.html)   | 预处理宏等 |
-|   ^     | [大型程序](slides/15-WritingLargePrograms.html)   | 多文件组织等 |
-| 第十三讲  | [声明](slides/18-Declarations.html)   | auto, extern, register等 |
-| ^ | [底层程序设计](slides/20-LowLevelProgramming.html)   | 位运算等 |
-| 第十四讲 | [解释复杂声明](slides/review.html) | 解释复杂声明、二分查找等 |
-| ^ | [底层程序设计](slides/22-InputOutput.html)   | 文件操作 |
-| .......| .............................. | .......| -->
 
 </div>
 
