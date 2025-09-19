@@ -8,24 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 
 
@@ -53,14 +53,84 @@ presentation:
 
 ---
 
+- 什么是程序设计语言
+
+- 什么是计算机
+
 - 计算机与编程语言
 
 - 为什么学习==C语言==
 
+---
 
-<!-- slide vertical=true data-notes="" -->
 
-##### 计算机与编程语言
+<!-- slide data-notes="" -->
+
+##### 思考
+
+---
+
+- ==问题1==：
+  
+  你们觉得计算机会‘听懂人话’吗？为什么 Siri/小爱同学可以和你对话？
+
+- ==问题2==：
+
+  如果你告速一个数N，让计算机算 1+2+3+...+N，最快的方法是什么？
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 程序能做什么
+
+---
+
+1. 计算器（C程序可以像计算器一样算数）
+
+2. 排序一组成绩，批改试卷，统计单词个数
+
+3. 游戏、微信、自动驾驶背后都是程序
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 什么是程序设计语言
+
+---
+
+人类交流 → 机器交流
+
+  - 人类要交流需要语言（中文、英文）。
+
+  - 人和计算机交流也需要“语言”——程序设计语言。
+
+对比：自然语言 vs 程序语言
+
+  - 自然语言灵活但有歧义；
+
+  - 程序语言严格、无歧义，让机器可以准确执行。
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 什么是程序设计语言
+
+---
+
+==程序设计语言，就是人类和计算机沟通的工具==
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 什么是计算机
 
 ---
 
@@ -76,9 +146,10 @@ presentation:
 
 软件：操作系统、应用程序等，执行各种任务
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -96,15 +167,16 @@ presentation:
 
 - 控制：通过操作系统和应用程序管理硬件资源，协调各组件的工作。
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
 ---
 
-计算机如何工作: 制作一杯咖啡
+举例：如何制作一杯咖啡
 
 步骤分解:
 
@@ -121,15 +193,16 @@ presentation:
 
 将大问题==分解==为具体小步骤，逐步解决每个部分
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
 ---
 
-计算机如何工作: 制作一杯咖啡
+举例：如何制作一杯咖啡
 
 1. ==输入==
 材料准备：
@@ -147,9 +220,10 @@ presentation:
 4. ==输出==
 享用咖啡：完成后，将咖啡倒入杯中，准备饮用。
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -165,9 +239,10 @@ presentation:
 
 - 橙子: 2个, 每个3元
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -194,9 +269,10 @@ presentation:
 计算机将结果输出到屏幕上:
 "购物总价为: 19.5元"
  
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -209,9 +285,10 @@ presentation:
 ==存储==: 等待时间和状态（内存中的数据）。
 ==输出==: 完成的咖啡（计算机的结果展示）。
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -227,9 +304,10 @@ presentation:
 
 - 输出数据
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -237,11 +315,12 @@ presentation:
 
 计算机如何工作的?
 
-![alt text](../img/howcomputerworks.png)
+![alt text](img/howcomputerworks.png)
+
+---
 
 
-
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -253,9 +332,10 @@ presentation:
 
 - ==语法==规则：语言遵循特定的语法和结构规则，指导如何将符合组合成有意义的句子或表达
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -269,9 +349,10 @@ presentation:
 
 - 控制结构：条件语句(如if, swtich)和循环(如for, while), 用于控制程序的执行流程
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 计算机与编程语言
 
@@ -294,6 +375,7 @@ presentation:
 - 循环
 打印1到100的数字
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -308,6 +390,7 @@ C语言起源可追溯到1970年代中期
 
 ==早期的开发==：C语言最早是在1972年创建，最初用于编写操作系统，特别是UNIX操作系统。Ritchie和团队使用C语言重写了UNIX的核心部分。
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -320,6 +403,7 @@ C语言起源可追溯到1970年代中期
 
 ==影响力==：C语言以其高效性和灵活性被广泛应用于系统编程、嵌入式系统以及应用程序开发。它的设计理念和语法影响了后续许多编程语言，如C++、Java和C#等。
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -341,6 +425,7 @@ C99
 - 国际标准ISO/IEC 9899:1999
 - 包含了一些重要的改变
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -357,6 +442,7 @@ C#是从C++和Java派生的新的语言
 
 Perl吸收了C的许多特性
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -375,6 +461,7 @@ C语言很大程度依赖一个标准函数的库
 3. ==宽松包容==
 提供了比其他语言更高的自由度, 不强制进行详细的错误检查
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -390,6 +477,7 @@ C语言很大程度依赖一个标准函数的库
 - 标准库
 - 与LINUX集成
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -404,6 +492,7 @@ C语言很大程度依赖一个标准函数的库
 
 - 程序可能难以维护
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -424,6 +513,7 @@ C语言很大程度依赖一个标准函数的库
 
 - 紧贴标准
 
+---
 
 
 
