@@ -26,7 +26,7 @@
 
 |        |              讲义                | 内容                           |
 | :----: | :--                             | :--                            |
-| 第一讲  | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍   |
+| 第一讲  | [课程介绍](slides/0-intro/0-intro.html)           |     课程介绍   |
 |   ^    | [编程语言](slides/0-intro/0-1-clang.html)        | 编程语言                    |
 |   ^    | [代码框架](slides/0-intro/0-2-hello.html)        | C代码基本结构                    |
 | 第二讲  | [变量类型](slides/1-1-variables.html)  | 变量和数据类型                    |
