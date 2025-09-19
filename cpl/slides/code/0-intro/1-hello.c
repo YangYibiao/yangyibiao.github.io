@@ -1,4 +1,8 @@
-/* TODO: 写一个程序输出Hello World */
+/* 
+* TODO: 
+* 输入：无
+* 输出：Hello World
+*/
 
 #include <stdio.h>
 
