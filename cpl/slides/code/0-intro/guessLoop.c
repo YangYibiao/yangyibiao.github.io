@@ -1,4 +1,8 @@
+/* TODO: 完成猜数字游戏的代码 */
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main() {
     // 1. set the limit as 100, the number to guess, and the number of tries

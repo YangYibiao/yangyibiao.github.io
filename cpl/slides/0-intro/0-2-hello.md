@@ -8,24 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 
 
@@ -61,7 +61,7 @@ presentation:
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 打印Hello NJU
@@ -124,11 +124,11 @@ int main(void)
 
 三步由源码转换成可执行: 
 
-- 预处理: 预处理器(preprocessor)处理 ==`#`== 开头的指令
+- ==预处理==: 预处理器(preprocessor)处理 ==`#`== 开头的指令
 
-- 编译: 编译器将源程序翻译为机器指令(目标代码)
+- ==编译==: 编译器将源程序翻译为机器指令(目标代码)
 
-- 链接: 链接器把由编译器生成的目标代码和所需的其他附加代码合在一起, 最终产生完全可执行的程序
+- ==链接==: 链接器把由编译器生成的目标代码和所需的其他附加代码合在一起, 最终产生完全可执行的程序
 
 
 
@@ -261,7 +261,7 @@ C语言对 ==函数== 术语的使用更加宽松
 <!-- slide data-notes="" -->
 
 
-##### main函数
+##### 主函数
 
 ---
 
