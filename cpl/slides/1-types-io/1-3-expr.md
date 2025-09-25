@@ -8,24 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 
 
@@ -83,7 +83,7 @@ C拥有丰富的运算符集合, 包括:
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 算术运算符
@@ -105,7 +105,7 @@ C拥有丰富的运算符集合, 包括:
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 一元算术运算符
@@ -123,7 +123,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 二元算术运算符
@@ -141,7 +141,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### `/`和`%`运算符
@@ -162,7 +162,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 由实现定义的行为
@@ -173,11 +173,11 @@ j = -i;
 
 - 未指定部分是因为C语言更强调==效率==, 常常意味着与硬件行为相匹配
 
-<span class="blue">:fa-lightbulb-o:</span> 避免编写依赖于由具体实现所定义的行为的程序
+<span class="blue">:fa-weixin:</span> 避免编写依赖于由具体实现所定义的行为的程序
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 运算符优先级
@@ -196,7 +196,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 运算符优先级
@@ -221,7 +221,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 运算符结合性
@@ -244,7 +244,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 运算符结合性
@@ -259,7 +259,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位(s)
@@ -267,7 +267,7 @@ j = -i;
 ---
 
 <div class="top-2">
-  <img src="../img/upc.png" width=100px>
+  <img src="img/upc.png" width=100px>
 </div>
 
 条形码下方数字的含义: 
@@ -279,7 +279,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位(s)
@@ -297,7 +297,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序: 计算产品代码校验位(s)
 
@@ -315,7 +315,7 @@ j = -i;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序: 计算产品代码校验位(s)
 
@@ -336,7 +336,7 @@ Check digit: 5
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 计算产品代码校验位(s)
@@ -375,7 +375,7 @@ int main(void)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 赋值运算符
 
@@ -387,7 +387,7 @@ int main(void)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 简单赋值
@@ -408,7 +408,7 @@ k = 10 * i + j;   /* k is now 55 */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 简单赋值
 
@@ -427,7 +427,7 @@ f = 136;      /* f is now 136.0 */
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 简单赋值
@@ -447,7 +447,7 @@ i = j = 50 + 3;
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 副作用(side effects)
@@ -464,7 +464,7 @@ i = j = 50 + 3;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 副作用(side effects)
@@ -485,7 +485,7 @@ i = (j = (k = 0));
 
 ---
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 副作用(side effects)
@@ -505,7 +505,7 @@ f = i = 33.3f;
 
 ---
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 副作用(side effects)
@@ -527,7 +527,7 @@ printf("%d %d %d\n", i, j, k);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 左值
@@ -545,7 +545,7 @@ printf("%d %d %d\n", i, j, k);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 左值
@@ -564,7 +564,7 @@ i + j = 0;   /*** WRONG ***/
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 复合赋值
@@ -586,7 +586,7 @@ i += 2;   /* same as i = i + 2; */
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 复合赋值
@@ -612,7 +612,7 @@ i += 2;   /* same as i = i + 2; */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 复合赋值
@@ -629,7 +629,7 @@ i += 2;   /* same as i = i + 2; */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 复合赋值
@@ -642,7 +642,7 @@ i += 2;   /* same as i = i + 2; */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -666,7 +666,7 @@ j -= 1;
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -687,7 +687,7 @@ C 特别提供了 `++` 自增 和 `-–` 自减 运算符
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -713,7 +713,7 @@ printf("i is %d\n", i);     /* prints "i is 2" */
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -726,7 +726,7 @@ printf("i is %d\n", i);     /* prints "i is 2" */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -747,7 +747,7 @@ printf("i is %d\n", i);     /* prints "i is 0" */
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -773,7 +773,7 @@ i, j和k的最终值分别为 2, 3和4.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 自增和自减运算符
@@ -792,7 +792,7 @@ k = i++ + j++;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 表达式求值
@@ -819,7 +819,7 @@ k = i++ + j++;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 表达式求值
@@ -847,7 +847,7 @@ k = i++ + j++;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 子表达式求值顺序
@@ -862,7 +862,7 @@ k = i++ + j++;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 子表达式求值顺序
@@ -882,7 +882,7 @@ c = (b = a + 2) - (a = 1);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 子表达式求值顺序
@@ -895,7 +895,7 @@ c = (b = a + 2) - (a = 1);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 子表达式求值顺序
@@ -917,7 +917,7 @@ c = b - a;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 子表达式求值顺序
@@ -943,7 +943,7 @@ j = i * i++;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 未定义的行为
@@ -966,7 +966,7 @@ j = i * i++;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 表达式语句
@@ -984,7 +984,7 @@ i首先递增, 然后获取i的新值, 然后丢弃
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 表达式语句
@@ -1002,7 +1002,7 @@ i * j - 1; /* not useful */
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 表达式语句

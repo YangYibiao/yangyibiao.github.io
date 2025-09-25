@@ -29,10 +29,10 @@
 | 第一讲  | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍   |
 |   ^    | [编程语言](slides/0-intro/0-1-clang.html)        | 编程语言                    |
 |   ^    | [代码框架](slides/0-intro/0-2-hello.html)        | C代码基本结构                    |
-| 第二讲  | [变量类型](slides/1-1-variables.html)  | 变量和数据类型                    |
-|   ^    | [输入输出](slides/1-2-io.html)  | 格式化输入输出                    |
-|   ^    | [表达式](slides/1-3-expr.html)          | 运算符和表达式                |
-|   ^    | [演示](slides/1-4-coding.html)          | 代码演示                |
+| 第二讲  | [变量类型](slides/1-types-io/1-1-variables.html)  | 变量和数据类型                    |
+|   ^    | [输入输出](slides/1-types-io/1-2-io.html)  | 格式化输入输出                    |
+|   ^    | [表达式](slides/1-types-io/1-3-expr.html)          | 运算符和表达式                |
+|   ^    | [演示](slides/1-types-io/1-4-coding.html)          | 代码演示                |
 | 第三讲  | [选择](slides/2-1-if.html)        | 逻辑表达式、if语句、switch语句    |
 |   ^    | [循环](slides/2-2-loops.html)           | while语句、do-while语句、for语句 |
 |   ^    | [数组](slides/2-3-arrays.html)           | 一维数组  |
