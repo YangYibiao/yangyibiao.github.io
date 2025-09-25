@@ -81,7 +81,7 @@ C拥有丰富的运算符集合, 包括:
 - 自增和自减运算符
 - 其他运算符
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -160,6 +160,7 @@ j = -i;
 
 <span class="yellow">:fa-weixin:</span> C99中, 除法结果总是向零截断, 并且==i % j==的值与==i==有相同符号
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -175,6 +176,7 @@ j = -i;
 
 <span class="blue">:fa-weixin:</span> 避免编写依赖于由具体实现所定义的行为的程序
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -194,7 +196,7 @@ j = -i;
 
 <span class="yellow">:fa-weixin:</span> 若括号被省略, C使用==运算符优先级==规则来确定表达式含义
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -219,7 +221,7 @@ j = -i;
 
 </div>
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -242,7 +244,7 @@ j = -i;
 
 </div>
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -257,7 +259,7 @@ j = -i;
 
 `-+i`等价于`-(+i)`
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -277,7 +279,7 @@ j = -i;
 - 第二组五位数: 产品(包括包装尺寸)
 - 末位数字: 校验位, 用于帮助识别前面数字中的错误
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -313,7 +315,7 @@ j = -i;
 - 从 $9$ 中减去余数
 - 结果是 $5$
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -334,7 +336,7 @@ Check digit: 5
 
 <span class="yellow">:fa-weixin:</span> 要读取单个数字, 可以在==scanf==中使用`%1d`转换说明
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -562,7 +564,7 @@ i + j = 0;   /*** WRONG ***/
 
 <span class="blue">:fa-lightbulb-o:</span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -610,7 +612,7 @@ i += 2;   /* same as i = i + 2; */
 
 </div>
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -627,7 +629,7 @@ i += 2;   /* same as i = i + 2; */
 
 - 在极少数情况下, `v += e` 不同于 `v = v + e` 因为 `v`本身有副作用(如`v`为`++i`或`i++`等)
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -640,7 +642,7 @@ i += 2;   /* same as i = i + 2; */
 
 虽然`i =+ j`能编译通过, 但意义不同, 它相当于 `i = (+j)`, 它只是将`j`的值复制到`i`中
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -685,7 +687,7 @@ C 特别提供了 `++` 自增 和 `-–` 自减 运算符
 
 - 副作用是修改操作数的值
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -724,7 +726,7 @@ printf("i is %d\n", i);     /* prints "i is 2" */
 
 - 稍后是多久后？C语言标准没有指定精确的时间, 但可以放心的是`i`将在执行下一条语句之前一定会自增
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -771,7 +773,7 @@ j = j + 1;
 ```
 i, j和k的最终值分别为 2, 3和4.
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -790,7 +792,7 @@ k = i++ + j++;
 
 `i`、`j`和`k`的值最终为`2`、`3`和`3`
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -817,7 +819,7 @@ k = i++ + j++;
 
 </div>
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -845,7 +847,7 @@ k = i++ + j++;
 
 </div>
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -860,7 +862,7 @@ k = i++ + j++;
 
 - 在表达式 `(a + b) * (c - d)` 中并未定义是应该先计算 `(a + b)` 还是应该先计算 `(c – d)`
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -880,7 +882,7 @@ c = (b = a + 2) - (a = 1);
 
 - 第二条语句的执行结果是未定义的
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -893,7 +895,7 @@ c = (b = a + 2) - (a = 1);
 
 在遇到这样的表达式时可能会产生编译警告消息, 例如"对`a`的操作可能未定义" 
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -915,7 +917,7 @@ c = b - a;
 
 `c`的值是确定的, 将始终为 `6`
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -941,7 +943,7 @@ j = i * i++;
 
 - i的新值和旧值相乘, 得到 6
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -964,7 +966,7 @@ j = i * i++;
 
 <span class="blue">:fa-lightbulb-o:</span> 应避免未定义的行为
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -982,7 +984,7 @@ C 有一个不寻常的规则, 即任何表达式都可以用作语句
 
 i首先递增, 然后获取i的新值, 然后丢弃
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -1014,3 +1016,5 @@ i * j - 1; /* not useful */
 例如: `i = j;` 误编写为 `i + j;`
 
 一些编译器会检测无意义的表达式语句; 给出一个警告, 比如`"statement with no effect"`.
+
+---
