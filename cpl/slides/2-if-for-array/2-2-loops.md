@@ -8,24 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 
 
@@ -48,7 +48,7 @@ presentation:
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 提纲
@@ -84,9 +84,10 @@ C语言的重复语句用于设置循环
 
 如果表达式为真(值不为零), 则循环继续执行
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 重复语句
@@ -101,9 +102,10 @@ C 提供了三种重复语句:
 
 - ==for语句== 非常适合`递增`或`递减`计数变量的循环
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### while语句
@@ -124,9 +126,10 @@ while (表达式)  语句
 
 <span class="yellow">:fa-weixin:</span> 语句可以是`单条语句`, 也可以是使用`{}`括起来的`复合语句`
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### while语句
@@ -146,9 +149,10 @@ while (i < n) /* 控制表达式 */
 
 - 该过程持续进行, 直到控制表达式的值变为零才停止. 
 
+---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### while语句
@@ -181,7 +185,7 @@ Is i < n?       No; exit from loop
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### while语句
@@ -210,7 +214,7 @@ while (i < n) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### while语句
@@ -231,7 +235,7 @@ while (i > 0) {
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### while语句
@@ -254,7 +258,7 @@ while (i > 0)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 无限循环
@@ -273,7 +277,7 @@ while (1) …
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 打印平方表
@@ -296,7 +300,7 @@ Enter number of entries in table: 5
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 打印平方表
@@ -331,7 +335,7 @@ int main(void)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 数列求和
@@ -349,7 +353,7 @@ int main(void)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 数列求和
@@ -384,7 +388,7 @@ int main(void)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### do语句
@@ -403,7 +407,7 @@ do 语句 while (表达式);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### do语句
@@ -445,7 +449,7 @@ while (i > 0);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 计算整数的位数
@@ -465,7 +469,7 @@ The number has 2 digit(s).
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 计算整数的位数
@@ -500,7 +504,7 @@ int main(void)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句
@@ -530,7 +534,7 @@ for (i = 10; i > 0; i--)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句
@@ -553,7 +557,7 @@ while (表达式2) {
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句
@@ -577,7 +581,7 @@ while (i > 0) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句
@@ -606,7 +610,7 @@ while (i > 0) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句
@@ -619,7 +623,7 @@ for语句中的第一个和第三个表达式都是以语句的方式执行的, 
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句常见用法
@@ -640,7 +644,7 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句常见用法
@@ -657,7 +661,7 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句省略表达式
@@ -684,7 +688,7 @@ for (i = 10; i > 0;)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句省略表达式
@@ -709,7 +713,7 @@ while (i > 0)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### for语句省略表达式
@@ -727,7 +731,7 @@ while (i > 0)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### C99中的for语句
@@ -747,7 +751,7 @@ for (int i = 0; i < n; i++)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### C99中的for语句
@@ -768,7 +772,7 @@ printf("%d", i); /*** WRONG ***/
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### C99中的for语句
@@ -789,7 +793,7 @@ for (int i = 0, j = 0; i < n; i++)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 逗号运算符
@@ -810,7 +814,7 @@ for (int i = 0, j = 0; i < n; i++)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 逗号运算符
@@ -831,7 +835,7 @@ for (int i = 0, j = 0; i < n; i++)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 逗号运算符
@@ -852,7 +856,7 @@ i = 1, j = 2, k = i + j
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 逗号运算符
@@ -876,7 +880,7 @@ for (sum = 0, i = 1; i <= N; i++)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 打印平方表
@@ -908,7 +912,7 @@ int main(void)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 打印平方表
@@ -925,7 +929,7 @@ square3.c程序等价于square2.c, 但包含一个`for`语句, 用于初始化�
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 打印平方表
@@ -962,7 +966,7 @@ int main(void)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 退出循环
@@ -975,7 +979,7 @@ int main(void)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### break语句
@@ -995,7 +999,7 @@ for (d = 2; d < n; d++)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### break语句
@@ -1014,7 +1018,7 @@ else
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### break语句
@@ -1038,7 +1042,7 @@ for (;;) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### break语句
@@ -1063,7 +1067,7 @@ while (…) {
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### continue语句
@@ -1082,7 +1086,7 @@ while (…) {
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### continue语句
@@ -1107,7 +1111,7 @@ while (n < 10) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### continue语句
@@ -1131,7 +1135,7 @@ while (n < 10) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### goto语句
@@ -1156,7 +1160,7 @@ goto 标识符;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### goto语句
@@ -1180,7 +1184,7 @@ else
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### goto语句
@@ -1195,7 +1199,7 @@ C中很少需要`goto`语句
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### goto语句
@@ -1222,7 +1226,7 @@ loop_done: …
 
 `goto`语句对于退出嵌套循环也很有用
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 账单结算
@@ -1248,7 +1252,7 @@ for (;;) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 账单结算
@@ -1276,7 +1280,7 @@ for (;;) {
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 账单结算
@@ -1289,7 +1293,7 @@ for (;;) {
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 账单结算
@@ -1321,7 +1325,7 @@ Enter command: 4
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 程序: 账单结算
@@ -1377,7 +1381,7 @@ int main(void)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 空语句
@@ -1396,7 +1400,7 @@ i = 0; ; j = 1;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 空语句
@@ -1422,7 +1426,7 @@ for (d = 2; d < n && n % d != 0; d++)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 空语句
@@ -1455,7 +1459,7 @@ while (i > 0);                        /*** WRONG ***/
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 空语句
@@ -1485,7 +1489,7 @@ for (i = 10; i > 0; i--);       /*** WRONG ***/
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 习题1
@@ -1501,7 +1505,7 @@ for (i = 5, j = i - 1; i > 0, j > 0; --i, j = i - 1)
 
 ---
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 习题2
 
