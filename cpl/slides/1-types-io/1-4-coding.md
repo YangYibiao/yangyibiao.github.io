@@ -8,24 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 
 
@@ -83,7 +83,7 @@ presentation:
   > `_______________ : surface_area`
   > `_______________ : volume`
 
-[演示-circle.c](../code/1-types-io/circle.c)
+[演示-circle.c](code/circle.c)
 
 ---
 
@@ -109,7 +109,7 @@ $Q = 6 / 32 \times 6.02 \times 10^{23}$
 - 第二行结果, 保留 $5$ 位有效数字
 
 
-[演示mol.c](../code/1-types-io/mol.c)
+[演示mol.c](code/mol.c)
 
 ---
 
@@ -139,7 +139,7 @@ Xiaojing Nan  F
 100           90     80
 90            5%
 
-[演示-admin.c](../code/1-types-io/admin.c)
+[演示-admin.c](code/admin.c)
 
 
 <!-- slide data-notes="" -->
@@ -148,7 +148,7 @@ Xiaojing Nan  F
 
 ---
 
-![alt text](figs/img/char-image.png)
+![alt text](img/char-image.png)
 
 A `char` is actually an `int`.
 
