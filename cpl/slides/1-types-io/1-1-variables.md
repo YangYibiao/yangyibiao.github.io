@@ -129,7 +129,7 @@ $L = 2\pi r$ &emsp; $S = \pi r^2$
 
 ---
 
-<code><font color = "yellow" size = "7">int radius = 10;</font></code>
+<code><font color = "blue" size = "7">int radius = 10;</font></code>
 
 <br>
 
@@ -148,13 +148,13 @@ $L = 2\pi r$ &emsp; $S = \pi r^2$
 
 ---
 
-<code><font color = "yellow" size = "7">int radius = 10;</font></code>
+<code><font color = "blue" size = "7">int radius = 10;</font></code>
 
 <br>
 
 `radius` is an *identifier*.
 
-**Warning:** Do *not* start with <code><font color = "yellow">_</font></code>, which are reserved by C.
+**Warning:** Do *not* start with <code><font color = "blue">_</font></code>, which are reserved by C.
 
 <br>
 
@@ -171,7 +171,9 @@ $L = 2\pi r$ &emsp; $S = \pi r^2$
 
 <br>
 
-<code><font color = "yellow" size = "8">circumference = 2 * PI * radius;</font></code>
+```C
+circumference = 2 * PI * radius
+```
 
 ---
 
@@ -257,7 +259,7 @@ $Q = 6 / 32 \times 6.02 \times 10^{23}$
 
 ---
 
-# <code><font color = yellow>char</font></code> and <code><font color = yellow><ctype.h></font></code>
+# <code><font color = blue>char</font></code> and <code><font color = blue><ctype.h></font></code>
 
 <div class="top-2">
   <img src="img/ASCII.png" width=600px>
@@ -274,8 +276,8 @@ A `char` is actually an `int`.
 
 ---
 
-# <code><font color = yellow>C string</font></code>
-<code><font color = yellow size = 8>char first_name[] = "Tayu";</code></font>
+# <code><font color = blue>C string</font></code>
+<code><font color = blue size = 8>char first_name[] = "Tayu";</code></font>
 
 A C string is a null-terminated (`\0`) sequence of characters.
 
@@ -295,7 +297,7 @@ String literal: 'T', 'a', 'y', 'u', '\0'
 
 ---
 ### <mark>Conversion Specification</mark>
-# <!--fit--> <code><font color = yellow><font color = red>%</font>[flags][width][.[precision]]<font color = red>specifier</font></font></code>
+# <!--fit--> <code><font color = blue><font color = red>%</font>[flags][width][.[precision]]<font color = red>specifier</font></font></code>
 
 - <code><font color = red size = 7>%d</font></code>: decimal `int`
 - <code><font color = red size = 7>%f</font></code>: `double`
@@ -315,7 +317,7 @@ It is <ins>up to you</ins> to ensure that the type of the actual argument <ins>m
 [Undefined Behavior (UB)](https://en.cppreference.com/w/c/language/behavior)
 
 ---
-# <!--fit--> <code><font color = yellow>%[<font color = red>flags</font>][width][.[precision]]specifier</font></code>
+# <!--fit--> <code><font color = blue>%[<font color = red>flags</font>][width][.[precision]]specifier</font></code>
 
 <br>
 <br>
@@ -325,7 +327,7 @@ It is <ins>up to you</ins> to ensure that the type of the actual argument <ins>m
 - $+$: always begin with a plus or minus sign
 
 ---
-# <!--fit--> <code><font color = yellow>%[flags][<font color = red>width</font>][.[precision]]specifier</font></code>
+# <!--fit--> <code><font color = blue>%[flags][<font color = red>width</font>][.[precision]]specifier</font></code>
 
 <br>
 <br>
@@ -334,7 +336,7 @@ It is <ins>up to you</ins> to ensure that the type of the actual argument <ins>m
 - padded with spaces if it has fewer characters
 
 ---
-# <!--fit--> <code><font color = yellow>%[flags][width][<font color = red>.[precision]</font>]specifier</font></code>
+# <!--fit--> <code><font color = blue>%[flags][width][<font color = red>.[precision]</font>]specifier</font></code>
 
 <br>
 <br>
@@ -365,18 +367,18 @@ It is <ins>up to you</ins> to ensure that the type of the actual argument <ins>m
 ![bg w:600](figs/Luo.jpeg)
 
 ---
-# <code><font color = yellow><font color = red>%</font>[$\ast$][width]<font color = red>specifier</font></font></code>
+# <code><font color = blue><font color = red>%</font>[$\ast$][width]<font color = red>specifier</font></font></code>
 
 <br>
 
-- <code><font color = yellow size = 7>%d</font></code>: skip white-spaces; match a decimal `int`
-- <code><font color = yellow size = 7>%lf</font></code>: skip white-spaces; match a `double`
-- <code><font color = yellow size = 7>%c</font></code>: match a `char` (do <mark>NOT</mark> skip white-spaces)
-- <code><font color = yellow size = 7>%s</font></code>: match a sequence of non-white-spaces
-- <code><font color = yellow size = 7>%%</font></code>: mathch a `%`
+- <code><font color = blue size = 7>%d</font></code>: skip white-spaces; match a decimal `int`
+- <code><font color = blue size = 7>%lf</font></code>: skip white-spaces; match a `double`
+- <code><font color = blue size = 7>%c</font></code>: match a `char` (do <mark>NOT</mark> skip white-spaces)
+- <code><font color = blue size = 7>%s</font></code>: match a sequence of non-white-spaces
+- <code><font color = blue size = 7>%%</font></code>: mathch a `%`
 
 ---
-# <code><font color = yellow>%[<font color = red>$\ast$</font>][width]specifier</font></code>
+# <code><font color = blue>%[<font color = red>$\ast$</font>][width]specifier</font></code>
 
 <br>
 <br>
@@ -384,7 +386,7 @@ It is <ins>up to you</ins> to ensure that the type of the actual argument <ins>m
 - $\ast$: assignment-suppressing
 
 ---
-# <code><font color = yellow>%[$\ast$][<font color = red>width</font>]specifier</font></code>
+# <code><font color = blue>%[$\ast$][<font color = red>width</font>]specifier</font></code>
 
 <br>
 <br>
@@ -497,7 +499,7 @@ int main(void) {
 
 - ==float/double== 在计算机中是近似存储的
 
-<span class="yellow">:fa-weixin:</span> 需要注意: 
+<span class="blue">:fa-weixin:</span> 需要注意: 
 
 - ==float/double== 型变量所存储的数值往往只是实际数值的一个近似值
 - ==float/double== 型变量中存储0.1, 可能发现变量值为$0.099 999 999 999 999 87$
@@ -558,7 +560,7 @@ int main(void)
 }
 ```
 
-<span class="yellow">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
+<span class="blue">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
 
 ---
 
@@ -822,7 +824,7 @@ scanf("%d", &i);
 /* reads an integer; stores into i */
 ```
 
-<span class="yellow">:fa-weixin:</span> ==&== 符号通常(但不总是)在使用 ==`scanf`== 时是必需的
+<span class="blue">:fa-weixin:</span> ==&== 符号通常(但不总是)在使用 ==`scanf`== 时是必需的
 
 
 
