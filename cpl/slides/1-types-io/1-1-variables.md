@@ -59,7 +59,24 @@ presentation:
 
 - 数据类型
 
+- I/O
 
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 变量与赋值
+
+---
+
+**Program = Input + Data + Operations + Output**
+
+<div class="top-2">
+  <img src="img/Inputs-Outputs.jpg" width=600px>
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
