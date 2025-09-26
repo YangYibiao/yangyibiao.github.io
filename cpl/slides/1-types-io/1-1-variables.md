@@ -219,23 +219,19 @@ $Q = 6 / 32 \times 6.02 \times 10^{23}$
 
 <!-- slide data-notes="" -->
 
-##### 大学信息管理系统
+##### 学校信息管理系统
 
 ---
 
-- Name (EN)
-- Address
-- Type (F/M)
+- 校名 (EN) / 校址
 
-- Birthday (mm-dd-yyyy)
+- 类型(综合型C/艺术类A/工科类T)
 
-- education score
-- reseach score
-- impact score
+- 校庆日 (mm-dd-yyyy)
 
-- Mean (.d)
-- Standard Deviation (.dd)
-- Ranking ($\%$)
+- 教学质量/研究质量/影响力
+
+- 平均分/标准差/排名
 
 
 ---
