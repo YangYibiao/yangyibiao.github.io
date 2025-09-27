@@ -58,11 +58,11 @@
 
 #### 在线评测系统
 
-[https://oj.cpl.icu](https://oj.cpl.icu/)
+[https://hz-4.matpool.com:28163/](https://hz-4.matpool.com:28163/)
 
-#### 答疑安排
+<!-- #### 答疑安排
 
-[https://docs.cpl.icu/#/qa](https://docs.cpl.icu/#/qa)
+[https://docs.cpl.icu/#/qa](https://docs.cpl.icu/#/qa) -->
 
 <!-- <div class="threelines outline head-highlight" style="width=400pt">
 
