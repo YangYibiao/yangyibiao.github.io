@@ -60,22 +60,14 @@
 
 [https://hz-4.matpool.com:28163/](https://hz-4.matpool.com:28163/)
 
+
+<!-- #### 答疑相关
+
+1. [如何提问](slides/smartquestion.html)
+2. [共性问题](slides/commonquestion.html) -->
+
 <!-- #### 答疑安排
 
 [https://docs.cpl.icu/#/qa](https://docs.cpl.icu/#/qa) -->
-
-<!-- <div class="threelines outline head-highlight" style="width=400pt">
-
-| 答疑时间     | 周一 | 周二 | 周三 | 周四 | 周五 | 周六 | 周日 |
-| :--:        | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| 08:00-10:00 | 李清扬(线上) | 李清扬(线上) | 姜钊炜(线上) | &emsp; | &emsp; | &emsp; | &emsp; |
-| 10:00-12:00 | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; |
-| 12:00-14:00 | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; |
-| 14:00-16:00 | 姜钊炜(线上)</div> | &emsp; | 茆文杰(线上) | &emsp; | &emsp; | 蒙民伟楼602(15:00~) | 蒙民伟楼602(14:30~) |
-| 16:00-18:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼509) | 茆文杰(线上) | &emsp; | &emsp; |
-| 18:30-20:00 | &emsp; | &emsp; | &emsp; | 杨已彪(南园综合楼511) | &emsp; |蒙民伟楼602(19:00~) | &emsp; |
-| 20:00-22:00 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | 蒙民伟楼602 | &emsp; | &emsp; |
-
-</div> -->
 
 
