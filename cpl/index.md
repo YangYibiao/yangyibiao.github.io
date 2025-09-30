@@ -54,7 +54,7 @@
 
 #### 教材
 
-[_C语言程序设计现代方法 第二版 修订版_](book/c-programming-a-modern-approach.pdf) <br>K.N. King 著，吕秀峰、黄倩 译
+[_C语言程序设计现代方法 第二版 修订版_](book/C语言程序设计现代方法-第二版.pdf) <br>K.N. King 著，吕秀峰、黄倩 译
 
 #### 在线评测系统
 
