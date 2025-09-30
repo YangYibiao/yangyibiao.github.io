@@ -148,7 +148,7 @@ Xiaojing Nan  F
 
 ---
 
-![alt text](img/char-image.png)
+![alt text](img/ASCII.png)
 
 A `char` is actually an `int`.
 
