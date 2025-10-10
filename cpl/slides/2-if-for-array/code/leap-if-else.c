@@ -20,7 +20,7 @@ int main(void) {
     }
 
     if (leap == 0) {
-       printf("%d is not a leap year\n", year);
+       printf("%d is a common year\n", year);
     } else {
         printf("%d is a leap year\n", year);
     }
