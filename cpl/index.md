@@ -33,10 +33,10 @@
 |   ^    | [输入输出](slides/1-types-io/1-2-io.html)  | 格式化输入输出                    |
 |   ^    | [表达式](slides/1-types-io/1-3-expr.html)          | 运算符和表达式                |
 |   ^    | [演示](slides/1-types-io/1-4-coding.html)          | 代码演示                |
-| 第三讲  | [选择](slides/2-1-if.html)        | 逻辑表达式、if语句、switch语句    |
-|   ^    | [循环](slides/2-2-loops.html)           | while语句、do-while语句、for语句 |
-|   ^    | [数组](slides/2-3-arrays.html)           | 一维数组  |
-|   ^    | [演示](slides/2-4-coding.html)     | 代码演示  |
+| 第三讲  | [选择](slides/2-if-for-array/2-1-if.html)        | 逻辑表达式、if语句、switch语句    |
+|   ^    | [循环](slides/2-if-for-array/2-2-loops.html)           | while语句、do-while语句、for语句 |
+|   ^    | [数组](slides/2-if-for-array/2-3-arrays.html)           | 一维数组  |
+|   ^    | [演示](slides/2-if-for-array/2-4-coding.html)     | 代码演示  |
 | 第四讲  | [循环](slides/3-1-coding.html)        | for while do-while coding    |
 | 第五讲  | [多维数组](slides/4-1-marrays.html)       | 多维数组 |
 |   ^    | [循环](slides/4-2-coding.html)           | coding |
