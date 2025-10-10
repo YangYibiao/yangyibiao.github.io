@@ -437,7 +437,7 @@ do语句和while语句往往没有什么区别
 
 ---
 
-<span class="blue">:fa-lightbulb-o:</span> 无论是否需要, 最好给所有的do语句都加上大括号, 没有大括号的do语句很容易被误认为是while语句
+<span class="blue">:fa-weixin:</span> 无论是否需要, 最好给所有的do语句都加上大括号, 没有大括号的do语句很容易被误认为是while语句
 
 ```C
 do
