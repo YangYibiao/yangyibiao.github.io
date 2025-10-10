@@ -288,12 +288,10 @@ $\sum\limits_{i=1}^{n} = \frac{n(n-1)}{2}$
 <!-- slide vertical=true data-notes="" -->
 
 
-##### 
+##### Min of a Set of Numbers
 
 ---
 
- Min of a Set of Numbers
-<br>
 <br>
 
 #### Given a set $A$ of integers, to compute their minimum.
