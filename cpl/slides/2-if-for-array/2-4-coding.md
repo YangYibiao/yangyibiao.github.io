@@ -94,11 +94,11 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-#####
+##### 代码任务
 
 --- 
 
-![w:700](figs/lets-code.jpeg)
+<!-- ![w:700](figs/lets-code.jpeg) -->
 
 ## <mark>min.c &ensp; leap.c &ensp; min-array.c</mark>
 
@@ -106,11 +106,11 @@ presentation:
 
 <!-- slide vertical=true data-notes="" -->
 
-#####
+##### Min
 
 ---
 
-## Min
+## 
 
 ![w:800](figs/minimum.jpg)
 
@@ -119,11 +119,11 @@ presentation:
 <!-- slide vertical=true data-notes="" -->
 
 
-##### 
+##### Min of Two
 
 --- 
 
-## Min of Two
+## 
 <br>
 <br>
 
@@ -165,11 +165,11 @@ $\mathit{min} = \min\{a, b\}$ -->
 <!-- slide vertical=true data-notes="" -->
 
 
-##### 
+##### Min of Three
 
 ---
 
-## Min of Three
+## 
 <br>
 <br>
 
@@ -183,11 +183,11 @@ $\mathit{min} = \min\{a, b, c\}$
 <!-- slide vertical=true data-notes="" -->
 
 
-##### 
+##### Min of a Set of Numbers
 
 ---
 
-## Min of a Set of Numbers
+## 
 <br>
 
 #### Given a set $A$ of integers, to compute their minimum.
