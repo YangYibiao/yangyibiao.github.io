@@ -28,7 +28,7 @@
 | :----: | :--                             | :--                            |
 | 第一讲  | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍   |
 |   ^    | [编程语言](slides/0-intro/0-1-clang.html)        | 编程语言                    |
-|   ^    | [代码框架](slides/0-intro/0-2-hello.html)        | C代码基本结构                    |
+|   ^    | [演示](slides/0-intro/0-2-hello.html)        | C代码基本结构                    |
 | 第二讲  | [变量类型](slides/1-types-io/1-1-variables.html)  | 变量和数据类型                    |
 |   ^    | [输入输出](slides/1-types-io/1-2-io.html)  | 格式化输入输出                    |
 |   ^    | [表达式](slides/1-types-io/1-3-expr.html)          | 运算符和表达式                |
@@ -38,9 +38,9 @@
 |   ^    | [数组](slides/2-if-for-array/2-3-arrays.html)           | 一维数组  |
 |   ^    | [演示](slides/2-if-for-array/2-4-coding.html)     | 代码演示  |
 | 第四讲  | [循环](slides/3-for-a-while/3-1-loops.html)        | for while do-while coding    |
-|   ^    | [循环](slides/3-for-a-while/3-2-coding.html)        | 代码演示    |
+|   ^    | [演示](slides/3-for-a-while/3-2-coding.html)        | 代码演示    |
 | 第五讲  | [多维数组](slides/4-loops/4-1-marrays.html)       | 多维数组 |
-|   ^  | [多维数组](slides/4-loops/4-2-coding.html)       | 代码演示 |
+|   ^  | [演示](slides/4-loops/4-2-coding.html)       | 代码演示 |
 | 第六讲  | [多维数组](slides/5-functions/5-1-functions.html)       | 函数 |
 | 第七讲  | [数据类型](slides/6-data-types/6-1-data-types.html)       | 数据类型 |
 | 第八讲  | [指针与数组](slides/7-pointers-and-arrarys/7-pointer-array.html)       | 指针与数组 |
