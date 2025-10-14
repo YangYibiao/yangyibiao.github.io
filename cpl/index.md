@@ -41,15 +41,15 @@
 |   ^    | [循环](slides/3-for-a-while/3-2-coding.html)        | 代码演示    |
 | 第五讲  | [多维数组](slides/4-loops/4-1-marrays.html)       | 多维数组 |
 |   ^  | [多维数组](slides/4-loops/4-2-coding.html)       | 代码演示 |
-| 第六讲  | [多维数组](slides/5-1-functions.html)       | 函数 |
-| 第七讲  | [数据类型](slides/6-1-data-types.html)       | 数据类型 |
-| 第八讲  | [指针与数组](slides/7-pointer-array.html)       | 指针与数组 |
-| 第九讲  | [字符串](slides/8-pointers-c-strings.html)            | 字符串 |
-| 第十讲  | [高级指针](slides/9-double-pointers.html)            | 指针与多维数组 |
-| 第十一讲  | [结构体](slides/10-struct.html)            | 结构体 |
-| 第十二讲  | [链表](slides/11-linkedlist.html)            | 链表 |
-| 第十三讲  | [链表](slides/11-linkedlist.html)            | 链表 |
-| 第十四讲  | [函数指针](slides/12-function-pointers.html)            | 函数指针 |
+| 第六讲  | [多维数组](slides/5-functions/5-1-functions.html)       | 函数 |
+| 第七讲  | [数据类型](slides/6-data-types/6-1-data-types.html)       | 数据类型 |
+| 第八讲  | [指针与数组](slides/7-pointers-and-arrarys/7-pointer-array.html)       | 指针与数组 |
+| 第九讲  | [字符串](slides/8-pointers-and-c-strings/8-pointers-c-strings.html)            | 字符串 |
+| 第十讲  | [高级指针](slides/9-double-pointers/9-double-pointers.html)            | 指针与多维数组 |
+| 第十一讲  | [结构体](slides/10-function-pointers/10-struct.html)            | 结构体 |
+| 第十二讲  | [链表](slides/11-struct/11-linkedlist.html)            | 链表 |
+| 第十三讲  | [链表](slides/12-linked-lists/12-linkedlist.html)            | 链表 |
+| 第十四讲  | [函数指针](slides/13-recursion/13-function-pointers.html)            | 函数指针 |
 
 </div>
 
