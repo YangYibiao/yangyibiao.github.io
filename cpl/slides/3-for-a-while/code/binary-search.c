@@ -1,33 +1,37 @@
 #include <stdio.h>
 
 #define LEN 10
-int dictionary[LEN] = {1, 1, 3, 4, 5, 6, 7, 8, 9, 10};
+int dictionary[LEN] =
+    {1, 1, 5,
+     5, 5, 5,
+     5, 5, 9,
+     10};
 int main() {
   int key = 0;
   scanf("%d", &key);
 
+//  int low = 0;
+//  int high = LEN - 1;
   int index = -1;
-  int low = 0;
-  int high = LEN - 1;
-  while (low <= high) {
+  for (int low = 0, high = LEN - 1; low <= high; ) {
+//  while (low <= high) {
+    // loop
     int mid = (low + high) / 2;
-    if (dictionary[mid] == key) {
+    if (key == dictionary[mid]) {
       index = mid;
 //      break;
       high = mid - 1;
+    } else if (key > dictionary[mid]) {
+      low = mid + 1;
     } else {
-      if (dictionary[mid] < key) {
-        low = mid + 1;
-      } else {
-        high = mid - 1;
-      }
+      high = mid - 1;
     }
   }
 
-  if (index != -1) {
-    printf("The index of %d is %d\n", index, key);
+  if (index == -1) {
+    printf("%d is not found\n", key);
   } else {
-    printf("Not found\n");
+    printf("The index of %d is %d\n", index, key);
   }
   return 0;
 }

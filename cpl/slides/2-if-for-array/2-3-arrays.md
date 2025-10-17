@@ -69,6 +69,7 @@ C中有两种聚合类型: ==数组== 和结构体
 
 本章的重点是一维数组, 它在 C 语言中的作用比多维数组更大. 
 
+---
 
 <!-- slide data-notes="" -->
 
@@ -89,9 +90,10 @@ C中有两种聚合类型: ==数组== 和结构体
 
 </div>
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 一维数组
 
@@ -113,6 +115,8 @@ int a[N];
 ```
 
 可以用宏来定义数组的长度
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -140,6 +144,8 @@ int a[N];
 
 </div>
 
+---
+
 
 <!-- slide vertical=true  data-notes="" -->
 
@@ -156,6 +162,8 @@ printf("%d\n", a[5]);
 ```
 
 如果数组包含T类型的元素, 则每个元素都被视为T类型的变量. 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -205,6 +213,7 @@ for (i = 1; i <= 10; i++)
 
 对于某些编译器, 这种表面上正确的for语句会导致无限循环. 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -272,6 +281,7 @@ for (i = 0; i < N; i++)
 
 程序在读取数字时将它们存储在一个数组中, 然后反向遍历数组, 挨个打印元素. 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -350,8 +360,10 @@ int a[10] = {0};
 
 初始化式比要初始化的数组长也是非法的
 
-<!-- slide vertical=true data-notes="" -->
+---
 
+
+<!-- slide vertical=true data-notes="" -->
 
 
 ##### 数组初始化
@@ -366,6 +378,7 @@ int a[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 编译器利用初始化式的长度来确定数组的大小
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -383,6 +396,7 @@ int a[15] = {0, 0, 29, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 48};
 
 对于大数组, 以这种方式初始化既冗长又容易出错. 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -400,7 +414,7 @@ int a[15] = {[2] = 29, [9] = 7, [14] = 48};
 
 括号中的数字称为指示符. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -422,6 +436,7 @@ int a[15] = {[14] = 48, [9] = 7, [2] = 29};
 
 顺序无关
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -445,6 +460,7 @@ int b[] = {[5] = 10, [23] = 13, [11] = 36, [15] = 29};
 
 长度自动推导
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -457,6 +473,8 @@ int b[] = {[5] = 10, [23] = 13, [11] = 36, [15] = 29};
 ```C
 int c[10] = {5, 1, 9, [4] = 3, 7, 2, [8] = 6};
 ```
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -475,6 +493,7 @@ int c[10] = {5, 1, 9, [4] = 3, 7, 2, [8] = 6};
 
 数字28212有一个重复的数字 `2`; 而`9357`这样的数字没有. 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -494,8 +513,10 @@ int c[10] = {5, 1, 9, [4] = 3, 7, 2, [8] = 6};
 
 - 如果`digit_seen[digit]`为假, 则`digit`之前未出现过, 将其设置为真并继续. 
 
-<!-- slide vertical=true data-notes="" -->
+---
 
+
+<!-- slide vertical=true data-notes="" -->
 
 ##### 程序: 检查重复数字
 
@@ -553,6 +574,10 @@ int main(void)
 
 `sizeof(a) / sizeof(a[0])`
 
+
+---
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -572,6 +597,9 @@ for (i = 0; i < sizeof(a) / sizeof(a[0]); i++)
 
 即使数组长度在日后需改变, 也无需修改循环
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -585,6 +613,10 @@ for (i = 0; i < sizeof(a) / sizeof(a[0]); i++)
 变量i类型可能是int(有符号), 而sizeof返回值类型为size_t无符号. 
 
 将有符号整数与无符号整数进行比较可能危险, 但这里是安全的. 
+
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -611,6 +643,8 @@ for (i = 0; i < SIZE; i++)
 
 宏表达式的括号需要加上，防止出现运算顺序不一致
 
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -625,6 +659,8 @@ for (i = 0; i < SIZE; i++)
 用户输入利率和投资的年数
 
 投资总价值每年计算一次, 表格将显示出在输入利率和紧随其后的4个更高利率下投资的总价值. 
+
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -650,6 +686,9 @@ Years     6%     7%     8%     9%     10%
 
 打印n * m的二维数组
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -671,6 +710,8 @@ Years     6%     7%     8%     9%     10%
 - 外层循环从1计数到用户要求的年数. 
 
 - 内层循环将从利率的最低值递增到最高值. 
+
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -737,6 +778,8 @@ int main(void)
 
 *reverse2.c*程序(*reverse.c*的修改版)展示了这种用法. 
 
+---
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -791,7 +834,7 @@ int main(void)
 
 如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错). 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -806,3 +849,5 @@ int main(void)
 int a[3*i+5];
 int b[j+k]; 
 ```
+
+---
