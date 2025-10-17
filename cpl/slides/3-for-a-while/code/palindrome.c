@@ -8,22 +8,24 @@ int main() {
   int len = 0;
   for (int i = 0; i < 21; i++) {
     if (str[i] == '\0') {
-      len = i;
       break;
     }
+    len++;
   }
-  printf("%d\n", len);
+  printf("len of the string: %d\n", len);
+
   int flag = 1;
-  for (int i = 0, j = len - 1; i <= j; i++, j--) {
-    if (str[i] != str[j]) {
+  for (int l = 0, r = len - 1; l <= r; l++, r--) {
+    if (str[l] != str[r]) {
       flag = 0;
       break;
     }
   }
+
   if (flag == 1) {
-    printf("%s is a pallindrome\n", str);
+    printf("%s is a palindrome\n", str);
   } else {
-    printf("%s is not\n", str);
+    printf("%s is not a palindrome\n", str);
   }
   return 0;
 }

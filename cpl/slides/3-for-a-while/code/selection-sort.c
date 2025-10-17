@@ -1,36 +1,43 @@
 #include <stdio.h>
 
-#define LEN 10
+#define LEN 1000
+int numbers[LEN];
 
-int arr[LEN] = {29, 72, 94, 13, 87, 84, 82, 57, 73, 14};
 int main() {
+  int len = -1;
+  // (1) 没有输入流 -1（EOF）
+  // (2) 读到数据返回1
+  while (scanf("%d", &numbers[++len]) != EOF);
+
+  printf("Len of numbers is: %d\n", len);
 
   printf("Before sorting: \n");
-  for (int i = 0; i < LEN; i++) {
-    printf("%d ", arr[i]);
+  for (int i = 0; i < len; i++) {
+    printf("%d ", numbers[i]);
   }
   printf("\n");
 
-  for (int i = 0; i < LEN - 1; i++) {
+  //sorting
+  for (int i = 0; i < len; i++) {
+    // selecting i..len-1 the smallest one
+    int min_value = numbers[i];
     int min_index = i;
-    int min_value = arr[i];
-    for (int j = i + 1; j <= LEN - 1; j++) {
-      if (arr[j] < min_value) {
+    for (int j = i; j < len; j++) {
+      if (numbers[j] < min_value) {
         min_index = j;
-        min_value = arr[j];
+        min_value = numbers[j];
       }
     }
-    printf("Iteration: %d, minimal value is %d(%d)\n", i, arr[min_index], min_index);
-    if (min_index != i) {
-      int temp = arr[i];
-      arr[i] = arr[min_index];
-      arr[min_index] = temp;
-    }
+    // min_index  swap i
+    int temp = numbers[i];
+    numbers[i] = numbers[min_index];
+    numbers[min_index] = temp;
   }
 
   printf("After sorting: \n");
-  for (int i = 0; i < LEN; i++) {
-    printf("%d ", arr[i]);
+  for (int i = 0; i < len; i++) {
+    printf("%d ", numbers[i]);
   }
+  printf("\n");
   return 0;
 }
