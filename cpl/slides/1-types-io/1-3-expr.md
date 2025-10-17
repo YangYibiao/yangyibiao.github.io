@@ -964,7 +964,7 @@ j = i * i++;
 
 - 能运行, 但程序可能会崩溃、行为不正常或产生无意义的结果
 
-<span class="blue">:fa-lightbulb-o:</span> 应避免未定义的行为
+<span class="blue">:fa-weixin:</span> 应避免未定义的行为
 
 ---
 

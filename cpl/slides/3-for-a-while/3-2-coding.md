@@ -85,7 +85,7 @@ presentation:
 ### While (Do-While) Statement
 <br>
 
-### `break` Statement
+### <font color = blue>`break`语句</font>
 </font>
 
 ---
@@ -112,7 +112,11 @@ presentation:
 
 Stars Pyramid (`stars.c`)
 
-![w:2000](figs/stars.jpg)
+<div class="top-2">
+  <img src="figs/stars.jpg" width=500px>
+</div>
+
+<!-- ![w:1000](figs/stars.jpg) -->
 
 ---
 
@@ -125,7 +129,11 @@ Stars Pyramid (`stars.c`)
 
 Prime Numbers (`primes.c`)
 
-![w:400](figs/prime.jpg)
+<div class="top-2">
+  <img src="figs/prime.jpg" width=500px>
+</div>
+
+<!-- ![w:400](figs/prime.jpg) -->
 
 ---
 
@@ -138,7 +146,11 @@ Prime Numbers (`primes.c`)
 
 Binary Search (`binary-search.c`)
 
-![w:900](figs/binary-search-mario.png)
+<div class="top-2">
+  <img src="figs/binary-search-mario.png" width=500px>
+</div>
+
+<!-- ![w:900](figs/binary-search-mario.png) -->
 
 ---
 
@@ -151,7 +163,11 @@ Binary Search (`binary-search.c`)
 
 <!-- fit --> Digits (`digits-while.c`, `digits-do-while.c`)
 
-![w:750](figs/digits.jpg)
+<div class="top-2">
+  <img src="figs/digits.jpg" width=500px>
+</div>
+
+<!-- ![w:750](figs/digits.jpg) -->
 
 ---
 
@@ -164,7 +180,11 @@ Binary Search (`binary-search.c`)
 
 Selection Sort (`selection-sort.c`)
 
-![w:430](figs/selection-sort.png)
+<div class="top-2">
+  <img src="figs/selection-sort.png" width=500px>
+</div>
+
+<!-- ![w:430](figs/selection-sort.png) -->
 
 ---
 
@@ -176,7 +196,11 @@ Selection Sort (`selection-sort.c`)
 ---
 Palindrome (`palindrome.c`)
 
-![w:900](figs/palindrome.png)
+<div class="top-2">
+  <img src="figs/palindrome.png" width=500px>
+</div>
+
+<!-- ![w:900](figs/palindrome.png) -->
 
 ---
 
