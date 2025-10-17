@@ -99,7 +99,7 @@ presentation:
 
 ![w:800](figs/lets-code.jpeg)
 
-## <mark>stars.c &ensp; primes.c &ensp; binary-search.c &ensp; digits.c &ensp; selection-sort.c &ensp; palindrome.c</mark>
+## <mark>stars.c &ensp; primes.c &ensp; perfectsquare.c &ensp; binary-search.c &ensp; digits.c &ensp; selection-sort.c &ensp; palindrome.c</mark>
 
 ---
 
@@ -132,6 +132,22 @@ Prime Numbers (`primes.c`)
 <div class="top-2">
   <img src="figs/prime.jpg" width=500px>
 </div>
+
+<!-- ![w:400](figs/prime.jpg) -->
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 
+
+---
+
+1 - n 的所有非完全平方数的和 (`perfectsquare.c`)
+
+<!-- <div class="top-2">
+  <img src="figs/prime.jpg" width=500px>
+</div> -->
 
 <!-- ![w:400](figs/prime.jpg) -->
 
