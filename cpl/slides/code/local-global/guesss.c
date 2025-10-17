@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
- 
+
 #define MAX_NUMBER 100
- 
+
 /* external variable */
 int secret_number;
- 
+
 /* prototypes */
 void initialize_number_generator(void);
 void choose_new_secret_number(void);
@@ -26,7 +26,7 @@ int main(void)
     scanf(" %c", &command);
     printf("\n");
   } while (command == 'y' || command == 'Y');
- 
+
   return 0;
 }
 
@@ -39,7 +39,7 @@ void initialize_number_generator(void)
 {
   srand((unsigned) time(NULL));   
 }
- 
+
 /**********************************************************
  * choose_new_secret_number: Randomly selects a number    *
  *                           between 1 and MAX_NUMBER and *
@@ -60,7 +60,7 @@ void choose_new_secret_number(void)
 void read_guesses(void)
 {
   int guess, num_guesses = 0;
- 
+
   for (;;) {
     num_guesses++;
     printf("Enter guess: ");
