@@ -215,7 +215,7 @@ C程序是函数的集合, 函数由一系列语句构成, 有两类函数:
 
 函数调用: 要求函数执行分配给它的任务称为调用函数
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -256,7 +256,7 @@ C语言对 ==函数== 术语的使用更加宽松
 
 - 计算数值的函数用 ==return== 语句来指定所返回的值
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -280,7 +280,7 @@ int main()
 
 - ==main== 函数末尾没有 ==return== 语句, 许多编译器会产生警告信息
 
-
+---
 
 <!-- slide data-notes="" -->
 
@@ -386,9 +386,11 @@ printf("Hello, World!\n");
 
 ---
 
-给定一个年龄，计算计算2080年时他的年龄
+给定年份和当年的年龄，计算2280年时他的年龄
 
 
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -423,7 +425,7 @@ printf("Hello, World!\n");
 [随机数rand函数](https://en.cppreference.com/w/c/numeric/random/rand)
 
 
-
+---
 
 <!-- slide data-notes="" -->
 
