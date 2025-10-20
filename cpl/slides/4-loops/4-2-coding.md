@@ -137,7 +137,7 @@ presentation:
 <!-- slide vertical=true data-notes="" -->
 
 
-##### 
+##### Merge (<mark>merge.c</mark>)
 
 ---
 
@@ -148,7 +148,7 @@ presentation:
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 
+##### Merge (<mark>merge.c</mark>)
 
 ---
 
@@ -170,7 +170,7 @@ presentation:
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 
+##### Insertion Sort
 
 ---
 
