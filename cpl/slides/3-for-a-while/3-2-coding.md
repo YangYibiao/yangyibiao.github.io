@@ -137,7 +137,7 @@ presentation:
 ---
 
 <div class="top-2">
-  <img src="figs/perfectSquare.gif" width=500px>
+  <img src="figs/perfectSquare.gif" width=300px>
 </div>
 
 ---
