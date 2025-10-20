@@ -148,7 +148,7 @@ Xiaojing Nan  F
 
 ---
 
-![alt text](img/ASCII.png)
+![alt text](figs/ASCII.png)
 
 A `char` is actually an `int`.
 
@@ -181,6 +181,21 @@ String literal: 'T', 'a', 'y', 'u', '\0'
 - <code><font color = red size = 7>%c</font></code>: `char`
 - <code><font color = red size = 7>%s</font></code>: `C string`
 - <code><font color = red size = 7>%%</font></code>: `%`
+
+---
+
+
+<!-- slide data-notes="" -->
+
+#####
+
+---
+
+<div class="top-2">
+  <img src="figs/see-you.png" width=500px>
+</div>
+
+---
 
 
 

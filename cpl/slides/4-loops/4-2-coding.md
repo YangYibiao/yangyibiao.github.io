@@ -174,7 +174,9 @@ presentation:
 
 ---
 
-![w:520](figs/hushi-poker.png)
+<div class="top-2">
+  <img src="figs/hushi-poker.png" width=500px>
+</div>
 
 ---
 
@@ -206,4 +208,6 @@ presentation:
 
 ---
 
-![bg w:600](figs/see-you.jpeg)
+<div class="top-2">
+  <img src="figs/see-you.png" width=500px>
+</div>

@@ -313,7 +313,7 @@ presentation:
 
 计算机如何工作的?
 
-![alt text](img/howcomputerworks.png)
+![alt text](figs/howcomputerworks.png)
 
 ---
 
