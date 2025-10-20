@@ -8,24 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 <!-- slide data-notes="" -->
 
@@ -35,7 +35,7 @@ presentation:
 
 <hr class="width50 center">
 
-## Data Types
+## Functions (函数)
 
 
 <div class="bottom8"></div>
@@ -1889,7 +1889,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 对数组进行快速排序的示例: 
 
 <div class="top-2">
-  <img src="../img/9-1.png">
+  <img src="../figs/9-1.png">
 </div>
 
 

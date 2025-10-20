@@ -8,25 +8,24 @@ presentation:
   navigationMode: "linear"
 ---
 
-@import "../css/font-awesome-4.7.0/css/font-awesome.css"
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../plugin/zoom/zoom.js"
-@import "../plugin/customcontrols/plugin.js"
-@import "../plugin/customcontrols/style.css"
-@import "../plugin/chalkboard/plugin.js"
-@import "../plugin/chalkboard/style.css"
-@import "../plugin/menu/menu.js"
-@import "../js/anychart/anychart-core.min.js"
-@import "../js/anychart/anychart-venn.min.js"
-@import "../js/anychart/pastel.min.js"
-@import "../js/anychart/venn-ml.js"
-@import "https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"
+@import "../../css/font-awesome-4.7.0/css/font-awesome.css"
+@import "../../css/theme/solarized.css"
+@import "../../css/logo.css"
+@import "../../css/font.css"
+@import "../../css/color.css"
+@import "../../css/margin.css"
+@import "../../css/table.css"
+@import "../../css/main.css"
+@import "../../plugin/zoom/zoom.js"
+@import "../../plugin/customcontrols/plugin.js"
+@import "../../plugin/customcontrols/style.css"
+@import "../../plugin/chalkboard/plugin.js"
+@import "../../plugin/chalkboard/style.css"
+@import "../../plugin/menu/menu.js"
+@import "../../js/anychart/anychart-core.min.js"
+@import "../../js/anychart/anychart-venn.min.js"
+@import "../../js/anychart/pastel.min.js"
+@import "../../js/anychart/venn-ml.js"
 
 <!-- slide data-notes="" -->
 
@@ -79,10 +78,10 @@ presentation:
 每个字节存储8位信息(Contents): 
 
 <div class="top-2">
-    <img src="img/11-1.png" width=400px>
+    <img src="figs/11-1.png" width=400px>
 </div>
 
-<!-- ![w:500](img/11-1.png) -->
+<!-- ![w:500](figs/11-1.png) -->
 
 内存中每个字节都有一个==唯一的地址== (Address). 
 
@@ -98,10 +97,10 @@ presentation:
 如果内存中有n个字节, 其字节的地址可编号为: $0 \sim n – 1$
 
 <div class="top-2">
-    <img src="img/11-2.png" width=160px>
+    <img src="figs/11-2.png" width=160px>
 </div>
 
-<!-- ![w:10 h:50](img/11-2.png) -->
+<!-- ![w:10 h:50](figs/11-2.png) -->
 
 若内存为8GB, $1GB = 2^{30}$ 字节, 则 $8GB = 2^{33}$字节
 其内存地址编号为：$0 \sim 2^{33} - 1$
@@ -134,10 +133,10 @@ int i; // 四个字节
 第一个字节的地址被称为变量的地址. 如图, 变量i的地址为 2000: 
 
 <div class="top-2">
-    <img src="img/11-3.png" width=300px>
+    <img src="figs/11-3.png" width=300px>
 </div>
 
-<!-- ![h:20](img/11-3.png) -->
+<!-- ![h:20](figs/11-3.png) -->
 
 ---
 
@@ -164,10 +163,10 @@ p = &i; // &i指取变量i的地址, 赋值给指针变量p
 ```
 
 <div class="top-2">
-    <img src="img/11-4.png" width=300px>
+    <img src="figs/11-4.png" width=300px>
 </div>
 
-<!-- ![w:300](img/11-4.png) -->
+<!-- ![w:300](figs/11-4.png) -->
 
 ---
 
@@ -261,7 +260,7 @@ p = &i;
 
 把i的地址赋值给变量p, 使p指向i: 
 
-![w:500](img/11-5.png)
+![w:500](figs/11-5.png)
 
 ---
 
@@ -344,7 +343,7 @@ int *p;
 p = &i;
 ```
 
-![w:10](img/11-6.png)
+![w:10](figs/11-6.png)
 
 ---
 
@@ -358,7 +357,7 @@ p = &i;
 
 `i = 1;`
 
-![w:10](img/11-7.png)
+![w:10](figs/11-7.png)
 
 ```C
 printf("%d\n",  i); /* 打印 1 */
@@ -379,7 +378,7 @@ printf("%d\n", *p); /* 打印 1 */
 *p = 2;
 ```
 
-![w:500](img/11-8.png)
+![w:500](figs/11-8.png)
 
 ```C
 printf("%d\n",  i); /* 打印 2 */
@@ -448,7 +447,7 @@ q = p;
 
 q现在指向与p相同的位置: 
 
-![w:500](img/11-9.png)
+![w:500](figs/11-9.png)
 
 ---
 
@@ -466,7 +465,7 @@ p和q都指向i, 可通过`*p`或`*q`赋值来更改i:
 *p = 1;
 ```
 
-![w:500](img/11-10.png)
+![w:500](figs/11-10.png)
 
 ---
 
@@ -481,7 +480,7 @@ p和q都指向i, 可通过`*p`或`*q`赋值来更改i:
 *q = 2;
 ```
 
-![w:500](img/11-11.png)
+![w:500](figs/11-11.png)
 
 任意数量的指针变量都可以指向同一个对象. 
 
@@ -520,7 +519,7 @@ q = &j;
 i = 1;
 ```
 
-![w:500](img/11-12.png)
+![w:500](figs/11-12.png)
 
 ---
 
@@ -536,7 +535,7 @@ i = 1;
 *q = *p;
 ```
 
-![w:500](img/11-13.png)
+![w:500](figs/11-13.png)
 
 ---
 
@@ -611,7 +610,7 @@ int main(void) {
 
 指向i的指针存储在int_part中, 指向d的指针存储在frac_part中: 
 
-![w:50](img/11-14.png)
+![w:50](figs/11-14.png)
 
 ---
 
@@ -625,7 +624,7 @@ int main(void) {
 
 decompose函数体中的第一个赋值将x的值转换为long类型, 并将其存储在int_part指向的对象中:
 
-![w:500](img/11-15.png)
+![w:500](figs/11-15.png)
 
 
 
@@ -638,7 +637,7 @@ decompose函数体中的第一个赋值将x的值转换为long类型, 并将其�
 
 第二个赋值把`x - *int_part`的值存储到frac_part指向的对象中: 
 
-![w:500](img/11-16.png)
+![w:500](figs/11-16.png)
 
 ---
 
