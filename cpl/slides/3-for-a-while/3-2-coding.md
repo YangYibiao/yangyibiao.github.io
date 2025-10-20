@@ -49,11 +49,9 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-##### 
+##### Review
 
 ---
-# Review
-<br>
 
 <font color = red>
 
@@ -71,11 +69,9 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### 
+##### Overview
 
 ---
-# Overview
-<br>
 
 <font color = red>
 
@@ -106,11 +102,9 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-##### 
+##### Stars Pyramid (`stars.c`)
 
 ---
-
-Stars Pyramid (`stars.c`)
 
 <div class="top-2">
   <img src="figs/stars.jpg" width=500px>
@@ -123,11 +117,9 @@ Stars Pyramid (`stars.c`)
 
 <!-- slide data-notes="" -->
 
-##### 
+##### Prime Numbers (`primes.c`)
 
 ---
-
-Prime Numbers (`primes.c`)
 
 <div class="top-2">
   <img src="figs/prime.jpg" width=500px>
@@ -139,17 +131,14 @@ Prime Numbers (`primes.c`)
 
 <!-- slide data-notes="" -->
 
-##### 
+
+##### 非完全平方数的和 (`perfectsquare.c`)
 
 ---
 
-1 - n 的所有非完全平方数的和 (`perfectsquare.c`)
-
-<!-- <div class="top-2">
-  <img src="figs/prime.jpg" width=500px>
-</div> -->
-
-<!-- ![w:400](figs/prime.jpg) -->
+<div class="top-2">
+  <img src="figs/perfectSquare.gif" width=500px>
+</div>
 
 ---
 
