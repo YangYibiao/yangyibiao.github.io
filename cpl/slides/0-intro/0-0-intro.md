@@ -76,7 +76,7 @@ presentation:
 ---
 
 <div class="top-2">
-  <img src="img/QQ-CPL2025-01.jpg" width=200px>
+  <img src="figs/QQ-CPL2025-01.jpg" width=200px>
 </div>
 
 
@@ -87,7 +87,7 @@ presentation:
 ---
 
 <div class="top-2">
-  <img src="img/QQ-CPL2025-02.jpg" width=200px>
+  <img src="figs/QQ-CPL2025-02.jpg" width=200px>
 </div>
 
 
