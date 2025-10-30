@@ -130,6 +130,10 @@ presentation:
 
 </div> -->
 
+---
+
+
+
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -185,7 +189,7 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
 
 C 提供了多种方法来缩写多维数组的初始化式
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -247,7 +251,7 @@ int m[5][9] = {1, 1, 1, 1, 1, 0, 1, 1, 1,
 
 多维数组中省略内层大括号有风险, 额外的元素或缺失的元素会影响剩下的初始化式, 省略的花括号会引起编译警告 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -284,6 +288,7 @@ const char hex_chars[] =
 
 程序不应修改声明为const的数组. 
 
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -301,6 +306,8 @@ const char hex_chars[] =
 
 - const常用于数组的声明, 以保护在程序执行过程中不变的信息. 
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -315,9 +322,11 @@ const char hex_chars[] =
 
 ---
 
-##### [Conway's Game of Life @ wiki](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+##### Conway's Game of Life
 
 ---
+
+[Conway's Game of Life @ wiki](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 ![w:500](figs/Conway.jpg)
 
@@ -328,9 +337,11 @@ const char hex_chars[] =
 
 <!-- slide vertical=true data-notes="" -->
 
-##### [playgameoflife.com (Cellular Automata; 元胞自动机)](https://playgameoflife.com/)
+##### Conway's Game of Life
 
 ---
+
+[playgameoflife.com (Cellular Automata; 元胞自动机)](https://playgameoflife.com/)
 
 * Any <font color = blue>**live**</font> cell with two or three live neighbours survives.
 * All other <font color = blue>**live**</font> cells die in the next generation.
