@@ -47,7 +47,7 @@ presentation:
 #### [yangyibiao@nju.edu.cn](yangyibiao@nju.edu.cn)
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### Overview
@@ -122,6 +122,8 @@ presentation:
     <img src="figs/8-4.png" width=400px>
 </div>
 
+注意：此处图片中`m[0,0]`仅因为展示方便，实际应为`m[0][0]`等
+
 <!-- <div class="row0-2-column2-11-fullborder">
 
 |     |   >     |  >     |  row0   | >       | >      | row1    | ...    |   >     | >      | row4    |
@@ -134,7 +136,7 @@ presentation:
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -142,9 +144,9 @@ presentation:
 
 ---
 
-嵌套for循环非常适合处理多维数组. 
+- 使用嵌套for循环处理多维数组. 
 
-单位矩阵的数组的初始化: ==嵌套的for循环==
+示例：单位矩阵的数组的初始化: ==嵌套的for循环==
 
 ```C{.line-numbers}
 #include <stdio.h>
