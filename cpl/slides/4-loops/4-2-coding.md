@@ -63,6 +63,53 @@ presentation:
 
 <!-- slide data-notes="" -->
 
+##### 一维数组
+
+---
+
+数组是包含多个数据值的数据结构, 每个数据值具有相同类型.
+
+数据值称为元素, 可以根据它们在数组中的位置选择出来. 
+
+最简单的数组是一维数组, 一维数组中的元素一个接一个地排列在单独一行中: 
+
+<div class="fullborder">
+
+| &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; |
+| :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+
+</div>
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 数组下标
+
+---
+
+要访问数组元素, 可在数组名后加上一个方括号括起来的整数值. 
+
+这被称为对数组取下标或进行索引. 
+
+长度为n的数组元素的索引从$0$到$n – 1$. 
+
+若数组a长度为`10`, 元素依次可标记为$a[0], a[1], ..., a[9]$:
+
+<div class="row1-2-column1-10-fullborder">
+<!-- <div class="fullborder"> -->
+
+| a[0] | $a[1]$ | $a[2]$ | $a[3]$ | $a[4]$ | $a[5]$ | $a[6]$ | $a[7]$ | $a[8]$ | $a[9]$ |
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
 
 ##### 多维数组
 
@@ -346,10 +393,10 @@ const char hex_chars[] =
 [playgameoflife.com (Cellular Automata; 元胞自动机)](https://playgameoflife.com/)
 
 * Any <font color = blue>**live**</font> cell with two or three live neighbours survives.
-* All other <font color = blue>**live**</font> cells die in the next generation.
+* Any <font color = red>**dead**</font> cell with three live neighbours becomes a live cell.
 <br>
 
-* Any <font color = red>**dead**</font> cell with three live neighbours becomes a live cell.
+* All other <font color = blue>**live**</font> cells die in the next generation.
 * All other <font color = red>**dead**</font> cells stay dead.
 
 游戏规则
