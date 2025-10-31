@@ -362,7 +362,7 @@ const char hex_chars[] =
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 
+##### Conway's Game of Life
 
 ---
 
