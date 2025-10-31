@@ -352,6 +352,11 @@ const char hex_chars[] =
 * Any <font color = red>**dead**</font> cell with three live neighbours becomes a live cell.
 * All other <font color = red>**dead**</font> cells stay dead.
 
+游戏规则
+- 任何活细胞周围有2-3个活细胞则存活
+- 任何死细胞周围有3个活细胞则复活
+- 其他情况下细胞死亡
+
 ---
 
 
@@ -381,11 +386,6 @@ const char hex_chars[] =
   您的浏览器不支持视频播放，请
   [下载视频](videos/Conway-Game-of-Life.mp4) 观看。
 </video>
-
-游戏规则
-- 任何活细胞周围有2-3个活细胞则存活
-- 任何死细胞周围有3个活细胞则复活
-- 其他情况下细胞死亡
 
 ---
 
