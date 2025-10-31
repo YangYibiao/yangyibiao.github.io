@@ -5,7 +5,7 @@
 #include <time.h>
 
 #define MAX_LEN 10000
-#define RANGE 10
+#define RANGE 20
 
 int main(void) {
   int numbers[MAX_LEN] = {0};
