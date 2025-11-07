@@ -1,42 +1,37 @@
 #include <stdio.h>
 
-int binary(int arr[], int l, int r, int k);
+#define LEN 10
 
-int main(void)
-{
-    int arr[] = { 2, 3, 4, 10, 40 };
-    int n = sizeof(arr) / sizeof(arr[0]);
+int bsearch(int dict[], int len, int key);
 
-    for (int i = 0; i < 3; i++) {
-        int k = 10;
-        scanf("%d", &k);
+int main() {
+  int dictionary[LEN] = {1, 1, 5, 5,
+                         5, 5, 5, 5, 9, 10};
 
-        int result = binary(arr, 0, n - 1, k);
-        if (result == -1) {
-            printf("Element is not present in array\n");
-        } else {
-            printf("Element is present at index %d\n", result);
-        }
-    }
-    return 0;
+  int key = 0;
+  scanf("%d", &key);
+
+  int index = bsearch(dictionary, LEN, key);
+  if (index == -1) {
+    printf("%d is not found\n", key);
+  } else {
+    printf("The index of %d is %d\n", index, key);
+  }
+  return 0;
 }
 
-// 搜索[l, r]闭区间有没有某元素等于k
-int binary(int arr[], int l, int r, int k)
-{
-    // 当前区间不合法，未检索到k
-    if (l > r) {
-        return -1;
-    }
-
-    int m = (l + r) / 2;
-    if (k == arr[m]) {
-        return m;
-    } else if (k < arr[m]) {
-        // 闭区间[l, m - 1]是否有元素等于k
-        return binary(arr, l, m - 1, k);
+int bsearch(int dict[], int len, int key) {
+  int index = -1;
+  for (int low = 0, high = len - 1; low <= high;) {
+    int mid = (low + high) / 2;
+    if (key == dict[mid]) {
+      index = mid;
+      high = mid - 1;
+    } else if (key > dict[mid]) {
+      low = mid + 1;
     } else {
-        // 闭区间[m + 1, r]是否有元素等于k
-        return binary(arr, m + 1, r, k);
+      high = mid - 1;
     }
+  }
+  return index;
 }
