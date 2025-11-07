@@ -1,0 +1,7 @@
+add_executable(natcn natcn.c)
+add_executable(leap-re leap-re.c)
+add_executable(stars-re stars-re.c)
+add_executable(selection-sort-re selection-sort-re.c)
+add_executable(char-function char-function.c)
+add_executable(palindrome-re palindrome-re.c)
+add_executable(bsearch-re bsearch-re.c)

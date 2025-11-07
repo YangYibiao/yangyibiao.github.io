@@ -7,10 +7,13 @@ void print_line(int i, int lines) {
   // 2 * i + 1 '*'
   for (int j = 0; j < 2 * i + 1; j++) {
     printf("*");
+    if (j == 3)
+      return;
   }
   if (i != lines - 1) {
     printf("\n");
   }
+  return;
 }
 
 int main() {
