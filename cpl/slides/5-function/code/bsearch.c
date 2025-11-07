@@ -1,11 +1,8 @@
 #include <stdio.h>
 
 #define LEN 10
-int dictionary[LEN] =
-    {1, 1, 5,
-     5, 5, 5,
-     5, 5, 9,
-     10};
+int dictionary[LEN] = {1, 1, 5, 5, 5, 5, 5, 5, 9, 10};
+
 int main() {
   int key = 0;
   scanf("%d", &key);

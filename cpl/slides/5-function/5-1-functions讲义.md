@@ -30,7 +30,6 @@
 ## palindrome.c
 1. 字符数组，可以不传长度信息
 
-
 ## selection-sort.c
 1. 封装getminindex
 2. 封装swap（解释封装没有效果）

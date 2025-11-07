@@ -64,6 +64,24 @@ presentation:
 
 - 递归
 
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 软件设计原则
+
+---
+
+==复用==
+
+模块化：便于调试、代码理解
+
+封装：隐藏实现细节，仅暴漏有限、必要的接口
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -84,6 +102,7 @@ presentation:
 
 - 最初属于某个程序的功能可以在其他程序中重用. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -92,13 +111,64 @@ presentation:
 
 ---
 
-在介绍定义函数的规则之前, 先来看3个简单的定义函数的程序. 
+
+```
+int printf( const char*          format, ... );
+int scanf( const char          *format, ... );
+```
+
+```
+char str[1024];
+scanf("%s", str);
+
+int a, b;
+scanf("%d%d", &a, &b);
+printf("a + b is : %d", a + b);
+```
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 函数定义
+
+---
+
+函数定义的<u>一般格式</u>: 
+
+```C
+返回类型 函数名(形式参数)
+{
+  声明
+  语句
+}
+```
+---
 
 
 
 <!-- slide vertical=true data-notes="" -->
 
+##### 函数定义
 
+---
+
+函数的 ==返回类型== 是函数返回值的类型. 
+
+函数返回类型的规则: 
+
+- 函数不能返回数组. 
+
+- 指定返回类型为void表示该函数没有返回值. 
+
+- 在C89中, 如果省略返回类型, 则假定该函数的返回值是int类型. 
+
+- 在C99中, 省略返回类型是不合法的. 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
 
 ##### 程序: 计算平均值
 
@@ -335,46 +405,10 @@ int main(void)
 ---
 
 
-<!-- slide data-notes="" -->
-
-##### 函数定义
-
----
-
-函数定义的<u>一般格式</u>: 
-
-```C
-返回类型 函数名(形式参数)
-{
-  声明
-  语句
-}
-```
----
 
 
 
 <!-- slide vertical=true data-notes="" -->
-
-##### 函数定义
-
----
-
-函数的 ==返回类型== 是函数返回值的类型. 
-
-函数返回类型的规则: 
-
-- 函数不能返回数组. 
-
-- 指定返回类型为void表示该函数没有返回值. 
-
-- 在C89中, 如果省略返回类型, 则假定该函数的返回值是int类型. 
-
-- 在C99中, 省略返回类型是不合法的. 
-
-<!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 函数定义
 
@@ -1889,7 +1923,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 对数组进行快速排序的示例: 
 
 <div class="top-2">
-  <img src="../figs/9-1.png">
+  <img src="figs/9-1.png">
 </div>
 
 
@@ -1929,7 +1963,7 @@ In sorted order: 3 4 9 12 16 25 47 51 66 82
 
 ---
 
-*qsort.c*
+[qsort.c](./code/qsort.c)
 
 ```C{.line-numbers}
 /* 使用快速排序算法对整数数组进行排序 */
