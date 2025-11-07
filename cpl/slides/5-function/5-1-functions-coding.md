@@ -83,6 +83,7 @@ char msg1[10] = {'H', 'e', 'l', 'l', 'o'};
 // msg1 H e l l o \0 \0 \0 \0 \0
 
 ```
+---
 
 <!-- slide data-notes="" -->
 
