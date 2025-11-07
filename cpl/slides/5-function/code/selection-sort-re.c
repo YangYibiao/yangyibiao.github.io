@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#define LEN 1000
-
-void swap(int *a, int *b) {
-  int temp = *a;
-  *a = *b;
-  *b = temp;
+//   printArr(numbers, 10);
+void printArr(int arr[], int len) {
+  for (int i = 0; i < len; i++) {
+    printf("%d ", arr[i]);
+  }
+  printf("\n");
 }
 
 void selection_sort(int arr[], int len) {
@@ -20,37 +20,27 @@ void selection_sort(int arr[], int len) {
         min_value = arr[j];
       }
     }
-
     // min_index  swap i
-    swap(&arr[i], &arr[min_index]);
-    // int temp = arr[i];
-    // arr[i] = arr[min_index];
-    // arr[min_index] = temp;
+   int temp = arr[i];
+   arr[i] = arr[min_index];
+   arr[min_index] = temp;
   }
 }
 
 int main() {
-  int len = -1;
-  int numbers[LEN];
+  int numbers[10] = {3, 5, 6, 0,
+                      2, 7, 8, 8,
+                      9, 10};
 
-  // (1) 没有输入流 -1（EOF）
-  // (2) 读到数据返回1 (linux下按Ctrl + D）
-  while (scanf("%d", &numbers[++len]) != EOF);
-
-  printf("Len of numbers is: %d\n", len);
-
+//  for (int i = 0; i < 10; i++) {
+//    printf("address of %d: %p\n", i, &numbers[i]);
+//  }
   printf("Before sorting: \n");
-  for (int i = 0; i < len; i++) {
-    printf("%d ", numbers[i]);
-  }
-  printf("\n");
+  printArr(numbers, 10);
 
-  selection_sort(numbers, len);
+  selection_sort(numbers, 10);
 
   printf("After sorting: \n");
-  for (int i = 0; i < len; i++) {
-    printf("%d ", numbers[i]);
-  }
-  printf("\n");
+  printArr(numbers, 10);
   return 0;
 }

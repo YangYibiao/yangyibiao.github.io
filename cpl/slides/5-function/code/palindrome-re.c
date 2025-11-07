@@ -2,34 +2,18 @@
 
 #define LEN 21
 
+// get length of a string
 int get_strlen(char cstr[]) {
-  int len = 0;
-  for (int i = 0; i < 21; i++) {
-    if (str[i] == '\0') {
-      break;
-    }
-    len++;
-  }
+  int len = -1;
+  while (cstr[++len] != '\0');
   return len;
-}
-
-int get_strlen2(char cstr[]) {
-  int len = 0;
-  for (int i = 0; i < 21; i++) {
-    if (str[i] == '\0') {
-      return len;
-    }
-    len++;
-  }
 }
 
 int main() {
   char str[21] = "";
-  
   scanf("%s", str);
 
   int len = get_strlen(str);
-  
   int flag = 1;
   for (int l = 0, r = len - 1; l <= r; l++, r--) {
     if (str[l] != str[r]) {

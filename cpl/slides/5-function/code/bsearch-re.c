@@ -2,7 +2,7 @@
 
 #define LEN 10
 
-int bsearch(int dict[], int len, int key);
+int bsearch(const int dict[], int len, int key);
 
 int main() {
   int dictionary[LEN] = {1, 1, 5, 5,
@@ -20,7 +20,7 @@ int main() {
   return 0;
 }
 
-int bsearch(int dict[], int len, int key) {
+int bsearch(const int dict[], int len, int key) {
   int index = -1;
   for (int low = 0, high = len - 1; low <= high;) {
     int mid = (low + high) / 2;

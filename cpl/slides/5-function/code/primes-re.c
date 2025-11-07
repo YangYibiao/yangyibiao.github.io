@@ -1,14 +1,12 @@
 #include <stdio.h>
 
 int is_prime(int n) {
-  int prime = 1;
-  for (int j = 2; j * j <= n; j++) {
-    if (i % j == 0) {
-      prime = 0;
-      break;
+  for (int i = 2; i * i <= n; i++) {
+    if (n % i == 0) {
+      return 0;
     }
   }
-  return prime;
+  return 1;
 }
 
 int main() {
@@ -18,8 +16,7 @@ int main() {
   int count = 0;
   for (int i = 2; i <= max; i++) {
     // determine if i is a prime
-    int prime = is_prime(i);
-    if (prime == 1) {
+    if (is_prime(i)) {
       count++;
     }
   }
