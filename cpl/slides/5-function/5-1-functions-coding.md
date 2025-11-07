@@ -46,7 +46,7 @@ presentation:
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 提纲
 
@@ -66,6 +66,23 @@ presentation:
 
 ---
 
+
+<!-- slide data-notes="" -->
+
+##### 数组
+
+---
+
+```C
+char msg1[] = {'H', 'e', 'l', 'l', 'o', '\0'}; 
+
+char msg1[] = "Hello"; 
+char msg1[10] = "Hello";
+char msg1[10] = {'H', 'e', 'l', 'l', 'o', '\0'}; 
+char msg1[10] = {'H', 'e', 'l', 'l', 'o'}; 
+// msg1 H e l l o \0 \0 \0 \0 \0
+
+```
 
 <!-- slide data-notes="" -->
 
@@ -105,19 +122,21 @@ presentation:
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
-##### 函数的定义和调用
+##### 函数的声明和调用
 
 ---
 
 
-```
-int printf( const char*          format, ... );
-int scanf( const char          *format, ... );
+函数的声明：
+```C
+int printf(const char* format, ... );
+int scanf(const char* format, ... );
 ```
 
-```
+函数的调用：
+```C
 char str[1024];
 scanf("%s", str);
 
@@ -125,6 +144,20 @@ int a, b;
 scanf("%d%d", &a, &b);
 printf("a + b is : %d", a + b);
 ```
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 函数的声明和调用
+
+---
+
+<div class="top-2">
+  <img src="figs/function-decl.png">
+</div>
+
 ---
 
 
@@ -147,7 +180,7 @@ printf("a + b is : %d", a + b);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 函数定义
 
@@ -167,266 +200,7 @@ printf("a + b is : %d", a + b);
 
 ---
 
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 计算平均值
-
----
-
-定义一个名为average函数, 计算两个double类型数值的平均值: 
-
-```C
-double average(double a, double b)
-{
-  return (a + b) / 2;
-}
-```
-
-开头的单词double是average函数的返回类型. 
-
-标识符a和b(函数形式参数)表示调用average需提供的两个数.
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 计算平均值
-
----
-
-每个函数都有一个大括号括起来的执行部分, 称为 ==函数体==. 
-
-average函数的函数体由一条`return`语句构成. 
-
-执行这条语句会使函数"返回"到调用它的地方. 
-
-表达式`(a + b) / 2`的值将作为函数的返回值. 
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 计算平均值
-
----
-
-函数调用需要函数名和实际参数列表. 
-
-average(x, y)是对average函数的调用. 
-
-实际参数用于向函数提供信息. 
-
-调用average(x, y)的效果是把变量x和y的值复制给形式参数a和b. 
-
-实际参数不一定是变量, 任何正确类型的表达式都可以. 
-
-average(5.1, 8.9)和average(x/2, y/3)都是合法的函数调用. 
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 计算平均值
-
----
-
-我们把average函数的调用放在需要使用其返回值的地方. 
-
-计算并显示x和y平均值的语句: 
-
-```C
-printf("Average: %g\n", average(x, y));
-```
-
-不保存average函数的返回值, 程序显示这个值然后丢弃它. 
-
-如果要在稍后程序中用到返回值, 可以把返回值赋值给变量: 
-
-```C
-avg = average(x, y); 
-```
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 计算平均值
-
----
-
-*average.c*程序读取3个数并使用average函数计算它们的平均值, 每次计算一对数的平均值: 
-
-Enter three numbers: <u>3.5 9.6 10.2</u>
-Average of 3.5 and 9.6: 6.55
-Average of 9.6 and 10.2: 9.9
-Average of 3.5 and 10.2: 6.85
-
-<!-- slide vertical=true data-notes="" -->
-
-
-
-##### 程序: 计算平均值
-
----
-
-*average.c*
-```C{.line-numbers}
-/* Computes pairwise averages of three numbers */
- 
-#include <stdio.h>
- 
-double average(double a, double b)
-{
-  return (a + b) / 2;
-}
- 
-int main(void)
-{
-  double x, y, z;
- 
-  printf("Enter three numbers: ");
-  scanf("%lf%lf%lf", &x, &y, &z);
-  printf("Average of %g and %g: %g\n", x, y, average(x, y));
-  printf("Average of %g and %g: %g\n", y, z, average(y, z));
-  printf("Average of %g and %g: %g\n", x, z, average(x, z));
- 
-  return 0;
-}
-```
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 显示倒计时
-
----
-
-为了指明一个函数 ==没有返回值==, 设定它的返回类型是 ==void==: 
-
-```C
-void print_count(int n)
-{
-  printf("T minus %d and counting\n", n);
-}
-```
-
-void是一种没有值的类型. 
-
-print_count的调用必须自成一个语句: 
-
-```C
-print_count(i);
-```
-
-*countdown.c*程序在循环内调用了10次print_count. 
-
-<!-- slide vertical=true data-notes="" -->
-
-
-
-##### 程序: 计算平均值
-
----
-
-*countdown.c*
-
-```C{.line-numbers}
-/* Prints a countdown */
- 
-#include <stdio.h>
- 
-void print_count(int n)
-{
-  printf("T minus %d and counting\n", n);
-} 
- 
-int main(void)
-{
-  int i;
- 
-  for (i = 10; i > 0; --i)
-    print_count(i);
- 
-  return 0;
-}
-```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 程序: 显示双关语(改进版)
-
----
-
-当函数没有参数时, 可将单词void放在函数名后面的括号中: 
-
-```C
-void print_pun(void)
-{
-  printf("To C, or not to C: that is the question.\n");
-}
-```
-
-调用不带实际参数的函数, 只需写出函数名后跟括号(==括号必须==): 
-
-```C
-print_pun();
-```
-
-*pun2.c*程序测试了print_pun函数. 
-
-<!-- slide vertical=true data-notes="" -->
-
-
-
-##### 程序: 显示双关语(改进版)
-
----
-
-pun2.c
-
-```C{.line-numbers}
-/* Prints a bad pun */
- 
-#include <stdio.h>
- 
-void print_pun(void)
-{
-  printf("To C, or not to C: that is the question.\n");
-}
- 
-int main(void)
-{
-  print_pun();
-  return 0;
-}
-```
----
-
-
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 函数定义
-
----
-
-一些程序员习惯把返回类型放在函数名的上边: 
-
-```C{.line-numbers}
-double
-average(double a, double b)
-{
-  return (a + b) / 2;
-}
-```
-
-如果返回类型很冗长, 比如unsigned long int类型, 把返回类型单独放在一行会更清晰. 
-
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -440,163 +214,132 @@ average(double a, double b)
 
 如果函数没有形式参数, 则应在括号里加上单词void. 
 
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 函数定义
-
 ---
-
-函数体可能包括声明和语句. 
-
-average函数的另一个版本: 
-
-```C{.line-numbers}
-double average(double a, double b)
-{
-  double sum;       /* declaration */
- 
-  sum = a + b;      /* statement */
-  return sum / 2;   /* statement */
-}
-```
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 函数定义
-
----
-
-函数体内声明的变量不能被其他函数检查或修改. 
-
-在C89中, 变量声明必须出现语句之前. 
-
-在C99中, 变量声明和语句可混合, 只要变量在使用前声明过即可. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 函数定义
-
----
-
-若返回类型为void的函数(void函数), 其函数体可以为空: 
-
-```C
-void print_pun(void)
-{
-}
-```
-
-在程序开发过程中, 留下空函数体是有意义的. 
-
 
 
 <!-- slide data-notes="" -->
 
-##### 函数调用
+##### 函数声明
 
 ---
 
-函数调用由函数名和用括号括起来的实际参数列表组成: 
+C不要求函数的定义在其调用之前. 
 
-```C
-average(x, y)
-print_count(i)
-print_pun()
-```
-
-如果没有括号, 就无法调用函数: 
-
-```C
-print_pun;   /*** WRONG ***/
-```
-
-该语句是合法的, 但没有任何作用. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 函数调用
+假设我们重新编排*average.c*程序, 将average函数的定义放在main函数的定义之后. 
 
 ---
 
-void函数的调用后边始终跟着分号, 使该调用成为语句: 
-
-```C
-print_count(i);
-print_pun();
-```
-
-调用非void函数会产生一个值, 该值可存储在变量中或打印等: 
-
-```C
-avg = average(x, y);
-if (average(x, y) > 0)
-  printf("Average is positive\n");
-printf("The average is %g\n", average(x, y));
-```
----
+<!-- slide data-notes="" -->
 
 
-<!-- slide vertical=true data-notes="" -->
 
-##### 函数调用
+##### 函数声明
 
 ---
 
-如果不需要非void函数返回的值, 总是可以将其丢弃: 
+在main中遇到average函数调用时, 编译器没有该函数的信息. 
 
-```C
-average(x, y);  /* discards return value */
-```
+编译器不会产生错误消息, 而是假设average返回一个int值. 
 
-此调用是表达式语句的示例: 计算出语句的值, 但不保存它. 
-
-<!-- slide vertical=true data-notes="" -->
-
-
-
-##### 函数调用
+我们说编译器为该函数创建了一个 ==隐式声明==. 
 
 ---
 
-丢掉average函数的返回值是奇怪的, 但有些情况下是有意义的. 
 
-printf返回它打印的字符个数. 
+<!-- slide data-notes="" -->
 
-在以下调用之后, num_chars的值为 9: 
-
-```C
-num_chars = printf("Hi, Mom!\n");
-```
-
-我们通常会丢弃printf的返回值: 
-
-```C
-printf("Hi, Mom!\n"); /* discards return value */
-```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 函数调用
+##### leap.c
 
 ---
 
-为了清楚地表明函数的返回值是被故意丢弃的, C 允许在函数调用之前加上(void): 
+<a href="code/leap.c" target="_blank">leap.c</a>
 
-```C
-(void) printf("Hi, Mom!\n");
-```
+<a href="code/leap-re.c" target="_blank">leap-re.c</a>
 
-使用(void)可以让别人清楚编写者是故意丢弃了返回值, 而不是忘记了. 
+---
+
+<!-- slide data-notes="" -->
+
+##### primes.c
+
+---
+
+<a href="code/primes.c" target="_blank">primes.c</a>
+<a href="code/primes-re.c" target="_blank">primes-re.c</a>
+
+
+---
+
+<!-- slide data-notes="" -->
+
+##### stars.c
+
+---
+
+<a href="code/stars.c" target="_blank">stars.c</a>
+<a href="code/stars-re.c" target="_blank">stars-re.c</a>
+
+
+---
+
+<!-- slide data-notes="" -->
+
+##### binary-search.c
+
+---
+
+<a href="code/bsearch.c" target="_blank">bsearch.c</a>
+<a href="code/bsearch-re.c" target="_blank">bsearch-re.c</a>
+
+---
+
+<!-- slide data-notes="" -->
+
+##### palindrome.c
+
+---
+
+<a href="code/palindrome.c" target="_blank">palindrome.c</a>
+<a href="code/palindrome-re.c" target="_blank">palindrome-re.c</a>
+
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### selection-sort.c
+
+---
+
+<a href="code/selection-sort.c" target="_blank">selection-sort.c</a>
+<a href="code/selection-sort-re.c" target="_blank">selection-sort-re.c</a>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### merge.c
+
+---
+
+<a href="code/merge.c" target="_blank">merge.c</a>
+<a href="code/merge-re.c" target="_blank">merge-re.c</a>
+
+
+---
+
+<!-- slide data-notes="" -->
+
+##### game-of-life.c
+
+---
+
+<a href="code/game-of-life.c" target="_blank">game-of-life.c</a>
+<a href="code/game-of-life-re.c" target="_blank">game-of-life.c</a>
+
+---
 
 
 
@@ -615,7 +358,7 @@ Not prime
 
 is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有一个余数为0, n就不是素数. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序: 判定素数
 
@@ -660,16 +403,6 @@ int main(void)
 
 <!-- slide data-notes="" -->
 
-##### 函数声明
-
----
-
-C不要求函数的定义在其调用之前. 
-
-假设我们重新编排*average.c*程序, 将average函数的定义放在main函数的定义之后. 
-
-<!-- slide vertical=true data-notes="" -->
-
 
 
 ##### 函数声明
@@ -700,21 +433,7 @@ double average(double a, double b)
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
-
-
-
-##### 函数声明
-
----
-
-在main中遇到average函数调用时, 编译器没有该函数的信息. 
-
-编译器不会产生错误消息, 而是假设average返回一个int值. 
-
-我们说编译器为该函数创建了一个 ==隐式声明==. 
-
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -728,7 +447,7 @@ double average(double a, double b)
 
 当编译器在程序后面遇到average的定义时, 它会发现函数的返回类型实际上是double而不是int, 因此我们会得到一条出错消息. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -742,7 +461,7 @@ double average(double a, double b)
 
 即使可以, 程序也会因为函数定义的顺序不自然而难以阅读. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -764,7 +483,7 @@ double average(double a, double b)
 
 这是为average函数添加了声明的*average.c*程序. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -798,15 +517,13 @@ double average(double a, double b)    /* DEFINITION */
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 函数声明
 
 ---
 
-我们正在讨论的这类函数声明称为函数原型. 
-
-C也有旧式的函数声明, 其中括号是空的. 
+函数声明也被称为函数原型. 
 
 函数原型不必指定函数形参的名字, 只要显示它们的类型即可: 
 
@@ -816,21 +533,23 @@ double average(double, double);
 
 但最好不要省略形参的名字. 
 
-<!-- slide vertical=true data-notes="" -->
+---
 
 
+<!-- slide data-notes="" -->
 
 ##### 函数声明
 
 ---
 
-C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义. 
+在调用函数之前, 须先对其进行声明或定义. 
 
 调用函数时, 如果此前编译器未见其声明或定义, 会导致出错. 
 
+---
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 实际参数
 
@@ -842,7 +561,7 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 - 函数执行时, 对形式参数的改变不会影响实际参数的值, 形式参数包含的是实际参数值的副本. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -854,7 +573,7 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 因为形式参数的修改不会影响到对应的实际参数, 可以把形式参数作为函数内的变量来使用, 从而减少需要的变量的数量. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -879,7 +598,7 @@ int power(int x, int n)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 实际参数
 
@@ -901,9 +620,8 @@ int power(int x, int n)
 
 ---
 
-<!-- slide vertical=true data-notes="" -->
 
-
+<!-- slide data-notes="" -->
 
 ##### 实际参数
 
@@ -922,11 +640,12 @@ void decompose(double x, long int_part, double frac_part)
   frac_part = x - int_part;
 }
 ```
+
 ---
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 实际参数
 
@@ -956,7 +675,7 @@ C允许实际参数的类型与形式参数的类型不匹配的函数调用.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 实际参数的转换
 
@@ -968,9 +687,9 @@ C允许实际参数的类型与形式参数的类型不匹配的函数调用.
 
 示例: 如果将int型的实际参数传递给期望得到double型参数的函数, 则该实际参数将自动转换为double类型. 
 
+---
 
-
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 实际参数的转换
 
@@ -986,7 +705,7 @@ float类型的实际参数转换为double类型.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 实际参数的转换
 
@@ -1013,7 +732,7 @@ int square(int n)
 
 在调用square时, 编译器不知道它需要一个int类型的参数. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1037,7 +756,7 @@ C99中, 没有提供函数声明或定义时调用square函数是错误的.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1058,7 +777,7 @@ C没有为函数提供任何简单的方法来确定传递给它的数组的长�
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1082,7 +801,7 @@ int sum_array(int a[], int n)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1103,7 +822,7 @@ int sum_array(int [], int);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1132,7 +851,7 @@ total = sum_array(b[], LEN);   /*** WRONG ***/
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1153,7 +872,7 @@ total = sum_array(b, 50);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1169,7 +888,7 @@ sum_array函数将超出数组的末尾, 导致未定义的行为.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1188,15 +907,6 @@ void store_zeros(int a[], int n)
     a[i] = 0;
 }
 ```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 数组型实际参数
-
----
 
 调用store_zeros: 
 
@@ -1204,13 +914,12 @@ void store_zeros(int a[], int n)
 store_zeros(b, 100);
 ```
 
-修改数组型实际参数元素的能力似乎与C按值传递参数相矛盾. 
+修改数组型实际参数元素的能力似乎与C按值传递参数相矛盾?
 
-第12章将解释了为什么实际上并不矛盾. 
+---
 
 
-
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1238,7 +947,7 @@ int sum_two_dimensional_array(int a[][LEN], int n)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 数组型实际参数
 
@@ -1275,7 +984,7 @@ int sum_array(int a[], int n)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 变长数组形式参数 (C99)
 
@@ -1296,7 +1005,7 @@ int sum_array(int n, int a[n])
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 变长数组形式参数 (C99)
 
@@ -1319,7 +1028,7 @@ int sum_array(int n, int a[*]);  /* Version 2a */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 变长数组形式参数 (C99)
 
@@ -1336,7 +1045,7 @@ int sum_array(int, int [*]);     /* Version 2b */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 变长数组形式参数 (C99)
 
@@ -1353,7 +1062,7 @@ int sum_array(int, int []);     /* Version 3b */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 变长数组形式参数 (C99)
 
@@ -1372,7 +1081,7 @@ int concatenate(int m, int n, int a[m], int b[n], int c[m+n])
 
 指定c长度的表达式涉及另两个参数, 但通常它可以使用函数外部的变量, 甚至可以调用其他函数. 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 
@@ -1386,171 +1095,7 @@ int concatenate(int m, int n, int a[m], int b[n], int c[m+n])
 
 不会执行额外的错误检查, 数组参数仍然可能太长或太短. 
 
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 变长数组形式参数 (C99)
-
----
-
-变长数组参数对于多维数组最有用. 
-
-通过使用变长数组形式参数, 可以将函数推广到任意列数的情况: 
-
-```C{.line-numbers}
-int sum_two_dimensional_array(int n, int m, int a[n][m])
-{
-  int i, j, sum = 0;
-
-  for (i = 0; i < n; i++)
-    for (j = 0; j < m; j++)
-      sum += a[i][j];
-
-  return sum;
-}
-```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 变长数组形式参数 (C99)
-
----
-
-此函数的原型可以是: 
-
-```C
-int sum_two_dimensional_array(int n, int m, int a[n][m]);
-int sum_two_dimensional_array(int n, int m, int a[*][*]);
-int sum_two_dimensional_array(int n, int m, int a[][m]);
-int sum_two_dimensional_array(int n, int m, int a[][*]);
-```
----
-
-
-
-<!-- slide data-notes="" -->
-
-##### 在数组参数声明中使用static(C99)
-
----
-
-C99允许在声明数组参数时使用关键字static. 
-
-使用static来表示a的长度至少保证为3: 
-
-```C
-int sum_array(int a[static 3], int n)
-{
-  …
-}
-```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 在数组参数声明中使用static(C99)
-
----
-
-使用static对程序行为没有影响. 
-
-static只是一个"提示", 允许C编译器生成更快的指令来访问数组. 
-
-如果数组参数是多维的, 则static仅可用于第一维. 
-
-
-
-<!-- slide data-notes="" -->
-
-##### 复合字面量 (C99)
-
----
-
-让我们回到原来的sum_array函数. 
-
-调用sum_array时, 第一个参数通常是数组的名称. 例如: 
-
-```C
-int b[] = {3, 0, 3, 4, 1};
-total = sum_array(b, 5);
-```
-
-b必须声明为变量, 并在调用前初始化. 
-
-如果b不作它用, 仅出于调用sum_array的目的创建它可能有点浪费. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 复合字面量 (C99)
-
----
-
-
-C99 中, 可以使用复合字面量来避免该问题. 
-
-通过指定其包含的元素而创建的没有名字的数组. 
-
-使用复合字面量作为第一个参数的sum_array调用: 
-
-```C
-total = sum_array((int []){3, 0, 3, 4, 1}, 5);
-```
-
-我们没有指定数组的长度, 它由复合字面量中的元素数量决定. 
-
-也可以明确指定长度, 下面代码等价: 
-```C
-(int [4]){1, 9, 2, 1}
-(int [ ]){1, 9, 2, 1}
-```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 复合字面量 (C99)
-
----
-
-复合字面量类似于应用于初始化式的强制转换. 
-
-事实上, 复合字面量和初始化式遵循相同的规则. 
-
-复合字面量可以包含指示符, 就像指定初始化式一样, 可以不提供完全的初始化(未初始化的元素默认为零). 
-
-例如, 复合字面量`(int [10]){8, 6}`有10个元素, 前两个的值为8和6, 其余元素的值为0. 
-
-<!-- slide vertical=true data-notes="" -->
-
-
-
-##### 复合字面量 (C99)
-
----
-
-函数内部创建的复合字面量可以包含任意表达式, 不限于常量: 
-
-```C
-total = sum_array((int []){2 * i, i + j, j * k}, 3);
-```
-
-复合字面量是左值, 因此可以更改其元素的值. 
-
-在类型前加上const会将复合字面量设为 ==只读==: 
-
-```C
-(const int []){5, 4}
-```
----
+---`
 
 
 
@@ -1579,7 +1124,7 @@ return n >= 0 ? n : 0;
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### return语句
 
@@ -1590,52 +1135,7 @@ return n >= 0 ? n : 0;
 *如果声明函数返回int型值, 但return语句包含double类型表达式, 则表达式的值将被转换为int类型.*
 
 
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### return语句
-
 ---
-
-没有给出表达式, return语句可以出现在返回类型为void的函数中: 
-
-```C
-return;  /* return in a void function */
-```
-
-如: 
-```C{.line-numbers}
-void print_int(int i)
-{
-  if (i < 0)
-    return;
-  printf("%d", i);
-}
-```
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### return语句
-
----
-
-return语句可以出现在void函数的末尾: 
-
-```C
-void print_pun(void)
-{
-  printf("To C, or not to C: that is the question.\n");
-  return;   /* OK, but not needed */
-}
-```
-
-在C89中, 函数中return语句不是必需的. 
-
-如果非void函数未能执行return语句, 则程序尝试使用函数的返回值的行为是未定义的. 
 
 
 
@@ -1666,7 +1166,7 @@ main()
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序终止
 
@@ -1678,7 +1178,7 @@ main()
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序终止
 
@@ -1715,7 +1215,7 @@ exit(0);   /* normal termination */
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### exit函数
 
@@ -1739,7 +1239,7 @@ exit(EXIT_FAILURE);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### exit函数
 
@@ -1788,7 +1288,7 @@ int fact(int n)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 递归
 
@@ -1808,7 +1308,7 @@ i = fact(3);
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 递归
 
@@ -1829,7 +1329,7 @@ int power(int x, int n)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 递归
 
@@ -1864,7 +1364,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 快速排序算法
 
@@ -1882,7 +1382,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 快速排序算法
 
@@ -1898,7 +1398,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 快速排序算法
 
@@ -1914,7 +1414,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 快速排序算法
 
@@ -1928,7 +1428,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 快速排序算法
 
@@ -1957,13 +1457,13 @@ In sorted order: 3 4 9 12 16 25 47 51 66 82
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序: 快速排序
 
 ---
 
-[qsort.c](./code/qsort.c)
+[`qsort`.c](./code/qsort.c)
 
 ```C{.line-numbers}
 /* 使用快速排序算法对整数数组进行排序 */
@@ -2027,7 +1527,7 @@ int split(int a[], int low, int high)
 
 
 
-<!-- slide vertical=true data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 程序: 快速排序
 
