@@ -74,16 +74,22 @@ presentation:
 ---
 
 ```C
-char msg1[] = {'H', 'e', 'l', 'l', 'o', '\0'}; 
+char msg1[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+char msg2[] = "Hello";
+char msg3[10] = {'H', 'e', 'l', 'l', 'o'};
+char msg4[10] = "Hello";
+char msg5[10] = {'H', 'e', 'l', 'l', 'o', '\0'};
+char msg6[10] = {'H', 'e', 'l', 'l', 'o', '\0', 'W', 'O', 'R', '\0'};
 
-char msg1[] = "Hello"; 
-char msg1[10] = "Hello";
-char msg1[10] = {'H', 'e', 'l', 'l', 'o', '\0'}; 
-char msg1[10] = {'H', 'e', 'l', 'l', 'o'}; 
-// msg1 H e l l o \0 \0 \0 \0 \0
-
+char strArr[2][5] = {
+    {'H', 'e', 'l', 'l', 'o'},
+    {'n', 'j', 'u', '!', '\0'}
+};
 ```
+
 ---
+
+
 
 <!-- slide data-notes="" -->
 
@@ -101,8 +107,6 @@ char msg1[10] = {'H', 'e', 'l', 'l', 'o'};
 
 
 <!-- slide data-notes="" -->
-
-
 
 ##### 函数
 
@@ -255,7 +259,100 @@ C不要求函数的定义在其调用之前.
 
 <a href="code/leap.c" target="_blank">leap.c</a>
 
+```C
+#include <stdio.h>
+
+int main(void) {
+  int year = 0;
+  scanf("%d", &year);
+
+  int leap = 0; // boolean; indicator; flag
+  if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+    leap = 1; // printf("%d is a leap year\n", year);
+  }
+
+  if (leap == 0) {
+    printf("%d is a common year\n", year);
+  } else {
+    printf("%d is a leap year\n", year);
+  }
+  return 0;
+}
+```
+
+---
+
+<!-- slide data-notes="" -->
+
+##### leap.c
+
+---
+
 <a href="code/leap-re.c" target="_blank">leap-re.c</a>
+
+```C
+#include <stdio.h>
+
+int is_leap_year(int);
+
+int main(void) {
+  int year = 0;
+  scanf("%d", &year);
+
+  int leap = is_leap_year(year);
+  if (leap == 0) {
+    printf("%d is a common year\n", year);
+  } else {
+    printf("%d is a leap year\n", year);
+  }
+
+  return 0;
+}
+
+int is_leap_year(int n) {
+  if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
+    return 1;
+  }
+  return 0;
+}
+```
+---
+
+
+<!-- slide data-notes="" -->
+
+##### primes.c
+
+---
+
+<a href="code/primes.c" target="_blank">primes.c</a>
+
+```C
+#include <stdio.h>
+
+int main() {
+  int max;
+  scanf("%d", &max);
+
+  int count = 0;
+  for (int i = 2; i <= max; i++) {
+    // determine if i is a prime
+    int prime = 1;
+    for (int j = 2; j * j <= i; j++) {
+      if (i % j == 0) {
+        prime = 0;
+        break;
+      }
+    }
+    if (prime == 1) {
+      count++;
+//      printf("%d ", i);
+    }
+  }
+  printf("\ntotal count: %d", count);
+  return 0;
+}
+```
 
 ---
 
@@ -265,9 +362,38 @@ C不要求函数的定义在其调用之前.
 
 ---
 
-<a href="code/primes.c" target="_blank">primes.c</a>
 <a href="code/primes-re.c" target="_blank">primes-re.c</a>
 
+```C
+#include <stdio.h>
+
+int is_prime(int n) {
+  int prime = 1;
+  for (int j = 2; j * j <= n; j++) {
+    if (i % j == 0) {
+      prime = 0;
+      break;
+    }
+  }
+  return prime;
+}
+
+int main() {
+  int max;
+  scanf("%d", &max);
+
+  int count = 0;
+  for (int i = 2; i <= max; i++) {
+    // determine if i is a prime
+    int prime = is_prime(i);
+    if (prime == 1) {
+      count++;
+    }
+  }
+  printf("\ntotal count: %d", count);
+  return 0;
+}
+```
 
 ---
 
@@ -278,10 +404,75 @@ C不要求函数的定义在其调用之前.
 ---
 
 <a href="code/stars.c" target="_blank">stars.c</a>
-<a href="code/stars-re.c" target="_blank">stars-re.c</a>
 
+```C
+#include <stdio.h>
+
+int main() {
+  int lines = 0;
+  scanf("%d", &lines);
+
+  for (int i = 0; i < lines; i++) {
+    // NUm ' '
+    for (int j = 0; j < lines - 1 - i; j++) {
+      printf(" ");
+    }
+    // 2 * i + 1 '*'
+    for (int j = 0; j < 2 * i + 1; j++) {
+      printf("*");
+    }
+    if (i != lines - 1) {
+      printf("\n");
+    }
+  }
+
+  return 0;
+}
+```
 
 ---
+
+
+<!-- slide data-notes="" -->
+
+##### stars-re.c
+
+---
+
+<a href="code/stars-re.c" target="_blank">stars-re.c</a>
+
+```C
+#include <stdio.h>
+
+void print_line(int i, int lines) {
+  for (int j = 0; j < lines - 1 - i; j++) {
+    printf(" ");
+  }
+  // 2 * i + 1 '*'
+  for (int j = 0; j < 2 * i + 1; j++) {
+    printf("*");
+  }
+  if (i != lines - 1) {
+    printf("\n");
+  }
+}
+
+int main() {
+  int lines = 0;
+  scanf("%d", &lines);
+
+  for (int i = 0; i < lines; i++) {
+    // NUm ' '
+    print_line(i, lines);
+  }
+
+  return 0;
+}
+```
+
+---
+
+
 
 <!-- slide data-notes="" -->
 
@@ -290,7 +481,90 @@ C不要求函数的定义在其调用之前.
 ---
 
 <a href="code/bsearch.c" target="_blank">bsearch.c</a>
+
+```C
+#include <stdio.h>
+
+#define LEN 10
+int dictionary[LEN] = {1, 1, 5, 5, 5, 5, 5, 5, 9, 10};
+
+int main() {
+  int key = 0;
+  scanf("%d", &key);
+
+  int index = -1;
+  for (int low = 0, high = LEN - 1; low <= high; ) {
+    int mid = (low + high) / 2;
+    if (key == dictionary[mid]) {
+      index = mid;
+      high = mid - 1;
+    } else if (key > dictionary[mid]) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  if (index == -1) {
+    printf("%d is not found\n", key);
+  } else {
+    printf("The index of %d is %d\n", index, key);
+  }
+  return 0;
+}
+
+```
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### binary-search-re.c
+
+---
+
 <a href="code/bsearch-re.c" target="_blank">bsearch-re.c</a>
+
+```C
+#include <stdio.h>
+
+#define LEN 10
+
+int bsearch(int dict[], int len, int key);
+
+int main() {
+  int dictionary[LEN] = {1, 1, 5, 5,
+                         5, 5, 5, 5, 9, 10};
+
+  int key = 0;
+  scanf("%d", &key);
+
+  int index = bsearch(dictionary, LEN, key);
+  if (index == -1) {
+    printf("%d is not found\n", key);
+  } else {
+    printf("The index of %d is %d\n", index, key);
+  }
+  return 0;
+}
+
+int bsearch(int dict[], int len, int key) {
+  int index = -1;
+  for (int low = 0, high = len - 1; low <= high;) {
+    int mid = (low + high) / 2;
+    if (key == dict[mid]) {
+      index = mid;
+      high = mid - 1;
+    } else if (key > dict[mid]) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return index;
+}
+```
 
 ---
 
