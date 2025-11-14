@@ -1,0 +1,11 @@
+add_executable(cmp cmp.c)
+add_executable(cmpFloat cmpFloat.c)
+add_executable(endian endian.c)
+add_executable(function function.c)
+add_executable(inf-nan inf-nan.c)
+add_executable(intsize intsize.c)
+add_executable(overflow overflow.c)
+add_executable(printBinary printBinary.c)
+add_executable(size size.c)
+add_executable(strlen_test strlen_test.c)
+

@@ -43,7 +43,7 @@
 |   ^  | [多维数组](slides/4-loops/4-1-marrays.html)       | 多维数组 |
 | 第六讲  | [函数](slides/5-function/5-1-functions-coding.html)       | 函数(编码) |
 | ^  | [函数](slides/5-function/5-1-functions.html)       | 函数 |
-| 第七讲  | [数据类型](slides/6-data-types/6-1-data-types.html)       | 数据类型 |
+| 第七讲  | [数据类型](slides/6-data-types/6-data-types.html)       | 数据类型 |
 | 第八讲  | [指针与数组](slides/7-pointers-and-arrarys/7-pointer-array.html)       | 指针与数组 |
 | 第九讲  | [字符串](slides/8-pointers-and-c-strings/8-pointers-c-strings.html)            | 字符串 |
 | 第十讲  | [高级指针](slides/9-double-pointers/9-double-pointers.html)            | 指针与多维数组 |

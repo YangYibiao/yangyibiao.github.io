@@ -35,7 +35,7 @@ presentation:
 
 <hr class="width50 center">
 
-## 函数
+## 数据类型
 
 
 <div class="bottom8"></div>
@@ -113,6 +113,8 @@ presentation:
 
 ## <mark><font color = red>Object Types</font>&ensp;&ensp;Function Types</mark>
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -129,6 +131,9 @@ The <mark>**type**</mark> of a variable determines
 
 - what **operations** can be performed on them.
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
 
 ---
@@ -141,6 +146,9 @@ The <mark>**type**</mark> of a variable determines
 <br>
 
 ## <font color = green>[ ]</font>
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -160,7 +168,7 @@ The <mark>**type**</mark> of a variable determines
 
 ![w:1000](figs/sizeof.png)
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -180,6 +188,9 @@ The <mark>**type**</mark> of a variable determines
 
 ![w:1150](figs/precision-width.png)
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
 
 ---
@@ -196,6 +207,8 @@ The <mark>**type**</mark> of a variable determines
 
 - <mark>unsigned</mark> long long (int)
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -211,6 +224,8 @@ The <mark>**type**</mark> of a variable determines
 
 ## <mark>stdint.h</mark>
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -224,15 +239,23 @@ The <mark>**type**</mark> of a variable determines
 ### <mark>Be careful when <font color = red>MIXING</font> signed and unsigned types.</mark>
 <br>
 
-<!--
 ---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+---
+
 # Signed and Unsigned (<mark>sizet.c</mark>)
 <br>
 <br>
 <br>
 
 ![w:1200](figs/int01-sizet.png)
--->
+
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
