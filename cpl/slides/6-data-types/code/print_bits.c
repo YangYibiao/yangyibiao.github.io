@@ -11,7 +11,10 @@ void display(int a) {
 
 int main() {
   int num = 10000;
-  display(num);
+  char c = num;
 
+  printf("%d\n", c);
+  display(num);
+  
   return 0;
 }
