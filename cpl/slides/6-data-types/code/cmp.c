@@ -11,10 +11,10 @@ void print_binary(int num) {
 
 int main() {
   int a = 10002;
-  //char c = "ef";//char * c =
   print_binary(a);
-  //PrintBinary(c);
-  //printf("%d\n", c);
 
+  char c = a;
+  printf("%d", c);
+  
   return 0;
 }

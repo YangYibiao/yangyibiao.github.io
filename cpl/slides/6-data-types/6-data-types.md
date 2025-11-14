@@ -72,8 +72,6 @@ presentation:
 
 变量的数据类型决定：
 
-<br>
-
 - 变量取值范围
 
 - 可采取的操作
@@ -88,7 +86,7 @@ presentation:
 ---
 
 - int
-- double, float
+- double
 - char
 
 - 数组
@@ -98,7 +96,7 @@ presentation:
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 数据存放
+##### 数据储存
 
 ---
 
@@ -108,11 +106,13 @@ presentation:
     <img src="figs/11-1.png" width=300px>
 </div>
 
-- 每个字节都有一个唯一的地址. 
+- 每个字节都有一个唯一的地址: 
 
 <div class="top-2">
     <img src="figs/11-2.png" width=160px>
 </div>
+
+32位机: 寻址空间$0 \sim 2^{32}-1$, 约4G
 
 ---
 
@@ -150,9 +150,10 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
 
 ---
 
+
 <!-- slide data-notes="" -->
 
-##### 数的范围
+##### 整数类型
 
 ---
 
@@ -168,6 +169,7 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
 - 18 -> 00010010
 
 ---
+
 
 <!-- slide data-notes="" -->
 
@@ -205,12 +207,11 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
 
 最高位为符号位, 易理解, 但:
 - 0的表示不唯一, 不利于程序员编程 ($+0/-0 * x = +0/-0?$)
-- 加减运算方式不统一 ($7 + (- 1) => 0111 + 1001?$)
+- 加减运算方式不统一 ($7 + (-1) => 0111 + 1001?$)
 - 需额外对符号位进行处理, 不利于硬件设计
 - 当$a < b$时, 实现$a - b$比较困难
 
 ---
-
 
 
 <!-- slide data-notes="" -->
@@ -236,8 +237,8 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
 ---
 
 假定钟表时针指向10点, 要将它拨向6点, 则有两种拨法: 
-1. 倒拨4格：10-4 = 6 
-2. 顺拨8格：10+8 = 18 ≡ 6   (mod 12)
+1. 倒拨4格：10-4 = 6
+2. 顺拨8格：10+8 = 18 ≡ 6 (mod 12)
 
 模12系统中: 
 - 10-4 ≡ 10+8 (mod 12) 
@@ -249,6 +250,7 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
 补码（modular运算）：+ 和 – 的统一
 
 ---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -288,7 +290,7 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
 
 <div style="flex:1;">
 
-| Decimal  | Binary | Decimal  | Binary |
+| 数值 | 二进制 | 数值  | 二进制 |
 | :-- | :--      | :-- | :--      |
 | 0   | ==0==000 | -   | ->       |
 | 1   | ==0==001 | -1  | ==1==111 |
@@ -327,6 +329,7 @@ C支持两种完全不同的数值类型: 整数类型和浮点类型
   - 比原码表示法多表示一个最小的负数
 
 ---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2032,9 +2035,10 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 
 `xor <newmsg`
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 异或加密
 
@@ -2048,7 +2052,7 @@ xor.c程序不会更改某些字符, 包括数字.
 
 如果不是, 程序将写原始字符而不是新字符. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2185,6 +2189,29 @@ IEEE标准提供了两种主要的浮点数格式: 单精度(32 位)和双精度
 
 <!-- slide vertical=true data-notes="" -->
 
+##### 浮点类型
+
+---
+
+根据 IEEE 标准实现时float和double的特征: 
+
+<div class="fullborder">
+
+| 类型   | 最大值                    | 最小值                | 精度         | 
+| :--    | :--                     | :--                  | :--          |
+| float  | $1.17549 × 10^{–38}$    | $3.40282 × 10^{38}$  |  6位    |
+| double | $2.22507 × 10^{–308}$   | $1.79769 × 10^{308}$ | 15位 |
+
+</div>
+
+在不遵循 IEEE 标准的计算机上, 此表无效
+
+事实上, 在某些机器上, float可以有和double相同的数值集合, 或者double可以有和long double相同的数值集合
+
+---
+
+<!-- slide vertical=true data-notes="" -->
+
 ##### 浮点数表示
 
 ---
@@ -2230,10 +2257,6 @@ $x = (-1)^S*(1.F)*2^{E-B}$
 
 # IEEE 754
 
-1 bit S, 23/53 bits fraction(尾数), 8/11bits Exponent(阶码, B=127)
-
-$x = (-1)^S*(1.F)*2^{E-B}$
-
 <!-- 单精度 -->
 <div style="text-align:center;">
   <img src="figs/IEEE_754_Single_Floating_Point_Format.svg.png" style="width: 1200px;">
@@ -2254,6 +2277,9 @@ $x = (-1)^S*(1.F)*2^{E-B}$
   <img src="figs/fp-model.png" style="width:1100px;">
 </div>
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
 
 ---
@@ -2267,25 +2293,60 @@ $x = (-1)^S*(1.F)*2^{E-B}$
 
 <!-- slide vertical=true data-notes="" -->
 
+#### 浮点数密度
+
+---
+
+
+一个有关浮点数大小/密度的实验 [float.c](./code/float.c)
+- 越大的数字，距离下一个实数的距离就越大
+- 可能会带来相当的绝对误差
+- 因此很多数学库都会频繁做归一化
+
+越大的数字，距离下一个实数的距离就越大
+- 可能会带来相当的绝对误差
+- 因此很多数学库都会频繁做归一化
+示例：
+- $1.00000000000000000000000_{2} \times 2^{24}$
+  - 16,777,216
+- $1.00000000000000000000001_{2} \times 2^{24}$
+  - 16,777,218
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
 
 ##### 浮点类型
 
 ---
 
-根据 IEEE 标准实现时float和double的特征: 
+比较
+- a == b 需求谨慎判断（要假设自带$𝜀$）
+- 浮点数： 𝑎 + 𝑏 + 𝑐 ≠ 𝑎 + (𝑏 + 𝑐)
 
-<div class="fullborder">
+浮点数的比较
 
-| 类型   | 最大值                    | 最小值                | 精度         | 
-| :--    | :--                     | :--                  | :--          |
-| float  | $1.17549 × 10^{–38}$    | $3.40282 × 10^{38}$  |  6位    |
-| double | $2.22507 × 10^{–308}$   | $1.79769 × 10^{308}$ | 15位 |
+[float-abrev.c](.code/float-abrev.c)
 
-</div>
+[cmpFloat.c](./code/cmpFloat.c)
 
-在不遵循 IEEE 标准的计算机上, 此表无效
+```c
+// float-abrev.c 示例代码
+#include <stdio.h>
 
-事实上, 在某些机器上, float可以有和double相同的数值集合, 或者double可以有和long double相同的数值集合
+int main() {
+    float a = 16777216.0f;
+    float b = a + 1.0f;
+    
+    printf("a = %f\n", a);
+    printf("b = %f\n", b);
+    printf("a == b? %s\n", a == b ? "true" : "false");
+    
+    return 0;
+}
+```
 
 ---
 
@@ -2306,6 +2367,7 @@ $x = (-1)^S*(1.F)*2^{E-B}$
 
 复数类型(`float _Complex, double _Complex, long double _Complex`)
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2327,7 +2389,7 @@ $x = (-1)^S*(1.F)*2^{E-B}$
 
 指数必须以字母E(或e)开头可选符号+或-在E(或e)之后
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2342,7 +2404,7 @@ $x = (-1)^S*(1.F)*2^{E-B}$
 
 要表明一个常量必须以long double格式存储, 可以在常量的末尾加上字母L或l, 如57.0L
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2367,7 +2429,7 @@ scanf("%lf", &d);
 
 - 读写long double类型的值时, 将字母L放在e、f或g前
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -2380,7 +2442,7 @@ scanf("%lf", &d);
 
 char类型的值可能因计算机而异, 不同的计算机可能有不同的字符集
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
