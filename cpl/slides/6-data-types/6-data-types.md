@@ -1337,6 +1337,79 @@ C99 确定整数常量类型的规则与 C89 有些不同
 
 ---
 
+<!-- slide vertical=true data-notes="" -->
+
+
+##### 整数溢出与Undefined Behavior
+
+---
+
+```
+Undefined behavior (UB) is the result of executing computer
+code whose behavior is not prescribed by the language
+specification to which the code adheres, for the current state
+of the program. This happens when the translator of the source
+code makes certain assumptions, but these assumptions are
+not satisfied during execution. -- Wikipedia
+```
+
+C对UB的行为是不做任何约束的
+• 常见的UB：非法内存访问(空指针解引用、数组越界、写只读内存等)、
+被零除、有符号整数溢出、函数没有返回值……
+• 通常的后果比较轻微，比如wrong answer, crash
+
+---
+
+<!-- slide vertical=true data-notes="" -->
+
+
+##### 整数溢出与Undefined Behavior
+
+---
+
+为了尽可能高效(zero-overhead)
+- 不合法的事情的后果只好undefined 了
+- Java, js, python, ... 选择所有操作都进行合法性检查
+
+为了兼容多种硬件体系结构
+- 有些硬件/0 会产生处理器异常
+- 有些硬件啥也不发生
+- 只好undefined 了
+
+
+<!-- slide vertical=true data-notes="" -->
+
+
+##### 整数溢出与Undefined Behavior
+
+---
+
+为什么整数要有多少种？
+• 为了准确表达内存，做底层程序需要
+• 现代计算机普遍字长32或者64位，更适合做int计算
+• 现代编译器普遍会进行内存对齐，所有更短的类型实际上在内存中也可能占据一个int大小（sizeof不一致）
+
+unsigned是否只是输出视角不同，不影响内部存储
+- unsigned设计的初衷，是为了进行纯二进制运算
+- 位运算：&, |, ～, ^, >>, <<,
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 整数溢出与Undefined Behavior
+
+---
+
+Undefined Behavior: 警惕整数溢出
+
+<div style="text-align:center;">
+  <img src="figs/ub.png" style="width: 1200px;">
+</div>
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1661,7 +1734,15 @@ i |= 1 << j;        /* sets bit j */
 
 <!-- slide vertical=true data-notes="" -->
 
+---
 
+打印整数的二进制表达
+
+[print_bits.c](./code/print_bits.c)
+
+---
+
+<!-- slide vertical=true data-notes="" -->
 
 ##### 用位运算符访问位
 
@@ -3109,248 +3190,5 @@ typedef int wchar_t;
 ```
 
 C99中<stdint.h>用typedef定义占特定位数整数类型名, 如int32_t
-
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Overview
-</br>
-</br>
-</br>
-
-# <font color = blue> (Basic) Data Types</font>
-
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Two Major Reasons
-
-<br>
-<br>
-<br>
-
-## <mark>Architectures May Vary</mark>
-
-<br>
-<br>
-
-## <mark>Finite vs. Infinite</mark>
-
----
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Object
-
-<br>
-<br>
-
-![w:1250](figs/object.png)
-
-<br>
-<br>
-
-## <mark><font color = red>Object Types</font>&ensp;&ensp;Function Types</mark>
-
----
-
-
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-<br>
-<br>
-<br>
-
-## <mark>int &ensp;&ensp; char &ensp;&ensp; bool&ensp; (_Bool)</mark>&ensp;&ensp;<font color = red>double</font>
-<br>
-
-## <font color = green>[ ]</font>
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Integral Types (<mark>size.c</mark>)
-
-<br>
-
-- <mark>(unsigned)</mark> short (int)
-
-- <mark>unsigned</mark> int
-
-- <mark>unsigned</mark> long (int)
-
-- <mark>unsigned</mark> long long (int)
-
-![w:1000](figs/sizeof.png)
-
----
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Integral Types
-
-<br>
-
-- <mark>(unsigned)</mark> short (int)
-
-- <mark>unsigned</mark> int
-
-- <mark>unsigned</mark> long (int)
-
-- <mark>unsigned</mark> long long (int)
-
-![w:1150](figs/precision-width.png)
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Integral Types (<mark>int-limits.c</mark>)
-
-<br>
-
-- <mark>(unsigned)</mark> short (int)
-
-- <mark>unsigned</mark> int
-
-- <mark>unsigned</mark> long (int)
-
-- <mark>unsigned</mark> long long (int)
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Integral Types (<mark>exact-width.c</mark>)
-
-<br>
-
-## int8_t &ensp; int16_t &ensp; int32_t  &ensp; int64_t &ensp;
-
-![w:1000](figs/exact-width.png)
-
-## <mark>stdint.h</mark>
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Signed and Unsigned (<mark>unsigned.c</mark>)
-<br>
-<br>
-<br>
-
-### <mark>Be careful when <font color = red>MIXING</font> signed and unsigned types.</mark>
-<br>
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Signed and Unsigned (<mark>sizet.c</mark>)
-<br>
-<br>
-<br>
-
-![w:1200](figs/int01-sizet.png)
-
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# typedef
-<br>
-<br>
-
-### <mark><font color = blue>typedef</font> unsigned __int64 <font color = red>size_t</font></mark>
-
-<br>
-
-### <mark><font color = blue>#define</font> <font color = red>_ _int64</font> long long</mark>
-
-<br>
-
-### <mark><font color = blue>typedef</font> long long <font color = red>time_t</font></mark>
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# char (<mark>char.c</mark>)
-<br>
-
-### Use `char` only for representing characters.
-<br>
-
-### Do <font color = red>NOT</font> assume `signed char` or `unsigned char`.
-
----
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Overflow
-
-## (<mark>unsigned-wrap.c &ensp; for-unsigned.c &ensp; unsigned-wrap-fix.c</mark>)
-<br>
-<br>
-
-<mark>无符号整数</mark>运算中没有溢出, 取而代之的是<font color = font>**回绕 (wrap)**</font>现象
-
----
-
-<!-- slide vertical=true data-notes="" -->
-
----
-
-# Overflow
-## (<mark>signed-overflow-fix.c</mark>)
-<br>
-<br>
-
-<mark>有符号整数</mark>运算中发生溢出, 程序的行为是<font color = red>**未定义的**</font>
 
 ---

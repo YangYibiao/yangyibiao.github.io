@@ -1196,7 +1196,52 @@ i <span class="token operator">=</span> j <span class="token operator">*</span> 
 <li>对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span>取模, <code>n</code>是用于存储结果的位数(如一般<code>unsigned int</code>是<code>32</code>位)</li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1341" class="slide " data-source-line="1341" data-h="6" data-v="50"><h5 id="读写整数">读/写整数 </h5>
+</section><section vertical="true" data-notes="" lineno="1340" class="slide " data-source-line="1340" data-h="6" data-v="50"><h5 id="整数溢出与undefined-behavior">整数溢出与Undefined Behavior </h5>
+<hr>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Undefined behavior (UB) is the result of executing computer
+code whose behavior is not prescribed by the language
+specification to which the code adheres, for the current state
+of the program. This happens when the translator of the source
+code makes certain assumptions, but these assumptions are
+not satisfied during execution. -- Wikipedia
+</code></pre><p>C对UB的行为是不做任何约束的<br>
+• 常见的UB：非法内存访问(空指针解引用、数组越界、写只读内存等)、<br>
+被零除、有符号整数溢出、函数没有返回值……<br>
+• 通常的后果比较轻微，比如wrong answer, crash</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1363" class="slide " data-source-line="1363" data-h="6" data-v="51"><h5 id="整数溢出与undefined-behavior-1">整数溢出与Undefined Behavior </h5>
+<hr>
+<p>为了尽可能高效(zero-overhead)</p>
+<ul>
+<li>不合法的事情的后果只好undefined 了</li>
+<li>Java, js, python, … 选择所有操作都进行合法性检查</li>
+</ul>
+<p>为了兼容多种硬件体系结构</p>
+<ul>
+<li>有些硬件/0 会产生处理器异常</li>
+<li>有些硬件啥也不发生</li>
+<li>只好undefined 了</li>
+</ul>
+</section><section vertical="true" data-notes="" lineno="1380" class="slide " data-source-line="1380" data-h="6" data-v="52"><h5 id="整数溢出与undefined-behavior-2">整数溢出与Undefined Behavior </h5>
+<hr>
+<p>为什么整数要有多少种？<br>
+• 为了准确表达内存，做底层程序需要<br>
+• 现代计算机普遍字长32或者64位，更适合做int计算<br>
+• 现代编译器普遍会进行内存对齐，所有更短的类型实际上在内存中也可能占据一个int大小（sizeof不一致）</p>
+<p>unsigned是否只是输出视角不同，不影响内部存储</p>
+<ul>
+<li>unsigned设计的初衷，是为了进行纯二进制运算</li>
+<li>位运算：&amp;, |, ～, ^, &gt;&gt;, &lt;&lt;,</li>
+</ul>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1399" class="slide " data-source-line="1399" data-h="6" data-v="53"><h5 id="整数溢出与undefined-behavior-3">整数溢出与Undefined Behavior </h5>
+<hr>
+<p>Undefined Behavior: 警惕整数溢出</p>
+<div style="text-align:center;">
+  <img src="figs/ub.png" style="width: 1200px;">
+</div>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1414" class="slide " data-source-line="1414" data-h="6" data-v="54"><h5 id="读写整数">读/写整数 </h5>
 <hr>
 <p>读写无符号整数、短整数和长整数需要一些新的转换说明符</p>
 <p>读写无符号整数时, 使用字母u、o或x代替转换说明中的d</p>
@@ -1209,13 +1254,13 @@ i <span class="token operator">=</span> j <span class="token operator">*</span> 
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以16为基数读取u */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 以16为基数输出u */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1366" class="slide " data-source-line="1366" data-h="6" data-v="51"><h5 id="位运算符">位运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1439" class="slide " data-source-line="1439" data-h="6" data-v="55"><h5 id="位运算符">位运算符 </h5>
 <hr>
 <p>C 提供了六个位运算符, 它们在位级别对整数数据进行操作.</p>
 <p>其中两个运算符执行移位操作.</p>
 <p>其他四个执行按位求反, 按位与, 按位异或和按位或运算.</p>
 <hr>
-</section><section id="BitOp" vertical="true" data-notes="" lineno="1381" class="slide " data-source-line="1381" data-h="6" data-v="52"><h5 id="移位运算符">移位运算符 </h5>
+</section><section id="BitOp" vertical="true" data-notes="" lineno="1454" class="slide " data-source-line="1454" data-h="6" data-v="56"><h5 id="移位运算符">移位运算符 </h5>
 <hr>
 <p>移位运算符将整数中的位向左或向右移动:</p>
 <ul>
@@ -1229,7 +1274,7 @@ i <span class="token operator">=</span> j <span class="token operator">*</span> 
 <p><code>&lt;&lt;</code>和<code>&gt;&gt;</code>的操作数可以是任何整数类型(包括char).</p>
 <p>对两个操作数都会进行整数提升; 结果为提升后左操作数的类型.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1401" class="slide " data-source-line="1401" data-h="6" data-v="53"><h5 id="移位运算符-1">移位运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1474" class="slide " data-source-line="1474" data-h="6" data-v="57"><h5 id="移位运算符-1">移位运算符 </h5>
 <hr>
 <p><code>i &lt;&lt; j</code>的值是将i中的位左移j位后的结果.</p>
 <ul>
@@ -1245,7 +1290,7 @@ i <span class="token operator">=</span> j <span class="token operator">*</span> 
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1420" class="slide " data-source-line="1420" data-h="6" data-v="54"><h5 id="移位运算符-2">移位运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1493" class="slide " data-source-line="1493" data-h="6" data-v="58"><h5 id="移位运算符-2">移位运算符 </h5>
 <hr>
 <p>将移位运算符应用于数字 13 的效果的示例:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
@@ -1256,7 +1301,7 @@ j <span class="token operator">=</span> i <span class="token operator">&lt;&lt;<
 
 j <span class="token operator">=</span> i <span class="token operator">&gt;&gt;</span> <span class="token number">2</span><span class="token punctuation">;</span>  <span class="token comment">/* j is now  3(binary 0000000000000011) */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1442" class="slide " data-source-line="1442" data-h="6" data-v="55"><h5 id="移位运算符-3">移位运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1515" class="slide " data-source-line="1515" data-h="6" data-v="59"><h5 id="移位运算符-3">移位运算符 </h5>
 <hr>
 <p>要通过移位来修改变量, 需要使用复合赋值运算符<code>&lt;&lt;=</code>和<code>&gt;&gt;=</code>:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">;</span>  <span class="token comment">/* i is now 13(binary 0000000000001101) */</span>
@@ -1265,12 +1310,12 @@ i <span class="token operator">&lt;&lt;=</span> <span class="token number">2</sp
 
 i <span class="token operator">&gt;&gt;=</span> <span class="token number">2</span><span class="token punctuation">;</span>  <span class="token comment">/* i is now 13(binary 0000000000001101) */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1461" class="slide " data-source-line="1461" data-h="6" data-v="56"><h5 id="移位运算符-4">移位运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1534" class="slide " data-source-line="1534" data-h="6" data-v="60"><h5 id="移位运算符-4">移位运算符 </h5>
 <hr>
 <p>移位运算符的优先级低于算术运算符, 这可能会引起意外:</p>
 <p>i &lt;&lt; 2 + 1 等同于 i &lt;&lt;(2 + 1), 而不是(i &lt;&lt; 2) + 1</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1474" class="slide " data-source-line="1474" data-h="6" data-v="57"><h5 id="按位求反-按位与-按位异或和按位或运算符">按位求反, 按位与, 按位异或和按位或运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1547" class="slide " data-source-line="1547" data-h="6" data-v="61"><h5 id="按位求反-按位与-按位异或和按位或运算符">按位求反, 按位与, 按位异或和按位或运算符 </h5>
 <hr>
 <p>余下的4个位运算符:</p>
 <ul>
@@ -1290,12 +1335,12 @@ i <span class="token operator">&gt;&gt;=</span> <span class="token number">2</sp
 <p><code>~</code>运算符是一元的; 对其操作数进行整数提升.</p>
 <p>其他运算符是二元的; 对其操作数进行常用的算术转换.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1497" class="slide " data-source-line="1497" data-h="6" data-v="58"><h5 id="按位求反-按位与-按位异或和按位或运算符-1">按位求反, 按位与, 按位异或和按位或运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1570" class="slide " data-source-line="1570" data-h="6" data-v="62"><h5 id="按位求反-按位与-按位异或和按位或运算符-1">按位求反, 按位与, 按位异或和按位或运算符 </h5>
 <hr>
 <p><code>~</code>, <code>&amp;</code>, <code>^</code>和<code>|</code>运算符对其操作数中的所有位执行布尔运算.</p>
 <p>当两个操作数的位都是 1 时, <code>^</code>运算符产生 0 而<code>|</code>产生 1 .</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1510" class="slide " data-source-line="1510" data-h="6" data-v="59"><h5 id="按位求反-按位与-按位异或和按位或运算符-2">按位求反, 按位与, 按位异或和按位或运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1583" class="slide " data-source-line="1583" data-h="6" data-v="63"><h5 id="按位求反-按位与-按位异或和按位或运算符-2">按位求反, 按位与, 按位异或和按位或运算符 </h5>
 <hr>
 <p>运算符<code>~</code>, <code>&amp;</code>, <code>^</code>和<code>|</code>作用的示例:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
@@ -1318,7 +1363,7 @@ k <span class="token operator">=</span> i <span class="token operator">^</span> 
 k <span class="token operator">=</span> i <span class="token operator">|</span> j<span class="token punctuation">;</span>
   <span class="token comment">/* k is now    61(binary 0000000000111101) */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1543" class="slide " data-source-line="1543" data-h="6" data-v="60"><h5 id="按位求反-按位与-按位异或和按位或运算符-3">按位求反, 按位与, 按位异或和按位或运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1616" class="slide " data-source-line="1616" data-h="6" data-v="64"><h5 id="按位求反-按位与-按位异或和按位或运算符-3">按位求反, 按位与, 按位异或和按位或运算符 </h5>
 <hr>
 <p><code>~</code>运算符可以帮助使底层程序可移植性更好.</p>
 <ul>
@@ -1330,7 +1375,7 @@ k <span class="token operator">=</span> i <span class="token operator">|</span> 
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1558" class="slide " data-source-line="1558" data-h="6" data-v="61"><h5 id="按位求反-按位与-按位异或和按位或运算符-4">按位求反, 按位与, 按位异或和按位或运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1631" class="slide " data-source-line="1631" data-h="6" data-v="65"><h5 id="按位求反-按位与-按位异或和按位或运算符-4">按位求反, 按位与, 按位异或和按位或运算符 </h5>
 <hr>
 <p><code>~</code>, <code>&amp;</code>, <code>^</code>和<code>|</code>有不同的优先级:</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>最高  ~
@@ -1342,7 +1387,7 @@ k <span class="token operator">=</span> i <span class="token operator">|</span> 
 i <span class="token operator">^</span> j <span class="token operator">&amp;</span> <span class="token operator">~</span>k<span class="token punctuation">;</span>  <span class="token comment">/* 等价于 */</span> i <span class="token operator">^</span><span class="token punctuation">(</span>j <span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token operator">~</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><p>使用括号有助于避免混淆.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1585" class="slide " data-source-line="1585" data-h="6" data-v="62"><h5 id="按位求反-按位与-按位异或和按位或运算符-5">按位求反, 按位与, 按位异或和按位或运算符 </h5>
+</section><section vertical="true" data-notes="" lineno="1658" class="slide " data-source-line="1658" data-h="6" data-v="66"><h5 id="按位求反-按位与-按位异或和按位或运算符-5">按位求反, 按位与, 按位异或和按位或运算符 </h5>
 <hr>
 <p>复合赋值运算符<code>&amp;=</code>, <code>^=</code>和<code>|=</code>对应于按位运算符<code>&amp;</code>, <code>^</code>和<code>|</code>:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">;</span>
@@ -1360,7 +1405,7 @@ i <span class="token operator">^=</span> j<span class="token punctuation">;</spa
 i <span class="token operator">|=</span> j<span class="token punctuation">;</span>
   <span class="token comment">/* i is now 56(binary 0000000000111000) */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1612" class="slide " data-source-line="1612" data-h="6" data-v="63"><h5 id="用位运算符访问位">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1685" class="slide " data-source-line="1685" data-h="6" data-v="67"><h5 id="用位运算符访问位">用位运算符访问位 </h5>
 <hr>
 <p>位运算符可用于提取或修改存储在少数几个位中的数据.</p>
 <p>常见的单位操作:</p>
@@ -1385,7 +1430,7 @@ i <span class="token operator">|=</span> j<span class="token punctuation">;</spa
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1637" class="slide " data-source-line="1637" data-h="6" data-v="64"><h5 id="用位运算符访问位-1">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1710" class="slide " data-source-line="1710" data-h="6" data-v="68"><h5 id="用位运算符访问位-1">用位运算符访问位 </h5>
 <hr>
 <p><strong>位的设置.</strong> 设置 i 的第 4 位的最简单方法是将i的值与常量0x0010进行或运算:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">0x0000</span><span class="token punctuation">;</span>
@@ -1397,7 +1442,11 @@ i <span class="token operator">|=</span> <span class="token number">0x0010</span
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">|=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> j<span class="token punctuation">;</span>        <span class="token comment">/* sets bit j */</span>
 </code></pre><p>示例: 如果 j 的值为 3, 则 1 &lt;&lt; j 是0x0008</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1662" class="slide " data-source-line="1662" data-h="6" data-v="65"><h5 id="用位运算符访问位-2">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1735" class="slide " data-source-line="1735" data-h="6" data-v="69"><hr>
+<p>打印整数的二进制表达</p>
+<p><a href="./code/print_bits.c">print_bits.c</a></p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1745" class="slide " data-source-line="1745" data-h="6" data-v="70"><h5 id="用位运算符访问位-2">用位运算符访问位 </h5>
 <hr>
 <p><strong>位的清除.</strong> 清除i的第 4 位可以使用第4位为0, 其他位为1的掩码:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">0x00ff</span><span class="token punctuation">;</span>
@@ -1408,14 +1457,14 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><p>清除位置存储在变量中的位的语句:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* clears bit j */</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1688" class="slide " data-source-line="1688" data-h="6" data-v="66"><h5 id="用位运算符访问位-3">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1769" class="slide " data-source-line="1769" data-h="6" data-v="71"><h5 id="用位运算符访问位-3">用位运算符访问位 </h5>
 <hr>
 <p><strong>位的测试.</strong> 测试i的第 4 位是否已设置的if语句:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>i <span class="token operator">&amp;</span> <span class="token number">0x0010</span><span class="token punctuation">)</span> …   <span class="token comment">/* tests bit 4 */</span>
 </code></pre><p>测试第j位的语句:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>i <span class="token operator">&amp;</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> j<span class="token punctuation">)</span> …   <span class="token comment">/* tests bit j */</span> 
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1709" class="slide " data-source-line="1709" data-h="6" data-v="67"><h5 id="用位运算符访问位-4">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1790" class="slide " data-source-line="1790" data-h="6" data-v="72"><h5 id="用位运算符访问位-4">用位运算符访问位 </h5>
 <hr>
 <p>如果给位命名, 使用会更容易.</p>
 <p>假设一个数字的第0, 1和2位分别对应于蓝色, 绿色和红色.</p>
@@ -1424,14 +1473,14 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GREEN</span> <span class="token expression"><span class="token number">2</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RED</span>   <span class="token expression"><span class="token number">4</span></span></span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1730" class="slide " data-source-line="1730" data-h="6" data-v="68"><h5 id="用位运算符访问位-5">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1811" class="slide " data-source-line="1811" data-h="6" data-v="73"><h5 id="用位运算符访问位-5">用位运算符访问位 </h5>
 <hr>
 <p>设置, 清除和测试BLUE位的示例:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">|=</span> BLUE<span class="token punctuation">;</span>        <span class="token comment">/* sets BLUE bit   */</span>
 i <span class="token operator">&amp;=</span> <span class="token operator">~</span>BLUE<span class="token punctuation">;</span>       <span class="token comment">/* clears BLUE bit */</span>
 <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>i <span class="token operator">&amp;</span> BLUE<span class="token punctuation">)</span> …   <span class="token comment">/* tests BLUE bit  */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1746" class="slide " data-source-line="1746" data-h="6" data-v="69"><h5 id="用位运算符访问位-6">用位运算符访问位 </h5>
+</section><section vertical="true" data-notes="" lineno="1827" class="slide " data-source-line="1827" data-h="6" data-v="74"><h5 id="用位运算符访问位-6">用位运算符访问位 </h5>
 <hr>
 <p>同时设置, 清除或测试几个位也很容易:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">|=</span> BLUE <span class="token operator">|</span> GREEN<span class="token punctuation">;</span>
@@ -1444,7 +1493,7 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
   <span class="token comment">/* tests BLUE and GREEN bits  */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p>if语句测试是否设置了BLUE位或GREEN位.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1772" class="slide " data-source-line="1772" data-h="6" data-v="70"><h5 id="用位运算符访问位域">用位运算符访问位域 </h5>
+</section><section vertical="true" data-notes="" lineno="1853" class="slide " data-source-line="1853" data-h="6" data-v="75"><h5 id="用位运算符访问位域">用位运算符访问位域 </h5>
 <hr>
 <p>处理一组连续的位(位域)比处理单个位稍微复杂一些.</p>
 <p>常见的位域操作:</p>
@@ -1457,7 +1506,7 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1789" class="slide " data-source-line="1789" data-h="6" data-v="71"><h5 id="用位运算符访问位域-1">用位运算符访问位域 </h5>
+</section><section vertical="true" data-notes="" lineno="1870" class="slide " data-source-line="1870" data-h="6" data-v="76"><h5 id="用位运算符访问位域-1">用位运算符访问位域 </h5>
 <hr>
 <p><strong>修改位域.</strong> 修改位域需要两个操作:</p>
 <ul>
@@ -1473,7 +1522,7 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
   <span class="token comment">/* stores 101 in bits 4-6 */</span>
 </code></pre><p><code>&amp;</code>运算符清除i的第4-6位; 然后<code>|</code>运算符设置第4-6位.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1815" class="slide " data-source-line="1815" data-h="6" data-v="72"><h5 id="用位运算符访问位域-2">用位运算符访问位域 </h5>
+</section><section vertical="true" data-notes="" lineno="1896" class="slide " data-source-line="1896" data-h="6" data-v="77"><h5 id="用位运算符访问位域-2">用位运算符访问位域 </h5>
 <hr>
 <p>为了使该示例更通用, 假设j包含要存储到i的第4-6位的值.</p>
 <p>需要在执行按位或之前将j移位至相应的位置:</p>
@@ -1482,7 +1531,7 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
 </code></pre><p><code>|</code>运算符的优先级低于<code>&amp;</code>和<code>&lt;&lt;</code>, 因此可以删除括号:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> i <span class="token operator">&amp;</span> <span class="token operator">~</span><span class="token number">0x0070</span> <span class="token operator">|</span> j <span class="token operator">&lt;&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1838" class="slide " data-source-line="1838" data-h="6" data-v="73"><h5 id="用位运算符访问位域-3">用位运算符访问位域 </h5>
+</section><section vertical="true" data-notes="" lineno="1919" class="slide " data-source-line="1919" data-h="6" data-v="78"><h5 id="用位运算符访问位域-3">用位运算符访问位域 </h5>
 <hr>
 <p><strong>获取位域.</strong> 获取数字右端的位域(最低有效位)很容易:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>j <span class="token operator">=</span> i <span class="token operator">&amp;</span> <span class="token number">0x0007</span><span class="token punctuation">;</span>
@@ -1491,7 +1540,7 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>j <span class="token operator">=</span><span class="token punctuation">(</span>i <span class="token operator">&gt;&gt;</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x0007</span><span class="token punctuation">;</span>
   <span class="token comment">/* retrieves bits 4-6 */</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1861" class="slide " data-source-line="1861" data-h="6" data-v="74"><h5 id="程序-异或加密">程序: 异或加密 </h5>
+</section><section vertical="true" data-notes="" lineno="1942" class="slide " data-source-line="1942" data-h="6" data-v="79"><h5 id="程序-异或加密">程序: 异或加密 </h5>
 <hr>
 <p>加密数据的最简单方法之一是使用密钥对每个字符进行异或(XOR).</p>
 <p>假设密钥是一个&amp;字符.</p>
@@ -1500,20 +1549,20 @@ i <span class="token operator">&amp;=</span> <span class="token operator">~</spa
 XOR 01111010 (z的ASCII码)
     01011100 (\的ASCII码)
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1882" class="slide " data-source-line="1882" data-h="6" data-v="75"><h5 id="程序-异或加密-1">程序: 异或加密 </h5>
+</section><section vertical="true" data-notes="" lineno="1963" class="slide " data-source-line="1963" data-h="6" data-v="80"><h5 id="程序-异或加密-1">程序: 异或加密 </h5>
 <hr>
 <p>通过应用相同的算法来解密消息:</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>    00100110 (&amp;的ASCII码)
 XOR 01011100 (\的ASCII码)
     01111010 (z的ASCII码)
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1899" class="slide " data-source-line="1899" data-h="6" data-v="76"><h5 id="程序-异或加密-2">程序: 异或加密 </h5>
+</section><section vertical="true" data-notes="" lineno="1980" class="slide " data-source-line="1980" data-h="6" data-v="81"><h5 id="程序-异或加密-2">程序: 异或加密 </h5>
 <hr>
 <p>xor.c程序通过将每个字符与&amp;字符进行异或来加密消息.</p>
 <p>原始消息可以由用户输入或使用输入重定向从文件中读取.</p>
 <p>加密的消息可以在屏幕上查看或使用输出重定向保存在文件中.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="1914" class="slide " data-source-line="1914" data-h="6" data-v="77"><h5 id="程序-异或加密-3">程序: 异或加密 </h5>
+</section><section vertical="true" data-notes="" lineno="1995" class="slide " data-source-line="1995" data-h="6" data-v="82"><h5 id="程序-异或加密-3">程序: 异或加密 </h5>
 <hr>
 <p>一个名为msg的示例文件:</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>Trust not him with your secrets, who, when left
@@ -1526,17 +1575,17 @@ alone in your room, turns over your papers.
 GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.  
             --lINGHH mGUVGT jGPGRCT(1741-1801)
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="1942" class="slide " data-source-line="1942" data-h="6" data-v="78"><h5 id="程序-异或加密-4">程序: 异或加密 </h5>
+</section><section vertical="true" data-notes="" lineno="2023" class="slide " data-source-line="2023" data-h="6" data-v="83"><h5 id="程序-异或加密-4">程序: 异或加密 </h5>
 <hr>
 <p>恢复原始消息并将其显示在屏幕上的命令:</p>
 <p><code>xor &lt;newmsg</code></p>
-</section><section vertical="true" data-notes="" lineno="1954" class="slide " data-source-line="1954" data-h="6" data-v="79"><h5 id="程序-异或加密-5">程序: 异或加密 </h5>
+</section><section vertical="true" data-notes="" lineno="2035" class="slide " data-source-line="2035" data-h="6" data-v="84"><h5 id="程序-异或加密-5">程序: 异或加密 </h5>
 <hr>
 <p>xor.c程序不会更改某些字符, 包括数字.</p>
 <p>将这些字符与&amp;进行异或会产生不可见的控制字符, 这在某些操作系统中会出现问题.</p>
 <p>程序检查原始字符和新(加密)字符是否都是可打印字符.</p>
 <p>如果不是, 程序将写原始字符而不是新字符.</p>
-</section><section vertical="true" data-notes="" lineno="1972" class="slide " data-source-line="1972" data-h="6" data-v="80"><h5 id="xorc">xor.c </h5>
+</section><section vertical="true" data-notes="" lineno="2053" class="slide " data-source-line="2053" data-h="6" data-v="85"><h5 id="xorc">xor.c </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Performs XOR encryption */</span>
  
@@ -1560,7 +1609,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2005" class="slide " data-source-line="2005" data-h="6" data-v="81"><h5 id="读写整数-1">读/写整数 </h5>
+</section><section vertical="true" data-notes="" lineno="2086" class="slide " data-source-line="2086" data-h="6" data-v="86"><h5 id="读写整数-1">读/写整数 </h5>
 <hr>
 <p>读写短整数时, 在d、o、u或x前面加上字母h:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-short">short</span> s<span class="token punctuation">;</span>
@@ -1575,7 +1624,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ll<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld"</span><span class="token punctuation">,</span> ll<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2039" class="slide " data-source-line="2039" data-h="6" data-v="82"><h5 id="浮点类型">浮点类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2120" class="slide " data-source-line="2120" data-h="6" data-v="87"><h5 id="浮点类型">浮点类型 </h5>
 <hr>
 <p>C 提供了3种浮点类型, 对应三种不同的浮点格式:</p>
 <ul>
@@ -1590,7 +1639,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2057" class="slide " data-source-line="2057" data-h="6" data-v="83"><h5 id="浮点类型-1">浮点类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2138" class="slide " data-source-line="2138" data-h="6" data-v="88"><h5 id="浮点类型-1">浮点类型 </h5>
 <hr>
 <p>当精度要求不严格时, float是合适的</p>
 <p>double为大多数程序提供了足够的精度</p>
@@ -1598,7 +1647,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 <p>C标准没有说明float、double和long double类型提供的精度到底是多少, 因为不同的计算机可以用不同的方法存储浮点数</p>
 <p>大多现代计算机都遵循 IEEE 标准 754(即IEC 60559)的规范</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2076" class="slide " data-source-line="2076" data-h="6" data-v="84"><hr>
+</section><section vertical="true" data-notes="" lineno="2157" class="slide " data-source-line="2157" data-h="6" data-v="89"><hr>
 <p>实数非常非常多</p>
 <ul>
 <li>只能用32/64-bit 01串来表述一小部分实数</li>
@@ -1607,13 +1656,13 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 <li>计算误差不太可怕</li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2089" class="slide " data-source-line="2089" data-h="6" data-v="85"><h5 id="ieee-浮点标准">IEEE 浮点标准 </h5>
+</section><section vertical="true" data-notes="" lineno="2170" class="slide " data-source-line="2170" data-h="6" data-v="90"><h5 id="ieee-浮点标准">IEEE 浮点标准 </h5>
 <hr>
 <p>IEEE标准提供了两种主要的浮点数格式: 单精度(32 位)和双精度(64 位)</p>
 <p>数值以科学记数法的形式存储, 每一个数都由三部分组成: 符号、指数和小数</p>
 <p>在单精度格式中, 指数长度为<code>8</code>位, 而小数为<code>23</code>位最大值约为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3.40</mn><mo>×</mo><msup><mn>10</mn><mn>38</mn></msup></mrow><annotation encoding="application/x-tex">3.40 × 10^{38}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">3.40</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">38</span></span></span></span></span></span></span></span></span></span></span></span>, 精度是6 个十进制数字</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2105" class="slide " data-source-line="2105" data-h="6" data-v="86"><h5 id="浮点数表示">浮点数表示 </h5>
+</section><section vertical="true" data-notes="" lineno="2186" class="slide " data-source-line="2186" data-h="6" data-v="91"><h5 id="浮点数表示">浮点数表示 </h5>
 <hr>
 <p>实数非常非常多</p>
 <ul>
@@ -1623,7 +1672,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 <li>计算误差不太可怕</li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2120" class="slide " data-source-line="2120" data-h="6" data-v="87"><h5 id="浮点数表示-1">浮点数表示 </h5>
+</section><section vertical="true" data-notes="" lineno="2201" class="slide " data-source-line="2201" data-h="6" data-v="92"><h5 id="浮点数表示-1">浮点数表示 </h5>
 <hr>
 <h1 id="ieee-754">IEEE 754 </h1>
 <p>1 bit S, 23/53 bits fraction(尾数), 8/11bits Exponent(阶码, B=127)</p>
@@ -1635,7 +1684,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
   <img src="figs/IEEE_754_Double_Floating_Point_Format.svg.png" style="width: 1200px;">
 </div>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2144" class="slide " data-source-line="2144" data-h="6" data-v="88"><h5 id="浮点数表示-2">浮点数表示 </h5>
+</section><section vertical="true" data-notes="" lineno="2225" class="slide " data-source-line="2225" data-h="6" data-v="93"><h5 id="浮点数表示-2">浮点数表示 </h5>
 <hr>
 <h1 id="ieee-754-1">IEEE 754 </h1>
 <p>1 bit S, 23/53 bits fraction(尾数), 8/11bits Exponent(阶码, B=127)</p>
@@ -1647,16 +1696,16 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
   <img src="figs/float-compute.png" style="width: 1200px;">
 </div>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2168" class="slide " data-source-line="2168" data-h="6" data-v="89"><hr>
+</section><section vertical="true" data-notes="" lineno="2249" class="slide " data-source-line="2249" data-h="6" data-v="94"><hr>
 <div style="text-align:center;">
   <img src="figs/fp-model.png" style="width:1100px;">
 </div>
-</section><section vertical="true" data-notes="" lineno="2176" class="slide " data-source-line="2176" data-h="6" data-v="90"><hr>
+</section><section vertical="true" data-notes="" lineno="2257" class="slide " data-source-line="2257" data-h="6" data-v="95"><hr>
 <div style="text-align:center;">
   <img src="figs/fp.png" style="width:1100px;">
 </div>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2187" class="slide " data-source-line="2187" data-h="6" data-v="91"><h5 id="浮点类型-2">浮点类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2268" class="slide " data-source-line="2268" data-h="6" data-v="96"><h5 id="浮点类型-2">浮点类型 </h5>
 <hr>
 <p>根据 IEEE 标准实现时float和double的特征:</p>
 <div class="fullborder">
@@ -1688,25 +1737,25 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 <p>在不遵循 IEEE 标准的计算机上, 此表无效</p>
 <p>事实上, 在某些机器上, float可以有和double相同的数值集合, 或者double可以有和long double相同的数值集合</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2213" class="slide " data-source-line="2213" data-h="6" data-v="92"><h5 id="浮点类型-3">浮点类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2294" class="slide " data-source-line="2294" data-h="6" data-v="97"><h5 id="浮点类型-3">浮点类型 </h5>
 <hr>
 <p>定义浮点类型特征的宏可以在<code>&lt;float.h&gt;</code>头文件中找到</p>
 <p>在 C99 中, 浮点类型分为两类</p>
 <p>实浮点类型(<code>float, double, long double</code>)</p>
 <p>复数类型(<code>float _Complex, double _Complex, long double _Complex</code>)</p>
-</section><section vertical="true" data-notes="" lineno="2230" class="slide " data-source-line="2230" data-h="6" data-v="93"><h5 id="浮点常量">浮点常量 </h5>
+</section><section vertical="true" data-notes="" lineno="2311" class="slide " data-source-line="2311" data-h="6" data-v="98"><h5 id="浮点常量">浮点常量 </h5>
 <hr>
 <p>浮点常量可以有多种书写方式</p>
 <p>书写数字 <code>57.0</code> 的有效方式:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">57.0</span>  <span class="token number">57.</span>  <span class="token number">57.0e0</span>  <span class="token number">57E0</span>  <span class="token number">5.7e1</span>  <span class="token number">5.7e+1</span> <span class="token number">.57e2</span>  <span class="token number">570.e-1</span>
 </code></pre><p>浮点常量必须包含小数点或指数; 指数指明了对前面的数进行缩放所需的10 的幂次</p>
 <p>指数必须以字母E(或e)开头可选符号+或-在E(或e)之后</p>
-</section><section vertical="true" data-notes="" lineno="2251" class="slide " data-source-line="2251" data-h="6" data-v="94"><h5 id="浮点常量-1">浮点常量 </h5>
+</section><section vertical="true" data-notes="" lineno="2332" class="slide " data-source-line="2332" data-h="6" data-v="99"><h5 id="浮点常量-1">浮点常量 </h5>
 <hr>
 <p>默认情况下, 浮点常量以双精度数的形式存储</p>
 <p>要表明只需要单精度, 可以在常量的末尾加上字母F或f, 如57.0F</p>
 <p>要表明一个常量必须以long double格式存储, 可以在常量的末尾加上字母L或l, 如57.0L</p>
-</section><section vertical="true" data-notes="" lineno="2266" class="slide " data-source-line="2266" data-h="6" data-v="95"><h5 id="读写浮点数">读/写浮点数 </h5>
+</section><section vertical="true" data-notes="" lineno="2347" class="slide " data-source-line="2347" data-h="6" data-v="100"><h5 id="读写浮点数">读/写浮点数 </h5>
 <hr>
 <p>转换说明符<code>%e</code>、<code>%f</code>和<code>%g</code>用于读写单精度浮点数</p>
 <p>读取double类型的值时, 将字母l放在e、f或g前面:</p>
@@ -1722,11 +1771,11 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 <p>读写long double类型的值时, 将字母L放在e、f或g前</p>
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="2291" class="slide " data-source-line="2291" data-h="6" data-v="96"><h5 id="字符类型">字符类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2372" class="slide " data-source-line="2372" data-h="6" data-v="101"><h5 id="字符类型">字符类型 </h5>
 <hr>
 <p>唯一还没讨论的基本类型是char类型</p>
 <p>char类型的值可能因计算机而异, 不同的计算机可能有不同的字符集</p>
-</section><section vertical="true" data-notes="" lineno="2304" class="slide " data-source-line="2304" data-h="6" data-v="97"><h5 id="字符集">字符集 </h5>
+</section><section vertical="true" data-notes="" lineno="2385" class="slide " data-source-line="2385" data-h="6" data-v="102"><h5 id="字符集">字符集 </h5>
 <hr>
 <p>最常用的字符集是ASCII(美国信息交换标准码)字符集, 它用7位代码表示128个字符</p>
 <p>ASCII码中, 数字<code>0~9</code>用<code>0110000~0111001</code>码来表示, 大写字母<code>A~Z</code>用<code>1000001~1011010</code>码表示</p>
@@ -1775,7 +1824,7 @@ GJIHC OH _IST TIIK, RSTHU IPCT _IST VGVCTU.
 </table>
 </div>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2331" class="slide " data-source-line="2331" data-h="6" data-v="98"><h5 id="字符集-1">字符集 </h5>
+</section><section vertical="true" data-notes="" lineno="2412" class="slide " data-source-line="2412" data-h="6" data-v="103"><h5 id="字符集-1">字符集 </h5>
 <hr>
 <p>char类型的变量可以用任何单字符赋值:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
@@ -1786,14 +1835,14 @@ ch <span class="token operator">=</span> <span class="token char">'0'</span><spa
 ch <span class="token operator">=</span> <span class="token char">' '</span><span class="token punctuation">;</span>   <span class="token comment">/* 空格 */</span>
 </code></pre><p>我的启示 字符常量需要用<mark>单引号</mark>括起来, 而不是双引号</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2354" class="slide " data-source-line="2354" data-h="6" data-v="99"><h5 id="字符操作">字符操作 </h5>
+</section><section vertical="true" data-notes="" lineno="2435" class="slide " data-source-line="2435" data-h="6" data-v="104"><h5 id="字符操作">字符操作 </h5>
 <hr>
 <p>在 C 中字符的操作很简单, 因为C把字符当作小整数进行处理</p>
 <p>在 ASCII 码中, 字符的取值范围是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0000000</mn><mo>∼</mo><mn>1111111</mn></mrow><annotation encoding="application/x-tex">0000000 \sim 1111111</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0000000</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1111111</span></span></span></span>, 可以看成是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mtext>&nbsp;</mtext><mn>127</mn></mrow><annotation encoding="application/x-tex">0~127</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mspace nobreak">&nbsp;</span><span class="mord">127</span></span></span></span>的整数</p>
 <p>字符<code>'a'</code>的值是<code>97</code>, <code>'A'</code>的值是<code>65</code>, <code>'0'</code>的值是<code>48</code>, <code>' '</code>的值是<code>32</code></p>
 <p>字符常量实际上是<code>int类型</code>而不是<code>char类型</code></p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2372" class="slide " data-source-line="2372" data-h="6" data-v="100"><h5 id="字符操作-1">字符操作 </h5>
+</section><section vertical="true" data-notes="" lineno="2453" class="slide " data-source-line="2453" data-h="6" data-v="105"><h5 id="字符操作-1">字符操作 </h5>
 <hr>
 <p>当计算中出现字符时, C 使用它对应的整数值</p>
 <p>考虑以下示例, 假设采用ASCII字符集:</p>
@@ -1805,7 +1854,7 @@ ch <span class="token operator">=</span> <span class="token number">65</span><sp
 ch <span class="token operator">=</span> ch <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>   <span class="token comment">/* ch is now 'B' */</span> 
 ch<span class="token operator">++</span><span class="token punctuation">;</span>          <span class="token comment">/* ch is now 'C' */</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2395" class="slide " data-source-line="2395" data-h="6" data-v="101"><h5 id="字符操作-2">字符操作 </h5>
+</section><section vertical="true" data-notes="" lineno="2476" class="slide " data-source-line="2476" data-h="6" data-v="106"><h5 id="字符操作-2">字符操作 </h5>
 <hr>
 <p>可以像数字那样对字符进行比较<br>
 将小写字母转换为大写字母的if语句:</p>
@@ -1814,7 +1863,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </code></pre><p><code>'a' &lt;= ch</code> 这样的比较使用的是字符所对应的整数值</p>
 <p>这些值取决于使用的字符集, 因此使用<code>&lt;、&lt;=、&gt;</code>和<code>&gt;=</code>比较字符的程序可能不可移植</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2414" class="slide " data-source-line="2414" data-h="6" data-v="102"><h5 id="字符操作-3">字符操作 </h5>
+</section><section vertical="true" data-notes="" lineno="2495" class="slide " data-source-line="2495" data-h="6" data-v="107"><h5 id="字符操作-3">字符操作 </h5>
 <hr>
 <p>字符具有与数字相同的属性, 这一事实会带来好处</p>
 <p>例如, 可以让for语句中的控制变量遍历所有大写字母:</p>
@@ -1832,7 +1881,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2439" class="slide " data-source-line="2439" data-h="6" data-v="103"><h5 id="有符号字符和无符号字符">有符号字符和无符号字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2520" class="slide " data-source-line="2520" data-h="6" data-v="108"><h5 id="有符号字符和无符号字符">有符号字符和无符号字符 </h5>
 <hr>
 <p>char类型与整数类型一样存在有符号和无符号两种</p>
 <ul>
@@ -1848,7 +1897,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-signed">signed</span> <span class="token keyword keyword-char">char</span> sch<span class="token punctuation">;</span>
 <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> uch<span class="token punctuation">;</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2464" class="slide " data-source-line="2464" data-h="6" data-v="104"><h5 id="有符号字符和无符号字符-1">有符号字符和无符号字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2545" class="slide " data-source-line="2545" data-h="6" data-v="109"><h5 id="有符号字符和无符号字符-1">有符号字符和无符号字符 </h5>
 <hr>
 <p>C89 使用术语<mark>整值类型</mark>来统称整数类型和字符类型</p>
 <p>枚举类型也属于整数类型</p>
@@ -1856,7 +1905,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <p>相反, 它将整数类型的含义扩展为包括字符类型和枚举类型</p>
 <p>C99 的<code>_Bool类型</code>被认为是无符号整数类型</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2484" class="slide " data-source-line="2484" data-h="6" data-v="105"><h5 id="算术类型">算术类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2565" class="slide " data-source-line="2565" data-h="6" data-v="110"><h5 id="算术类型">算术类型 </h5>
 <hr>
 <p>整数类型和浮点类型统称为算术类型</p>
 <p>C89中算术类型的分类:</p>
@@ -1881,7 +1930,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2511" class="slide " data-source-line="2511" data-h="6" data-v="106"><h5 id="算术类型-1">算术类型 </h5>
+</section><section vertical="true" data-notes="" lineno="2592" class="slide " data-source-line="2592" data-h="6" data-v="111"><h5 id="算术类型-1">算术类型 </h5>
 <hr>
 <p>C99 分类更复杂:</p>
 <ul>
@@ -1911,14 +1960,14 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2539" class="slide " data-source-line="2539" data-h="6" data-v="107"><h5 id="转义序列">转义序列 </h5>
+</section><section vertical="true" data-notes="" lineno="2620" class="slide " data-source-line="2620" data-h="6" data-v="112"><h5 id="转义序列">转义序列 </h5>
 <hr>
 <p>字符常量通常是用单引号括起来的单个字符</p>
 <p>某些特殊字符(包括换行符)不能以这种方式书写, 不可见的(非打印字符)或者无法从键盘输入</p>
 <p>转义序列提供了一种表示这些字符的方法</p>
 <p>有两种转义序列: <mark>字符</mark>转义序列和<mark>数字</mark>转义序列</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2557" class="slide " data-source-line="2557" data-h="6" data-v="108"><h5 id="转义序列-1">转义序列 </h5>
+</section><section vertical="true" data-notes="" lineno="2638" class="slide " data-source-line="2638" data-h="6" data-v="113"><h5 id="转义序列-1">转义序列 </h5>
 <hr>
 <p>完整的字符转义序列集合:</p>
 <div class="fullborder">
@@ -1978,7 +2027,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </table>
 </div>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2587" class="slide " data-source-line="2587" data-h="6" data-v="109"><h5 id="转义序列-2">转义序列 </h5>
+</section><section vertical="true" data-notes="" lineno="2668" class="slide " data-source-line="2668" data-h="6" data-v="114"><h5 id="转义序列-2">转义序列 </h5>
 <hr>
 <p>字符转义很方便, 但并非所有无法打印的ASCII字符都存在转义</p>
 <p>字符转义也无法用于表示基本128个ASCII字符之外的字符</p>
@@ -1986,13 +2035,13 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <p>特殊字符的数字转义序列使用字符的八进制或十六进制值</p>
 <p>例如, 某个ASCII转义字符(十进制值为27)的八进制值为<code>33</code>, 十六进制值为<code>1B</code></p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2606" class="slide " data-source-line="2606" data-h="6" data-v="110"><h5 id="转义序列-3">转义序列 </h5>
+</section><section vertical="true" data-notes="" lineno="2687" class="slide " data-source-line="2687" data-h="6" data-v="115"><h5 id="转义序列-3">转义序列 </h5>
 <hr>
 <p>八进制转义序列由<code>\</code>后跟一个最多三个数字的八进制数组成, 例如<code>\33</code>或<code>\033</code></p>
 <p>十六进制转义序列由<code>\x</code>后跟一个十六进制数组成, 例如<code>\x1b</code>或<code>\x1B</code></p>
 <p><code>x</code>必须小写, 但十六进制数字不限大小写</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2622" class="slide " data-source-line="2622" data-h="6" data-v="111"><h5 id="转义序列-4">转义序列 </h5>
+</section><section vertical="true" data-notes="" lineno="2703" class="slide " data-source-line="2703" data-h="6" data-v="116"><h5 id="转义序列-4">转义序列 </h5>
 <hr>
 <p>当用作字符常量时, 转义序列必须用单引号括起来</p>
 <p>例如, 表示转义字符的常量可以写作<code>'\33'</code>(或<code>'\x1b'</code>)</p>
@@ -2000,7 +2049,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ESC</span> <span class="token char">'\33'</span></span>
 </code></pre><p>转义序列也可以嵌入到字符串中</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2644" class="slide " data-source-line="2644" data-h="6" data-v="112"><h5 id="字符处理函数">字符处理函数 </h5>
+</section><section vertical="true" data-notes="" lineno="2725" class="slide " data-source-line="2725" data-h="6" data-v="117"><h5 id="字符处理函数">字符处理函数 </h5>
 <hr>
 <p><mark>C</mark>的<code>toupper库函数</code>是一种快速且可移植的大小写转换方法:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>ch <span class="token operator">=</span> <span class="token function">toupper</span><span class="token punctuation">(</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2009,7 +2058,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
 </code></pre><p>C 函数库提供了许多其他有用的字符处理函数</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2670" class="slide " data-source-line="2670" data-h="6" data-v="113"><h5 id="用scanf和printf读写字符">用scanf和printf读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2751" class="slide " data-source-line="2751" data-h="6" data-v="118"><h5 id="用scanf和printf读写字符">用scanf和printf读/写字符 </h5>
 <hr>
 <p>转换说明<code>%c</code>允许<code>scanf</code>和<code>printf</code>读写单个字符:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
@@ -2020,7 +2069,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <p>强制scanf读取字符前<mark>跳过</mark>空白字符, 需在转换说明<code>%c</code>前加空格:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">" %c"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2697" class="slide " data-source-line="2697" data-h="6" data-v="114"><h5 id="用scanf和printf读写字符-1">用scanf和printf读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2778" class="slide " data-source-line="2778" data-h="6" data-v="119"><h5 id="用scanf和printf读写字符-1">用scanf和printf读/写字符 </h5>
 <hr>
 <p>scanf读字符不会跳过空格, 可检查读取的字符是否是换行符</p>
 <p>以下代码循环读取并忽略当前输入行中剩余的所有字符:</p>
@@ -2036,7 +2085,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2721" class="slide " data-source-line="2721" data-h="6" data-v="115"><h5 id="用getchar和putchar读写字符">用getchar和putchar读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2802" class="slide " data-source-line="2802" data-h="6" data-v="120"><h5 id="用getchar和putchar读写字符">用getchar和putchar读/写字符 </h5>
 <hr>
 <p>单字符输入和输出, getchar和putchar是scanf和printf的替代方法</p>
 <p>putchar用于输出单个字符:</p>
@@ -2046,7 +2095,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 </code></pre><p>getchar返回一个int值而不是char值, 因此ch通常具有int类型</p>
 <p>与scanf一样, getchar在读取时不会跳过空白字符</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2749" class="slide " data-source-line="2749" data-h="6" data-v="116"><h5 id="用getchar和putchar读写字符-1">用getchar和putchar读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2830" class="slide " data-source-line="2830" data-h="6" data-v="121"><h5 id="用getchar和putchar读写字符-1">用getchar和putchar读/写字符 </h5>
 <hr>
 <p>使用getchar和putchar(而不是scanf和printf)可以节省执行时间</p>
 <p>getchar和putchar比scanf和printf逻辑简单得多</p>
@@ -2054,7 +2103,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <p>getchar和putchar通常被实现为宏以提高速度</p>
 <p>getchar常用于多种C语言的惯用法: 搜索字符、跳过字符等</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2769" class="slide " data-source-line="2769" data-h="6" data-v="117"><h5 id="用getchar和putchar读写字符-2">用getchar和putchar读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2850" class="slide " data-source-line="2850" data-h="6" data-v="122"><h5 id="用getchar和putchar读写字符-2">用getchar和putchar读/写字符 </h5>
 <hr>
 <p>考虑以下scanf循环, 我们曾用它来跳过输入行剩余部分:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
@@ -2065,7 +2114,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
   ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>ch <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2795" class="slide " data-source-line="2795" data-h="6" data-v="118"><h5 id="用getchar和putchar读写字符-3">用getchar和putchar读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2876" class="slide " data-source-line="2876" data-h="6" data-v="123"><h5 id="用getchar和putchar读写字符-3">用getchar和putchar读/写字符 </h5>
 <hr>
 <p>将getchar的调用移到控制表达式中可以精简循环:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span>
@@ -2074,7 +2123,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'\n'</span><span class="token punctuation">)</span>
   <span class="token punctuation">;</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2819" class="slide " data-source-line="2819" data-h="6" data-v="119"><h5 id="用getchar和putchar读写字符-4">用getchar和putchar读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2900" class="slide " data-source-line="2900" data-h="6" data-v="124"><h5 id="用getchar和putchar读写字符-4">用getchar和putchar读/写字符 </h5>
 <hr>
 <p>getchar在跳过字符的循环以及搜索字符的循环中很有用</p>
 <p>使用getchar语句跳过空白字符:</p>
@@ -2082,7 +2131,7 @@ ch<span class="token operator">++</span><span class="token punctuation">;</span>
   <span class="token punctuation">;</span>
 </code></pre><p>当循环终止时, ch将包含getchar遇到的第一个<mark>非空白字符</mark></p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2839" class="slide " data-source-line="2839" data-h="6" data-v="120"><h5 id="用getchar和putchar读写字符-5">用getchar和putchar读/写字符 </h5>
+</section><section vertical="true" data-notes="" lineno="2920" class="slide " data-source-line="2920" data-h="6" data-v="125"><h5 id="用getchar和putchar读写字符-5">用getchar和putchar读/写字符 </h5>
 <hr>
 <p>我的启示 混合使用getchar和scanf时要小心</p>
 <p>scanf函数倾向于遗留下它<mark>扫视</mark>过但未读取的字符(包括换行符):</p>
@@ -2099,7 +2148,7 @@ command <span class="token operator">=</span> <span class="token function">getch
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2863" class="slide " data-source-line="2863" data-h="6" data-v="121"><h5 id="程序-确定消息的长度">程序: 确定消息的长度 </h5>
+</section><section vertical="true" data-notes="" lineno="2944" class="slide " data-source-line="2944" data-h="6" data-v="126"><h5 id="程序-确定消息的长度">程序: 确定消息的长度 </h5>
 <hr>
 <p><em>length.c</em>程序显示用户输入的消息的长度:</p>
 <pre data-role="codeBlock" data-info="" class="language-text"><code>Enter a message: Brevity is the soul of wit.
@@ -2108,7 +2157,7 @@ Your message was 27 character(s) long.
 <p>scanf和getchar都可以读取字符, 但程序员大多会选择getchar</p>
 <p><em>length2.c</em>没有使用变量存储由getchar读取的字符</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="2886" class="slide " data-source-line="2886" data-h="6" data-v="122"><h5 id="程序-确定消息的长度-1">程序: 确定消息的长度 </h5>
+</section><section vertical="true" data-notes="" lineno="2967" class="slide " data-source-line="2967" data-h="6" data-v="127"><h5 id="程序-确定消息的长度-1">程序: 确定消息的长度 </h5>
 <hr>
 <p><em>length.c</em></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 确定消息的长度 */</span>
@@ -2131,7 +2180,7 @@ Your message was 27 character(s) long.
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2920" class="slide " data-source-line="2920" data-h="6" data-v="123"><h5 id="程序-确定消息的长度-2">程序: 确定消息的长度 </h5>
+</section><section vertical="true" data-notes="" lineno="3001" class="slide " data-source-line="3001" data-h="6" data-v="128"><h5 id="程序-确定消息的长度-2">程序: 确定消息的长度 </h5>
 <hr>
 <p><em>length2.c</em></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 确定消息的长度 */</span>
@@ -2150,7 +2199,7 @@ Your message was 27 character(s) long.
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2951" class="slide " data-source-line="2951" data-h="6" data-v="124"><h5 id="类型定义">类型定义 </h5>
+</section><section vertical="true" data-notes="" lineno="3032" class="slide " data-source-line="3032" data-h="6" data-v="129"><h5 id="类型定义">类型定义 </h5>
 <hr>
 <p><code>#define</code>指令可用于创建一个宏, 定义布尔型数据:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BOOL</span> <span class="token expression"><span class="token keyword keyword-int">int</span></span></span>
@@ -2159,7 +2208,7 @@ Your message was 27 character(s) long.
 </code></pre><p>现在, Bool类型可以和内置的类型名一样使用, 例如</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>Bool flag<span class="token punctuation">;</span>    <span class="token comment">/* 与 int flag相同;  */</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="2978" class="slide " data-source-line="2978" data-h="6" data-v="125"><h5 id="类型定义的优点">类型定义的优点 </h5>
+</section><section vertical="true" data-notes="" lineno="3059" class="slide " data-source-line="3059" data-h="6" data-v="130"><h5 id="类型定义的优点">类型定义的优点 </h5>
 <hr>
 <p>类型定义使程序更易于理解</p>
 <p>如果cash_in和cash_out用于存储美元数量, 则将代码</p>
@@ -2168,14 +2217,14 @@ Your message was 27 character(s) long.
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-float">float</span> Dollars<span class="token punctuation">;</span>
 Dollars cash_in<span class="token punctuation">,</span> cash_out<span class="token punctuation">;</span>
 </code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="3003" class="slide " data-source-line="3003" data-h="6" data-v="126"><h5 id="类型定义的优点-1">类型定义的优点 </h5>
+</section><section vertical="true" data-notes="" lineno="3084" class="slide " data-source-line="3084" data-h="6" data-v="131"><h5 id="类型定义的优点-1">类型定义的优点 </h5>
 <hr>
 <p>类型定义还可以使程序更易于修改</p>
 <p>要将Dollars重新定义为double类型, 只需更改类型定义:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-double">double</span> Dollars<span class="token punctuation">;</span>
 </code></pre><p>如果不使用类型定义, 就需要找到所有存储美元数量的float类型变量并更改它们的声明</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="3023" class="slide " data-source-line="3023" data-h="6" data-v="127"><h5 id="类型定义和可移植性">类型定义和可移植性 </h5>
+</section><section vertical="true" data-notes="" lineno="3104" class="slide " data-source-line="3104" data-h="6" data-v="132"><h5 id="类型定义和可移植性">类型定义和可移植性 </h5>
 <hr>
 <p>类型定义是编写可移植程序的重要工具</p>
 <p>将程序从一台计算机移动到另一台计算机可能引发的问题是不同计算机上的类型取值范围可能不同</p>
@@ -2183,7 +2232,7 @@ Dollars cash_in<span class="token punctuation">,</span> cash_out<span class="tok
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">100000</span><span class="token punctuation">;</span>
 </code></pre><p>在整数为32位的机器上没问题, 但在16位的机器上会出错</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="3044" class="slide " data-source-line="3044" data-h="6" data-v="128"><h5 id="类型定义和可移植性-1">类型定义和可移植性 </h5>
+</section><section vertical="true" data-notes="" lineno="3125" class="slide " data-source-line="3125" data-h="6" data-v="133"><h5 id="类型定义和可移植性-1">类型定义和可移植性 </h5>
 <hr>
 <p>为了更大的可移植性, 考虑使用typedef定义新的整数类型名</p>
 <p>假设编写的程序需用变量存储产品数量, 取值范围<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>−</mo><mn>50</mn><mo separator="true">,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">0-50,000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">50</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">000</span></span></span></span></p>
@@ -2197,7 +2246,7 @@ Dollars cash_in<span class="token punctuation">,</span> cash_out<span class="tok
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="3064" class="slide " data-source-line="3064" data-h="6" data-v="129"><h5 id="类型定义和可移植性-2">类型定义和可移植性 </h5>
+</section><section vertical="true" data-notes="" lineno="3145" class="slide " data-source-line="3145" data-h="6" data-v="134"><h5 id="类型定义和可移植性-2">类型定义和可移植性 </h5>
 <hr>
 <p>可以定义自己的<mark>数量</mark>类型, 而不使用int类型来声明数量变量:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Quantity<span class="token punctuation">;</span>
@@ -2207,7 +2256,7 @@ Dollars cash_in<span class="token punctuation">,</span> cash_out<span class="tok
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-long">long</span> Quantity<span class="token punctuation">;</span>
 </code></pre><p>更改Quantity的定义可能会影响Quantity类型变量的使用方式</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="3094" class="slide " data-source-line="3094" data-h="6" data-v="130"><h5 id="类型定义和可移植性-3">类型定义和可移植性 </h5>
+</section><section vertical="true" data-notes="" lineno="3175" class="slide " data-source-line="3175" data-h="6" data-v="135"><h5 id="类型定义和可移植性-3">类型定义和可移植性 </h5>
 <hr>
 <p>C语言库用typedef为因不同的实现而可能不同的类型创建类型名</p>
 <p>这些类型的名称通常以<code>_t</code>结尾, 常见的例子:</p>
@@ -2215,149 +2264,6 @@ Dollars cash_in<span class="token punctuation">,</span> cash_out<span class="tok
 <span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-int">int</span> <span class="token class-name">size_t</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> <span class="token class-name">wchar_t</span><span class="token punctuation">;</span>
 </code></pre><p>C99中&lt;stdint.h&gt;用typedef定义占特定位数整数类型名, 如int32_t</p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3117" class="slide " data-source-line="3117" data-h="6" data-v="131"><hr>
-<h1 id="overview">Overview </h1>
-<br>
-<br>
-<br>
-<h1 id="font-color–blue-basic-data-typesfont"><font color="blue"> (Basic) Data Types</font> </h1>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3132" class="slide " data-source-line="3132" data-h="6" data-v="132"><hr>
-<h1 id="two-major-reasons">Two Major Reasons </h1>
-<br>
-<br>
-<br>
-<h2 id="markarchitectures-may-varymark"><mark>Architectures May Vary</mark> </h2>
-<br>
-<br>
-<h2 id="markfinite-vs-infinitemark"><mark>Finite vs. Infinite</mark> </h2>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3151" class="slide " data-source-line="3151" data-h="6" data-v="133"><hr>
-<h1 id="object">Object </h1>
-<br>
-<br>
-<p><img src="figs/object.png" alt=""></p>
-<br>
-<br>
-<h2 id="markfont-color–redobject-typesfontenspenspfunction-typesmark"><mark><font color="red">Object Types</font>  Function Types</mark> </h2>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3173" class="slide " data-source-line="3173" data-h="6" data-v="134"><hr>
-<br>
-<br>
-<br>
-<h2 id="markint-enspensp-char-enspensp-boolensp-_boolmarkenspenspfont-color–reddoublefont"><mark>int    char    bool  (_Bool)</mark>  <font color="red">double</font> </h2>
-<br>
-<h2 id="font-color–green-font"><font color="green">[ ]</font> </h2>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3189" class="slide " data-source-line="3189" data-h="6" data-v="135"><hr>
-<h1 id="integral-types-marksizecmark">Integral Types (<mark>size.c</mark>) </h1>
-<br>
-<ul>
-<li>
-<p><mark>(unsigned)</mark> short (int)</p>
-</li>
-<li>
-<p><mark>unsigned</mark> int</p>
-</li>
-<li>
-<p><mark>unsigned</mark> long (int)</p>
-</li>
-<li>
-<p><mark>unsigned</mark> long long (int)</p>
-</li>
-</ul>
-<p><img src="figs/sizeof.png" alt=""></p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3209" class="slide " data-source-line="3209" data-h="6" data-v="136"><hr>
-<h1 id="integral-types">Integral Types </h1>
-<br>
-<ul>
-<li>
-<p><mark>(unsigned)</mark> short (int)</p>
-</li>
-<li>
-<p><mark>unsigned</mark> int</p>
-</li>
-<li>
-<p><mark>unsigned</mark> long (int)</p>
-</li>
-<li>
-<p><mark>unsigned</mark> long long (int)</p>
-</li>
-</ul>
-<p><img src="figs/precision-width.png" alt=""></p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3230" class="slide " data-source-line="3230" data-h="6" data-v="137"><hr>
-<h1 id="integral-types-markint-limitscmark">Integral Types (<mark>int-limits.c</mark>) </h1>
-<br>
-<ul>
-<li>
-<p><mark>(unsigned)</mark> short (int)</p>
-</li>
-<li>
-<p><mark>unsigned</mark> int</p>
-</li>
-<li>
-<p><mark>unsigned</mark> long (int)</p>
-</li>
-<li>
-<p><mark>unsigned</mark> long long (int)</p>
-</li>
-</ul>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3249" class="slide " data-source-line="3249" data-h="6" data-v="138"><hr>
-<h1 id="integral-types-markexact-widthcmark">Integral Types (<mark>exact-width.c</mark>) </h1>
-<br>
-<h2 id="int8_t-ensp-int16_t-ensp-int32_t–ensp-int64_t-ensp">int8_t   int16_t   int32_t    int64_t   </h2>
-<p><img src="figs/exact-width.png" alt=""></p>
-<h2 id="markstdinthmark"><mark>stdint.h</mark> </h2>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3266" class="slide " data-source-line="3266" data-h="6" data-v="139"><hr>
-<h1 id="signed-and-unsigned-markunsignedcmark">Signed and Unsigned (<mark>unsigned.c</mark>) </h1>
-<br>
-<br>
-<br>
-<h3 id="markbe-careful-when-font-color–redmixingfont-signed-and-unsigned-typesmark"><mark>Be careful when <font color="red">MIXING</font> signed and unsigned types.</mark> </h3>
-<br>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3281" class="slide " data-source-line="3281" data-h="6" data-v="140"><hr>
-<h1 id="signed-and-unsigned-marksizetcmark">Signed and Unsigned (<mark>sizet.c</mark>) </h1>
-<br>
-<br>
-<br>
-<p><img src="figs/int01-sizet.png" alt=""></p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3296" class="slide " data-source-line="3296" data-h="6" data-v="141"><hr>
-<h1 id="typedef">typedef </h1>
-<br>
-<br>
-<h3 id="markfont-color–bluetypedeffont-unsigned-__int64-font-color–redsize_tfontmark"><mark><font color="blue">typedef</font> unsigned __int64 <font color="red">size_t</font></mark> </h3>
-<br>
-<h3><mark><font color="blue">#define</font> <font color="red">_ <em>int64</em></font><em> long long</em></mark><em> {#markfont-color–bluedefinefont-font-color–red</em>-_int64font-long-longmark }</h3>
-<br>
-<h3 id="markfont-color–bluetypedeffont-long-long-font-color–redtime_tfontmark"><mark><font color="blue">typedef</font> long long <font color="red">time_t</font></mark> </h3>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3317" class="slide " data-source-line="3317" data-h="6" data-v="142"><hr>
-<h1 id="char-markcharcmark">char (<mark>char.c</mark>) </h1>
-<br>
-<h3 id="use-char-only-for-representing-characters">Use <code>char</code> only for representing characters. </h3>
-<br>
-<h3 id="do-font-color–rednotfont-assume-signed-char-or-unsigned-char">Do <font color="red">NOT</font> assume <code>signed char</code> or <code>unsigned char</code>. </h3>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3331" class="slide " data-source-line="3331" data-h="6" data-v="143"><hr>
-<h1 id="overflow">Overflow </h1>
-<h2 id="markunsigned-wrapc-ensp-for-unsignedc-ensp-unsigned-wrap-fixcmark">(<mark>unsigned-wrap.c   for-unsigned.c   unsigned-wrap-fix.c</mark>) </h2>
-<br>
-<br>
-<p><mark>无符号整数</mark>运算中没有溢出, 取而代之的是<font color="font"><strong>回绕 (wrap)</strong></font>现象</p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="3345" class="slide " data-source-line="3345" data-h="6" data-v="144"><hr>
-<h1 id="overflow-1">Overflow </h1>
-<h2 id="marksigned-overflow-fixcmark">(<mark>signed-overflow-fix.c</mark>) </h2>
-<br>
-<br>
-<p><mark>有符号整数</mark>运算中发生溢出, 程序的行为是<font color="red"><strong>未定义的</strong></font></p>
 <hr>
 </section></section>
       </div>
