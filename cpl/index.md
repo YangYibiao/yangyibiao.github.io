@@ -60,7 +60,7 @@
 
 #### 在线评测系统
 
-[https://hz-4.matpool.com:28163/](https://hz-4.matpool.com:28163/)
+[https://cpl.si-qi.wang/](https://cpl.si-qi.wang/)
 
 
 <!-- #### 答疑相关
