@@ -62,8 +62,6 @@ presentation:
 
 - <a href="#/multiarr">指针和多维数组</a>
 
-- C99中的指针和变长数组
-
 <!-- slide vertical=true data-notes="" -->
 
 
