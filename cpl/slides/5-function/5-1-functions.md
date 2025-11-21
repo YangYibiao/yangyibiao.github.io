@@ -1273,6 +1273,19 @@ int sum_array(int a[], int n)
 
 尽管函数体将n视为a的长度, 但数组实际长度可能大于或小于n. 
 
+---
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 理解函数调用
+
+---
+
+函数调用、调用栈等理解
+
+[function-and-stack.html](./function-and-stack.html)
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
