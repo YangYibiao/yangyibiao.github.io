@@ -76,7 +76,7 @@ presentation:
 
 ---
 
-按值传递(==PASS BY VALUE==)
+函数间参数全部都是按值传递(==PASS BY VALUE==)
 
 [swapbyvalue.c](./code/swapbyvalue.c)
 
@@ -106,17 +106,13 @@ int main() {
 
 ---
 
-[intaddress.c](./code/intaddress.c)
-```C
-int n = 0;
-scanf("%d", &n); // & 取地址运算符
-printf("%p", &n);
-```
+访问/修改内存中存放的数据的方法：
 
-访问/修改内存中数据的方法：
+- ==直接访问==：直接通过变量名（variable name）访问/修改存储某个变量的内存中的值（函数内使用变量）
+- ==间接访问==：间接通过内存地址（memory address）访问/修改编号为address的内存中的值（函数间==传递地址==）
 
-1. 直接访问：直接对变量名进行赋值操作（函数内使用变量）
-2. 间接访问：若知道内存地址，更新内存地址处的值（函数间使用地址，==传递地址==）`&` 取地址 / `*` 间接寻址
+1. `&` 取地址运算符
+2. `*` 间接寻址运算符
 
 ---
 
@@ -169,6 +165,13 @@ printf("%p", &n);
 </div>
 
 内存中每个字节都有一个==唯一的地址== (Address). 
+
+[intaddress.c](./code/intaddress.c)
+```C
+int n = 0;
+scanf("%d", &n); // & 取地址运算符
+printf("%p", &n);
+```
 
 ---
 
@@ -1128,7 +1131,7 @@ const数组
   
 参数中用const修饰数组参数
   - int sum(const int a[], int len);
-  
+
   - 可以要求函数内部不应该修改原始数组
 
 ---
