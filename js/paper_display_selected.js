@@ -23,7 +23,7 @@ window.onload = function() {
                     continue;
                 }
 
-                if(tier.search("ATC") != -1 || tier.search("ASPLOS") != -1 || tier.search("OOPSLA") != -1) {
+                if(tier.search("POPL") != -1 || tier.search("PLDI") != -1 || tier.search("SOSP") != -1 || tier.search("OSDI") != -1 || tier.search("ASPLOS") != -1 || tier.search("ATC") != -1 || tier.search("OOPSLA") != -1) {
                     tier = "<b>"+tier+"</b>"
                 }
 
