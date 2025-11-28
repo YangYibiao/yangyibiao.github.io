@@ -145,7 +145,7 @@ presentation:
 
 ---
 
-<img src="figs/program_layout2.png" width="400px" style="margin-left:20px;">
+<img src="figs/program_layout_2.png" width="400px" style="margin-left:20px;">
 
 ```C
 int a = 10;      // data 段
