@@ -36,7 +36,7 @@ presentation:
 
 <hr class="width50 center">
 
-## 字符串
+## 指针++
 
 
 <div class="bottom8"></div>
@@ -45,6 +45,7 @@ presentation:
 
 ### yangyibiao@nju.edu.cn
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -53,29 +54,347 @@ presentation:
 
 ---
 
-- <a href="#/strliteralsr">字符串字面量</a>
+- 回顾pointer
 
-- <a href="#/strvar">字符串变量</a>
+- malloc/free
 
-- <a href="#/rwstr">字符串的读和写</a>
+- 字符数组
 
-- <a href="#/accesscharinstr">访问字符串中的字符</a>
-
-- <a href="#/cstrlib">使用C语言的字符串库</a>
-
-- <a href="#/stridioms">字符串惯用法</a>
-
-- <a href="#/strarr">字符串数组</a>
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 引言
+##### 回顾
 
 ---
 
-本章涵盖==字符串常量==和==字符串变量==. 
+  <img src="figs/pointer-in-c.png" style="max-width:500px; height:auto; flex-shrink:0;">
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 回顾
+
+---
+
+- **指针类型**
+  - `int *`
+  - `char *`
+
+- **指针使用**
+  - `*` 间接寻址
+  - `&` 取地址
+
+- **指针运算**
+  - `++` 的含义
+
+📄 示例代码：`chat_int.c`
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 可视化理解指针
+
+---
+
+[Understanding "pointer", visually, Visualize Code Execution](https://pythontutor.com/c.html)
+
+[pointer_understand.c](./code/pointer_understand.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 堆/栈
+
+---
+
+<div style="display:flex; align-items:flex-start; justify-content:space-between;">
+
+  <img src="figs/program_layout_in_memory.png" width="400px" style="margin-left:20px;">
+<div>
+
+- text（代码区）：存放程序的机器指令
+
+- data（已初始化的静态存储区）：
+  存放已初始化的全局变量、static变量
+
+- bss（未初始化的静态存储区）：
+  存放未初始化或初始化为0的全局变量、static变量
+
+- heap（堆）：
+  动态分配区域，由 malloc/free 管理  
+  内部是否连续取决于实现（逻辑上连续）
+
+- stack（栈）：
+  由函数调用产生栈帧
+  大小固定（线程创建时决定）
+  **内存连续，按地址下降（多数架构）**
+
+
+
+</div>
+
+</div>
+
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 堆/栈
+
+---
+
+<img src="figs/program_layout2.png" width="400px" style="margin-left:20px;">
+
+```C
+int a = 10;      // data 段
+int b;           // bss 段（自动初始化为0）
+
+static int s1 = 5; // data 段
+static int s2;     // bss 段
+
+char *p = "Hello"; // text 段（字符串常量）
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 函数调用栈
+
+---
+
+栈顶（低地址）
+┌───────────────────┐
+│ frame of func C   │
+├───────────────────┤
+│ frame of func B   │
+├───────────────────┤
+│ frame of func A   │
+├───────────────────┤
+│   main frame      │
+└───────────────────┘
+栈底（高地址）
+
+每次函数调用只是往栈里 push 一个栈帧，函数返回时就pop。
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 函数调用栈
+
+---
+
+“线程的栈大小”是固定的
+
+例如：
+
+Linux 默认线程栈大小：8MB
+
+
+函数栈大小取决于：
+
+- 参数压栈
+
+- 返回地址
+
+- 局部变量大小
+
+- 保存寄存器
+
+- 编译器优化（比如尾递归优化）
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 函数调用栈
+
+---
+申请超大数组
+```C
+void foo() {
+  int bigArray[100000000]; // 400MB，远超默认1–8MB栈
+}
+
+int main() {
+  foo();
+  return 0;
+}
+```
+会触发：
+```
+Segmentation fault (stack overflow)
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 动态内存分配
+
+---
+
+- 可变长数组 `int arr[n]`（Variable Length Array）
+
+- 不推荐使用VLA
+  - VLA分配在栈上/栈空间通常有限
+  - 无法进行静态边界检查/静态分析工具难以推断边界
+  - 编译器优化困难
+
+```C
+int n;
+scanf("%d", &n);
+int arr[n]; 
+// 若n非常大，直接栈溢出，比 malloc() 分配失败更隐蔽，且难以检测
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 动态内存分配
+
+---
+
+`malloc`和`free`
+
+C函数库提供`malloc`和`free`，分别用于执行动态内存的==分配==与==释放==
+
+```C{.line-numbers}
+int *arr = NULL;
+int n = 10;
+// 动态分配可以存放10个整数的内存空间
+arr = (int*)malloc(n * sizeof(int));
+// TODO
+free(arr);
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 内存分配函数malloc
+
+---
+
+```C{.line-numbers}
+#include <stdlib.h>
+void *malloc(size_t _Size);
+```
+
+向`malloc`申请的空间的大小是以字节为单位的
+返回类型默认是`void *`
+
+```C
+int *array = (int *) malloc(len * sizeof(int))
+int *array = malloc(len * sizeof(int))
+int *array = malloc(len * sizeof(*array))
+```
+
+[malloc.c](./code/malloc.c)
+
+- 分配失败则返回NULL便于后续处理
+- 与arr[n]过大则直接栈溢出
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 内存释放函数free
+
+---
+
+```C
+#include<stdlib.h>
+void free(void *pointer);
+```
+
+free(ptr):释放指针指向内存，指针变量依然存在(野指针)
+
+为防止释放后写, 建议 ptr = NULL
+
+- 需要释放之前动态申请的内存, 一对一配对使用
+- 内存泄漏memory leak
+
+[malloc_space.c](./code/malloc_space.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 动态内存分配的常见错误
+
+---
+
+- 申请了没有free
+
+- 对NULL指针进行解引用
+
+- 对分配的内存越界操作
+
+- 释放并非动态分配的内存（段错误）free array
+
+- 试图释放动态分配的内存的部分
+
+- 释放后依旧试图继续使用
+
+- double free
+
+[malloc_bugs.c](./code/malloc_bugs.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 一些其他memory allocation函数
+
+---
+
+```C
+void *malloc(size_t size);
+void *calloc(size_t nitems, size_t size); // 分配的时候置0
+void *realloc(void *ptr, size_t new_size); // 扩容
+void free(void *ptr);
+```
+
+- malloc: allocates memory
+
+- calloc: allocates and zeros memory
+
+- realloc: expands previously allocated memory block
+
+- free deallocates previoulsy allocated memory
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 字符数组
+
+---
+
+涵盖==字符串常量==和==字符串变量==. 
 
 字符串常量在C标准中称为字符串字面量.
 
@@ -83,6 +402,7 @@ presentation:
 
 C库提供了一组用于处理字符串的函数. 
 
+---
 
 
 <!-- slide vertical=true id="strliteralsr" data-notes="" -->
@@ -99,6 +419,8 @@ C库提供了一组用于处理字符串的函数.
 
 转义字符经常出现在printf和scanf格式字符串中. 
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -108,18 +430,16 @@ C库提供了一组用于处理字符串的函数.
 
 例如, 字符串
 
-`"Candy\nIs dandy\nBut liquor\nIs quicker.\n  --Ogden Nash\n"`
+`"520\nNJU"`
 
 每个\n字符使光标移到下一行: 
 ```C
-Candy
-Is dandy
-But liquor
-Is quicker.
-  --Ogden Nash
+520
+NJU
 ```
 
---
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -376,6 +696,7 @@ char date1[8] = "June 14";
 
 C编译器将其视为字符数组初始化式的缩写. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -395,6 +716,8 @@ char date2[9] = "June  14" ;
 <div class="top-2">
   <img src="img/14-4.png" height=80px>
 </div>
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -433,6 +756,7 @@ char date4[] = "June 14";
 
 如果初始化式很长, 则省略字符串变量的长度特别有用, 手动计算长度容易出错. 
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -455,6 +779,8 @@ char *date = "June 14";
 
 由于数组和指针之间的密切关系, 这两种都可以用作字符串. 
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -467,6 +793,8 @@ char *date = "June 14";
 - 声明为数组时, 可以修改存储在date中的字符. 声明为指针时, date指向不应修改的字符串字面量. 
 
 - 声明为数组时, date是一个数组名. 声明为指针时, date是一个可以指向其他字符串的指针变量. 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -491,9 +819,10 @@ p = str;
 
 另一种可能是使p指向一个动态分配的字符串. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 字符数组与字符指针
 
@@ -514,6 +843,8 @@ p[3] = '\0';   /*** WRONG ***/
 
 由于p尚未初始化, 这会导致未定义的行为. 
 
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -528,6 +859,8 @@ p[3] = '\0';   /*** WRONG ***/
 要一次性读入字符串, 可以使用scanf或gets. 
 
 也可以使用scanf或getchar每次读入一个字符. 
+
+---
 
 
 <!-- slide id="rwstr" vertical=true data-notes="" -->
@@ -546,9 +879,10 @@ printf("%s\n", str);
 `Are we having fun yet?`
 printf会逐个写字符串中的字符, 直到遇到空字符. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用printf和puts写字符串
 
@@ -586,6 +920,8 @@ m和p可以组合使用:
 
 转换说明 ==%m.ps== 会使字符串的前 ==p== 个字符打印在大小为 ==m== 的字段中. 
 
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -600,6 +936,8 @@ C库还提供puts:
 `puts(str);`
 
 写完一个字符串后, puts总是会添加一个额外的换行符. 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -617,6 +955,8 @@ str被视为指针, 因此无需在str前添加`&`运算符.
 scanf会跳过空白字符, 然后读入字符并存储到str中, 直到遇到空白字符. 
 
 scanf会在字符串的末尾存储一个空字符. 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -638,6 +978,8 @@ gets的特点:
 - 持续读入直到找到<u>换行符</u>才停止. 
 
 - 忽略换行符而不存储它, 用空字符代替换行符. 
+
+---
 
 
 
@@ -663,6 +1005,7 @@ $\quad$`To C, or not to C: that is the question.`
 
 scanf会将字符串"To"存储到sentence中. 
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -680,6 +1023,7 @@ scanf会将字符串"To"存储到sentence中.
 
 存储到sentence中. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -698,6 +1042,7 @@ scanf会将字符串"To"存储到sentence中.
 
 gets本质上是不安全的, fgets是一个更好的选择. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -714,6 +1059,7 @@ gets本质上是不安全的, fgets是一个更好的选择.
 
 - 如果输入字符串太长而无法存储, 函数应该做什么: 丢弃多余的字符或将它们留给下一次输入操作？
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -733,6 +1079,7 @@ gets本质上是不安全的, fgets是一个更好的选择.
 
 read_line将返回实际存储在str中的字符数量. 
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -759,6 +1106,7 @@ int read_line(char str[], int n)
 
 ch的类型为int而不是char, 因为getchar返回一个int值. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -785,6 +1133,7 @@ ch的类型为int而不是char, 因为getchar返回一个int值.
 
 要处理字符串s中的每个字符, 可以设置一个循环来对计数器i进行自增并通过表达式s[i]选择字符. 
 
+---
 
 
 <!-- slide id="accesscharinstr" vertical=true data-notes="" -->
@@ -809,7 +1158,7 @@ int count_spaces(const char s[])
 }
 ```
 
---
+---
 
 <!-- slide data-notes="" -->
 
@@ -833,7 +1182,8 @@ int count_spaces(const char *s)
 } 
 ```
 
---
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -855,6 +1205,7 @@ count_spaces示例引出的问题:
    
     *A*: 不会. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -916,6 +1267,7 @@ if (str1 == str2) …   /*** WRONG ***/
 
 str1和str2有不同的地址, 表达式`str1 == str2`的值一定为0. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -932,6 +1284,7 @@ C 库提供了一组丰富的函数来对字符串执行操作.
 
 在后续示例中, 假设str1和str2是用作字符串的字符数组. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -950,6 +1303,7 @@ strcpy将字符串s2复制到字符串s1中.
 
 strcpy返回s1(指向目标字符串的指针). 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -973,6 +1327,7 @@ strcpy(str1, str2);
 
 --
 
+
 <!-- slide data-notes="" -->
 
 ##### strcpy(字符串复制)函数
@@ -983,6 +1338,7 @@ strcpy(str1, str2);
 
 如果不是, 则会产生未定义的行为. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -999,6 +1355,7 @@ strncpy有第三个参数, 它限制将被复制的字符数.
 
 `strncpy(str1, str2, sizeof(str1));`
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1018,6 +1375,7 @@ str1[sizeof(str1)-1] = '\0';
 
 第二条语句保证str1始终以空字符结尾. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1032,6 +1390,7 @@ strlen函数的原型:
 
 size_t是一个typedef名称, 表示C的一种无符号整型. 
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -1051,7 +1410,7 @@ strcpy(str1, "abc");
 len = strlen(str1);   /* len is now 3 */
 ```
 
---
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1101,7 +1460,7 @@ strcat(str1, strcat(str2, "ghi"));
    str2 contains "defghi" */
 ```
 
---
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1120,7 +1479,6 @@ strcat(str1, "def");   /*** WRONG ***/
 str1被限制为六个字符, 导致strcat写入超出数组末尾. 
 
 ---
-
 
 
 <!-- slide data-notes="" -->
@@ -1143,6 +1501,7 @@ strncat将以空字符终止str1, 该空字符不包含在第三个参数中.
 
 ---
 
+
 <!-- slide vertical=true data-notes="" -->
 
 ##### strcmp(字符串比较)函数
@@ -1157,6 +1516,7 @@ int strcmp(const char *s1, const char *s2);
 
 strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回一个小于、等于或大于0的值. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1181,6 +1541,7 @@ if (strcmp(str1, str2) <= 0) /* is str1 <= str2? */
 
 通过选择适当的运算符(<、 <=、 >、 >=、 ==、 !=), 可以测试str1和str2之间的任何可能的关系. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1195,6 +1556,7 @@ strcmp认为s1小于s2的情况:
 
 - s1的所有字符都与s2一致, 但s1比s2短. 
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -1427,6 +1789,7 @@ int read_line(char str[], int n)
 
 探索一些最著名的惯用法来编写strlen和strcat函数. 
 
+---
 
 
 <!-- slide id="stridioms" vertical=true data-notes="" -->
@@ -1894,6 +2257,7 @@ char *planets[] = {"Mercury", "Venus", "Earth",
   <img src="img/14-11.png">
 </div>
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->

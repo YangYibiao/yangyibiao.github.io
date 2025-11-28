@@ -1275,9 +1275,12 @@ int *array = malloc(len * sizeof(*array))
 
 示例: `malloc.c`
 
+- 分配失败返回NULL(判断是否分配失败)与arr[n] 有本质区别
+
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### free
 
@@ -1297,10 +1300,10 @@ free(ptr):释放指针指向内存，指针变量依然存在(野指针)
 
 示例: `malloc_space.c`
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 动态内存分配的常见错误
 
@@ -1341,4 +1344,5 @@ void free(void *ptr);
 - realloc: expands previously allocated memory block
 
 - free deallocates previoulsy allocated memory
+
 ---
