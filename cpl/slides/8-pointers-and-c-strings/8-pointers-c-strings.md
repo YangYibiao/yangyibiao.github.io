@@ -1115,6 +1115,7 @@ ch的类型为int而不是char, 因为getchar返回一个int值.
 
 如果要自己写输入函数, 必须手工加上空字符. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1216,6 +1217,7 @@ count_spaces示例引出的问题:
 
 特别是, 它们都不能使用运算符进行==复制==或==比较==. 
 
+---
 
 
 <!-- slide id="cstrlib" vertical=true data-notes="" -->
@@ -1319,7 +1321,7 @@ strcpy(str1, str2);
 /* str1 现在包含 "abcd" */
 ```
 
---
+---
 
 
 <!-- slide data-notes="" -->
