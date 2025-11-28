@@ -8,7 +8,7 @@ int main() {
     printf("*p = %d\n", *p);
 
     // 指针运算：p 向后移动一个 int 的大小
-    p++;  
+    p++;
 
     printf("After p++, *p = %d\n", *p);
     printf("Address of arr[0] = %p\n", (void*)&arr[0]);
