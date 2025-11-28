@@ -2296,6 +2296,7 @@ ls -l remind.c
 
 ---
 
+
 <!-- slide data-notes="" -->
 
 ##### 指针plus
@@ -2312,7 +2313,7 @@ ls -l remind.c
     int **ptr2 = &ptr1;
 ```
 
-<img src="figs/double-pointers-in-c.webp">
+<img src="figs/double-pointers-in-c.webp" width="400px">
 
 [double_pointer.c](./code/double_pointer.c)
 
@@ -2334,8 +2335,43 @@ int** double_ptr = &ptr;
 **double_ptr = 30;
 ```
 
-<img src="figs/PointersinC.png">
+<img src="figs/PointersinC.png" width="400px">
 
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 指针plus
+
+---
+
+```C{.line-number}
+int *p, q;   // q是整数
+*p++;        // 取值并指针指向后挪
+++*p;        // 取指针指向值自增
+int *p[5];   // 指针数组
+int (*p)[5]; // 指向数组的指针
+int *f();    // 返回值为指针的函数
+int f()[];   // 不合法
+int f[]();   // 不合法
+```
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 指针plus
+
+---
+
+指针数组 vs 数组指针•
+```C
+int *p1[10];
+int *(p2[10]);
+int (*p3)[10];
+```
 ---
 
 
@@ -2569,21 +2605,3 @@ char *strtok(char *str, char const *sep);
 ---
 
 
-<!-- slide vertical=true data-notes="" -->
-
-##### 指针理解
-
----
-
-```C{.line-number}
-int *p, q;   // q是整数
-*p++;        // 取值并指针指向后挪
-++*p;        // 取指针指向值自增
-int *p[5];   // 指针数组
-int (*p)[5]; // 指向数组的指针
-int *f();    // 返回值为指针的函数
-int f()[];   // 不合法
-int f[]();   // 不合法
-```
-
----
