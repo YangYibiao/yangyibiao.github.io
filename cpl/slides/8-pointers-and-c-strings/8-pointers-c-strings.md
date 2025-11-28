@@ -68,16 +68,9 @@ presentation:
 
 ---
 
-  <img src="figs/pointer-in-c.png" style="max-width:500px; height:auto; flex-shrink:0;">
+<div style="display:flex; align-items:flex-start; justify-content:space-between;">
 
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 回顾
-
----
+<div style="flex:1; margin-right:20px;">
 
 - **指针类型**
   - `int *`
@@ -90,7 +83,13 @@ presentation:
 - **指针运算**
   - `++` 的含义
 
-📄 示例代码：[chat_int.c](./code/char_int.c)
+📄 [char_int.c](./code/char_int.c)
+
+</div>
+
+<div style="flex:1; text-align:left;"> <img src="figs/pointer-in-c.png" width="600px"> </div>
+
+</div>
 
 ---
 
@@ -130,7 +129,7 @@ presentation:
 
 </div>
 
-<div style="flex:1; margin-right:20px;"> <img src="figs/program_layout_in_memory.png" width="350px"> </div>
+<div style="flex:1; text-align:left;"> <img src="figs/program_layout_in_memory.png" width="350px"> </div>
 
 </div>
 
