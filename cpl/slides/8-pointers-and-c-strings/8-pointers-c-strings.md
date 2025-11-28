@@ -2567,3 +2567,23 @@ char *strtok(char *str, char const *sep);
 ```
 
 ---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 指针理解
+
+---
+
+```C{.line-number}
+int *p, q;   // q是整数
+*p++;        // 取值并指针指向后挪
+++*p;        // 取指针指向值自增
+int *p[5];   // 指针数组
+int (*p)[5]; // 指向数组的指针
+int *f();    // 返回值为指针的函数
+int f()[];   // 不合法
+int f[]();   // 不合法
+```
+
+---
