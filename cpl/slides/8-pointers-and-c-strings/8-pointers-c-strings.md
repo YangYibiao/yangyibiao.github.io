@@ -116,22 +116,21 @@ presentation:
 
 <div style="display:flex; align-items:flex-start; justify-content:space-between;">
 
-  <img src="figs/program_layout_in_memory.png" width="300px" style="margin-left:20px;">
-<div>
+<div style="flex:1; margin-right:20px;">
 
-- text（代码区）：存放程序的机器指令
+- text（代码区）：存放程序的机器指令、常量字符串
 
-- data（已初始化的静态存储区）：存放已初始化的全局变量、static变量
+- data（已初始化静态区）：存放已初始化的全局变量、static变量
 
-- bss（未初始化的静态存储区）：存放未初始化或初始化为0的全局变量、static变量
+- bss （未初始化静态区）：存放未初始化或初始化为0的全局变量、static变量
 
-- heap（堆）：动态分配区域, 由 malloc/free 管理, 内部是否连续取决于实现（逻辑上连续）
+- heap（堆区）：动态分配区域, 由 malloc/free 管理
 
-- stack（栈）：由函数调用产生栈帧, 大小固定（线程创建时决定）**内存连续，按地址下降（多数架构）**
-
-
+- stack（栈区）：由函数调用产生栈帧 **内存连续，按地址下降（多数架构）**
 
 </div>
+
+<div style="flex:1; margin-right:20px;"> <img src="figs/program_layout_in_memory.png" width="350px"> </div>
 
 </div>
 
@@ -145,17 +144,30 @@ presentation:
 
 ---
 
-<img src="figs/program_layout_2.png" width="400px" style="margin-left:20px;">
+<div style="display:flex; align-items:flex-start; justify-content:space-between;">
 
+<div style="flex:1; margin-right:20px;">
+  
 ```C
-int a = 10;      // data 段
-int b;           // bss 段（自动初始化为0）
+// data 段
+int a = 10;
+// bss 段（自动初始化为0）
+int b;
 
-static int s1 = 5; // data 段
-static int s2;     // bss 段
+// data 段
+static int s1 = 5; 
+// bss 段
+static int s2;
 
-char *p = "Hello"; // text 段（字符串常量）
+// text 段（字符串常量）
+char *p = "Hello";
 ```
+
+</div> 
+
+<div style="flex:1; text-align:left;"> <img src="figs/program_layout_2.png" width="350px"> </div> 
+
+</div>
 
 ---
 
