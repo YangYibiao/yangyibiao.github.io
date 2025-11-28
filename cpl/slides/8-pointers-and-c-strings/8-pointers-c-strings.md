@@ -45,7 +45,6 @@ presentation:
 
 ### yangyibiao@nju.edu.cn
 
----
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -91,7 +90,7 @@ presentation:
 - **指针运算**
   - `++` 的含义
 
-📄 示例代码：`chat_int.c`
+📄 示例代码：[chat_int.c](./code/char_int.c)
 
 ---
 
@@ -117,25 +116,18 @@ presentation:
 
 <div style="display:flex; align-items:flex-start; justify-content:space-between;">
 
-  <img src="figs/program_layout_in_memory.png" width="400px" style="margin-left:20px;">
+  <img src="figs/program_layout_in_memory.png" width="300px" style="margin-left:20px;">
 <div>
 
 - text（代码区）：存放程序的机器指令
 
-- data（已初始化的静态存储区）：
-  存放已初始化的全局变量、static变量
+- data（已初始化的静态存储区）：存放已初始化的全局变量、static变量
 
-- bss（未初始化的静态存储区）：
-  存放未初始化或初始化为0的全局变量、static变量
+- bss（未初始化的静态存储区）：存放未初始化或初始化为0的全局变量、static变量
 
-- heap（堆）：
-  动态分配区域，由 malloc/free 管理  
-  内部是否连续取决于实现（逻辑上连续）
+- heap（堆）：动态分配区域, 由 malloc/free 管理, 内部是否连续取决于实现（逻辑上连续）
 
-- stack（栈）：
-  由函数调用产生栈帧
-  大小固定（线程创建时决定）
-  **内存连续，按地址下降（多数架构）**
+- stack（栈）：由函数调用产生栈帧, 大小固定（线程创建时决定）**内存连续，按地址下降（多数架构）**
 
 
 
@@ -455,6 +447,7 @@ printf("When you come to a fork in the road, take it.  \
 
 通常, `\`字符可用于将程序的两行或多行连接成一行. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -474,11 +467,10 @@ printf("When you come to a fork in the road, take it. "
        "--Yogi Berra");
 ```
 
---
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 如何存储字符串字面量
 
@@ -491,6 +483,7 @@ printf("When you come to a fork in the road, take it. "
 
 空字符是所有位都为0的字节, 因此它用转义序列 =='\0'== 表示. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -547,6 +540,7 @@ p = "abc"; /* 正确 */
 
 该赋值使p指向字符串的第一个字符. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2302,6 +2296,47 @@ ls -l remind.c
 
 ---
 
+<!-- slide data-notes="" -->
+
+##### 指针plus
+
+---
+
+```C
+    int var = 10;
+
+    // Pointer to int
+    int *ptr1 = &var;
+
+    // Pointer to pointer (double pointer)
+    int **ptr2 = &ptr1;
+```
+
+<img src="figs/double-pointers-in-c.webp">
+
+[double_pointer.c](./code/double_pointer.c)
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 指针Plus（双重指针）
+
+---
+
+```C
+int val = 10;
+int* ptr = &val;
+*ptr = 20;
+
+int** double_ptr = &ptr;
+**double_ptr = 30;
+```
+
+<img src="figs/PointersinC.png">
+
+---
 
 
 <!-- slide data-notes="" -->
