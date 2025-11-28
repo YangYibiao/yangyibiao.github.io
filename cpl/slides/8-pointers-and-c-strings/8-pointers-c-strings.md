@@ -495,12 +495,12 @@ printf("When you come to a fork in the road, take it. "
 字符串字面量"abc"存储为4个字符的数组: 
 
 <div class="top-2">
-  <img src="img/14-1.png" height=100px>
+  <img src="figs/14-1.png" height=100px>
 </div>
 
 字符串""(空串)会存储一个空字符: 
 <div class="top-2">
-  <img src="img/14-2.png" height=100px>
+  <img src="figs/14-2.png" height=100px>
 </div>
 
 ==注意==: 区别空字符和空格字符
@@ -683,7 +683,7 @@ char date1[8] = "June 14";
 编译器将自动添加一个空字符, 使date1可以用作字符串: 
 
 <div class="top-2">
-  <img src="img/14-3.png" height=100px>
+  <img src="figs/14-3.png" height=100px>
 </div>
 
 "June  14"在此上下文中不是字符串字面量. 
@@ -708,7 +708,7 @@ char date2[9] = "June  14" ;
 之后, date2将如下所示: 
 
 <div class="top-2">
-  <img src="img/14-4.png" height=80px>
+  <img src="figs/14-4.png" height=80px>
 </div>
 
 ---
@@ -728,7 +728,7 @@ char date3[7] = "June 14";
 
 因为没有给空字符留空间, 编译器不会尝试存储空字符: 
 <div class="top-2">
-  <img src="img/14-5.png" height=100px>
+  <img src="figs/14-5.png" height=100px>
 </div>
 
 ---
@@ -2020,7 +2020,7 @@ char *strcat(char *s1, const char *s2)
 p最初指向s1字符串的第一个字符: 
 
 <div class="top-2">
-  <img src="img/14-6.png">
+  <img src="figs/14-6.png">
 </div>
 
 ---
@@ -2036,7 +2036,7 @@ p最初指向s1字符串的第一个字符:
 第一个while语句定位s1末尾的空字符并让p指向它: 
 
 <div class="top-2">
-  <img src="img/14-7.png">
+  <img src="figs/14-7.png">
 </div>
 
 ---
@@ -2056,7 +2056,7 @@ p最初指向s1字符串的第一个字符:
 第一次循环迭代后的字符串: 
 
 <div class="top-2">
-  <img src="img/14-8.png">
+  <img src="figs/14-8.png">
 </div>
 
 ---
@@ -2072,7 +2072,7 @@ p最初指向s1字符串的第一个字符:
 当s2指向空字符时, 循环终止: 
 
 <div class="top-2">
-  <img src="img/14-9.png">
+  <img src="figs/14-9.png">
 </div>
 
 在p指向的位置放置一个空字符后, strcat返回. 
@@ -2212,7 +2212,7 @@ char planets[][8] = {"Mercury", "Venus", "Earth",
 不幸的是, planets数组浪费了相当多的空间(额外的空字符): 
 
 <div class="top-2">
-  <img src="img/14-10.png">
+  <img src="figs/14-10.png">
 </div>
 
 ---
@@ -2250,7 +2250,7 @@ char *planets[] = {"Mercury", "Venus", "Earth",
 这个微小的变化对planets的存储方式产生了巨大的影响: 
 
 <div class="top-2">
-  <img src="img/14-11.png">
+  <img src="figs/14-11.png">
 </div>
 
 ---
@@ -2432,7 +2432,7 @@ argv[argc]总是一个空指针——一个不指向任何东西的特殊指针.
 那么argc将为 3, 而argv将如下: 
 
 <div class="top-2">
-  <img src="img/14-12.png">
+  <img src="figs/14-12.png">
 </div>
 
 ---
