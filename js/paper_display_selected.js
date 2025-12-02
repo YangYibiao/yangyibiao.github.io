@@ -19,11 +19,11 @@ window.onload = function() {
                 var tier = obj[i].tier
                 var highlight = obj[i].highlight
 
-                if(tier.search("CCF-A") == -1 || highlight == false) {
+                if (tier.search("CCF-A") == -1 || highlight == false) {
                     continue;
                 }
 
-                if(tier.search("POPL") != -1 || tier.search("PLDI") != -1 || tier.search("SOSP") != -1 || tier.search("OSDI") != -1 || tier.search("ASPLOS") != -1 || tier.search("ATC") != -1 || tier.search("OOPSLA") != -1) {
+                if (tier.search("POPL") != -1 || tier.search("PLDI") != -1 || tier.search("SOSP") != -1 || tier.search("OSDI") != -1 || tier.search("ASPLOS") != -1 || tier.search("ATC") != -1 || tier.search("OOPSLA") != -1) {
                     tier = "<b>"+tier+"</b>"
                 }
 
@@ -51,6 +51,9 @@ window.onload = function() {
                 var meta_str = meta_array.join('  /  ')
 
                 var bgcolor_str = "'#ffffff'"
+                if (tier.search("POPL") != -1 || tier.search("PLDI") != -1 || tier.search("SOSP") != -1 || tier.search("OSDI") != -1 || tier.search("ASPLOS") != -1 || tier.search("ATC") != -1 || tier.search("OOPSLA") != -1) {
+                    bgcolor_str = "'#ffffd0'"
+                }
                 if (url == "") {
                     url = "https://yangyibiao.github.io"
                 }
