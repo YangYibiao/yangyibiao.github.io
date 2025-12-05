@@ -195,7 +195,7 @@ int main() {
 
 // 示例 5：指向指针的指针 vs. 指向数组的指针
 int main() {
-  int matrix[2][3] = {{1,2,3}, {4,5,6}};
+  int matrix[2][3] = { {1,2,3}, {4,5,6} };
 
   int *p1 = matrix[0];     // OK：matrix[0] 是 int*
   int **p2 = (int **) &matrix; // ⚠️ 类型并不等价，仅示例对比用
