@@ -35,5 +35,10 @@ int main(){
 
   func1(mstr, 4);
   func2(mstr, 4);
+
+  free(mstr[0]);
+  free(mstr[1]);
+  free(mstr[2]);
+  free(mstr[3]);
   return 0;
 }
