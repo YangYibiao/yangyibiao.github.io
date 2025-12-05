@@ -13,32 +13,33 @@ void func1(void *p, int len) {
 
 void func2(char **p, int len) {
   for (int i = 0; i < len; i++) {
-    printf("%s\n", *p);
     // 或者传递过来的直接是一个char**
+    printf("%p: %s\n", *p, *p);
     p++;
   }
 }
 
 int main(){
-  char *mstr[4];
+  char *str_arr[3];
 
   // strcpy之前先malloc分配存储空间
-  mstr[0] = malloc(sizeof(10));
-  mstr[1] = malloc(sizeof(10));
-  mstr[2] = malloc(sizeof(10));
-  mstr[3] = malloc(sizeof(10));
+  str_arr[0] = (char*)malloc(10*sizeof(char));
+  str_arr[1] = (char*)malloc(10*sizeof(char));
+  str_arr[2] = (char*)malloc(10*sizeof(char));
 
-  strcpy(mstr[0], "hello");
-  strcpy(mstr[1], "world");
-  strcpy(mstr[2], "nju");
-  strcpy(mstr[3], "nihao");
+  strcpy(str_arr[0], "hello");
+  strcpy(str_arr[1], "world");
+  strcpy(str_arr[2], "nju");
 
-  func1(mstr, 4);
-  func2(mstr, 4);
+  for (int i = 0; i < 3; i++) {
+    printf("%p\n", str_arr[i]);
+  }
 
-  free(mstr[0]);
-  free(mstr[1]);
-  free(mstr[2]);
-  free(mstr[3]);
+  func1(str_arr, 3);
+  func2(str_arr, 3);
+
+  free(str_arr[0]);
+  free(str_arr[1]);
+  free(str_arr[2]);
   return 0;
 }
