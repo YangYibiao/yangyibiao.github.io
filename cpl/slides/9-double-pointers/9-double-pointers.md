@@ -45,14 +45,13 @@ presentation:
 #### yangyibiao@nju.edu.cn
 
 
-
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 提纲
 
 ---
+
+- 指针示例
 
 - <a href="#/arioper">指针的算术运算</a>
 
@@ -62,9 +61,309 @@ presentation:
 
 - <a href="#/multiarr">指针和多维数组</a>
 
+
 <!-- slide vertical=true data-notes="" -->
 
+##### 一级指针示例
 
+---
+
+```C
+#include <stdio.h>
+
+// 示例 1：一级指针访问数组元素
+int main() {
+  int arr[5] = {10, 20, 30, 40, 50};
+  int *p = arr;        // 等价于 &arr[0]
+
+  printf("arr[2] = %d\n", arr[2]);
+  printf("*(p + 2) = %d\n", *(p + 2));   // 指针解引用访问数组
+
+  p++; // 指针移动到第二个元素
+  printf("After p++, *(p) = %d\n", *p);
+
+  return 0;
+}
+```
+
+[pointer_basic.c](./code/pointer_basic.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 二级指针
+
+---
+
+```C
+#include <stdio.h>
+
+// 示例 2：二级指针指向一级指针
+int main() {
+  int value = 100;
+  int *p = &value;
+  int **pp = &p;
+
+  printf("&value: %p\n", &value);
+  printf("p: %p\n", p);
+  printf("&p: %p\n", &p);
+  printf("pp: %p\n", pp);
+
+  printf("value = %d\n", value);
+  printf("*p = %d\n", *p);
+  printf("**pp = %d\n", **pp);
+
+  return 0;
+}
+```
+
+[double_pointer.c](./code/double_pointer.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 二维数组的指针运算
+
+---
+
+```C
+#include <stdio.h>
+
+// 示例 3：二维数组的指针运算
+int main() {
+  int matrix[2][3] = { {1, 2, 3}, {4, 5, 6} };
+
+  printf("matrix[1][2] = %d\n", matrix[1][2]);
+  printf("*(*(matrix + 1) + 2) = %d\n", *(*(matrix + 1) + 2));
+
+  return 0;
+}
+```
+
+[2d_array_pointer.c](./code/2d_array_pointer.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 指向数组的指针
+
+---
+
+```C
+#include <stdio.h>
+
+// 示例 4：指向数组的指针（Array Pointer）
+int main() {
+  int arr[4] = {10, 20, 30, 40};
+
+  int (*p)[4] = &arr;   // p 是指向含 4 个 int 的数组的指针
+
+  printf("arr: %p\n", arr);
+  printf("p: %p\n", p);
+  // p的类型是int *[4], 决定+1后指向的位置为下一个指向4个数组的首地址
+  printf("p + 1: %p\n", p + 1);
+  // *p的类型是int*，决定+1后是指向下一个整数
+  printf("*p + 1: %p\n", *p + 1);
+  printf("(*p)[2] = %d\n", (*p)[2]); // 访问 arr[2]
+  printf("*((*p) + 2) = %d\n", *((*p) + 3));
+
+  return 0;
+}
+```
+
+[pointer_to_array.c](./code/pointer_to_array.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 二维数组的指针运算
+
+---
+
+```C
+#include <stdio.h>
+
+// 示例 5：指向指针的指针 vs. 指向数组的指针
+int main() {
+  int matrix[2][3] = {{1,2,3}, {4,5,6}};
+
+  int *p1 = matrix[0];     // OK：matrix[0] 是 int*
+  int **p2 = (int **) &matrix; // ⚠️ 类型并不等价，仅示例对比用
+  int (*p3)[3] = matrix;   // 正确：指向数组的指针
+
+  printf("Using p1: p1[2] = %d\n", p1[2]);
+  printf("Using p3: p3[1][2] = %d\n", p3[1][2]);
+
+  return 0;
+}
+```
+
+[pointer_vs_array_pointer.c](./code/pointer_vs_array_pointer.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 数组的指针作为参数
+
+---
+
+```C
+#include <stdio.h>
+
+void printByPointer(int (*p)[4], int rows) {
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < 4; j++) {
+      // 错误写法：*((*p + i) + j)
+      printf("%d ", *(*(p + i) + j));  // p[i] == *(p+i)
+    }
+    printf("\n");
+  }
+}
+
+int main() {
+  int matrix[2][4] = {
+      {7, 8, 9, 10},
+      {11, 12, 13, 14}
+  };
+
+  printByPointer(matrix, 2); // matrix 自动转换为 int (*)[4]
+  return 0;
+}
+```
+
+[2d_array_pointer_function.c](./code/2d_array_pointer_function.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 数组的指针作为参数
+
+---
+
+`*(*(p + i) + j)` 与 `*((*p + i) + j)` 区别
+
+| 写法                | 实际含义                                                 | 是否等价于 `p[i][j]` |
+| ----------------- | ---------------------------------------------------- | --------------- |
+| `*(*(p + i) + j)` | `p` 是指向一维数组（行）的指针，取第 `i` 行再取第 `j` 列 → **正确表达二维数组访问** | ✔️正确            |
+| `*((*p + i) + j)` | `*p` 先取第一行，然后 `+ i` 变成取第 `i` 个元素，但这个 `i` 属于第一行而不是行偏移 | ❌错误（仅 i=0 时等价）  |
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### strcmp函数
+
+---
+
+```C
+#include <stdio.h>
+
+int my_strcmp(const char *s1, const char *s2) {
+  while (*s1 && (*s1 == *s2)) {
+    s1++;
+    s2++;
+  }
+  return *(unsigned char*)s1 - *(unsigned char*)s2;
+}
+
+int main() {
+  printf("Compare(\"apple\", \"apple\") = %d\n", my_strcmp("apple", "apple"));
+  printf("Compare(\"apple\", \"apples\") = %d\n", my_strcmp("apple", "apples"));
+  printf("Compare(\"banana\", \"apple\") = %d\n", my_strcmp("banana", "apple"));
+
+  char str1[20] = {'a', 'p', 'p', 'l', 'e', '\0', 'n', 'j', 'u', '\0'};
+  char str2[20] = {'a', 'p', 'p', 'l', 'e', '\0'};
+
+  printf("Compare(str1, str2) = %d\n", my_strcmp(str1, str2));
+  return 0;
+}
+```
+
+[strcmp.c](./code/strcmp.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### strcmp函数
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int cmp_int_asc(const void *a, const void *b) {
+  return (*(int *)a - *(int *)b);
+}
+
+int main() {
+  int arr[] = {42, 13, 77, 9, 56};
+  int n = sizeof(arr) / sizeof(arr[0]);
+
+  qsort(arr, n, sizeof(int), cmp_int_asc);
+
+  for (int i = 0; i < n; i++) {
+    printf("%d ", arr[i]);
+  }
+  return 0;
+}
+```
+
+[qsort_int.c](./code/qsort_int.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### strcmp函数
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int cmp_str(const void *a, const void *b) {
+  // a 和 b 是 char* 的地址 → type: char**
+  return strcmp(*(const char **)a, *(const char **)b);
+}
+
+int main() {
+  const char *words[] = {"banana", "apple", "orange", "kiwi"};
+  int n = sizeof(words)/sizeof(words[0]);
+
+  qsort(words, n, sizeof(char*), cmp_str);
+
+  for (int i = 0; i < n; i++) {
+    printf("%s\n", words[i]);
+  }
+}
+
+```
+
+[qsort_string.c](./code/qsort_string.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
 
 ##### 引言
 
@@ -78,9 +377,10 @@ C语言中指针和数组之间的关系非常紧密
 
 理解指针与数组之间的关系对于熟练掌握C语言非常重要
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针的算术运算
 
@@ -94,12 +394,13 @@ p = &a[0];
 图形表示: 
 
 <div class="top-2">
-    <img src="img/13-1.png">
+    <img src="figs/13-1.png">
 </div>
 
+---
+
+
 <!-- slide id="arioper" vertical=true data-notes="" -->
-
-
 
 ##### 指针的算术运算
 
@@ -112,8 +413,11 @@ p = &a[0];
 图示如下: 
 
 <div class="top-2">
-    <img src="img/13-2.png">
+    <img src="figs/13-2.png">
 </div>
+
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -131,9 +435,10 @@ C支持三种(且只有三种)==指针运算==形式:
 
 - 两个指针相减
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针加上整数
 
@@ -149,11 +454,10 @@ C支持三种(且只有三种)==指针运算==形式:
 int a[10], *p, *q, i;
 ```
 
--- 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针加上整数
 
@@ -167,11 +471,12 @@ q = p + 3;
 p += 6;
 ```
 
-<div class="top-2"><img src="img/13-3.png" width=280px></div>
+<div class="top-2"><img src="figs/13-3.png" width=280px></div>
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指针减去整数
 
@@ -186,12 +491,13 @@ p -= 6;
 ```
 
 <div class="top-2">
-    <img src="img/13-4.png" width=280px>
+    <img src="figs/13-4.png" width=280px>
 </div>
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 两个指针相减
 
@@ -207,7 +513,7 @@ q = &a[1];
 ```
 
 <div class="top-2">
-    <img src="img/13-5.png" width=300px>
+    <img src="figs/13-5.png" width=300px>
 </div>
 
 ```C
@@ -215,24 +521,23 @@ i = p - q; /* i is  4 */
 i = q - p; /* i is -4 */
 ```
 
--- 
+---
+
 
 <!-- slide data-notes="" -->
-
-
 
 ##### 两个指针相减
 
 ---
 
-<span class="blue">:fa-lightbulb-o:</span> 对不指向数组元素的指针执行算术运算导致未定义的行为
+<span class="blue">:fa-weixin:</span> 对不指向数组元素的指针执行算术运算导致未定义的行为
 
-<span class="blue">:fa-lightbulb-o:</span> 只有两个指针指向同一个数组时, 把它们相减才有意义
+<span class="blue">:fa-weixin:</span> 只有两个指针指向同一个数组时, 把它们相减才有意义
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 比较指针
 
@@ -253,9 +558,10 @@ p >= q; // expression value: 1
 - p<=q的值为0
 - p>=q的值为1. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 指向复合字面量的指针(C99)
 
@@ -272,11 +578,10 @@ int a[] = {3, 0, 3, 4, 1};
 int *p = &a[0];
 ```
 
---
+---
+
 
 <!-- slide id="arr" vertical=true data-notes="" -->
-
-
 
 ##### 使用指针进行数组处理
 
@@ -299,7 +604,6 @@ for (p = &a[0]; p < &a[N]; p++)
 ---
 
 
-
 <!-- slide data-notes="" -->
 
 
@@ -312,12 +616,13 @@ for (p = &a[0]; p < &a[N]; p++)
 - 在第三次迭代结束时: 
 
 <div class="top-2">
-    <img src="img/13-6.png" width=300px>
+    <img src="figs/13-6.png" width=300px>
 </div>
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用指针进行数组处理
 
@@ -326,9 +631,10 @@ for (p = &a[0]; p < &a[N]; p++)
 `for`语句中的条件`p < &a[N]`值得特别提及. 
 将地址运算符应用于`a[N]`是合法的, 即使此元素不存在. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结合*和++运算符
 
@@ -345,10 +651,10 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 因为后缀++的优先级高于*, 编译器将其视为
 `*(p++) = j;`
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结合*和++运算符
 
@@ -370,9 +676,10 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 - *(p++) 指针自增(指向下一个对象)
 - (*p)++ 指向的对象自增(p本身不变)
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 结合*和++运算符
 
@@ -398,10 +705,7 @@ while (p < &a[N])
 ---
 
 
-
 <!-- slide data-notes="" -->
-
-
 
 ##### 结合*和++运算符
 
@@ -463,9 +767,10 @@ int pop(void)
 
 这种关系简化了指针的算术运算, 并使数组和指针更加通用. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用数组名称作为指针
 
@@ -487,12 +792,10 @@ int a[10];
 
 此外, `*(a+i)`等价于`a[i]`, 两者都代表元素i本身. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 使用数组名称作为指针
 
@@ -548,6 +851,8 @@ while (*p != 0)
 原始程序将数字存储在一个数组中, 利用下标访问数组的元素. 
 
 *reverse3.c*是一个改进后的程序, 用指针的算术运算取代数组的取下标操作. 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -660,6 +965,8 @@ int find_largest(const int a[], int n)
 
 编译器会检查find_largest函数体没有对a中元素进行赋值. 
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -669,9 +976,10 @@ int find_largest(const int a[], int n)
 
 - 结果2: 将数组传递给函数所需的时间与数组的大小无关. 传递大数组不会产生不利的结果, 因为没有对数组进行复制. 
 
+---
+
+
 <!-- slide data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -688,6 +996,8 @@ int find_largest(int *a, int n)
 }
 ```
 声明a为指针, 相当于将其声明为数组; 编译器将这两类声明视为相同. 
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -728,9 +1038,10 @@ int *a;
 
 将0存到a指向的地方. 不清楚a指向哪, 所以对程序的影响不确定. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 数组型实际参数（改进版）
 
@@ -751,8 +1062,6 @@ largest = find_largest(&b[5], 10);
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 使用指针作为数组名
 
 ---
@@ -769,10 +1078,10 @@ for (i = 0; i < N; i++)
 
 编译器将p[i]视为*(p+i). 
 
+---
 
 
 <!-- slide id="multiarr" vertical=true data-notes="" -->
-
 
 ##### 指针和多维数组
 
@@ -782,6 +1091,7 @@ for (i = 0; i < N; i++)
 
 本节探讨使用指针处理多维数组元素的常用方法. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -795,12 +1105,12 @@ for (i = 0; i < N; i++)
 r行的数组的布局: 
   
 <div class="top-2">
-    <img src="img/13-7.png">
+    <img src="figs/13-7.png">
 </div>
 
 如果p最初指向二维数组的第0行第0列的元素, 即$a[0][0]$, 就可以通过重复自增p来访问数组中的每个元素. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -841,6 +1151,7 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 
 对于许多现代编译器, 速度优势通常不存在. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -864,7 +1175,6 @@ p = a[i];
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 处理多维数组的行
@@ -885,6 +1195,7 @@ p = a[i];
 
 - `&a[i][0]`等价于`&(*(a[i]+0))`, 等价于`&*a[i]`
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -906,6 +1217,7 @@ for (p = a[i]; p < a[i] + NUM_COLS; p++)
 
 换句话说, 处理一维数组的函数也可以处理二维数组的行.
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -953,10 +1265,10 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
 
 - `(*p)[i]`中的括号是必要的, 无括号编译器会将`*p[i]`解释为`*(p[i])`
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用多维数组名作为指针
 
@@ -974,11 +1286,10 @@ C将a视为一维数组, 其元素是一维数组.
 
 当用作指针时, a 的类型为int (*)[NUM_COLS] （指向长度为NUM_COLS的整数数组的指针）. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 用多维数组名作为指针
 
@@ -1000,9 +1311,7 @@ for (p = a; p < a + NUM_ROWS; p++)
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 用多维数组名作为指针
 
@@ -1025,7 +1334,7 @@ largest = find_largest(a[0], NUM_ROWS * NUM_COLS);
 
 $a[0]$指向第0行中的元素0, 它的类型为`int *`(编译器转换后). 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1069,6 +1378,7 @@ void f(int m, int n)
 
 由于p的类型取决于n, n不是常数, 因此p具有可改变类型. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1086,6 +1396,7 @@ p = a;
 ```
 如果$m ≠ n$, 后续对p的使用将导致未定义的行为.
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1098,6 +1409,7 @@ p = a;
 
 最重要的限制: 可变类型声明必须出现在函数体内或函数原型中. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1125,4 +1437,6 @@ int (*p)[n];
 for (p = a; p < a + m; p++)
   (*p)[i] = 0;
 ```
+
+---
 
