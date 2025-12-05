@@ -399,7 +399,98 @@ int main(){
 
 <!-- slide vertical=true data-notes="" -->
 
-##### strcmp函数
+##### 复杂声明解析:函数指针作为函数的返回值
+
+```C
+void (*fone(int s, void (*ftwo)(int))) (int);
+```
+
+ftwo: 函数==指针==, 函数类型: 形式参数int, 返回void类型
+
+fone: ==函数==，参数(int s, ftwo函数指针), 返回函数指针(类型: int参数, 返回void)
+
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析:函数指针作为函数的返回值(示例)
+
+
+```C{.line-numbers}
+#include <stdio.h>
+
+// typedef 原类型 新类型;
+typedef double (*PF)(double *arr, int size); // 定义函数指针类型
+
+double GetMin(double *arr, int size);
+double GetMax(double *arr1, int size);
+double GetAvg(double *arr3, int size);
+double UnKnown(double *arr2, int size);
+
+PF GetOperation(char c);
+
+int main(void) {
+  double arr[] = {3.14, 1.41, -0.5, 99, -31, 35};
+  int size = sizeof(arr) / sizeof(double);
+  printf("GetMin: %p\n", GetMin);
+  printf("GetMax: %p\n", GetMax);
+  printf("GetAvg: %p\n", GetAvg);
+
+  printf("Please input the Operation :\n");
+  char c = getchar();
+  PF fp = GetOperation(c);
+  printf("fp: %p\n", fp);
+  printf("Result is %lf\n", fp(arr, size));   // 通过函数指针调用函数
+}
+
+PF GetOperation(char c) { // 根据字符得到操作类型，返回函数指针
+  switch (c) {
+    case 'd': return GetMax;
+    case 'x': return GetMin;
+    case 'p': return GetAvg;
+    default: return UnKnown;
+  }
+}
+
+double GetMin(double *arr, int size) { // 求最小值
+  double min = arr[0];
+  for (int i=1; i<size; i++){
+    if (min>arr[i]) {
+      min = arr[i];
+    }
+  }
+  return min;
+}
+
+double GetMax(double *arr, int size) { // 求最大值
+  double max = arr[0];
+  for (int i=1; i<size; i++){
+    if (max<arr[i]) {
+      max = arr[i];
+    }
+  }
+  return max;
+}
+
+double GetAvg(double *arr, int size) { // 求平均值
+  double sum = arr[0];
+  for (int i=1; i<size; i++){
+    sum += arr[i];
+  }
+  return sum / size;
+}
+
+double UnKnown(double *arr, int size) { // 未知算法
+  return 0;
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### qsort中比较整形的cmp函数实现
 
 ---
 
@@ -431,7 +522,7 @@ int main() {
 
 <!-- slide vertical=true data-notes="" -->
 
-##### strcmp函数
+##### qsort中比较字符串的cmp函数实现
 
 ---
 
@@ -1199,7 +1290,7 @@ for (i = 0; i < N; i++)
 
 ---
 
-第 8 章展示了 C 以行优先顺序存储二维数组. 
+C 以行优先顺序存储二维数组. 
 
 r行的数组的布局: 
   
@@ -1536,6 +1627,225 @@ int (*p)[n];
 for (p = a; p < a + m; p++)
   (*p)[i] = 0;
 ```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int *p = malloc(100);
+  printf("%p\n", p);
+  p++;
+  printf("%p\n", p); // + 4 // sizeof(int) == 4
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int **p = malloc(100);
+  printf("%p\n", p);
+  p++;
+  printf("%p\n", p); // ???
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int **p = malloc(100);
+  printf("%p\n", p);
+  p++;
+  printf("%p\n", p); // + 8  // sizeof(int*) == 8
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int (*p)[10] = malloc(100);
+  printf("%p\n", p);
+  p++;
+  printf("%p\n", p); // ???
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int (*p)[10] = malloc(100);
+  printf("%p\n", p);
+  p++;
+  printf("%p\n", p); // + 4 * 10 // sizeof(int[10]) == 40
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+ int *(*p)[2] = malloc(100);
+  printf("%p\n", p); // assume 1000
+  p++;
+  printf("%p\n", p); // ???
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析
+
+---
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+ int *(*p)[2] = malloc(100);
+  printf("%p\n", p);
+  p++;
+  printf("%p\n", p); // + 2 * 8 // sizeof(int*[2]) == 16
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析:函数指针作为函数的返回值
+
+---
+
+```C
+
+int (*ff(int))(int *, int); 
+
+// 根据优先律，等价于
+int (*(ff(int))(int *, int));
+```
+
+---
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析:函数指针作为函数的返回值
+
+---
+
+```C
+
+int (*ff(int))(int *, int); 
+
+// PF是一个函数指针，指向一个返回值为int的函数
+int (*PF)(int *, int); 
+
+// PF是函数指针，作为类型来声明ff(int)
+// ff(int)的返回值就是函数指针，即返回值为指向另一个函数的指针
+PF ff(int); 
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析:函数指针作为函数的返回值
+
+---
+
+```C
+int (*ff(int))(int *, int); 
+
+// 作用同上，PF是一个指针，指向一个函数，有返回值，返回值类型即int
+typedef int (*PF)(int *,int); 
+// PF是函数指针，作为类型来声明ff(int)
+// 那么ff(int)的返回值就是函数指针，即返回值为指向另一个函数的指针
+PF ff(int);
+
+```
+
+`typedef 原类型 新类型名;`
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 复杂声明解析:函数指针作为函数的返回值
+
+```C
+void (*fone(int s, void (*ftwo)(int))) (int);
+```
+
+fone和ftwo类型如何解读?
 
 ---
 
