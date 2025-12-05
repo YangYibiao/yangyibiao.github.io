@@ -215,9 +215,45 @@ int main() {
 
 <!-- slide vertical=true data-notes="" -->
 
+##### 二维数组作为参数传递
+
+---
+
+```C
+#include <stdio.h>
+
+void print2D(int arr[][4], int rows) {
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < 4; j++) {
+      printf("%d ", arr[i][j]);
+    }
+    printf("\n");
+  }
+}
+
+int main() {
+  int matrix[3][4] = {
+      {1, 2, 3, 4},
+      {5, 6, 7, 8},
+      {9, 10, 11, 12}
+  };
+
+  print2D(matrix, 3);
+  return 0;
+}
+```
+[2d_array_function.c](./code/2d_array_function.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
 ##### 数组的指针作为参数
 
 ---
+
+指向数组的指针作为参数传递
 
 ```C
 #include <stdio.h>
@@ -301,9 +337,12 @@ int main() {
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 指向数组的指针与malloc
+##### 指针数组与malloc
 
 ---
+
+- 指向数组的指针
+- 指针数组（数组的元素为指针, e.g., 字符串数组）
 
 ```C
 #include <stdio.h>
@@ -321,33 +360,41 @@ void func1(void *p, int len) {
 
 void func2(char **p, int len) {
   for (int i = 0; i < len; i++) {
-    printf("%s\n", *p);
     // 或者传递过来的直接是一个char**
+    printf("%p: %s\n", *p, *p);
     p++;
   }
 }
 
 int main(){
-  char *mstr[4];
+  char *str_arr[3];
 
   // strcpy之前先malloc分配存储空间
-  mstr[0] = malloc(sizeof(10));
-  mstr[1] = malloc(sizeof(10));
-  mstr[2] = malloc(sizeof(10));
-  mstr[3] = malloc(sizeof(10));
+  str_arr[0] = (char*)malloc(10*sizeof(char));
+  str_arr[1] = (char*)malloc(10*sizeof(char));
+  str_arr[2] = (char*)malloc(10*sizeof(char));
 
-  strcpy(mstr[0], "hello");
-  strcpy(mstr[1], "world");
-  strcpy(mstr[2], "nju");
-  strcpy(mstr[3], "nihao");
+  strcpy(str_arr[0], "hello");
+  strcpy(str_arr[1], "world");
+  strcpy(str_arr[2], "nju");
 
-  func1(mstr, 4);
-  func2(mstr, 4);
+  for (int i = 0; i < 3; i++) {
+    printf("%p\n", str_arr[i]);
+  }
+
+  func1(str_arr, 3);
+  func2(str_arr, 3);
+
+  free(str_arr[0]);
+  free(str_arr[1]);
+  free(str_arr[2]);
   return 0;
 }
 ```
 
-[pptr_malloc.c](./code/pptr_malloc.c)
+[pptr_malloc.c](./code/pointer_to_array_malloc.c)
+
+
 
 ---
 
