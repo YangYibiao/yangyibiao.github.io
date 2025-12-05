@@ -392,9 +392,7 @@ int main(){
 }
 ```
 
-[pptr_malloc.c](./code/pointer_to_array_malloc.c)
-
-
+[pointer_to_array_malloc.c](./code/pointer_to_array_malloc.c)
 
 ---
 
