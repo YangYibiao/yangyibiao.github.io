@@ -1,0 +1,5 @@
+add_executable(pointer_basic pointer_basic.c)
+add_executable(pointer_to_array pointer_to_array.c)
+add_executable(pointer_to_array_pointer pointer_to_array_pointer.c)
+add_executable(2d_array_pointer 2d_array_pointer.c)
+add_executable(double_pointer double_pointer.c)
