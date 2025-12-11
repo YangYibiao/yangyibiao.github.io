@@ -109,8 +109,6 @@ struct {
 
 - 选择特定的成员, 需指定名字, 而非位置. 
 
-在某些语言中, 结构体称为记录, 成员称为字段. 
-
 
 ---
 
@@ -133,7 +131,7 @@ struct {
 结构体的抽象表示: 
 
 <div class="top-2">
-  <img src="img/15-2.png">
+  <img src="figs/15-2.png">
 </div>
 
 ---
@@ -146,8 +144,16 @@ struct {
 ---
 
 <div class="top-2">
-  <img src="img/15-1.png" height=500px>
+  <img src="figs/15-1.png" height=500px>
 </div>
+
+然而，在大多数系统中：
+
+- int 的对齐要求：4 字节
+- char 的对齐要求：1 字节
+
+整个 struct 的对齐：依照最大对齐量，通常也是 4 字节，name会+3 padding字节填充
+由于现代 CPU 按对齐后的地址访问数据速度更快，故编译器为了满足变量的对齐要求，在结构体成员之间自动插入的无意义字节
 
 ---
 
@@ -201,7 +207,7 @@ struct {
 part1初始化后的样子: 
 
 <div class="top-2">
-  <img src="img/15-3.png">
+  <img src="figs/15-3.png">
 </div>
 
 ---
@@ -220,6 +226,7 @@ part1初始化后的样子:
 
 任何"剩余的"成员用 0 作为其初始值. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1344,7 +1351,7 @@ s的成员存储在不同的内存地址中.
 u的成员存储在同一个地址. 
 
 <div class="top-2">
-  <img src="img/15-4.png" height=400px>
+  <img src="figs/15-4.png" height=400px>
 </div>
 
 ---
