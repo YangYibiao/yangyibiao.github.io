@@ -47,10 +47,10 @@
 | 第八讲  | [指针与数组](slides/7-pointers-and-arrays/7-pointer-array.html)       | 指针与数组 |
 | 第九讲  | [字符串](slides/8-pointers-and-c-strings/8-pointers-c-strings.html)            | 字符串 |
 | 第十讲  | [高级指针](slides/9-double-pointers/9-double-pointers.html)            | 指针与多维数组 |
-| 第十一讲  | [结构体](slides/10-function-pointers/10-struct.html)            | 结构体 |
-| 第十二讲  | [链表](slides/11-struct/11-linkedlist.html)            | 链表 |
-| 第十三讲  | [链表](slides/12-linked-lists/12-linkedlist.html)            | 链表 |
-| 第十四讲  | [函数指针](slides/13-recursion/13-function-pointers.html)            | 函数指针 |
+| 第十一讲  | [结构体](slides/10-struct/10-struct.html)            | 结构体 |
+| 第十二讲  | [链表](slides/11-linked-lists/11-linkedlist.html)            | 链表 |
+<!-- | 第十三讲  | [链表](slides/12-linked-lists/12-linkedlist.html)            | 链表 |
+| 第十四讲  | [函数指针](slides/13-recursion/13-function-pointers.html)            | 函数指针 | -->
 
 </div>
 

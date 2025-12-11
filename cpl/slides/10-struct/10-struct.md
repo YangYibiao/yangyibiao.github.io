@@ -122,10 +122,10 @@ struct {
 结构体的成员按照声明的顺序存储在内存中. 
 ```C
 struct {
-  int number;    // 零件编号
-  char name[25]; // 零件名称
+  int number;    // 商品编号
+  char name[25]; // 商品名称
   int on_hand;   // 库存数量
-} item1;
+} item;
 ```
 
 结构体的抽象表示: 
@@ -139,7 +139,7 @@ struct {
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 声明结构体变量
+##### 结构体变量内存对齐
 
 ---
 
@@ -147,16 +147,56 @@ struct {
   <img src="figs/15-1.png" height=500px>
 </div>
 
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 结构体内存对齐
+
+---
+
+结构体的成员按照声明的顺序存储在内存中. 
+```C
+struct {
+  int number;    // 商品编号
+  char name[25]; // 商品名称
+  int on_hand;   // 库存数量
+} item;
+```
+
 然而，在大多数系统中：
 
 - int 的对齐要求：4 字节
 - char 的对齐要求：1 字节
+- 整个 struct 的对齐：
+  - name后是int（4字节），name会+3 padding字节填充
+  - 由于现代 CPU 按对齐后的地址访问数据速度更快
+  - 编译器为了满足变量的对齐要求，在结构体成员之间自动插入的无意义字节
 
-整个 struct 的对齐：依照最大对齐量，通常也是 4 字节，name会+3 padding字节填充
-由于现代 CPU 按对齐后的地址访问数据速度更快，故编译器为了满足变量的对齐要求，在结构体成员之间自动插入的无意义字节
+[struct_padding.c](./code/struct_padding.c)
 
 ---
 
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 结构体内存对齐
+
+---
+
+**结构体内存大小并非所有成员占用内存大小之和**
+
+每个结构体的成员
+- 第一个成员都位于偏移为0的位置
+- 每个数据成员的偏移量`min{#pragma pack()指定的数，数据成员的自身长度} 的倍数`
+- 不指定#pragma pack()时, 默认长度32位系统是4字节, 64位系统是8字节
+
+在数据完成各自对齐之后，结构体本身也要对齐
+- 结构体的大小是结构体内最大元素大小的倍数, 不够补齐
+
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -167,7 +207,6 @@ struct {
 
 每个结构体都为它的成员设置了独立的名字空间. 在该作用域内声明的任何名称都不会与程序中的其他名称冲突. 
 
-例如, 以下声明可以出现在同一程序中: 
 ```C{.line-numbers}
 struct {
   int number;
@@ -185,8 +224,6 @@ struct {
 ---
 
 
-
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 初始化结构体变量
@@ -200,18 +237,17 @@ struct {
  int number;
  char name[NAME_LEN+1];
  int on_hand;
-} part1 = {528, "Disk drive", 10},
-  part2 = {914, "Printer cable", 5};
+} item1 = {528, "Disk drive", 10},
+  item2 = {914, "Printer cable", 5};
 ```
 
-part1初始化后的样子: 
+item1初始化后的样子: 
 
 <div class="top-2">
   <img src="figs/15-3.png">
 </div>
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -231,28 +267,27 @@ part1初始化后的样子:
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 指定初始化式(C99)
+##### 指定初始化式
 
 ---
 
-C99 的结构体也可以使用指定初始化. 
-
-前面示例中part1的初始化式: 
-
-`{528, "Disk drive", 10}`
-
-指定初始化式在初始化时需要对每个元素名赋值: 
-
-`{.number = 528, .name = "Disk drive", .on_hand = 10}`
+结构体也可以使用指定初始化式:
+```C
+struct {
+ int number;
+ char name[NAME_LEN+1];
+ int on_hand;
+} item = {.number = 528, .name = "Disk drive", .on_hand = 10};
+```
 
 点号和成员名称的组合称为**指示符**. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
 
-
-##### 指定初始化式(C99)
+##### 指定初始化式
 
 ---
 
@@ -264,134 +299,30 @@ C99 的结构体也可以使用指定初始化.
 
 - 将来可以更改成员的顺序, 而不会影响指定初始值化式. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 指定初始化式(C99)
+##### 指定初始化式
 
 ---
 
 指定初始化式中列出的值的前面不一定要有指示符. 
 
-例子: 
-
-`{.number = 528, "Disk drive", .on_hand = 10}`
+```C
+struct {
+  int number;
+  char name[NAME_LEN+1];
+  int on_hand;
+} item = {.number = 528, "Disk drive", .on_hand = 10};
+```
 
 编译器认为"Disk drive"用于初始化结构体中number后面的成员. 
 
 初始化式中没有涉及的成员都设为0. 
 
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 对结构体的操作
-
 ---
-
-要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称. 
-
-打印part1的成员的值的语句: 
-
-```C{.line-numbers}
-printf("Part number: %d\n", part1.number);
-printf("Part name: %s\n", part1.name);
-printf("Quantity on hand: %d\n", part1.on_hand);
-```
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 对结构体的操作
-
----
-
-结构体的成员是左值. 
-
-它们可以出现在赋值的左侧, 也可以作为自增或自减表达式中的操作数: 
-
-```C
-part1.number = 258;     
- /* changes part1's part number */
-part1.on_hand++;
- /* increments part1's quantity on hand */
-```
-
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 对结构体的操作
-
----
-
-用于访问结构体成员的句点实际上是一个 C 运算符. 
-
-它优先于几乎所有其他运算符. 例子: 
-
-```C
-scanf("%d", &part1.on_hand);
-```
-
-`.`运算符优先级高于`&`运算符, 因此`&`计算part1.on_hand的地址. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 对结构体的操作
-
----
-
-另一个主要的结构体操作是赋值: 
-
-`part2 = part1;`
-
-该语句的效果是将 part1.number 复制到part2.number, 将 part1.name 复制到 part2.name , 依此类推. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 对结构体的操作
-
----
-
-`=`运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组. 
-
-一些程序员利用此属性创建"空"结构体来封装稍后将复制的数组来: 
-
-```C
-struct { int a[10]; } a1, a2;
-a1 = a2;
- /* legal, since a1 and a2 are structures */
-```
-
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 对结构体的操作
-
----
-
-`=`运算符只能用于类型兼容的结构体. 
-
-两个同时声明的结构体(如part1和part2)是兼容的. 
-
-使用相同"结构体标记"或相同类型名声明的结构体也是兼容的. 
-
-除了赋值之外, C 不提供对整个结构体的操作. 
-
-特别是, `==`和`!=`运算符不能用于判定两个结构体是否相等. 
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -408,6 +339,7 @@ a1 = a2;
 
 - 使用typedef定义结构体类型
 
+---
 
 
 <!-- slide id="structtype" vertical=true data-notes="" -->
@@ -428,8 +360,8 @@ struct part part1, part2; // struct关键字不能省略
 part part3, part4;   // WRONG！！！因为part不是类型名
 ```
 
----
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -451,7 +383,6 @@ struct part {
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 声明结构体标记
@@ -466,9 +397,8 @@ struct part part2;
 part2 = part1;
 ```
 
-
-
 ---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -492,38 +422,131 @@ Part part1, part2;
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 结构体示例
+##### 对结构体的操作
 
 ---
 
-[struct.c](11-structs/struct.c)
+要访问结构体中的成员:
+
+`结构体变量.成员`
+
+```C{.line-numbers}
+printf("number: %d\n", item.number);
+printf("name: %s\n", item.name);
+printf("Quantity on hand: %d\n", item.on_hand);
+```
+
+[struct_initialize.c](./code/struct_initialize.c)
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
 
-##### 结构体内存对齐
+##### 对结构体的操作
 
 ---
 
-每个结构体的成员
-- 第一个成员都位于偏移为0的位置
-- 每个数据成员的偏移量`min{#pragma pack()指定的数，数据成员的自身长度}`的倍数
-- 不指定#pragma pack(), 默认长度32位系统是4字节, 64位系统是8字节
+结构体的成员既可以作为右值，也可以作为左值. 
 
-在数据完成各自对齐之后，结构体本身也要对齐
-- 结构体的大小是结构体内最大元素大小的倍数, 不够补齐
-
-结构体内套用结构体
-- 嵌套结构体内要内存对齐; 
-- 嵌套结构体的起始位的偏移量必须是嵌套结构体内的占用最大内存属性的倍数
-
-**结构体内存大小并非所有成员占用内存大小之和**
+```C
+item.number = 258;
+ /* changes part1's part number */
+item.on_hand++;
+ /* increments part1's quantity on hand */
+```
 
 ---
 
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 对结构体的操作
+
+---
+
+用于访问结构体成员的句点实际上是一个 C 运算符. 
+
+它优先于几乎所有其他运算符. 例子: 
+
+```C
+scanf("%d", &part1.on_hand);
+```
+
+`.`运算符优先级高于`&`运算符, 因此`&`计算part1.on_hand的地址. 
+
+[C operator precedence](https://en.cppreference.com/w/c/language/operator_precedence.html)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 对结构体的操作
+
+---
+
+结构体赋值: 
+
+`part2 = part1;`
+
+该语句的效果是将 part1.number 复制到 part2.number, 将 part1.name 复制到 part2.name , 依此类推. 
+
+[struct_initialize2.c](./code/struct_initialize2.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 对结构体的操作
+
+---
+
+- `=`运算符无法用于复制数组
+- 结构体赋值时可复制嵌在结构体中的数组. 
+
+可将数组封装至结构体中以复制数组: 
+
+```C
+struct { int a[10]; } a1 = {.a = {1, 2, 3}}, a2;
+// initialize 
+a1 = a2;
+```
+
+[struct_assign.c](./code/struct_assign.c)
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 对结构体的操作
+
+---
+
+`=`运算符只能用于类型兼容的结构体. 
+
+两个同时声明的结构体(如part1和part2)是兼容的. 
+
+使用相同"结构体标记"或相同类型名声明的结构体也是兼容的. 
+
+除了赋值之外, C 不提供对整个结构体的操作. 
+
+特别是, `==`和`!=`运算符不能用于判定两个结构体是否相等. 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 结构体示例
+
+---
+
+[struct.c](./code/struct.c)
+
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -534,7 +557,7 @@ Part part1, part2;
 
 函数可以有结构体类型的参数和返回值. 
 
-[struct.c](xxx)
+[struct.c](./code/struct.c)
 
 带有结构体参数的函数: 
 
@@ -555,36 +578,6 @@ int main () {
 ---
 
 
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 结构体作为参数和返回值
-
----
-
-返回part结构体的函数: 
-
-```C{.line-numbers}
-struct part build_part(int number, const char *name, int on_hand) {
-  struct part p;
-
-  p.number = number;
-  strcpy(p.name, name);
-  p.on_hand = on_hand;
-  return p;
-}
-```
-
-调用build_part: 
-
-```C
-part1 = build_part(528, "Disk drive", 10);
-```
-
----
-
-
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 结构体作为参数和返回值
@@ -595,8 +588,7 @@ part1 = build_part(528, "Disk drive", 10);
 
 为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身. 
 
-第17章给出了以结构体指针作为参数或作为返回值的函数示例. 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -615,6 +607,7 @@ part1 = build_part(528, "Disk drive", 10);
 
 每个对已打开文件执行操作的函数都需要一个FILE指针作为参数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -633,8 +626,7 @@ void f(struct part part1)
 }
 ```
 
-初始化的结构体具有自动存储期限. 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -643,12 +635,11 @@ void f(struct part part1)
 
 ---
 
-第 9 章介绍了称为复合字面量的 C99 特性. 
-
 复合字面量可用于"即时"创建结构体, 而无需先将其存储在变量中. 
 
 生成的结构体可以作为参数传递、由函数返回或赋值给变量. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -771,6 +762,18 @@ student1.name = new_name;
 ---
 
 
+<!-- slide vertical=true data-notes="" -->
+
+##### 嵌套结构体内存对齐
+
+---
+
+结构体内嵌套结构体
+- 嵌套结构体内要内存对齐; 
+- 嵌套结构体的起始位的偏移量必须是嵌套结构体内的占用最大内存属性的倍数
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -817,6 +820,7 @@ student1.name = new_name;
 
 每个结构体都有自己的大括号括起来的初始化式; 数组的初始化式将另一组大括号包裹在结构体初始化式的外围. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -839,7 +843,6 @@ struct dialing_code {
 ```
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -872,6 +875,7 @@ const struct dialing_code country_codes[] =
 
 每个结构体值两边的内层大括号是可选的. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -890,6 +894,7 @@ struct part inventory[100] =
 ```
 初始化式中的前两项使用两个指示符; 最后一项使用三个. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -910,7 +915,7 @@ inventory.c程序说明了在实践中如何使用嵌套数组和结构体.
 - 零件名称
 - 库存数量
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -931,7 +936,7 @@ inventory.c程序说明了在实践中如何使用嵌套数组和结构体.
 
 - 终止程序执行
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1042,6 +1047,7 @@ for (;;) {
 
 - readline.c (包含read_line函数的定义)
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1248,7 +1254,7 @@ Enter part name: Disk drive
 
 这解决了换行问题, 也可以避免在零件名称之前存储空白. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1309,9 +1315,10 @@ int read_line(char str[], int n)
 
 为一个成员赋予新值也会改变其他成员的值. 
 
+---
+
+
 <!-- slide id="union" vertical=true data-notes="" -->
-
-
 
 ##### 联合
 
@@ -1334,8 +1341,6 @@ struct {
 ```
 
 ---
-
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1377,6 +1382,7 @@ u.d = 74.8;
 
 - 更改u.i也会影响u.d. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1391,6 +1397,7 @@ u.d = 74.8;
 
 与结构体一样, 联合可以使用=运算符复制、传递给函数和由函数返回. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1412,6 +1419,7 @@ union {
 
 大括号内的表达式必须是常量. (C99 中的规则略有不同.)
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1433,6 +1441,7 @@ union {
 
 只能初始化一个成员, 但不必是第一个. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1449,6 +1458,7 @@ union {
 
 - 以不同的方式查看存储(在第 20 章中讨论)
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1470,7 +1480,6 @@ Shirts: Design, colors available, sizes available
 ```
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1498,7 +1507,6 @@ struct catalog_item {
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 使用联合来节省空间
@@ -1513,7 +1521,7 @@ struct catalog_item {
 
 在结构体catalog_item中放置一个联合, 可以减少结构体所需的空间. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1548,8 +1556,6 @@ struct catalog_item {
 ---
 
 
-
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 使用联合来节省空间
@@ -1561,6 +1567,7 @@ struct catalog_item {
 
 如本例所示, 访问嵌套在结构体内的联合是很困难的. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1577,6 +1584,7 @@ catalog_item结构体可用于说明联合有趣的一面.
 
 如果当前某个结构体有效, 则其他结构体中的匹配成员也有效. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1601,8 +1609,6 @@ printf("%s", c.item.shirt.design);
 ---
 
 
-
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 使用联合构建混合数据结构体
@@ -1624,7 +1630,6 @@ typedef union {
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 使用联合构建混合数据结构体
@@ -1643,7 +1648,6 @@ number_array[1].d = 8.395;
 ```
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1668,6 +1672,7 @@ void print_number(Number n)
 
 print_number无法确定n包含的是整数还是浮点数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1682,6 +1687,7 @@ print_number无法确定n包含的是整数还是浮点数.
 
 结构体catalog_item中的item_type用于此目的. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1707,6 +1713,7 @@ typedef struct {
 
 kind的值可能是INT_KIND或DOUBLE_KIND. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1726,6 +1733,7 @@ n.u.i = 82;
 
 假定n为Number类型的变量. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1752,8 +1760,6 @@ void print_number(Number n)
 
 <!-- slide vertical=true data-notes="" -->
 
-
-
 ##### 枚举
 
 ---
@@ -1771,7 +1777,6 @@ enum {RED, YELLOW, GREEN, NumOfColors}; // NumOfColors
 ```
 
 ---
-
 
 
 <!-- slide id="enum" vertical=true data-notes="" -->
@@ -1833,7 +1838,7 @@ s = HEARTS;
 - 如果可能值的数量很多, 那么为每个值定义一个宏是很麻烦的. 
 - 预处理器会删除名称CLUBS、DIAMONDS、HEARTS和SPADES, 因此它们在调试期间将不可用. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1848,9 +1853,10 @@ C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.
 
 每个值都必须有一个名称(枚举常量). 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举
 
@@ -1862,9 +1868,10 @@ C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.
 
 枚举常量的名称必须与作用域范围内声明的其他标识符不同. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举
 
@@ -1874,9 +1881,10 @@ C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.
 
 如果枚举在函数内部声明, 则其常量在函数外部将不可见. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举标记和类型名称
 
@@ -1890,9 +1898,10 @@ C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.
 suit变量将以下列方式声明: 
 `enum suit s1, s2;`
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举标记和类型名称
 
@@ -1907,9 +1916,10 @@ Suit s1, s2;
 在 C89 中, 使用typedef命名枚举是创建布尔类型的极好方法: 
 `typedef enum {FALSE, TRUE} Bool;`
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举作为整数
 
@@ -1921,9 +1931,10 @@ Suit s1, s2;
 
 在花色枚举中, CLUBS、DIAMONDS、HEARTS和SPADES分别代表 0、1、2和3. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举作为整数
 
@@ -1943,9 +1954,10 @@ enum dept {RESEARCH = 20,
 
 两个或多个枚举常量具有相同的值甚至也是合法的. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 枚举作为整数
 
@@ -1962,7 +1974,7 @@ enum EGA_colors {BLACK, LT_GRAY = 7,
 ```
 BLACK的值为0, LT_GRAY为7, DK_GRAY为8, WHITE为15. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1987,6 +1999,7 @@ s被视为整型变量.
 
 CLUBS、DIAMONDS、HEARTS和SPADES是整数0、1、2和3的名称. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1999,7 +2012,7 @@ CLUBS、DIAMONDS、HEARTS和SPADES是整数0、1、2和3的名称.
 
 例如, 我们可能会不小心将数字4(它不对应任何花色)存储到s中. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2025,7 +2038,6 @@ typedef struct {
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -2041,3 +2053,5 @@ typedef struct {
 - 不需要INT_KIND和DOUBLE_KIND宏
 
 - 阐明kind只有两种可能的值: INT_KIND和DOUBLE_KIND
+
+---
