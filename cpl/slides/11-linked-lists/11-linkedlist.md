@@ -86,6 +86,8 @@ C支持**动态存储分配**: 在程序执行期间分配内存单元的能力.
 
 使用动态存储分配, 可以设计根据需要扩大(和缩小)的数据结构. 
 
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -99,6 +101,7 @@ C支持**动态存储分配**: 在程序执行期间分配内存单元的能力.
 
 动态存储分配是通过调用内存分配函数来完成的. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -117,6 +120,7 @@ C支持**动态存储分配**: 在程序执行期间分配内存单元的能力.
 
 这些函数返回一个`void *`类型的值(一个"通用"指针). 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -131,6 +135,7 @@ C支持**动态存储分配**: 在程序执行期间分配内存单元的能力.
 
 在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -158,7 +163,6 @@ if ((p = malloc(10000)) == NULL) {
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 空指针
@@ -179,6 +183,7 @@ if (p) …
 
 语句1-2等价, 4-5等价
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -194,6 +199,7 @@ if (p) …
 
 动态分配字符串, 则允许在程序运行时决定长度. 
 
+---
 
 
 <!-- slide id="das" vertical=true data-notes="" -->
@@ -211,7 +217,7 @@ malloc分配size个字节的内存块并返回一个指向它的(类型为void*)
 
 size_t是库中定义的无符号整数类型. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -240,7 +246,6 @@ p = (char *) malloc(n + 1);
 
 <!-- slide vertical=true data-notes="" -->
 
-
 ##### 使用malloc为字符串分配内存
 
 ---
@@ -251,10 +256,10 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
   <img src="img/16-1.png">
 </div>
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用malloc为字符串分配内存
 
@@ -274,9 +279,7 @@ strcpy(p, "abc");
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 在字符串函数中使用动态存储分配
 
@@ -288,10 +291,10 @@ strcpy(p, "abc");
 
 该函数先计算要拼接的两个字符串的长度, 然后调用malloc为结果分配适量的空间. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 在字符串函数中使用动态存储分配
 
@@ -322,10 +325,7 @@ char *concat(const char *s1, const char *s2)
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 在字符串函数中使用动态存储分配
 
@@ -339,10 +339,10 @@ char * p = concat("abc", "def");
 
 指针p将指向字符串"abcdef", 该字符串存储在动态分配的数组中. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 在字符串函数中使用动态存储分配
 
@@ -354,10 +354,10 @@ char * p = concat("abc", "def");
 
 否则, 程序最终可能会耗尽内存. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 程序: 打印一个月的提醒链表(改进版)
 
@@ -369,10 +369,10 @@ char * p = concat("abc", "def");
 
 在新程序中, 存储在元素是指向动态分配字符串指针的一维数组. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 程序: 打印一个月的提醒链表(改进版)
 
@@ -386,10 +386,10 @@ char * p = concat("abc", "def");
 
 从二维数组切换到指针数组只需要更改程序的八行. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### remind2.c
 
@@ -467,7 +467,6 @@ int read_line(char str[], int n)
 
 <!-- slide vertical=true data-notes="" -->
 
-
 ##### 动态分配数组
 
 ---
@@ -478,10 +477,10 @@ int read_line(char str[], int n)
 
 `realloc`函数允许我们根据需要使数组==扩展==或==缩减==. 
 
+---
 
 
 <!-- slide id="daa" vertical=true data-notes="" -->
-
 
 ##### 使用malloc为数组分配存储空间
 
@@ -499,10 +498,10 @@ a = malloc(n * sizeof(int));
 
 始终使用sizeof运算符来计算每个元素所需的空间量. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 使用malloc为数组分配存储空间
 
@@ -519,10 +518,10 @@ for (i = 0; i < n; i++)
 
 还可以选择使用指针算术运算代替取下标来访问数组的元素. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### calloc函数
 
@@ -542,10 +541,10 @@ calloc的规则:
 
 - 通过将所有位设置为0来初始化分配的内存. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### calloc函数
 
@@ -566,7 +565,6 @@ p = calloc(1, sizeof(struct point));
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 
@@ -584,11 +582,10 @@ ptr必须指向通过先前调用malloc、calloc或realloc获得的内存块.
 
 size表示块的新大小, 可能大于或小于原始大小. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### realloc函数
 
@@ -604,10 +601,10 @@ realloc的规则:
 
 - 如果realloc被调用时以0作为第二个参数, 它会释放内存块. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### realloc函数
 
@@ -623,10 +620,10 @@ realloc的规则:
 
 一旦realloc返回, 一定要更新所有指向内存块的指针, 以防内存块被移动. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 释放存储空间
 
@@ -638,10 +635,10 @@ malloc和其他内存分配函数从称为**堆**的存储池中获取内存块.
 
 更糟糕的是, 程序可能会分配内存块然后失去对它们的跟踪, 从而浪费空间. 
 
+---
 
 
 <!-- slide id="deallocate" vertical=true data-notes="" -->
-
 
 ##### 释放存储空间
 
@@ -678,6 +675,7 @@ p = q;
 
 没有指向第一个块的指针, 因此再也不能使用它了. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -694,6 +692,7 @@ p = q;
 
 需要用free函数释放不需要的内存来回收自己的垃圾. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -717,6 +716,7 @@ p = q;
 
 调用free会释放p指向的内存块. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -741,6 +741,7 @@ strcpy(p, "abc");   /*** WRONG ***/
 
 修改p指向的内存是一个严重的错误. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -770,6 +771,7 @@ strcpy(p, "abc");   /*** WRONG ***/
 
 链表中的最后一个结点包含一个空指针. 
 
+---
 
 
 <!-- slide id="linkedlists" vertical=true data-notes="" -->
@@ -786,6 +788,7 @@ strcpy(p, "abc");   /*** WRONG ***/
 
 - 如果结点靠近链表的开头, 则访问链表中的结点很快, 如果靠近链表的尾端, 则访问速度较慢. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -806,6 +809,7 @@ struct node {
 
 node必须是结构标记, 而不是typedef名称, 否则将无法声明next的类型. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -820,6 +824,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 将first设置为NULL表示链表最初为空. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -840,6 +845,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 现在集中介绍前两个步骤. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -865,7 +871,6 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 创建结点
@@ -882,11 +887,10 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 
 `*new_node`周围的括号是强制要求的, 因为.运算符优先于*运算符. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### `->`运算符
 
@@ -902,7 +906,7 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 
 `(*new_node).value = 10;`
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -919,6 +923,7 @@ scanf调用中的示例:
 
 `&`运算符仍然是必需的, 即使new_node是一个指针. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -933,6 +938,7 @@ scanf调用中的示例:
 
 假设new_node指向要插入的结点, first指向链表中的第一个结点. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -953,6 +959,7 @@ scanf调用中的示例:
 
 即使链表为空, 这些语句也有效. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -965,6 +972,7 @@ scanf调用中的示例:
 
 首先插入一个包含数字10的结点, 然后插入一个包含20的结点. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -990,7 +998,6 @@ new_node = malloc(sizeof(struct node));
 </div>
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1143,7 +1150,7 @@ first = add_to_list(first, 20);
 
 用add_to_list直接更新first, 而不是返回first的新值, 这样做是个技巧. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1172,7 +1179,7 @@ struct node *read_numbers(void)
 
 这些数字将在链表中以相反的顺序排列. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1191,6 +1198,7 @@ for (p = first; p != NULL; p = p->next)
 
 这种形式的循环可用于在链表中搜索整数n的函数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1240,9 +1248,10 @@ struct node *search_list(struct node *list, int n)
 
 由于list是原始链表指针的副本, 因此在函数中更改它没有损害. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 搜索链表
 
@@ -1261,9 +1270,10 @@ struct node *search_list(struct node *list, int n)
 
 因为到达链表末尾处时list为NULL, 所以即使找不到n, 返回list也是正确的. 
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 搜索链表
 
@@ -1302,6 +1312,7 @@ struct node *search_list(struct node *list, int n)
 
 这个问题有多种解决方案. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1324,6 +1335,7 @@ for (cur = list, prev = NULL;
 
 当循环终止时, cur指向要删除的结点, prev指向前一个结点. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1344,9 +1356,10 @@ for (cur = list, prev = NULL;
   <img src="img/16-11-2.png">
 </div>
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 从链表中删除结点
 
@@ -1359,9 +1372,10 @@ for (cur = list, prev = NULL;
   <img src="img/16-12.png">
 </div>
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 从链表中删除结点
 
@@ -1374,7 +1388,7 @@ for (cur = list, prev = NULL;
 
 由于cur现在指向包含20的结点, 条件`cur->value != n`为假, 循环终止. 
 
-
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1394,6 +1408,7 @@ for (cur = list, prev = NULL;
   <img src="img/16-14.png">
 </div>
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1406,7 +1421,6 @@ for (cur = list, prev = NULL;
 `free(cur);`
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1425,7 +1439,7 @@ delete_from_list函数使用刚刚概述的策略.
 
 删除链表中的首结点是一种特殊情况, 需要不同的绕过步骤. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1467,7 +1481,7 @@ struct node *delete_from_list(struct node *list, int n)
 
 但是搜索会更快: 在到达期望结点应该出现的位置后, 就可以停止查找. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1485,6 +1499,7 @@ struct node *delete_from_list(struct node *list, int n)
 
 在原始程序中, 数据库没有排序. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1508,6 +1523,7 @@ inventory将指向链表首结点:
 
 `struct part *inventory = NULL;`
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1520,6 +1536,7 @@ inventory将指向链表首结点:
 
 find_part和insert会更复杂, 因为将按零件编号对链表inventory中的结点进行排序. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1602,6 +1619,7 @@ for (cur = inventory, prev = NULL;
 
 和原程序一样, 这个版本需要第 16 章的read_line函数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1804,6 +1822,7 @@ void print(void)
 
 这样做需要使用指向指针的指针. 
 
+---
 
 
 <!-- slide id="p2p" vertical=true data-notes="" -->
@@ -1833,7 +1852,6 @@ struct node *add_to_list(struct node *list, int n)
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 指向指针的指针
@@ -1849,6 +1867,7 @@ struct node *add_to_list(struct node *list, int n)
 
 函数可以改变list的值, 使其指向新结点, 但first不受影响. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1891,6 +1910,7 @@ void add_to_list(struct node **list, int n)
 
 特别是, 将new_node赋值给*list将修改first. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1907,6 +1927,7 @@ C 不要求指针只指向数据; 也可以有指向函数的指针.
 
 将函数指针作为参数传递是相当普遍的. 
 
+---
 
 
 <!-- slide id="p2f" vertical=true data-notes="" -->
@@ -1949,6 +1970,7 @@ double integrate(double f(double), double a, double b);
 
 允许使用f(x)代替(*f)(x) . 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1963,6 +1985,7 @@ C 库中一些功能强大的函数要求把函数指针作为参数.
 
 qsort是一个通用的排序函数, 能够对任何数组进行排序. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1983,6 +2006,7 @@ qsort是一个通用的排序函数, 能够对任何数组进行排序.
 
 - 如果*p “大于” *q, 返回正数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2005,6 +2029,7 @@ size是每个数组元素的大小, 以字节为单位.
 
 compar是指向比较函数的指针. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2020,6 +2045,7 @@ compar是指向比较函数的指针.
 
 compare_parts是一个比较两个part结构的函数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2034,6 +2060,7 @@ qsort要求其参数的类型为`void *`, 但我们不能通过`void *`型的指
 
 为了解决这个问题, compare_parts会将其参数p和q赋值给struct part *类型的变量. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2085,7 +2112,6 @@ int compare_parts(const void *p, const void *q)
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### qsort函数
@@ -2103,7 +2129,6 @@ int compare_parts(const void *p, const void *q)
 ```
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2124,7 +2149,6 @@ int compare_parts(const void *p, const void *q)
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 函数指针的其他用途
@@ -2139,6 +2163,7 @@ C 将指向函数的指针视为指向数据的指针.
 
 函数甚至可以返回函数指针. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2148,25 +2173,13 @@ C 将指向函数的指针视为指向数据的指针.
 ---
 
 可以存储指向函数的指针的变量, pf指向具有int型参数且返回void型值的函数: 
-
 ```C
 void (*pf)(int);
 ```
-
-如果f是这样一个函数, 可以通过以下方式使pf指向f: 
-
-`pf = f;`
-
-可以通过以下方式调用f: 
-
-`(*pf)(i);`
-
-或者
-
-`pf(i);`
+如果f是这样一个函数, 可以通过以下方式使pf指向f: `pf = f;`
+可以通过以下方式调用f: `(*pf)(i);`或者`pf(i);`
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2193,7 +2206,6 @@ void (*file_cmd[])(void) = {new_cmd,
 ---
 
 
-
 <!-- slide vertical=true data-notes="" -->
 
 ##### 函数指针的其他用途
@@ -2206,6 +2218,7 @@ void (*file_cmd[])(void) = {new_cmd,
 
 switch语句可以获得类似的效果, 但函数指针数组提供了更大的灵活性. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2222,6 +2235,7 @@ tabulate使用了ceil函数.
 
 当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2265,7 +2279,6 @@ Enter increment: .1
 ```
 
 ---
-
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2329,234 +2342,3 @@ void tabulate(double (*f)(double), double first,
 
 
 
-<!-- slide vertical=true data-notes="" -->
-
-##### 受限指针(C99)
-
----
-
-在 C99 中, 关键字restrict可以出现在指针的声明中: 
-
-```C
-int * restrict p;
-```
-
-p被称为**受限指针**. 
-
-目的是如果p指向一个稍后被修改的对象, 那么该对象不会允许除了p之外的任何方式访问. 
-
-如果一个对象有多种访问方式, 通常把这些方式互称为**别名**. 
-
-
-
-<!-- slide id="restrictedP" vertical=true data-notes="" -->
-
-##### 受限指针(C99)
-
----
-
-考虑以下代码: 
-```C
-int * restrict p;
-int * restrict q;
-p = malloc(sizeof(int));
-```
-
-通常将p复制到q中然后通过q修改整数是合法的: 
-```C
-q = p;
-*q = 0;  /* causes undefined behavior */
-```
-
-但因为p是一个受限指针, 语句`*q = 0;`的执行效果是未定义的. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 受限指针(C99)
-
----
-
-为了说明restrict的使用, 考虑memcpy和memmove函数. 
-
-memcpy的 C99 原型, 它将字节从一个对象(由s2指向)复制到另一个对象(由s1指向): 
-
-```C
-void *memcpy(void * restrict s1, const void * restrict s2, size_t n);
-```
-
-对s1和s2使用restrict表示它们指向的对象不应重叠. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 受限指针(C99)
-
----
-
-相反, restrict没有出现在memmove的原型中: 
-
-`void *memmove(void *s1, const void *s2, size_t n);`
-
-memmove类似于memcpy, 但即使源和目标重叠也可以保证工作. 
-
-使用memmove移动数组元素的示例: 
-```C
-int a[100];
-…
-memmove(&a[0], &a[1], 99 * sizeof(int));
-```
-
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 受限指针(C99)
-
----
-
-在 C99 之前, 没有文档说明memcpy和memmove之间的区别. 
-
-这两个函数的原型几乎相同: 
-
-```C
-void *memcpy(void *s1, const void *s2, size_t n);
-void *memmove(void *s1, const void *s2, size_t n);
-```
-
-memcpy的原型的C99版本中使用restrict是警告s1和s2指向的目标不应重叠. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 受限指针(C99)
-
----
-
-restrict向编译器提供信息, 使其能够生成更高效的代码——这一过程称为**优化**. 
-
-C99 标准保证restrict对符合标准的程序的行为没有影响. 
-
-大多数程序员不会使用restrict, 除非他们要微调程序以实现最佳性能. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 灵活数组成员 (C99)
-
----
-
-有时, 我们需要定义一个包含未知大小数组的结构. 
-
-例如, 我们可能需要一个将字符串中的字符与字符串长度一起存储的结构: 
-
-```C{.line-numbers}
-struct vstring {
-  int len;
-  char chars[N];
-};
-```
-
-使用固定长度的数组是不可取的: 它限制了字符串的长度并浪费了内存. 
-
-
-
-<!-- slide id="fam" vertical=true data-notes="" -->
-
-##### 灵活数组成员 (C99)
-
----
-
-声明chars的长度为1, 然后动态分配每个字符串来解决这个问题: 
-
-```C{.line-numbers}
-struct vstring {
-  int len;
-  char chars[1];
-};
-…
-struct vstring *str = malloc(sizeof(struct vstring) + n - 1);
-str->len = n;
-```
-
-这种技术被称为"struct hack". 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 灵活数组成员 (C99)
-
----
-
-许多编译器都支持 struct hack. 
-
-有些(包括 GCC)甚至允许chars数组的长度为零. 
-
-C89 标准不保证 struct hack 会起作用, 但 C99 提供了**灵活数组成员**来达到相同目的. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 灵活数组成员 (C99)
-
----
-
-当结构的最后一个成员是数组时, 可以省略其长度: 
-
-```C{.line-numbers}
-struct vstring {
-  int len;
-  char chars[];  /* flexible array member - C99 only */
-};
-```
-
-chars数组的长度在为vstring结构分配内存时确定: 
-
-```C{.line-numbers}
-struct vstring *str = malloc(sizeof(struct vstring) + n);
-str->len = n;
-```
-
-sizeof在计算结构的大小时忽略chars成员. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 灵活数组成员 (C99)
-
----
-
-包含灵活数组成员的结构的特殊规则: 
-
-- 灵活数组必须是最后一个成员. 
-
-- 该结构必须至少有一个其他成员. 
-
-复制包含灵活数组成员的结构时, 其他成员都会被复制, 但不复制灵活数组本身. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 灵活数组成员 (C99)
-
----
-
-包含灵活数组成员的结构是**不完整类型**. 
-
-不完整类型缺少用于确定所需内存大小的信息. 
-
-不完整类型受到各种限制. 
-
-特别是, 不完整类型不能是另一个结构的成员或数组的元素. 
-
-但是, 数组可以包含指向具有灵活数组成员的结构的指针. 
