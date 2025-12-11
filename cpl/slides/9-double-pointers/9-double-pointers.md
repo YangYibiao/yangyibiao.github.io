@@ -558,7 +558,7 @@ int main() {
 #include <string.h>
 
 int cmp_str(const void *a, const void *b) {
-  // a 和 b 是 char* 的地址 → type: char**
+  // a 和 b 是 指向char* 的指针 → 因此其实际类型为: char**
   return strcmp(*(const char **)a, *(const char **)b);
 }
 
