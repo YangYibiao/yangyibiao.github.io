@@ -681,7 +681,15 @@ int main() {
 
 能够存储100个零件信息的结构体part数组: 
 
-`struct part inventory[100];`
+```C
+struct part {
+  int id;
+  char name[20];
+  int on_hand;
+};
+
+struct part inventory[100];
+```
 
 ---
 

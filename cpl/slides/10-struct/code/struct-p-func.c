@@ -7,11 +7,13 @@ int cmd_i(char *s);
 int cmd_q(char *s);
 int cmd_c(char *s);
 
-struct {
+struct cmd {
   char *name;
   char *des;
   int (*handler)(char *);
-} cmd_table[] = {
+};
+
+struct cmd cmd_table[] = {
     {"i", "Print info", cmd_i},
     {"q", "Exit",       cmd_q},
     {"c", "Continue",   cmd_c}
