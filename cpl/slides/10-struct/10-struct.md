@@ -72,24 +72,13 @@ presentation:
 
 ---
 
-结构体是具有不同类型的值（成员）的集合. 
-
-结构体可用于存储相关数据项的集合. 
-
+结构体是具有不同类型的成员的集合. 
 ```C{.line-numbers}
 struct {
   int id;
   char name[NAME_LEN+1];
   double score;
-} stu1, stu2;
-```
-
-初始化方式:
-```C
-{1, "Allen", 98.5};
-{.name = "Su", .score = 88.0, .id = 2};
-{.name = "Su", 88.0, .id = 2};
-{.name = "Su", .score = 88.0};
+} stu1, stu2, stu3, stu4;
 ```
 
 ---
@@ -103,12 +92,13 @@ struct {
 
 结构体与数组的特性不同. 
 
-- 结构体中的元素(成员)不需要具有相同的类型. 
+- 结构体中的元素/成员不需要具有相同的类型. 
 
 - 结构体的成员有名字.
 
-- 选择特定的成员, 需指定名字, 而非位置. 
+- 访问特定的成员, 需指定名字. 
 
+- 结构体可以相互赋值. 
 
 ---
 
@@ -119,12 +109,12 @@ struct {
 
 ---
 
-结构体的成员按照声明的顺序存储在内存中. 
+结构体的成员按照声明的顺序"连续"存储在内存中. 
 ```C
 struct {
   int number;    // 商品编号
   char name[25]; // 商品名称
-  int on_hand;   // 库存数量
+  int on_hand;   // 商品库存
 } item;
 ```
 
@@ -143,9 +133,7 @@ struct {
 
 ---
 
-<div class="top-2">
-  <img src="figs/15-1.png" height=500px>
-</div>
+<div class="top-2"> <img src="figs/15-1.png" height=500px> </div>
 
 ---
 
@@ -164,15 +152,13 @@ struct {
   int on_hand;   // 库存数量
 } item;
 ```
-
 然而，在大多数系统中：
-
 - int 的对齐要求：4 字节
 - char 的对齐要求：1 字节
 - 整个 struct 的对齐：
-  - name后是int（4字节），name会+3 padding字节填充
-  - 由于现代 CPU 按对齐后的地址访问数据速度更快
-  - 编译器为了满足变量的对齐要求，在结构体成员之间自动插入的无意义字节
+  - name后是int（4字节），name 会 +3 padding字节填充
+  - 由于现代CPU按对齐后的地址访问数据速度更快
+  - 编译器为满足变量的对齐要求，在结构体成员之间自动插入的无意义字节
 
 [struct_padding.c](./code/struct_padding.c)
 
@@ -187,14 +173,12 @@ struct {
 
 **结构体内存大小并非所有成员占用内存大小之和**
 
-每个结构体的成员
-- 第一个成员都位于偏移为0的位置
-- 每个数据成员的偏移量`min{#pragma pack()指定的数，数据成员的自身长度} 的倍数`
-- 不指定#pragma pack()时, 默认长度32位系统是4字节, 64位系统是8字节
-
 在数据完成各自对齐之后，结构体本身也要对齐
 - 结构体的大小是结构体内最大元素大小的倍数, 不够补齐
-
+- 第一个成员都位于偏移为0的位置
+- 每个数据成员的偏移量`min{#pragma pack()指定的数，数据成员的自身长度} 的倍数`
+  - `#pragma pack(n) // {n = 1, 2, 4, ...} 2的幂`
+- 不指定时, 默认长度32位系统是4字节, 64位系统是8字节
 
 ---
 
@@ -206,7 +190,6 @@ struct {
 ---
 
 每个结构体都为它的成员设置了独立的名字空间. 在该作用域内声明的任何名称都不会与程序中的其他名称冲突. 
-
 ```C{.line-numbers}
 struct {
   int number;
@@ -230,8 +213,7 @@ struct {
 
 ---
 
-结构体变量可以在声明的同时进行初始化: 
-
+结构体变量可在声明时进行初始化: 
 ```C
 struct {
  int number;
@@ -241,7 +223,7 @@ struct {
   item2 = {914, "Printer cable", 5};
 ```
 
-item1初始化后的样子: 
+item1初始化后: 
 
 <div class="top-2">
   <img src="figs/15-3.png">
@@ -292,12 +274,9 @@ struct {
 ---
 
 指定初始化式更容易阅读和检查正确性. 
-
-此外, 指定初始化式中的值不必与成员在结构体中的顺序一致. 
-
+指定初始化式中的值可与成员在结构体中的顺序不一致. 
 - 程序员不必记住最初声明成员的顺序. 
-
-- 将来可以更改成员的顺序, 而不会影响指定初始值化式. 
+- 将来可以更改成员的顺序, 而不会影响指定初始化式. 
 
 ---
 
@@ -315,7 +294,8 @@ struct {
   int number;
   char name[NAME_LEN+1];
   int on_hand;
-} item = {.number = 528, "Disk drive", .on_hand = 10};
+} item1 = {.number = 528, "Disk drive", .on_hand = 10}, 
+  item2 = {.number = 527, "Print"};
 ```
 
 编译器认为"Disk drive"用于初始化结构体中number后面的成员. 
@@ -335,9 +315,9 @@ struct {
 
 命名结构体的方法: 
 
-- 声明一个"结构体标记"
+- 声明一个"结构体标记"(`struct tag`)
 
-- 使用typedef定义结构体类型
+- 使用typedef定义结构体类型(`struct type`)
 
 ---
 
@@ -348,24 +328,25 @@ struct {
 
 ---
 
-结构体标记是用于标识特定类型结构体的名称, 名为part的结构体标记的声明: 
+结构体标记(`struct tag`)是用于标识特定类型结构体的名称, 名为part的结构体标记的声明: 
 ```C{.line-numbers}
-struct part {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
+struct Point {
+  int x;
+  int y;
 }; // 分号必须跟在右大括号后面
-// part标记可用于声明变量: 
-struct part part1, part2; // struct关键字不能省略
-part part3, part4;   // WRONG！！！因为part不是类型名
+
+struct Point p1, p2; // struct关键字不能省略
+  //Point part3, part4;   // WRONG！！！因为part不是类型名
 ```
 
+
+
+[struct_tag.c](code/struct_tag.c)
 
 ---
 
 
 <!-- slide vertical=true data-notes="" -->
-
 
 ##### 声明结构体标记
 
@@ -373,28 +354,18 @@ part part3, part4;   // WRONG！！！因为part不是类型名
 
 结构体标记的声明可以与结构体变量的声明相结合: 
 ```C
-struct part {
- int number;
- char name[NAME_LEN+1];
- int on_hand;
-} part1, part2;
+struct Point {
+  int x;
+  int y;
+} p1, p2;
 ```
 
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 声明结构体标记
-
----
-
-所有声明为struct part类型的结构体可直接赋值: 
+所有声明为struct Point类型的结构体变量可相互赋值: 
 ```C
-struct part part1 = {528, "Disk drive", 10};
-struct part part2;
+struct Point p1 = {1, 2};
+struct Point p2;
 
-part2 = part1;
+p2 = p1;
 ```
 
 ---
@@ -409,12 +380,10 @@ part2 = part1;
 此外, 还可使用typedef来定义结构体类型: 
 ```C{.line-numbers}
 typedef struct {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
-} Part;
-// Part的使用方式与内置类型相同: 
-Part part1, part2;
+  int x, y;
+} Vector;
+// Vector的使用方式与内置类型相同: 
+Vector p1, p2;
 ```
 
 ---
@@ -431,9 +400,7 @@ Part part1, part2;
 `结构体变量.成员`
 
 ```C{.line-numbers}
-printf("number: %d\n", item.number);
-printf("name: %s\n", item.name);
-printf("Quantity on hand: %d\n", item.on_hand);
+printf("Point(%d, %d)\n", p1.x, p1.y);
 ```
 
 [struct_initialize.c](./code/struct_initialize.c)
@@ -470,7 +437,7 @@ item.on_hand++;
 它优先于几乎所有其他运算符. 例子: 
 
 ```C
-scanf("%d", &part1.on_hand);
+scanf("%d%d", &p1.x, &p1.y);
 ```
 
 `.`运算符优先级高于`&`运算符, 因此`&`计算part1.on_hand的地址. 
@@ -492,7 +459,7 @@ scanf("%d", &part1.on_hand);
 
 该语句的效果是将 part1.number 复制到 part2.number, 将 part1.name 复制到 part2.name , 依此类推. 
 
-[struct_initialize2.c](./code/struct_initialize2.c)
+[struct_assign.c](./code/struct_assign.c)
 
 ---
 
@@ -525,26 +492,11 @@ a1 = a2;
 
 ---
 
-`=`运算符只能用于类型兼容的结构体. 
+`赋值`: 智能类型兼容的结构体相互赋值
+- 两个同时声明的/相同"结构体标记"或相同类型名声明的结构体是兼容的. 
 
-两个同时声明的结构体(如part1和part2)是兼容的. 
-
-使用相同"结构体标记"或相同类型名声明的结构体也是兼容的. 
-
-除了赋值之外, C 不提供对整个结构体的操作. 
-
-特别是, `==`和`!=`运算符不能用于判定两个结构体是否相等. 
-
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 结构体示例
-
----
-
-[struct.c](./code/struct.c)
+`相等`: 除赋值外, C不提供对整个结构体的操作
+- `==`和`!=`运算符不能用于判定两个结构体是否相等. 
 
 ---
 
@@ -562,20 +514,21 @@ a1 = a2;
 带有结构体参数的函数: 
 
 ```C{.line-numbers}
-void print_part(struct part p)
-{
-  printf("Part number: %d\n", p.number);
-  printf("Part name: %s\n", p.name);
-  printf("Quantity on hand: %d\n", p.on_hand);
-}
+typedef struct {
+    int num;
+    double score;
+    char id;
+} record;
 
-int main () {
-  struct part part1 = {28, "disk", 1};
-  print_part(part1); // 调用print_part
+record initialize_record()
+{
+    record r = {10, 98.5, 'M'};
+    return r;
 }
 ```
 
 ---
+
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -586,28 +539,10 @@ int main () {
 
 将结构体传递给函数和从函数返回结构体都需要复制结构体中的所有成员. 
 
-为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身. 
+为了避免拷贝开销, 通常建议用一个指向结构体的指针来代替结构体本身. 
 
 ---
 
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 结构体作为参数和返回值
-
----
-
-避免复制结构体还有其他原因. 
-
-例如, <stdio.h>头文件定义了一个名为FILE的类型, 它通常是一个结构体. 
-
-每个FILE结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的. 
-
-<stdio.h>中打开文件的每个函数都返回一个指向FILE结构体的指针. 
-
-每个对已打开文件执行操作的函数都需要一个FILE指针作为参数. 
-
----
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -629,57 +564,29 @@ void f(struct part part1)
 ---
 
 
+
 <!-- slide vertical=true data-notes="" -->
 
-##### 复合字面量(C99)
+##### 复合字面量
 
 ---
 
-复合字面量可用于"即时"创建结构体, 而无需先将其存储在变量中. 
-
+复合字面量可用于"即时"创建结构体, 无需先将其存储在变量中. 
 生成的结构体可以作为参数传递、由函数返回或赋值给变量. 
 
----
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 复合字面量(C99)
-
----
-
-复合字面量可用于创建将传递给函数的结构体: 
-
+- 复合字面量可用于创建将传递给函数的结构体: 
 ```C
 print_part((struct part) {528, "Disk drive", 10});
 ```
 
-复合字面量也可以赋值给变量: 
-
+- 复合字面量赋值给变量: 
 ```C
 part1 = (struct part) {528, "Disk drive", 10};
 ```
 
 复合字面量由圆括号中的类型名称和花括号中的一组值组成. 
 
-当复合字面量表示结构体时, 类型名称可以是结构体标记, 前面带有单词struct或typedef. 
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 复合字面量(C99)
-
 ---
-
-复合字面量可以包含指示符, 就像指定初始值式一样: 
-```C
-print_part((struct part) {.on_hand = 10,
-                          .name = "Disk drive",
-                          .number = 528});
-```
-
-复合字面量不会提供完全的初始化, 所以任何未初始化的成员默认为0. 
 
 
 
@@ -689,10 +596,13 @@ print_part((struct part) {.on_hand = 10,
 
 ---
 
-结构体和数组可以无限制地组合. 
+结构体和数组可以无限制地组合: 
 
-数组可以有结构体作为元素, 结构体可以包含数组和结构体作为成员. 
+- 数组可以有结构体作为元素
 
+- 结构体可以包含数组和结构体作为成员
+
+---
 
 
 <!-- slide id="nestedarrandstruct" vertical=true data-notes="" -->
@@ -701,41 +611,23 @@ print_part((struct part) {.on_hand = 10,
 
 ---
 
-将一个结构体嵌套在另一个结构体中通常很有用. 
-
-假设person_name是以下结构体: 
-
 ```C{.line-numbers}
+// 假设person_name是以下结构体: 
 struct person_name {
-  char first[FIRST_NAME_LEN+1];
-  char middle_initial;
-  char last[LAST_NAME_LEN+1];
+  char first[NAME_LEN+1];
+  char last[NAME_LEN+1];
 };
-```
 
----
-
-
-
-<!-- slide vertical=true data-notes="" -->
-
-##### 嵌套结构体
-
----
-
-我们可以使用person_name作为更大结构体的一部分: 
-
-```C{.line-numbers}
+// 我们可以使用person_name作为更大结构体的一部分: 
 struct student {
-  struct person_name name;
   int id, age;
   char sex;
+  struct person_name name;
 } student1, student2;
+
+// 访问student1的名字或姓氏需两次应用`.`运算符: 
+strcpy(student1.name.first, "Fred");
 ```
-
-访问student1的名字、中间名首字母或姓氏需两次应用`.`运算符: 
-
-`strcpy(student1.name.first, "Fred");`
 
 ---
 
@@ -750,14 +642,17 @@ struct student {
 将name作为结构体可以更容易地将名称视为数据单元. 
 
 显示名称的函数可以只传递一个person_name结构体的实际参数而不是三个参数: 
-`display_name(student1.name);`
 
-person_name结构体中的信息复制到student结构体的name成员只需要一次赋值, 而不是三次: 
 ```C
-struct person_name new_name;
-…
-student1.name = new_name;
+void display_name(struct person_name);
+
+int main() {
+
+  display_name(student1.name);`
+}
 ```
+
+[nested_struct.c](code/nested_struct.c)
 
 ---
 
@@ -768,7 +663,8 @@ student1.name = new_name;
 
 ---
 
-结构体内嵌套结构体
+结构体内嵌套结构体:
+
 - 嵌套结构体内要内存对齐; 
 - 嵌套结构体的起始位的偏移量必须是嵌套结构体内的占用最大内存属性的倍数
 
@@ -781,9 +677,7 @@ student1.name = new_name;
 
 ---
 
-数组和结构体的最常见组合之一是其元素是结构体的数组. 
-
-这种数组可以作为一个简单的数据库. 
+数组和结构体的最常见组合是每个元素均为结构体的数组. 
 
 能够存储100个零件信息的结构体part数组: 
 
@@ -798,14 +692,16 @@ student1.name = new_name;
 
 ---
 
-通过取下标来访问数组中的零件: 
-`print_part(inventory[i]);`
+```C
+//通过取下标来访问数组中的零件: 
+print_part(inventory[i]);
 
-访问结构体part中的成员需要结合使用下标和成员选择: 
-`inventory[i].number = 883;`
+// 访问结构体part中的成员需要结合使用下标和成员选择: 
+inventory[i].number = 883;
 
-访问零件名称中的单个字符需要先取下标, 然后是选择成员, 然后再取下标: 
-`inventory[i].name[0] = '\0';`
+// 访问零件名称中的单个字符需要先取下标, 然后是选择成员, 然后再取下标: 
+inventory[i].name[0] = '\0';
+```
 
 ---
 
