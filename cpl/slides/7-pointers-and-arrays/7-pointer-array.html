@@ -732,7 +732,7 @@ arr <span class="token operator">=</span> <span class="token punctuation">(</spa
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
 </section><section vertical="true" data-notes="" lineno="1256" class="slide " data-source-line="1256" data-h="0" data-v="58"><h5 id="函数malloc">函数malloc </h5>
 <hr>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdlib.h&gt;</span></span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
 <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> _Size<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>向<code>malloc</code>申请的空间的大小是以字节为单位的<br>
 返回类型默认是<code>void *</code></p>
@@ -740,7 +740,11 @@ arr <span class="token operator">=</span> <span class="token punctuation">(</spa
 <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>array <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>len <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>array <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>len <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>array<span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre><p>示例: <code>malloc.c</code></p>
-</section><section vertical="true" data-notes="" lineno="1278" class="slide " data-source-line="1278" data-h="0" data-v="59"><h5 id="free">free </h5>
+<ul>
+<li>分配失败返回NULL(判断是否分配失败)与arr[n] 有本质区别</li>
+</ul>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1283" class="slide " data-source-line="1283" data-h="0" data-v="59"><h5 id="free">free </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdlib.h&gt;</span></span>
 <span class="token keyword keyword-void">void</span> <span class="token function">free</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span>pointer<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -751,7 +755,8 @@ arr <span class="token operator">=</span> <span class="token punctuation">(</spa
 <li>内存泄漏memory leak</li>
 </ul>
 <p>示例: <code>malloc_space.c</code></p>
-</section><section vertical="true" data-notes="" lineno="1301" class="slide " data-source-line="1301" data-h="0" data-v="60"><h5 id="动态内存分配的常见错误">动态内存分配的常见错误 </h5>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1306" class="slide " data-source-line="1306" data-h="0" data-v="60"><h5 id="动态内存分配的常见错误">动态内存分配的常见错误 </h5>
 <hr>
 <ul>
 <li>
@@ -773,7 +778,7 @@ arr <span class="token operator">=</span> <span class="token punctuation">(</spa
 <p>释放后依旧试图继续使用</p>
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="1323" class="slide " data-source-line="1323" data-h="0" data-v="61"><h5 id="一些其他memory-allocation函数">一些其他memory allocation函数 </h5>
+</section><section vertical="true" data-notes="" lineno="1326" class="slide " data-source-line="1326" data-h="0" data-v="61"><h5 id="一些其他memory-allocation函数">一些其他memory allocation函数 </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">calloc</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> nitems<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -793,6 +798,102 @@ arr <span class="token operator">=</span> <span class="token punctuation">(</spa
 <p>free deallocates previoulsy allocated memory</p>
 </li>
 </ul>
+<hr>
+</section><section id="dsa" vertical="true" data-notes="" lineno="1351" class="slide " data-source-line="1351" data-h="0" data-v="62"><h5 id="动态存储分配">动态存储分配 </h5>
+<hr>
+<p>C的数据结构, 包括数组, 通常是固定大小.</p>
+<p>固定大小的数据结构可能会浪费大量内存资源.</p>
+<p>C支持<strong>动态存储分配</strong>: 在程序执行期间分配内存单元的能力.</p>
+<p>使用动态存储分配, 可以设计根据需要扩大(和缩小)的数据结构.</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1368" class="slide " data-source-line="1368" data-h="0" data-v="63"><h5 id="动态存储分配-1">动态存储分配 </h5>
+<hr>
+<p>动态存储分配最常用于字符串、数组和结构体.</p>
+<p>动态分配的结构可以链接形成链表、树和其他数据结构.</p>
+<p>动态存储分配是通过调用内存分配函数来完成的.</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1383" class="slide " data-source-line="1383" data-h="0" data-v="64"><h5 id="内存分配函数">内存分配函数 </h5>
+<hr>
+<p>&lt;stdlib.h&gt;头文件声明了三个内存分配函数:</p>
+<ul>
+<li>
+<p>malloc — 分配内存块, 但不对其进行初始化.</p>
+</li>
+<li>
+<p>calloc — 分配内存块并进行清零.</p>
+</li>
+<li>
+<p>realloc — 调整先前分配的内存块的大小.</p>
+</li>
+</ul>
+<p>这些函数返回一个<code>void *</code>类型的值(一个"通用"指针).</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1402" class="slide " data-source-line="1402" data-h="0" data-v="65"><h5 id="空指针">空指针 </h5>
+<hr>
+<p>如果内存分配函数找不到请求大小的内存块, 则返回<strong>空指针</strong>.</p>
+<p>空指针是可以与所有有效指针区分开来的特殊值.</p>
+<p>在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针.</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1417" class="slide " data-source-line="1417" data-h="0" data-v="66"><h5 id="空指针-1">空指针 </h5>
+<hr>
+<p>malloc的返回值的示例:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">/* allocation failed; take appropriate action */</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p>NULL是一个表示空指针的宏(在各种库头文件中定义). malloc的调用与NULL测试可结合起来:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* allocation failed; take appropriate action */</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1442" class="slide " data-source-line="1442" data-h="0" data-v="67"><h5 id="空指针-2">空指针 </h5>
+<hr>
+<p>指针以与数字相同的方式测试真假.</p>
+<p>所有非空指针都为真; 只有空指针是假的.</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> …
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>p<span class="token punctuation">)</span> …
+
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> …
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> …
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre><p>语句1-2等价, 4-5等价</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1465" class="slide " data-source-line="1465" data-h="0" data-v="68"><h5 id="动态分配字符串">动态分配字符串 </h5>
+<hr>
+<p>动态存储分配常用于处理字符串.</p>
+<p>若字符串存储在字符数组中, 很难预测数组需要的长度.</p>
+<p>动态分配字符串, 则允许在程序运行时决定长度.</p>
+<hr>
+</section><section id="das" vertical="true" data-notes="" lineno="1481" class="slide " data-source-line="1481" data-h="0" data-v="69"><h5 id="使用malloc为字符串分配内存">使用malloc为字符串分配内存 </h5>
+<hr>
+<p>malloc函数的原型:</p>
+<p><code>void *malloc(size_t size);</code></p>
+<p>malloc分配size个字节的内存块并返回一个指向它的(类型为void*)指针.</p>
+<p>size_t是库中定义的无符号整数类型.</p>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1498" class="slide " data-source-line="1498" data-h="0" data-v="70"><h5 id="使用malloc为字符串分配内存-1">使用malloc为字符串分配内存 </h5>
+<hr>
+<p>为n个字符的字符串分配内存的malloc调用:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>每个字符需要一个字节的内存; 加1是为空字符留出空间.</p>
+<p>一些程序员更喜欢强制转换malloc的返回值:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><hr>
+</section><section vertical="true" data-notes="" lineno="1523" class="slide " data-source-line="1523" data-h="0" data-v="71"><h5 id="使用malloc为字符串分配内存-2">使用malloc为字符串分配内存 </h5>
+<hr>
+<p>malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组:</p>
+<div class="top-2">
+  <img src="figs/16-1.png">
+</div>
+<hr>
+</section><section vertical="true" data-notes="" lineno="1538" class="slide " data-source-line="1538" data-h="0" data-v="72"><h5 id="使用malloc为字符串分配内存-3">使用malloc为字符串分配内存 </h5>
+<hr>
+<p>调用strcpy是初始化此数组的一种方法:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">strcpy</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>数组中的前四个字符现在将是a、b、c和<code>\0</code>:</p>
+<div class="top-2">
+  <img src="figs/16-2.png">
+</div>
 <hr>
 </section></section>
       </div>
