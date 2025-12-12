@@ -390,6 +390,213 @@ void free(void *ptr);
 
 ---
 
+<!-- slide id="dsa" vertical=true data-notes="" -->
+
+##### 动态存储分配
+
+---
+
+C的数据结构, 包括数组, 通常是固定大小. 
+
+固定大小的数据结构可能会浪费大量内存资源. 
+
+C支持**动态存储分配**: 在程序执行期间分配内存单元的能力. 
+
+使用动态存储分配, 可以设计根据需要扩大(和缩小)的数据结构. 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 动态存储分配
+
+---
+
+动态存储分配最常用于字符串、数组和结构体. 
+
+动态分配的结构可以链接形成链表、树和其他数据结构. 
+
+动态存储分配是通过调用内存分配函数来完成的. 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 内存分配函数
+
+---
+
+<stdlib.h>头文件声明了三个内存分配函数: 
+
+- malloc — 分配内存块, 但不对其进行初始化. 
+
+- calloc — 分配内存块并进行清零. 
+
+- realloc — 调整先前分配的内存块的大小. 
+
+这些函数返回一个`void *`类型的值(一个"通用"指针). 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 空指针
+
+---
+
+如果内存分配函数找不到请求大小的内存块, 则返回**空指针**. 
+
+空指针是可以与所有有效指针区分开来的特殊值. 
+
+在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针. 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 空指针
+
+---
+
+malloc的返回值的示例: 
+```C{.line-numbers}
+p = malloc(10000);
+if (p == NULL) {
+ /* allocation failed; take appropriate action */
+}
+```
+
+NULL是一个表示空指针的宏(在各种库头文件中定义). malloc的调用与NULL测试可结合起来: 
+
+```C{.line-numbers}
+if ((p = malloc(10000)) == NULL) {
+  /* allocation failed; take appropriate action */
+}
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 空指针
+
+---
+
+指针以与数字相同的方式测试真假. 
+
+所有非空指针都为真; 只有空指针是假的. 
+
+```C{.line-numbers}
+if (p == NULL) …
+if (!p) …
+
+if (p != NULL) …
+if (p) …
+```
+
+语句1-2等价, 4-5等价
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+
+##### 动态分配字符串
+
+---
+
+动态存储分配常用于处理字符串. 
+
+若字符串存储在字符数组中, 很难预测数组需要的长度. 
+
+动态分配字符串, 则允许在程序运行时决定长度. 
+
+---
+
+
+<!-- slide id="das" vertical=true data-notes="" -->
+
+
+##### 使用malloc为字符串分配内存
+
+---
+
+malloc函数的原型: 
+
+`void *malloc(size_t size);`
+
+malloc分配size个字节的内存块并返回一个指向它的(类型为void*)指针. 
+
+size_t是库中定义的无符号整数类型. 
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+
+##### 使用malloc为字符串分配内存
+
+---
+
+为n个字符的字符串分配内存的malloc调用: 
+
+```C{.line-numbers}
+char *p;
+p = malloc(n + 1);
+```
+
+每个字符需要一个字节的内存; 加1是为空字符留出空间. 
+
+一些程序员更喜欢强制转换malloc的返回值: 
+
+```C
+p = (char *) malloc(n + 1);
+```
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 使用malloc为字符串分配内存
+
+---
+
+malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组: 
+
+<div class="top-2">
+  <img src="figs/16-1.png">
+</div>
+
+---
+
+
+<!-- slide vertical=true data-notes="" -->
+
+##### 使用malloc为字符串分配内存
+
+---
+
+调用strcpy是初始化此数组的一种方法: 
+
+```C
+strcpy(p, "abc");
+```
+
+数组中的前四个字符现在将是a、b、c和`\0`: 
+<div class="top-2">
+  <img src="figs/16-2.png">
+</div>
+
+---
+
 
 <!-- slide vertical=true data-notes="" -->
 
