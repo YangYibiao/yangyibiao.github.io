@@ -253,7 +253,7 @@ p = (char *) malloc(n + 1);
 malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组: 
 
 <div class="top-2">
-  <img src="img/16-1.png">
+  <img src="figs/16-1.png">
 </div>
 
 ---
@@ -273,7 +273,7 @@ strcpy(p, "abc");
 
 数组中的前四个字符现在将是a、b、c和`\0`: 
 <div class="top-2">
-  <img src="img/16-2.png">
+  <img src="figs/16-2.png">
 </div>
 
 ---
@@ -655,7 +655,7 @@ p = q;
 前两条语句执行后: 
 
 <div class="top-2">
-  <img src="img/16-3.png">
+  <img src="figs/16-3.png">
 </div>
 
 ---
@@ -670,7 +670,7 @@ p = q;
 将q分配给p后, 两个变量现在都指向第二个内存块: 
 
 <div class="top-2">
-  <img src="img/16-4.png">
+  <img src="figs/16-4.png">
 </div>
 
 没有指向第一个块的指针, 因此再也不能使用它了. 
@@ -766,7 +766,7 @@ strcpy(p, "abc");   /*** WRONG ***/
 
 **链表**由一系列结构(称为**结点**)组成, 每个结点都包含指向链中下一个结点的指针: 
 <div class="top-2">
-    <img src="img/16-5.png" width=280px>
+    <img src="figs/16-5.png" width=280px>
 </div>
 
 链表中的最后一个结点包含一个空指针. 
@@ -865,7 +865,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 new_node现在指向一个刚好足以容纳结点结构体的内存块: 
 
 <div class="top-2">
-  <img src="img/16-6.png">
+  <img src="figs/16-6.png">
 </div>
 
 ---
@@ -882,7 +882,7 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 
 赋值后: 
 <div class="top-2">
-  <img src="img/16-7.png">
+  <img src="figs/16-7.png">
 </div>
 
 `*new_node`周围的括号是强制要求的, 因为.运算符优先于*运算符. 
@@ -986,7 +986,7 @@ first = NULL;
 ```
 
 <div class="top-2">
-  <img src="img/16-8-1.png">
+  <img src="figs/16-8-1.png">
 </div>
 
 ```C
@@ -994,7 +994,7 @@ new_node = malloc(sizeof(struct node));
 ```
 
 <div class="top-2">
-  <img src="img/16-8-2.png">
+  <img src="figs/16-8-2.png">
 </div>
 
 ---
@@ -1011,7 +1011,7 @@ new_node->value = 10;
 ```
 
 <div class="top-2">
-  <img src="img/16-8-3.png">
+  <img src="figs/16-8-3.png">
 </div>
 
 ```C
@@ -1019,7 +1019,7 @@ new_node->next = first;
 ```
 
 <div class="top-2">
-  <img src="img/16-9-1.png">
+  <img src="figs/16-9-1.png">
 </div>
 
 ---
@@ -1036,7 +1036,7 @@ first = new_node;
 ```
 
 <div class="top-2">
-  <img src="img/16-9-2.png">
+  <img src="figs/16-9-2.png">
 </div>
 
 ```C
@@ -1044,7 +1044,7 @@ new_node = malloc(sizeof(struct node));
 ```
 
 <div class="top-2">
-  <img src="img/16-9-3.png">
+  <img src="figs/16-9-3.png">
 </div>
 
 ---
@@ -1061,7 +1061,7 @@ new_node->value = 20;
 ```
 
 <div class="top-2">
-  <img src="img/16-10-1.png">
+  <img src="figs/16-10-1.png">
 </div>
 
 ```C
@@ -1069,7 +1069,7 @@ new_node->next = first;
 ```
 
 <div class="top-2">
-  <img src="img/16-10-2.png">
+  <img src="figs/16-10-2.png">
 </div>
 
 ---
@@ -1086,7 +1086,7 @@ first = new_node;
 ```
 
 <div class="top-2">
-  <img src="img/16-10-3.png">
+  <img src="figs/16-10-3.png">
 </div>
 
 ---
@@ -1347,13 +1347,13 @@ for (cur = list, prev = NULL;
 假设链表如下并且n为20: 
 
 <div class="top-2">
-  <img src="img/16-11-1.png">
+  <img src="figs/16-11-1.png">
 </div>
 
 执行完`cur = list, prev = NULL`后: 
 
 <div class="top-2">
-  <img src="img/16-11-2.png">
+  <img src="figs/16-11-2.png">
 </div>
 
 ---
@@ -1369,7 +1369,7 @@ for (cur = list, prev = NULL;
 
 执行完`prev = cur, cur = cur->next`后: 
 <div class="top-2">
-  <img src="img/16-12.png">
+  <img src="figs/16-12.png">
 </div>
 
 ---
@@ -1383,7 +1383,7 @@ for (cur = list, prev = NULL;
 
 判定表达式`cur != NULL && cur->value != n`再次为真, 所以再次执行`prev = cur`, `cur = cur->next`: 
 <div class="top-2">
-  <img src="img/16-13.png">
+  <img src="figs/16-13.png">
 </div>
 
 由于cur现在指向包含20的结点, 条件`cur->value != n`为假, 循环终止. 
@@ -1405,7 +1405,7 @@ for (cur = list, prev = NULL;
 使前一个结点中的指针指向当前结点后面的结点: 
 
 <div class="top-2">
-  <img src="img/16-14.png">
+  <img src="figs/16-14.png">
 </div>
 
 ---
