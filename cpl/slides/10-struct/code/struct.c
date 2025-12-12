@@ -2,7 +2,7 @@
 
 #pragma pack() // 强制按一个字节对齐
 
-struct record_tab {
+struct record_tag {
     int num;
     double score; // 结构体中最大的类型进行对齐
     char id;
@@ -14,8 +14,8 @@ typedef struct {
     char id;
 } record;
 
-void Print1(struct record_tab r);
-void Print1_pointer(struct record_tab *p);
+void Print1(struct record_tag r);
+void Print1_pointer(struct record_tag *p);
 void Print2(record r);
 
 record initialize_record()
@@ -26,7 +26,7 @@ record initialize_record()
 
 int main()
 {
-    struct record_tab stu = {12, 92.0, 'M'};
+    struct record_tag stu = {12, 92.0, 'M'};
 
     printf("%lu\n", sizeof(stu));
     printf("%p\n", &stu);
@@ -42,7 +42,7 @@ int main()
     return 0;
 }
 
-void Print1(struct record_tab r)
+void Print1(struct record_tag r)
 {
     printf("1-[%d, %f, %c]\n", r.num, r.score, r.id);
     printf("%p\n", &r);
@@ -51,7 +51,7 @@ void Print1(struct record_tab r)
     printf("%p: %c\n", &r.id, r.id);
 }
 
-void Print1_pointer(struct record_tab *p)
+void Print1_pointer(struct record_tag *p)
 {
     printf("1-pointer[%d, %f, %c]\n", (*p).num, (*p).score, (*p).id);
     printf("1-pointer[%d, %f, %c]\n", p->num, p->score, p->id);
