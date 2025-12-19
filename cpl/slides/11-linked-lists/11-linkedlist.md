@@ -1035,7 +1035,7 @@ struct node *search_list(struct node *list, int n)
 }
 ```
 
-由于list是原始链表指针的副本, 因此在函数中更改它没有损害. 
+注意：list是原始链表指针的副本, 在函数中更改没有副作用. 
 
 ---
 
@@ -1087,7 +1087,7 @@ struct node *search_list(struct node *list, int n)
 
 ---
 
-将数据存储在链表中的一大优势是我们可以轻松删除结点. 
+将数据存储在链表中的一大优势是可以轻松删除结点. 
 
 删除结点包含3个步骤: 
 
