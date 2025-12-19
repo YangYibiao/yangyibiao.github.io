@@ -112,12 +112,12 @@ presentation:
 ---
 
 
-```
-int printf( const char*          format, ... );
-int scanf( const char          *format, ... );
+```C
+int printf(const char*          format, ... );
+int scanf(const char          *format, ... );
 ```
 
-```
+```C
 char str[1024];
 scanf("%s", str);
 
@@ -125,6 +125,7 @@ int a, b;
 scanf("%d%d", &a, &b);
 printf("a + b is : %d", a + b);
 ```
+
 ---
 
 
@@ -259,9 +260,10 @@ Average of 3.5 and 9.6: 6.55
 Average of 9.6 and 10.2: 9.9
 Average of 3.5 and 10.2: 6.85
 
+---
+
+
 <!-- slide vertical=true data-notes="" -->
-
-
 
 ##### 程序: 计算平均值
 
@@ -1875,6 +1877,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 分治法把大问题分成多个小问题, 采用相同算法分别解决小问题. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1893,7 +1896,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 2. 通过递归地采用快速排序方法对元素$1, \dots, i – 1$进行排序. 
 3. 通过递归地采用快速排序方法对元素$i + 1, \dots, n$进行排序.  
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1909,7 +1912,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 该算法依赖于两个名为low和high的"标记", 跟踪数组中的位置. 
 
-
+---
 
 <!-- slide vertical=true data-notes="" -->
 
@@ -1925,6 +1928,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 - 重复该过程, 直到low和high在一个空位处相遇. 
 - 最后, 将分割元素复制给空位. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1939,6 +1943,7 @@ fact和power都会在调用时小心地测试==终止条件==.
   <img src="figs/9-1.png">
 </div>
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -1951,6 +1956,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 既然数组已经被分割, 那么可以使用快速排序法递归地对数组的前4个元素(10、3、6和7)和后2个元素(15和18)进行排序. 
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -1968,6 +1974,7 @@ In sorted order: 3 4 9 12 16 25 47 51 66 82
 
 对数组进行分割的代码位于一个名为split的独立函数中. 
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
@@ -2036,8 +2043,8 @@ int split(int a[], int low, int high)
   return high;
 }
 ```
----
 
+---
 
 
 <!-- slide vertical=true data-notes="" -->
