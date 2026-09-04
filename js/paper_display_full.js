@@ -21,16 +21,27 @@ window.onload = function() {
                 var conference = obj[i].conference
                 var tier = obj[i].tier
                 var highlight = obj[i].highlight
+                var corresponding = obj[i].corresponding
 
                 var equal_str = ""
 
                 if(equal == true) {
-                    equal_str = "  (* Equal contribution)"
+                    equal_str = "  († Equal contribution)"
                 }
 
                 for(var j=0 ; j<author.length ; j++){
-                    if(author[j] == "Yibiao Yang" || author[j] == "Yibiao Yang*" || author[j] == "杨已彪" || author[j] == "杨已彪*"){
-                        author[j] = "<b>" + author[j] + "</b>";
+                    var is_yang = (author[j] == "Yibiao Yang" || author[j] == "Yibiao Yang*" || author[j] == "杨已彪" || author[j] == "杨已彪*");
+                    var bare = author[j].replace("*", "");
+                    var is_corr = false;
+                    if(corresponding === true) {
+                        is_corr = is_yang;
+                    } else if(Array.isArray(corresponding)) {
+                        is_corr = (corresponding.indexOf(bare) >= 0);
+                    }
+                    if(is_yang) {
+                        author[j] = "<b>" + bare + (is_corr ? "*" : "") + "</b>";
+                    } else if(is_corr) {
+                        author[j] = bare + "*";
                     }
                 }
                 var author_str = author.join(', ');

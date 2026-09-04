@@ -16,13 +16,24 @@ for entry in papers:
     url = entry["url"] or "https://yangyibiao.github.io"
     authors = entry["author"]
 
+    corr = entry.get("corresponding")
+
+    def is_corr(a):
+        bare = a.replace("<b>", "").replace("</b>", "")
+        if corr is True:
+            return "Yibiao Yang" in bare or "杨已彪" in bare
+        if isinstance(corr, list):
+            return bare in corr
+        return False
+
     authors = [
         f"<b>{a}</b>" if "Yibiao Yang" in a or "杨已彪" in a else a
         for a in authors
     ]
+    authors = [a + "*" if is_corr(a) else a for a in authors]
     author_str = ", ".join(authors)
 
-    equal_str = " (* Equal contribution)" if entry.get("equal") else ""
+    equal_str = " († Equal contribution)" if entry.get("equal") else ""
 
     meta_links = [
         f'<a href="{value}">{key}</a>'
