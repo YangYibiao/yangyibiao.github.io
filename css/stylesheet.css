@@ -398,24 +398,22 @@ ul.news .date {
 }
 
 .student-table li {
-  display: table-row;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 10px;
   margin-bottom: 0.5rem;
 }
 
 .student-table .name-cell {
-  display: table-cell;
-  width: 60px;
+  min-width: 56px;
   text-align: left;
-  padding-right: 10px;
-  vertical-align: top;
   font-weight: 600;
 }
 
 .student-table .name-en {
-  display: table-cell;
-  width: 100px;
+  min-width: 130px;
   text-align: left;
-  vertical-align: top;
   color: #666;
 }
 
@@ -424,9 +422,6 @@ ul.news .date {
 }
 
 .student-table .date-cell {
-  display: table-cell;
-  width: 100px;
-  vertical-align: top;
   color: #666;
 }
 
@@ -434,15 +429,40 @@ ul.news .date {
   color: #aaa;
 }
 
-.student-table .honor-cell {
-  display: table-cell;
-  vertical-align: top;
+/* ===== STUDENT HONORS TOGGLE ===== */
+.honor-toggle {
+  display: none;
+}
+
+.honor-label {
+  cursor: pointer;
+  font-weight: 600;
   color: #2e7d32;
   font-size: 0.9rem;
 }
 
-[data-theme="dark"] .student-table .honor-cell {
+[data-theme="dark"] .honor-label {
   color: #81c784;
+}
+
+.honor-label:hover {
+  text-decoration: underline;
+}
+
+.honor-text {
+  display: none;
+  flex-basis: 100%;
+  color: #2e7d32;
+  font-size: 0.9rem;
+  padding-left: 66px;
+}
+
+[data-theme="dark"] .honor-text {
+  color: #81c784;
+}
+
+.student-table li:has(.honor-toggle:checked) .honor-text {
+  display: block;
 }
 
 /* ===== PUBLICATIONS ===== */
@@ -594,15 +614,23 @@ ul.news .date {
 
 .contact-item {
   background: rgba(0, 102, 204, 0.05);
-  padding: 1.5rem;
+  padding: 0.9rem 1rem;
   border-radius: 8px;
   border-left: 4px solid var(--primary-color);
+}
+
+.contact-item h3 {
+  margin-bottom: 0.4rem;
+}
+
+.contact-item p {
+  margin: 0;
 }
 
 .social-links {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .social-links a {
