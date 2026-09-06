@@ -8,25 +8,31 @@ window.onload = function() {
     request.onload = function() {
         if(request.status == 200) {
             var obj = JSON.parse(request.responseText);
-            console.log(obj);
+            obj.sort(function(a, b) { return (b.year || 0) - (a.year || 0); });
+
+            var lastYear = "";
             for(var i=0; i<obj.length; i++) {
-                var title = obj[i].title
-                var author = obj[i].author
-                var url = obj[i].url
-                var publisher = obj[i].publisher
-                var year = obj[i].year
-                var volume = obj[i].volume
-                var page = obj[i].page
-                var equal = obj[i].equal
-                var conference = obj[i].conference
-                var tier = obj[i].tier
-                var highlight = obj[i].highlight
-                var corresponding = obj[i].corresponding
+                var e = obj[i];
+                var title = e.title
+                var author = e.author
+                var link = e.url
+                var publisher = e.publisher
+                var year = e.year
+                var volume = e.volume
+                var page = e.page
+                var equal = e.equal
+                var tier = e.tier
+                var highlight = e.highlight
+                var corresponding = e.corresponding
+
+                if (year != lastYear) {
+                    html += '<tr class="year-row"><td>' + year + '</td></tr>';
+                    lastYear = year;
+                }
 
                 var equal_str = ""
-
                 if(equal == true) {
-                    equal_str = "  († Equal contribution)"
+                    equal_str = " † Equal contribution"
                 }
 
                 for(var j=0 ; j<author.length ; j++){
@@ -46,45 +52,49 @@ window.onload = function() {
                 }
                 var author_str = author.join(', ');
 
-                var meta = obj[i].meta
-                
+                var meta = e.meta
                 var meta_array = []
                 for(let key in meta){
-                    if(meta[key] != false){ 
-                        meta_array.push("<a href=" + meta[key] + ">" + key + "</a>")
+                    if(meta[key] != false){
+                        meta_array.push('<a href="' + meta[key] + '">' + key + '</a>')
                     }
                 }
                 var meta_str = meta_array.join('  /  ')
 
-                var bgcolor_str = "'#ffffff'"
-                if (highlight == true) {
-                    bgcolor_str = "'#ffffd0'"
+                var title_str = title;
+                if(link != "" && link != null) {
+                    title_str = '<a href="' + link + '" class="paper-title">' + title + '</a>';
                 }
-                suffix = publisher + ", " + volume + ": " + page + ", " + year
-                if (conference == true) {
-                    suffix = publisher + ", " + volume + ", " + year + ": " + page
+
+                var suffix = publisher + ", " + year;
+                if(volume != "" && volume != null) {
+                    suffix += ", Vol. " + volume;
                 }
-                if (url == "") {
-                    url = "https://yangyibiao.github.io/fullpub.html"
+                if(page != "" && page != null) {
+                    suffix += ", pp. " + page;
                 }
-                html += 
-                "\
-                <tr bgcolor=" + bgcolor_str + ">\
-                    <td width='60%' valign='middle'>\
-                    <p>\
-                        <a href=" + url + " style='font-size:18px'>" + title + "</a>\
-                        <br>" + author_str + 
-                        "<br>\
-                        <em>"+ suffix + ". (" + "<span style='color: red;'>" + tier + "</span>" + ")" + equal_str + "</em>\
-                        <br>\
-                        " + meta_str + "\
-                    </font>\
-                    </td>\
-                </tr>\
-                <br>\
-                "
+
+                var tier_str = "";
+                if(tier != "" && tier != null) {
+                    var cls = (tier.indexOf("CCF-A") >= 0) ? 'venue-ccf-a' : '';
+                    tier_str = '(<span class="' + cls + '">' + tier + '</span>)';
+                }
+
+                var row_class = (highlight == true) ? 'publication-row highlight' : 'publication-row ';
+
+                html +=
+                '<tr class="' + row_class + '">' +
+                    '<td>' +
+                        '<p class="publication-item">' +
+                            title_str + '<br>' +
+                            author_str + '<br>' +
+                            '<em>' + suffix + ' ' + tier_str + equal_str + '</em>' +
+                            (meta_str != "" ? '<br>' + meta_str : '') +
+                        '</p>' +
+                    '</td>' +
+                '</tr>';
             }
-            document.getElementById("paper").innerHTML = html;
+            document.getElementById("paper").innerHTML = '<table class="publications-table"><tbody>' + html + '</tbody></table>';
         }
     }
 }
