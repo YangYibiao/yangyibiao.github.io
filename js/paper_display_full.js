@@ -30,11 +30,6 @@ window.onload = function() {
                     lastYear = year;
                 }
 
-                var equal_str = ""
-                if(equal == true) {
-                    equal_str = " † Equal contribution"
-                }
-
                 for(var j=0 ; j<author.length ; j++){
                     var is_yang = (author[j] == "Yibiao Yang" || author[j] == "Yibiao Yang*" || author[j] == "杨已彪" || author[j] == "杨已彪*");
                     var bare = author[j].replace("*", "");
@@ -48,6 +43,9 @@ window.onload = function() {
                         author[j] = "<b>" + bare + (is_corr ? "*" : "") + "</b>";
                     } else if(is_corr) {
                         author[j] = bare + "*";
+                    }
+                    if(equal == true && j < 2) {
+                        author[j] += "†";
                     }
                 }
                 var author_str = author.join(', ');
@@ -88,7 +86,7 @@ window.onload = function() {
                         '<p class="publication-item">' +
                             title_str + '<br>' +
                             author_str + '<br>' +
-                            '<em>' + suffix + ' ' + tier_str + equal_str + '</em>' +
+                            '<em>' + suffix + ' ' + tier_str + '</em>' +
                             (meta_str != "" ? '<br>' + meta_str : '') +
                         '</p>' +
                     '</td>' +
