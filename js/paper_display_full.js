@@ -1,5 +1,27 @@
 var html = ""
 
+// 按开会时间（会议月份）排序：会议按月份降序，期刊论文（无会期）排在该年份会议之后
+function confMonth(e) {
+    var t = (e.tier || "") + " " + (e.publisher || "");
+    var y = parseInt(e.year) || 0;
+    if (t.indexOf("OOPSLA") >= 0) return 10;
+    if (t.indexOf("ESEC/FSE") >= 0) return (y == 2023) ? 12 : 11;
+    if (t.indexOf("FSE") >= 0) return 11;
+    if (t.indexOf("ASE") >= 0) return (y == 2019) ? 11 : 9;
+    if (t.indexOf("ISSTA") >= 0) return 7;
+    if (t.indexOf("USENIX ATC") >= 0) return 7;
+    if (t.indexOf("ICSE") >= 0) return 5;
+    if (t.indexOf("ASPLOS") >= 0) return 3;
+    if (t.indexOf("SANER") >= 0) return (y == 2017) ? 2 : 3;
+    if (t.indexOf("ESEM") >= 0) return (y == 2023) ? 10 : 11;
+    if (t.indexOf("AAAI") >= 0) return 1;
+    return 0; // 期刊论文
+}
+
+function dateKey(e) {
+    return (parseInt(e.year) || 0) * 100 + confMonth(e);
+}
+
 window.onload = function() {
     var url = "paper.json"
     var request = new XMLHttpRequest();
@@ -8,7 +30,7 @@ window.onload = function() {
     request.onload = function() {
         if(request.status == 200) {
             var obj = JSON.parse(request.responseText);
-            obj.sort(function(a, b) { return (b.year || 0) - (a.year || 0); });
+            obj.sort(function(a, b) { return dateKey(b) - dateKey(a); });
 
             var lastYear = "";
             for(var i=0; i<obj.length; i++) {
