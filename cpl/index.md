@@ -1,7 +1,7 @@
 @import "css/theme/solarized.css"
 @import "css/index.css"
 
-## C语言程序设计基础 <span style="font-weight:900">2025</span> 秋
+## 智能程序设计（C语言）<span style="font-weight:900">2026</span> 秋
 
 ---
 
@@ -9,58 +9,69 @@
 
 授课：杨已彪 _yangyibiao@nju.edu.cn_
 
-- **2025学年：42 学时理论，第 4 ~ 18 周，每周三学时**
+- **2026学年：64 学时理论，第 1 ~ 16 周，每周两次（周二、周三各 2 节，每节 50 分钟）**
 
 
 <div class="top-2"></div>
 
 #### 考核
 
-[考核方式](http://docs.cpl.icu/#/hw)
+- 平时成绩 20%：课堂代码实操 + 在线OJ系统闯关
+- 期末项目 20%：跨学科智能应用开发（代码 + 答辩 + 技术文档）
+- 课程考试 60%：闭卷机试（语法基础、算法设计和智能应用）
 
 #### 课件
 
 在线浏览，Space 翻页，Esc 导航，可能需{==科学上网==}才能打开
 
+课件按教学周陆续发布
+
 <div class="threelines outline head-highlight">
 
 |        |              讲义                | 内容                           |
 | :----: | :--                             | :--                            |
-| 第一讲  | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍   |
-|   ^    | [编程语言](slides/0-intro/0-1-clang.html)        | 编程语言                    |
-|   ^    | [演示](slides/0-intro/0-2-hello.html)        | C代码基本结构                    |
-| 第二讲  | [变量类型](slides/1-types-io/1-1-variables.html)  | 变量和数据类型                    |
-|   ^    | [输入输出](slides/1-types-io/1-2-io.html)  | 格式化输入输出                    |
-|   ^    | [表达式](slides/1-types-io/1-3-expr.html)          | 运算符和表达式                |
-|   ^    | [演示](slides/1-types-io/1-4-coding.html)          | 讲解/编码                |
-| 第三讲  | [讲稿](slides/2-if-for-array/2-4-coding.html)     | 代码演示  |
-|   ^    | [选择](slides/2-if-for-array/2-1-if.html)        | 逻辑表达式、if语句、switch语句    |
-|   ^    | [循环](slides/2-if-for-array/2-2-loops.html)           | while语句、do-while语句、for语句 |
-|   ^    | [数组](slides/2-if-for-array/2-3-arrays.html)           | 一维数组  |
-| 第四讲  | [循环](slides/3-for-a-while/3-1-loops.html)        | for while do-while coding    |
-|   ^    | [演示](slides/3-for-a-while/3-2-coding.html)        | 循环（编码）    |
-| 第五讲  | [多维数组](slides/4-loops/4-2-coding.html)       | 多位数组（编码） |
-|   ^  | [多维数组](slides/4-loops/4-1-marrays.html)       | 多维数组 |
-| 第六讲  | [函数](slides/5-function/5-1-functions-coding.html)       | 函数(编码) |
-| ^  | [函数](slides/5-function/5-1-functions.html)       | 函数 |
-| 第七讲  | [数据类型](slides/6-data-types/6-data-types.html)       | 数据类型 |
-| 第八讲  | [指针与数组](slides/7-pointers-and-arrays/7-pointer-array.html)       | 指针与数组 |
-| 第九讲  | [字符串](slides/8-pointers-and-c-strings/8-pointers-c-strings.html)            | 字符串 |
-| 第十讲  | [高级指针](slides/9-double-pointers/9-double-pointers.html)            | 指针与多维数组 |
-| 第十一讲  | [结构体](slides/10-struct/10-struct.html)            | 结构体 |
-| 第十二讲  | [链表](slides/11-linked-lists/11-linkedlist.html)            | 链表 |
-<!-- | 第十三讲  | [链表](slides/12-linked-lists/12-linkedlist.html)            | 链表 |
-| 第十四讲  | [函数指针](slides/13-recursion/13-function-pointers.html)            | 函数指针 | -->
+| 第1周   | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍（周二）   |
+|   ^    | [入门](slides/0-intro/0-1-programming-and-c.html)        | 程序设计与C语言入门（周二）                    |
+|   ^    | [C语言与人工智能](slides/0-intro/0-2-c-and-ai.html)        | C语言、人工智能与变量（周三）                    |
+| 第2周   | 待发布                            | 数据类型深化                    |
+|   ^    | 待发布                            | 格式化输入输出                    |
+| 第3周   | 待发布                            | 运算符和表达式                |
+|   ^    | 待发布                            | 类型转换与数学库函数                |
+| 第4周   | 待发布                            | 选择结构 (上)    |
+|   ^    | 待发布                            | 选择结构 (下)    |
+| 第5周   | 待发布                            | 循环结构 (上)    |
+|   ^    | 待发布                            | 循环结构 (下)    |
+| 第6周   | 待发布                            | 函数 |
+|   ^    | 待发布                            | 函数(编码) |
+|   ^    | 待发布                            | 函数与栈 |
+| 第7周   | 待发布                            | 递归函数 |
+|   ^    | 待发布                            | 一维数组  |
+| 第8周   | 待发布                            | 排序、查找（编码） |
+|   ^    | 待发布                            | 多维数组 |
+| 第9周   | 待发布                            | 指针与数组 |
+| 第10周  | 待发布                            | 字符串 |
+| 第11周  | 待发布                            | 指针与多维数组、指针数组 |
+|   ^    | 待发布                            | 函数指针 |
+| 第12周  | 待发布                            | 结构体 |
+|   ^    | 待发布                            | 枚举、typedef与const |
+| 第13周  | 待发布                            | 动态内存与链表 |
+| 第14周  | 待发布                            | 文件操作与多文件组织 |
+| 第15周  | 待发布                            | 人工智能实践 |
+| 第16周  | 待发布                            | 总复习与期末项目答辩 |
 
 </div>
 
 #### 教材
 
+《C语言程序设计教程》 姜恒远主编，高等教育出版社，2010（ISBN 9787040302769）
+
+#### 参考教材
+
 [_C语言程序设计现代方法 第二版 修订版_](book/C语言程序设计现代方法-第二版.pdf) <br>K.N. King 著，吕秀峰、黄倩 译
 
 #### 在线评测系统
 
-[https://cpl.si-qi.wang/](https://cpl.si-qi.wang/)
+[http://172.28.223.3/](http://172.28.223.3/)（仅校园网内访问，请用学号注册）
 
 
 <!-- #### 答疑相关
