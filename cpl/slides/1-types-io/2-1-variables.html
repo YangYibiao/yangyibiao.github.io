@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>0-0-intro</title>
+      <title>2-1-variables</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -32,7 +32,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><style>:root { --r-main-font-size: 46px; }</style></head><body for="html-export" data-presentation-mode="">
+</script></head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -62,195 +62,223 @@
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="课程介绍">课程介绍 </h2>
+<h2 id="数据类型深化">数据类型深化 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-<div class="top-2">
-  <img src="../figs/lets-code.jpeg" width="360px">
+</section><section data-notes="" lineno="52" class="slide " data-source-line="52" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
+<hr>
+<ul>
+<li>
+<p>类型修饰符与取值范围</p>
+</li><li>
+<p>赋值细节</p>
+</li><li>
+<p>常量与符号常量</p>
+</li><li>
+<p>案例: Circle 与 Sphere</p>
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="52" class="slide " data-source-line="52" data-h="2" data-v="0"><h5 id="类型修饰符">类型修饰符 </h5>
+<hr>
+<p><mark>修饰符</mark>: 改变整数类型的取值范围, 或是否允许负号</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>short</code> / <code>long</code></td>
+<td>短整型 / 长整型</td>
+</tr>
+<tr>
+<td><code>signed</code></td>
+<td>有符号 (默认, 可表示负数)</td>
+</tr>
+<tr>
+<td><code>unsigned</code></td>
+<td>无符号 (只表示 0 与正数, 范围更大)</td>
+</tr>
+</tbody>
+</table>
 </div>
-</section><section data-notes="" lineno="50" class="slide " data-source-line="50" data-h="1" data-v="0"><h5 id="课程安排">课程安排 </h5>
-<hr>
-<p>授课: <a href="http://cs.nju.edu.cn/yangyibiao">杨已彪</a>, <a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></p>
-<p>时间:</p>
+<p>常见组合: <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned long</code></p>
 <ul>
 <li>
-<p>理论: 64 学时，每周两次 (<mark>周二</mark>、<mark>周三</mark>各 2 节，每节 50 分钟)，第 1 ~ 16 周</p>
-</li>
-<li>
-<p>实验: 在线测试(OJ: Online Judge)</p>
-</li>
-</ul>
-<p><span class="blue"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> <mark>“Talk is cheap. Show me the code.”</mark> – Linus Torvalds<br>
-<span class="blue"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> <mark>纸上得来终觉浅，绝知此事要躬行</mark> – 陆游</p>
-</section><section data-notes="" lineno="74" class="slide " data-source-line="74" data-h="2" data-v="0"><h5 id="课前小调查">课前小调查 </h5>
+<p>位数: <code>short</code> ≤ <code>int</code> ≤ <code>long</code></p>
+</li></ul>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 用 <mark>sizeof</mark> 运算符可查看类型占用的字节数</p>
 <hr>
-<p><mark>举手统计</mark></p>
+</section><section data-notes="" lineno="64" class="slide " data-source-line="64" data-h="3" data-v="0"><h5 id="类型-int">类型: int </h5>
+<hr>
+<p><mark>C</mark> 有多种类型, 包括int、float、double、char等类型的变量</p>
+<p><mark>int</mark>变量:</p>
+<ul>
+<li>(整数integer的缩写)存储整数, 如<code>0</code>, <code>1</code>, <code>392</code>或<code>-2553</code></li>
+<li>整形的取值范围是受限的, 最大的整数通常是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2147483647</mn></mrow><annotation encoding="application/x-tex">2 147 483 647</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2147483647</span></span></span></span>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{31}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>), 16位机最大整数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32767</mn></mrow><annotation encoding="application/x-tex">32 767</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32767</span></span></span></span></li>
+<li>INT_MAX, INT_MIN (limits.h头文件中定义的常量)</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;limits.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Max: %d, Min: %d"</span><span class="token punctuation">,</span> INT_MAX<span class="token punctuation">,</span> INT_MIN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+</section><section data-notes="" lineno="76" class="slide " data-source-line="76" data-h="4" data-v="0"><h5 id="类型-char">类型: char </h5>
+<hr>
+<p><mark>char</mark> 变量: 存储字符, 如’A’</p>
 <ul>
 <li>
-<p>有<mark>程序设计</mark>基础的同学有多少？</p>
+<p>单引号</p>
 </li>
 <li>
-<p>有 <mark>C语言</mark> 基础的同学有多少？</p>
+<p>0000000 ～ 1111111, 0 ~ 127的整数</p>
 </li>
 <li>
-<p><mark>一点基础</mark>都没有的同学有多少？</p>
+<p>字符’a’的值是97, 'A’的值是65, '0’的值是48, ’ '的值是32</p>
+</li>
+<li>
+<p>%c</p>
 </li>
 </ul>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 调查结果用于调整教学节奏</p>
-</section><section data-notes="" lineno="72" class="slide " data-source-line="72" data-h="3" data-v="0"><h5 id="qq群-1班">QQ群-1班 </h5>
-<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> gender <span class="token operator">=</span> <span class="token char">'M'</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> <span class="token function">toupper</span><span class="token punctuation">(</span>gender<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> gender <span class="token operator">+</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <div class="top-2">
-  <img src="../figs/1班qq群.jpg" width="200px">
+  <img src="img/ASCII.png" width="500px">
 </div>
-<p><mark>群号: 1073454008</mark></p>
-</section><section data-notes="" lineno="83" class="slide " data-source-line="83" data-h="4" data-v="0"><h5 id="qq群-8班">QQ群-8班 </h5>
 <hr>
-<div class="top-2">
-  <img src="../figs/8班qq群.jpg" width="200px">
-</div>
-<p><mark>群号: 687133341</mark></p>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="5" data-v="0"><h5 id="课程答疑">课程答疑 </h5>
+</section><section data-notes="" lineno="88" class="slide " data-source-line="88" data-h="5" data-v="0"><h5 id="变量与赋值---赋值">变量与赋值 - 赋值 </h5>
 <hr>
+<p>变量在赋值或者以其他方式使用之前必须先声明</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span>
+<span class="token keyword keyword-int">int</span> height<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>把包含小数点常量赋值给float型变量时, 最好在常量后加字母f:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> profit <span class="token operator">=</span> <span class="token number">2150.48f</span><span class="token punctuation">;</span>
+</code></pre><p>double类型的变量赋值不要加字母f:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>
+</code></pre>
+<p>混合类型赋值:</p>
 <ul>
 <li>
-<p>线上答疑: QQ群内提问或<mark>私聊</mark>线上助教，每班有一位学长主要负责线上答疑</p>
+<p>可以把int型的值赋给double型变量</p>
 </li>
 <li>
-<p>线下答疑: <mark>上机课</mark>时间，每班有一位学长到线下教室答疑</p>
+<p>也可以把double型值赋给int型变量, 但不一定安全</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="106" class="slide " data-source-line="106" data-h="6" data-v="0"><h5 id="考核方式">考核方式 </h5>
+<ul>
+<li>一旦一个变量被赋值, 它就可以用来帮助计算另一个变量的值:</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+length <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+volume <span class="token operator">=</span> height <span class="token operator">*</span> length <span class="token operator">*</span> width<span class="token punctuation">;</span>
+<span class="token comment">/* volume is now 960 */</span>
+</code></pre><ul>
+<li>赋值的右侧可以是涉及常量、变量和运算符的公式(或C术语中表达式)</li>
+</ul>
 <hr>
+</section><section data-notes="" lineno="100" class="slide " data-source-line="100" data-h="6" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
+<hr>
+<p><mark>常量</mark>: 程序运行过程中其值已知且不能改变的量, 如 <code>8</code>, <code>12</code>, <code>10</code>, <code>'M'</code></p>
+<p><mark>符号常量</mark>: 给常量起一个名字, 提高可读性、便于修改</p>
 <ul>
 <li>
-<p>平时成绩: <mark>20%</mark> (课堂代码实操 + 在线OJ系统闯关)</p>
-</li>
-<li>
-<p>期末项目: <mark>20%</mark> (跨学科智能应用开发: 代码 + 答辩 + 技术文档)</p>
-</li>
-<li>
-<p>课程考试: <mark>60%</mark> (闭卷机试: 语法基础、算法设计和智能应用)</p>
-</li>
-<li>
-<p>教案发布: <a href="https://yangyibiao.github.io/cpl/index.html">https://yangyibiao.github.io/cpl/index.html</a></p>
-</li>
-<li>
-<p>课程网址: <a href="https://yangyibiao.github.io/cpl">https://yangyibiao.github.io/cpl</a></p>
-</li>
-<li>
-<p>在线评测网址: <mark> http://172.28.223.3/ </mark> (仅校园网内访问)</p>
+<p>宏定义: 预处理命令, 结尾<mark>没有分号</mark></p>
 </li>
 </ul>
-</section><section data-notes="" lineno="133" class="slide " data-source-line="133" data-h="7" data-v="0"><h5 id="在线评测系统-oj">在线评测系统 (OJ) </h5>
-<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>#define PI 3.14159
+#define GRAM_PER_MOL 32</code></pre>
 <ul>
 <li>
-<p>地址: <mark>http://172.28.223.3/</mark> (本平台位于<mark>校园网内</mark>，须在校内网络访问)</p>
-</li>
-<li>
-<p>注册: 用<mark>学号</mark>注册账号 (便于平时作业统计)</p>
-</li>
-<li>
-<p><mark>务必记住密码</mark>: 校外无法收到修改密码的邮件</p>
+<p>const限定: 声明为只读变量</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="146" class="slide " data-source-line="146" data-h="8" data-v="0"><h5 id="oj-作业流程">OJ 作业流程 </h5>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>const double MOL = 6.02E23;
+const int GRAM_PER_MOL = 32;</code></pre>
 <hr>
+</section><section data-notes="" lineno="112" class="slide " data-source-line="112" data-h="7" data-v="0"><h5 id="演示-circle">演示: Circle </h5>
+<hr>
+<p>给定一个圆的<mark>半径</mark> (如 $10$), 计算其<mark>周长</mark>和<mark>面积</mark></p>
+<p>$L = 2\pi r$ &emsp; $S = \pi r^2$</p>
 <ul>
 <li>
-<p>作业入口: 页面顶端 <mark>「竞赛 &amp; 作业」</mark> 选项卡，找到教师设定的作业，逐题答题</p>
-</li>
-<li>
-<p>答题流程:</p>
-<ul>
-<li>仔细理解题目描述、输入输出和样例</li>
-<li>在本机编译器中编程、用样例测试调试</li>
-<li>在 OJ 平台选择「提交」或「露一手!」粘贴代码提交，系统自动判题</li>
-</ul>
-</li>
-<li>
-<p>提交记录: 「提交记录」中点击 C/Edit 可修改并再次提交</p>
-</li>
-<li>
-<p>注意作业<mark>截止提交时间</mark></p>
-</li>
-</ul>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="9" data-v="0"><h5 id="oj-使用注意">OJ 使用注意 </h5>
+<p>每个结果各占一行</p>
+</li><li>
+<p>小数点后保留两位</p>
+</li></ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>/*
+ * circle.c(计算周长和面积)
+ */
+#include &lt;stdio.h&gt;
+
+int main(void) {
+    int radius = 10;
+
+    double circumference = 2 * 3.14159 * radius;
+    double area = 3.14159 * radius * radius;
+
+    // .2: precision 小数点后保留几位
+    printf("circumference = %.2f\narea = %.2f\n", circumference, area);
+    return 0;
+}</code></pre>
 <hr>
+</section><section data-notes="" lineno="126" class="slide " data-source-line="126" data-h="8" data-v="0"><h5 id="演示-sphere">演示: Sphere </h5>
+<hr>
+<p>给定一个球的<mark>半径</mark> (如 $100$), 计算其<mark>表面积</mark>和<mark>体积</mark></p>
+<p>$A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3$</p>
 <ul>
 <li>
-<p>输入由 OJ 系统自动给出: <mark>不要</mark>在输入语句中加提示语 (题目要求除外)</p>
-</li>
-<li>
-<p>输出结果要<mark>严格按题目要求</mark>，不一致则无法通过</p>
-</li>
-<li>
-<p>判题结果含义 (如 等待评测、格式错误、答案错误、运行超时) 见平台 <mark>「常见问答」</mark></p>
-</li>
-<li>
-<p>示例: gets 函数在新版本中需用 fgets 替代</p>
-</li>
-<li>
-<p>日常练习: 页面顶部 <mark>「题目」</mark> 选项卡</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="124" class="slide " data-source-line="124" data-h="10" data-v="0"><h5 id="课程说明">课程说明 </h5>
+<p>每个结果占 $1$ 行, 小数点后保留 $4$ 位</p>
+</li><li>
+<p>每个结果至少占 $15$ 字符, 左对齐</p>
+</li></ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>/*
+ * sphere.c(球的体积和面积)
+*/
+#include &lt;stdio.h&gt;
+
+int main() {
+    int radius = 100;
+
+    double surface_area = 4 * 3.14159 * radius * radius;
+    double volume = 4.0 / 3 * 3.14159 * radius * radius * radius;
+
+    // 15: width
+    printf("%-15.4f : surface_area\n%-15.4f : volume\n",
+           surface_area, volume);
+}</code></pre>
 <hr>
-<p>申请免修不免考：</p>
+</section><section data-notes="" lineno="120" class="slide " data-source-line="120" data-h="9" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+<hr>
 <ol>
-<li>发送邮件确认同意 <a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></li>
-<li>网上办事大厅提交申请 <a href="https://ehall.nju.edu.cn">https://ehall.nju.edu.cn</a></li>
-<li><mark>务必加入课程QQ群</mark> (作业与通知均通过群发布)</li>
+<li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？</li>
+<li>用 <code>#define</code> 定义符号常量时行末要不要分号？<code>const</code> 呢？</li>
+<li><code>INT_MAX</code> 在哪个头文件中定义？它代表什么？</li>
+<li>计算圆的面积时为什么要用符号常量 <code>PI</code> 而不是直接写 <code>3.14159</code>？</li>
 </ol>
-<p><mark>强烈建议</mark> 自学课件与教材中的内容;</p>
-<p><mark>友情提醒</mark> 平时作业、上机测验等均需按时完成.</p>
-</section><section data-notes="" lineno="217" class="slide " data-source-line="217" data-h="11" data-v="0"><h5 id="课程教材">课程教材 </h5>
 <hr>
-<div class="top-2">
-  <img src="book/C语言程序设计-姜恒远.jpg" width="240px">
-</div>
-<ul>
-<li>
-<p>书名: <mark>C语言程序设计教程</mark> (主编: <mark>姜恒远</mark>)</p>
-</li>
-<li>
-<p>出版社: 高等教育出版社, 2010年8月 第一版</p>
-</li>
-<li>
-<p>ISBN: 9787040302769</p>
-</li>
-</ul>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="10" data-v="0"><div class="bottom20"></div>
+<h1 id="周三见">周三见! </h1>
+<hr class="width50 center">
+<h2 id="未完待续">未完待续 </h2>
 <hr>
-</section><section data-notes="" lineno="160" class="slide " data-source-line="160" data-h="12" data-v="0"><h5 id="参考书目">参考书目 </h5>
-<hr>
-<div class="top-2">
-  <img src="book/cpm.jpg" width="200px" height="270px">
-</div>
-<ul>
-<li>
-<p>书名: C语言程序设计 现代方法 第2版·修订版 (吕秀锋, 黄倩 译)</p>
-</li>
-<li>
-<p>作者: K.N.King</p>
-</li>
-<li>
-<p>出版: 人民邮电出版社</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="180" class="slide " data-source-line="180" data-h="13" data-v="0"><h5 id="不必焦虑">不必焦虑 </h5>
-<hr>
-<ul>
-<li>
-<p>课前预习</p>
-</li>
-<li>
-<p>课后练习</p>
-</li>
-<li>
-<p>多数零基础(75%)</p>
-</li>
-</ul>
 </section>
       </div>
     </div>

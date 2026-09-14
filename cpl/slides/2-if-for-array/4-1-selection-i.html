@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>0-0-intro</title>
+      <title>4-1-selection-i</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -32,7 +32,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><style>:root { --r-main-font-size: 46px; }</style></head><body for="html-export" data-presentation-mode="">
+</script></head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -62,195 +62,458 @@
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="课程介绍">课程介绍 </h2>
+<h2 id="选择结构-上">选择结构 (上) </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-<div class="top-2">
-  <img src="../figs/lets-code.jpeg" width="360px">
+</section><section data-notes="" lineno="52" class="slide " data-source-line="52" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
+<hr>
+<ul>
+<li>
+<p>结构化算法与三种基本结构</p>
+</li><li>
+<p>关系、判等与逻辑运算</p>
+</li><li>
+<p>if 语句与 else 子句</p>
+</li><li>
+<p>演示: min 与闰年判断</p>
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="62" class="slide " data-source-line="62" data-h="2" data-v="0"><h5 id="结构化算法与三种基本结构">结构化算法与三种基本结构 </h5>
+<hr>
+<p><mark>结构化程序设计</mark>: 任何程序都可以只用 <mark>顺序</mark>、<mark>选择</mark>、<mark>循环</mark> 三种基本结构组合而成 (自顶向下、逐步细化)</p>
+<ul>
+<li>
+<p><mark>顺序</mark>: 语句一条接一条执行</p>
+</li><li>
+<p><mark>选择</mark>: 根据条件决定走哪条分支 (if/switch)</p>
+</li><li>
+<p><mark>循环</mark>: 重复执行一段语句 (while/do/for)</p>
+</li>
+</ul>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 本节学习 <mark>选择</mark> 结构: 让程序会"判断"</p>
+<hr>
+</section><section data-notes="" lineno="76" class="slide " data-source-line="76" data-h="3" data-v="0"><h5 id="选择语句">选择语句 </h5>
+<hr>
+<p>到目前为止, 我们已经讲完了返回语句和表达式语句.</p>
+<p><code>C</code> 的其他大部分语句:</p>
+<ul>
+<li>
+<p>选择语句: <code>if</code>和<code>switch</code></p>
+</li>
+<li>
+<p>循环语句: <code>while</code>, <code>do</code>和<code>for</code></p>
+</li>
+<li>
+<p>跳转语句: <code>break</code>, <code>continue</code>和<code>goto</code>(<code>return</code>也属于这一类)</p>
+</li>
+<li>
+<p>其他语句: 复合语句 和 空语句(Null)</p>
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="88" class="slide " data-source-line="88" data-h="4" data-v="0"><h5 id="逻辑表达式">逻辑表达式 </h5>
+<hr>
+<p><code>C</code> 的一些语句需要测试一个表达式的值, 看它是真还是假<br>
+例如, 一个<code>if</code>语句可能需要测试表达式<code>i &lt; j</code>真值则表示<code>i小于j</code><br>
+在许多编程语言中, 诸如<code>i &lt; j</code>之类的表达式会有一个特殊的 <mark>布尔</mark> 或 <mark>逻辑</mark> 类型<br>
+在 <code>C</code> 中, 如<code>i &lt; j</code>的比较会产生一个整数: <code>0</code> (<mark>假</mark>)或 <code>1</code> (<mark>真</mark>)</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">10</span> <span class="token operator">&lt;</span> <span class="token number">11</span>
+<span class="token number">11</span> <span class="token operator">&lt;</span> <span class="token number">10</span>
+<span class="token number">1</span> <span class="token operator">&lt;</span> <span class="token number">2.5</span>
+<span class="token number">5.6</span> <span class="token operator">&lt;</span> <span class="token number">4</span>
+</code></pre>
+<hr>
+</section><section data-notes="" lineno="100" class="slide " data-source-line="100" data-h="5" data-v="0"><h5 id="关系运算符">关系运算符 </h5>
+<hr>
+<p><code>C</code> 的关系运算符:</p>
+<div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt;</code></td>
+<td style="text-align:left">小于</td>
+</tr>
+<tr>
+<td style="text-align:left">‘&gt;’</td>
+<td style="text-align:left">大于</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;=</code></td>
+<td style="text-align:left">小于或等于</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&gt;=</code></td>
+<td style="text-align:left">大于或等于</td>
+</tr>
+</tbody>
+</table>
 </div>
-</section><section data-notes="" lineno="50" class="slide " data-source-line="50" data-h="1" data-v="0"><h5 id="课程安排">课程安排 </h5>
+<p>这些运算符在表达式中使用时会产生 <code>0</code> (<mark>假</mark>)或 <code>1</code> (<mark>真</mark>)</p>
+<p>关系运算符可用于比较整数和浮点数, 允许不同类型的混合运算</p>
+<p>关系运算符的优先级 <mark>低于</mark> 算术运算符</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">+</span> j <span class="token operator">&lt;</span> k – <span class="token number">1</span>
+</code></pre><p>表示</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span>i <span class="token operator">+</span> j<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+</code></pre><p>关系运算符是左结合的</p>
 <hr>
-<p>授课: <a href="http://cs.nju.edu.cn/yangyibiao">杨已彪</a>, <a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></p>
-<p>时间:</p>
-<ul>
+</section><section data-notes="" lineno="114" class="slide " data-source-line="114" data-h="6" data-v="0"><h5 id="关系运算符-1">关系运算符 </h5>
+<hr>
+<p>表达方式 <code>i &lt; j &lt; k</code> 是合法的, 但并不是测试 <code>j</code> 的大小是否在 <code>i</code> 和 <code>k</code> 之间</p>
+<p>因为 <code>&lt;</code> 运算符是<code>左结合的</code>, 所以这个表达式等价于</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token operator">&lt;</span> k
+</code></pre><ul>
 <li>
-<p>理论: 64 学时，每周两次 (<mark>周二</mark>、<mark>周三</mark>各 2 节，每节 50 分钟)，第 1 ~ 16 周</p>
+<p><code>i &lt; j</code> 产生的 <code>1</code> 或 <code>0</code> 随后将与k进行比较</p>
 </li>
 <li>
-<p>实验: 在线测试(OJ: Online Judge)</p>
+<p>并非测试<code>j</code>是否位于<code>i</code>与<code>k</code>之间</p>
 </li>
 </ul>
-<p><span class="blue"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> <mark>“Talk is cheap. Show me the code.”</mark> – Linus Torvalds<br>
-<span class="blue"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> <mark>纸上得来终觉浅，绝知此事要躬行</mark> – 陆游</p>
-</section><section data-notes="" lineno="74" class="slide " data-source-line="74" data-h="2" data-v="0"><h5 id="课前小调查">课前小调查 </h5>
+<p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 正确的表达式是 <code>i &lt; j &amp;&amp; j &lt; k</code></p>
 <hr>
-<p><mark>举手统计</mark></p>
-<ul>
-<li>
-<p>有<mark>程序设计</mark>基础的同学有多少？</p>
-</li>
-<li>
-<p>有 <mark>C语言</mark> 基础的同学有多少？</p>
-</li>
-<li>
-<p><mark>一点基础</mark>都没有的同学有多少？</p>
-</li>
-</ul>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 调查结果用于调整教学节奏</p>
-</section><section data-notes="" lineno="72" class="slide " data-source-line="72" data-h="3" data-v="0"><h5 id="qq群-1班">QQ群-1班 </h5>
+</section><section data-notes="" lineno="126" class="slide " data-source-line="126" data-h="7" data-v="0"><h5 id="判等运算符">判等运算符 </h5>
 <hr>
-<div class="top-2">
-  <img src="../figs/1班qq群.jpg" width="200px">
+<p>C 提供了两个判等运算符:</p>
+<div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>==</code></td>
+<td style="text-align:left">等于</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>!=</code></td>
+<td style="text-align:left">不等于</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p><mark>群号: 1073454008</mark></p>
-</section><section data-notes="" lineno="83" class="slide " data-source-line="83" data-h="4" data-v="0"><h5 id="qq群-8班">QQ群-8班 </h5>
+<p>判等运算符也是<code>左结合的</code>, 产生 <code>0</code> (<mark>假</mark>)或 <code>1</code> (<mark>真</mark>)作为其结果.</p>
+<p>判等运算符优先级 <mark>低于</mark> 关系运算符, 因此表达式:</p>
+<p><code>i &lt; j == j &lt; k</code><br>
+等价于<br>
+<code>(i &lt; j) == (j &lt; k)</code></p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>判等</mark> <code>==</code> 与 <mark>赋值</mark> <code>=</code> 极易混淆, 是 C 语言的经典错误</p>
 <hr>
-<div class="top-2">
-  <img src="../figs/8班qq群.jpg" width="200px">
+</section><section data-notes="" lineno="140" class="slide " data-source-line="140" data-h="8" data-v="0"><h5 id="逻辑运算符">逻辑运算符 </h5>
+<hr>
+<p>利用逻辑运算符, 可以从简单逻辑表达式构建复杂逻辑表达式:</p>
+<div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>!</code></td>
+<td style="text-align:left">逻辑非</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&amp;&amp;</code></td>
+<td style="text-align:left">逻辑与</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>||</code></td>
+<td style="text-align:left">逻辑或</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p><mark>群号: 687133341</mark></p>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="5" data-v="0"><h5 id="课程答疑">课程答疑 </h5>
-<hr>
+<p><code>!</code>运算符是一元的, 而<code>&amp;&amp;</code>和<code>||</code>是二元的</p>
+<p>逻辑运算符产生 <code>0</code> 或 <code>1</code> 作为其结果</p>
+<p>逻辑运算符将任何非零操作数视为真值, 零值操作数视为假值</p>
+<p>逻辑运算符的操作:</p>
 <ul>
 <li>
-<p>线上答疑: QQ群内提问或<mark>私聊</mark>线上助教，每班有一位学长主要负责线上答疑</p>
+<p>如果 <mark>表达式</mark> 的值为 <code>0</code>, 则 <mark>!表达式</mark> 的值为<code>1</code></p>
 </li>
 <li>
-<p>线下答疑: <mark>上机课</mark>时间，每班有一位学长到线下教室答疑</p>
+<p>如果 <mark>表达式1</mark> 和 <mark>表达式2</mark> 值都不为零, 则 <mark>表达式1 &amp;&amp; 表达式2</mark> 的值为 <code>1</code></p>
+</li>
+<li>
+<p>如果 <mark>表达式1</mark> 或 <mark>表达式2</mark> 中任意一个不为零, 则 <mark>表达式1 || 表达式2</mark> 的值为 <code>1</code></p>
+</li>
+<li>
+<p>其他情况下, 这些运算符产生的值都为 <code>0</code></p>
 </li>
 </ul>
-</section><section data-notes="" lineno="106" class="slide " data-source-line="106" data-h="6" data-v="0"><h5 id="考核方式">考核方式 </h5>
 <hr>
+</section><section data-notes="" lineno="154" class="slide " data-source-line="154" data-h="9" data-v="0"><h5 id="逻辑运算符-1">逻辑运算符 </h5>
+<hr>
+<p><mark>&amp;&amp;</mark> 和 <mark>||</mark> 会进行 <mark>“短路”</mark> 计算: 先计算左操作数, 然后是右操作数</p>
+<p>若表达式的值可 <mark>单独</mark> 从左操作数推导出来, 则不计算右操作数</p>
+<p>例子: <code>(i != 0) &amp;&amp; (j / i &gt; 0)</code></p>
 <ul>
 <li>
-<p>平时成绩: <mark>20%</mark> (课堂代码实操 + 在线OJ系统闯关)</p>
+<p>先计算<code>(i != 0)</code> 如果<code>i</code>不等于 <code>0</code>, 则计算<code>(j / i &gt; 0)</code>的值</p>
 </li>
 <li>
-<p>期末项目: <mark>20%</mark> (跨学科智能应用开发: 代码 + 答辩 + 技术文档)</p>
+<p>若<code>i</code>为<code>0</code>, 则整个表达式必定为假, 因此无需计算<code>(j / i &gt; 0)</code></p>
 </li>
 <li>
-<p>课程考试: <mark>60%</mark> (闭卷机试: 语法基础、算法设计和智能应用)</p>
-</li>
-<li>
-<p>教案发布: <a href="https://yangyibiao.github.io/cpl/index.html">https://yangyibiao.github.io/cpl/index.html</a></p>
-</li>
-<li>
-<p>课程网址: <a href="https://yangyibiao.github.io/cpl">https://yangyibiao.github.io/cpl</a></p>
-</li>
-<li>
-<p>在线评测网址: <mark> http://172.28.223.3/ </mark> (仅校园网内访问)</p>
+<p>如果没有短路计算, 就会发生除零</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="133" class="slide " data-source-line="133" data-h="7" data-v="0"><h5 id="在线评测系统-oj">在线评测系统 (OJ) </h5>
 <hr>
+</section><section data-notes="" lineno="168" class="slide " data-source-line="168" data-h="10" data-v="0"><h5 id="逻辑运算符-2">逻辑运算符 </h5>
+<hr>
+<p>因为 <mark>&amp;&amp;</mark> 和 <mark>||</mark> 两种运算符的短路特性, 逻辑表达式中的副作用可能不会产生</p>
+<p>例子: <code>i &gt; 0 &amp;&amp; ++j &gt; 0</code></p>
 <ul>
 <li>
-<p>地址: <mark>http://172.28.223.3/</mark> (本平台位于<mark>校园网内</mark>，须在校内网络访问)</p>
+<p>如果<code>i &gt; 0</code>为假, 则不会计算<code>++j &gt; 0</code>, <code>j</code>也就不会自增</p>
 </li>
 <li>
-<p>注册: 用<mark>学号</mark>注册账号 (便于平时作业统计)</p>
-</li>
-<li>
-<p><mark>务必记住密码</mark>: 校外无法收到修改密码的邮件</p>
+<p>可以将条件表达式修改为 <mark><code>++j &gt; 0 &amp;&amp; i &gt; 0</code></mark>, 更好的方法是<code>j</code>先自增</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="146" class="slide " data-source-line="146" data-h="8" data-v="0"><h5 id="oj-作业流程">OJ 作业流程 </h5>
+<p><code>!</code>运算符与一元加号和减号运算符具有相同的优先级</p>
+<p><code>&amp;&amp;</code>和<code>||</code>的优先级低于关系运算符和等式运算符</p>
+<p>例子: <code>i &lt; j &amp;&amp; k == m</code></p>
+<p>表示: <code>(i &lt; j) &amp;&amp; (k == m)</code></p>
+<ul>
+<li><code>!</code>运算符是右结合的</li>
+<li><code>&amp;&amp;</code>和<code>||</code>是左结合的</li>
+</ul>
 <hr>
+</section><section data-notes="" lineno="182" class="slide " data-source-line="182" data-h="11" data-v="0"><h5 id="if语句">if语句 </h5>
+<hr>
+<p><code>if</code> 语句形式:</p>
+<p><mark>[if语句]</mark>   <code>if (表达式) 语句</code></p>
+<p>判定表达式的值是真还是假, 不为零, 则执行语句, 如:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>line_num <span class="token operator">==</span> MAX_LINES<span class="token punctuation">)</span>
+  line_num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 表达式两边的圆括号是必须的，它是<code>if</code>语句的组成部分</p>
+<hr>
+</section><section data-notes="" lineno="196" class="slide " data-source-line="196" data-h="12" data-v="0"><h5 id="if语句-1">if语句 </h5>
+<hr>
+<p><span class="blue"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 将<code>==</code>(判等)和<code>=</code>(赋值)混淆是常见的 <mark>C</mark> 语言编程错误</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> …  
+<span class="token comment">/* 检查i是否等于0 */</span>
+
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> … 
+<span class="token comment">/* 将0赋值给i, 然后检查结果是否为非零 */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></pre>
+<p>通常, <code>if</code>语句中的表达式检查变量是否在某个值范围内</p>
+<p>判定i是否满足 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">0 \leq i &lt; n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7804em;vertical-align:-0.136em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6986em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>:</p>
+<p><code>if (0 &lt;= i &amp;&amp; i &lt; n) …</code></p>
+<p>要判定相反的条件(<code>i</code>超出范围):</p>
+<p><code>if (i &lt; 0 || i &gt;= n) …</code></p>
+<hr>
+</section><section data-notes="" lineno="210" class="slide " data-source-line="210" data-h="13" data-v="0"><h5 id="复合语句">复合语句 </h5>
+<hr>
+<p>在<code>if</code>语句模板中, 需注意statement(语句)是单数, 而不是复数:</p>
+<p><code>if (表达式) 语句</code></p>
+<p>要使<code>if</code>语句控制两条或更多条语句, 要使用 <mark>复合语句</mark></p>
+<p><mark>[复合语句]</mark>   <code>{ 多条语句 }</code></p>
+<p>在一组语句周围放置大括号会强制编译器将其视为单个语句</p>
+<p>例子:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">{</span> line_num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> page_num<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+</code></pre><p>复合语句通常放在多行中, 每行一条语句:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">{</span>
+  line_num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  page_num<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>每个内部语句仍然以分号结尾, 但复合语句本身没有分号</p>
+<hr>
+</section><section data-notes="" lineno="224" class="slide " data-source-line="224" data-h="14" data-v="0"><h5 id="复合语句-1">复合语句 </h5>
+<hr>
+<p>if语句中使用的复合语句示例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>line_num <span class="token operator">==</span> MAX_LINES<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  line_num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  page_num<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>复合语句在循环和其他C语法要求单个语句的地方也很常见</p>
+<hr>
+</section><section data-notes="" lineno="236" class="slide " data-source-line="236" data-h="15" data-v="0"><h5 id="else子句">else子句 </h5>
+<hr>
+<p><code>if</code>语句可能有<code>else</code>子句:</p>
+<p><code>if (表达式) 语句 else 语句</code></p>
+<p>如果表达式的值为<code>0</code>, 则执行<code>else</code>后面的语句</p>
+<p>例子:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> j<span class="token punctuation">)</span>
+  max <span class="token operator">=</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-else">else</span>
+  max <span class="token operator">=</span> j<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre>
+<p>当<code>if</code>语句包含<code>else</code>子句时, <code>else</code>应该放在哪里？</p>
+<p>许多 C 程序员将它与语句开头的<code>if</code>对齐</p>
+<p>当内部语句很短, <code>if</code>和<code>else</code>可放在同一行:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> j<span class="token punctuation">)</span> max <span class="token operator">=</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-else">else</span> max <span class="token operator">=</span> j<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre>
+<hr>
+</section><section data-notes="" lineno="250" class="slide " data-source-line="250" data-h="16" data-v="0"><h5 id="else子句-1">else子句 </h5>
+<hr>
+<p><code>if</code>语句嵌套在其他<code>if</code>语句中也很普遍:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> j<span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> k<span class="token punctuation">)</span>
+    max <span class="token operator">=</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span> 
+    max <span class="token operator">=</span> k<span class="token punctuation">;</span>
+<span class="token keyword keyword-else">else</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>j <span class="token operator">&gt;</span> k<span class="token punctuation">)</span>
+    max <span class="token operator">=</span> j<span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span> 
+    max <span class="token operator">=</span> k<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><p><code>else</code>与匹配的<code>if</code>对齐可以使嵌套层次更易辨别</p>
+<p>为避免混淆, 最好添加大括号:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> k<span class="token punctuation">)</span> 
+    max <span class="token operator">=</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span> 
+    max <span class="token operator">=</span> k<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>j <span class="token operator">&gt;</span> k<span class="token punctuation">)</span> 
+    max <span class="token operator">=</span> j<span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span> 
+    max <span class="token operator">=</span> k<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre>
+<p><code>if</code>语句中尽可能多地使用大括号:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    max <span class="token operator">=</span> i<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    max <span class="token operator">=</span> k<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>j <span class="token operator">&gt;</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    max <span class="token operator">=</span> j<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    max <span class="token operator">=</span> k<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre>
+<hr>
+</section><section data-notes="" lineno="266" class="slide " data-source-line="266" data-h="17" data-v="0"><h5 id="else子句-2">else子句 </h5>
+<hr>
+<p>使用大括号的优点(即使在不需要时):</p>
 <ul>
 <li>
-<p>作业入口: 页面顶端 <mark>「竞赛 &amp; 作业」</mark> 选项卡，找到教师设定的作业，逐题答题</p>
+<p>使程序更易于修改, 可以轻松地将更多语句添加到任何<code>if</code>或<code>else</code>子句中</p>
 </li>
 <li>
-<p>答题流程:</p>
-<ul>
-<li>仔细理解题目描述、输入输出和样例</li>
-<li>在本机编译器中编程、用样例测试调试</li>
-<li>在 OJ 平台选择「提交」或「露一手!」粘贴代码提交，系统自动判题</li>
-</ul>
-</li>
-<li>
-<p>提交记录: 「提交记录」中点击 C/Edit 可修改并再次提交</p>
-</li>
-<li>
-<p>注意作业<mark>截止提交时间</mark></p>
+<p>避免使用<code>if</code>或<code>else</code>子句时忘记使用大括号而导致的错误</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="9" data-v="0"><h5 id="oj-使用注意">OJ 使用注意 </h5>
 <hr>
-<ul>
-<li>
-<p>输入由 OJ 系统自动给出: <mark>不要</mark>在输入语句中加提示语 (题目要求除外)</p>
-</li>
-<li>
-<p>输出结果要<mark>严格按题目要求</mark>，不一致则无法通过</p>
-</li>
-<li>
-<p>判题结果含义 (如 等待评测、格式错误、答案错误、运行超时) 见平台 <mark>「常见问答」</mark></p>
-</li>
-<li>
-<p>示例: gets 函数在新版本中需用 fgets 替代</p>
-</li>
-<li>
-<p>日常练习: 页面顶部 <mark>「题目」</mark> 选项卡</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="124" class="slide " data-source-line="124" data-h="10" data-v="0"><h5 id="课程说明">课程说明 </h5>
+</section><section data-notes="" lineno="280" class="slide " data-source-line="280" data-h="18" data-v="0"><h5 id="演示-min-of-two">演示: min of two </h5>
 <hr>
-<p>申请免修不免考：</p>
+<p><mark>现场演示</mark></p>
+<p>输入两个整数, 输出其中较小的一个</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 0;
+    int b = 0;
+    scanf("%d%d", &amp;a, &amp;b);
+    int min = 0;
+    if (a &lt; b)
+        min = a;
+    else
+        min = b;
+
+    printf("min(%d, %d) = %d", a, b, min);
+}</code></pre>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> if/else 各只控制一条语句时, 花括号可省略</p>
+<hr>
+</section><section data-notes="" lineno="296" class="slide " data-source-line="296" data-h="19" data-v="0"><h5 id="演示-min-of-three">演示: min of three </h5>
+<hr>
+<p><mark>现场演示</mark></p>
+<p>输入三个整数, 输出其中最小的一个 (嵌套的 if else)</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
+    int min = 0;
+    if (a &lt; b) {
+        if (a &lt; c) {
+            min = a;
+        } else {
+            min = c;
+        }
+    } else {
+        if (b &lt; c) {
+            min = b;
+        } else {
+            min = c;
+        }
+    }
+    printf("min(%d, %d, %d) = %d", a, b, c, min);
+    return 0;
+}</code></pre>
+<hr>
+</section><section data-notes="" lineno="312" class="slide " data-source-line="312" data-h="20" data-v="0"><h5 id="演示-闰年判断">演示: 闰年判断 </h5>
+<hr>
+<p><mark>现场演示</mark></p>
+<p>对照流程图写代码: 输入年份, 判断是否为闰年</p>
+<div class="top-2">
+  <img src="../img/leap-year-flowchart.png" width="400px">
+</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int year = 0;
+    scanf("%d", &amp;year);
+
+    int leap = 0; // boolean; indicator; flag
+    if (year % 4 == 0) {
+        if (year % 100 == 0) {
+            if (year % 400 == 0) {
+                leap = 1;
+            } else {
+                leap = 0;
+            }
+        } else {
+            leap = 1;
+        }
+    } else {
+        leap = 0;
+    }
+
+    if (leap == 0) {
+       printf("%d is a common year\n", year);
+    } else {
+       printf("%d is a leap year\n", year);
+    }
+    return 0;
+}</code></pre>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+<hr>
 <ol>
-<li>发送邮件确认同意 <a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></li>
-<li>网上办事大厅提交申请 <a href="https://ehall.nju.edu.cn">https://ehall.nju.edu.cn</a></li>
-<li><mark>务必加入课程QQ群</mark> (作业与通知均通过群发布)</li>
+<li><code>i &lt; j &lt; k</code> 能判断 j 是否在 i 和 k 之间吗？正确的写法是什么？</li>
+<li><code>if (i = 0)</code> 与 <code>if (i == 0)</code> 有什么区别？哪个是常见错误？</li>
+<li><code>(i != 0) &amp;&amp; (j / i &gt; 0)</code> 中短路计算起了什么作用？</li>
+<li>if 语句要控制两条语句时，应该怎么写？</li>
 </ol>
-<p><mark>强烈建议</mark> 自学课件与教材中的内容;</p>
-<p><mark>友情提醒</mark> 平时作业、上机测验等均需按时完成.</p>
-</section><section data-notes="" lineno="217" class="slide " data-source-line="217" data-h="11" data-v="0"><h5 id="课程教材">课程教材 </h5>
 <hr>
-<div class="top-2">
-  <img src="book/C语言程序设计-姜恒远.jpg" width="240px">
-</div>
-<ul>
-<li>
-<p>书名: <mark>C语言程序设计教程</mark> (主编: <mark>姜恒远</mark>)</p>
-</li>
-<li>
-<p>出版社: 高等教育出版社, 2010年8月 第一版</p>
-</li>
-<li>
-<p>ISBN: 9787040302769</p>
-</li>
-</ul>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><div class="bottom20"></div>
+<h1 id="周三见">周三见! </h1>
+<hr class="width50 center">
+<h2 id="未完待续">未完待续 </h2>
 <hr>
-</section><section data-notes="" lineno="160" class="slide " data-source-line="160" data-h="12" data-v="0"><h5 id="参考书目">参考书目 </h5>
-<hr>
-<div class="top-2">
-  <img src="book/cpm.jpg" width="200px" height="270px">
-</div>
-<ul>
-<li>
-<p>书名: C语言程序设计 现代方法 第2版·修订版 (吕秀锋, 黄倩 译)</p>
-</li>
-<li>
-<p>作者: K.N.King</p>
-</li>
-<li>
-<p>出版: 人民邮电出版社</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="180" class="slide " data-source-line="180" data-h="13" data-v="0"><h5 id="不必焦虑">不必焦虑 </h5>
-<hr>
-<ul>
-<li>
-<p>课前预习</p>
-</li>
-<li>
-<p>课后练习</p>
-</li>
-<li>
-<p>多数零基础(75%)</p>
-</li>
-</ul>
 </section>
       </div>
     </div>

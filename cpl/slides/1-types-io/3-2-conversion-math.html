@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>0-2-hello</title>
+      <title>3-2-conversion-math</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -60,305 +60,396 @@
     <div class="reveal">
       <div class="slides">
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
-<h1 id="c语言程序设计基础">C语言程序设计基础 </h1>
+<h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="c代码框架">C代码框架 </h2>
+<h2 id="类型转换与数学库函数">类型转换与数学库函数 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-</section><section data-notes="" lineno="50" class="slide " data-source-line="50" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
+</section><section data-notes="" lineno="52" class="slide " data-source-line="52" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
 <hr>
 <ul>
 <li>
-<p>指令</p>
-</li>
-<li>
-<p>函数</p>
-</li>
-<li>
-<p>语句</p>
+<p>表达式求值</p>
+</li><li>
+<p>副作用与左值</p>
+</li><li>
+<p>类型转换</p>
+</li><li>
+<p>数学库函数</p>
+</li><li>
+<p>编码实践</p>
 </li>
 </ul>
-</section><section data-notes="" lineno="64" class="slide " data-source-line="64" data-h="2" data-v="0"><h5 id="程序-打印hello-nju">程序: 打印Hello NJU </h5>
 <hr>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+</section><section data-notes="" lineno="62" class="slide " data-source-line="62" data-h="2" data-v="0"><h5 id="表达式求值">表达式求值 </h5>
+<hr>
+<p>到目前为止所涉及的运算符:</p>
+<div class="threelines column7-border-right-solid head-highlight-1 tr-hover row3-border-top-dashed row7-border-top-dashed">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">优先级</th>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">结合性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">自增(后缀)</td>
+<td style="text-align:left"><code>++</code></td>
+<td style="text-align:left">left</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">自减(后缀)</td>
+<td style="text-align:left" colspan="2"><code>--</code></td>
 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, NJU!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><ul>
-<li>
-<p>代码可存储在 <mark>任意文件名</mark> 的文件中, 通常用 <mark><code>.c</code></mark> 作为扩展名, 假设文件名为<code>hw.c</code></p>
-</li>
-<li>
-<p>使用编译命令 <mark><code>gcc hw.c</code></mark> 默认会将编译生成的可执行程序存储为<code>a.out</code>文件</p>
-</li>
-<li>
-<p>使用编译命令 <mark><code>gcc hw.c -o hw</code></mark> 可指定编译生成的可执行程序文件名为<code>hw</code></p>
-</li>
-</ul>
-</section><section data-notes="" lineno="89" class="slide " data-source-line="89" data-h="3" data-v="0"><h5 id="程序-打印hello-nju-1">程序: 打印Hello NJU </h5>
-<hr>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">自增(前缀)</td>
+<td style="text-align:left"><code>++</code></td>
+<td style="text-align:left">right</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">自减(前缀)</td>
+<td style="text-align:left" colspan="2"><code>--</code></td>
 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, NJU!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><ul>
-<li>
-<p><mark><code>#include</code></mark> 为预处理指令, 引入C语言标准输入/输出库的头文件<em>stdio.h</em></p>
-</li>
-<li>
-<p><mark><code>main函数</code></mark> 主函数, 程序入口, 任何C程序都需要一个main函数</p>
-</li>
-<li>
-<p><mark><code>printf</code></mark> 函数来自标准输入/输出库, <code>\n</code>为换行</p>
-</li>
-<li>
-<p><mark><code>return 0;</code></mark> 程序终止时向操作系统返回值<code>0</code></p>
-</li>
-<li>
-<p><mark><code>void</code></mark> 参数类型, 可省略</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="118" class="slide " data-source-line="118" data-h="4" data-v="0"><h5 id="编译与链接">编译与链接 </h5>
-<hr>
-<p>三步由源码转换成可执行:</p>
-<ul>
-<li>
-<p><mark>预处理</mark>: 预处理器(preprocessor)处理 <mark><code>#</code></mark> 开头的指令</p>
-</li>
-<li>
-<p><mark>编译</mark>: 编译器将源程序翻译为机器指令(目标代码)</p>
-</li>
-<li>
-<p><mark>链接</mark>: 链接器把由编译器生成的目标代码和所需的其他附加代码合在一起, 最终产生完全可执行的程序</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="135" class="slide " data-source-line="135" data-h="5" data-v="0"><h5 id="集成开发环境">集成开发环境 </h5>
-<hr>
-<p>集编辑、编译、运行、调试的开发环境</p>
-<ul>
-<li>
-<p><a href="https://www.jetbrains.com/clion/">CLion</a>: <mark>推荐</mark>, 学生邮箱可注册免费License</p>
-</li>
-<li>
-<p><a href="https://visualstudio.microsoft.com/zh-hans/vs/community/">Visual Studio IDE</a>: 免费社区版(Community Edition)、需配置安全检查</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="6" data-v="0"><h5 id="简单c程序的一般形式">简单C程序的一般形式 </h5>
-<hr>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>指令
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">一元正号</td>
+<td style="text-align:left" colspan="2"><code>+</code></td>
 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  语句
-<span class="token punctuation">}</span>
-</code></pre><p>C使用 <mark>{</mark> 和 <mark>}</mark> 标识函数开始与结束, 类似其他语言begin和end</p>
-<p>最简单的C程序包含三个关键的语言特性:</p>
-<ul>
-<li>
-<p>指令: 预处理指令</p>
-</li>
-<li>
-<p>函数: 可执行代码块, main函数</p>
-</li>
-<li>
-<p>语句: 程序执行时的命令</p>
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="180" class="slide " data-source-line="180" data-h="7" data-v="0"><h5 id="指令">指令 </h5>
-<hr>
-<p>指令: 预处理指令, 在编译前修改程序内容的编辑命令, 示例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-</code></pre><p><mark>&lt;stdio.h&gt;</mark> 是一个包含有关 C 标准 I/O 库信息的<mark>头文件</mark></p>
-<ul>
-<li>
-<p>以 <mark>#</mark> 开头, <mark>#</mark> 用于将C代码中的指令与其他代码区分开来</p>
-</li>
-<li>
-<p>默认只占一行, 每条指令的结尾没有分号或者其他特殊标记</p>
-</li>
-</ul>
-<p><mark>演示Hello NJU代码</mark></p>
-</section><section data-notes="" lineno="203" class="slide " data-source-line="203" data-h="8" data-v="0"><h5 id="函数">函数 </h5>
-<hr>
-<p>C程序是函数的集合, 函数由一系列语句构成, 有两类函数:</p>
-<ul>
-<li>
-<p>程序员编写的函数</p>
-</li>
-<li>
-<p>库函数(library function): 作为C语言实现的一部分提供的函数</p>
-</li>
-</ul>
-<p>函数调用: 要求函数执行分配给它的任务称为调用函数</p>
-<hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="9" data-v="0"><h5 id="函数-1">函数 </h5>
-<hr>
-<p>术语<mark>函数</mark>源于数学: 在数学中, 函数指根据一个或多个给定参数进行数值计算的规则:</p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(x) = x + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>  对应C代码:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-return">return</span> x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-</code></pre><p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><msup><mi>z</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">g(y, z) = y^2 - z^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>  对应C代码:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-return">return</span> y <span class="token operator">*</span> y <span class="token operator">+</span> z <span class="token operator">*</span> z<span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section data-notes="" lineno="244" class="slide " data-source-line="244" data-h="10" data-v="0"><h5 id="函数-2">函数 </h5>
-<hr>
-<p>C语言对 <mark>函数</mark> 术语的使用更加宽松</p>
-<ul>
-<li>
-<p>C语言中, 函数仅仅是一系列组合在一起并且赋予了名字的语句</p>
-</li>
-<li>
-<p>某些函数计算数值, 某些函数则不;</p>
-</li>
-<li>
-<p>计算数值的函数用 <mark>return</mark> 语句来指定所返回的值</p>
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="261" class="slide " data-source-line="261" data-h="11" data-v="0"><h5 id="主函数">主函数 </h5>
-<hr>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span> 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><ul>
-<li>
-<p><mark>main</mark> 函数是必须的, 不能写成Main或MAIN等</p>
-</li>
-<li>
-<p><mark>main</mark> 函数非常特殊: 程序执行时, 系统自动调用main函数</p>
-</li>
-<li>
-<p><mark>main</mark> 函数在程序终止时向操作系统返回一个状态码: 一般用0表示程序正常终止</p>
-</li>
-<li>
-<p><mark>main</mark> 函数末尾没有 <mark>return</mark> 语句, 许多编译器会产生警告信息</p>
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="285" class="slide " data-source-line="285" data-h="12" data-v="0"><h5 id="语句">语句 </h5>
-<hr>
-<p><mark>语句</mark> 是程序运行时要执行的命令, <mark>hw.c</mark> 有两条语句</p>
-<ul>
-<li>
-<p>一条是 <mark>return</mark> 语句</p>
-</li>
-<li>
-<p>另一条是 <mark>函数调用</mark> 语句</p>
-</li>
-</ul>
-<p>hw.c调用 <mark>printf</mark> 函数来显示一个字符串:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, World!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section data-notes="" lineno="308" class="slide " data-source-line="308" data-h="13" data-v="0"><h5 id="语句-1">语句 </h5>
-<hr>
-<p><mark>C</mark> 要求每个语句都以分号结尾</p>
-<ul>
-<li>
-<p>复合语句例外</p>
-</li>
-<li>
-<p>指令通常只有一行, 并且不以分号结尾</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="323" class="slide " data-source-line="323" data-h="14" data-v="0"><h5 id="语句-2">语句 </h5>
-<hr>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, World!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><p><mark>printf</mark> 函数是显示了一条字符串字面量(string literal)</p>
-<ul>
-<li>
-<p>当显示结束, <mark>printf</mark> 函数不会自动跳转到下一行输出</p>
-</li>
-<li>
-<p>为跳转至下一行, 须要在显示的字符串之后包含 <mark>\n</mark> 换行</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="342" class="slide " data-source-line="342" data-h="15" data-v="0"><h5 id="注释">注释 </h5>
-<hr>
-<p>注释: 文档说明, 可出现在程序任意位置, 用于描述程序用途等</p>
-<ul>
-<li>
-<p>多行: 以符号 <mark>/*</mark> 开头, 以符号 <mark>*/</mark> 结尾</p>
-</li>
-<li>
-<p>单行: 以符号 <mark>//</mark> 开头, 在行末自动终止 ( <mark>C99</mark> )</p>
-</li>
-</ul>
-</section><section data-notes="" lineno="357" class="slide " data-source-line="357" data-h="16" data-v="0"><h5 id="注释-1">注释 </h5>
-<hr>
-<p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 忘记终止注释可能会导致编译器忽略程序部分代码</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* This is a comment */</span>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">一元负号</td>
+<td style="text-align:left" colspan="2"><code>-</code></td>
 
-<span class="token comment">/* Name: pun.c
-   purpose: prints a bad pun
-   author: K.N. King
-*/</span>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">乘法类</td>
+<td style="text-align:left"><code>* / %</code></td>
+<td style="text-align:left">left</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">加法类</td>
+<td style="text-align:left"><code>+ -</code></td>
+<td style="text-align:left">left</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">赋值</td>
+<td style="text-align:left"><code>= *= /= %= += -=</code></td>
+<td style="text-align:left">right</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</section><section data-notes="" lineno="76" class="slide " data-source-line="76" data-h="3" data-v="0"><h5 id="表达式求值-1">表达式求值 </h5>
+<hr>
+<p><span class="blue">:fa-lightbulb-o:</span> 运算符优先级表可用于向缺少括号的表达式添加括号</p>
+<p>从具有最高优先级的运算符开始, 在运算符及其操作数周围加上括号</p>
+<p>例子:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>a = b += c++ - d + --e / -f</code></th>
+<th style="text-align:left">排序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>a = b += (c++) - d + --e / -f</code></td>
+<td style="text-align:left"><code>1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a = b += (c++) - d + (--e) / (-f)</code></td>
+<td style="text-align:left"><code>2</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a = b += (c++) - d + ((--e) / (-f))</code></td>
+<td style="text-align:left"><code>3</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a = b += (((c++) - d) + ((--e) / (-f)))</code></td>
+<td style="text-align:left"><code>4</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(a = (b += (((c++) - d) + ((--e) / (-f)))))</code></td>
+<td style="text-align:left"><code>5</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</section><section data-notes="" lineno="90" class="slide " data-source-line="90" data-h="4" data-v="0"><h5 id="子表达式求值顺序">子表达式求值顺序 </h5>
+<hr>
+<p>表达式的值可能取决于计算其子表达式的顺序</p>
+<p><mark>C</mark> 没有定义子表达式评估的先后顺序(涉及逻辑与、逻辑或、条件和逗号运算符的子表达式除外)</p>
+<ul>
+<li>在表达式 <code>(a + b) * (c - d)</code> 中并未定义是应该先计算 <code>(a + b)</code> 还是应该先计算 <code>(c – d)</code></li>
+</ul>
+<p>大多数表达式具有相同的值, 无论其子表达式的计算顺序如何</p>
+<ul>
+<li>当子表达式修改其操作数时, 则上述表述不成立:</li>
+</ul>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+c <span class="token operator">=</span> <span class="token punctuation">(</span>b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><ul>
+<li>第二条语句的执行结果是未定义的</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="106" class="slide " data-source-line="106" data-h="5" data-v="0"><h5 id="子表达式求值顺序-1">子表达式求值顺序 </h5>
+<hr>
+<p><span class="blue">:fa-lightbulb-o:</span> 避免在表达式中访问变量值的同时也修改该变量的值</p>
+<p>在遇到这样的表达式时可能会产生编译警告消息, 例如"对<code>a</code>的操作可能未定义"</p>
+<p><span class="blue">:fa-lightbulb-o:</span> 为防止出现问题, 最好避免在子表达式中使用赋值运算符</p>
+<p>相反, 建议使用一串分离的赋值表达式:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+c <span class="token operator">=</span> b <span class="token operator">-</span> a<span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><p><code>c</code>的值是确定的, 将始终为 <code>6</code></p>
+<p>除了赋值运算符之外, 唯一修改其操作数的运算符是自增和自减</p>
+<p><span class="blue">:fa-lightbulb-o:</span> 使用这些运算符时, 需注意表达式不能依赖于特定的求值顺序</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+j <span class="token operator">=</span> i <span class="token operator">*</span> i<span class="token operator">++</span><span class="token punctuation">;</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></pre><p>很自然地认为<code>j</code>被赋值为<code>4</code>. 然而, <code>j</code>也可以被赋值为<code>6</code></p>
+<ul>
+<li>
+<p>获取第二个操作数(i 的原始值), 然后将i递增</p>
+</li>
+<li>
+<p>第一个操作数( i的新值)</p>
+</li>
+<li>
+<p>i的新值和旧值相乘, 得到 6</p>
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="124" class="slide " data-source-line="124" data-h="6" data-v="0"><h5 id="未定义的行为">未定义的行为 </h5>
+<hr>
+<p><code>c = (b = a + 2) - (a = 1);</code>和<code>j = i * i++;</code>均会产生未定义的行为</p>
+<p>未定义行为的可能影响:</p>
+<ul>
+<li>
+<p>当使用不同的编译器编译时, 程序运行的行为可能会有所不同</p>
+</li>
+<li>
+<p>该程序可能一开始就无法编译</p>
+</li>
+<li>
+<p>能编译但无法运行</p>
+</li>
+<li>
+<p>能运行, 但程序可能会崩溃、行为不正常或产生无意义的结果</p>
+</li>
+</ul>
+<p><span class="blue"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> 应避免未定义的行为</p>
+<hr>
+</section><section data-notes="" lineno="138" class="slide " data-source-line="138" data-h="7" data-v="0"><h5 id="副作用side-effects">副作用(side effects) </h5>
+<hr>
+<p>修改操作数的运算符被称为具有 <mark>副作用</mark> , 如 <code>i + j</code> 没有 副作用</p>
+<p>简单的赋值运算符有副作用: 它修改了左操作数</p>
+<ul>
+<li>表达式 <code>i = 0</code> 的结果为 <code>0</code>, 它的副作用是将 <code>0</code> 赋值给<code>i</code></li>
+</ul>
+<p>允许 <code>v</code> 类型值的地方都可以进行形如 <code>v = e</code> 的赋值:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+k <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* prints "1 1 2" */</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></pre><hr>
+<p><span class="yellow"><i class="fa-brands fa-weixin" aria-hidden="true"></i></span> <mark>嵌入式赋值</mark> 会使程序难以阅读, 容易隐藏错误</p>
+<hr>
+</section><section data-notes="" lineno="152" class="slide " data-source-line="152" data-h="8" data-v="0"><h5 id="左值">左值 </h5>
+<hr>
+<p>赋值运算符需要一个 <mark>左值</mark> 作为其左操作数</p>
+<p><mark>左值</mark> 表示存储在计算机内存中的对象, 而不是常量或计算结果</p>
+<ul>
+<li>变量是左值</li>
+<li><code>10</code>或<code>2 * i</code>这样的表达式不是左值</li>
+</ul>
+<p>由于赋值运算符需要一个左值作为其左操作数, 因此将任何其他类型的表达式放在赋值表达式的左侧都是非法的:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token number">12</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>      <span class="token comment">/*** WRONG ***/</span>
+i <span class="token operator">+</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/*** WRONG ***/</span>
+<span class="token operator">-</span>i <span class="token operator">=</span> j<span class="token punctuation">;</span>      <span class="token comment">/*** WRONG ***/</span>
+</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></pre><p><span class="blue">:fa-lightbulb-o:</span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"</p>
+<hr>
+</section><section data-notes="" lineno="166" class="slide " data-source-line="166" data-h="9" data-v="0"><h5 id="类型转换">类型转换 </h5>
+<hr>
+<p><mark>隐式转换</mark>: 不同类型混合运算/赋值时, 编译器自动转换</p>
+<ul>
+<li>
+<p>赋值: 右值自动转换为左值变量的类型</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>int i;
+double d = 3.14159;
+i = d;      /* i 为 3 (截断小数) */
+d = i;      /* d 为 3.0 */</code></pre>
+<ul>
+<li>
+<p>运算: 较低类型提升为较高类型 (<code>char</code>/<code>short</code> → <code>int</code>; <code>int</code> + <code>double</code> → <code>double</code>)</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>1 / 2;        /* 0   (整数除法) */
+1.0 / 2;      /* 0.5 (2 提升为 double) */</code></pre>
+<p><mark>强制转换</mark>: 显式地把值转换为目标类型</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>(float) 1 / 2;   /* 0.5 */
+(int) 3.9;       /* 3 */</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 强制转换的优先级很高, 只作用于紧邻的操作数; 需要转换整个表达式时要加括号, 如 <mark>(int) (3.9 + 1.1)</mark></p>
+<hr>
+</section><section data-notes="" lineno="186" class="slide " data-source-line="186" data-h="10" data-v="0"><h5 id="数学库函数">数学库函数 </h5>
+<hr>
+<p>调用数学库函数必须包含头文件 <code>#include &lt;math.h&gt;</code>, 并可能需加编译选项 <code>-lm</code></p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>abs(x)</code> / <code>fabs(x)</code></td>
+<td>整数 / 浮点数绝对值</td>
+</tr>
+<tr>
+<td><code>sqrt(x)</code></td>
+<td>x 的平方根</td>
+</tr>
+<tr>
+<td><code>pow(x, y)</code></td>
+<td>x 的 y 次方</td>
+</tr>
+<tr>
+<td><code>exp(x)</code> / <code>log(x)</code></td>
+<td>e 的 x 次方 / 自然对数</td>
+</tr>
+<tr>
+<td><code>log10(x)</code></td>
+<td>常用对数</td>
+</tr>
+<tr>
+<td><code>sin(x)</code> / <code>cos(x)</code> / <code>tan(x)</code></td>
+<td>三角函数 (x 为<mark>弧度</mark>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
 
-<span class="token comment">// Name: pun.c </span>
-<span class="token comment">// Purpose: prints a bad pun</span>
-<span class="token comment">// Author: K.N. King</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section data-notes="" lineno="382" class="slide " data-source-line="382" data-h="17" data-v="0"><h5 id="代码演示1年龄">代码演示1年龄 </h5>
+int main(void) {
+    double x = 9.0;
+    printf("sqrt(9) = %f\n", sqrt(x));
+    printf("2^10 = %f\n", pow(2.0, 10));
+    printf("|3 - 5.5| = %f\n", fabs(3 - 5.5));
+    return 0;
+}</code></pre>
 <hr>
-<p>给定年份和当年的年龄，计算2280年时他的年龄</p>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="编码实践-mol">编码实践: mol </h5>
 <hr>
-</section><section data-notes="" lineno="395" class="slide " data-source-line="395" data-h="18" data-v="0"><h5 id="代码演示2">代码演示2 </h5>
-<hr>
-<p>给定成绩，输出他优秀/良好/及格/不及格</p>
-</section><section data-notes="" lineno="405" class="slide " data-source-line="405" data-h="19" data-v="0"><h5 id="代码演示3">代码演示3 </h5>
-<hr>
-<p>给定用户输入的一个数，计算所有奇数的和</p>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="20" data-v="0"><h5 id="猜数字游戏">猜数字游戏 </h5>
-<hr>
-<p><a href="https://www.abcya.com/games/guess_the_number">游戏页面</a></p>
-<p><a href="https://en.cppreference.com/w/c/numeric/random/rand">随机数rand函数</a></p>
-<hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="21" data-v="0"><h5 id="猜数字游戏-1">猜数字游戏 </h5>
-<hr>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
+<p>$6$ 克氧气的分子数是多少?</p>
+<p>$Q = 6 / 32 \times 6.02 \times 10^{23}$</p>
+<p>两种格式输出, 结果均使用<mark>科学计数法</mark>表示</p>
+<ul>
+<li>
+<p>第一行结果, 小数点后保留 $3$ 位</p>
+</li><li>
+<p>第二行结果, 保留 $5$ 位有效数字</p>
+</li></ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>/*
+ * mol.c(6克氧气的分子数)
+ */
+#include &lt;stdio.h&gt;
 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> total_tries <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> limit<span class="token punctuation">,</span> guess<span class="token punctuation">,</span> reward<span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Please choose the limit value:\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>limit<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">srand</span><span class="token punctuation">(</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  reward <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> limit <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+int main(void) {
+    const double MOL = 6.02E23;
+    const int GRAM_PER_MOL = 32;
+    int mass = 6;
 
-  <span class="token comment">// printf("正确数值: %d\n", reward);</span>
-  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>total_tries <span class="token operator">&lt;</span> <span class="token number">7</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Please guess the number\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>guess<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 检查是否猜对</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>guess <span class="token operator">==</span> reward<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"YOU WIN!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>guess <span class="token operator">&lt;</span> reward<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Smaller than the reward!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Larger than the reward!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    total_tries<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment">// number_of_tries = number_of_tries -1;</span>
-  <span class="token punctuation">}</span>
+    double quantity = mass * 1.0 / GRAM_PER_MOL * MOL;
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"YOU LOSE!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre><hr>
-</section><section data-notes="" lineno="475" class="slide " data-source-line="475" data-h="22" data-v="0"><h5></h5>
+    printf("quantity = %.3e\nquantity = %.5g\n", quantity, quantity);
+    return 0;
+}</code></pre>
 <hr>
-<div class="top-2">
-  <img src="figs/see-you.png" width="500px">
+</section><section data-notes="" lineno="222" class="slide " data-source-line="222" data-h="12" data-v="0"><h5 id="编码实践-大学信息管理系统">编码实践: 大学信息管理系统 </h5>
+<hr>
+<ul>
+<li>
+<p>校名 (EN) / 校址</p>
+</li><li>
+<p>类型(综合型C/艺术类A/工科类T)</p>
+</li><li>
+<p>校庆日 (mm-dd-yyyy)</p>
+</li><li>
+<p>教学质量/研究质量/影响力</p>
+</li><li>
+<p>平均分/标准差/排名</p>
+</li></ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>//
+// admin 大学信息管理系统
+//
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include &lt;ctype.h&gt;
+
+int main(void)
+{
+    char name[] = "Nanjing University";
+    char address[] = "Nanjing";
+
+    char type = 'C'; // C: comprehensive; T: technology; A: arts
+    int birth_year = 1902;
+    int birth_month = 5;
+    int birth_day = 20;
+    char weekday[] = "Tuesday";
+
+    int edu_score = 99; // 教学质量
+    int research_score = 98; // 研究声誉
+    int impact_score = 93;   // 影响力
+
+    double mean = (edu_score + research_score + impact_score) / 3.0;
+    double sd = sqrt(pow(edu_score - mean, 2) + pow(research_score - mean, 2) + pow(impact_score - mean, 2));
+
+    int rank = 5;
+    printf("%s \t %s \t %c \n"
+           "%.2d-%d-%d \t\t\t %.3s.\n"
+           "%d \t\t\t\t\t %d \t\t %d\n"
+           "%.1f \t\t\t\t %.2f \t\t %d%%\n",
+           name, address, toupper(type),
+           birth_month, birth_day, birth_year, weekday,
+           edu_score, research_score, impact_score,
+           mean, sd, rank);
+
+    return 0;
+}</code></pre>
+<hr>
+</section><section data-notes="" lineno="240" class="slide " data-source-line="240" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+<hr>
+<ol>
+<li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？</li>
+<li><code>i = d;</code> 中 d 是 double 型 3.99，赋值后 i 是多少？</li>
+<li>计算 <code>sqrt(16)</code> 需要包含哪个头文件？</li>
+<li>为什么 <code>j = i * i++;</code> 的结果不确定？这类表达式应该怎么避免？</li>
+</ol>
+<hr>
+</section><section data-notes="" lineno="258" class="slide " data-source-line="258" data-h="14" data-v="0"><div class="top-2">
+  <img src="../0-intro/figs/see-you.png" width="500px">
 </div>
 <hr>
 </section>
@@ -371,7 +462,7 @@
     
     
       <script>
-        Reveal.initialize({"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
+        Reveal.initialize({"width":1280,"height":720,"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
       </script>
       
     
