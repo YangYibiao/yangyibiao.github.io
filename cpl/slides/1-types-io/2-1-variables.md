@@ -30,7 +30,6 @@ presentation:
 @import "../../js/anychart/venn-ml.js"
 
 
-
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
@@ -56,6 +55,8 @@ presentation:
 ---
 
 - 类型修饰符与取值范围
+
+- 整型溢出与字符运算 (深化)
 
 - 赋值细节
 
@@ -95,25 +96,31 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-##### 类型: int
+##### 整型的取值范围与溢出
 
 ---
 
-==int==变量: (整数integer的缩写)存储整数, 如`0`, `1`, `392`或`-2553`
+上一周已学过 int 存整数; 今天看它的==边界==
 
-- 取值范围是受限的, 最大的整数通常是$2 147 483 647$($2^{31}-1$)
+- int 通常是 ==32 位==(4 字节), 最大整数 $2^{31}-1$ = ==2 147 483 647==(约 21 亿)
 
-- INT_MAX, INT_MIN (limits.h头文件中定义的常量)
+- ==INT_MAX== / ==INT_MIN== 定义在 `limits.h` 中
 
 ```C
 #include <stdio.h>
 #include <limits.h>
 
 int main(void) {
-  printf("Max: %d, Min: %d", INT_MAX, INT_MIN);
+  int x = INT_MAX;
+  printf("INT_MAX     = %d\n", INT_MAX);
+  printf("INT_MAX + 1 = %d\n", x + 1);   /* 溢出! */
   return 0;
 }
 ```
+
+- <span class="yellow">:fa-weixin:</span> 溢出==不会报错==, 会"绕回"成负数——C 不做检查
+
+- 用 ==sizeof== 查看类型的字节数 (呼应上一页修饰符)
 
 ---
 
@@ -122,83 +129,59 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 类型: char
+##### 字符与 ASCII: char 其实是小整数
 
 ---
 
-==char== 变量: 存储字符, 如'A'
+上一周知道 char 存的是==编码==; 今天把它当整数用
 
-- 用单引号括起来
+- 'a'=97, 'A'=65, '0'=48, ' '=32——大写字母与小写字母==差 32==
 
-- 存储的是字符对应的编码(0 ~ 127的整数)
+- 同一个变量, ==%c== 打字符 / ==%d== 打编码
 
-- 字符'a'的值是97, 'A'的值是65, '0'的值是48, ' '的值是32
-
-- 使用 %c 打印
+```C
+char ch = 'a';
+printf("%c  %d\n", ch, ch);      /* a  97 */
+printf("%c\n", ch - 32);         /* A      */
+printf("%d\n", '9' - '0');       /* 9 (字符数字转整数) */
+```
 
 <div class="top-2">
-  <img src="../1-types-io/img/ASCII.png" width=500px>
+  <img src="../1-types-io/img/ASCII.png" width=460px>
 </div>
 
-```C
-#include <stdio.h>
-#include <ctype.h>
-
-int main(void) {
-  char gender = 'M';
-  printf("%c\n", toupper(gender));
-  printf("%c\n", gender + 32);
-  return 0;
-}
-```
+- 常用技巧: ==toupper/tolower== (ctype.h); '9'-'0' 把字符数字变成整数
 
 ---
 
 
 <!-- slide data-notes="" -->
-
-
-==赋值==: 通过赋值的方式获得值
-
-```C{.line-numbers}
-height = 8;
-lenght = 12;
-width = 10;
-gender = 'M';
-```
-
-`8`, `12`, `10`为常量
-
-```C
-char name[30] = "Alex";
-char nation[20] = "China";
-char address[60] = "XianLin Avenue, Qixia District, Nanjing, China 210023";
-```
-
----
-
 
 ##### 变量与赋值 - 赋值
 
 ---
 
-变量在赋值或者以其他方式使用之前必须先声明
+==赋值==: 通过赋值的方式获得值
 
 ```C{.line-numbers}
-height = 9; /*** WRONG ***/
+height = 8;
+length = 12;
+width = 10;
+gender = 'M';
+```
+
+`8`, `12`, `10` 为常量; 变量在==赋值==或者以其他方式使用之前, 必须先==声明==
+
+```C{.line-numbers}
+height = 9;  /*** WRONG ***/
 int height;
 ```
 
-把包含小数点常量赋值给float型变量时, 最好在常量后加字母f:
+浮点常量的小尾巴: ==float 加 f==, double 不加
 
 ```C
-float profit = 2150.48f;
-```
-
-double类型的变量赋值不要加字母f: 
-
-```C
-double pi = 3.14159;
+float profit = 2150.48f;   /* float: 加 f */
+double pi = 3.14159;       /* double: 不加 f */
 ```
 
 ---
