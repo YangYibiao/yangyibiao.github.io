@@ -73,6 +73,14 @@ presentation:
 
 - 实验: 在线测试(OJ: Online Judge)
 
+- 放假: 中秋 ==9/25 ~ 9/27==; 国庆 ==10/1 ~ 10/7==
+
+- 调休上课日: ==9/20 (周日)==、==10/10 (周六)== 照常上课
+
+- 课程按==节次顺序==进行, 与日历周无关
+
+- 期末考试周: ==12/28 ~ 1/10== (闭卷机试安排在考试周)
+
 <!-- <span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 <span class="blue">:fa-lightbulb-o:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游 -->
 <span class="blue">:fa-weixin:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
