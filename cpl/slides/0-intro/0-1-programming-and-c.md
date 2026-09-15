@@ -250,19 +250,15 @@ presentation:
 
 ---
 
-回头看"找最高分"的步骤, 写程序需要的思维全在里面:
+回头看"找最高分"的步骤, 写程序需要的东西全在里面:
 
-- ==顺序==: 一步步执行 (先输入, 再比较, 最后输出)
+- ==结构==: 顺序 (一步步执行)、判断 (if: 更大就替换)、循环 (重复比较, 直到比完)
 
-- ==判断==: 如果更大就替换 (if)
+- ==数据==: 存储——记住当前最高分 (变量)
 
-- ==循环==: 重复"比较与替换", 直到比完
+- ==设计==: 分解——大问题拆成小步骤
 
-- ==存储==: 记住当前最高分 (变量)
-
-- ==分解==: 大问题拆成小步骤
-
-接下来要学的, 就是把这些思维用 ==C 语言== 写出来!
+接下来要学的, 就是把这些要素用 ==C 语言== 写出来!
 
 ---
 
@@ -453,6 +449,34 @@ printf("Hello, World!\n");
 <!-- slide data-notes="" -->
 
 
+##### 程序是怎样构成的
+
+---
+
+程序是一串 ==token==: 编译器认识的最小单位
+
+`printf("Height: %d\n", height);` 可以拆成 ==7 个 token==:
+
+<div class="fullborder">
+
+| 标识符 `printf` | `(` | 字符串 `"Height: %d\n"` | `,` | 标识符 `height` | `)` | `;` |
+| :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+
+</div>
+
+- 空白(空格、换行、制表符)只是==分隔== token 的胶水
+
+- 不能把 token 从中间拆开: `fl oat` 会报错
+
+- 字符串字面量==不能跨行==
+
+排版建议: 运算符两侧加空格、缩进显示嵌套、空行分隔逻辑单元
+
+---
+
+<!-- slide data-notes="" -->
+
+
 ##### 注释
 
 ---
@@ -470,7 +494,7 @@ int main(void)
 }
 ```
 
-- 回顾 Hello NJU: 没有注释, 别人(包括一个月后的自己)很难一眼看懂
+- 没有注释, 复杂的程序别人(包括一个月后的自己)很难看懂
 
 - ==注释==: 写给人看的说明, 编译器会==完全忽略==
 
@@ -479,6 +503,34 @@ int main(void)
 - 单行注释: ==//== 开头, 行末结束 (见代码行尾)
 
 - <span class="yellow">:fa-weixin:</span> 忘记写 ==*/== 会导致编译器忽略大片代码
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 注释
+
+---
+
+==小挑战==: 猜猜这段程序的输出?
+
+```C
+printf("My ");    /* 忘记闭合这个注释
+printf("cat ");
+printf("has ");   /* 注释在这里才结束 */
+printf("fleas");
+```
+
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 注释
+
+---
+
+答案: 输出 ==My fleas==——第一个 /* 把中间两行"吞"进注释, 直到遇到第一个 */
 
 ---
 
@@ -499,22 +551,20 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 猜数字游戏
+##### 猜数字游戏: 代码
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:8px;">
-
-<div style="flex:1;">
-
-```C
+```C{.line-numbers}
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 int main(void) {
   int guess;
   srand(time(NULL));
   int answer = rand() % 100 + 1;
+
   printf("猜一个数字(1-100):");
   scanf("%d", &guess);
 
@@ -524,15 +574,20 @@ int main(void) {
     printf("太小了!\n");
   else
     printf("太大了!\n");
+
   return 0;
 }
 ```
 
-</div>
+---
 
-<div style="flex:1.15;">
 
-==程序在做什么==
+<!-- slide data-notes="" -->
+
+
+##### 猜数字游戏: 程序在做什么
+
+---
 
 - 三个 `#include`: stdio 提供 printf/scanf, stdlib 提供 rand/srand, time 提供 time
 
@@ -543,10 +598,6 @@ int main(void) {
 - `scanf` 读你的猜测 → `if/else` 比较 → 猜中/小了/大了
 
 - 想连续猜 7 次? 第 5 周学完==循环==自己改造!
-
-</div>
-
-</div>
 
 ---
 
@@ -586,10 +637,6 @@ int main(void) {
 比一比谁的名片最有个性!
 
 ---
-
-
----
-
 
 <!-- slide data-notes="" -->
 
