@@ -97,19 +97,9 @@ C 提供了三种重复语句:
 
 ---
 
-使用while语句是设置循环的最简单方法
+`while` 是设置循环最简单的方法, 形式为 `while (表达式) 语句`
 
-while语句具有以下形式
-
-```C
-while (表达式)  语句 
-```
-
-- ==表达式== 是 ==控制表达式==, 也叫做 ==条件表达式==
-
-- ==语句== 是 ==循环体==
-
-<span class="yellow">:fa-weixin:</span> 语句可以是`单条语句`, 也可以是使用`{}`括起来的`复合语句`
+- ==表达式==是==控制表达式==(条件表达式); ==语句==是==循环体==, 可为单条语句或 `{}` 复合语句
 
 while语句示例: 
 
@@ -120,9 +110,7 @@ while (i < n) /* 控制表达式 */
 
 执行while语句时, 首先计算控制表达式
 
-- 如果其值为非零 (true), 则执行循环体并再次测试表达式
-
-- 该过程持续进行, 直到控制表达式的值变为零才停止. 
+- 非零 (true) 就执行循环体并再次测试; 持续到控制表达式变为零才停止
 
 ---
 
@@ -133,15 +121,15 @@ while (i < n) /* 控制表达式 */
 
 ---
 
-使用while语句计算大于或等于数字`n`的最小的2的幂: 
-
-```C{.line-numbers}
+用 `while` 计算 ≥ `n` 的最小 2 的幂: ```C{.line-numbers}
 i = 1;
 while (i < n)
   i = i * 2;
 ```
 
 当n的值为 10 时, while语句的执行情况:
+
+<div style="font-size:0.8em;">
 
 ```C{.line-numbers}
 i = 1;          i is now 1         
@@ -156,6 +144,8 @@ i = i * 2;      i is now 16
 Is i < n?       No; exit from loop 
 ```
 
+</div>
+
 ---
 
 <!-- slide data-notes="" -->
@@ -165,9 +155,9 @@ Is i < n?       No; exit from loop
 
 ---
 
-循环体必须是单独的一条语句
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-如果需要多个语句, 只要用一对大括号构造成一条复合语句:
+<div style="flex:1.2;font-size:0.7em;">
 
 ```C{.line-numbers}
 while (i > 0) {
@@ -176,15 +166,11 @@ while (i > 0) {
 }
 ```
 
-即使在没有严格要求的时候, 一些程序员也总是使用大括号:
-
 ```C{.line-numbers}
 while (i < n) {
   i = i * 2;
 }
 ```
-
-以下语句显示一串"倒计数"信息: 
 
 ```C{.line-numbers}
 i = 10;
@@ -194,9 +180,23 @@ while (i > 0) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+循环体必须是单独的一条语句
+
+如果需要多个语句, 只要用一对大括号构造成一条复合语句:
+
+即使在没有严格要求的时候, 一些程序员也总是使用大括号:
+
+以下语句显示一串"倒计数"信息:
+
 最后打印的消息是`T minus 1 and counting`
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -246,9 +246,9 @@ while (1) …
 
 ---
 
-*square.c*程序使用`while`语句来打印一个平方表
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-用户指定表中的条目数: 
+<div style="flex:1.3;font-size:0.55em;">
 
 ```
 This program prints a table of squares.
@@ -283,7 +283,19 @@ int main(void)
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+*square.c*程序使用`while`语句来打印一个平方表
+
+用户指定表中的条目数:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -292,12 +304,9 @@ int main(void)
 
 ---
 
-`sum.c`程序对用户输入的整数数列求和: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`输入整数(0 终止):` <u>8•23•71•5•0</u>
-`总和是: 107`
-
-该程序需要一个循环, 循环中使用scanf读取一个数字并将其累加
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* 对数列求和 */
@@ -322,7 +331,22 @@ int main(void)
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+`sum.c`程序对用户输入的整数数列求和: 
+
+`输入整数(0 终止):` <u>8•23•71•5•0</u>
+`总和是: 107`
+
+该程序需要一个循环, 循环中使用scanf读取一个数字并将其累加
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -331,11 +355,7 @@ int main(void)
 
 ---
 
-do语句的一般形式: 
-
-```C
-do 语句 while (表达式);
-```
+do 语句的一般形式: `do 语句 while (表达式);`
 
 执行do语句时, 先执行循环体, 再计算控制表达式的值
 
@@ -351,9 +371,7 @@ do {
 } while (i > 0);
 ```
 
-do语句和while语句往往没有什么区别
-
-唯一的区别是do语句的循环体总是`至少执行一次`
+与 `while` 的唯一区别: do 的循环体==至少执行一次==
 
 ---
 
@@ -383,16 +401,14 @@ while (i > 0);
 
 ---
 
-*numdigits.c*程序计算用户输入的整数的位数: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.58em;">
 
 ```
 Enter a nonnegative integer: 60
 The number has 2 digit(s).
 ```
-
-程序会反复将用户输入除以`10`, 直到变为`0`; 除法的次数就是所求的位数
-
-此循环用do语句编写比使用while语句更好, 因为每个整数(包括`0`)都至少有一位数字
 
 ```C{.line-numbers}
 /* 计算整数的位数 */
@@ -417,7 +433,21 @@ int main(void)
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+*numdigits.c*程序计算用户输入的整数的位数:
+
+程序会反复将用户输入除以`10`, 直到变为`0`; 除法的次数就是所求的位数
+
+此循环用do语句编写比使用while语句更好, 因为每个整数(包括`0`)都至少有一位数字
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -426,17 +456,15 @@ int main(void)
 
 ---
 
-`break语句`可以把程序控制从 `switch` 语句中转移出来, 也可以用于跳出`while`、`do`或`for`循环
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-检查数字`n`是否为素数的循环可以在找到约数(因子)后立即使用break语句终止循环:
+<div style="flex:1.2;font-size:0.65em;">
 
 ```C{.line-numbers}
 for (d = 2; d < n; d++)
   if (n % d == 0)
     break;
 ```
-
-循环终止后, 可以使用`if语句`来确定循环是提前终止(因此n不是素数)还是正常终止(n是素数):
 
 ```C{.line-numbers}
 if (d < n)
@@ -445,7 +473,21 @@ else
   printf("%d is prime\n", n);
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+`break语句`可以把程序控制从 `switch` 语句中转移出来, 也可以用于跳出`while`、`do`或`for`循环
+
+检查数字`n`是否为素数的循环可以在找到约数(因子)后立即使用break语句终止循环:
+
+循环终止后, 可以使用`if语句`来确定循环是提前终止(因此n不是素数)还是正常终止(n是素数):
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -454,9 +496,9 @@ else
 
 ---
 
-`break`语句对于编写退出点位于循环体中间而不是开头或结尾的循环特别有用
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-读取用户输入并在输入特定值时终止的循环通常属于这种类别:
+<div style="flex:1.2;font-size:0.65em;">
 
 ```C{.line-numbers}
 for (;;) {
@@ -468,8 +510,6 @@ for (;;) {
 }
 ```
 
-`break语句`把程序控制从最内层的`while`、`do`、`for`或`switch`转移出去; 当这些语句嵌套时, `break语句`只能跳出一层嵌套:
-
 ```C{.line-numbers}
 while (…) {
   switch (…) {
@@ -480,9 +520,21 @@ while (…) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+`break`语句对于编写退出点位于循环体中间而不是开头或结尾的循环特别有用
+
+读取用户输入并在输入特定值时终止的循环通常属于这种类别:
+
+`break语句`把程序控制从最内层的`while`、`do`、`for`或`switch`转移出去; 当这些语句嵌套时, `break语句`只能跳出一层嵌套:
+
 `break`语句把程序控制从`switch`语句中转移出来, 但是不能跳出`while`循环
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -491,17 +543,9 @@ while (…) {
 
 ---
 
-`continue`语句类似于`break`: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-- `break`将程序控制转移到循环体末尾之后
-
-- `continue`将控制转移到循环体末尾之前
-
-使用`break`会使程序控制跳出循环; 而`continue`会把程序控制保留在循环内
-
-`break`和`continue`之间还有另一个区别: `break`可用于`switch`语句和循环(`while`、`do`和`for`), 而`continue`仅限于循环
-
-使用`continue`语句的循环:
+<div style="flex:1.2;font-size:0.55em;">
 
 ```C{.line-numbers}
 n = 0;
@@ -516,8 +560,6 @@ while (n < 10) {
 }
 ```
 
-不使用`continue`编写的相同循环:
-
 ```C{.line-numbers}
 n = 0;
 sum = 0;
@@ -530,7 +572,29 @@ while (n < 10) {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+`continue`语句类似于`break`: 
+
+- `break`将程序控制转移到循环体末尾之后
+
+- `continue`将控制转移到循环体末尾之前
+
+使用`break`会使程序控制跳出循环; 而`continue`会把程序控制保留在循环内
+
+`break`和`continue`之间还有另一个区别: `break`可用于`switch`语句和循环(`while`、`do`和`for`), 而`continue`仅限于循环
+
+使用`continue`语句的循环:
+
+不使用`continue`编写的相同循环:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

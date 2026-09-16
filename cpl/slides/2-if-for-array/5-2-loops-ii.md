@@ -73,26 +73,18 @@ presentation:
 
 ---
 
-for语句非常适合使用`计数`变量的循环, 当然它也可以用于其他类型的循环
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-for语句的一般形式:
+<div style="flex:1.2;font-size:0.7em;">
 
 ```C
 for (表达式1; 表达式2; 表达式3) 语句
 ```
 
-- 表达式1: 初始化表达式
-
-- 表达式2: 条件判断表达式
-
-- 表达式3: 变量递增/减表达式
-
 ```C
 for (i = 10; i > 0; i--) 
   printf("T minus %d and counting\n", i);
 ```
-
-for语句与while语句密切相关; 除了极少数情况外, for循环总是可以用等效的while循环代替:
 
 ```C
 表达式1;
@@ -102,9 +94,27 @@ while (表达式2) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+for语句非常适合使用`计数`变量的循环, 当然它也可以用于其他类型的循环
+
+for语句的一般形式:
+
+表达式1: 初始化表达式
+
+- 表达式2: 条件判断表达式
+
+- 表达式3: 变量递增/减表达式
+
+for语句与while语句密切相关; 除了极少数情况外, for循环总是可以用等效的while循环代替:
+
 表达式1是一个初始化步骤, 只在循环开始之前执行一次; 表达式2 控制循环终止(只要表达式2的值非零, 循环就会继续执行); 表达式3 是每次循环中最后被执行的一个操作
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -143,9 +153,7 @@ for语句中的第一个和第三个表达式都是以语句的方式执行的, 
 
 ---
 
-for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递减==)循环的最佳选择
-
-对于向上或向下计数总共n次的情况, for语句通常具有以下形式:
+`for` 是向上计数 (==变量递增==) 或向下计数 (==变量递减==) 循环的最佳选择, 常见形式:
 
 ```C{.line-numbers}
 /* 从0计数到n – 1 */       for (i = 0; i < n; i++) ...
@@ -171,9 +179,9 @@ for语句通常是`向上计数`(==变量递增==)或`向下计数`(==变量递�
 
 ---
 
-`C`允许省略`for语句`中的表达式
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-如果省略第一个表达式, 则在执行循环之前没有初始化的操作:
+<div style="flex:1.2;font-size:0.7em;">
 
 ```C{.line-numbers}
 i = 10; 
@@ -181,22 +189,34 @@ for (; i > 0; --i)
   printf("T minus %d and counting\n", i);
 ```
 
-如果省略第三个表达式, 则循环体需要确保第二个表达式的值最终变为`false`:
-
 ```C{.line-numbers}
 for (i = 10; i > 0;) 
   printf("T minus %d and counting\n", i--);
 ```
 
-当`for`语句同时省略第一个和第三个表达式时, 它和`while`语句没有任何分别, `while`版本更清晰, 因此更推荐
-
-如果省略第二个表达式, 则它 ==默认为真值==, 因此for语句不会终止(除非以其他方式停止); 一些程序员使用下面的for语句来建立一个无限循环:
-
 ```C
   for (;;) …
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+`C`允许省略`for语句`中的表达式
+
+如果省略第一个表达式, 则在执行循环之前没有初始化的操作:
+
+如果省略第三个表达式, 则循环体需要确保第二个表达式的值最终变为`false`:
+
+当`for`语句同时省略第一个和第三个表达式时, 它和`while`语句没有任何分别, `while`版本更清晰, 因此更推荐
+
+如果省略第二个表达式, 则它 ==默认为真值==, 因此for语句不会终止(除非以其他方式停止); 一些程序员使用下面的for语句来建立一个无限循环:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -205,18 +225,14 @@ for (i = 10; i > 0;)
 
 ---
 
-在 `C99` 中, `for`语句中的第一个表达式可以替换为声明
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-此功能允许程序员声明一个供循环使用的变量(作用域): 
+<div style="flex:1.2;font-size:0.7em;">
 
 ```C
 for (int i = 0; i < n; i++)
   …
 ```
-
-变量i不需要在此语句之前声明
-
-由`for`语句声明的变量不能在循环外访问(在循环外不可见):
 
 ```C{.line-numbers}
 for (int i = 0; i < n; i++) {
@@ -227,16 +243,32 @@ for (int i = 0; i < n; i++) {
 printf("%d", i); /*** WRONG ***/
 ```
 
-让`for`语句声明它自己的循环控制变量通常是一个好主意: 它很方便且程序的可读性更强; 但是, 如果程序需要在循环终止后访问该变量, 则必须使用以前的`for`语句格式
-
-`for`语句可以声明多个变量, 只要它们的类型相同:
-
 ```C{.line-numbers}
 for (int i = 0, j = 0; i < n; i++)
   …
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+在 `C99` 中, `for`语句中的第一个表达式可以替换为声明
+
+此功能允许程序员声明一个供循环使用的变量(作用域):
+
+变量i不需要在此语句之前声明
+
+由`for`语句声明的变量不能在循环外访问(在循环外不可见):
+
+让`for`语句声明它自己的循环控制变量通常是一个好主意: 它很方便且程序的可读性更强; 但是, 如果程序需要在循环终止后访问该变量, 则必须使用以前的`for`语句格式
+
+`for`语句可以声明多个变量, 只要它们的类型相同:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -245,11 +277,7 @@ for (int i = 0, j = 0; i < n; i++)
 
 ---
 
-有时, 一个`for`语句可能需要有两个(或多个)初始化表达式, 或者一个在循环中每次递增几个变量的表达式
-
-这种效果可以通过使用逗号表达式作为`for`语句中的第一个或第三个表达式来实现
-
-逗号表达式具有以下形式
+`for` 需要两个初始化表达式或一次递增多个变量时, 可用==逗号表达式==作第一或第三个表达式, 形式为:
 
 ```C
 表达式1, 表达式2
@@ -277,7 +305,9 @@ i = 1, j = 2, k = i + j   /* (i=1), (j=2), (k=i+j) */
 
 ---
 
-使用 `for` 语句重写平方表程序:
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 /* 使用 for 语句打印一个平方表 */
@@ -299,9 +329,17 @@ int main(void)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+使用 `for` 语句重写平方表程序:
+
 对比 while 版本: for 把初始化、判定、递增三件事集中在一行, 计数循环更清晰
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -310,13 +348,9 @@ int main(void)
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-用两层循环打印星号塔:
-
-<div class="top-2">
-  <img src="../3-for-a-while/figs/stars.jpg" width=400px>
-</div>
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 /* stars.c: 打印星号塔 */
@@ -337,9 +371,23 @@ int main(void)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+用两层循环打印星号塔:
+
+<div class="top-2">
+  <img src="../3-for-a-while/figs/stars.jpg" width=400px>
+</div>
+
 <span class="blue">:fa-lightbulb-o:</span> 外层循环每执行一次, 内层循环完整执行一轮
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -382,11 +430,9 @@ for (int i = 1; i <= n; i++)
 
 ---
 
-判断 n 是否为素数: 检查 2 ~ n-1 之间是否存在约数
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="top-2">
-  <img src="../3-for-a-while/figs/prime.jpg" width=350px>
-</div>
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 /* primes.c: 判断 n 是否为素数 */
@@ -409,9 +455,21 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+判断 n 是否为素数: 检查 2 ~ n-1 之间是否存在约数
+
+<div class="top-2">
+  <img src="../3-for-a-while/figs/prime.jpg" width=350px>
+</div>
+
 <span class="blue">:fa-lightbulb-o:</span> 改进: 只需检查到 $\sqrt{n}$ (下节课配合 sqrt 函数实现)
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -420,11 +478,9 @@ int main(void) {
 
 ---
 
-计算 1~n 中所有==非完全平方数==的和
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="top-2">
-  <img src="../3-for-a-while/figs/perfectSquare.gif" width=300px>
-</div>
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 /* perfectsquare.c: 1~n 中非完全平方数之和 */
@@ -447,9 +503,21 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+计算 1~n 中所有==非完全平方数==的和
+
+<div class="top-2">
+  <img src="../3-for-a-while/figs/perfectSquare.gif" width=300px>
+</div>
+
 <span class="blue">:fa-lightbulb-o:</span> continue + sqrt 的组合: 循环与数学库函数的第一次合作
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

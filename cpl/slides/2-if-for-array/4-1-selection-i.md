@@ -352,13 +352,7 @@ if (i = 0) …
 
 ---
 
-在`if`语句模板中, 需注意statement(语句)是单数, 而不是复数: 
-
-`if (表达式) 语句`
-
-要使`if`语句控制两条或更多条语句, 要使用 ==复合语句==
-
-==[复合语句]== &emsp; `{ 多条语句 }`
+`if` 模板里 statement 是==单数==: `if (表达式) 语句`; 要控制多条语句, 用==复合语句==: `{ 多条语句 }`
 
 在一组语句周围放置大括号会强制编译器将其视为单个语句
 
@@ -407,13 +401,9 @@ if (line_num == MAX_LINES) {
 
 ---
 
-`if`语句可能有`else`子句: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`if (表达式) 语句 else 语句`
-
-如果表达式的值为`0`, 则执行`else`后面的语句
-
-例子: 
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
 if (i > j)
@@ -422,15 +412,30 @@ else
   max = j;
 ```
 
-当内部语句很短, `if`和`else`可放在同一行: 
-
 ```C{.line-numbers}
 if (i > j) max = i;
 else max = j;
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+`if`语句可能有`else`子句: 
+
+`if (表达式) 语句 else 语句`
+
+如果表达式的值为`0`, 则执行`else`后面的语句
+
+例子:
+
+当内部语句很短, `if`和`else`可放在同一行:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -439,7 +444,9 @@ else max = j;
 
 ---
 
-`if`语句嵌套在其他`if`语句中也很普遍: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
 
 ```C{.line-numbers}
 if (i > j)
@@ -453,8 +460,6 @@ else
   else 
     max = k;
 ```
-
-`else`与匹配的`if`对齐可以使嵌套层次更易辨别; 为避免混淆, 最好添加大括号: 
 
 ```C{.line-numbers}
 if (i > j) {
@@ -472,7 +477,19 @@ if (i > j) {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+`if`语句嵌套在其他`if`语句中也很普遍:
+
+`else`与匹配的`if`对齐可以使嵌套层次更易辨别; 为避免混淆, 最好添加大括号:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -501,6 +518,8 @@ if (i > j) {
 
 输入两个整数, 输出其中较小的一个
 
+<div style="font-size:0.7em;">
+
 ```C
 #include <stdio.h>
 
@@ -518,6 +537,8 @@ int main() {
 }
 ```
 
+</div>
+
 <span class="blue">:fa-weixin:</span> if/else 各只控制一条语句时, 花括号可省略
 
 ---
@@ -530,9 +551,9 @@ int main() {
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-输入三个整数, 输出其中最小的一个 (嵌套的 if else)
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C
 #include <stdio.h>
@@ -561,7 +582,19 @@ int main() {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+输入三个整数, 输出其中最小的一个 (嵌套的 if else)
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -570,13 +603,9 @@ int main() {
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-对照流程图写代码: 输入年份, 判断是否为闰年
-
-<div class="top-2">
-  <img src="../img/leap-year-flowchart.png" width=400px>
-</div>
+<div style="flex:1.4;font-size:0.58em;">
 
 ```C
 #include <stdio.h>
@@ -609,8 +638,23 @@ int main(void) {
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+==现场演示==
+
+对照流程图写代码: 输入年份, 判断是否为闰年
+
+<div class="top-2">
+  <img src="../img/leap-year-flowchart.png" width=400px>
+</div>
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
