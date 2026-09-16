@@ -72,7 +72,7 @@ presentation:
 
 ---
 
-授课: [杨已彪](http://cs.nju.edu.cn/yangyibiao), yangyibiao@nju.edu.cn
+- 授课: [杨已彪](http://cs.nju.edu.cn/yangyibiao), yangyibiao@nju.edu.cn
 
 - 理论: 64 学时，每周两次，每次 2 节，共 16 周
 
@@ -83,7 +83,7 @@ presentation:
 <!-- <span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 <span class="blue">:fa-lightbulb-o:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游 -->
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.7em;">
 
 <span class="blue">:fa-weixin:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 
