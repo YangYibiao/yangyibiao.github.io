@@ -85,6 +85,9 @@ def raw_inline(line):
     line = re.sub(r':(fa-[a-z0-9-]+):',
                   lambda m: '<i class="fa ' + m.group(1) + '" aria-hidden="true"></i>', line)
     line = re.sub(r'==([^=<>{}\n]+)==', r'<mark>\1</mark>', line)
+    line = re.sub(r'\$\$([^$\n]{1,200})\$\$', lambda m: '\\[' + m.group(1) + '\\]', line)
+    line = re.sub(r'\$([^$\n]{1,80})\$', lambda m: m.group(0) if re.search(r'\d,\d{3}', m.group(1)) else '\\(' + m.group(1) + '\\)', line)
+    line = re.sub(r'``([^`\n]+)``', r'`\1`', line)
     line = re.sub(r'`([^`<>\n]+)`', lambda m: '<code>' + esc(m.group(1)) + '</code>', line)
     return line
 
@@ -166,11 +169,12 @@ def highlight_c(code):
     return ''.join(out)
 
 def inline(text):
-    parts = re.split(r'(<[^>]+>)', text)
+    parts = re.split(r'(</?[A-Za-z][A-Za-z0-9]*(?:\s[^<>]*)?/?>)', text)
     out = []
     for p in parts:
         if p.startswith('<'):
             out.append(p); continue
+        p = re.sub(r'``([^`\n]+)``', r'`\1`', p)   # 双反引号 -> 单反引号
         # 先保护行内代码, 避免把代码里的 $ 当数学
         codes = []
         def stash(m):
@@ -178,7 +182,7 @@ def inline(text):
         p = re.sub(r'`([^`]+)`', stash, p)
         # LaTeX 数学: $$..$$ -> \\[..\\], $..$ -> \\(..\\) (排除含逗号的金额写法)
         p = re.sub(r'\$\$([^$\n]{1,200})\$\$', lambda m: '\\[' + m.group(1) + '\\]', p)
-        p = re.sub(r'\$([^$,\n]{1,80})\$', lambda m: '\\(' + m.group(1) + '\\)', p)
+        p = re.sub(r'\$([^$\n]{1,80})\$', lambda m: m.group(0) if re.search(r'\d,\d{3}', m.group(1)) else '\\(' + m.group(1) + '\\)', p)
         # 还原行内代码
         p = re.sub(r'\x00(\d+)\x00', lambda m: '<code>' + esc(codes[int(m.group(1))]) + '</code>', p)
         p = re.sub(r':(fa-[a-z0-9-]+):', lambda m: '<span class="blue"><i class="' + FA.get(m.group(1), 'fa ' + m.group(1)) + '" aria-hidden="true"></i></span>', p)
@@ -346,7 +350,7 @@ def build_section(block, idx):
             body.pop(0)
         inner = parse_content(body)
         return (f'<section data-notes="" lineno="{idx*14+52}" class="slide " data-source-line="{idx*14+52}" '
-                f'data-h="{idx}" data-v="0"><h5 id="{hid}">{title} </h5>\n<hr>\n{inner}\n<hr>\n</section>')
+                f'data-h="{idx}" data-v="0"><h5 id="{hid}">{inline(title)} </h5>\n<hr>\n{inner}\n<hr>\n</section>')
     body = [l for l in lines if l.strip() and l.strip() != '#####']
     # split headings (h1/h2/h3) out, feed the rest to parse_content
     content = []
