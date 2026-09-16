@@ -134,9 +134,9 @@ presentation:
 
 ---
 
-嵌套for循环非常适合处理多维数组. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-单位矩阵的数组的初始化: ==嵌套的for循环==
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 #define N 10
@@ -154,10 +154,19 @@ for (row = 0; row < N; row++) {
 }
 ```
 
----
+</div>
 
----
+<div style="flex:1;">
 
+嵌套for循环非常适合处理多维数组. 
+
+单位矩阵的数组的初始化: ==嵌套的for循环==
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -166,7 +175,9 @@ for (row = 0; row < N; row++) {
 
 ---
 
-通过嵌套一维初始化式的方法可以产生二维数组的初始化式: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C
 int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
@@ -176,6 +187,18 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
                 {1, 1, 0, 1, 0, 0, 1, 1, 1} };
 ```
 
+```C
+int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
+                {0, 1, 0, 1, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 1, 0, 0, 1, 0} };
+```
+
+</div>
+
+<div style="flex:1;">
+
+通过嵌套一维初始化式的方法可以产生二维数组的初始化式:
+
 高维数组的初始化式以类似的方式构造. 
 
 C 提供了多种方法来缩写多维数组的初始化式
@@ -183,18 +206,13 @@ C 提供了多种方法来缩写多维数组的初始化式
 
 如果初始值化式不足以填充整个多维数组, 则剩余元素赋值为0. 
 
-下面初始化式只填充了数组m的前三行; 后两行将赋值为0: 
+下面初始化式只填充了数组m的前三行; 后两行将赋值为0:
 
-```C
-int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
-                {0, 1, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 1, 0, 0, 1, 0} };
-```
 
----
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -203,7 +221,9 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
 
 ---
 
-如果内层列表的长度不足以填满数组的一行, 则该行中的剩余元素将初始化为`0`: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C
 int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
@@ -213,11 +233,6 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
                 {1, 1, 0, 1, 0, 0, 1, 1, 1} };
 ```
 
----
-
-
-内层的花括号可以 ==省略==: 
-
 ```C
 int m[5][9] = {1, 1, 1, 1, 1, 0, 1, 1, 1,
                0, 1, 0, 1, 0, 1, 0, 1, 0,
@@ -226,6 +241,18 @@ int m[5][9] = {1, 1, 1, 1, 1, 0, 1, 1, 1,
                1, 1, 0, 1, 0, 0, 1, 1, 1};
 ```
 
+```C
+double ident[2][2] = {[0][0] = 1.0, [1][1] = 1.0};
+```
+
+</div>
+
+<div style="flex:1;">
+
+如果内层列表的长度不足以填满数组的一行, 则该行中的剩余元素将初始化为`0`:
+
+内层的花括号可以 ==省略==:
+
 一旦编译器发现数值足以填满一行, 它就会开始填充下一行. 
 
 多维数组中省略内层大括号有风险, 额外的元素或缺失的元素会影响剩下的初始化式, 省略的花括号会引起编译警告
@@ -233,16 +260,13 @@ int m[5][9] = {1, 1, 1, 1, 1, 0, 1, 1, 1,
 
 C99 的指定初始化式也适用于多维数组. 
 
-创建2×2单位矩阵: 
-
-```C
-double ident[2][2] = {[0][0] = 1.0, [1][1] = 1.0};
-```
+创建2×2单位矩阵:
 
 像通常一样, 所有未指定值的元素都默认为0.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -385,6 +409,47 @@ const char hex_chars[] =
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.48em;">
+
+```C{.line-numbers}
+/* 随机发牌 */
+#include <stdbool.h>   /* C99 only */
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define NUM_SUITS 4
+#define NUM_RANKS 13
+int main(void)
+{
+  bool in_hand[NUM_SUITS][NUM_RANKS] = {false};
+  int num_cards, rank, suit;
+  const char rank_code[] = {'2','3','4','5','6','7','8',
+                            '9','t','j','q','k','a'};
+  const char suit_code[] = {'c','d','h','s'};
+  srand((unsigned) time(NULL));
+  printf("Enter number of cards in hand: ");
+  scanf("%d", &num_cards);
+  printf("Your hand:");
+  while (num_cards > 0) {
+    suit = rand() % NUM_SUITS;    /* picks a random suit */
+    rank = rand() % NUM_RANKS;    /* picks a random rank */
+    if (!in_hand[suit][rank]) {
+      in_hand[suit][rank] = true;
+      num_cards--;
+      printf(" %c%c", rank_code[rank], suit_code[suit]);
+    }
+  }
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
 为了随机挑选卡片, 可以采用一些 C 库函数: 
 
 - time函数(来自`<time.h>`): 返回当前时间, 用一个数表示. 
@@ -420,49 +485,11 @@ in_hand数组用于记录已经选择过的牌.
 
 *deal.c*
 
-```C{.line-numbers}
-/* 随机发牌 */
- 
-#include <stdbool.h>   /* C99 only */
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
- 
-#define NUM_SUITS 4
-#define NUM_RANKS 13
- 
-int main(void)
-{
-  bool in_hand[NUM_SUITS][NUM_RANKS] = {false};
-  int num_cards, rank, suit;
-  const char rank_code[] = {'2','3','4','5','6','7','8',
-                            '9','t','j','q','k','a'};
-  const char suit_code[] = {'c','d','h','s'};
-  srand((unsigned) time(NULL));
 
-  printf("Enter number of cards in hand: ");
-  scanf("%d", &num_cards);
- 
-  printf("Your hand:");
-  while (num_cards > 0) {
-    suit = rand() % NUM_SUITS;    /* picks a random suit */
-    rank = rand() % NUM_RANKS;    /* picks a random rank */
-    if (!in_hand[suit][rank]) {
-      in_hand[suit][rank] = true;
-      num_cards--;
-      printf(" %c%c", rank_code[rank], suit_code[suit]);
-    }
-  }
-  printf("\n");
- 
-  return 0;
-}
-```
 
----
+</div>
 
----
-
+</div>
 
 <!-- slide data-notes="" -->
 

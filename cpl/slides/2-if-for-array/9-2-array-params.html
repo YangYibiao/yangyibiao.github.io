@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
 total <span class="token operator">=</span> <span class="token function">sum_array</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> LEN<span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 2. 调用: 只写数组名, 不加 [] */</span></code></pre>
 <ul>
 <li>
-<p>==函数里改数组 = 改原数组==: 排序函数正是这样工作的</p>
+<p><mark>函数里改数组 = 改原数组</mark>: 排序函数正是这样工作的</p>
 
 </li>
 <li>
@@ -168,7 +168,8 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="案例--成绩统计函数化">案例: 成绩统计函数化 </h5>
 <hr>
-<p>求每个学生的总分 (每行求和), 结果写回一个一维数组:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* scores: n 名学生 × 3 门课; sums: 存每个人的总分 */</span>
 <span class="token keyword keyword-void">void</span> <span class="token function">row_sums</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> scores<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> sums<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -181,16 +182,18 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> scores<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> totals<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token function">row_sums</span><span class="token punctuation">(</span>scores<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> totals<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* totals 里是 5 个学生的总分 */</span></code></pre>
-<ul>
-<li>
+</div>
+<div style="flex:1;">
+<p>求每个学生的总分 (每行求和), 结果写回一个一维数组:</p>
 <p>二维数组进 (<code>scores</code>)、一维数组出 (<code>sums</code>)——都是"数组作参数"</p>
-
-</li>
+<ul>
 <li>
 <p>把 <code>sums[i] += scores[i][j]</code> 改成 <code>sums[j] += scores[i][j]</code> 就变成<mark>按列统计</mark></p>
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
@@ -201,7 +204,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <li>求第 col 列的平均分: <code>double col_average(int scores[][3], int n, int col)</code></li>
 <li>判断矩阵是否对称: <code>int is_symmetric(int a[][3], int n)</code> (a[i][j] == a[j][i])</li>
 </ol>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每个函数第一步都是想清楚<mark>形参的列数写多少</mark>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每个函数第一步都是想清楚<mark>形参的列数写多少</mark></p>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
