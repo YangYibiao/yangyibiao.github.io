@@ -93,7 +93,7 @@ def raw_inline(line):
     line = re.sub(r'``([^`\n]+)``', r'`\1`', line)  # 双反引号 -> 单反引号
     line = re.sub(r':(fa-[a-z0-9-]+):',
                   lambda m: '<i class="fa ' + m.group(1) + '" aria-hidden="true"></i>', line)
-    line = re.sub(r'==([^=<>{}\n]+)==', r'<mark>\1</mark>', line)
+    line = re.sub(r'==([^=<>{}]+(?:=[^=<>{}]+)*)==', r'<mark>\1</mark>', line)
     line = re.sub(r'\$\$([^$\n]{1,200})\$\$', lambda m: '\\[' + m.group(1) + '\\]', line)
     line = re.sub(r'\$([^$\n]{1,80})\$', lambda m: m.group(0) if re.search(r'\d,\d{3}', m.group(1)) else '\\(' + m.group(1) + '\\)', line)
     line = re.sub(r'&(?!(?:[a-zA-Z]+|#\d+|#x[0-9a-fA-F]+);)', '&amp;', line)
@@ -197,7 +197,7 @@ def inline(text):
         # 还原行内代码
         p = re.sub(r'\x00(\d+)\x00', lambda m: '<code>' + esc(codes[int(m.group(1))]) + '</code>', p)
         p = re.sub(r':(fa-[a-z0-9-]+):', lambda m: '<span class="blue"><i class="' + FA.get(m.group(1), 'fa ' + m.group(1)) + '" aria-hidden="true"></i></span>', p)
-        p = re.sub(r'==([^=]+)==', r'<mark>\1</mark>', p)
+        p = re.sub(r'==([^=]+(?:=[^=]+)*)==', r'<mark>\1</mark>', p)
         p = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)
         p = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', p)
         out.append(p)
