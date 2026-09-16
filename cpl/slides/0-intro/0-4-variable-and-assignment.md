@@ -420,7 +420,7 @@ int main(void) {
   printf("请输入出生年份: ");
   scanf("%d", &birth_year);
 
-  int age = 2026 - birth_year;   /* TODO(每学期更新): 换成本年 */
+  int age = 2026 - birth_year;
 
   printf("今年 %d 岁\n", age);
   return 0;
