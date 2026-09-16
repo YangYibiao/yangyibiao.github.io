@@ -188,7 +188,39 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="float-与-double-的精度">float 与 double 的精度 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="整数在内存里长什么样--了解">整数在内存里长什么样 (了解) </h5>
+<hr>
+<p>整数用 <mark>二进制</mark> 存; 负数的存法有个巧妙设计: <mark>补码</mark></p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span>  <span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000101</span>
+<span class="token keyword keyword-int">int</span> y <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111011</span>
+              <span class="token punctuation">(</span>补码 <span class="token operator">=</span> 按位取反再加 <span class="token number">1</span><span class="token punctuation">)</span>
+
+最高位是符号位<span class="token operator">:</span> <span class="token number">0</span> 表示正<span class="token punctuation">,</span> <span class="token number">1</span> 表示负 <span class="token punctuation">(</span>对 <span class="token keyword keyword-signed">signed</span> 而言<span class="token punctuation">)</span></code></pre>
+<ul>
+<li>
+<p>为什么用补码? 让<mark>减法变成加法</mark> (\(5 + (-5)\) 直接相加得 0), 电路更简单</p>
+
+</li>
+<li>
+<p>同样 32 位, <mark>解释方式</mark>不同, 能表示的范围就不同:</p>
+<ul>
+<li>
+<p><code>int</code> (有符号): \(-2^{31}\) ~ \(2^{31}-1\) (约 ±21 亿)</p>
+</li>
+<li>
+<p><code>unsigned int</code> (无符号): \(0\) ~ \(2^{32}-1\) (约 42 亿)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>溢出"绕回"的真相: 最大的正数加 1, 最高位翻成 1, 就被解释成负数</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token number">2147483647</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* -2147483648 */</span></code></pre>
+<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 本页==了解即可==: 知道"负数用补码、最高位是符号位"就够了
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="float-与-double-的精度">float 与 double 的精度 </h5>
 <hr>
 <ul>
 <li>
@@ -217,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="整数常量的进制">整数常量的进制 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="整数常量的进制">整数常量的进制 </h5>
 <hr>
 <p>同一个整数有三种写法:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span>      <span class="token comment">/* 十进制 */</span>
@@ -241,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
 <hr>
 <p>浮点数按 <mark>IEEE 754</mark> 标准存储, 思路是"<mark>二进制的科学计数法</mark>"</p>
 <p>类比 \(3.14 \times 10^{2}\): 符号、有效数字、指数三部分</p>
@@ -295,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </ul>
 <span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 本页==了解即可==, 不要求掌握位级细节
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="字符与-ascii--char-其实是小整数">字符与 ASCII: char 其实是小整数 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="字符与-ascii--char-其实是小整数">字符与 ASCII: char 其实是小整数 </h5>
 <hr>
 <p>上一周知道 char 存的是<mark>编码</mark>; 今天把它当整数用</p>
 <ul>
@@ -322,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="变量与赋值---赋值">变量与赋值 - 赋值 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="变量与赋值---赋值">变量与赋值 - 赋值 </h5>
 <hr>
 <p><mark>赋值</mark>: 通过赋值的方式获得值</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
@@ -340,7 +372,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1.0e20</span><span class="token punctuation">;</span>      <span class="token comment">/* 无意义: 超出 int 范围 */</span>
 <span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">1.0e100</span><span class="token punctuation">;</span>   <span class="token comment">/* 无意义: 超出 float 范围 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
 <hr>
 <p><mark>常量</mark>: 程序运行过程中其值已知且不能改变的量, 如 <code>8</code>, <code>12</code>, <code>10</code>, <code>'M'</code></p>
 <p><mark>符号常量</mark>: 给常量起一个名字, 提高可读性、便于修改</p>
@@ -363,7 +395,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 宏里如果含运算符, ==整体要加括号==, 否则替换后会因优先级出错:
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
 <hr>
 <p>给定一个圆的<mark>半径</mark> (如 \(10\)), 计算其<mark>周长</mark>和<mark>面积</mark></p>
 <p>\(L = 2\pi r\) &emsp; \(S = \pi r^2\)</p>
@@ -393,7 +425,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
 <hr>
 <p>给定一个球的<mark>半径</mark> (如 \(100\)), 计算其<mark>表面积</mark>和<mark>体积</mark></p>
 <p>\(A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3\)</p>
@@ -423,7 +455,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
            surface_area<span class="token punctuation">,</span> volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？</li>
@@ -432,7 +464,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <li>计算圆的面积时为什么要用符号常量 <code>PI</code> 而不是直接写 <code>3.14159</code>？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="13" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
