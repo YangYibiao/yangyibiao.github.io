@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -104,12 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="指向指针的指针">指向指针的指针 </h5>
 <hr>
-<p>第 13 章介绍了指向指针的指针的概念.</p>
-<p>"指向指针的指针"的概念也经常出现在链式数据结构中.</p>
-<p>特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量.</p>
-<p>这样做需要使用指向指针的指针.</p>
-<hr>
-<p>向add_to_list函数传递一个指向原始链表首结点的指针; 它返回一个指向新链表首结点的指针:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span><span class="token function">add_to_list</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>list<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>new_node<span class="token punctuation">;</span>
@@ -123,11 +119,6 @@ document.addEventListener("DOMContentLoaded", function () {
   new_node<span class="token operator">-&gt;</span>next <span class="token operator">=</span> list<span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> new_node<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的.</p>
-<p>调用函数: <code>add_to_list(first, 10);</code></p>
-<p>在调用点, first被复制到list中.</p>
-<p>函数可以改变list的值, 使其指向新结点, 但first不受影响.</p>
-<p>让函数add_to_list修改first是可能的, 需要向add_to_list传递一个指向first的指针:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">add_to_list</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span><span class="token operator">*</span>list<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>new_node<span class="token punctuation">;</span>
@@ -141,30 +132,57 @@ document.addEventListener("DOMContentLoaded", function () {
   new_node<span class="token operator">-&gt;</span>next <span class="token operator">=</span> <span class="token operator">*</span>list<span class="token punctuation">;</span>
   <span class="token operator">*</span>list <span class="token operator">=</span> new_node<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>第 13 章介绍了指向指针的指针的概念.</p>
+<p>"指向指针的指针"的概念也经常出现在链式数据结构中.</p>
+<p>特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量.</p>
+<p>这样做需要使用指向指针的指针.</p>
+<hr>
+<p>向add_to_list函数传递一个指向原始链表首结点的指针; 它返回一个指向新链表首结点的指针:</p>
+<p>如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的.</p>
+<p>调用函数: <code>add_to_list(first, 10);</code></p>
+<p>在调用点, first被复制到list中.</p>
+<p>函数可以改变list的值, 使其指向新结点, 但first不受影响.</p>
+<p>让函数add_to_list修改first是可能的, 需要向add_to_list传递一个指向first的指针:</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="命令行参数--带参数的-main">命令行参数: 带参数的 main </h5>
 <hr>
-<p>运行程序时, 经常需要提供一些信息.</p>
-<p>这可能包括文件名或修改程序行为的开关.</p>
-<p>UNIX <code>ls</code>命令的示例:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>ls
 ls –l
 ls <span class="token operator">-</span>l remind<span class="token punctuation">.</span>c</code></pre>
-<p>命令行信息对所有程序都是可用的, 不仅仅是操作系统命令.</p>
-<p>要访问 <mark>命令行参数</mark>, main必须含有两个参数:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   …
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>运行程序时, 经常需要提供一些信息.</p>
+<p>这可能包括文件名或修改程序行为的开关.</p>
+<p>UNIX <code>ls</code>命令的示例:</p>
+<p>命令行信息对所有程序都是可用的, 不仅仅是操作系统命令.</p>
+<p>要访问 <mark>命令行参数</mark>, main必须含有两个参数:</p>
 <p>命令行参数在 C 标准中称为 <mark>程序参数</mark>.</p>
 <p>argc: (argument count)参数计数是命令行参数的数量.</p>
 <p>argv: (argument vector)参数向量是指向命令行参数的指针数组(以字符串形式存储).</p>
 <p>argv[0]指向程序名, 而argv[1]到argv[argc-1]指向剩余的命令行参数.</p>
 <p>argv[argc]总是一个空指针——一个不指向任何东西的特殊指针.</p>
 <p>宏NULL表示一个空指针.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="指向函数的指针">指向函数的指针 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">integrate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">integrate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>C 不要求指针只指向数据; 也可以有指向函数的指针.</p>
 <p>函数占用内存单元, 因此每个函数都有一个地址.</p>
 <p>可以像使用指向数据的指针一样使用函数指针.</p>
@@ -172,10 +190,10 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <hr>
 <p>编写integrate函数求函数f在a点和b点之间的积分, 可以把f作为参数传入, 从而使其尽可能通用.</p>
 <p>integrate原型:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">integrate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p><code>*f</code>两边的括号表示f是指向函数的指针.</p>
 <p>另一种原型:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">integrate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="函数指针作为参数">函数指针作为参数 </h5>
 <hr>
@@ -188,6 +206,12 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="qsort函数">qsort函数 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">qsort</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span>base<span class="token punctuation">,</span> size_t nmemb<span class="token punctuation">,</span> size_t size<span class="token punctuation">,</span>
+           <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>compar<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>C 库中一些功能强大的函数要求把函数指针作为参数.</p>
 <p>其中之一是qsort, 它的原型在<stdlib.h>中.</p>
 <p>qsort是一个通用的排序函数, 能够对任何数组进行排序.</p>
@@ -209,35 +233,38 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 </li>
 </ul>
 <p>qsort的原型:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">qsort</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span>base<span class="token punctuation">,</span> size_t nmemb<span class="token punctuation">,</span> size_t size<span class="token punctuation">,</span>
-           <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>compar<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>base必须指向数组中的第一个元素(或要排序的部分中的第一个元素).</p>
 <p>nmemb是要排序的元素数.</p>
 <p>size是每个数组元素的大小, 以字节为单位.</p>
 <p>compar是指向比较函数的指针.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数指针的其他用途">函数指针的其他用途 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>pf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>尽管函数指针经常用作参数, 但这并不是它们的全部优点.</p>
 <p>C 将指向函数的指针视为指向数据的指针.</p>
 <p>它们可以存储在变量中, 也可以用作数组的元素, 结构或联合的成员.</p>
 <p>函数甚至可以返回函数指针.</p>
 <p>可以存储指向函数的指针的变量, pf指向具有int型参数且返回void型值的函数:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>pf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>如果f是这样一个函数, 可以通过以下方式使pf指向f:</p>
 <p><code>pf = f;</code></p>
 <p>可以通过以下方式调用f:</p>
 <p><code>(*pf)(i);</code></p>
 <p>或者</p>
 <p><code>pf(i);</code></p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--列三角函数表">程序: 列三角函数表 </h5>
 <hr>
-<p>tabulate.c程序打印显示cos、sin和tan函数值的表格.</p>
-<p>程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值.</p>
-<p>tabulate使用了ceil函数.</p>
-<p>当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数.</p>
-<p>tabulate.c的会话:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>Enter initial value<span class="token operator">:</span> <span class="token number">0</span>
 Enter final value<span class="token operator">:</span> <span class="token punctuation">.</span><span class="token number">5</span>
 Enter increment<span class="token operator">:</span> <span class="token punctuation">.</span><span class="token number">1</span>
@@ -268,6 +295,15 @@ Enter increment<span class="token operator">:</span> <span class="token punctuat
   <span class="token number">0.30000</span>    <span class="token number">0.30934</span>
   <span class="token number">0.40000</span>    <span class="token number">0.42279</span>
   <span class="token number">0.50000</span>    <span class="token number">0.54630</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>tabulate.c程序打印显示cos、sin和tan函数值的表格.</p>
+<p>程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值.</p>
+<p>tabulate使用了ceil函数.</p>
+<p>当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数.</p>
+<p>tabulate.c的会话:</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="ai-赋能程序设计-ii">AI 赋能程序设计 II </h5>
 <hr>

@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -127,104 +127,138 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="声明指针变量">声明指针变量 </h5>
 <hr>
-<p>当一个指针变量被声明时, 它的名字前面必须有一个星号:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span></code></pre>
-<p>p是一个指针变量, 能够指向int类型的对象.</p>
-<p>使用术语<mark>对象</mark>而不是变量, 因p可能指向不属于变量的内存区域.</p>
-<p>指针变量可以与其他变量一起出现在声明中:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span></code></pre>
-<p>C 要求每个指针变量只能指向特定类型(引用类型)的对象:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span> <span class="token comment">/* 只指向整数 */</span>
 <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>q<span class="token punctuation">;</span> <span class="token comment">/* 只指向双精度 */</span>
 <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>r<span class="token punctuation">;</span> <span class="token comment">/* 只指向字符 */</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>当一个指针变量被声明时, 它的名字前面必须有一个星号:</p>
+<p>p是一个指针变量, 能够指向int类型的对象.</p>
+<p>使用术语<mark>对象</mark>而不是变量, 因p可能指向不属于变量的内存区域.</p>
+<p>指针变量可以与其他变量一起出现在声明中:</p>
+<p>C 要求每个指针变量只能指向特定类型(引用类型)的对象:</p>
 <p>对引用类型没有限制.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="取地址运算符">取地址运算符 & </h5>
 <hr>
-<p>声明指针变量会为指针留出空间, 但不会使其指向对象:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>  <span class="token comment">/* 没有指向特定对象 */</span></code></pre>
-<p>在使用p之前需要初始化它.</p>
-<p>初始化指针变量的一种方法是为其分配变量的地址:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span> p<span class="token punctuation">;</span>
 …
 p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>声明指针变量会为指针留出空间, 但不会使其指向对象:</p>
+<p>在使用p之前需要初始化它.</p>
+<p>初始化指针变量的一种方法是为其分配变量的地址:</p>
 <p>把i的地址赋值给变量p, 使p指向i:</p>
 <div class="top-2">
     <img src="../img/11-5.png">
 </div>
 <p>可在声明指针变量时进行初始化:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
 <p>i的声明甚至可以与p的声明合并:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="间接寻址运算符">间接寻址运算符 * </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>j <span class="token operator">=</span> <span class="token operator">*</span><span class="token operator">&</span>i<span class="token punctuation">;</span> <span class="token comment">/* 等同于 j = i; */</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>一旦指针变量指向一个对象, 就可以使用<code>*</code>(间接寻址)运算符来访问对象中存储的内容.</p>
 <p>如果p指向i, 我们可以打印i的值如下:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
 <p>对变量使用<code>&amp;</code>运算符生成指向变量的指针</p>
-
-</li>
+<ul>
 <li>
 <p>对指针使用<code>*</code>运算符则可以返回原始变量</p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>j <span class="token operator">=</span> <span class="token operator">*</span><span class="token operator">&</span>i<span class="token punctuation">;</span> <span class="token comment">/* 等同于 j = i; */</span></code></pre>
 <p>只要p指向i, <code>*p</code>就是i的别名. <code>*p</code>与i具有相同的值. 更改<code>*p</code>的值会更改i的值. 下一张幻灯片上的示例说明了<code>*p</code>和i的等价性.</p>
-<hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="间接寻址运算符">间接寻址运算符 * </h5>
-<hr>
-<p><code>p = &amp;i;</code></p>
-<div class="top-2">
-    <img src="../img/11-6.png" width=300>
 </div>
-<p><code>i = 1;</code></p>
-<div class="top-2">
-    <img src="../img/11-7.png" width=300>
 </div>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="间接寻址运算符----上">间接寻址运算符 * (上) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 1 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 1 */</span>
 <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
-<div class="top-2">
-    <img src="../img/11-8.png" width=300>
-</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><code>p = &amp;i;</code></p>
+<p><code>i = 1;</code></p>
+<div class="top-2">
+  <img src="../img/11-6.png" width=200px>
+</div><div class="top-2">
+  <img src="../img/11-7.png" width=200px>
+</div><div class="top-2">
+  <img src="../img/11-8.png" width=200px>
+</div>
 <p>将间接寻址运算符应用于未初始化的指针变量会导致未定义的行为:</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="间接寻址运算符----下">间接寻址运算符 * (下) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
-<p>给*p赋值是特别危险的:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span>
 <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>给*p赋值是特别危险的:</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="指针赋值">指针赋值 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="指针赋值">指针赋值 </h5>
 <hr>
-<p>C 允许使用赋值运算符来复制相同类型的指针. 假设有以下声明:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span></code></pre>
-<p>指针赋值示例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
-<p>指针赋值的另一个例子:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>C 允许使用赋值运算符来复制相同类型的指针. 假设有以下声明:</p>
+<p>指针赋值示例:</p>
+<p>指针赋值的另一个例子:</p>
 <p>q现在指向与p相同的位置:</p>
 <div class="top-2">
     <img src="../img/11-9.png">
 </div>
 <p>如果p和q都指向i, 就可以通过为<code>*p</code>或<code>*q</code>赋一个新值来更改i:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
 <div class="top-2">
     <img src="../img/11-10.png" width=200px>
 </div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
 <div class="top-2">
     <img src="../img/11-11.png" width=200px>
 </div>
 <p>任意数量的指针变量都可以指向同一个对象.</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="指针赋值">指针赋值 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="指针赋值">指针赋值 </h5>
 <hr>
 <p>注意不要混淆</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p<span class="token punctuation">;</span></code></pre>
@@ -242,27 +276,39 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
     <img src="../img/11-13.png" width=200px>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="指针作为参数--传址调用">指针作为参数: 传址调用 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="指针作为参数--传址调用">指针作为参数: 传址调用 </h5>
 <hr>
-<p>在第9章中, 我们尝试编写了一个可以修改其参数的decompose函数, 但失败了. 传递指向变量的指针而不是变量的值, 可以实现decompose.</p>
-<p>decompose的新定义:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">decompose</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-long">long</span> <span class="token operator">*</span> int_part<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>frac_part<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token operator">*</span>int_part <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> x<span class="token punctuation">;</span>
     <span class="token operator">*</span>frac_part <span class="token operator">=</span> x <span class="token operator">-</span> <span class="token operator">*</span>int_part<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>decompose的原型可以是:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">decompose</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-long">long</span> <span class="token operator">*</span> int_part<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>frac_part<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>也可以是:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">decompose</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-long">long</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>调用decompose:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">decompose</span><span class="token punctuation">(</span><span class="token number">3.14159</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+</div>
+<div style="flex:1;">
+<p>在第9章中, 我们尝试编写了一个可以修改其参数的decompose函数, 但失败了. 传递指向变量的指针而不是变量的值, 可以实现decompose.</p>
+<p>decompose的新定义:</p>
+<p>decompose的原型可以是:</p>
+<p>也可以是:</p>
+<p>调用decompose:</p>
 <p>作为调用的结果, 指向i的指针存储在int_part中, 指向d的指针存储在frac_part中:</p>
 <div class="top-2">
     <img src="../img/11-14.png" width=300px>
 </div>
+</div>
+</div>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="指针作为参数--swap-例">指针作为参数: swap 例 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="指针作为参数--swap-例">指针作为参数: swap 例 </h5>
 <hr>
 <p>decompose函数体中的第一个赋值将x的值转换为long类型, 并将其存储在int_part指向的对象中:</p>
 <div class="top-2">
@@ -278,7 +324,7 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>如果没有&, 传递给scanf函数的将是i的值.</p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="指针作为参数">指针作为参数 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="指针作为参数">指针作为参数 </h5>
 <hr>
 <p>尽管scanf的参数必须是指针, 但并不总是需要<code>&amp;</code>运算符:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
@@ -287,47 +333,35 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>使用&运算符是错误的:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
-<p>向函数传递需要的指针却失败了可能会导致灾难性的后果. 缺少&运算符的decompose调用:</p>
+<p>传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">decompose</span><span class="token punctuation">(</span><span class="token number">3.14159</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> d<span class="token punctuation">)</span>；</code></pre>
-<p>当decompose在 <code>*int_part</code> 和 <code>*frac_part</code> 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 如果我们为decompose提供了原型, 编译器将检测到错误. 然而, 在scanf的例子中, 通常不会检查出传递指针失败.</p>
+<p>当decompose在 <code>*int_part</code> 和 <code>*frac_part</code> 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 若为 decompose 提供了原型, 编译器会检测到错误; 而 scanf 的例子通常不会被检查出来</p>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--查找数组中最大和最小的元素">程序: 查找数组中最大和最小的元素 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--查找数组中最大和最小的元素">程序: 查找数组中最大和最小的元素 </h5>
 <hr>
-<p>max_min.c程序使用名为 max_min 的函数来查找数组中的最大和最小元素. max_min的原型:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">max_min</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>max<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>min<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>max_min的调用示例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">max_min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> N<span class="token punctuation">,</span> <span class="token operator">&</span>big<span class="token punctuation">,</span> <span class="token operator">&</span>small<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>当max_min找到数组b中的最大元素时, 它通过将其赋值给\*max来将值存储在big中, 通过将b的最小元素赋值给\*min将其存储在small中.</p>
-<p>max_min.c会将 10 个数字读入一个数组, 将其传递给max_min函数, 并打印结果: 输入10个数字: <u>34 82 49 102 7 94 23 11 50 31</u> 最大: 102 最小: 7</p>
-<p>maxmin.c</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Finds the largest and smallest elements in an array */</span>
- 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
- 
 <span class="token keyword keyword-void">void</span> <span class="token function">max_min</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>max<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>min<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> big<span class="token punctuation">,</span> small<span class="token punctuation">;</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d numbers: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   <span class="token function">max_min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> N<span class="token punctuation">,</span> <span class="token operator">&</span>big<span class="token punctuation">,</span> <span class="token operator">&</span>small<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Largest: %d\n"</span><span class="token punctuation">,</span> big<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Smallest: %d\n"</span><span class="token punctuation">,</span> small<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
 <span class="token keyword keyword-void">void</span> <span class="token function">max_min</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>max<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>min<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
- 
   <span class="token operator">*</span>max <span class="token operator">=</span> <span class="token operator">*</span>min <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token operator">*</span>max<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -337,22 +371,25 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>max_min.c 用 max_min 函数找数组的最大/最小元素 (原型与调用见左): 最大元素经 <code>*max</code> 存进 big, 最小经 <code>*min</code> 存进 small; max_min.c 读 10 个数传给 max_min 并打印结果:</p>
+<p>输入10个数字: <u>34 82 49 102 7 94 23 11 50 31</u></p>
+<p>最大: 102 &emsp; 最小: 7</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="使用const保护参数">使用const保护参数 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="使用const保护参数">使用const保护参数 </h5>
 <hr>
-<p>当参数是指向变量x的指针时, 我们通常假设x将被修改:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">f</span><span class="token punctuation">(</span><span class="token operator">&</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>但是, 有可能 f 只需要检查 x 的值, 而不是更改它.</p>
-<p>使用指针的原因可能主要是因为效率: 如果变量需要大量的存储空间, 则传递变量的值会浪费时间和空间.</p>
-<p>可以使用const来表明函数不会更改指针参数所指向的对象.</p>
-<p>const放置在形式参数的声明中, 后面紧跟着其类型说明:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> j<span class="token punctuation">;</span>
   <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误 ***/</span>
   p <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span> <span class="token comment">/*** 合法 ***/</span>
 <span class="token punctuation">}</span></code></pre>
-<p>尝试修改\*p, 编译器会报错.</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span> <span class="token keyword keyword-const">const</span> p<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> j<span class="token punctuation">;</span>
@@ -365,10 +402,21 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
   <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误 ***/</span>
   p <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span> <span class="token comment">/*** 错误 ***/</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>当参数是指向变量x的指针时, 我们通常假设x将被修改:</p>
+<p>但是, 有可能 f 只需要检查 x 的值, 而不是更改它.</p>
+<p>使用指针的原因可能主要是因为效率: 如果变量需要大量的存储空间, 则传递变量的值会浪费时间和空间.</p>
+<p>可以使用const来表明函数不会更改指针参数所指向的对象.</p>
+<p>const放置在形式参数的声明中, 后面紧跟着其类型说明:</p>
+<p>尝试修改\*p, 编译器会报错.</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="指针作为返回值">指针作为返回值 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="指针作为返回值">指针作为返回值 </h5>
 <hr>
-<p>允许函数返回指针:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">*</span>a <span class="token operator">></span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
@@ -376,25 +424,30 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
   <span class="token keyword keyword-else">else</span>
     <span class="token keyword keyword-return">return</span> b<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>调用max函数:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
 …
 p <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>调用后,  p指向i或j .</p>
-<p>尽管这个例子中max返回作为参数传递给它的指针之一, 但这不是唯一的可能性. 函数还可以返回指向外部变量或静态局部变量的指针. 永远不要返回指向自动局部变量的指针:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span><span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
     …
     <span class="token keyword keyword-return">return</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>f返回后变量i将不存在.</p>
-<p>指针可以指向数组元素. 如果a是一个数组, 则<code>&amp;a[i]</code>是指向a中元素i的指针. 函数返回指向数组中某个元素的指针有时很有用. 下面的函数假设a有n个元素, 返回一个指向数组中间元素的指针:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span><span class="token function">find_middle</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-return">return</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>允许函数返回指针:</p>
+<p>调用max函数:</p>
+<p>调用后,  p指向i或j .</p>
+<p>尽管这个例子中max返回作为参数传递给它的指针之一, 但这不是唯一的可能性. 函数还可以返回指向外部变量或静态局部变量的指针. 永远不要返回指向自动局部变量的指针:</p>
+<p>f返回后变量i将不存在.</p>
+<p>指针可以指向数组元素. 如果a是一个数组, 则<code>&amp;a[i]</code>是指向a中元素i的指针. 函数返回指向数组中某个元素的指针有时很有用. 下面的函数假设a有n个元素, 返回一个指向数组中间元素的指针:</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>指针变量里存的是什么？<code>int *p;</code> 中 p 的类型是什么？</li>
@@ -403,7 +456,7 @@ p <span class="token operator">=</span> <span class="token function">max</span><
 <li>写一个交换两个整数的函数 <code>void swap(int *a, int *b)</code>，为什么参数要用指针？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

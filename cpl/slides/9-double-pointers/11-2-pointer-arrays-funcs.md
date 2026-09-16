@@ -70,18 +70,9 @@ presentation:
 
 ---
 
-第 13 章介绍了指向指针的指针的概念. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-"指向指针的指针"的概念也经常出现在链式数据结构中. 
-
-特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量. 
-
-这样做需要使用指向指针的指针. 
-
-
----
-
-向add_to_list函数传递一个指向原始链表首结点的指针; 它返回一个指向新链表首结点的指针: 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 struct node *add_to_list(struct node *list, int n)
@@ -99,19 +90,6 @@ struct node *add_to_list(struct node *list, int n)
 }
 ```
 
-
-如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的. 
-
-调用函数: 
-`add_to_list(first, 10);`
-
-在调用点, first被复制到list中. 
-
-函数可以改变list的值, 使其指向新结点, 但first不受影响.
-
-
-让函数add_to_list修改first是可能的, 需要向add_to_list传递一个指向first的指针: 
-
 ```C{.line-numbers}
 void add_to_list(struct node **list, int n)
 {
@@ -128,8 +106,40 @@ void add_to_list(struct node **list, int n)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+第 13 章介绍了指向指针的指针的概念. 
+
+"指向指针的指针"的概念也经常出现在链式数据结构中. 
+
+特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量. 
+
+这样做需要使用指向指针的指针. 
+
+
 ---
 
+向add_to_list函数传递一个指向原始链表首结点的指针; 它返回一个指向新链表首结点的指针:
+
+如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的. 
+
+调用函数: 
+`add_to_list(first, 10);`
+
+在调用点, first被复制到list中. 
+
+函数可以改变list的值, 使其指向新结点, 但first不受影响.
+
+
+让函数add_to_list修改first是可能的, 需要向add_to_list传递一个指向first的指针:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -138,11 +148,9 @@ void add_to_list(struct node **list, int n)
 
 ---
 
-运行程序时, 经常需要提供一些信息. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-这可能包括文件名或修改程序行为的开关. 
-
-UNIX `ls`命令的示例: 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```
 ls
@@ -150,16 +158,26 @@ ls –l
 ls -l remind.c
 ```
 
-
-命令行信息对所有程序都是可用的, 不仅仅是操作系统命令. 
-
-要访问 ==命令行参数==, main必须含有两个参数: 
 ```C
 int main(int argc, char *argv[])
 {
   …
 }
 ```
+
+</div>
+
+<div style="flex:1;">
+
+运行程序时, 经常需要提供一些信息. 
+
+这可能包括文件名或修改程序行为的开关. 
+
+UNIX `ls`命令的示例:
+
+命令行信息对所有程序都是可用的, 不仅仅是操作系统命令. 
+
+要访问 ==命令行参数==, main必须含有两个参数:
 
 命令行参数在 C 标准中称为 ==程序参数==.
 
@@ -174,8 +192,9 @@ argv[argc]总是一个空指针——一个不指向任何东西的特殊指针.
 
 宏NULL表示一个空指针.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -183,6 +202,22 @@ argv[argc]总是一个空指针——一个不指向任何东西的特殊指针.
 ##### 指向函数的指针
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+double integrate(double (*f)(double), double a, double b);
+```
+
+```C
+double integrate(double f(double), double a, double b);
+```
+
+</div>
+
+<div style="flex:1;">
 
 C 不要求指针只指向数据; 也可以有指向函数的指针. 
 
@@ -197,19 +232,17 @@ C 不要求指针只指向数据; 也可以有指向函数的指针.
 
 编写integrate函数求函数f在a点和b点之间的积分, 可以把f作为参数传入, 从而使其尽可能通用. 
 
-integrate原型: 
-```C
-double integrate(double (*f)(double), double a, double b);
-```
+integrate原型:
+
 `*f`两边的括号表示f是指向函数的指针. 
 
-另一种原型: 
-```C
-double integrate(double f(double), double a, double b);
-```
+另一种原型:
 
----
 
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -240,6 +273,19 @@ double integrate(double f(double), double a, double b);
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C
+void qsort(void *base, size_t nmemb, size_t size,
+           int (*compar)(const void *, const void *));
+```
+
+</div>
+
+<div style="flex:1;">
+
 C 库中一些功能强大的函数要求把函数指针作为参数. 
 
 其中之一是qsort, 它的原型在<stdlib.h>中. 
@@ -260,11 +306,7 @@ qsort是一个通用的排序函数, 能够对任何数组进行排序.
 - 如果*p “大于” *q, 返回正数.
 
 
-qsort的原型: 
-```C
-void qsort(void *base, size_t nmemb, size_t size,
-           int (*compar)(const void *, const void *));
-```
+qsort的原型:
 
 base必须指向数组中的第一个元素(或要排序的部分中的第一个元素). 
 
@@ -274,8 +316,9 @@ size是每个数组元素的大小, 以字节为单位.
 
 compar是指向比较函数的指针.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -283,6 +326,18 @@ compar是指向比较函数的指针.
 ##### 函数指针的其他用途
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+void (*pf)(int);
+```
+
+</div>
+
+<div style="flex:1;">
 
 尽管函数指针经常用作参数, 但这并不是它们的全部优点. 
 
@@ -293,11 +348,7 @@ C 将指向函数的指针视为指向数据的指针.
 函数甚至可以返回函数指针.
 
 
-可以存储指向函数的指针的变量, pf指向具有int型参数且返回void型值的函数: 
-
-```C
-void (*pf)(int);
-```
+可以存储指向函数的指针的变量, pf指向具有int型参数且返回void型值的函数:
 
 如果f是这样一个函数, 可以通过以下方式使pf指向f: 
 
@@ -311,8 +362,9 @@ void (*pf)(int);
 
 `pf(i);`
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -321,16 +373,10 @@ void (*pf)(int);
 
 ---
 
-tabulate.c程序打印显示cos、sin和tan函数值的表格. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值. 
+<div style="flex:1.4;font-size:0.5em;">
 
-tabulate使用了ceil函数. 
-
-当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数.
-
-
-tabulate.c的会话: 
 ```
 Enter initial value: 0
 Enter final value: .5
@@ -364,8 +410,26 @@ Enter increment: .1
   0.50000    0.54630
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+tabulate.c程序打印显示cos、sin和tan函数值的表格. 
+
+程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值. 
+
+tabulate使用了ceil函数. 
+
+当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数.
+
+
+tabulate.c的会话:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
