@@ -85,7 +85,7 @@ presentation:
 
 ==int==变量: (整数integer的缩写)存储整数, 如`0`, `1`, `392`或`-2553`
 
-- 取值范围是受限的, 最大的整数通常是$2 147 483 647$($2^{31}-1$)
+- 取值范围是受限的, 最大的整数通常是2 147 483 647($2^{31}-1$)
 
 - INT_MAX, INT_MIN (limits.h头文件中定义的常量)
 
@@ -117,7 +117,7 @@ int main(void) {
 <span class="blue">:fa-weixin:</span> 需要注意: 
 
 - ==float/double== 型变量所存储的数值往往只是实际数值的一个近似值
-- ==float/double== 型变量中存储0.1, 可能发现变量值为$0.099 999 999 999 999 87$
+- ==float/double== 型变量中存储0.1, 可能发现变量值为0.099 999 999 999 999 87
 
 ---
 
@@ -368,7 +368,7 @@ printf("profit: %.2f", profit);
 
 - ==`printf`== 打印的变量数量没有限制
 ```C
-printf("Height: %d Length: %d", height, lenght);
+printf("Height: %d Length: %d", height, length);
 ```
 
 ---
