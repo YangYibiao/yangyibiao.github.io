@@ -548,60 +548,6 @@ int main(void) {
 
 <!-- slide data-notes="" -->
 
-
-##### 代码演示4: 石头剪刀布
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.35;font-size:0.65em;">
-
-```C
-/* rps.c: 石头剪刀布 */
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-int main(void) {
-    int player, computer;
-    srand(time(NULL));
-    computer = rand() % 3;   /* 0剪刀 1石头 2布 */
-
-    printf("0剪刀 1石头 2布, 请出: ");
-    scanf("%d", &player);
-
-    if (player == computer) {
-        printf("平局!\n");
-    } else if ((player == 0 && computer == 2) ||
-               (player == 1 && computer == 0) ||
-               (player == 2 && computer == 1)) {
-        printf("你赢了!\n");
-    } else {
-        printf("你输了!\n");
-    }
-    return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-==现场演示==
-
-你和电脑各出一个手势, 谁赢?
-
-- 变量 + 随机数 + if/else, 都是已经见过的元素
-
-- 预告: if 语句第 4 周正式学, 随机数第 5 周猜数字改进版
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
 ##### 集成开发环境
 
 ---
@@ -648,7 +594,7 @@ int main(void) {
 
 1. ==温度转换==: 输入摄氏温度, 输出华氏温度 ($F = \frac{9}{5}C + 32$)
 
-2. ==成绩判断==: 输入一个成绩, 输出"及格"或"不及格"
+2. ==交换两个数==: 输入两个整数 a、b, 交换后输出 (需要第三个变量临时保存)
 
 提示:
 
