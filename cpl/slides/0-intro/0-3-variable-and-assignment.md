@@ -46,6 +46,7 @@ presentation:
 
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -161,6 +162,7 @@ printf("%c\n", gender);
 
 ---
 
+
 <!-- slide data-notes="" -->
 
 ##### 标识符与关键字
@@ -255,6 +257,7 @@ int height = 8;
 
 ---
 
+
 <!-- slide data-notes="" -->
 
 ##### 变量与赋值 - 初始化
@@ -297,6 +300,8 @@ height = 10;       /* 可以再改: height 现在是 10 */
 - 对比: `int height = 8;` 是==初始化==(声明的同时给值)
 
 ---
+
+
 <!-- slide data-notes="" -->
 
 ##### 变量与赋值 - 打印变量的值
@@ -327,6 +332,7 @@ int main()
 - ==%f==: double型变量占位符 (printf 中 double 也用 %f; ==`%lf` 只有 scanf 需要==)
 
 ---
+
 
 <!-- slide data-notes="" -->
 
@@ -388,42 +394,32 @@ scanf("%f", &x);
 
 ---
 
-给定一个人的出生日期（年、月、日），以及一个参考日期（通常是今天），计算他现在的精确年龄（几岁几个月几天）。
+==现场演示==
 
----
+输入出生年份, 输出今年的年龄 (纯变量 + 表达式)
 
-
-<!-- slide data-notes="" -->
-
-##### 代码演示1: 年龄
-
----
-
-```C
+```C{.line-numbers}
+/* age.c: 计算年龄 */
 #include <stdio.h>
 
 int main(void) {
-    int birthYear, birthMonth, birthDay;
-    int refYear, refMonth, refDay;
+  int birth_year;
 
-    printf("请输入出生日期 (年 月 日): ");
-    scanf("%d %d %d", &birthYear, &birthMonth, &birthDay);
+  printf("请输入出生年份: ");
+  scanf("%d", &birth_year);
 
-    printf("请输入参考日期 (年 月 日): ");
-    scanf("%d %d %d", &refYear, &refMonth, &refDay);
+  int age = 2026 - birth_year;      /* 简单的减法表达式 */
 
-    int age = refYear - birthYear;
-
-    /* 如果今年生日还没过，年龄减 1 */
-    if (refMonth < birthMonth ||
-        (refMonth == birthMonth && refDay < birthDay)) {
-        age--;
-    }
-
-    printf("年龄: %d 岁\n", age);
-    return 0;
+  printf("今年 %d 岁\n", age);
+  return 0;
 }
 ```
+
+- 三个"变量": `birth_year` (输入)、`age` (计算)、`2026` (常量)
+
+- 表达式 `2026 - birth_year` 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==
+
+<span class="blue">:fa-lightbulb-o:</span> 加一点判断就能算"生日过了没"——那是第 4 周的内容
 
 ---
 
@@ -465,14 +461,47 @@ int main(void) {
 
 <!-- slide data-notes="" -->
 
-##### 代码演示3: 成绩
+##### 代码演示3: 找零计算
 
 ---
 
 ==现场演示==
 
-给定成绩，输出他优秀/良好/及格/不及格
+输入金额 (整数元), 输出需要各种面额==多少张==: `/` 与 `%` 的第一次实战
 
+```C{.line-numbers}
+/* change.c: 找零计算 */
+#include <stdio.h>
+
+int main(void) {
+  int amount;
+
+  printf("请输入金额 (元): ");
+  scanf("%d", &amount);
+
+  printf("100元: %d 张\n", amount / 100);     /* 整除: 有几个 100 */
+  amount = amount % 100;                       /* 取余: 剩下多少 */
+
+  printf(" 50元: %d 张\n", amount / 50);
+  amount = amount % 50;
+
+  printf(" 20元: %d 张\n", amount / 20);
+  amount = amount % 20;
+
+  printf(" 10元: %d 张\n", amount / 10);
+  amount = amount % 10;
+
+  printf("  5元: %d 张\n", amount / 5);
+  amount = amount % 5;
+
+  printf("  1元: %d 张\n", amount);
+  return 0;
+}
+```
+
+- `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把一个数一层层拆开
+
+- 课后 OJ 有 `change.c` 同款题目, 自己动手写一遍
 
 ---
 
@@ -535,6 +564,7 @@ int main(void) {
 
 - [Visual Studio IDE](https://visualstudio.microsoft.com/zh-hans/vs/community/): 免费社区版(Community Edition)、需配置安全检查
 
+---
 
 
 <!-- slide data-notes="" -->
@@ -581,6 +611,8 @@ int main(void) {
 <span class="blue">:fa-lightbulb-o:</span> 卡住了? 先看课件对应的演示页, 再问助教——==今天每个人的程序都要能跑起来==
 
 ---
+
+
 <!-- slide data-notes="" -->
 
 ##### 课堂小测

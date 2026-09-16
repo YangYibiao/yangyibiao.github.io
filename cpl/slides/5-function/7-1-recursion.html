@@ -32,7 +32,22 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script></head><body for="html-export" data-presentation-mode="">
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\[", right: "\]", display: true},
+        {left: "\(", right: "\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -90,7 +105,7 @@
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="递归">递归 </h5>
 <hr>
 <p>如果函数调用自身, 则它是递归的.</p>
-<p>以下函数利用公式$n! = n × (n – 1)!$递归地计算$n!$:</p>
+<p>以下函数利用公式\(n! = n × (n – 1)!\)递归地计算\(n!\):</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
@@ -102,11 +117,11 @@
 <p>要了解递归是如何工作的, 让我们来跟踪语句的执行</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <ol>
-<li>fact(3) 发现 $3 \le 1$ 不成立, 所以调用</li>
-<li>&emsp; fact(2), 发现 $2 \le 1$ 不成立, 所以调用</li>
-<li>&emsp; &emsp; fact(1), 发现 $1 \le 1$ 成立, 所以返回1, 导致</li>
-<li>&emsp; fact(2) 返回 $2 × 1 = 2$, 导致</li>
-<li>fact(3) 返回 $3 × 2 = 6$.</li>
+<li>fact(3) 发现 \(3 \le 1\) 不成立, 所以调用</li>
+<li>&emsp; fact(2), 发现 \(2 \le 1\) 不成立, 所以调用</li>
+<li>&emsp; &emsp; fact(1), 发现 \(1 \le 1\) 成立, 所以返回1, 导致</li>
+<li>&emsp; fact(2) 返回 \(2 × 1 = 2\), 导致</li>
+<li>fact(3) 返回 \(3 × 2 = 6\).</li>
 </ol>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="递归的定义">递归的定义 </h5>
@@ -221,7 +236,7 @@
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="递归与栈">递归与栈 </h5>
 <hr>
-<p>以下递归函数使用公式$x^n = x × x ^{n –1}$计算$x^n$.</p>
+<p>以下递归函数使用公式\(x^n = x × x ^{n –1}\)计算\(x^n\).</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">power</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>

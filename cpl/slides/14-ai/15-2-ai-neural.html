@@ -32,7 +32,22 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script></head><body for="html-export" data-presentation-mode="">
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\[", right: "\]", display: true},
+        {left: "\(", right: "\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -90,14 +105,14 @@
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="一个神经元">一个神经元 </h5>
 <hr>
 <p><mark>神经元</mark>: 把输入加权求和, 再经过一个<mark>激活函数</mark></p>
-<p>$$y = f(w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b)$$</p>
+<p>\[y = f(w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b)\]</p>
 <ul>
 <li>
-<p>$x_i$: 输入特征; $w_i$: <mark>权重</mark>(每个输入有多重要); $b$: 偏置</p>
+<p>\(x_i\): 输入特征; \(w_i\): <mark>权重</mark>(每个输入有多重要); \(b\): 偏置</p>
 
 </li>
 <li>
-<p>$f$: <mark>激活函数</mark>, 给网络"非线性"能力 (没有它, 多层就等于一层)</p>
+<p>\(f\): <mark>激活函数</mark>, 给网络"非线性"能力 (没有它, 多层就等于一层)</p>
 
 </li>
 <li>
@@ -115,7 +130,7 @@
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="激活函数--sigmoid-与-relu">激活函数: sigmoid 与 ReLU </h5>
 <hr>
-<p><mark>sigmoid</mark>: 把任意数压到 (0, 1), 像一个"软开关" $$\sigma(x) = \frac{1}{1 + e^{-x}}$$</p>
+<p><mark>sigmoid</mark>: 把任意数压到 (0, 1), 像一个"软开关" \[\sigma(x) = \frac{1}{1 + e^{-x}}\]</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
 <span class="token keyword keyword-double">double</span> <span class="token function">sigmoid</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> <span class="token number">1.0</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1.0</span> <span class="token operator">+</span> <span class="token function">exp</span><span class="token punctuation">(</span><span class="token operator">-</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre>
 <p><mark>ReLU</mark>: 负数变 0, 正数不变——简单却极其有效</p>
@@ -134,10 +149,10 @@
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="一层网络---矩阵乘法">一层网络 = 矩阵乘法 </h5>
 <hr>
 <p>一层有 3 个神经元、输入 4 个特征: 每个神经元各有一组权重</p>
-<p>$$\mathbf{y} = f(W\mathbf{x} + \mathbf{b})$$</p>
+<p>\[\mathbf{y} = f(W\mathbf{x} + \mathbf{b})\]</p>
 <ul>
 <li>
-<p>$W$ 是 <mark>3×4 的权重矩阵</mark> (3 个神经元 × 4 个特征)</p>
+<p>\(W\) 是 <mark>3×4 的权重矩阵</mark> (3 个神经元 × 4 个特征)</p>
 
 </li>
 <li>
