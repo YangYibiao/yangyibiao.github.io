@@ -317,14 +317,14 @@ int main()
   printf("Height: %d\n", height);
   printf("Character: %c\n", ch);
   printf("Profit: %f\n", profit);
-  printf("Pi: %lf\n", pi);
+  printf("Pi: %f\n", pi);
 }
 ```
 
 - ==%d==: int型变量占位符, 用来指明变量`height`的值显示的位置
 - ==%c==: char型变量占位符, 用来指明变量`ch`的值显示的位置
 - ==%f==: float型变量占位符, 用来指明变量`profit`的值显示的位置
-- ==%lf==: double型变量占位符, 用来指明变量`pi`的值显示的位置
+- ==%f==: double型变量占位符 (printf 中 double 也用 %f; ==`%lf` 只有 scanf 需要==)
 
 ---
 
