@@ -157,7 +157,9 @@ transpose(a, b, 3);        /* b 得到 a 的转置 */
 
 ---
 
-求每个学生的总分 (每行求和), 结果写回一个一维数组:
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* scores: n 名学生 × 3 门课; sums: 存每个人的总分 */
@@ -177,12 +179,19 @@ int totals[5];
 row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 ```
 
-- 二维数组进 (`scores`)、一维数组出 (`sums`)——都是"数组作参数"
+</div>
+
+<div style="flex:1;">
+
+求每个学生的总分 (每行求和), 结果写回一个一维数组:
+
+二维数组进 (`scores`)、一维数组出 (`sums`)——都是"数组作参数"
 
 - 把 `sums[i] += scores[i][j]` 改成 `sums[j] += scores[i][j]` 就变成==按列统计==
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 

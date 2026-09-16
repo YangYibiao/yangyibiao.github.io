@@ -352,7 +352,9 @@ void quicksort(int a[], int low, int high)
 
 ---
 
-==split==: 以 `a[low]` 为基准, 把小元素换到左边、大的换到右边, 返回基准的最终下标
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 int split(int a[], int low, int high)
@@ -376,10 +378,17 @@ int split(int a[], int low, int high)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+==split==: 以 `a[low]` 为基准, 把小元素换到左边、大的换到右边, 返回基准的最终下标
+
 完整可运行程序: [code/qsort-split.c](code/qsort-split.c) (无指针版, 全部用数组下标)
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
