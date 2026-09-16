@@ -362,13 +362,11 @@ int main()
 - 要显示`float`型变量, 需使用 ==`%f`== 代替 ==`%d`==, ==`%f`== 默认会显示出小数点后6位
 
 - 如果要强制 ==`%f`== 显示小数点后 ==`p`== 位数字, 可以把 ==`.p`== 放置在 ==`%`== 和 ==`f`== 之间, 如: 
-
 ```C
 printf("profit: %.2f", profit);
 ```
 
 - ==`printf`== 打印的变量数量没有限制
-
 ```C
 printf("Height: %d Length: %d", height, lenght);
 ```
@@ -383,23 +381,19 @@ printf("Height: %d Length: %d", height, lenght);
 ---
 
 ==`scanf`== 函数: C语言中对应于 ==`printf`== 的库函数
-
 ==`scanf`== 与 ==`printf`== 中的字母 ==`f`== 含义相同, 都表示``格式化``
 
 ```C
 int i;
-scanf("%d", &i); 
-/* reads an integer; stores into i */
+scanf("%d", &i); /* reads an integer; stores into i */
 ```
 
 <span class="blue">:fa-weixin:</span> ==&== 符号通常(但不总是)在使用 ==`scanf`== 时是必需的
 
 读取浮点值的scanf调用: 
-
 ```C
 scanf("%f", &x); 
 ```
-
 - ==`%f`== 告诉 ==`scanf`== 查找浮点格式的输入值(数字可能包含小数点, 但不是必须的)
 
 ---

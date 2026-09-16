@@ -81,9 +81,12 @@ KEYWORDS = {'int': 'keyword-int', 'void': 'keyword-void', 'return': 'keyword-ret
 def esc(s): return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 def raw_inline(line):
-    """原始 HTML 行里也要转换 :fa-xxx: 图标语法"""
-    return re.sub(r':(fa-[a-z0-9-]+):',
+    """原始 HTML 行里也要转换 :fa-xxx: 图标、==强调== 和 `行内代码`"""
+    line = re.sub(r':(fa-[a-z0-9-]+):',
                   lambda m: '<i class="fa ' + m.group(1) + '" aria-hidden="true"></i>', line)
+    line = re.sub(r'==([^=<>{}\n]+)==', r'<mark>\1</mark>', line)
+    line = re.sub(r'`([^`<>\n]+)`', lambda m: '<code>' + esc(m.group(1)) + '</code>', line)
+    return line
 
 def highlight_c(code):
     out, i, n = [], 0, len(code)
