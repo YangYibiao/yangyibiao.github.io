@@ -71,6 +71,22 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+```C
+Candy
+Is dandy
+But liquor
+Is quicker.
+  --Ogden Nash
+```
+
+</div>
+
+<div style="flex:1;">
+
 本章涵盖==字符串常量==(C标准中称为字符串字面量)和==字符串变量==. 
 
 字符串是字符数组, 用特殊字符(空字符)标记结束. 
@@ -93,17 +109,13 @@ C库提供了一组用于处理字符串的函数.
 
 `"Candy\nIs dandy\nBut liquor\nIs quicker.\n  --Ogden Nash\n"`
 
-每个\n字符使光标移到下一行: 
-```C
-Candy
-Is dandy
-But liquor
-Is quicker.
-  --Ogden Nash
-```
+每个\n字符使光标移到下一行:
 
----
 
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -203,6 +215,24 @@ printf('\n'); /*** 错误的 ***/
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C
+#define STR_LEN 80
+…
+char str[STR_LEN+1];
+```
+
+```C
+char date1[8] = "June 14"; 
+```
+
+</div>
+
+<div style="flex:1;">
+
 任何一维字符数组都可以用来存储字符串. 
 
 字符串必须以空字符结尾. 
@@ -218,12 +248,7 @@ printf('\n'); /*** 错误的 ***/
 
 ---
 
-如果字符串变量需要存储 80 个字符, 则必须将其声明为 81: 
-```C
-#define STR_LEN 80
-…
-char str[STR_LEN+1];
-```
+如果字符串变量需要存储 80 个字符, 则必须将其声明为 81:
 
 长度加1可以为字符串末尾的空字符留出空间. 
 
@@ -239,11 +264,7 @@ char str[STR_LEN+1];
 STR_LEN + 1 长度的字符数组可以保存长度为 0 ~ STR_LEN之间的字符串.
 
 
-字符串变量可以在声明时初始化: 
-
-```C
-char date1[8] = "June 14"; 
-```
+字符串变量可以在声明时初始化:
 
 编译器将自动添加一个空字符, 使date1可以用作字符串: 
 
@@ -255,8 +276,9 @@ char date1[8] = "June 14";
 
 C编译器将其视为字符数组初始化式的缩写.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -299,17 +321,34 @@ char date3[7] = "June 14";
 
 ---
 
-以下声明将date声明为一个数组: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 char date[] = "June 14";
 ```
 
-而以下声明则将date声明为一个指针: 
-
 ```C
 char *date = "June 14";
 ```
+
+```C
+char *p;
+```
+
+```C
+char str[STR_LEN+1], *p;
+p = str;
+```
+
+</div>
+
+<div style="flex:1;">
+
+以下声明将date声明为一个数组:
+
+而以下声明则将date声明为一个指针:
 
 由于数组和指针之间的密切关系, 这两种都可以用作字符串.
 
@@ -322,23 +361,18 @@ char *date = "June 14";
 
 
 声明
-```C
-char *p;
-```
+
 不会为字符串分配空间. 
 
 在使用p作为字符串之前, 必须把p指向字符数组. 
 
-一种可能是把p指向一个字符串变量: 
-```C
-char str[STR_LEN+1], *p;
-p = str;
-```
+一种可能是把p指向一个字符串变量:
 
 另一种可能是使p指向一个动态分配的字符串.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -347,14 +381,24 @@ p = str;
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+```C
+printf("%.6s\n", str);
+```
+
+</div>
+
+<div style="flex:1;">
+
 要打印字符串的一部分, 可以使用转换说明 ==%.ps==
 
 ==p== 是要打印的字符数量. 
 
 语句
-```C
-printf("%.6s\n", str);
-```
+
 将打印
 `Are we`
 
@@ -369,8 +413,9 @@ m和p可以组合使用:
 
 转换说明 ==%m.ps== 会使字符串的前 ==p== 个字符打印在大小为 ==m== 的字段中.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -378,6 +423,16 @@ m和p可以组合使用:
 ##### 读字符串: scanf
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 转换说明 ==%s== 允许scanf将字符串读入字符数组: 
 
@@ -404,8 +459,9 @@ gets的特点:
 
 - 忽略换行符而不存储它, 用空字符代替换行符.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -438,6 +494,16 @@ fgets(line, sizeof(line), stdin);   /* 正确: 带上限长度 */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
+
 程序员经常自己编写输入函数. 需要考虑的问题: 
 
 - 在开始存储字符串之前, 函数是否应该跳过空白字符？
@@ -458,8 +524,9 @@ fgets(line, sizeof(line), stdin);   /* 正确: 带上限长度 */
 
 read_line将返回实际存储在str中的字符数量.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -468,14 +535,9 @@ read_line将返回实际存储在str中的字符数量.
 
 ---
 
-由于字符串是以数组的方式存储的, 可以使用下标来访问字符串中的字符. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-要处理字符串s中的每个字符, 可以设置一个循环来对计数器i进行自增并通过表达式s[i]选择字符. 
-
-
----
-
-计算字符串中空格数的函数: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 int count_spaces(const char s[])
@@ -491,9 +553,6 @@ int count_spaces(const char s[])
 }
 ```
 
-
-使用指针运算代替数组取下标: 
-
 ```C{.line-numbers}
 int count_spaces(const char *s)
 {
@@ -508,8 +567,26 @@ int count_spaces(const char *s)
 } 
 ```
 
+</div>
+
+<div style="flex:1;">
+
+由于字符串是以数组的方式存储的, 可以使用下标来访问字符串中的字符. 
+
+要处理字符串s中的每个字符, 可以设置一个循环来对计数器i进行自增并通过表达式s[i]选择字符. 
+
+
 ---
 
+计算字符串中空格数的函数:
+
+使用指针运算代替数组取下标:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -517,6 +594,24 @@ int count_spaces(const char *s)
 ##### strcpy(字符串复制)
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+```C
+strcpy(str2, "abcd");
+/* str2 现在包含 "abcd" */
+```
+
+```C
+strcpy(str1, str2);
+/* str1 现在包含 "abcd" */
+```
+
+</div>
+
+<div style="flex:1;">
 
 strcpy函数的原型: 
 
@@ -529,21 +624,15 @@ strcpy将字符串s2复制到字符串s1中.
 strcpy返回s1(指向目标字符串的指针).
 
 
-调用strcpy, 把字符串"abcd"存储到str2中: 
+调用strcpy, 把字符串"abcd"存储到str2中:
 
-```C
-strcpy(str2, "abcd");
-/* str2 现在包含 "abcd" */
-```
+把str2的内容复制到str1:
 
-把str2的内容复制到str1: 
-```C
-strcpy(str1, str2);
-/* str1 现在包含 "abcd" */
-```
 
----
 
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -580,13 +669,9 @@ len = strlen(str1);   /* len is now 3 */
 
 ---
 
-strcat函数的原型: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`char *strcat(char *s1, const char *s2);`
-
-strcat将字符串s2的内容附加到字符串s1的末尾. 
-
-它返回s1(指向结果字符串的指针). strcat示例: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 char str1[20], str2[20];
@@ -599,11 +684,6 @@ strcat(str1, str2);
  /* str1 now contains "abcdef" */ 
 ```
 
-
-与strcpy一样, strcat返回的值通常会被丢弃. 
-
-以下使用返回值的方法: 
-
 ```C{.line-numbers}
 char str1[20], str2[20];
 strcpy(str1, "abc");
@@ -613,8 +693,27 @@ strcat(str1, strcat(str2, "ghi"));
    str2 contains "defghi" */
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+strcat函数的原型: 
+
+`char *strcat(char *s1, const char *s2);`
+
+strcat将字符串s2的内容附加到字符串s1的末尾. 
+
+它返回s1(指向结果字符串的指针). strcat示例:
+
+与strcpy一样, strcat返回的值通常会被丢弃. 
+
+以下使用返回值的方法:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -623,33 +722,42 @@ strcat(str1, strcat(str2, "ghi"));
 
 ---
 
-strcmp函数的原型: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C
 int strcmp(const char *s1, const char *s2);
 ```
-
-strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回一个小于、等于或大于0的值.
-
-
-检查str1是否小于str2: 
 
 ```C
 if (strcmp(str1, str2) < 0)    /* is str1 < str2? */
   …
 ```
 
-检查str1是否小于或等于str2 : 
-
 ```C
 if (strcmp(str1, str2) <= 0) /* is str1 <= str2? */
   …
 ```
 
+</div>
+
+<div style="flex:1;">
+
+strcmp函数的原型:
+
+strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回一个小于、等于或大于0的值.
+
+
+检查str1是否小于str2:
+
+检查str1是否小于或等于str2 :
+
 通过选择适当的运算符(<、 <=、 >、 >=、 ==、 !=), 可以测试str1和str2之间的任何可能的关系.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -658,14 +766,9 @@ if (strcmp(str1, str2) <= 0) /* is str1 <= str2? */
 
 ---
 
-*remind.c*程序打印一个月的每日提醒列表. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-用户将输入一系列提醒, 每个提醒有一个前缀说明是一个月中的哪一天. 
-
-当用户输入 0 而不是有效日期时, 程序将打印输入的所有提醒的列表, 按日期排序. 
-
-下一张幻灯片显示了该程序的会话.
-
+<div style="flex:1.4;font-size:0.5em;">
 
 ```
 Enter day and reminder: 24 Susan's birthday
@@ -687,6 +790,17 @@ Day Reminder
  26 Movie - "Chinatown"
 ```
 
+</div>
+
+<div style="flex:1;">
+
+*remind.c*程序打印一个月的每日提醒列表. 
+
+用户将输入一系列提醒, 每个提醒有一个前缀说明是一个月中的哪一天. 
+
+当用户输入 0 而不是有效日期时, 程序将打印输入的所有提醒的列表, 按日期排序. 
+
+下一张幻灯片显示了该程序的会话.
 
 总体策略: 
 
@@ -700,8 +814,9 @@ scanf将用于读取日期.
 
 read_line将用于读入提醒.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -710,7 +825,9 @@ read_line将用于读入提醒.
 
 ---
 
-n的初始化移到它的声明中: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
 size_t strlen(const char *s)
@@ -725,11 +842,6 @@ size_t strlen(const char *s)
 }
 ```
 
-
-条件`*s != '\0'`与`*s != 0`相同, 这又与`*s`相同. 
-
-使用这些观察的strlen版本: 
-
 ```C{.line-numbers}
 size_t strlen(const char *s)
 {
@@ -743,8 +855,21 @@ size_t strlen(const char *s)
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+n的初始化移到它的声明中:
+
+条件`*s != '\0'`与`*s != 0`相同, 这又与`*s`相同. 
+
+使用这些观察的strlen版本:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -753,14 +878,29 @@ size_t strlen(const char *s)
 
 ---
 
-存储字符串数组的方法不止一种. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-一种选择是使用二维字符数组, 每行一个字符串: 
+<div style="flex:1.3;font-size:0.6em;">
+
 ```C
 char planets[][8] = {"Mercury", "Venus", "Earth",
                      "Mars", "Jupiter", "Saturn",
                      "Uranus", "Neptune", "Pluto"};
 ```
+
+```C
+char *planets[] = {"Mercury", "Venus", "Earth",
+                   "Mars", "Jupiter", "Saturn",
+                   "Uranus", "Neptune", "Pluto"};
+```
+
+</div>
+
+<div style="flex:1;">
+
+存储字符串数组的方法不止一种. 
+
+一种选择是使用二维字符数组, 每行一个字符串:
 
 数组中的行数可以省略, 但必须指定列数. 
 
@@ -778,16 +918,13 @@ char planets[][8] = {"Mercury", "Venus", "Earth",
 
 我们需要的是一个参差不齐的数组, 它的行可以有不同的长度. 
 
-用指向 ==字符串的指针的数组== 来模拟 C 中的不规则数组: 
+用指向 ==字符串的指针的数组== 来模拟 C 中的不规则数组:
 
-```C
-char *planets[] = {"Mercury", "Venus", "Earth",
-                   "Mars", "Jupiter", "Saturn",
-                   "Uranus", "Neptune", "Pluto"};
-```
 
----
 
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

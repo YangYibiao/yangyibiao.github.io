@@ -69,11 +69,21 @@ presentation:
 
 ---
 
-第 11 章展示了指针可以指向数组元素: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
 ```C
 int a[10], *p;
 p = &a[0];
 ```
+
+</div>
+
+<div style="flex:1;">
+
+第 11 章展示了指针可以指向数组元素:
+
 图形表示: 
 
 <div class="top-2">
@@ -104,8 +114,9 @@ C支持三种(且只有三种)==指针运算==形式:
 
 - 两个指针相减
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -114,18 +125,13 @@ C支持三种(且只有三种)==指针运算==形式:
 
 ---
 
-将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-更准确地说, 如果p指向数组元素a[i], 那么p + j指向a[i+j]. 
-
-假设有以下声明: 
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C
 int a[10], *p, *q, i;
 ```
-
-
-指针加法示例: 
 
 ```C
 p = &a[2];
@@ -133,23 +139,36 @@ q = p + 3;
 p += 6;
 ```
 
-<div class="top-2"><img src="../img/13-3.png" width=280px></div>
-
-
-如果p指向a[i], 那么p-j指向a[i-j]. 指针减法示例: 
-
 ```C
 p = &a[8]; 
 q = p - 3;
 p -= 6;
 ```
 
+</div>
+
+<div style="flex:1;">
+
+将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后. 
+
+更准确地说, 如果p指向数组元素a[i], 那么p + j指向a[i+j]. 
+
+假设有以下声明:
+
+指针加法示例:
+
+<div class="top-2"><img src="../img/13-3.png" width=280px></div>
+
+
+如果p指向a[i], 那么p-j指向a[i-j]. 指针减法示例:
+
 <div class="top-2">
     <img src="../img/13-4.png" width=280px>
 </div>
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -238,6 +257,25 @@ p >= q; // expression value: 1
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+```C
+for (p = &a[0]; p < &a[N]; p++)
+    sum += *p;
+```
+
+```C
+p = &a[0];
+while (p < &a[N])
+    sum += *p++;
+```
+
+</div>
+
+<div style="flex:1;">
+
 C程序员经常结合使用`*`(间接寻址)和`++`运算符. 
 
 修改数组元素后前进到下一个元素的语句:
@@ -271,21 +309,13 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 
 对数组a的元素求和时, 可以把
 
-```C
-for (p = &a[0]; p < &a[N]; p++)
-    sum += *p;
-```
-
 改写成
 
-```C
-p = &a[0];
-while (p < &a[N])
-    sum += *p++;
-```
 
----
 
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -294,20 +324,13 @@ while (p < &a[N])
 
 ---
 
-\*和`--`运算符的组合方式与\*和`++`相同. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-对于应用*和`--`的组合, 让我们回到第10章的栈的示例. 
-
-原始版本的栈依赖于名为top的整型变量来记录contents数组中的==栈顶==的位置. 
-
-现在将top替换为初始指向contents数组的第0个元素的指针变量: 
+<div style="flex:1.2;font-size:0.6em;">
 
 ```C
 int *top_ptr = &contents[0]; 
 ```
-
-
-新的push和pop函数: 
 
 ```C {.line-numbers}
 void push(int i)
@@ -327,8 +350,19 @@ int pop(void)
 }
 ```
 
+</div>
 
----
+<div style="flex:1;">
+
+\*和`--`运算符的组合方式与\*和`++`相同. 
+
+对于应用*和`--`的组合, 让我们回到第10章的栈的示例. 
+
+原始版本的栈依赖于名为top的整型变量来记录contents数组中的==栈顶==的位置. 
+
+现在将top替换为初始指向contents数组的第0个元素的指针变量:
+
+新的push和pop函数:
 
 指针的算术运算是数组和指针相互关联的一种方法. 
 
@@ -336,8 +370,9 @@ int pop(void)
 
 这种关系简化了指针的算术运算, 并使数组和指针更加通用.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -346,24 +381,18 @@ int pop(void)
 
 ---
 
-假设a声明如下: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 int a[10];
 ```
 
-使用a作为指针的示例: 
 ```C
 *a = 7;      /* 将 7存储在a[0]中 */
 *(a+1) = 12; /* 将12存储在a[1]中 */
 ```
-
-一般情况, `a+i`与`&a[i]`相同, 都表示指向数组a中的元素i的指针. 
-
-此外, `*(a+i)`等价于`a[i]`, 两者都代表元素i本身.
-
-
-数组名称可以用作指针这一事实使得编写遍历数组的循环变得更加容易. 
 
 ```C{.line-numbers}
 /* 原始版本 */
@@ -375,24 +404,43 @@ for (p = a; p < a + N; p++)
     sum += *p;
 ```
 
-
-尽管数组名可以用作指针, 但==不能为数组名赋新值==. 
-
-试图让数组名指向其他地方是错误的: 
 ```C
 while (*a != 0)
     a++; /*** 错误的 ***/
 ```
 
-可以将a复制到指针变量中, 然后更改指针变量: 
 ```C
 p = a;
 while (*p != 0)
     p++;
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+假设a声明如下:
+
+使用a作为指针的示例:
+
+一般情况, `a+i`与`&a[i]`相同, 都表示指向数组a中的元素i的指针. 
+
+此外, `*(a+i)`等价于`a[i]`, 两者都代表元素i本身.
+
+
+数组名称可以用作指针这一事实使得编写遍历数组的循环变得更加容易.
+
+尽管数组名可以用作指针, 但==不能为数组名赋新值==. 
+
+试图让数组名指向其他地方是错误的:
+
+可以将a复制到指针变量中, 然后更改指针变量:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -401,14 +449,9 @@ while (*p != 0)
 
 ---
 
-之前的*reverse.c*程序读取 10 个数字, 然后逆序输出这些数字. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-原始程序将数字存储在一个数组中, 利用下标访问数组的元素. 
-
-*reverse3.c*是一个改进后的程序, 用指针的算术运算取代数组的取下标操作.
-
-
-*reverse3.c*
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
 
@@ -435,8 +478,24 @@ int main(void)
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+之前的*reverse.c*程序读取 10 个数字, 然后逆序输出这些数字. 
+
+原始程序将数字存储在一个数组中, 利用下标访问数组的元素. 
+
+*reverse3.c*是一个改进后的程序, 用指针的算术运算取代数组的取下标操作.
+
+
+*reverse3.c*
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -445,7 +504,9 @@ int main(void)
 
 ---
 
-数组名传递给函数时, 总是被视为指针. 例子: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
 #define N 10
@@ -469,13 +530,6 @@ int main(){
 }
 ```
 
-
-把数组型形式参数视为指针会产生许多重要的结果: 
-
-- 结果1: 普通变量传给函数时, 其值被复制, 对相应参数的任何更改都不会影响变量. 相反, 用作参数的数组是可能被改变的. 
-
-例如, 以下函数将数组中的每个元素都重置为零: 
-
 ```C
 void store_zeros(int a[], int n)
 {
@@ -486,8 +540,6 @@ void store_zeros(int a[], int n)
 }
 ```
 
-
-为了表明数组参数不会被修改, 我们可以在它的声明中包含单词const: 
 ```C
 int find_largest(const int a[], int n)
 {
@@ -495,10 +547,25 @@ int find_largest(const int a[], int n)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+数组名传递给函数时, 总是被视为指针. 例子:
+
+把数组型形式参数视为指针会产生许多重要的结果: 
+
+- 结果1: 普通变量传给函数时, 其值被复制, 对相应参数的任何更改都不会影响变量. 相反, 用作参数的数组是可能被改变的. 
+
+例如, 以下函数将数组中的每个元素都重置为零:
+
+为了表明数组参数不会被修改, 我们可以在它的声明中包含单词const:
+
 编译器会检查find_largest函数体没有对a中元素进行赋值.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -507,12 +574,9 @@ int find_largest(const int a[], int n)
 
 ---
 
-- 结果2: 将数组传递给函数所需的时间与数组的大小无关. 传递大数组不会产生不利的结果, 因为没有对数组进行复制.
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-
-- 结果3: 如果需要, 可以将数组参数声明为指针. 
-
-find_largest可以定义如下: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 int find_largest(int *a, int n)
@@ -520,10 +584,6 @@ int find_largest(int *a, int n)
     …
 }
 ```
-声明a为指针, 相当于将其声明为数组; 编译器将这两类声明视为相同.
-
-
-函数参数声明为数组与声明为指针相同, 但对变量而言并非如此. 
 
 ```C
 /* 等价 */
@@ -537,8 +597,27 @@ int a[10]; /* 编译器为数组a留出10个整数的空间 */
 int *a; /* 编译器仅为指针变量分配空间 */
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+结果2: 将数组传递给函数所需的时间与数组的大小无关. 传递大数组不会产生不利的结果, 因为没有对数组进行复制.
+
+
+- 结果3: 如果需要, 可以将数组参数声明为指针. 
+
+find_largest可以定义如下:
+
+声明a为指针, 相当于将其声明为数组; 编译器将这两类声明视为相同.
+
+
+函数参数声明为数组与声明为指针相同, 但对变量而言并非如此.
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -609,18 +688,9 @@ for (i = 0; i < N; i++)
 
 ---
 
-第 8 章展示了 C 以行优先顺序存储二维数组. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-r行的数组的布局: 
-  
-<div class="top-2">
-    <img src="../img/13-7.png">
-</div>
-
-如果p最初指向二维数组的第0行第0列的元素, 即$a[0][0]$, 就可以通过重复自增p来访问数组中的每个元素.
-
-
-考虑将以下数组的所有元素初始化为0的问题:
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
 int a[NUM_ROWS][NUM_COLS];
@@ -639,6 +709,22 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
     *p = 0;
 ```
 
+</div>
+
+<div style="flex:1;">
+
+第 8 章展示了 C 以行优先顺序存储二维数组. 
+
+r行的数组的布局: 
+  
+<div class="top-2">
+    <img src="../img/13-7.png">
+</div>
+
+如果p最初指向二维数组的第0行第0列的元素, 即$a[0][0]$, 就可以通过重复自增p来访问数组中的每个元素.
+
+
+考虑将以下数组的所有元素初始化为0的问题:
 
 将二维数组视为一维适用于大多数 C 编译器. 
 
@@ -646,8 +732,9 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 
 对于许多现代编译器, 速度优势通常不存在.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -656,9 +743,9 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 
 ---
 
-指针变量p也可用于处理二维数组的一行中的元素. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-为访问第i行的元素: 
+<div style="flex:1.4;font-size:0.5em;">
 
 ```C 
 /* 将p初始化为指向数组a中第i行的元素0 */
@@ -668,6 +755,26 @@ p = &a[i][0];
 p = a[i];
 ```
 
+```C
+int a[NUM_ROWS][NUM_COLS], *p, i;
+…
+for (p = a[i]; p < a[i] + NUM_COLS; p++)
+    *p = 0;
+```
+
+```C{.line-numbers}
+int a[NUM_ROWS][NUM_COLS] = {0};
+...
+largest = find_largest(a[i], NUM_COLS);
+```
+
+</div>
+
+<div style="flex:1;">
+
+指针变量p也可用于处理二维数组的一行中的元素. 
+
+为访问第i行的元素:
 
 对于任何二维数组a, 表达式a[i]是指向第i行第一个元素的指针. 
 
@@ -686,13 +793,6 @@ p = a[i];
 
 对数组a的第i行清零的循环:
 
-```C
-int a[NUM_ROWS][NUM_COLS], *p, i;
-…
-for (p = a[i]; p < a[i] + NUM_COLS; p++)
-    *p = 0;
-```
-
 由于a[i]是指向数组a的第i行的指针, 可将a[i]传递给一维数组作为参数的函数. 
 
 换句话说, 处理一维数组的函数也可以处理二维数组的行.
@@ -700,16 +800,13 @@ for (p = a[i]; p < a[i] + NUM_COLS; p++)
 
 考虑find_largest, 它最初设计用于查找一维数组的最大元素. 
 
-这里使用find_largest来确定二维数组a的第i行中的最大元素: 
+这里使用find_largest来确定二维数组a的第i行中的最大元素:
 
-```C{.line-numbers}
-int a[NUM_ROWS][NUM_COLS] = {0};
-...
-largest = find_largest(a[i], NUM_COLS);
-```
 
----
 
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -718,7 +815,9 @@ largest = find_largest(a[i], NUM_COLS);
 
 ---
 
-处理二维数组一列的元素: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* 对数组a的第i列清零的循环 */
@@ -728,7 +827,17 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
     (*p)[i] = 0;
 ```
 
-- `int (*p)[NUM_COLS];`把p声明为指向长度为NUM_COLS的整形数组的指针
+```C
+int a[NUM_ROWS][NUM_COLS];
+```
+
+</div>
+
+<div style="flex:1;">
+
+处理二维数组一列的元素:
+
+`int (*p)[NUM_COLS];`把p声明为指向长度为NUM_COLS的整形数组的指针
 
 - `(*p)`括号是必需的, 若无括号则编译器将p看作指针数组, 而不是指向数组的指针
 
@@ -739,11 +848,7 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
 - `(*p)[i]`中的括号是必要的, 无括号编译器会将`*p[i]`解释为`*(p[i])`
 
 
-任何数组的名称都可以用作指针, 不管它有多少维, 但需要注意. 
-
-```C
-int a[NUM_ROWS][NUM_COLS];
-```
+任何数组的名称都可以用作指针, 不管它有多少维, 但需要注意.
 
 a不是指向a[0][0]的指针, 它是指向a[0]的指针. 
 
@@ -751,8 +856,9 @@ C将a视为一维数组, 其元素是一维数组.
 
 当用作指针时, a 的类型为int (*)[NUM_COLS] （指向长度为NUM_COLS的整数数组的指针）.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
