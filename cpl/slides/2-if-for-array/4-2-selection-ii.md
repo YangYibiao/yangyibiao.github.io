@@ -73,9 +73,9 @@ presentation:
 
 ---
 
-"级联" `if`语句通常是判定一系列条件的最佳方式, 一旦其中一个条件为真就停止
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-例子: 
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
 if (n < 0)
@@ -87,7 +87,19 @@ else
     printf("n is greater than 0\n");
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+"级联" `if`语句通常是判定一系列条件的最佳方式, 一旦其中一个条件为真就停止
+
+例子:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -96,9 +108,9 @@ else
 
 ---
 
-尽管第二个if语句嵌套在第一个中, 但 C 程序员通常不会对它进行缩进
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-相反, 他们将每个else与原始if对齐: 
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
 if (n < 0)
@@ -108,8 +120,6 @@ else if (n == 0)
 else
   printf("n is greater than 0\n"); 
 ```
-
-这种布局避免了判定数量很多时过度缩进的问题: 
 
 ```C
 if (表达式)
@@ -123,8 +133,21 @@ else
   语句
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+尽管第二个if语句嵌套在第一个中, 但 C 程序员通常不会对它进行缩进
+
+相反, 他们将每个else与原始if对齐:
+
+这种布局避免了判定数量很多时过度缩进的问题:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -132,6 +155,16 @@ else
 ##### 程序: 计算经纪人佣金
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 当通过经纪人出售或购买股票时, 经纪人的佣金通常取决于所交易股票的价值
 
@@ -159,7 +192,9 @@ Commission: `$166.00`
 
 该程序的核心是一个级联的`if`语句, 用于判定交易属于哪个范围
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -168,20 +203,18 @@ Commission: `$166.00`
 
 ---
 
-*broker.c*
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* Calculates a broker's commission */
- 
 #include <stdio.h>
- 
 int main(void)
 {
   float commission, value;
- 
   printf("Enter value of trade: ");
   scanf("%f", &value);
- 
   if (value < 2500.00f)
     commission = 30.00f + .017f * value;
   else if (value < 6250.00f)
@@ -194,18 +227,24 @@ int main(void)
     commission = 155.00f + .0011f * value;
   else
     commission = 255.00f + .0009f * value;
-  
   if (commission < 39.00f)
     commission = 39.00f;
- 
   printf("Commission: $%.2f\n", commission);
- 
   return 0;
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+*broker.c*
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -214,7 +253,9 @@ int main(void)
 
 ---
 
-<span class="blue">:fa-weixin:</span> 当 `if` 语句嵌套时, 千万当心出现"悬空else"问题
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.65em;">
 
 ```C
 if (y != 0)
@@ -224,12 +265,6 @@ else
   printf("Error: y is equal to 0\n");
 ```
 
-缩进暗示`else`子句属于外部if语句
-
-然而, 根据C 语言的规则, `else`子句实际上属于尚未与`else`配对的最近的`if`语句
-
-正确缩进的版本如下: 
-
 ```C{.line-numbers}
 if (y != 0)
   if (x != 0)
@@ -238,7 +273,23 @@ if (y != 0)
     printf("Error: y is equal to 0\n");
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+<span class="blue">:fa-weixin:</span> 当 `if` 语句嵌套时, 千万当心出现"悬空else"问题
+
+缩进暗示`else`子句属于外部if语句
+
+然而, 根据C 语言的规则, `else`子句实际上属于尚未与`else`配对的最近的`if`语句
+
+正确缩进的版本如下:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -269,6 +320,16 @@ if (y != 0) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
+
+
+
+</div>
+
+<div style="flex:1;">
+
 `C` 的条件运算符允许表达式根据条件的值产生两个值之一
 
 条件运算符 由两个符号(`?`和`:`)组成, 它们必须一起使用: 
@@ -283,7 +344,9 @@ if (y != 0) {
 
 表达式分阶段计算: 首先计算`表达式1`, 如果它的值不为零, 则计算`表达式2`, 它的值是整个条件表达式的值; 否则`表达式3`的值就是整个条件表达式的值
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -292,7 +355,9 @@ if (y != 0) {
 
 ---
 
-例子: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
 
 ```C{.line-numbers}
 int i, j, k;
@@ -303,19 +368,29 @@ k = i > j ? i : j;          /* k is now 2 */
 k = (i >= 0 ? i : 0) + j;   /* k is now 3 */
 ```
 
+```C
+printf("%d\n", i > j ? i : j);
+```
+
+</div>
+
+<div style="flex:1;">
+
+例子:
+
 括号是必需的, 因为条件运算符的优先级低于到目前为止讨论的其他运算符的优先级, 赋值运算符除外
 
 <span class="blue">:fa-weixin:</span> 条件表达式往往会使程序更短但更难理解, 因此最好谨慎使用它们
 
 条件表达式常用于返回语句: `return i > j ? i : j;`
 
-printf函数调用有时可以从条件表达式中受益: 
+printf函数调用有时可以从条件表达式中受益:
 
-```C
-printf("%d\n", i > j ? i : j);
-```
 
----
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -383,7 +458,9 @@ flag = true;
 
 ---
 
-级联if语句用于将表达式与一系列值进行比较: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 if (grade == 4)
@@ -399,8 +476,6 @@ else if (grade == 0)
 else
   printf("Illegal grade"); 
 ```
-
-switch语句是另一种选择: 
 
 ```C{.line-numbers}
 switch (grade) {
@@ -419,7 +494,19 @@ switch (grade) {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+级联if语句用于将表达式与一系列值进行比较:
+
+switch语句是另一种选择:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -428,9 +515,9 @@ switch (grade) {
 
 ---
 
-`switch`语句可能比级联`if`语句更容易阅读, 通常执行更快
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`switch`语句最常见的形式: 
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
 switch (表达式) {
@@ -441,13 +528,21 @@ switch (表达式) {
 }
 ```
 
-- 单词`switch`后面必须跟一个括号中的==整数表达式==——控制表达式; 字符在 `C` 中被视为整数, 因此可以在`switch`语句中进行判定; 但是, 浮点数和字符串不符合条件
+</div>
+
+<div style="flex:1;">
+
+`switch` 比级联 `if` 更易读、通常更快; 最常见的形式:
+
+单词`switch`后面必须跟一个括号中的==整数表达式==——控制表达式; 字符在 `C` 中被视为整数, 因此可以在`switch`语句中进行判定; 但是, 浮点数和字符串不符合条件
 
 - 每个`case`都以下面的标签形式开头: `case 常量表达式:`
 
 - 常量表达式不能包含变量或函数调用: `5`、`5 + 10`是常量表达式, `n + 10`不是(除非n是表示常量的宏)
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -456,13 +551,9 @@ switch (表达式) {
 
 ---
 
-在每个案例标签之后是任意数量的语句, 语句周围不需要大括号; 每组中的最后一条语句通常是break
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-- 不允许有重复的case标签
-
-- 案例的顺序无关紧要, 默认case不需要排在最后
-
-一组语句之前可以有几个 case 标签: 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 switch (grade) {
@@ -478,7 +569,23 @@ switch (grade) {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+在每个案例标签之后是任意数量的语句, 语句周围不需要大括号; 每组中的最后一条语句通常是break
+
+- 不允许有重复的case标签
+
+- 案例的顺序无关紧要, 默认case不需要排在最后
+
+一组语句之前可以有几个 case 标签:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -514,15 +621,9 @@ switch (grade) {
 
 ---
 
-执行`break`语句会导致程序从`switch`语句中 ==中断==, 在 `switch` 之后的下一条语句继续执行
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`switch`语句实际上是 ==计算跳转== 的一种形式
-
-- 计算控制表达式时, 控制跳转到与switch表达式的值匹配的 case 标签
-
-- case 标签是一个标记, 表示switch中的一个位置
-
-没有 `break`(或其他跳转语句), 控制将流入下一个 `case`: 
+<div style="flex:1.2;font-size:0.6em;">
 
 ```C{.line-numbers}
 switch (grade) {
@@ -535,9 +636,25 @@ switch (grade) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+执行`break`语句会导致程序从`switch`语句中 ==中断==, 在 `switch` 之后的下一条语句继续执行
+
+`switch`语句实际上是 ==计算跳转== 的一种形式
+
+- 计算控制表达式时, 控制跳转到与switch表达式的值匹配的 case 标签
+
+- case 标签是一个标记, 表示switch中的一个位置
+
+没有 `break`(或其他跳转语句), 控制将流入下一个 `case`:
+
 如果`grade`的值为 `3`, 则打印的消息为 `GoodAveragePoorFailingIllegal grade`
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -571,29 +688,17 @@ switch (grade) {
 
 ---
 
-合同和其他法律文件通常按以下方式注明日期: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`Dated this __________ day of __________ , 20__ .`
-
-*date.c*程序将以这种形式显示日期: 
-
-Enter date (mm/dd/yy): <u>7/19/14</u>
-Dated this 19th day of July, 2014.
-
-该程序使用`switch`语句将`"th"`(或`"st"`或`"nd"`或`"rd"`)添加到日期, 并将月份打印为单词而不是数字
+<div style="flex:1.5;font-size:0.5em;">
 
 ```C{.line-numbers}
-/* Prints a date in legal form */
-
 #include <stdio.h>
- 
 int main(void)
 {
   int month, day, year;
- 
   printf("Enter date (mm/dd/yy): ");
   scanf("%d /%d /%d", &month, &day, &year);
- 
   printf("Dated this %d", day);
   switch (day) {
     case 1: case 21: case 31:
@@ -605,29 +710,39 @@ int main(void)
     default: printf("th"); break;
   }
   printf(" day of ");
-  
   switch (month) {
-    case 1:  printf("January");   break;
-    case 2:  printf("February");  break;
-    case 3:  printf("March");     break;
-    case 4:  printf("April");     break;
-    case 5:  printf("May");       break;
-    case 6:  printf("June");      break;
-    case 7:  printf("July");      break;
-    case 8:  printf("August");    break;
-    case 9:  printf("September"); break;
-    case 10: printf("October");   break;
-    case 11: printf("November");  break;
-    case 12: printf("December");  break;
+  case 1:  printf("January");   break;  case 2:  printf("February");  break;
+  case 3:  printf("March");     break;  case 4:  printf("April");     break;
+  case 5:  printf("May");       break;  case 6:  printf("June");      break;
+  case 7:  printf("July");      break;  case 8:  printf("August");    break;
+  case 9:  printf("September"); break;  case 10: printf("October");   break;
+  case 11: printf("November");  break;  case 12: printf("December");  break;
   }
- 
   printf(", 20%.2d.\n", year);
   return 0;
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+合同和其他法律文件通常按以下方式注明日期: 
+
+`Dated this __________ day of __________ , 20__ .`
+
+*date.c*程序将以这种形式显示日期: 
+
+Enter date (mm/dd/yy): <u>7/19/14</u>
+Dated this 19th day of July, 2014.
+
+该程序使用`switch`语句将`"th"`(或`"st"`或`"nd"`或`"rd"`)添加到日期, 并将月份打印为单词而不是数字
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -636,9 +751,9 @@ int main(void)
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-用逻辑运算化简级联 if (leap.c): 
+<div style="flex:1.2;font-size:0.65em;">
 
 ```C
 #include <stdio.h>
@@ -660,9 +775,19 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+用逻辑运算化简级联 if (leap.c):
+
 <span class="blue">:fa-lightbulb-o:</span> 回顾: 级联 if → 条件合并 → 布尔表达式直接赋值, 三种写法功能相同
 
----
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

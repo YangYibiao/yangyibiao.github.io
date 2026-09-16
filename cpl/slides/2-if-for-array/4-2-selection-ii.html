@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="级联式if语句">级联式if语句 </h5>
 <hr>
-<p>"级联" <code>if</code>语句通常是判定一系列条件的最佳方式, 一旦其中一个条件为真就停止</p>
-<p>例子:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is less than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span>
@@ -113,18 +113,23 @@ document.addEventListener("DOMContentLoaded", function () {
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-else">else</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>"级联" <code>if</code>语句通常是判定一系列条件的最佳方式, 一旦其中一个条件为真就停止</p>
+<p>例子:</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="级联式if语句">级联式if语句 </h5>
 <hr>
-<p>尽管第二个if语句嵌套在第一个中, 但 C 程序员通常不会对它进行缩进</p>
-<p>相反, 他们将每个else与原始if对齐:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is less than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
-<p>这种布局避免了判定数量很多时过度缩进的问题:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>表达式<span class="token punctuation">)</span>
   语句
 <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>表达式<span class="token punctuation">)</span>
@@ -134,9 +139,20 @@ document.addEventListener("DOMContentLoaded", function () {
   语句
 <span class="token keyword keyword-else">else</span>
   语句</code></pre>
+</div>
+<div style="flex:1;">
+<p>尽管第二个if语句嵌套在第一个中, 但 C 程序员通常不会对它进行缩进</p>
+<p>相反, 他们将每个else与原始if对齐:</p>
+<p>这种布局避免了判定数量很多时过度缩进的问题:</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="程序--计算经纪人佣金">程序: 计算经纪人佣金 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+</div>
+<div style="flex:1;">
 <p>当通过经纪人出售或购买股票时, 经纪人的佣金通常取决于所交易股票的价值</p>
 <p>假设经纪人收取下表中的金额:</p>
 <div class="threelines column1-border-left-solid column2-border-right-solid column1-border-right-solid head-highlight-1 tr-hover">
@@ -179,21 +195,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>*broker.c*程序要求用户输入交易金额, 然后显示佣金金额:</p>
 <p>Enter value of trade: <u>30000</u> Commission: <code>$166.00</code></p>
 <p>该程序的核心是一个级联的<code>if</code>语句, 用于判定交易属于哪个范围</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="程序--计算经纪人佣金">程序: 计算经纪人佣金 </h5>
 <hr>
-<p>*broker.c*</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Calculates a broker's commission */</span>
- 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-float">float</span> commission<span class="token punctuation">,</span> value<span class="token punctuation">;</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter value of trade: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span> <span class="token operator">&</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">2500.00</span>f<span class="token punctuation">)</span>
     commission <span class="token operator">=</span> <span class="token number">30.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">017</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
   <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">6250.00</span>f<span class="token punctuation">)</span>
@@ -206,31 +221,39 @@ document.addEventListener("DOMContentLoaded", function () {
     commission <span class="token operator">=</span> <span class="token number">155.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0011</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
   <span class="token keyword keyword-else">else</span>
     commission <span class="token operator">=</span> <span class="token number">255.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0009</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>commission <span class="token operator"><</span> <span class="token number">39.00</span>f<span class="token punctuation">)</span>
     commission <span class="token operator">=</span> <span class="token number">39.00</span>f<span class="token punctuation">;</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Commission: $%.2f\n"</span><span class="token punctuation">,</span> commission<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>*broker.c*</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="悬空else-的问题">"悬空else"的问题 </h5>
 <hr>
-<span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 当 <code>if</code> 语句嵌套时, 千万当心出现"悬空else"问题
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>y <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
     result <span class="token operator">=</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>缩进暗示<code>else</code>子句属于外部if语句</p>
-<p>然而, 根据C 语言的规则, <code>else</code>子句实际上属于尚未与<code>else</code>配对的最近的<code>if</code>语句</p>
-<p>正确缩进的版本如下:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>y <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
     result <span class="token operator">=</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
   <span class="token keyword keyword-else">else</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 当 <code>if</code> 语句嵌套时, 千万当心出现"悬空else"问题</p>
+<p>缩进暗示<code>else</code>子句属于外部if语句</p>
+<p>然而, 根据C 语言的规则, <code>else</code>子句实际上属于尚未与<code>else</code>配对的最近的<code>if</code>语句</p>
+<p>正确缩进的版本如下:</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="悬空else-的问题">"悬空else"的问题 </h5>
 <hr>
@@ -240,10 +263,14 @@ document.addEventListener("DOMContentLoaded", function () {
     result <span class="token operator">=</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> <code>if</code>语句中使用大括号可以避免这一问题
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> <code>if</code>语句中使用大括号可以避免这一问题</p>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="条件表达式">条件表达式 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
+</div>
+<div style="flex:1;">
 <p><code>C</code> 的条件运算符允许表达式根据条件的值产生两个值之一</p>
 <p>条件运算符 由两个符号(<code>?</code>和<code>:</code>)组成, 它们必须一起使用:</p>
 <p>[条件表达式] &emsp; <code>表达式1 ? 表达式2 : 表达式3</code></p>
@@ -262,21 +289,29 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <p>表达式分阶段计算: 首先计算<code>表达式1</code>, 如果它的值不为零, 则计算<code>表达式2</code>, 它的值是整个条件表达式的值; 否则<code>表达式3</code>的值就是整个条件表达式的值</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="条件表达式">条件表达式 </h5>
 <hr>
-<p>例子:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
 
 i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 k <span class="token operator">=</span> i <span class="token operator">></span> j <span class="token operator">?</span> i <span class="token operator">:</span> j<span class="token punctuation">;</span>          <span class="token comment">/* k is now 2 */</span>
 k <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">?</span> i <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> j<span class="token punctuation">;</span>   <span class="token comment">/* k is now 3 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i <span class="token operator">></span> j <span class="token operator">?</span> i <span class="token operator">:</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>例子:</p>
 <p>括号是必需的, 因为条件运算符的优先级低于到目前为止讨论的其他运算符的优先级, 赋值运算符除外</p>
-<span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 条件表达式往往会使程序更短但更难理解, 因此最好谨慎使用它们
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 条件表达式往往会使程序更短但更难理解, 因此最好谨慎使用它们</p>
 <p>条件表达式常用于返回语句: <code>return i &gt; j ? i : j;</code></p>
 <p>printf函数调用有时可以从条件表达式中受益:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i <span class="token operator">></span> j <span class="token operator">?</span> i <span class="token operator">:</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="布尔值">布尔值 </h5>
 <hr>
@@ -305,11 +340,12 @@ flag <span class="token operator">=</span> <span class="token number">5</span><s
 flag <span class="token operator">=</span> false<span class="token punctuation">;</span>
 …
 flag <span class="token operator">=</span> true<span class="token punctuation">;</span></code></pre>
-<span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 建议使用 `<stdbool.h><code> 的 </code>bool<code>, </code>true<code>, </code>false`
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 建议使用 <code>&lt;stdbool.h&gt;</code> 的 <code>bool</code>, <code>true</code>, <code>false</code></p>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
-<p>级联if语句用于将表达式与一系列值进行比较:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span>
@@ -322,7 +358,6 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
-<p>switch语句是另一种选择:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
@@ -337,22 +372,28 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
   <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>级联if语句用于将表达式与一系列值进行比较:</p>
+<p>switch语句是另一种选择:</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
-<p><code>switch</code>语句可能比级联<code>if</code>语句更容易阅读, 通常执行更快</p>
-<p><code>switch</code>语句最常见的形式:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>表达式<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-case">case</span> 常量表达式<span class="token operator">:</span> 语句
   …
   <span class="token keyword keyword-case">case</span> 常量表达式<span class="token operator">:</span> 语句
   <span class="token keyword keyword-default">default</span><span class="token operator">:</span> 语句
 <span class="token punctuation">}</span></code></pre>
-<ul>
-<li>
+</div>
+<div style="flex:1;">
+<p><code>switch</code> 比级联 <code>if</code> 更易读、通常更快; 最常见的形式:</p>
 <p>单词<code>switch</code>后面必须跟一个括号中的<mark>整数表达式</mark>——控制表达式; 字符在 <code>C</code> 中被视为整数, 因此可以在<code>switch</code>语句中进行判定; 但是, 浮点数和字符串不符合条件</p>
-
-</li>
+<ul>
 <li>
 <p>每个<code>case</code>都以下面的标签形式开头: <code>case 常量表达式:</code></p>
 
@@ -362,9 +403,26 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Passing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>在每个案例标签之后是任意数量的语句, 语句周围不需要大括号; 每组中的最后一条语句通常是break</p>
 <ul>
 <li>
@@ -377,17 +435,8 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </li>
 </ul>
 <p>一组语句之前可以有几个 case 标签:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Passing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
@@ -407,6 +456,18 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Good"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Poor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>执行<code>break</code>语句会导致程序从<code>switch</code>语句中 <mark>中断</mark>, 在 <code>switch</code> 之后的下一条语句继续执行</p>
 <p><code>switch</code>语句实际上是 <mark>计算跳转</mark> 的一种形式</p>
 <ul>
@@ -420,15 +481,9 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </li>
 </ul>
 <p>没有 <code>break</code>(或其他跳转语句), 控制将流入下一个 <code>case</code>:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Good"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Poor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
 <p>如果<code>grade</code>的值为 <code>3</code>, 则打印的消息为 <code>GoodAveragePoorFailingIllegal grade</code></p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
 <hr>
@@ -445,22 +500,14 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <hr>
 </section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--以法律形式打印日期">程序: 以法律形式打印日期 </h5>
 <hr>
-<p>合同和其他法律文件通常按以下方式注明日期:</p>
-<p><code>Dated this __________ day of __________ , 20__ .</code></p>
-<p>*date.c*程序将以这种形式显示日期:</p>
-<p>Enter date (mm/dd/yy): <u>7/19/14</u> Dated this 19th day of July, 2014.</p>
-<p>该程序使用<code>switch</code>语句将<code>"th"</code>(或<code>"st"</code>或<code>"nd"</code>或<code>"rd"</code>)添加到日期, 并将月份打印为单词而不是数字</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Prints a date in legal form */</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.5;font-size:0.5em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> month<span class="token punctuation">,</span> day<span class="token punctuation">,</span> year<span class="token punctuation">;</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter date (mm/dd/yy): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d /%d /%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>month<span class="token punctuation">,</span> <span class="token operator">&</span>day<span class="token punctuation">,</span> <span class="token operator">&</span>year<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Dated this %d"</span><span class="token punctuation">,</span> day<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>day<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">21</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">31</span><span class="token operator">:</span>
@@ -472,30 +519,31 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
     <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"th"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" day of "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
   <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>month<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"January"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"February"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"March"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"April"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">5</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"May"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">6</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"June"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">7</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"July"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">8</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"August"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">9</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"September"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">10</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"October"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">11</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"November"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-case">case</span> <span class="token number">12</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"December"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"January"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"February"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"March"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"April"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">5</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"May"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>  <span class="token keyword keyword-case">case</span> <span class="token number">6</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"June"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">7</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"July"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>  <span class="token keyword keyword-case">case</span> <span class="token number">8</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"August"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">9</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"September"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>  <span class="token keyword keyword-case">case</span> <span class="token number">10</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"October"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">11</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"November"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>  <span class="token keyword keyword-case">case</span> <span class="token number">12</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"December"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
- 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">", 20%.2d.\n"</span><span class="token punctuation">,</span> year<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>合同和其他法律文件通常按以下方式注明日期:</p>
+<p><code>Dated this __________ day of __________ , 20__ .</code></p>
+<p>*date.c*程序将以这种形式显示日期:</p>
+<p>Enter date (mm/dd/yy): <u>7/19/14</u> Dated this 19th day of July, 2014.</p>
+<p>该程序使用<code>switch</code>语句将<code>"th"</code>(或<code>"st"</code>或<code>"nd"</code>或<code>"rd"</code>)添加到日期, 并将月份打印为单词而不是数字</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--闰年判断的化简">演示: 闰年判断的化简 </h5>
 <hr>
-<p><mark>现场演示</mark></p>
-<p>用逻辑运算化简级联 if (leap.c):</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -513,7 +561,13 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
     <span class="token punctuation">}</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 回顾: 级联 if → 条件合并 → 布尔表达式直接赋值, 三种写法功能相同
+</div>
+<div style="flex:1;">
+<p><mark>现场演示</mark></p>
+<p>用逻辑运算化简级联 if (leap.c):</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 回顾: 级联 if → 条件合并 → 布尔表达式直接赋值, 三种写法功能相同</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
