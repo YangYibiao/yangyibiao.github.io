@@ -74,11 +74,7 @@ presentation:
 
 授课: [杨已彪](http://cs.nju.edu.cn/yangyibiao), yangyibiao@nju.edu.cn
 
-
-
-时间: 
-
-- 理论: 64 学时，每周两次，每次 2 节 (每节 50 分钟)，共 16 周
+- 理论: 64 学时，每周两次，每次 2 节，共 16 周
 
 - 实验: 在线测试 (OJ: Online Judge)
 
@@ -87,9 +83,13 @@ presentation:
 <!-- <span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 <span class="blue">:fa-lightbulb-o:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游 -->
 
+<div style="font-size:0.8em;">
+
 <span class="blue">:fa-weixin:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 
 <span class="blue">:fa-weixin:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -144,15 +144,13 @@ presentation:
 
 - 平时成绩: ==20%== (课堂代码实操 + 在线OJ系统闯关)
 
-- 期末项目: ==20%== (跨学科智能应用开发: 代码 + 答辩 + 技术文档)
+- 期末项目: ==20%== (代码 + 答辩 + 技术文档)
 
 - 课程考试: ==60%== (闭卷机试: 语法基础、算法设计和智能应用)
 
-- 教案发布: https://yangyibiao.github.io/cpl/index.html
+- 教案与课程网址: [yangyibiao.github.io/cpl](https://yangyibiao.github.io/cpl)
 
-- 课程网址: [https://yangyibiao.github.io/cpl](https://yangyibiao.github.io/cpl)
-
-- 在线评测网址: == http://172.28.223.3/ == (仅校园网内访问)
+- 在线评测网址: ==172.28.223.3== (仅校内)
 
 <!-- slide data-notes="" -->
 
@@ -172,14 +170,13 @@ presentation:
 
 ---
 
-- 作业入口: 页面顶端 ==「竞赛 & 作业」== 选项卡，找到教师设定的作业，逐题答题
+- 作业入口: 页面顶端 ==「竞赛 & 作业」== 选项卡，逐题答题
 
-- 答题流程: 
-  - 仔细理解题目描述、输入输出和样例
+- 答题流程: 仔细理解题目描述、输入输出和样例
   - 在本机编译器中编程、用样例测试调试
-  - 在 OJ 平台选择「提交」或「露一手!」粘贴代码提交，系统自动判题
+  - 在 OJ 选择「提交」或「露一手!」粘贴代码，系统自动判题
 
-- 提交记录: 「提交记录」中点击 C/Edit 可修改并再次提交
+- 提交记录: 点击 C/Edit 可修改并再次提交
 
 - 注意作业==截止提交时间==
 

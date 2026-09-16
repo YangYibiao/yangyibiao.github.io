@@ -185,9 +185,7 @@ presentation:
 
 ---
 
-问题2 的答案:
-
-- 人扫一眼就能找到最高分, 但计算机不能"看"
+- ==问题2 的答案==: 人扫一眼就能找到最高分, 但计算机不能"看"
 
 - 计算机的做法:
   1. ==假设==第一个成绩是最高分
@@ -534,6 +532,8 @@ printf("Hello, World!\n");
 
 ---
 
+<div style="font-size:0.72em;">
+
 ```C{.line-numbers}
 /* hello.c: 我的第一个 C 程序
    打印 Hello NJU
@@ -546,6 +546,8 @@ int main(void)
   return 0;                  // 程序正常结束
 }
 ```
+
+</div>
 
 - 没有注释, 复杂的程序别人(包括一个月后的自己)很难看懂
 
@@ -608,6 +610,8 @@ printf("fleas");
 
 ---
 
+<div style="font-size:0.75em;">
+
 ```C{.line-numbers}
 #include <stdio.h>
 #include <stdlib.h>
@@ -631,6 +635,8 @@ int main(void) {
   return 0;
 }
 ```
+
+</div>
 
 ---
 
