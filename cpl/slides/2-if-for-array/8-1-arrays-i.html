@@ -422,7 +422,33 @@
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>j<span class="token operator">+</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span> </code></pre>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
+<hr>
+<p>本金 100 元, 5 种利率各存 5 年, 列出每年的余额:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_RATES 5</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_YEARS 5</span>
+
+<span class="token keyword keyword-double">double</span> balance<span class="token punctuation">[</span>NUM_RATES<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> r <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> r <span class="token operator"><</span> NUM_RATES<span class="token punctuation">;</span> r<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  balance<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100.0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> y <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> y <span class="token operator">&lt;=</span> NUM_YEARS<span class="token punctuation">;</span> y<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    balance<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">=</span> balance<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> <span class="token number">0.01</span> <span class="token operator">*</span> <span class="token punctuation">(</span>r <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 每年复利 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%8.2f"</span><span class="token punctuation">,</span> balance<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p>关键: <mark>第 y+1 年的余额依赖第 y 年</mark>——每一年的中间值都要<mark>存下来</mark></p>
+
+</li>
+<li>
+<p>数组的第三种用途: 除了"存一批数据"和"批量处理", 还能<mark>保存中间状态</mark></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？</li>
@@ -431,7 +457,7 @@
 <li>C99 的变长数组 (VLA) 长度可以是什么？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

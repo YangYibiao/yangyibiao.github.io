@@ -261,7 +261,26 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="分治法">分治法 </h5>
+<hr>
+<p><mark>分治法</mark> (divide and conquer): 把大问题拆成几个<mark>同类的小问题</mark>, 分别解决, 再合并结果</p>
+<ul>
+<li>
+<p>三步: <mark>分</mark> (拆) → <mark>治</mark> (解决小问题) → <mark>合</mark> (拼起来)</p>
+
+</li>
+<li>
+<p>生活例子: 整理一摞试卷——分成两摞, 各自整理好, 再合并</p>
+
+</li>
+<li>
+<p>排序中的分治: 把数组分成两半, 各自排好, 再合并</p>
+
+</li>
+</ul>
+<span class="blue">:fa-lightbulb-o:</span> 递归常常是分治法的==自然结果==——下一页的快速排序正是如此
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
 <hr>
 <p>用第 7 周的<mark>递归</mark>做排序: 选一个基准, 小的放左、大的放右, 再对左右递归</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
@@ -284,7 +303,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
 <hr>
 <p><mark>split</mark>: 以 <code>a[low]</code> 为基准, 把小元素换到左边、大的换到右边, 返回基准的最终下标</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">split</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
@@ -308,7 +327,21 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <span class="token punctuation">}</span></code></pre>
 <p>完整可运行程序: <a href="code/qsort-split.c">code/qsort-split.c</a> (无指针版, 全部用数组下标)</p>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="一趟划分在做什么---空位法">一趟划分在做什么: "空位法" </h5>
+<hr>
+<p>以 <code>a = {4, 3, 9, 7}</code>, 基准 4 为例:</p>
+<ol>
+<li>取出基准 4 → <code>a[0]</code> 成了<mark>空位</mark></li>
+<li><mark>从右往左</mark>找比 4 小的: 3 → 填进左边空位, 右边留下空位</li>
+<li><mark>从左往右</mark>找比 4 大的: 9 → 填进右边空位, 左边又留空位</li>
+<li>左右相遇 → 把基准 4 放进最后的空位</li>
+</ol>
+<p>结果: 4 左边都比它小、右边都比它大——<mark>一趟划分完成</mark>, 再对左右两半各自递归</p>
+<div class="top-2">
+  <img src="figs/9-1.png" width=460px>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
@@ -316,7 +349,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <li>输入一个数, 在有序数组中用二分查找找到它</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>选择排序每一轮做什么？总共需要几轮？</li>
@@ -325,7 +358,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <li>快速排序和前面三种排序的本质区别是什么？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

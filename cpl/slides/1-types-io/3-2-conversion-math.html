@@ -302,6 +302,16 @@ i <span class="token operator">+</span> j <span class="token operator">=</span> 
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型转换">类型转换 </h5>
 <hr>
+<ul>
+<li>
+<p>强制转换还能<mark>避免溢出</mark>: <mark>先提升, 再运算</mark>, 而不是算完再提升</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span> <span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1000000</span><span class="token punctuation">;</span>
+i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>      <span class="token comment">/* 正确: j 先转成 long, 乘法不会溢出 */</span>
+i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 错误: j * j 已经在 int 里溢出了 */</span></code></pre>
+<hr>
 <p><mark>隐式转换</mark>: 不同类型混合运算/赋值时, 编译器自动转换</p>
 <ul>
 <li>
