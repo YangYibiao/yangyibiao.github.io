@@ -69,13 +69,9 @@ presentation:
 
 ---
 
-==作用域==: 标识符可以被使用的那段代码范围
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-- ==块作用域==: 函数体内 {} 覆盖的范围——局部变量、形式参数
-
-- ==文件作用域==: 从定义位置到文件末尾——全局变量
-
-- 内层屏蔽外层: 内层同名变量会==遮蔽==外层的
+<div style="flex:1.3;font-size:0.7em;">
 
 ```C
 int x = 0;            /* 文件作用域 */
@@ -86,12 +82,25 @@ void f(void)
 }
 ```
 
-- ==局部变量==: 定义在函数内, 出了函数就不可见
+</div>
+
+<div style="flex:1;">
+
+==作用域==: 标识符可以被使用的那段代码范围
+
+- ==块作用域==: 函数体内 {} 覆盖的范围——局部变量、形式参数
+
+- ==文件作用域==: 从定义位置到文件末尾——全局变量
+
+- 内层屏蔽外层: 内层同名变量会==遮蔽==外层的
+
+==局部变量==: 定义在函数内, 出了函数就不可见
 
 - ==全局变量==: 定义在函数外, 整个文件可见; 少用为妙 (谁都可能改它)
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -188,7 +197,9 @@ void f(void)
 
 ---
 
-==宏定义==: 用一个名字代表一段字符序列, 预处理时==文本替换==
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.65em;">
 
 ```C
 #define PI 3.14159
@@ -197,23 +208,30 @@ void f(void)
 area = PI * r * r;   /* 展开为 area = 3.14159 * r * r; */
 ```
 
-- 行末==没有分号==; 宏名习惯全大写
-
-- 替换是纯文本的——表达式要==加括号==
-
 ```C
 #define TWICE(x)  x + x     /* 危险! */
 #define TWICE(x) ((x) + (x)) /* 安全 */
 ```
 
-- 两个经典错误: ==`#define N = 100`== (多了等号) 和 ==`#define N 100;`== (多了分号)——宏是纯文本替换, 等号和分号会被原样带进代码
+</div>
+
+<div style="flex:1;">
+
+==宏定义==: 用一个名字代表一段字符序列, 预处理时==文本替换==
+
+行末==没有分号==; 宏名习惯全大写
+
+- 替换是纯文本的——表达式要==加括号==
+
+两个经典错误: ==`#define N = 100`== (多了等号) 和 ==`#define N 100;`== (多了分号)——宏是纯文本替换, 等号和分号会被原样带进代码
 
 - 宏==不遵守作用域==: 从 `#define` 那一行起, 一直到文件末尾都有效 (变量有作用域, 宏没有)
 
 - 想提前取消: `#undef 宏名`
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -247,7 +265,9 @@ x = MAX(p + q, r + s);
 
 ---
 
-==条件编译==: 按条件选择性地编译部分代码
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.7em;">
 
 ```C
 #define DEBUG 1
@@ -257,7 +277,13 @@ x = MAX(p + q, r + s);
 #endif
 ```
 
-- #ifdef X / #ifndef X / #if 表达式 / #elif / #else / #endif
+</div>
+
+<div style="flex:1;">
+
+==条件编译==: 按条件选择性地编译部分代码
+
+#ifdef X / #ifndef X / #if 表达式 / #elif / #else / #endif
 
 - 用途: 调试开关、跨平台代码 (第 14 周多文件再深入)
 
@@ -265,8 +291,9 @@ x = MAX(p + q, r + s);
 
 - 常见的"默认值"写法: `#ifndef BUF_SIZE` / `#define BUF_SIZE 256` / `#endif` (没定义过才定义)
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 

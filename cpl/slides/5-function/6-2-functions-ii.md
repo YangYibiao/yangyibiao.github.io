@@ -66,19 +66,9 @@ presentation:
 
 ---
 
-*prime.c*程序测试一个数字是否为素数: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-Enter a number: <u>34</u>
-Not prime
-
-该程序定义一个名为is_prime的函数, 如果其参数是质数则返回true, 否则返回false. 
-
-is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有一个余数为0, n就不是素数.
-
-
----
-
-*prime.c*
+<div style="flex:1.3;font-size:0.48em;">
 
 ```C{.line-numbers}
 /* 判断一个数是否为素数 */
@@ -111,10 +101,30 @@ int main(void)
   return 0;
 }
 ```
----
+
+</div>
+
+<div style="flex:1;">
+
+*prime.c*程序测试一个数字是否为素数: 
+
+Enter a number: <u>34</u>
+Not prime
+
+该程序定义一个名为is_prime的函数, 如果其参数是质数则返回true, 否则返回false. 
+
+is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有一个余数为0, n就不是素数.
+
 
 ---
 
+*prime.c*
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -123,20 +133,19 @@ int main(void)
 
 ---
 
-<a href="code/leap.c" target="_blank">leap.c</a>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.48em;">
 
 ```C
 #include <stdio.h>
-
 int main(void) {
   int year = 0;
   scanf("%d", &year);
-
-  int leap = 0; // boolean; indicator; flag
+  int leap = 0;
   if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-    leap = 1; // printf("%d is a leap year\n", year);
+    leap = 1;
   }
-
   if (leap == 0) {
     printf("%d is a common year\n", year);
   } else {
@@ -146,32 +155,20 @@ int main(void) {
 }
 ```
 
----
-
-
----
-
-<a href="code/leap-re.c" target="_blank">leap-re.c</a>
-
 ```C
 #include <stdio.h>
-
 int is_leap_year(int);
-
 int main(void) {
   int year = 0;
   scanf("%d", &year);
-
   int leap = is_leap_year(year);
   if (leap == 0) {
     printf("%d is a common year\n", year);
   } else {
     printf("%d is a leap year\n", year);
   }
-
   return 0;
 }
-
 int is_leap_year(int n) {
   if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
     return 1;
@@ -179,19 +176,30 @@ int is_leap_year(int n) {
   return 0;
 }
 ```
----
+
+</div>
+
+<div style="flex:1;">
+
+<a href="code/leap.c" target="_blank">leap.c</a>
 
 ---
 
+<a href="code/leap-re.c" target="_blank">leap-re.c</a>
 
-<!-- slide data-notes="" -->
 
 
-##### primes.c
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->##### primes.c (原版)
 
 ---
 
-<a href="code/primes.c" target="_blank">primes.c</a>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 #include <stdio.h>
@@ -220,12 +228,24 @@ int main() {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+</div>
+
+</div>
+<!-- slide data-notes="" -->##### primes-re.c (函数版)
+
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
----
-
-<a href="code/primes-re.c" target="_blank">primes-re.c</a>
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 #include <stdio.h>
@@ -258,11 +278,30 @@ int main() {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+
+</div>
+
+<div style="flex:1;">
+
+<a href="code/primes.c" target="_blank">primes.c</a>
 
 ---
 
+<a href="code/primes-re.c" target="_blank">primes-re.c</a>
 
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 <!-- slide data-notes="" -->
 
 
@@ -270,7 +309,9 @@ int main() {
 
 ---
 
-<a href="code/stars.c" target="_blank">stars.c</a>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 #include <stdio.h>
@@ -297,10 +338,17 @@ int main() {
 }
 ```
 
----
+</div>
 
----
+<div style="flex:1;">
 
+<a href="code/stars.c" target="_blank">stars.c</a>
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

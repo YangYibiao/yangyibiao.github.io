@@ -69,9 +69,9 @@ presentation:
 
 ---
 
-如果函数调用自身, 则它是递归的. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-以下函数利用公式$n! = n × (n – 1)!$递归地计算$n!$:
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 int fact(int n)
@@ -82,14 +82,20 @@ int fact(int n)
     return n * fact(n - 1);
 }
 ```
----
-
-
-要了解递归是如何工作的, 让我们来跟踪语句的执行
 
 ```C
 i = fact(3);
 ```
+
+</div>
+
+<div style="flex:1;">
+
+如果函数调用自身, 则它是递归的. 
+
+以下函数利用公式$n! = n × (n – 1)!$递归地计算$n!$:
+
+要了解递归是如何工作的, 让我们来跟踪语句的执行
 
 1. fact(3) 发现 $3 \le 1$ 不成立, 所以调用
 2. &emsp; fact(2), 发现 $2 \le 1$ 不成立, 所以调用
@@ -97,8 +103,9 @@ i = fact(3);
 4. &emsp; fact(2) 返回 $2 × 1 = 2$, 导致
 2. fact(3) 返回 $3 × 2 = 6$.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -166,7 +173,9 @@ f(5) → 5×f(4) → 4×f(3) → 3×f(2) → 2×f(1) → 返回 1 → 2 → 6 �
 
 ---
 
-F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 #include <stdio.h>
@@ -185,10 +194,17 @@ int main(void)
 }
 ```
 
-- f(5) 会把 f(3)、f(2) 各算多遍——重复计算是朴素递归的代价
+</div>
 
----
+<div style="flex:1;">
 
+F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)
+
+f(5) 会把 f(3)、f(2) 各算多遍——重复计算是朴素递归的代价
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -219,11 +235,9 @@ int gcd(int a, int b)
 
 ---
 
-3 根柱 A、B、C, 把 n 个盘子从 A 移到 C (大盘不能压小盘, 可借 B):
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-- n=1: 直接 A → C
-
-- n>1: 先把上面 n-1 个 A → B (借 C), 再把最大盘 A → C, 最后 n-1 个 B → C (借 A)
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 void Hanoi(int n, char A, char B, char C)
@@ -238,10 +252,21 @@ void Hanoi(int n, char A, char B, char C)
 }
 ```
 
-- 64 个盘子需 2^64 - 1 步——"把问题交给递归"的威力
+</div>
 
----
+<div style="flex:1;">
 
+3 根柱 A、B、C, 把 n 个盘子从 A 移到 C (大盘不能压小盘, 可借 B):
+
+- n=1: 直接 A → C
+
+- n>1: 先把上面 n-1 个 A → B (借 C), 再把最大盘 A → C, 最后 n-1 个 B → C (借 A)
+
+64 个盘子需 2^64 - 1 步——"把问题交给递归"的威力
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -250,7 +275,9 @@ void Hanoi(int n, char A, char B, char C)
 
 ---
 
-以下递归函数使用公式$x^n = x × x ^{n –1}$计算$x^n$. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 int power(int x, int n)
@@ -261,10 +288,6 @@ int power(int x, int n)
     return x * power(x, n - 1);
 }
 ```
----
-
-
-把条件表达式放入return语句中可以精简power函数: 
 
 ```C
 int power(int x, int n)
@@ -273,12 +296,21 @@ int power(int x, int n)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+以下递归函数使用公式$x^n = x × x ^{n –1}$计算$x^n$.
+
+把条件表达式放入return语句中可以精简power函数:
+
 fact和power都会在调用时小心地测试==终止条件==. 
 
 所有递归函数都需有终止条件以防止无限递归.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
