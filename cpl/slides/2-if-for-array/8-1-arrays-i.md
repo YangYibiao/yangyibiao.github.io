@@ -642,6 +642,34 @@ int b[j+k]; 
 
 <!-- slide data-notes="" -->
 
+##### 程序: 计算利息 (数组保存中间状态)
+
+---
+
+本金 100 元, 5 种利率各存 5 年, 列出每年的余额:
+
+```C{.line-numbers}
+#define NUM_RATES 5
+#define NUM_YEARS 5
+
+double balance[NUM_RATES];
+for (int r = 0; r < NUM_RATES; r++) {
+  balance[r] = 100.0;
+  for (int y = 1; y <= NUM_YEARS; y++) {
+    balance[r] = balance[r] * (1 + 0.01 * (r + 3));   /* 每年复利 */
+    printf("%8.2f", balance[r]);
+  }
+  printf("\n");
+}
+```
+
+- 关键: ==第 y+1 年的余额依赖第 y 年==——每一年的中间值都要==存下来==
+
+- 数组的第三种用途: 除了"存一批数据"和"批量处理", 还能==保存中间状态==
+
+
+<!-- slide data-notes="" -->
+
 
 ##### 课堂小测
 
