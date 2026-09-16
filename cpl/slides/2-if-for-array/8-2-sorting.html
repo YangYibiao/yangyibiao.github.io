@@ -64,126 +64,251 @@
 <hr class="width50 center">
 <h2 id="排序与查找">排序与查找 </h2>
 <div class="bottom8"></div>
-<h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
-<h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-</section><section data-notes="" lineno="52" class="slide " data-source-line="52" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
+<h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
+<h4 id="yangyibiaonjueducnyangyibiaonjueducn">[yangyibiao@nju.edu.cn](yangyibiao@nju.edu.cn) </h4>
+</section><section data-notes="" lineno="66" class="slide " data-source-line="66" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
 <hr>
 <ul>
 <li>
-<p>为什么排序与查找</p>
-</li><li>
+<p>数组作函数参数 (排序函数的基础)</p>
+
+</li>
+<li>
 <p>三种排序: 选择、冒泡、插入</p>
-</li><li>
+
+</li>
+<li>
 <p>查找: 顺序查找与二分查找</p>
-</li><li>
-<p>递归排序预告: 快速排序</p>
+
+</li>
+<li>
+<p>递归排序: 快速排序</p>
+
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="62" class="slide " data-source-line="62" data-h="2" data-v="0"><h5 id="为什么排序与查找">为什么排序与查找 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="为什么排序与查找">为什么排序与查找 </h5>
 <hr>
-<p>成绩排名、字典、数据库……==排序==和==查找==是程序处理数据的基本功</p>
+<p>成绩排名、字典、数据库……<mark>排序</mark>和<mark>查找</mark>是程序处理数据的基本功</p>
 <ul>
 <li>
 <p>排序: 把一组数据按大小整理好</p>
-</li><li>
+
+</li>
+<li>
 <p>查找: 在一组数据中找到目标</p>
+
 </li>
 </ul>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 第 1 周的冒泡排序预告, 今天正式实现!</p>
+<span class="blue">:fa-lightbulb-o:</span> 第 1 周的冒泡排序预告, 今天正式实现!
 <hr>
-</section><section data-notes="" lineno="74" class="slide " data-source-line="74" data-h="3" data-v="0"><h5 id="选择排序">选择排序 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="数组作函数参数">数组作函数参数 </h5>
+<hr>
+<p>排序函数要对数组操作, 先学会<mark>把数组传给函数</mark></p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">sum_array</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>   <span class="token comment">/* 形参: 数组 + 长度 */</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p>一维数组形参写作 <mark><code>int a[]</code></mark>, 长度可以<mark>不写</mark></p>
+
+</li>
+<li>
+<p>函数<mark>不知道</mark>数组有多长——长度必须作为<mark>额外的参数</mark>传进去</p>
+
+</li>
+<li>
+<p>调用时只写<mark>数组名</mark>, 不要加方括号: <code>sum_array(b, LEN);</code> (<code>b[]</code> 是错的)</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="数组作函数参数--能改原数组">数组作函数参数: 能改原数组 </h5>
+<hr>
+<p>函数不仅可以<mark>读</mark>数组, 还可以<mark>改</mark>它——改动会反映到原数组</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">store_zeros</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>              <span class="token comment">/* 把 b 的每个元素清零 */</span>
+<span class="token punctuation">}</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">store_zeros</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 调用后 b 全为 0 */</span></code></pre>
+<ul>
+<li>
+<p>排序函数正是利用这一点: <code>bubble_sort(a, n)</code> 之后 <mark>a 本身就被排好了</mark></p>
+
+</li>
+<li>
+<p><span class="blue"><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span></span> 这看似和"按值传递"矛盾——第 10 周指针章会解释为什么</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="数组作函数参数--注意事项">数组作函数参数: 注意事项 </h5>
+<hr>
+<ul>
+<li>
+<p>传的长度<mark>不要超过</mark>数组实际长度, 否则越界访问 (未定义行为)</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+total <span class="token operator">=</span> <span class="token function">sum_array</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">150</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/*** WRONG: 越界 ***/</span></code></pre>
+<ul>
+<li>
+<p>也可以传<mark>更小</mark>的长度, 只处理数组的一部分:</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>total <span class="token operator">=</span> <span class="token function">sum_array</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 只求前 50 个元素的和 */</span></code></pre>
+<ul>
+<li>
+<p>多维数组作参数时, <mark>只能省略第一维</mark>的长度: <code>int sum(int a[][LEN], int n)</code></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="选择排序">选择排序 </h5>
 <hr>
 <p>每一轮从剩余元素中<mark>选出最小</mark>的, 放到前面</p>
 <div class="top-2">
-  <img src="../3-for-a-while/figs/selection-sort.png" width="420px">
+  <img src="../3-for-a-while/figs/selection-sort.png" width=420px>
 </div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>void selection_sort(int a[], int n)
-{
-  for (int i = 0; i &lt; n - 1; i++) {
-    int min = i;
-    for (int j = i + 1; j &lt; n; j++)
-      if (a[j] &lt; a[min])
-        min = j;
-    int t = a[i]; a[i] = a[min]; a[min] = t;
-  }
-}</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">selection_sort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> min <span class="token operator">=</span> i<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator"><</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator"><</span> a<span class="token punctuation">[</span>min<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        min <span class="token operator">=</span> j<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>min<span class="token punctuation">]</span><span class="token punctuation">;</span> a<span class="token punctuation">[</span>min<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="88" class="slide " data-source-line="88" data-h="4" data-v="0"><h5 id="冒泡排序">冒泡排序 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="冒泡排序">冒泡排序 </h5>
 <hr>
-<h5 id="bubble-sort">Bubble Sort </h5>
+<p>相邻元素两两比较, 顺序不对就交换, 一轮后最大的元素"沉"到最后</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">bubble_sort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>           <span class="token comment">/* 共 n-1 轮 */</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> n <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">-</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>     <span class="token comment">/* 每轮少比一个 */</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <hr>
-<p><img src="figs/bubble-sort.png" alt=""></p>
-<h5 id="bubble-sort-1">Bubble Sort </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="插入排序">插入排序 </h5>
 <hr>
-<p><img src="figs/bubble-sort-wiki.gif" alt=""></p>
+<p>像打牌理手牌: 每次拿起一张, 插到已排序部分的正确位置</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">insertion_sort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> key <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>j <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      j<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> key<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="102" class="slide " data-source-line="102" data-h="5" data-v="0"><h5 id="插入排序">插入排序 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="顺序查找">顺序查找 </h5>
 <hr>
-<h5 id="insertion-sort">Insertion Sort </h5>
-<hr>
-<p><img src="figs/insertion-sort-poker.png" alt=""></p>
-<h5 id="insertion-sort-1">Insertion Sort </h5>
-<hr>
-<div class="top-2">
-  <img src="figs/hushi-poker.png" width="500px">
-</div>
-<hr>
-</section><section data-notes="" lineno="116" class="slide " data-source-line="116" data-h="6" data-v="0"><h5 id="顺序查找">顺序查找 </h5>
-<hr>
-<p>从第一个元素开始==逐个比较==, 找到即停</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>int linear_search(int a[], int n, int key)
-{
-  for (int i = 0; i &lt; n; i++)
-    if (a[i] == key)
-      return i;      /* 找到, 返回下标 */
-  return -1;          /* 没找到 */
-}</code></pre>
+<p>从第一个元素开始<mark>逐个比较</mark>, 找到即停</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">linear_search</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> key<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span>
+      <span class="token keyword keyword-return">return</span> i<span class="token punctuation">;</span>      <span class="token comment">/* 找到, 返回下标 */</span>
+  <span class="token keyword keyword-return">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>          <span class="token comment">/* 没找到 */</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
 <p>适合无序数据; 平均比较 n/2 次, 最坏 n 次</p>
-</li></ul>
+
+</li>
+</ul>
 <hr>
-</section><section data-notes="" lineno="128" class="slide " data-source-line="128" data-h="7" data-v="0"><h5 id="二分查找">二分查找 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="二分查找">二分查找 </h5>
 <hr>
-<p>数据==排好序==后, 可以每次砍掉一半: 和中间元素比较, 决定去左半边还是右半边</p>
+<p>数据<mark>排好序</mark>后, 可以每次砍掉一半: 和中间元素比较, 决定去左半边还是右半边</p>
 <div class="top-2">
-  <img src="../3-for-a-while/figs/binary-search-mario.png" width="420px">
+  <img src="../3-for-a-while/figs/binary-search-mario.png" width=420px>
 </div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>int binary_search(int a[], int n, int key)
-{
-  int low = 0, high = n - 1;
-  while (low &lt;= high) {
-    int mid = (low + high) / 2;
-    if (a[mid] == key) return mid;
-    if (a[mid] &lt; key) low = mid + 1;
-    else high = mid - 1;
-  }
-  return -1;
-}</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">binary_search</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> key<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> low <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> high <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator">&lt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>low <span class="token operator">+</span> high<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> mid<span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator"><</span> key<span class="token punctuation">)</span> low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span> high <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
 <p>n 个元素最多比较 log2(n)+1 次——100 万个数也只要约 20 次!</p>
-</li></ul>
+
+</li>
+</ul>
 <hr>
-</section><section data-notes="" lineno="142" class="slide " data-source-line="142" data-h="8" data-v="0"><h5 id="递归排序预告">递归排序预告: 快速排序 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
 <hr>
 <p>用第 7 周的<mark>递归</mark>做排序: 选一个基准, 小的放左、大的放右, 再对左右递归</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>void quicksort(int a[], int low, int high)
-{
-  if (low &gt;= high) return;        /* 基准情形 */
-  int p = partition(a, low, high); /* 划分 */
-  quicksort(a, low, p - 1);
-  quicksort(a, p + 1, high);
-}</code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> middle<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>            <span class="token comment">/* 基准情形: 只剩 0 或 1 个元素 */</span>
+  middle <span class="token operator">=</span> <span class="token function">split</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> low<span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 划分: 小的在左, 大的在右 */</span>
+  <span class="token function">quicksort</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> low<span class="token punctuation">,</span> middle <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 递归排左半 */</span>
+  <span class="token function">quicksort</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> middle <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 递归排右半 */</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
 <p>平均 O(n log n), 比冒泡/选择/插入的 O(n^2) 快得多</p>
-</li><li>
-<p>课后有兴趣可以看课件目录里的完整 quicksort 实现</p>
-</li></ul>
+
+</li>
+<li>
+<p><code>split</code> 是划分函数, 下一页展开</p>
+
+</li>
+</ul>
 <hr>
-</section><section data-notes="" lineno="156" class="slide " data-source-line="156" data-h="9" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
+<hr>
+<p><mark>split</mark>: 以 <code>a[low]</code> 为基准, 把小元素换到左边、大的换到右边, 返回基准的最终下标</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">split</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> part_element <span class="token operator">=</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator"><</span> high <span class="token operator">&amp;&amp;</span> part_element <span class="token operator">&lt;=</span> a<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">)</span>
+      high<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    a<span class="token punctuation">[</span>low<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator"><</span> high <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> part_element<span class="token punctuation">)</span>
+      low<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    a<span class="token punctuation">[</span>high<span class="token operator">--</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  a<span class="token punctuation">[</span>high<span class="token punctuation">]</span> <span class="token operator">=</span> part_element<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> high<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>完整可运行程序: <a href="code/qsort-split.c">code/qsort-split.c</a> (无指针版, 全部用数组下标)</p>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
@@ -191,7 +316,7 @@
 <li>输入一个数, 在有序数组中用二分查找找到它</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="168" class="slide " data-source-line="168" data-h="10" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>选择排序每一轮做什么？总共需要几轮？</li>
@@ -200,11 +325,11 @@
 <li>快速排序和前面三种排序的本质区别是什么？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="186" class="slide " data-source-line="186" data-h="11" data-v="0"><div class="bottom20"></div>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+<div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
-<hr>
 </section>
       </div>
     </div>
