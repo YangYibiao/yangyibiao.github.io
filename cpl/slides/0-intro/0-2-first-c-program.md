@@ -344,14 +344,13 @@ printf("fleas");
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### 猜数字游戏: 代码
+<!-- slide data-notes="" -->##### 猜数字游戏: 代码
 
 ---
 
-<div style="font-size:0.75em;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.66em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -379,15 +378,9 @@ int main(void) {
 
 </div>
 
----
+<div style="flex:1;">
 
-
-<!-- slide data-notes="" -->
-
-
-##### 猜数字游戏: 程序在做什么
-
----
+==程序在做什么==:
 
 - 三个 `#include`: stdio 提供 printf/scanf, stdlib 提供 rand/srand, time 提供 time
 
@@ -401,6 +394,9 @@ int main(void) {
 
 ---
 
+</div>
+
+</div>
 <!-- slide data-notes="" -->
 
 
