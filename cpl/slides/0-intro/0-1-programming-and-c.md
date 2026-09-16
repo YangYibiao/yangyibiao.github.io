@@ -123,6 +123,8 @@ presentation:
 
 ---
 
+程序在这台机器上跑, 靠的是五个环节:
+
 <div style="display:flex;align-items:center;gap:20px;">
 
 <div style="flex:1.25;">
@@ -156,7 +158,7 @@ presentation:
 
 ---
 
-计算机只能执行 ==0 和 1== 组成的==机器指令==。语言是这样一步步进化来的:
+怎么指挥这台机器？它只懂 ==0 和 1== 组成的==机器指令==——语言是这样一步步进化来的:
 
 <div class="fullborder">
 
@@ -220,6 +222,8 @@ presentation:
 
 ---
 
+程序这么能干, 是怎么"想"出来的？先看一个小问题:
+
 ==问题2==：给全班 100 个同学的成绩，怎么让计算机找出最高分？
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 你不能让它"看一眼"，只能一步步指挥它
@@ -255,7 +259,7 @@ presentation:
 
 ---
 
-用刚才问题2的例子: 计算机怎么找出 100 个成绩的最高分?
+把刚才的算法放回机器的工作流程, 每一步对应哪个环节?
 
 1. ==输入==: 逐个读入成绩
 
@@ -293,7 +297,7 @@ presentation:
 
 ---
 
-有了语言, 写程序还需要什么? 从 ==输入 → 处理 → 存储 → 输出== 反推:
+==编程思维==要落地, 还需要具体工具——从 ==输入 → 处理 → 存储 → 输出== 反推:
 
 <div class="fullborder">
 
@@ -312,6 +316,8 @@ presentation:
 </div>
 
 <span class="blue">:fa-lightbulb-o:</span> 每一项都是"==因为需要, 所以才有=="——这就是本学期的路线图
+
+接下来就动手——写第一个 C 程序:
 
 ---
 <!-- slide data-notes="" -->
@@ -379,6 +385,8 @@ int main(void)
 - ==链接==: 把 printf 等库函数合到一起, 生成可执行程序
 
 <span class="blue">:fa-weixin:</span> 这三件事都交给 gcc, 我们只写代码
+
+编译运行之后, 我们来解剖一下 C 程序长什么样:
 
 
 
@@ -523,6 +531,8 @@ printf("Hello, World!\n");
 
 排版建议: 运算符两侧加空格、缩进显示嵌套、空行分隔逻辑单元
 
+程序里还有写给==人==看的部分——注释:
+
 ---
 
 <!-- slide data-notes="" -->
@@ -596,6 +606,8 @@ printf("fleas");
 
 ---
 
+学了不少语法, 来见一个完整的程序——猜数字游戏:
+
 [游戏页面](https://www.abcya.com/games/guess_the_number)
 
 [随机数rand函数](https://en.cppreference.com/w/c/numeric/random/rand)
@@ -666,6 +678,8 @@ int main(void) {
 ##### 课堂小测
 
 ---
+
+今天学了很多——检验一下:
 
 1. 计算机和计算器最本质的区别是什么？
 
