@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -104,6 +104,16 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="标识符的作用域">标识符的作用域 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>            <span class="token comment">/* 文件作用域 */</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>        <span class="token comment">/* 块作用域, 屏蔽全局 x */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 打印 1 */</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
 <p><mark>作用域</mark>: 标识符可以被使用的那段代码范围</p>
 <ul>
 <li>
@@ -119,22 +129,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>            <span class="token comment">/* 文件作用域 */</span>
-<span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>        <span class="token comment">/* 块作用域, 屏蔽全局 x */</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 打印 1 */</span>
-<span class="token punctuation">}</span></code></pre>
-<ul>
-<li>
 <p><mark>局部变量</mark>: 定义在函数内, 出了函数就不可见</p>
-
-</li>
+<ul>
 <li>
 <p><mark>全局变量</mark>: 定义在函数外, 整个文件可见; 少用为妙 (谁都可能改它)</p>
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="变量的生命期">变量的生命期 </h5>
 <hr>
@@ -239,28 +242,26 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="宏定义--类对象宏">宏定义: 类对象宏 </h5>
 <hr>
-<p><mark>宏定义</mark>: 用一个名字代表一段字符序列, 预处理时<mark>文本替换</mark></p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> PI 3.14159</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_N 100</span>
 
 area <span class="token operator">=</span> PI <span class="token operator">*</span> r <span class="token operator">*</span> r<span class="token punctuation">;</span>   <span class="token comment">/* 展开为 area = 3.14159 * r * r; */</span></code></pre>
-<ul>
-<li>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TWICE(x)  x + x     /* 危险! */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TWICE(x) ((x) + (x)) /* 安全 */</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>宏定义</mark>: 用一个名字代表一段字符序列, 预处理时<mark>文本替换</mark></p>
 <p>行末<mark>没有分号</mark>; 宏名习惯全大写</p>
-
-</li>
+<ul>
 <li>
 <p>替换是纯文本的——表达式要<mark>加括号</mark></p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TWICE(x)  x + x     /* 危险! */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TWICE(x) ((x) + (x)) /* 安全 */</span></code></pre>
+<p>两个经典错误: <mark><code>#define N = 100</code></mark> (多了等号) 和 <mark><code>#define N 100;</code></mark> (多了分号)——宏是纯文本替换, 等号和分号会被原样带进代码</p>
 <ul>
-<li>
-<p>两个经典错误: ==<code>#define N = 100</code><mark> (多了等号) 和 </mark><code>#define N 100;</code>== (多了分号)——宏是纯文本替换, 等号和分号会被原样带进代码</p>
-
-</li>
 <li>
 <p>宏<mark>不遵守作用域</mark>: 从 <code>#define</code> 那一行起, 一直到文件末尾都有效 (变量有作用域, 宏没有)</p>
 
@@ -270,6 +271,8 @@ area <span class="token operator">=</span> PI <span class="token operator">*</sp
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="宏定义--带参宏">宏定义: 带参宏 </h5>
 <hr>
@@ -295,17 +298,18 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="条件编译">条件编译 </h5>
 <hr>
-<p><mark>条件编译</mark>: 按条件选择性地编译部分代码</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> DEBUG 1</span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> DEBUG</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"调试信息: x=%d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span></code></pre>
-<ul>
-<li>
+</div>
+<div style="flex:1;">
+<p><mark>条件编译</mark>: 按条件选择性地编译部分代码</p>
 <p>#ifdef X / #ifndef X / #if 表达式 / #elif / #else / #endif</p>
-
-</li>
+<ul>
 <li>
 <p>用途: 调试开关、跨平台代码 (第 14 周多文件再深入)</p>
 
@@ -319,6 +323,8 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="ai-赋能程序设计-i">AI 赋能程序设计 I </h5>
 <hr>

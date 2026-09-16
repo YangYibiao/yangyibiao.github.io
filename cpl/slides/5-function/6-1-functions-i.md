@@ -138,7 +138,9 @@ printf("a + b is : %d", a + b);
 
 ---
 
-函数定义的<u>一般格式</u>: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 返回类型 函数名(形式参数)
@@ -147,8 +149,20 @@ printf("a + b is : %d", a + b);
   语句
 }
 ```
----
 
+```C{.line-numbers}
+double
+average(double a, double b)
+{
+  return (a + b) / 2;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+函数定义的<u>一般格式</u>:
 
 ---
 
@@ -169,20 +183,13 @@ printf("a + b is : %d", a + b);
 
 ---
 
-一些程序员习惯把返回类型放在函数名的上边: 
-
-```C{.line-numbers}
-double
-average(double a, double b)
-{
-  return (a + b) / 2;
-}
-```
+一些程序员习惯把返回类型放在函数名的上边:
 
 如果返回类型很冗长, 比如unsigned long int类型, 把返回类型单独放在一行会更清晰.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -190,6 +197,24 @@ average(double a, double b)
 ##### 函数定义
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
+
+```C{.line-numbers}
+double average(double a, double b)
+{
+  double sum;       /* declaration */
+ 
+  sum = a + b;      /* statement */
+  return sum / 2;   /* statement */
+}
+```
+
+</div>
+
+<div style="flex:1;">
 
 函数名之后是参数列表. 
 
@@ -202,19 +227,7 @@ average(double a, double b)
 
 函数体可能包括声明和语句. 
 
-average函数的另一个版本: 
-
-```C{.line-numbers}
-double average(double a, double b)
-{
-  double sum;       /* declaration */
- 
-  sum = a + b;      /* statement */
-  return sum / 2;   /* statement */
-}
-```
----
-
+average函数的另一个版本:
 
 ---
 
@@ -224,8 +237,9 @@ double average(double a, double b)
 
 在C99中, 变量声明和语句可混合, 只要变量在使用前声明过即可.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -254,7 +268,9 @@ void print_pun(void)
 
 ---
 
-定义一个名为average函数, 计算两个double类型数值的平均值: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 double average(double a, double b)
@@ -262,6 +278,12 @@ double average(double a, double b)
   return (a + b) / 2;
 }
 ```
+
+</div>
+
+<div style="flex:1;">
+
+定义一个名为average函数, 计算两个double类型数值的平均值:
 
 开头的单词double是average函数的返回类型. 
 
@@ -293,49 +315,22 @@ average(x, y)是对average函数的调用.
 
 average(5.1, 8.9)和average(x/2, y/3)都是合法的函数调用.
 
----
+</div>
 
+</div>
 
-<!-- slide data-notes="" -->
-
-
-##### 程序: 计算平均值
+<!-- slide data-notes="" -->##### 程序: 计算平均值 (average.c)
 
 ---
 
-我们把average函数的调用放在需要使用其返回值的地方. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-计算并显示x和y平均值的语句: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 printf("Average: %g\n", average(x, y));
 ```
 
-不保存average函数的返回值, 程序显示这个值然后丢弃它. 
-
-如果要在稍后程序中用到返回值, 可以把返回值赋值给变量: 
-
-```C
-avg = average(x, y); 
-```
----
-
-
----
-
-*average.c*程序读取3个数并使用average函数计算它们的平均值, 每次计算一对数的平均值: 
-
-Enter three numbers: <u>3.5 9.6 10.2</u>
-Average of 3.5 and 9.6: 6.55
-Average of 9.6 and 10.2: 9.9
-Average of 3.5 and 10.2: 6.85
-
----
-
-
----
-
-*average.c*
 ```C{.line-numbers}
 /* Computes pairwise averages of three numbers */
  
@@ -359,12 +354,33 @@ int main(void)
   return 0;
 }
 ```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.5em;">
+
+
+
+
+
+</div>
+
+</div>
+<!-- slide data-notes="" -->##### 程序: 打印倒计时 (countdown.c)
+
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
----
+<div style="flex:1.3;font-size:0.6em;">
 
-*countdown.c*
+```C
+avg = average(x, y); 
+```
 
 ```C{.line-numbers}
 /* Prints a countdown */
@@ -386,11 +402,18 @@ int main(void)
   return 0;
 }
 ```
----
 
----
+</div>
+
+<div style="flex:1;">
 
 
+
+输出: T minus 10 and counting ... T minus 1 and counting
+
+</div>
+
+</div>
 <!-- slide data-notes="" -->
 
 
@@ -427,7 +450,9 @@ print_count(i);
 
 ---
 
-当函数没有参数时, 可将单词void放在函数名后面的括号中: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 void print_pun(void)
@@ -436,18 +461,9 @@ void print_pun(void)
 }
 ```
 
-调用不带实际参数的函数, 只需写出函数名后跟括号(==括号必须==): 
-
 ```C
 print_pun();
 ```
-
-*pun2.c*程序测试了print_pun函数.
-
-
----
-
-pun2.c
 
 ```C{.line-numbers}
 /* Prints a bad pun */
@@ -465,10 +481,27 @@ int main(void)
   return 0;
 }
 ```
----
+
+</div>
+
+<div style="flex:1;">
+
+当函数没有参数时, 可将单词void放在函数名后面的括号中:
+
+调用不带实际参数的函数, 只需写出函数名后跟括号(==括号必须==):
+
+*pun2.c*程序测试了print_pun函数.
+
 
 ---
 
+pun2.c
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -477,7 +510,9 @@ int main(void)
 
 ---
 
-函数调用由函数名和用括号括起来的实际参数列表组成: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 average(x, y)
@@ -485,25 +520,14 @@ print_count(i)
 print_pun()
 ```
 
-如果没有括号, 就无法调用函数: 
-
 ```C
 print_pun;   /*** WRONG ***/
 ```
-
-该语句是合法的, 但没有任何作用.
-
-
----
-
-void函数的调用后边始终跟着分号, 使该调用成为语句: 
 
 ```C
 print_count(i);
 print_pun();
 ```
-
-调用非void函数会产生一个值, 该值可存储在变量中或打印等: 
 
 ```C
 avg = average(x, y);
@@ -511,10 +535,29 @@ if (average(x, y) > 0)
   printf("Average is positive\n");
 printf("The average is %g\n", average(x, y));
 ```
----
+
+</div>
+
+<div style="flex:1;">
+
+函数调用由函数名和用括号括起来的实际参数列表组成:
+
+如果没有括号, 就无法调用函数:
+
+该语句是合法的, 但没有任何作用.
+
 
 ---
 
+void函数的调用后边始终跟着分号, 使该调用成为语句:
+
+调用非void函数会产生一个值, 该值可存储在变量中或打印等:
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -523,11 +566,31 @@ printf("The average is %g\n", average(x, y));
 
 ---
 
-如果不需要非void函数返回的值, 总是可以将其丢弃: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 average(x, y);  /* discards return value */
 ```
+
+```C
+num_chars = printf("Hi, Mom!\n");
+```
+
+```C
+printf("Hi, Mom!\n"); /* discards return value */
+```
+
+```C
+(void) printf("Hi, Mom!\n");
+```
+
+</div>
+
+<div style="flex:1;">
+
+如果不需要非void函数返回的值, 总是可以将其丢弃:
 
 此调用是表达式语句的示例: 计算出语句的值, 但不保存它.
 
@@ -538,32 +601,19 @@ average(x, y);  /* discards return value */
 
 printf返回它打印的字符个数. 
 
-在以下调用之后, num_chars的值为 9: 
+在以下调用之后, num_chars的值为 9:
 
-```C
-num_chars = printf("Hi, Mom!\n");
-```
-
-我们通常会丢弃printf的返回值: 
-
-```C
-printf("Hi, Mom!\n"); /* discards return value */
-```
----
-
+我们通常会丢弃printf的返回值:
 
 ---
 
-为了清楚地表明函数的返回值是被故意丢弃的, C 允许在函数调用之前加上(void): 
-
-```C
-(void) printf("Hi, Mom!\n");
-```
+为了清楚地表明函数的返回值是被故意丢弃的, C 允许在函数调用之前加上(void):
 
 使用(void)可以让别人清楚编写者是故意丢弃了返回值, 而不是忘记了.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -572,12 +622,9 @@ printf("Hi, Mom!\n"); /* discards return value */
 
 ---
 
-C不要求函数的定义在其调用之前. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-假设我们重新编排*average.c*程序, 将average函数的定义放在main函数的定义之后.
-
-
----
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -600,7 +647,39 @@ double average(double a, double b)
   return (a + b) / 2;
 }
 ```
+
+</div>
+
+<div style="flex:1;">
+
+C不要求函数的定义在其调用之前. 
+
+假设我们重新编排*average.c*程序, 将average函数的定义放在main函数的定义之后.
+
+
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 函数声明
+
 ---
+
+main 里调用 average 时编译器没有它的信息: 不报错, 而是假设它返回 `int`——为该函数创建了==隐式声明==
+
+
+---
+
+实参个数与类型也无法检查, 只能默认提升"希望最好"; 后面遇到真实定义 (返回 `double`) 才会报错
+
+
+---
+
+避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读
 
 ---
 
@@ -612,56 +691,13 @@ double average(double a, double b)
 
 ---
 
-在main中遇到average函数调用时, 编译器没有该函数的信息. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-编译器不会产生错误消息, 而是假设average返回一个int值. 
-
-我们说编译器为该函数创建了一个 ==隐式声明==.
-
-
----
-
-编译器无法检查传递给average的实参个数和实参类型. 
-
-它只能进行默认的实际参数提升并希望获得最好的结果. 
-
-当编译器在程序后面遇到average的定义时, 它会发现函数的返回类型实际上是double而不是int, 因此我们会得到一条出错消息.
-
-
----
-
-避免定义前调用的一种方法是每个函数的定义都出现在调用前. 
-
-可惜, 有时候无法进行这样的安排. 
-
-即使可以, 程序也会因为函数定义的顺序不自然而难以阅读.
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 函数声明
-
----
-
-幸运的是, C提供了更好的解决方案: 在调用函数之前声明它. 
-
-函数声明为编译器提供函数的简要介绍, 完整定义将在以后给出. 
-
-函数声明的<u>一般形式</u>: 
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 返回类型 函数名(参数);
 ```
-
-函数的声明必须与函数的定义一致. 
-
-这是为average函数添加了声明的*average.c*程序.
-
-
----
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -686,8 +722,24 @@ double average(double a, double b)    /* DEFINITION */
   return (a + b) / 2;
 }
 ```
----
 
+```C
+double average(double, double);
+```
+
+</div>
+
+<div style="flex:1;">
+
+幸运的是, C提供了更好的解决方案: 在调用函数之前声明它. 
+
+函数声明为编译器提供函数的简要介绍, 完整定义将在以后给出. 
+
+函数声明的<u>一般形式</u>:
+
+函数的声明必须与函数的定义一致. 
+
+这是为average函数添加了声明的*average.c*程序.
 
 ---
 
@@ -695,11 +747,7 @@ double average(double a, double b)    /* DEFINITION */
 
 C也有旧式的函数声明, 其中括号是空的. 
 
-函数原型不必指定函数形参的名字, 只要显示它们的类型即可: 
-
-```C
-double average(double, double);
-```
+函数原型不必指定函数形参的名字, 只要显示它们的类型即可:
 
 但最好不要省略形参的名字.
 
@@ -710,8 +758,9 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 调用函数时, 如果此前编译器未见其声明或定义, 会导致出错.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -719,6 +768,26 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 ##### 实际参数
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+int power(int x, int n)
+{
+  int i, result = 1;
+
+  for (i = 1; i <= n; i++)
+    result = result * x;
+
+  return result;
+}
+```
+
+</div>
+
+<div style="flex:1;">
 
 在C中, 参数是通过值传递的: 
 
@@ -738,21 +807,11 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 以下函数, 计算数字x的n次幂: $x^n$
 
-```C{.line-numbers}
-int power(int x, int n)
-{
-  int i, result = 1;
 
-  for (i = 1; i <= n; i++)
-    result = result * x;
 
-  return result;
-}
-```
----
+</div>
 
----
-
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -761,7 +820,9 @@ int power(int x, int n)
 
 ---
 
-n是原始指数的副本, 函数可以安全修改它, 从而不再需要变量i: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 int power(int x, int n)
@@ -775,17 +836,6 @@ int power(int x, int n)
 }
 ```
 
----
-
-
----
-
-C对参数按值传递的要求使得编写某些类型的函数变得困难. 
-
-假设需要一个将double型的值分解为整数和小数部分的函数. 
-
-函数不能返回两个数, 尝试将两个变量传递给函数并修改它们: 
-
 ```C
 void decompose(double x, long int_part, double frac_part)
 {
@@ -793,23 +843,36 @@ void decompose(double x, long int_part, double frac_part)
   frac_part = x - int_part;
 }
 ```
----
-
-
----
-
-函数调用: 
 
 ```C
 decompose(3.14159, i, d);
 ```
 
+</div>
+
+<div style="flex:1;">
+
+n是原始指数的副本, 函数可以安全修改它, 从而不再需要变量i:
+
+---
+
+C对参数按值传递的要求使得编写某些类型的函数变得困难. 
+
+假设需要一个将double型的值分解为整数和小数部分的函数. 
+
+函数不能返回两个数, 尝试将两个变量传递给函数并修改它们:
+
+---
+
+函数调用:
+
 可惜的是, i和d不会因为赋值给int_part和frac_part而受到影响. 
 
 第 11 章展示了如何使decompose函数奏效.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -841,18 +904,9 @@ C允许实际参数的类型与形式参数的类型不匹配的函数调用.
 
 ---
 
-编译器在调用之前没有遇到原型. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-编译器执行默认的实际参数提升: 
-
-float类型的实际参数转换为double类型. 
-
-执行整值提升, 把char和short类型的实际参数转换为int类型. (C99为整数提升)
-
-
----
-
-依赖默认的实际参数提升是危险的, 例如: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -871,6 +925,27 @@ int square(int n)
 }
 ```
 
+```C
+printf("Square: %d\n", square((int) x));
+```
+
+</div>
+
+<div style="flex:1;">
+
+编译器在调用之前没有遇到原型. 
+
+编译器执行默认的实际参数提升: 
+
+float类型的实际参数转换为double类型. 
+
+执行整值提升, 把char和short类型的实际参数转换为int类型. (C99为整数提升)
+
+
+---
+
+依赖默认的实际参数提升是危险的, 例如:
+
 在调用square时, 编译器不知道它需要一个int类型的参数.
 
 
@@ -880,18 +955,15 @@ int square(int n)
 
 函数期望int类型的实际参数, 却获得了double类型值, 所以调用square将产生无效的结果. 
 
-将square的实际参数强制转换为正确的类型可以解决该问题: 
-
-```C
-printf("Square: %d\n", square((int) x));
-```
+将square的实际参数强制转换为正确的类型可以解决该问题:
 
 更好的解决方案是在调用square之前提供该函数的原型. 
 
 C99中, 没有提供函数声明或定义时调用square函数是错误的.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -900,23 +972,29 @@ C99中, 没有提供函数声明或定义时调用square函数是错误的.
 
 ---
 
-非void的函数必须使用return语句来指定它将返回的值. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-return语句的 <u>格式</u>: 
+<div style="flex:1.3;font-size:0.65em;">
 
 ```C
 return 表达式;
 ```
-
-表达式通常只是常量或变量, 但也可以是更复杂的表达式: 
 
 ```C
 return 0;
 return status;
 return n >= 0 ? n : 0;
 ```
-----
 
+</div>
+
+<div style="flex:1;">
+
+非void的函数必须使用return语句来指定它将返回的值. 
+
+return语句的 <u>格式</u>:
+
+表达式通常只是常量或变量, 但也可以是更复杂的表达式:
 
 ---
 
@@ -924,8 +1002,9 @@ return n >= 0 ? n : 0;
 
 *如果声明函数返回int型值, 但return语句包含double类型表达式, 则表达式的值将被转换为int类型.*
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -934,13 +1013,14 @@ return n >= 0 ? n : 0;
 
 ---
 
-没有给出表达式, return语句可以出现在返回类型为void的函数中: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 return;  /* return in a void function */
 ```
 
-如: 
 ```C{.line-numbers}
 void print_int(int i)
 {
@@ -949,12 +1029,6 @@ void print_int(int i)
   printf("%d", i);
 }
 ```
----
-
-
----
-
-return语句可以出现在void函数的末尾: 
 
 ```C
 void print_pun(void)
@@ -964,12 +1038,25 @@ void print_pun(void)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+没有给出表达式, return语句可以出现在返回类型为void的函数中:
+
+如:
+
+---
+
+return语句可以出现在void函数的末尾:
+
 在C89中, 函数中return语句不是必需的. 
 
 如果非void函数未能执行return语句, 则程序尝试使用函数的返回值的行为是未定义的.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -978,7 +1065,9 @@ void print_pun(void)
 
 ---
 
-通常, main的返回类型是int: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.65em;">
 
 ```C
 int main(void)
@@ -987,16 +1076,20 @@ int main(void)
 }
 ```
 
-以往的C常省略main的返回类型, 利用的是返回类型默认int的传统: 
-
 ```C
 main()
 {
   …
 }
 ```
----
 
+</div>
+
+<div style="flex:1;">
+
+通常, main的返回类型是int:
+
+以往的C常省略main的返回类型, 利用的是返回类型默认int的传统:
 
 ---
 
@@ -1015,8 +1108,9 @@ main返回的值是一个状态码, 在程序终止时可以检测 ==状态码==
 
 确保每个C程序都返回一个状态码是一种很好的做法.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -1025,35 +1119,49 @@ main返回的值是一个状态码, 在程序终止时可以检测 ==状态码==
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+exit(0);   /* normal termination */
+```
+
+```C
+exit(EXIT_SUCCESS);
+```
+
+```C
+exit(EXIT_FAILURE);
+```
+
+```C
+return 表达式;
+```
+
+```C
+exit(表达式);
+```
+
+</div>
+
+<div style="flex:1;">
+
 main中执行return语句是终止程序的一种方法. 
 
 另一个是调用exit函数, 它属于`<stdlib.h>`头. 
 
 传递给exit的实际参数与main的返回值具有相同的含义: 两者都表示程序在终止时的状态. 
 
-为了表示正常终止, 传递0: 
-
-```C
-exit(0);   /* normal termination */
-```
----
-
+为了表示正常终止, 传递0:
 
 ---
 
-由于0有点模糊, 所以C允许用EXIT_SUCCESS来代替(效果一样): 
+由于0有点模糊, 所以C允许用EXIT_SUCCESS来代替(效果一样):
 
-```C
-exit(EXIT_SUCCESS);
-```
+传递EXIT_FAILURE表示异常终止:
 
-传递EXIT_FAILURE表示异常终止: 
-
-```C
-exit(EXIT_FAILURE);
-```
-
-- `EXIT_SUCCESS`和`EXIT_FAILURE`是定义在`<stdlib.h>`中的宏. 
+`EXIT_SUCCESS`和`EXIT_FAILURE`是定义在`<stdlib.h>`中的宏. 
 
 - `EXIT_SUCCESS`和`EXIT_FAILURE`的值是由实现定义的, 通常为0和1.
 
@@ -1062,15 +1170,7 @@ exit(EXIT_FAILURE);
 
 main中的语句
 
-```C
-return 表达式;
-```
-
 等价于
-
-```C
-exit(表达式);
-```
 
 return和exit的区别在于: 
 
@@ -1078,8 +1178,9 @@ return和exit的区别在于:
 
 - return语句仅当由main函数调用时才会导致程序终止.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
