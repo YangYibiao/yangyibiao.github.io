@@ -108,11 +108,11 @@ printf("%zu %zu %zu\n", sizeof(int), sizeof(double), sizeof(char));
 
 ---
 
-上一周已学过 int 存整数; 今天看它的==边界==
-
 - int 通常是 ==32 位==(4 字节), 最大整数 $2^{31}-1$ = ==2 147 483 647==(约 21 亿)
 
 - ==INT_MAX== / ==INT_MIN== 定义在 `limits.h` 中
+
+<div style="font-size:0.8em;">
 
 ```C
 #include <stdio.h>
@@ -126,9 +126,9 @@ int main(void) {
 }
 ```
 
-- <span class="yellow">:fa-weixin:</span> 溢出==不会报错==, 会"绕回"成负数——C 不做检查
+</div>
 
-- 用 ==sizeof== 查看类型的字节数 (呼应上一页修饰符)
+- <span class="yellow">:fa-weixin:</span> 溢出==不会报错==, 会"绕回"成负数——C 不做检查; 用 ==sizeof== 查看类型字节数 (呼应修饰符页)
 
 ---
 
@@ -166,29 +166,6 @@ printf("%d\n", 2147483647 + 1);    /* -2147483648 */
 ---
 <!-- slide data-notes="" -->
 
-##### float 与 double 的精度
-
----
-
-- ==float==: 约 6 位有效数字; ==double==: 约 15 位有效数字
-
-```C
-float f = 1.0f / 3.0f;   /* 0.333333            */
-double d = 1.0 / 3.0;    /* 0.333333333333333   */
-```
-
-- 为什么默认用 ==double==? 精度高, 且字面量 `3.14` 本来就是 double
-
-- float 字面量要加 ==`f`== 后缀 (`1.0f`); 不加就是 double (赋给 float 会有转换警告)
-
-- float 一般只在==内存紧张==时用 (如嵌入式)
-
-- 浮点运算==有误差==: 0.1 + 0.2 不等于 0.3——第 3 周细讲
-
----
-
-<!-- slide data-notes="" -->
-
 ##### 整数常量的进制
 
 ---
@@ -214,13 +191,34 @@ printf("%d %o %x\n", 17, 17, 17);   /* 输出: 17 21 11 */
 
 <!-- slide data-notes="" -->
 
+##### float 与 double 的精度
+
+---
+
+- ==float==: 约 6 位有效数字; ==double==: 约 15 位有效数字
+
+```C
+float f = 1.0f / 3.0f;   /* 0.333333            */
+double d = 1.0 / 3.0;    /* 0.333333333333333   */
+```
+
+- 为什么默认用 ==double==? 精度高, 且字面量 `3.14` 本来就是 double
+
+- float 字面量要加 ==`f`== 后缀 (`1.0f`); 不加就是 double (赋给 float 会有转换警告)
+
+- float 一般只在==内存紧张==时用 (如嵌入式)
+
+- 浮点运算==有误差==: 0.1 + 0.2 不等于 0.3——第 3 周细讲
+
+---
+
+<!-- slide data-notes="" -->
+
 ##### 浮点数在内存里长什么样 (了解)
 
 ---
 
-浮点数按 ==IEEE 754== 标准存储, 思路是"==二进制的科学计数法=="
-
-类比 $3.14 \times 10^{2}$: 符号、有效数字、指数三部分
+浮点数按 ==IEEE 754== 存储——"==二进制的科学计数法==": 符号、有效数字、指数三部分 (类比 $3.14 \times 10^{2}$)
 
 <div class="fullborder">
 
@@ -288,13 +286,6 @@ width = 10;
 gender = 'M';
 ```
 
-`8`, `12`, `10` 为常量; 变量在==赋值==或者以其他方式使用之前, 必须先==声明==
-
-```C{.line-numbers}
-height = 9;  /*** WRONG ***/
-int height;
-```
-
 浮点常量的小尾巴: ==float 加 f==, double 不加
 
 ```C
@@ -353,13 +344,9 @@ const int GRAM_PER_MOL = 32;
 
 ---
 
-给定一个圆的==半径== (如 $10$), 计算其==周长==和==面积==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-$L = 2\pi r$ &emsp; $S = \pi r^2$
-
-- 每个结果各占一行
-
-- 小数点后保留两位
+<div style="flex:1.25;font-size:0.7em;">
 
 ```C
 /*
@@ -379,8 +366,23 @@ int main(void) {
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+给定一个圆的==半径== (如 $10$), 计算其==周长==和==面积==
+
+$L = 2\pi r$ &emsp; $S = \pi r^2$
+
+- 每个结果各占一行
+
+- 小数点后保留两位
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -389,13 +391,9 @@ int main(void) {
 
 ---
 
-给定一个球的==半径== (如 $100$), 计算其==表面积==和==体积==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-$A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3$
-
-- 每个结果占 $1$ 行, 小数点后保留 $4$ 位
-
-- 每个结果至少占 $15$ 字符, 左对齐
+<div style="flex:1.25;font-size:0.7em;">
 
 ```C
 /*
@@ -415,8 +413,23 @@ int main() {
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+给定一个球的==半径== (如 $100$), 计算其==表面积==和==体积==
+
+$A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3$
+
+- 每个结果占 $1$ 行, 小数点后保留 $4$ 位
+
+- 每个结果至少占 $15$ 字符, 左对齐
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

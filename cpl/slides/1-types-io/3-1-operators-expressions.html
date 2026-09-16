@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>2-1-variables</title>
+      <title>3-1-operators-expressions</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="数据类型深化">数据类型深化 </h2>
+<h2 id="运算符与表达式">运算符与表达式 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnmailtoyangyibiaonjueducn"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
@@ -85,386 +85,500 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
-<p>类型修饰符与取值范围</p>
+<p>运算符</p>
 
 </li>
 <li>
-<p>整型溢出与字符运算 (深化)</p>
+<p>优先级与结合性</p>
 
 </li>
 <li>
-<p>赋值细节</p>
+<p>赋值运算符</p>
 
 </li>
 <li>
-<p>常量与符号常量</p>
+<p>自增和自减运算符</p>
 
 </li>
 <li>
-<p>案例: Circle 与 Sphere</p>
+<p>案例: 计算产品代码校验位</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="类型修饰符">类型修饰符 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="运算符">运算符 </h5>
 <hr>
-<p><mark>修饰符</mark>: 改变整数类型的取值范围, 或是否允许负号</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>修饰符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>short</code> / <code>long</code></td>
-<td>短整型 / 长整型</td>
-</tr>
-<tr>
-<td><code>signed</code></td>
-<td>有符号 (默认, 可表示负数)</td>
-</tr>
-<tr>
-<td><code>unsigned</code></td>
-<td>无符号 (只表示 0 与正数, 范围更大)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>常见组合: <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned long</code></p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> C语言的特点在于更加强调<mark>表达式的使用</mark></p>
+<p><mark>表达式</mark>是由<mark>变量</mark>、<mark>常量</mark>和<mark>运算符</mark>所构成的</p>
+<p>C拥有丰富的运算符集合, 包括:</p>
 <ul>
 <li>
-<p>位数: <code>short</code> ≤ <code>int</code> ≤ <code>long</code></p>
+<p>算术运算符</p>
+
+</li>
+<li>
+<p>关系运算符</p>
+
+</li>
+<li>
+<p>逻辑运算符</p>
+
+</li>
+<li>
+<p>赋值运算符</p>
+
+</li>
+<li>
+<p>自增和自减运算符</p>
+
+</li>
+<li>
+<p>其他运算符</p>
 
 </li>
 </ul>
-<span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 用 <mark>sizeof</mark> 运算符可查看类型占用的字节数
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="算术运算符">算术运算符 </h5>
+<hr>
+<p>五个二元算术运算符(有两个操作数):</p>
 <ul>
 <li>
-<p><code>sizeof</code> 用法: <code>sizeof(int)</code> 类型 / <code>sizeof x</code> 变量 (括号可省)</p>
+<p><code>+</code> 加法</p>
+
+</li>
+<li>
+<p><code>-</code> 减法</p>
+
+</li>
+<li>
+<p><code>*</code> 乘法</p>
+
+</li>
+<li>
+<p><code>/</code> 除法</p>
+
+</li>
+<li>
+<p><code>%</code> 求余</p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%zu %zu %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>两个一元算术运算符(仅一个操作数):</p>
 <ul>
 <li>
-<p>打印 sizeof 的结果用 <mark><code>%zu</code></mark> (它不是 int)</p>
+<p><code>+</code> 一元加</p>
+
+</li>
+<li>
+<p><code>-</code> 一元减</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="整型的取值范围与溢出">整型的取值范围与溢出 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="一元算术运算符">一元算术运算符 </h5>
 <hr>
-<p>上一周已学过 int 存整数; 今天看它的<mark>边界</mark></p>
+<p>一元运算符只需要一个操作数:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
+j <span class="token operator">=</span> <span class="token operator">-</span>i<span class="token punctuation">;</span></code></pre>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 一元<code>+</code>运算符什么也不做, 它主要用于强调数字常数是正数</p>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="二元算术运算符">二元算术运算符 </h5>
+<hr>
+<p><mark>i % j</mark>是i除以j时的余数</p>
 <ul>
 <li>
-<p>int 通常是 <mark>32 位</mark>(4 字节), 最大整数 \(2^{31}-1\) = <mark>2 147 483 647</mark>(约 21 亿)</p>
+<p>二元算术运算符(%除外)允许使用整数或浮点操作数, 并允许混合</p>
 
 </li>
 <li>
-<p><mark>INT_MAX</mark> / <mark>INT_MIN</mark> 定义在 <code>limits.h</code> 中</p>
+<p>当<mark>int</mark>和<mark>float/double</mark>操作数混合时, 结果的类型为<mark>float/double</mark></p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;limits.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> INT_MAX<span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"INT_MAX     = %d\n"</span><span class="token punctuation">,</span> INT_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"INT_MAX + 1 = %d\n"</span><span class="token punctuation">,</span> x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 溢出! */</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<ul>
-<li>
-<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 溢出<mark>不会报错</mark>, 会"绕回"成负数——C 不做检查</p>
-
-</li>
-<li>
-<p>用 <mark>sizeof</mark> 查看类型的字节数 (呼应上一页修饰符)</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="整数在内存里长什么样--了解">整数在内存里长什么样 (了解) </h5>
-<hr>
-<p>整数用 <mark>二进制</mark> 存; 负数的存法有个巧妙设计: <mark>补码</mark></p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span>  <span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000101</span>
-<span class="token keyword keyword-int">int</span> y <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111011</span>
-              <span class="token punctuation">(</span>补码 <span class="token operator">=</span> 按位取反再加 <span class="token number">1</span><span class="token punctuation">)</span>
-
-最高位是符号位<span class="token operator">:</span> <span class="token number">0</span> 表示正<span class="token punctuation">,</span> <span class="token number">1</span> 表示负 <span class="token punctuation">(</span>对 <span class="token keyword keyword-signed">signed</span> 而言<span class="token punctuation">)</span></code></pre>
-<ul>
-<li>
-<p>为什么用补码? 让<mark>减法变成加法</mark> (\(5 + (-5)\) 直接相加得 0), 电路更简单</p>
-
-</li>
-<li>
-<p>同样 32 位, <mark>解释方式</mark>不同, 能表示的范围就不同:</p>
-<ul>
-<li>
-<p><code>int</code> (有符号): \(-2^{31}\) ~ \(2^{31}-1\) (约 ±21 亿)</p>
-</li>
-<li>
-<p><code>unsigned int</code> (无符号): \(0\) ~ \(2^{32}-1\) (约 42 亿)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>溢出"绕回"的真相: 最大的正数加 1, 最高位翻成 1, 就被解释成负数</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token number">2147483647</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* -2147483648 */</span></code></pre>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 本页<mark>了解即可</mark>: 知道"负数用补码、最高位是符号位"就够了
-<hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="float-与-double-的精度">float 与 double 的精度 </h5>
-<hr>
-<ul>
-<li>
-<p><mark>float</mark>: 约 6 位有效数字; <mark>double</mark>: 约 15 位有效数字</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">1.0</span>f <span class="token operator">/</span> <span class="token number">3.0</span>f<span class="token punctuation">;</span>   <span class="token comment">/* 0.333333            */</span>
-<span class="token keyword keyword-double">double</span> d <span class="token operator">=</span> <span class="token number">1.0</span> <span class="token operator">/</span> <span class="token number">3.0</span><span class="token punctuation">;</span>    <span class="token comment">/* 0.333333333333333   */</span></code></pre>
-<ul>
-<li>
-<p>为什么默认用 <mark>double</mark>? 精度高, 且字面量 <code>3.14</code> 本来就是 double</p>
-
-</li>
-<li>
-<p>float 字面量要加 <mark><code>f</code></mark> 后缀 (<code>1.0f</code>); 不加就是 double (赋给 float 会有转换警告)</p>
-
-</li>
-<li>
-<p>float 一般只在<mark>内存紧张</mark>时用 (如嵌入式)</p>
-
-</li>
-<li>
-<p>浮点运算<mark>有误差</mark>: 0.1 + 0.2 不等于 0.3——第 3 周细讲</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="整数常量的进制">整数常量的进制 </h5>
-<hr>
-<p>同一个整数有三种写法:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span>      <span class="token comment">/* 十进制 */</span>
-<span class="token keyword keyword-int">int</span> b <span class="token operator">=</span> <span class="token number">021</span><span class="token punctuation">;</span>     <span class="token comment">/* 八进制: 以 0 开头, 021 = 17 */</span>
-<span class="token keyword keyword-int">int</span> c <span class="token operator">=</span> <span class="token number">0</span>x11<span class="token punctuation">;</span>    <span class="token comment">/* 十六进制: 以 0x 开头, 0x11 = 17 */</span></code></pre>
-<ul>
-<li>
-<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> <mark>坑</mark>: <code>010</code> 不是 10, 而是 <mark>8</mark> (前导 0 表示八进制)</p>
-
-</li>
-<li>
-<p>打印时用不同转换说明看同一数字的"不同面孔":</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %o %x\n"</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 输出: 17 21 11 */</span></code></pre>
-<ul>
-<li>
-<p>十六进制在<mark>位运算、内存地址、颜色码</mark>中很常见 (如 <code>0xFF0000</code> 表示红色)</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
-<hr>
-<p>浮点数按 <mark>IEEE 754</mark> 标准存储, 思路是"<mark>二进制的科学计数法</mark>"</p>
-<p>类比 \(3.14 \times 10^{2}\): 符号、有效数字、指数三部分</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>总位数</th>
-<th>符号位</th>
-<th>指数位</th>
-<th>尾数位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>float</td>
-<td>32</td>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-<tr>
-<td>double</td>
-<td>64</td>
-<td>1</td>
-<td>11</td>
-<td>52</td>
-</tr>
-</tbody>
-</table>
-</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">0.1</span>f<span class="token punctuation">;</span>  内存里大约是这样<span class="token operator">:</span>
-<span class="token number">0</span>  <span class="token number">01111011</span>  <span class="token number">10011001100110011001101</span>
-↑  ↑         ↑
-符号 指数      尾数<span class="token operator">:</span> <span class="token number">0.1</span> 的二进制是无限循环小数<span class="token punctuation">,</span>
-             只能截断存 <span class="token number">23</span> 位 —— 存进去的已不是 <span class="token number">0.1</span></code></pre>
-<ul>
-<li>
-<p>十进制小数在二进制里<mark>大多无法精确表示</mark> (就像十进制写不出精确的 1/3)</p>
-
-</li>
-<li>
-<p>位数决定精度: float 约 6-7 位有效数字, double 约 15-16 位</p>
-
-</li>
-<li>
-<p>结论: 浮点是<mark>近似存储</mark>; 比较浮点数不要用 <code>==</code>, 用 <code>fabs(a - b) &lt; 1e-9</code></p>
-
-</li>
-</ul>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 本页<mark>了解即可</mark>, 不要求掌握位级细节
-<hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="字符与-ascii--char-其实是小整数">字符与 ASCII: char 其实是小整数 </h5>
-<hr>
-<p>上一周知道 char 存的是<mark>编码</mark>; 今天把它当整数用</p>
-<ul>
-<li>
-<p>'a'=97, 'A'=65, '0'=48, ' '=32——大写字母与小写字母<mark>差 32</mark></p>
-
-</li>
-<li>
-<p>同一个变量, <mark>%c</mark> 打字符 / <mark>%d</mark> 打编码</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> ch <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c  %d\n"</span><span class="token punctuation">,</span> ch<span class="token punctuation">,</span> ch<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* a  97 */</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> ch <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">/* A      */</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token string">'9'</span> <span class="token operator">-</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 9 (字符数字转整数) */</span></code></pre>
-<div class="top-2">
-  <img src="../1-types-io/img/ASCII.png" width=460px>
-</div>
-<ul>
-<li>
-<p>常用技巧: <mark>toupper/tolower</mark> (ctype.h); '9'-'0' 把字符数字变成整数</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="变量与赋值---赋值">变量与赋值 - 赋值 </h5>
-<hr>
-<p><mark>赋值</mark>: 通过赋值的方式获得值</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
-length <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
-width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-gender <span class="token operator">=</span> <span class="token string">'M'</span><span class="token punctuation">;</span></code></pre>
-<p><code>8</code>, <code>12</code>, <code>10</code> 为常量; 变量在<mark>赋值</mark>或者以其他方式使用之前, 必须先<mark>声明</mark></p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>  <span class="token comment">/*** WRONG ***/</span>
-<span class="token keyword keyword-int">int</span> height<span class="token punctuation">;</span></code></pre>
-<p>浮点常量的小尾巴: <mark>float 加 f</mark>, double 不加</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> profit <span class="token operator">=</span> <span class="token number">2150.48</span>f<span class="token punctuation">;</span>   <span class="token comment">/* float: 加 f */</span>
-<span class="token keyword keyword-double">double</span> pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>       <span class="token comment">/* double: 不加 f */</span></code></pre>
-<span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 赋的值<mark>超出目标类型范围</mark>时, 结果<mark>无意义</mark> (不会自动截到最大/最小值):
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> c <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>      <span class="token comment">/* 无意义 */</span>
-<span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1.0e20</span><span class="token punctuation">;</span>      <span class="token comment">/* 无意义: 超出 int 范围 */</span>
-<span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">1.0e100</span><span class="token punctuation">;</span>   <span class="token comment">/* 无意义: 超出 float 范围 */</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
-<hr>
-<p><mark>常量</mark>: 程序运行过程中其值已知且不能改变的量, 如 <code>8</code>, <code>12</code>, <code>10</code>, <code>'M'</code></p>
-<p><mark>符号常量</mark>: 给常量起一个名字, 提高可读性、便于修改</p>
-<ul>
-<li>
-<p>宏定义: 预处理命令, 结尾<mark>没有分号</mark></p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> PI 3.14159</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> GRAM_PER_MOL 32</span></code></pre>
-<ul>
-<li>
-<p>const限定: 声明为只读变量</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-double">double</span> MOL <span class="token operator">=</span> <span class="token number">6.02E23</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> GRAM_PER_MOL <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">;</span></code></pre>
-<span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 宏里如果含运算符, <mark>整体要加括号</mark>, 否则替换后会因优先级出错:
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
-<hr>
-<p>给定一个圆的<mark>半径</mark> (如 \(10\)), 计算其<mark>周长</mark>和<mark>面积</mark></p>
-<p>\(L = 2\pi r\) &emsp; \(S = \pi r^2\)</p>
-<ul>
-<li>
-<p>每个结果各占一行</p>
-
-</li>
-<li>
-<p>小数点后保留两位</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
- * circle.c(计算周长和面积)
- */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> radius <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-double">double</span> circumference <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> <span class="token number">3.14159</span> <span class="token operator">*</span> radius<span class="token punctuation">;</span>
-    <span class="token keyword keyword-double">double</span> area <span class="token operator">=</span> <span class="token number">3.14159</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">;</span>
-
-    <span class="token comment">// .2: precision 小数点后保留几位</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"circumference = %.2f\narea = %.2f\n"</span><span class="token punctuation">,</span> circumference<span class="token punctuation">,</span> area<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
-<hr>
-<p>给定一个球的<mark>半径</mark> (如 \(100\)), 计算其<mark>表面积</mark>和<mark>体积</mark></p>
-<p>\(A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3\)</p>
-<ul>
-<li>
-<p>每个结果占 \(1\) 行, 小数点后保留 \(4\) 位</p>
-
-</li>
-<li>
-<p>每个结果至少占 \(15\) 字符, 左对齐</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
- * sphere.c(球的体积和面积)
-*/</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> radius <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-double">double</span> surface_area <span class="token operator">=</span> <span class="token number">4</span> <span class="token operator">*</span> <span class="token number">3.14159</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">;</span>
-    <span class="token keyword keyword-double">double</span> volume <span class="token operator">=</span> <span class="token number">4.0</span> <span class="token operator">/</span> <span class="token number">3</span> <span class="token operator">*</span> <span class="token number">3.14159</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">;</span>
-
-    <span class="token comment">// 15: width</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-15.4f : surface_area\n%-15.4f : volume\n"</span><span class="token punctuation">,</span>
-           surface_area<span class="token punctuation">,</span> volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
-<hr>
 <ol>
-<li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？</li>
-<li>用 <code>#define</code> 定义符号常量时行末要不要分号？<code>const</code> 呢？</li>
-<li><code>INT_MAX</code> 在哪个头文件中定义？它代表什么？</li>
-<li>计算圆的面积时为什么要用符号常量 <code>PI</code> 而不是直接写 <code>3.14159</code>？</li>
+<li><mark>10 % 3</mark>的值为1, 而<mark>12 % 4</mark>的值为0</li>
+<li><mark>9 + 2.5</mark> 的值为11.5, 而<mark>6.7 / 2</mark> 的值为3.35</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="和---运算符"><code>/</code>和<code>%</code>运算符 </h5>
+<hr>
+<p><code>/</code>和<code>%</code>运算符使用需要特别注意:</p>
+<ul>
+<li>
+<p>当两个操作数都是整数时, <code>/</code>会<mark>截断</mark>结果: 值<mark>1 / 2</mark>是0, 而不是0.5</p>
+
+</li>
+<li>
+<p><code>%</code>运算符要求整数作为操作数; 任一操作数不是整数, 程序将无法编译</p>
+
+</li>
+<li>
+<p>使用<mark>零</mark>作为<code>/</code>或<code>%</code>的<mark>右操作数</mark>会导致未定义的行为</p>
+
+</li>
+<li>
+<p><code>/</code>和<code>%</code>与负操作数一起使用时的行为在C89中由实现定义</p>
+
+</li>
+</ul>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> C99中, 除法结果总是向零截断, 并且<mark>i % j</mark>的值与<mark>i</mark>有相同符号</p>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="由实现定义的行为">由实现定义的行为 </h5>
+<hr>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> C标准故意不指定语言的某些部分</p>
+<ul>
+<li>
+<p>未指定部分是因为C语言更强调<mark>效率</mark>, 常常意味着与硬件行为相匹配</p>
+
+</li>
+</ul>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 避免编写依赖于由具体实现所定义的行为的程序</p>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="运算符优先级">运算符优先级 </h5>
+<hr>
+<p><code>i + j * k</code> 是先加再乘, 还是先乘再加? 加括号可以消歧; 省略括号时, C 用<mark>运算符优先级</mark>规则来确定含义</p>
+<p><mark>算术运算符</mark> 的优先级:</p>
+<ul>
+<li>
+<p>最高: <code>+ -</code> (一元)</p>
+
+</li>
+<li>
+<p>其次: <code>* / %</code> (二元)</p>
+
+</li>
+<li>
+<p>最低: <code>+ -</code> (二元)</p>
+
+</li>
+</ul>
+<p>示例:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th><code>i + j * k</code></th>
+<th>等价于</th>
+<th><code>i + (j * k)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i * -j</code></td>
+<td>等价于</td>
+<td><code>(-i) * (-j)</code></td>
+</tr>
+<tr>
+<td><code>+i + j / k</code></td>
+<td>等价于</td>
+<td><code>(+i) + (j / k)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="运算符结合性">运算符结合性 </h5>
+<hr>
+<p>表达式有多个相同优先级操作符, 考虑运算符的结合性</p>
+<p>如果运算符从左到右结合的, 则称它为<mark>左结合运算符</mark></p>
+<p>二元算术运算符<code>*</code>, <code>/</code>, <code>%</code>, <code>+</code>, <code>-</code>都是<mark>左结合</mark>的:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th><code>i - j – k</code></th>
+<th>等价于</th>
+<th><code>(i - j) - k</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>i * j / k</code></td>
+<td>等价于</td>
+<td><code>(i * j) / k</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果运算符从右向左结合, 则它是右结合的运算符</p>
+<p>一元算术运算符(<code>+</code>和<code>-</code>)都是右结合的:</p>
+<p><code>-+i</code>等价于<code>-(+i)</code></p>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--计算产品代码校验位-s">程序: 计算产品代码校验位(s) </h5>
+<hr>
+<div class="top-2">
+  <img src="img/upc.png" width=100px>
+</div>
+<p>条形码下方数字的含义: 第 1 位商品类型, 两组五位数分别是制造商与产品, <mark>末位是校验位</mark> (识别前面的数字错误)</p>
+<p>计算校验位流程:</p>
+<ul>
+<li>
+<p>第<code>1</code>、<code>3</code>、<code>5</code>、<code>7</code>、<code>9</code>和第<code>11</code>位数字求和</p>
+
+</li>
+<li>
+<p>第<code>2</code>、<code>4</code>、<code>6</code>、<code>8</code>和第<code>10</code>位数字求和</p>
+
+</li>
+<li>
+<p>第一个总和 × <code>3</code> 加第二个总和, 再减 <code>1</code></p>
+
+</li>
+<li>
+<p>调整后的总数除以 <code>10</code> 取余数, 再用 <code>9</code> 减去它</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--计算产品代码校验位-s">程序: 计算产品代码校验位(s) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Computes a Universal Product Code check digit */</span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+ 
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> d<span class="token punctuation">,</span> i1<span class="token punctuation">,</span> i2<span class="token punctuation">,</span> i3<span class="token punctuation">,</span> i4<span class="token punctuation">,</span> i5<span class="token punctuation">,</span> j1<span class="token punctuation">,</span> j2<span class="token punctuation">,</span> j3<span class="token punctuation">,</span> j4<span class="token punctuation">,</span> j5<span class="token punctuation">,</span>
+      first_sum<span class="token punctuation">,</span> second_sum<span class="token punctuation">,</span> total<span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter the first (single) digit: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%1d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter first group of five digits: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%1d%1d%1d%1d%1d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i1<span class="token punctuation">,</span> <span class="token operator">&</span>i2<span class="token punctuation">,</span> <span class="token operator">&</span>i3<span class="token punctuation">,</span> <span class="token operator">&</span>i4<span class="token punctuation">,</span> <span class="token operator">&</span>i5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter second group of five digits: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%1d%1d%1d%1d%1d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>j1<span class="token punctuation">,</span> <span class="token operator">&</span>j2<span class="token punctuation">,</span> <span class="token operator">&</span>j3<span class="token punctuation">,</span> <span class="token operator">&</span>j4<span class="token punctuation">,</span> <span class="token operator">&</span>j5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  first_sum <span class="token operator">=</span> d <span class="token operator">+</span> i2 <span class="token operator">+</span> i4 <span class="token operator">+</span> j1 <span class="token operator">+</span> j3 <span class="token operator">+</span> j5<span class="token punctuation">;</span>
+  second_sum <span class="token operator">=</span> i1 <span class="token operator">+</span> i3 <span class="token operator">+</span> i5 <span class="token operator">+</span> j2 <span class="token operator">+</span> j4<span class="token punctuation">;</span>
+  total <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">*</span> first_sum <span class="token operator">+</span> second_sum<span class="token punctuation">;</span>
+ 
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Check digit: %d\n"</span><span class="token punctuation">,</span> <span class="token number">9</span> <span class="token operator">-</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>total <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>产品编码为 \(0 13800 15173 5\) 的校验位计算示例:</p>
+<ul>
+<li>
+<p>第一个总和: \(0 + 3 + 0 + 1 + 1 + 3 = 8\)</p>
+
+</li>
+<li>
+<p>第二个总和: \(1 + 8 + 0 + 5 + 7 = 21\)</p>
+
+</li>
+<li>
+<p>将第一个总和乘以 \(3\) 并加上第二个总和得到 \(45\)</p>
+
+</li>
+<li>
+<p>减去 \(1\) 得到 \(44\)</p>
+
+</li>
+<li>
+<p>除以 \(10\) 的余数是 \(4\)</p>
+
+</li>
+<li>
+<p>从 \(9\) 中减去余数</p>
+
+</li>
+<li>
+<p>结果是 \(5\)</p>
+
+</li>
+</ul>
+<p>*upc.c*</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="赋值运算符">赋值运算符 </h5>
+<hr>
+<ul>
+<li>
+<p><mark>简单赋值</mark>: 把值存进变量 (<code>=</code>); <mark>复合赋值</mark>: 更新已有变量的值 (<code>+=</code>)</p>
+
+</li>
+</ul>
+<p><code>v = e</code>先评估表达式<code>e</code>的值, 然后将值复制到<code>v</code>中</p>
+<p><code>e</code>可以是常量、变量或更复杂的表达式:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>            <span class="token comment">/* i is now 5  */</span>
+j <span class="token operator">=</span> i<span class="token punctuation">;</span>            <span class="token comment">/* j is now 5  */</span>
+k <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">*</span> i <span class="token operator">+</span> j<span class="token punctuation">;</span>   <span class="token comment">/* k is now 55 */</span></code></pre>
+<p>如果 <mark><code>v</code></mark> 和 <mark><code>e</code></mark> 的类型不同, 在赋值时 <mark><code>e</code></mark> 的值将转换为 <mark><code>v</code></mark> 的类型:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-float">float</span> f<span class="token punctuation">;</span>
+
+i <span class="token operator">=</span> <span class="token number">72.99</span>f<span class="token punctuation">;</span>   <span class="token comment">/* i is now 72 */</span>
+f <span class="token operator">=</span> <span class="token number">136</span><span class="token punctuation">;</span>      <span class="token comment">/* f is now 136.0 */</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="简单赋值">简单赋值 </h5>
+<hr>
+<p>在许多编程语言中, 赋值是一个语句; 而在 <mark><code>C</code></mark> 中, 赋值操作的结果类似运算符, 就像运算符 <mark><code>+</code></mark> 一样</p>
+<p>赋值表达式 <mark><code>v = e</code></mark> 的值是赋值后 <mark><code>v</code></mark> 的值</p>
+<ul>
+<li>
+<p>表达式 <code>i = 72.99f</code> 的值是 \(72\), 而不是 \(72.99\)</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> j <span class="token operator">=</span> <span class="token number">50</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 由于 <mark>赋值</mark> 是一个运算符, 因此可以将多个赋值链接在一起: </p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> j <span class="token operator">=</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
+<p><mark><code>=</code></mark> 运算符是右结合的, 所以这个赋值等价于</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="复合赋值">复合赋值 </h5>
+<hr>
+<p>使用变量的旧值来计算其新值的赋值很常见</p>
+<p>例如: <code>i = i + 2;</code></p>
+<p>使用 <mark><code>+=</code></mark> 复合赋值运算符, 可改写为:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">+=</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* same as i = i + 2; */</span></code></pre>
+<p>还有其他九个复合赋值运算符, 包括: <mark><code>-= *= /= %=</code></mark> 和位运算(<code>^= &amp;= &gt;&gt;= &lt;&lt;= |=</code>)</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th>v += e</th>
+<th>将v加e, 将结果存储在v中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v -= e</td>
+<td>将v减e, 将结果存储在v中</td>
+</tr>
+<tr>
+<td>v *= e</td>
+<td>将v乘以e, 将结果存储在v中</td>
+</tr>
+<tr>
+<td>v /= e</td>
+<td>将v除以e, 将结果存储在v中</td>
+</tr>
+<tr>
+<td>v %= e</td>
+<td>计算v除以e的余数, 将结果存储在v中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="复合赋值">复合赋值 </h5>
+<hr>
+<p><code>v += e</code>与<code>v = v + e</code>可能<mark>不等价</mark></p>
+<ul>
+<li>
+<p>一是运算符优先级:</p>
+
+</li>
+</ul>
+<p><code>i *= j + k</code> 与 <code>i = i * j + k</code> 不等价</p>
+<ul>
+<li>
+<p>在极少数情况下, <code>v += e</code> 不同于 <code>v = v + e</code> 因为 <code>v</code>本身有副作用(如<code>v</code>为<code>++i</code>或<code>i++</code>等)</p>
+
+</li>
+</ul>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 使用复合赋值运算符时, 不要交换构成复合运算符的两个字符</p>
+<p>虽然<code>i =+ j</code>能编译通过, 但意义不同, 它相当于 <code>i = (+j)</code>, 它只是将<code>j</code>的值复制到<code>i</code>中</p>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="自增和自减运算符">自增和自减运算符 </h5>
+<hr>
+<p>对变量最常见的两种操作是 <mark>自增</mark>(加 <code>1</code>)和 <mark>自减</mark>(减 <code>1</code>):</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+j <span class="token operator">=</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
+<p>可以使用复合赋值运算符进行自增和自减:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+j <span class="token operator">-=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
+<p>C 特别提供了 <code>++</code> 自增 和 <code>-–</code> 自减 运算符</p>
+<ul>
+<li>
+<p><mark><code>++</code></mark> 运算符将操作数加1</p>
+
+</li>
+<li>
+<p><mark><code>--</code></mark> 运算符将操作数减1</p>
+
+</li>
+<li>
+<p>有前缀运算符(<code>++i</code>和<code>–-i</code>)或后缀运算符(<code>i++</code>和<code>i--</code>)</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="自增和自减运算符">自增和自减运算符 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> <span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* prints "i is 2" */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* prints "i is 2" */</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* prints "i is 1" */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* prints "i is 2" */</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> <span class="token operator">--</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* prints "i is 0" */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* prints "i is 0" */</span>
+i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* prints "i is 1" */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i is %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* prints "i is 0" */</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>评估表达式<code>++i</code> (前缀自增) 的结果是<code>i + 1</code>, 副作用是<code>i</code>自增<code>1</code>:</p>
+<p>评估表达式<code>i++</code> (后缀自增) 的结果是<code>i</code>, 副作用是<code>i</code>随后自增<code>1</code>:</p>
+<p><mark><code>++i</code>表示立即自增i, 而<code>i++</code>表示暂时使用i的旧值, 稍后再自增i</mark></p>
+<p><code>--</code>运算符与<code>++</code>运算符相似:</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="自增和自减运算符">自增和自减运算符 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.72em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+k <span class="token operator">=</span> <span class="token operator">++</span>i <span class="token operator">+</span> j<span class="token operator">++</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+k <span class="token operator">=</span> i <span class="token operator">+</span> j<span class="token punctuation">;</span>
+j <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+k <span class="token operator">=</span> i<span class="token operator">++</span> <span class="token operator">+</span> j<span class="token operator">++</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>当<code>++</code>或<code>--</code>在同一个表达式中多次使用时, 结果通常很难理解, 如:</p>
+<p>最后一条语句等价于:</p>
+<p>i, j和k的最终值分别为 2, 3和4.</p>
+<p>相反, 执行语句</p>
+<p><code>i</code>、<code>j</code>和<code>k</code>的值最终为<code>2</code>、<code>3</code>和<code>3</code></p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 多个<code>++</code>/<code>--</code>混用容易写错, 实际编程中尽量<mark>分行写</mark></p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="表达式语句">表达式语句 </h5>
+<hr>
+<p>C 有一个不寻常的规则, 即任何表达式都可以用作语句 例子:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">++</span>i<span class="token punctuation">;</span></code></pre>
+<p>i首先递增, 然后获取i的新值, 然后丢弃</p>
+<p>由于它的值被丢弃了, 除非表达式有副作用, 否则将表达式用作语句几乎没有意义:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>     <span class="token comment">/* useful */</span>
+i<span class="token operator">--</span><span class="token punctuation">;</span>       <span class="token comment">/* useful */</span>
+i <span class="token operator">*</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/* not useful */</span></code></pre>
+<p>一个无意的编码错误很容易会创建一个 <mark>什么都不做</mark> 的表达式语句, 如 <code>i = j;</code> 误编写为 <code>i + j;</code></p>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+<hr>
+<ol>
+<li><code>1 / 2</code> 的值是多少？<code>7 % 2</code> 呢？<code>9 % 3</code> 呢？</li>
+<li><code>-i * -j</code> 等价于什么？<code>i * j / k</code> 按什么顺序计算？</li>
+<li><code>i += 2</code> 等价于什么？<code>i *= j + k</code> 等价于 <code>i = i * j + k</code> 吗？</li>
+<li><code>i = 1; j = i++;</code> 执行后 <code>i</code> 和 <code>j</code> 分别是多少？</li>
+</ol>
+<hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

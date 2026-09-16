@@ -100,6 +100,10 @@ printf(字符串, 表达式1, 表达式2, ...);
 - ==普通字符== 按出现在字符串中的方式打印
 - ==转换说明== 则需用待显示的值来替换填充
 
+<div style="font-size:0.8em;">
+
+<div style="font-size:0.85em;">
+
 ```C{.line-numbers}
 int i, j;
 float x, y;
@@ -111,6 +115,8 @@ y = 5527.0f;
 
 printf("i = %d, j = %d, x = %f, y = %f\n", i, j, x, y);
 ```
+
+</div>
 
 ```
 输出: 
@@ -208,11 +214,11 @@ printf("%f %d\n", i, x); /*** WRONG ***/
 
 浮点数的转换说明: 
 
-- ==`%e`== — 指数格式: ==p== 表示小数点后应该出现多少位(默认为 ==6==); 如果 ==p== 为 ==0==, 则不显示小数点
+- ==`%e`== 指数格式: ==p== 表示小数点后位数 (默认 6; p 为 0 不显示小数点)
 
-- ==`%f`== — *固定十进制*格式:  ==p== 与 ==e== 说明符的含义相同
+- ==`%f`== 固定十进制格式: ==p== 含义与 `%e` 相同
 
-- ==`%g`== — 指数格式或固定十进制格式, 取决于数字的大小; ==p== 表示要显示的最大有效位数; ==%g== 不会显示尾随零
+- ==`%g`== 按数字大小自动选指数或定点: ==p== 表示最大有效位数, 不显示尾随零
 
 ---
 
@@ -224,7 +230,9 @@ printf("%f %d\n", i, x); /*** WRONG ***/
 
 ---
 
-*tprintf.c*程序使用 ==printf== 以各种格式显示整数和浮点数
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.68em;">
 
 ```C{.line-numbers}
 /* Prints int and float values in various formats */ 
@@ -245,14 +253,21 @@ int main(void)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+*tprintf.c*程序使用 ==printf== 以各种格式显示整数和浮点数
+
 ```
 输出:
 |40|•••40|40•••|••040|
 |•••839.210|•8.392e+02|839.21••••|
 ```
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -313,11 +328,7 @@ printf("\\"); /* prints one \ character */
 
 ---
 
-==`scanf`== 根据指定格式读取输入
-
-==`scanf`== 格式字符串可以包含 ==普通字符== 和 ==转换说明==
-
-==`scanf`== 接受的 ==转换说明== 与 ==`printf`== 基本相同
+==`scanf`== 根据指定格式读取输入; 格式字符串同样含==普通字符==与==转换说明==, 与 ==`printf`== 基本相同
 
 <span class="yellow">:fa-weixin:</span> 在多数情况下, ==`scanf`== 格式字符串只包含转换说明: 
 
@@ -327,6 +338,8 @@ float x, y;
 
 scanf("%d%d%f%f", &i, &j, &x, &y);
 ```
+
+</div>
 
 样本输入: 
 
@@ -384,15 +397,19 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 
 ---
 
-- ==`scanf`== 搜索数字时会忽略空白字符(空格、制表符、换行符)
+- ==`scanf`== 搜索数字时忽略空白 (空格/制表/换行); 读取四个数字的调用: 
 
-- 读取四个数字的 ==`scanf`== 调用: 
+<div style="font-size:0.8em;">
 
 ```C
 scanf("%d%d%f%f", &i, &j, &x, &y);
 ```
 
+</div>
+
 - 输入的数字可以在一行上, 也可以分布在多行上: 
+
+<div style="font-size:0.8em;">
 
 ```
 ••1
@@ -400,12 +417,13 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 •••-4.0e3
 ```
 
+</div>
+
 样本输入 `1-20.3-4.0e3¤` 的处理步骤: 
 
-- `%d` 将`1`存储到i中并将`-`字符放回去
-- `%d` 将`–20`存储到j中并将`.`字符放回去
-- `%f` 将`0.3`存储到x并放回`-`字符
-- `%f` 将`–4.0×103`存储到y中并放回换行符
+- `%d` 把 `1` 存进 i、把 `-20` 存进 j (分别放回 `-` 和 `.`)
+
+- `%f` 把 `0.3` 存进 x、把 `-4.0×10³` 存进 y (放回 `-` 和换行符)
 
 ---
 
@@ -518,15 +536,9 @@ putchar('\n');    /* 输出换行符 */
 
 ---
 
-*addfrac.c* 程序提示用户输入两个分数, 然后计算和打印它们的和
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-示例程序输出: 
-
-Enter first fraction: <u>5/6</u>
-Enter second fraction: <u>3/4</u>
-The sum is 38/24
-
-*addfrac.c*
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* Adds two fractions */
@@ -551,8 +563,19 @@ int main(void)
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+示例程序输出: 
+
+Enter first fraction: <u>5/6</u>
+Enter second fraction: <u>3/4</u>
+The sum is 38/24
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
