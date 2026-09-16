@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>2-2-io</title>
+      <title>12-1-struct</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -15,8 +15,8 @@
       
       </style>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+      
       
         <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
       
@@ -59,10 +59,10 @@
 </div>
     <div class="reveal">
       <div class="slides">
-        <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
+        <section><section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="格式化输入输出">格式化输入输出 </h2>
+<h2 id="结构体">结构体 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnmailtoyangyibiaonjueducn"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
@@ -70,447 +70,412 @@
 <hr>
 <ul>
 <li>
-<p>输出: printf与转换说明</p>
+<p>结构体变量: 把相关的数据打包</p>
 
 </li>
 <li>
-<p>转义序列</p>
+<p>声明、初始化与操作</p>
 
 </li>
 <li>
-<p>输入: scanf</p>
+<p>结构体类型与 typedef</p>
 
 </li>
 <li>
-<p>getchar与putchar</p>
-
-</li>
-<li>
-<p>综合案例: 分数相加</p>
+<p>结构体数组与案例: 零件数据库</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="printf函数">printf函数 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="结构体变量">结构体变量 </h5>
 <hr>
-<p><mark><code>printf</code></mark> 函数必须提供格式字符串, 后跟打印期间要插入到串中的任何值:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span>字符串<span class="token punctuation">,</span> 表达式<span class="token number">1</span><span class="token punctuation">,</span> 表达式<span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>格式字符串可以包含普通字符和转换说明, 以 <mark><code>%</code></mark> 字符开头</p>
-<p><mark>转换说明</mark> 是一个占位符, 表示要在打印期间填充的值</p>
+<p>结构体与数组的特性不同.</p>
 <ul>
 <li>
-<p><mark><code>%d</code></mark> 用于 <mark><code>int</code></mark> 值</p>
+<p>结构体的元素(成员)不需要具有相同的类型.</p>
 
 </li>
 <li>
-<p><mark><code>%f</code></mark> 用于 <mark><code>float</code></mark> 值</p>
-
-</li>
-<li>
-<p><mark><code>%c</code></mark> 用于 <mark><code>char</code></mark> 值</p>
-
-</li>
-<li>
-<p><mark><code>%s</code></mark> 用于 <mark><code>char []</code></mark> 值</p>
+<p>结构体的成员有名字; 为了选择特定的成员, 需要指明它的名字, 而不是它的位置.</p>
 
 </li>
 </ul>
+<p>在某些语言中, 结构体称为记录, 成员称为字段.</p>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="printf函数">printf函数 </h5>
-<hr>
-<p>格式字符串:</p>
-<ul>
-<li>
-<p><mark>普通字符</mark> 按出现在字符串中的方式打印</p>
-
-</li>
-<li>
-<p><mark>转换说明</mark> 则需用待显示的值来替换填充</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
-<span class="token keyword keyword-float">float</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
- 
-i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-j <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
-x <span class="token operator">=</span> <span class="token number">43.2892</span>f<span class="token punctuation">;</span>
-y <span class="token operator">=</span> <span class="token number">5527.0</span>f<span class="token punctuation">;</span>
-
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d, j = %d, x = %f, y = %f\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输出<span class="token operator">:</span> 
-i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span> x <span class="token operator">=</span> <span class="token number">43.289200</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">5527.000000</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="printf函数">printf函数 </h5>
-<hr>
-<p>编译器不会检查格式字符串中转换说明数量与输出项数量是否匹配</p>
-<ul>
-<li>
-<p>转换说明过多:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span></code></pre>
-<ul>
-<li>
-<p>转换说明太少:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span></code></pre>
-<ul>
-<li>
-<p>编译器也不会去检查转换说明是否合适, 使用不正确的转换说明, 程序将产生无意义的输出</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-float">float</span> x<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%f %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="转换说明">转换说明 </h5>
-<hr>
-<p>转换说明可以采用 <mark><code>%m.pX</code></mark> 或 <mark><code>%-m.pX</code></mark> 形式</p>
-<ul>
-<li>
-<p><mark><code>m</code></mark> 和 <mark><code>p</code></mark> 是整数常量</p>
-
-</li>
-<li>
-<p><mark><code>X</code></mark> 是一个字符</p>
-
-</li>
-<li>
-<p><mark><code>m</code></mark> 和 <mark><code>p</code></mark> 都是可选的</p>
-
-</li>
-<li>
-<p>如果省略 <mark><code>p</code></mark>, 则分隔 <mark><code>m</code></mark> 和 <mark><code>p</code></mark> 的句点也应删除</p>
-
-</li>
-</ul>
-<p>在转换规约 <mark><code>%10.2f</code></mark> 中, <mark><code>m</code></mark> 为 <mark><code>10</code></mark> , <mark><code>p</code></mark> 为 <mark><code>2</code></mark>, <mark><code>X</code></mark> 为 <mark><code>f</code></mark> 在转换规约 <mark><code>%10f</code></mark> 中, <mark><code>m</code></mark> 为 <mark><code>10</code></mark> 且缺少 <mark><code>p</code></mark>(连同句点) 在转换规约 <mark><code>%.2f</code></mark> 中, <mark><code>p</code></mark> 为 <mark><code>2</code></mark>  且缺少 <mark><code>m</code></mark></p>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="转换说明">转换说明 </h5>
-<hr>
-<p>最小字段宽度 <mark>m</mark> 指定要打印的最小字符数</p>
-<ul>
-<li>
-<p>如果要打印的值需要少于 <mark>m</mark> 个字符, 则在字段内右对齐</p>
-
-</li>
-</ul>
-<p>转换说明 <mark><code>%4d</code></mark> 会将数字 <mark><code>123</code></mark> 显示为 <mark><code>•123</code></mark>(<mark><code>•</code></mark> 表示空格字符)</p>
-<ul>
-<li>
-<p>如果要打印的值需要超过 <mark>m</mark> 个字符, 则字段宽度会自动扩展为所需的大小, 若 <mark>m</mark> 前面加上减号会导致左对齐</p>
-
-</li>
-</ul>
-<p>转换说明 <mark><code>%-4d</code></mark> 会将数字 <mark><code>123</code></mark> 显示为 <mark><code>123•</code></mark></p>
-<hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="转换说明">转换说明 </h5>
-<hr>
-<p>精度 <mark>p</mark> 的含义取决于转换说明符 <mark>X</mark> 的选择</p>
-<ul>
-<li>
-<p>结合 <mark>%d</mark> 说明符使用, <mark>%m.pX</mark> 中的 <mark>p</mark> 表示要显示的最小位数(如需要, 将在数字的开头添加额外的零)</p>
-
-</li>
-<li>
-<p>如果 <mark>p</mark> 省略, 则默认它的值为 <mark>1</mark></p>
-
-</li>
-</ul>
-<p>浮点数的转换说明:</p>
-<ul>
-<li>
-<p><mark><code>%e</code></mark> — 指数格式: <mark>p</mark> 表示小数点后应该出现多少位(默认为 <mark>6</mark>); 如果 <mark>p</mark> 为 <mark>0</mark>, 则不显示小数点</p>
-
-</li>
-<li>
-<p><mark><code>%f</code></mark> — *固定十进制*格式:  <mark>p</mark> 与 <mark>e</mark> 说明符的含义相同</p>
-
-</li>
-<li>
-<p><mark><code>%g</code></mark> — 指数格式或固定十进制格式, 取决于数字的大小; <mark>p</mark> 表示要显示的最大有效位数; <mark>%g</mark> 不会显示尾随零</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--使用printf格式化数字">程序: 使用printf格式化数字 </h5>
-<hr>
-<p>*tprintf.c*程序使用 <mark>printf</mark> 以各种格式显示整数和浮点数</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Prints int and float values in various formats */</span> 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-  <span class="token keyword keyword-float">float</span> x<span class="token punctuation">;</span>
- 
-  i <span class="token operator">=</span> <span class="token number">40</span><span class="token punctuation">;</span>
-  x <span class="token operator">=</span> <span class="token number">839.21</span>f<span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|%d|%5d|%-5d|%5.3d|\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> i<span class="token punctuation">,</span> i<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|%10.3f|%10.3e|%-10g|\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> x<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输出<span class="token operator">:</span>
-<span class="token operator">|</span><span class="token number">40</span><span class="token operator">|</span>•••<span class="token number">40</span><span class="token operator">|</span><span class="token number">40</span>•••<span class="token operator">|</span>••<span class="token number">040</span><span class="token operator">|</span>
-<span class="token operator">|</span>•••<span class="token number">839.210</span><span class="token operator">|</span>•<span class="token number">8.392e+02</span><span class="token operator">|</span><span class="token number">839.21</span>••••<span class="token operator">|</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="转义序列">转义序列 </h5>
-<hr>
-<p>形如 <mark><code>\n</code></mark> 的代码称为 <mark>转义序列</mark></p>
-<p><mark>转义序列</mark>: 使字符串包含非打印(控制)字符和具有特殊含义的字符(如 <mark><code>"</code></mark>)</p>
-<p>转义序列的部分列表:</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>警报(铃声)</th>
-<th>\a</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>回退符</td>
-<td>\b</td>
-</tr>
-<tr>
-<td>换行符</td>
-<td>\n</td>
-</tr>
-<tr>
-<td>水平制表符</td>
-<td>\t</td>
-</tr>
-</tbody>
-</table>
+<p>在存储相关数据项的集合时, 结构体是个好选择.</p>
+<p>声明两个结构体变量, 用于存储仓库中零件的信息:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span></code></pre>
+<p>结构体的成员按照声明的顺序存储在内存中. part1:</p>
+<div class="top-2">
+  <img src="../img/15-1.png" height=500px>
 </div>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="声明结构体变量">声明结构体变量 </h5>
+<hr>
+<p>假设:</p>
 <ul>
 <li>
-<p>一个字符串可以包含任意数量的转义序列:</p>
+<p>part1位于地址2000.</p>
+
+</li>
+<li>
+<p>整数占用4个字节.</p>
+
+</li>
+<li>
+<p>NAME_LEN的值为25.</p>
+
+</li>
+<li>
+<p>成员之间没有间隙.</p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Item\tUnit\tPurchase\n\tPrice\tDate\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="转义序列">转义序列 </h5>
-<hr>
-<p>另一常见的转义序列是 <mark><code>\"</code></mark>, 代表 <mark><code>"</code></mark> 字符:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\"Hello!\""</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* prints "Hello!" */</span></code></pre>
-<p>要打印单个 <mark><code>\</code></mark> 字符, 在字符串中放置两个 <mark><code>\</code></mark>:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\\"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* prints one \ character */</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="scanf函数">scanf函数 </h5>
-<hr>
-<p><mark><code>scanf</code></mark> 根据指定格式读取输入</p>
-<p><mark><code>scanf</code></mark> 格式字符串可以包含 <mark>普通字符</mark> 和 <mark>转换说明</mark></p>
-<p><mark><code>scanf</code></mark> 接受的 <mark>转换说明</mark> 与 <mark><code>printf</code></mark> 基本相同</p>
-<span class="yellow">:fa-weixin:</span> 在多数情况下, ==`scanf`== 格式字符串只包含转换说明: 
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
-<span class="token keyword keyword-float">float</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
+<p>结构体的抽象表示:</p>
+<div class="top-2">
+  <img src="../img/15-2.png">
+</div>
+<p>成员的值将在稍后放入盒子中.</p>
+<p>每个结构体代表一种新的作用域.</p>
+<p>在该作用域内声明的任何名称都不会与程序中的其他名称冲突.</p>
+<p>每个结构体都为它的成员设置了独立的名字空间.</p>
+<p>例如, 以下声明可以出现在同一程序中:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span>
 
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%f%f"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>样本输入:</p>
-<p><code>1 -20 .3 -4.0e3</code></p>
-<p><mark><code>scanf</code></mark> 将变量 <code>i</code>、<code>j</code>、<code>x</code>和<code>y</code>赋值为 <code>1</code>、<code>–20</code>、<code>0.3</code> 和 <code>–4000.0</code></p>
+<span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> sex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> employee1<span class="token punctuation">,</span> employee2<span class="token punctuation">;</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="scanf函数">scanf函数 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="初始化结构体变量">初始化结构体变量 </h5>
 <hr>
-<p>使用 <mark><code>scanf</code></mark> 时, 程序员须自己检查:</p>
+<p>结构体变量可以在声明的同时进行初始化:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+ <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  part2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">914</span><span class="token punctuation">,</span> <span class="token string">"Printer cable"</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>part1初始化后的样子:</p>
+<div class="top-2">
+  <img src="../img/15-3.png">
+</div>
+<p>结构体初始化式遵循类似于数组初始化式的规则.</p>
+<p>结构体初始化式中使用的表达式必须是常量. (这个限制在 C99 中放宽了)</p>
+<p>初始化式的成员数可以少于它所初始化的结构体.</p>
+<p>任何"剩余的"成员用 0 作为其初始值.</p>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="对结构体的操作">对结构体的操作 </h5>
+<hr>
+<p>要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称.</p>
+<p>打印part1的成员的值的语句:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part number: %d\n"</span><span class="token punctuation">,</span> part1<span class="token punctuation">.</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part name: %s\n"</span><span class="token punctuation">,</span> part1<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Quantity on hand: %d\n"</span><span class="token punctuation">,</span> part1<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>结构体的成员是左值.</p>
+<p>它们可以出现在赋值的左侧, 也可以作为自增或自减表达式中的操作数:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>part1<span class="token punctuation">.</span>number <span class="token operator">=</span> <span class="token number">258</span><span class="token punctuation">;</span>     
+ <span class="token comment">/* changes part1's part number */</span>
+part1<span class="token punctuation">.</span>on_hand<span class="token operator">++</span><span class="token punctuation">;</span>
+ <span class="token comment">/* increments part1's quantity on hand */</span></code></pre>
+<p>用于访问结构体成员的句点实际上是一个 C 运算符.</p>
+<p>它优先于几乎所有其他运算符. 例子:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>part1<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>.</code>运算符优先级高于<code>&amp;</code>运算符, 因此<code>&amp;</code>计算part1.on_hand的地址.</p>
+<p>另一个主要的结构体操作是赋值:</p>
+<p><code>part2 = part1;</code></p>
+<p>该语句的效果是将 part1.number 复制到part2.number, 将 part1.name 复制到 part2.name , 依此类推.</p>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="对结构体的操作--续">对结构体的操作 (续) </h5>
+<hr>
+<p><code>=</code>运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组.</p>
+<p>一些程序员利用此属性创建"空"结构体来封装稍后将复制的数组来:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">;</span>
+a1 <span class="token operator">=</span> a2<span class="token punctuation">;</span>
+ <span class="token comment">/* legal, since a1 and a2 are structures */</span></code></pre>
+<p><code>=</code>运算符只能用于类型兼容的结构体.</p>
+<p>两个同时声明的结构体(如part1和part2)是兼容的.</p>
+<p>使用相同"结构体标记"或相同类型名声明的结构体也是兼容的.</p>
+<p>除了赋值之外, C 不提供对整个结构体的操作.</p>
+<p>特别是, <code>==</code>和<code>!=</code>运算符不能用于判定两个结构体是否相等.</p>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="结构体类型">结构体类型 </h5>
+<hr>
+<p>假设程序需要声明几个具有相同成员的结构体变量.</p>
+<p>需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量.</p>
+<p>命名结构体的方法:</p>
 <ul>
 <li>
-<p><mark>转换说明</mark> 的数量与 <mark>输入变量</mark> 的数量是否相同</p>
+<p>声明一个"结构体标记"</p>
 
 </li>
 <li>
-<p>确保各个转换说明 <mark>适用于</mark> 相应变量</p>
-
-</li>
-</ul>
-<p><mark><code>&amp;</code></mark> 符号通常需要用在 <mark><code>scanf</code></mark> 调用中的每个变量之前</p>
-<p><mark><code>&amp;</code></mark> 通常(但不总是)是必需的, 在读取输入至变量时需记住使用它</p>
-<hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="scanf工作原理">scanf工作原理 </h5>
-<hr>
-<ul>
-<li>
-<p><mark><code>scanf</code></mark> 尝试将输入字符组与格式字符串中的转换说明进行匹配</p>
-
-</li>
-<li>
-<p>对每个转换说明, <mark><code>scanf</code></mark> 尝试在输入数据中寻找适当类型数据, 必要时<mark>跳过空格</mark></p>
-
-</li>
-<li>
-<p>当被要求读取整数时, 首先搜索数字或正负号, 然后继续读取数字, 直到遇到非数字</p>
-
-</li>
-<li>
-<p>遇到不能成为当前变量一部分的字符时, 会 <mark>放回</mark> 该字符留待下次读取</p>
-
-</li>
-<li>
-<p>如果数据读取不成功, <mark><code>scanf</code></mark> 立即返回</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="scanf工作原理">scanf工作原理 </h5>
-<hr>
-<ul>
-<li>
-<p><mark><code>scanf</code></mark> 搜索数字时会忽略空白字符(空格、制表符、换行符)</p>
-
-</li>
-<li>
-<p>读取四个数字的 <mark><code>scanf</code></mark> 调用:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%f%f"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
-<p>输入的数字可以在一行上, 也可以分布在多行上:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>••<span class="token number">1</span>
-<span class="token operator">-</span><span class="token number">20</span>•••<span class="token punctuation">.</span><span class="token number">3</span>
-•••<span class="token operator">-</span><span class="token number">4.0e3</span></code></pre>
-<p>样本输入 <code>1-20.3-4.0e3¤</code> 的处理步骤:</p>
-<ul>
-<li>
-<p><code>%d</code> 将<code>1</code>存储到i中并将<code>-</code>字符放回去</p>
-
-</li>
-<li>
-<p><code>%d</code> 将<code>–20</code>存储到j中并将<code>.</code>字符放回去</p>
-
-</li>
-<li>
-<p><code>%f</code> 将<code>0.3</code>存储到x并放回<code>-</code>字符</p>
-
-</li>
-<li>
-<p><code>%f</code> 将<code>–4.0×103</code>存储到y中并放回换行符</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
-<hr>
-<ul>
-<li>
-<p>当在格式字符串中遇到一个或多个空白字符时, <mark><code>scanf</code></mark> 从输入中读取空白字符, 直到它遇到一个非空白字符(即*放回*)</p>
-
-</li>
-<li>
-<p>当它在格式字符串中遇到非空白字符时, <mark><code>scanf</code></mark> 将其与下一个输入字符进行比较</p>
-
-</li>
-<li>
-<p>如果匹配, 则 <mark><code>scanf</code></mark> 丢弃输入字符并继续处理格式字符串</p>
-
-</li>
-<li>
-<p>若不匹配, 则 <mark><code>scanf</code></mark> 会将有问题的字符放回输入中, 然后中止</p>
-
-</li>
-</ul>
-<p>例子:</p>
-<ul>
-<li>
-<p>如果格式字符串是 <mark><code>"%d/%d"</code></mark> 并且输入是 <mark><code>•5/•96</code></mark>, <mark><code>scanf</code></mark> 成功</p>
-
-</li>
-<li>
-<p>如果输入 <mark><code>•5•/•96</code></mark>, 则 <mark><code>scanf</code></mark> 失败, 因为格式字符串中的 <mark><code>/</code></mark> 与输入中的空格不匹配</p>
-
-</li>
-</ul>
-<span class="yellow">:fa-weixin:</span> 要在第一个数字后允许空格, 需改用格式字符串 ==`"%d /%d"`==
-<hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
-<hr>
-<p><mark><code>scanf</code></mark> 和 <mark><code>printf</code></mark> 的调用看起来相似, 但两者之间存在显著差异</p>
-<ul>
-<li>
-<p>一个常见的错误是在<code>printf</code>调用中将<code>&amp;</code>放在变量前面:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/*** WRONG ***/</span></code></pre>
-<ul>
-<li>
-<p>不要错误地假设 <mark><code>scanf</code></mark> 格式字符串应该类似于 <mark><code>printf</code></mark>:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d, %d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>若输入中逗号的位置实际是空格, 则scanf将终止而不读取j的值</p>
-<ul>
-<li>
-<p>多数情况下, 一定不要在 <mark><code>scanf</code></mark> 格式化字符串的末尾放置换行符, 否则会导致交互式程序 <mark>挂起</mark> 直到用户输入下一个非空格字符</p>
+<p>使用typedef定义类型名</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
+<p>结构体标记是用于标识特定类型结构体的名称.</p>
+<p>名为part的结构体标记的声明:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> part <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>请注意, 分号必须跟在右大括号后面.</p>
+<p>part标记可用于声明变量:</p>
+<p><code>struct part part1, part2;</code></p>
+<p>struct不能省略:</p>
+<p><code>part part1, part2;   /*<strong> WRONG </strong>*/</code></p>
+<p>part不是类型名; 没有struct这个词, 它是没有意义的.</p>
+<p>结构体标记只有在struct后才有意义, 因此它们不会与程序中使用的其他名称冲突.</p>
+<p>结构体标记的声明可以与结构体变量的声明相结合:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> part <span class="token punctuation">{</span>
+ <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+ <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span></code></pre>
+<p>所有声明为struct part类型的结构体相互兼容:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> part part1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-struct">struct</span> part part2<span class="token punctuation">;</span>
+
+part2 <span class="token operator">=</span> part1<span class="token punctuation">;</span> <span class="token comment">/* legal; both parts have the same type */</span></code></pre>
 <hr>
-<p><mark>getchar</mark>: 读取单个字符</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> ch<span class="token punctuation">;</span>              <span class="token comment">/* 注意: 返回值是 int, 不是 char! */</span>
-ch <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 从键盘读取一个字符, 存入 ch */</span></code></pre>
-<span class="blue">:fa-lightbulb-o:</span> 为什么用 `int`? 因为 `getchar` 还可能返回 ==EOF==, `char` 装不下
-<p><mark>putchar</mark>: 输出单个字符</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">putchar</span><span class="token punctuation">(</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 在屏幕上显示字符 ch */</span>
-<span class="token function">putchar</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 输出换行符 */</span></code></pre>
-<span class="blue">:fa-weixin:</span> getchar/putchar 读写字符的效率高于 scanf/printf, 在==字符处理==类程序(如统计输入字符个数)中常用
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="定义结构体类型--typedef">定义结构体类型 (typedef) </h5>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
+<p>除了声明结构体标记, 还可以使用typedef来定义真实的类型名.</p>
+<p>一个名为Part的类型的定义:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> Part<span class="token punctuation">;</span></code></pre>
+<p>Part的使用方式与内置类型相同:</p>
+<p><code>Part part1, part2;</code></p>
+<p>当需要命名结构体时, 通常可以选择声明结构体标记或typedef.</p>
+<p>但是, 当要在链表中使用结构体时, 必须声明结构体标记.</p>
 <hr>
-<p>*addfrac.c* 程序提示用户输入两个分数, 然后计算和打印它们的和</p>
-<p>示例程序输出:</p>
-<p>Enter first fraction: <u>5/6</u> Enter second fraction: <u>3/4</u> The sum is 38/24</p>
-<p>*addfrac.c*</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Adds two fractions */</span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="结构体作为参数和返回值">结构体作为参数和返回值 </h5>
+<hr>
+<p>函数可以有结构体类型的参数和返回值.</p>
+<p>带有结构体参数的函数:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_part</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> part p<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> num1<span class="token punctuation">,</span> denom1<span class="token punctuation">,</span> num2<span class="token punctuation">,</span> denom2<span class="token punctuation">,</span> result_num<span class="token punctuation">,</span> result_denom<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part number: %d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part name: %s\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Quantity on hand: %d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>调用print_part:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_part</span><span class="token punctuation">(</span>part1<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>返回part结构体的函数:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> part <span class="token function">build_part</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> number<span class="token punctuation">,</span>
+                       <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span>
+                       <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-struct">struct</span> part p<span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter first fraction: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d/%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>num1<span class="token punctuation">,</span> <span class="token operator">&</span>denom1<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter second fraction: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d/%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>num2<span class="token punctuation">,</span> <span class="token operator">&</span>denom2<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  result_num <span class="token operator">=</span> num1 <span class="token operator">*</span> denom2 <span class="token operator">+</span> num2 <span class="token operator">*</span>denom1<span class="token punctuation">;</span>
-  result_denom <span class="token operator">=</span> denom1 <span class="token operator">*</span> denom2<span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The sum is %d/%d\n"</span><span class="token punctuation">,</span>result_num<span class="token punctuation">,</span> result_denom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  p<span class="token punctuation">.</span>number <span class="token operator">=</span> number<span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>name<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  p<span class="token punctuation">.</span>on_hand <span class="token operator">=</span> on_hand<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> p<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>调用build_part:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>part1 <span class="token operator">=</span> <span class="token function">build_part</span><span class="token punctuation">(</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>将结构体传递给函数和从函数返回结构体都需要复制结构体中的所有成员.</p>
+<p>为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身.</p>
+<p>第17章给出了以结构体指针作为参数或作为返回值的函数示例.</p>
+<p>避免复制结构体还有其他原因.</p>
+<p>例如, <stdio.h>头文件定义了一个名为FILE的类型, 它通常是一个结构体.</p>
+<p>每个FILE结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的.</p>
+<stdio.h>中打开文件的每个函数都返回一个指向FILE结构体的指针. 
+<p>每个对已打开文件执行操作的函数都需要一个FILE指针作为参数.</p>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="嵌套的结构体">嵌套的结构体 </h5>
+<hr>
+<p>结构体和数组可以无限制地组合.</p>
+<p>数组可以有结构体作为元素, 结构体可以包含数组和结构体作为成员.</p>
+<hr>
+<p>将一个结构体嵌套在另一个结构体中通常很有用.</p>
+<p>假设person_name是以下结构体:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> person_name <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> first<span class="token punctuation">[</span>FIRST_NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> middle_initial<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> last<span class="token punctuation">[</span>LAST_NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>我们可以使用person_name作为更大结构体的一部分:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> student <span class="token punctuation">{</span>
+  <span class="token keyword keyword-struct">struct</span> person_name name<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> id<span class="token punctuation">,</span> age<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> sex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> student1<span class="token punctuation">,</span> student2<span class="token punctuation">;</span></code></pre>
+<p>访问student1的名字、中间名首字母或姓氏需两次应用<code>.</code>运算符:</p>
+<p><code>strcpy(student1.name.first, "Fred");</code></p>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="结构体数组">结构体数组 </h5>
+<hr>
+<p>数组和结构体的最常见组合之一是其元素是结构体的数组.</p>
+<p>这种数组可以作为一个简单的数据库.</p>
+<p>能够存储100个零件信息的结构体part数组:</p>
+<p><code>struct part inventory[100];</code></p>
+<p>通过取下标来访问数组中的零件: <code>print_part(inventory[i]);</code></p>
+<p>访问结构体part中的成员需要结合使用下标和成员选择: <code>inventory[i].number = 883;</code></p>
+<p>访问零件名称中的单个字符需要先取下标, 然后是选择成员, 然后再取下标: <code>inventory[i].name[0] = '\0';</code></p>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="初始化结构体数组">初始化结构体数组 </h5>
+<hr>
+<p>初始化结构体数组的方式与初始化多维数组的方式大致相同.</p>
+<p>每个结构体都有自己的大括号括起来的初始化式; 数组的初始化式将另一组大括号包裹在结构体初始化式的外围.</p>
+<p>初始化结构体数组的一个原因是它包含在程序执行期间不会改变的信息.</p>
+<p>示例: 存储拨打国际电话时使用的国家/地区代码的数组.</p>
+<p>数组的元素将是存储国家名称及其代码的结构体:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> dialing_code <span class="token punctuation">{</span>
+  <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>country<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> code<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-struct">struct</span> dialing_code country_codes<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+  <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token string">"Argentina"</span><span class="token punctuation">,</span>            <span class="token number">54</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Bangladesh"</span><span class="token punctuation">,</span>      <span class="token number">880</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Brazil"</span><span class="token punctuation">,</span>               <span class="token number">55</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Burma (Myanmar)"</span><span class="token punctuation">,</span>  <span class="token number">95</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"China"</span><span class="token punctuation">,</span>                <span class="token number">86</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Colombia"</span><span class="token punctuation">,</span>         <span class="token number">57</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Congo, Dem. Rep. of"</span><span class="token punctuation">,</span> <span class="token number">243</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Egypt"</span><span class="token punctuation">,</span>            <span class="token number">20</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Ethiopia"</span><span class="token punctuation">,</span>            <span class="token number">251</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"France"</span><span class="token punctuation">,</span>           <span class="token number">33</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Germany"</span><span class="token punctuation">,</span>              <span class="token number">49</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"India"</span><span class="token punctuation">,</span>            <span class="token number">91</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Indonesia"</span><span class="token punctuation">,</span>            <span class="token number">62</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Iran"</span><span class="token punctuation">,</span>             <span class="token number">98</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Italy"</span><span class="token punctuation">,</span>                <span class="token number">39</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Japan"</span><span class="token punctuation">,</span>            <span class="token number">81</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Mexico"</span><span class="token punctuation">,</span>               <span class="token number">52</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Nigeria"</span><span class="token punctuation">,</span>         <span class="token number">234</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Pakistan"</span><span class="token punctuation">,</span>             <span class="token number">92</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Philippines"</span><span class="token punctuation">,</span>      <span class="token number">63</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Poland"</span><span class="token punctuation">,</span>               <span class="token number">48</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Russia"</span><span class="token punctuation">,</span>            <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"South Africa"</span><span class="token punctuation">,</span>         <span class="token number">27</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"South Korea"</span><span class="token punctuation">,</span>      <span class="token number">82</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Spain"</span><span class="token punctuation">,</span>                <span class="token number">34</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Sudan"</span><span class="token punctuation">,</span>           <span class="token number">249</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Thailand"</span><span class="token punctuation">,</span>             <span class="token number">66</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Turkey"</span><span class="token punctuation">,</span>           <span class="token number">90</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"Ukraine"</span><span class="token punctuation">,</span>             <span class="token number">380</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"United Kingdom"</span><span class="token punctuation">,</span>   <span class="token number">44</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">{</span><span class="token string">"United States"</span><span class="token punctuation">,</span>         <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"Vietnam"</span><span class="token punctuation">,</span>          <span class="token number">84</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>每个结构体值两边的内层大括号是可选的.</p>
+<p>C99 的指定初始化式允许每一项有多个指示符.</p>
+<p>声明inventory数组, 使用指定初始化式来包含一个零件:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> part inventory<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span> <span class="token operator">=</span> 
+ <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>number <span class="token operator">=</span> <span class="token number">528</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'\0'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>初始化式中的前两项使用两个指示符; 最后一项使用三个.</p>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--维护零件数据库">程序: 维护零件数据库 </h5>
+<hr>
+<p>inventory.c程序说明了在实践中如何使用嵌套数组和结构体.</p>
+<p>该程序跟踪存储在仓库中的零件.</p>
+<p>有关零件的信息存储在结构体数组中.</p>
+<p>每个结构体包含的信息:</p>
+<ul>
+<li>
+<p>零件号</p>
 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</li>
+<li>
+<p>名称</p>
+
+</li>
+<li>
+<p>数量</p>
+
+</li>
+</ul>
+<p>程序支持的操作:</p>
+<ul>
+<li>
+<p>添加新的零件编号、名称和初始数量</p>
+
+</li>
+<li>
+<p>给定零件编号, 打印零件名称和当前数量</p>
+
+</li>
+<li>
+<p>给定零件编号, 更改现有数量</p>
+
+</li>
+<li>
+<p>打印一个表格, 显示数据库中的所有信息</p>
+
+</li>
+<li>
+<p>终止程序执行</p>
+
+</li>
+</ul>
+<p>代码i(插入)、s(搜索)、u(更新)、p(打印)和q(退出)将用于表示这些操作.</p>
+<p>与程序的会话:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>Enter operation code<span class="token operator">:</span> i
+Enter part number<span class="token operator">:</span> <span class="token number">528</span>
+Enter part name<span class="token operator">:</span> Disk drive
+Enter quantity on hand<span class="token operator">:</span> <span class="token number">10</span>
+
+Enter operation code<span class="token operator">:</span> s
+Enter part number<span class="token operator">:</span> <span class="token number">528</span>
+Part name<span class="token operator">:</span> Disk drive
+Quantity on hand<span class="token operator">:</span> <span class="token number">10</span>
+
+Enter operation code<span class="token operator">:</span> s
+Enter part number<span class="token operator">:</span> <span class="token number">914</span>
+Part not found<span class="token punctuation">.</span>
+
+Enter operation code<span class="token operator">:</span> i
+Enter part number<span class="token operator">:</span> <span class="token number">914</span>
+Enter part name<span class="token operator">:</span> Printer cable
+Enter quantity on hand<span class="token operator">:</span> <span class="token number">5</span>
+
+Enter operation code<span class="token operator">:</span> u
+Enter part number<span class="token operator">:</span> <span class="token number">528</span>
+Enter change in quantity on hand<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">2</span>
+
+Enter operation code<span class="token operator">:</span> s
+Enter part number<span class="token operator">:</span> <span class="token number">528</span>
+Part name<span class="token operator">:</span> Disk drive
+Quantity on hand<span class="token operator">:</span> <span class="token number">8</span>
+
+Enter operation code<span class="token operator">:</span> p
+Part Number   Part Name             Quantity on Hand
+   <span class="token number">528</span>       Disk drive                    <span class="token number">8</span>
+   <span class="token number">914</span>       Printer cable                 <span class="token number">5</span>
+
+Enter operation code<span class="token operator">:</span> q</code></pre>
+<p>该程序将在结构体中存储每种零件的信息.</p>
+<p>这些结构体将存储在inventory数组中.</p>
+<p>num_parts变量将跟踪当前存储在数组中的零件数.</p>
+<p>程序主循环的概要:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ prompt user to enter operation code<span class="token punctuation">;</span>
+ read code<span class="token punctuation">;</span>
+ <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword keyword-case">case</span> <span class="token string">'i'</span><span class="token operator">:</span> perform insert operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token string">'s'</span><span class="token operator">:</span> perform search operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token string">'u'</span><span class="token operator">:</span> perform update operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token string">'p'</span><span class="token operator">:</span> perform print operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+   <span class="token keyword keyword-case">case</span> <span class="token string">'q'</span><span class="token operator">:</span> terminate program<span class="token punctuation">;</span>
+   <span class="token keyword keyword-default">default</span><span class="token operator">:</span>  print error message<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li><code>printf("%-8.3f", x)</code> 中 <code>-</code>、<code>8</code>、<code>.3</code> 分别表示什么？</li>
-<li>要打印出字符 <code>"</code> 和 <code>\</code>，转义序列分别怎么写？</li>
-<li><code>scanf("%d/%d", &amp;a, &amp;b)</code> 要求用户怎么输入？</li>
-<li><code>getchar()</code> 返回值的类型是什么？为什么它适合读取字符？</li>
+<li>声明一个结构体类型 <code>point</code>，含 <code>int x, y;</code>，并声明一个变量 <code>p</code> 怎么写？</li>
+<li><code>p.x</code> 与 <code>p-&gt;x</code> 分别什么时候用？结构体指针的名词是什么？</li>
+<li>结构体可以直接用 <code>==</code> 比较吗？可以整体赋值吗？</li>
+<li>结构体作函数参数与数组作参数，哪个是"复制"、哪个是"共享"？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
-<div class="top-2">
-  <img src="../0-intro/figs/see-you.png" width=500px>
-</div>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+<div class="bottom20"></div>
+<h1 id="周三见">周三见! </h1>
+<hr class="width50 center">
+<h2 id="未完待续">未完待续 </h2>
 </section>
       </div>
     </div>
