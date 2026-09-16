@@ -47,6 +47,25 @@ first = html.find('<section data-notes')
 last = html.rfind('</section>') + len('</section>')
 head_html, tail_html = html[:first], html[last:]
 head_html = re.sub(r'<title>[^<]*</title>', '<title>' + name + '</title>', head_html)
+# 注入 KaTeX 运行时 (数学公式 \\(...\\) 与 \\[...\\] 在浏览器端渲染)
+KATEX = """<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</head>"""
+if 'renderMathInElement' not in head_html:
+    head_html = head_html.replace('</head>', KATEX, 1)
 
 FA = {'fa-lightbulb-o': 'fa fa-lightbulb-o', 'fa-weixin': 'fa fa-weixin', 'fa-camera': 'fa fa-camera',
       'fa-language': 'fa fa-language', 'fa-car': 'fa fa-car', 'fa-microphone': 'fa fa-microphone',
@@ -149,7 +168,16 @@ def inline(text):
     for p in parts:
         if p.startswith('<'):
             out.append(p); continue
-        p = re.sub(r'`([^`]+)`', lambda m: '<code>' + esc(m.group(1)) + '</code>', p)
+        # 先保护行内代码, 避免把代码里的 $ 当数学
+        codes = []
+        def stash(m):
+            codes.append(m.group(1)); return '\x00%d\x00' % (len(codes) - 1)
+        p = re.sub(r'`([^`]+)`', stash, p)
+        # LaTeX 数学: $$..$$ -> \\[..\\], $..$ -> \\(..\\) (排除含逗号的金额写法)
+        p = re.sub(r'\$\$([^$\n]{1,200})\$\$', lambda m: '\\[' + m.group(1) + '\\]', p)
+        p = re.sub(r'\$([^$,\n]{1,80})\$', lambda m: '\\(' + m.group(1) + '\\)', p)
+        # 还原行内代码
+        p = re.sub(r'\x00(\d+)\x00', lambda m: '<code>' + esc(codes[int(m.group(1))]) + '</code>', p)
         p = re.sub(r':(fa-[a-z0-9-]+):', lambda m: '<span class="blue"><i class="' + FA.get(m.group(1), 'fa ' + m.group(1)) + '" aria-hidden="true"></i></span>', p)
         p = re.sub(r'==([^=]+)==', r'<mark>\1</mark>', p)
         p = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)

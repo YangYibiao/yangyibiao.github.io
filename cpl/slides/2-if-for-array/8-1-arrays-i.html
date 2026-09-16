@@ -32,7 +32,22 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script></head><body for="html-export" data-presentation-mode="">
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\[", right: "\]", display: true},
+        {left: "\(", right: "\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -132,7 +147,7 @@
 <hr>
 <p>要访问数组元素, 可在数组名后加上一个方括号括起来的整数值.</p>
 <p>这被称为对数组取下标或进行索引.</p>
-<p>长度为n的数组元素的索引从$0$到$n – 1$.</p>
+<p>长度为n的数组元素的索引从\(0\)到\(n – 1\).</p>
 <p>若数组a长度为<code>10</code>, 元素依次可标记为$a[0], a[1], ..., a[9]$:</p>
 <div class="row1-2-column1-10-fullborder">
 <!-- <div class="fullborder"> -->
@@ -140,15 +155,15 @@
 <thead>
 <tr>
 <th>a[0]</th>
-<th>$a[1]$</th>
-<th>$a[2]$</th>
-<th>$a[3]$</th>
-<th>$a[4]$</th>
-<th>$a[5]$</th>
-<th>$a[6]$</th>
-<th>$a[7]$</th>
-<th>$a[8]$</th>
-<th>$a[9]$</th>
+<th>\(a[1]\)</th>
+<th>\(a[2]\)</th>
+<th>\(a[3]\)</th>
+<th>\(a[4]\)</th>
+<th>\(a[5]\)</th>
+<th>\(a[6]\)</th>
+<th>\(a[7]\)</th>
+<th>\(a[8]\)</th>
+<th>\(a[9]\)</th>
 </tr>
 </thead>
 <tbody>
@@ -188,7 +203,7 @@
   sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* sums the elements of a */</span></code></pre>
 <hr>
 <p>C不检查下标的范围; 若超出范围, 程序可能执行不可预知的行为</p>
-<p>$n$个元素的<mark>数组索引</mark>是从$0$到$n – 1$, 而不是从$1$到$n$:</p>
+<p>\(n\)个元素的<mark>数组索引</mark>是从\(0\)到\(n – 1\), 而不是从\(1\)到\(n\):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
   a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
@@ -306,9 +321,9 @@
 <p>顺序无关</p>
 <hr>
 <p>指示符必须是整型常量表达式</p>
-<p>如果要初始化的数组长度为$n$, 则指示符的值必须在$0$和$n–1$之间</p>
+<p>如果要初始化的数组长度为\(n\), 则指示符的值必须在\(0\)和\(n–1\)之间</p>
 <p>如果省略数组的长度, 则指示符可以是任何非负整数</p>
-<p>编译器将从最大指示符推导出数组长度, 以下数组将有$24$个元素:</p>
+<p>编译器将从最大指示符推导出数组长度, 以下数组将有\(24\)个元素:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">23</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">36</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <p>长度自动推导</p>
 <hr>

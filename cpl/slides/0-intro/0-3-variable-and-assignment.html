@@ -37,7 +37,22 @@
     // your code here
   });
 </script>
-    </head>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\[", right: "\]", display: true},
+        {left: "\(", right: "\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</head>
     <body for="html-export" data-presentation-mode="">
       <div class="crossnote markdown-preview  " data-presentation-mode="">
       
@@ -94,7 +109,7 @@
 <p><mark>int</mark>变量: (整数integer的缩写)存储整数, 如<code>0</code>, <code>1</code>, <code>392</code>或<code>-2553</code></p>
 <ul>
 <li>
-<p>取值范围是受限的, 最大的整数通常是$2 147 483 647$($2^{31}-1$)</p>
+<p>取值范围是受限的, 最大的整数通常是\(2 147 483 647\)(\(2^{31}-1\))</p>
 
 </li>
 <li>
@@ -130,7 +145,7 @@
 
 </li>
 <li>
-<p><mark>float/double</mark> 型变量中存储0.1, 可能发现变量值为$0.099 999 999 999 999 87$</p>
+<p><mark>float/double</mark> 型变量中存储0.1, 可能发现变量值为\(0.099 999 999 999 999 87\)</p>
 
 </li>
 </ul>
@@ -415,38 +430,38 @@ height <span class="token operator">=</span> <span class="token number">10</span
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="代码演示1--年龄">代码演示1: 年龄 </h5>
 <hr>
-<p>给定一个人的出生日期（年、月、日），以及一个参考日期（通常是今天），计算他现在的精确年龄（几岁几个月几天）。</p>
-<hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="代码演示1--年龄">代码演示1: 年龄 </h5>
-<hr>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<p><mark>现场演示</mark></p>
+<p>输入出生年份, 输出今年的年龄 (纯变量 + 表达式)</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* age.c: 计算年龄 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> birthYear<span class="token punctuation">,</span> birthMonth<span class="token punctuation">,</span> birthDay<span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> refYear<span class="token punctuation">,</span> refMonth<span class="token punctuation">,</span> refDay<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> birth_year<span class="token punctuation">;</span>
 
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入出生日期 (年 月 日): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>birthYear<span class="token punctuation">,</span> <span class="token operator">&</span>birthMonth<span class="token punctuation">,</span> <span class="token operator">&</span>birthDay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入出生年份: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>birth_year<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入参考日期 (年 月 日): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>refYear<span class="token punctuation">,</span> <span class="token operator">&</span>refMonth<span class="token punctuation">,</span> <span class="token operator">&</span>refDay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> age <span class="token operator">=</span> <span class="token number">2026</span> <span class="token operator">-</span> birth_year<span class="token punctuation">;</span>      <span class="token comment">/* 简单的减法表达式 */</span>
 
-    <span class="token keyword keyword-int">int</span> age <span class="token operator">=</span> refYear <span class="token operator">-</span> birthYear<span class="token punctuation">;</span>
-
-    <span class="token comment">/* 如果今年生日还没过，年龄减 1 */</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>refMonth <span class="token operator"><</span> birthMonth <span class="token operator">||</span>
-        <span class="token punctuation">(</span>refMonth <span class="token operator">==</span> birthMonth <span class="token operator">&amp;&amp;</span> refDay <span class="token operator"><</span> birthDay<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        age<span class="token operator">--</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"年龄: %d 岁\n"</span><span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"今年 %d 岁\n"</span><span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p>三个"变量": <code>birth_year</code> (输入)、<code>age</code> (计算)、<code>2026</code> (常量)</p>
+
+</li>
+<li>
+<p>表达式 <code>2026 - birth_year</code> 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==</p>
+
+</li>
+</ul>
+<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 加一点判断就能算"生日过了没"——那是第 4 周的内容
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="代码演示2--温度转换">代码演示2: 温度转换 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="代码演示2--温度转换">代码演示2: 温度转换 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
-<p>输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$</p>
+<p>输入摄氏温度, 输出对应的华氏温度: \(F = \frac{9}{5} C + 32\)</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* temp.c: 摄氏转华氏 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -475,12 +490,49 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="代码演示3--成绩">代码演示3: 成绩 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="代码演示3--找零计算">代码演示3: 找零计算 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
-<p>给定成绩，输出他优秀/良好/及格/不及格</p>
+<p>输入金额 (整数元), 输出需要各种面额<mark>多少张</mark>: <code>/</code> 与 <code>%</code> 的第一次实战</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* change.c: 找零计算 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> amount<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入金额 (元): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"100元: %d 张\n"</span><span class="token punctuation">,</span> amount <span class="token operator">/</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 整除: 有几个 100 */</span>
+  amount <span class="token operator">=</span> amount <span class="token operator">%</span> <span class="token number">100</span><span class="token punctuation">;</span>                       <span class="token comment">/* 取余: 剩下多少 */</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" 50元: %d 张\n"</span><span class="token punctuation">,</span> amount <span class="token operator">/</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  amount <span class="token operator">=</span> amount <span class="token operator">%</span> <span class="token number">50</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" 20元: %d 张\n"</span><span class="token punctuation">,</span> amount <span class="token operator">/</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  amount <span class="token operator">=</span> amount <span class="token operator">%</span> <span class="token number">20</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" 10元: %d 张\n"</span><span class="token punctuation">,</span> amount <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  amount <span class="token operator">=</span> amount <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  5元: %d 张\n"</span><span class="token punctuation">,</span> amount <span class="token operator">/</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  amount <span class="token operator">=</span> amount <span class="token operator">%</span> <span class="token number">5</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  1元: %d 张\n"</span><span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p><code>/</code> 求"有几个", <code>%</code> 求"剩多少"——两个运算符配合, 把一个数一层层拆开</p>
+
+</li>
+<li>
+<p>课后 OJ 有 <code>change.c</code> 同款题目, 自己动手写一遍</p>
+
+</li>
+</ul>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="代码演示4--石头剪刀布">代码演示4: 石头剪刀布 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="代码演示4--石头剪刀布">代码演示4: 石头剪刀布 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <p>你和电脑各出一个手势, 谁赢?</p>
@@ -519,7 +571,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="集成开发环境">集成开发环境 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="集成开发环境">集成开发环境 </h5>
 <hr>
 <p>集编辑、编译、运行、调试的开发环境</p>
 <ul>
@@ -540,7 +592,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="ai-辅助编程工具">AI 辅助编程工具 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="ai-辅助编程工具">AI 辅助编程工具 </h5>
 <hr>
 <ul>
 <li>
@@ -577,12 +629,12 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>轮到你了: 把课程演示变成自己的程序</mark></p>
 <p>打开 CLion / VSCode, 现场完成 (10 分钟):</p>
 <ol>
-<li><mark>温度转换</mark>: 输入摄氏温度, 输出华氏温度 ($F = \frac{9}{5}C + 32$)</li>
+<li><mark>温度转换</mark>: 输入摄氏温度, 输出华氏温度 (\(F = \frac{9}{5}C + 32\))</li>
 <li><mark>成绩判断</mark>: 输入一个成绩, 输出"及格"或"不及格"</li>
 </ol>
 <p>提示:</p>
@@ -602,7 +654,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </ul>
 <span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 卡住了? 先看课件对应的演示页, 再问助教——==今天每个人的程序都要能跑起来==
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>存储"成绩 98.5"用什么类型？"学号 20260001"呢？"性别 M"呢？</li>
@@ -611,7 +663,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 <li>TensorFlow / PyTorch 的性能核心由什么语言实现？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="25" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="24" data-v="0"><hr>
 <div class="top-2">
   <img src="figs/see-you.png" width=500px>
 </div>
