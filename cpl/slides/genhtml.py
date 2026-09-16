@@ -47,25 +47,29 @@ first = html.find('<section data-notes')
 last = html.rfind('</section>') + len('</section>')
 head_html, tail_html = html[:first], html[last:]
 head_html = re.sub(r'<title>[^<]*</title>', '<title>' + name + '</title>', head_html)
-# 注入 KaTeX 运行时 (数学公式 \\(...\\) 与 \\[...\\] 在浏览器端渲染)
-KATEX = """<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+# 注入 KaTeX 运行时 (数学公式 \(...\) 与 \[...\] 在浏览器端渲染)
+# JS 版本与 head 中已有的 katex.min.css 保持一致, 避免 CSS/JS 错配
+head_html = re.sub(r'<script defer src="https://cdn\.jsdelivr\.net/npm/katex@[\d.]+/dist/katex\.min\.js"></script>.*?</head>',
+                   '</head>', head_html, flags=re.S)  # 先移除旧版注入块 (若有), 否则会被旧版本覆盖
+m = re.search(r'katex@([\d.]+)/dist/katex\.min\.css', head_html)
+katex_ver = m.group(1) if m else '0.16.47'
+KATEX = """<script defer src="https://cdn.jsdelivr.net/npm/katex@VER/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@VER/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\\[", right: "\\]", display: true},
-        {left: "\\(", right: "\\)", display: false}
+        {left: "\\\\[", right: "\\\\]", display: true},
+        {left: "\\\\(", right: "\\\\)", display: false}
       ],
       throwOnError: false
     });
   }
 });
 </script>
-</head>"""
-if 'renderMathInElement' not in head_html:
-    head_html = head_html.replace('</head>', KATEX, 1)
+</head>""".replace('VER', katex_ver)
+head_html = head_html.replace('</head>', KATEX, 1)
 
 FA = {'fa-lightbulb-o': 'fa fa-lightbulb-o', 'fa-weixin': 'fa fa-weixin', 'fa-camera': 'fa fa-camera',
       'fa-language': 'fa fa-language', 'fa-car': 'fa fa-car', 'fa-microphone': 'fa fa-microphone',
@@ -81,15 +85,21 @@ KEYWORDS = {'int': 'keyword-int', 'void': 'keyword-void', 'return': 'keyword-ret
 def esc(s): return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 def raw_inline(line):
-    """原始 HTML 行里也要转换 :fa-xxx: 图标、==强调== 和 `行内代码`"""
+    """原始 HTML 行: 先暂存行内代码, 其余文本转换图标/强调/数学并转义裸 &"""
+    codes = []
+    def stash(m):
+        codes.append(m.group(1)); return '\x00%d\x00' % (len(codes) - 1)
+    line = re.sub(r'`([^`\n]+)`', stash, line)
+    line = re.sub(r'``([^`\n]+)``', r'`\1`', line)  # 双反引号 -> 单反引号
     line = re.sub(r':(fa-[a-z0-9-]+):',
                   lambda m: '<i class="fa ' + m.group(1) + '" aria-hidden="true"></i>', line)
     line = re.sub(r'==([^=<>{}\n]+)==', r'<mark>\1</mark>', line)
     line = re.sub(r'\$\$([^$\n]{1,200})\$\$', lambda m: '\\[' + m.group(1) + '\\]', line)
     line = re.sub(r'\$([^$\n]{1,80})\$', lambda m: m.group(0) if re.search(r'\d,\d{3}', m.group(1)) else '\\(' + m.group(1) + '\\)', line)
-    line = re.sub(r'``([^`\n]+)``', r'`\1`', line)
-    line = re.sub(r'`([^`<>\n]+)`', lambda m: '<code>' + esc(m.group(1)) + '</code>', line)
+    line = re.sub(r'&(?!(?:[a-zA-Z]+|#\d+|#x[0-9a-fA-F]+);)', '&amp;', line)
+    line = re.sub(r'\x00(\d+)\x00', lambda m: '<code>' + esc(codes[int(m.group(1))]) + '</code>', line)
     return line
+
 
 def highlight_c(code):
     out, i, n = [], 0, len(code)
@@ -167,6 +177,7 @@ def highlight_c(code):
             out.append('<span class="token operator">' + c + '</span>'); i += 1; continue
         out.append(esc(c)); i += 1
     return ''.join(out)
+
 
 def inline(text):
     parts = re.split(r'(</?[A-Za-z][A-Za-z0-9]*(?:\s[^<>]*)?/?>)', text)
@@ -248,7 +259,12 @@ def parse_content(lines):
             i += 1
             while i < len(lines) and lines[i].strip() and is_raw(lines[i]):
                 raw.append(raw_inline(lines[i])); i += 1
-            out.append('\n'.join(raw)); continue
+            joined = '\n'.join(raw)
+            if ln.strip().startswith('<span'):
+                out.append('<p>' + joined + '</p>')
+            else:
+                out.append(joined)
+            continue
         if is_bullet(ln) and not re.match(r'^  [-*] ', ln):
             items = []
             while i < len(lines):
