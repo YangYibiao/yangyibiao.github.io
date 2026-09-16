@@ -47,7 +47,6 @@ presentation:
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
 
-
 <!-- slide data-notes="" -->
 
 ##### 提纲
@@ -125,11 +124,30 @@ int main(void) {
 ---
 
 
-
 <!-- slide data-notes="" -->
 
+##### float 与 double 的精度
 
-##### 字符与 ASCII: char 其实是小整数
+---
+
+- ==float==: 约 6 位有效数字; ==double==: 约 15 位有效数字
+
+```C
+float f = 1.0f / 3.0f;   /* 0.333333            */
+double d = 1.0 / 3.0;    /* 0.333333333333333   */
+```
+
+- 为什么默认用 ==double==? 精度高, 且字面量 `3.14` 本来就是 double
+
+- float 字面量要加 ==`f`== 后缀 (`1.0f`); 不加就是 double (赋给 float 会有转换警告)
+
+- float 一般只在==内存紧张==时用 (如嵌入式)
+
+- 浮点运算==有误差==: 0.1 + 0.2 不等于 0.3——第 3 周细讲
+
+---
+
+<!-- slide data-notes="" -->##### 字符与 ASCII: char 其实是小整数
 
 ---
 
@@ -153,7 +171,6 @@ printf("%d\n", '9' - '0');       /* 9 (字符数字转整数) */
 - 常用技巧: ==toupper/tolower== (ctype.h); '9'-'0' 把字符数字变成整数
 
 ---
-
 
 <!-- slide data-notes="" -->
 
@@ -208,6 +225,12 @@ double pi = 3.14159;       /* double: 不加 f */
 ```C
 const double MOL = 6.02E23;
 const int GRAM_PER_MOL = 32;
+```
+
+<span class="yellow">:fa-weixin:</span> 宏里如果含运算符, ==整体要加括号==, 否则替换后会因优先级出错:
+
+```C
+#define SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */
 ```
 
 ---
@@ -316,6 +339,5 @@ int main() {
 ## 未完待续
 
 ---
-
 
 

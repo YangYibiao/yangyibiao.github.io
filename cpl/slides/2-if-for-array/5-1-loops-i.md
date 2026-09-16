@@ -30,7 +30,6 @@ presentation:
 @import "../../js/anychart/venn-ml.js"
 
 
-
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
@@ -46,7 +45,6 @@ presentation:
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
-
 
 
 <!-- slide data-notes="" -->
@@ -536,8 +534,29 @@ while (n < 10) {
 
 <!-- slide data-notes="" -->
 
+##### 空语句: 一个分号的代价
 
-##### 课堂小测
+---
+
+==空语句==: 只有一个分号 `;`, 什么都不做
+
+- 意外写出的空语句是经典 bug——多打的一个分号会让循环体/if 体变成"空":
+
+```C
+while (i < n);        /* BUG: 循环体是空语句 → 死循环! */
+  sum += a[i++];      /* 这行其实只执行一次 */
+
+if (d == 0);          /* BUG: if 的体是空语句 → 条件成立时什么都不做 */
+  printf("zero");
+```
+
+- 编译器通常会警告 (`empty body in a while`), 但==不要依赖警告==
+
+- 好习惯: ==循环体和 if 后面永远加大括号==, 哪怕只有一条语句
+
+---
+
+<!-- slide data-notes="" -->##### 课堂小测
 
 ---
 
@@ -548,8 +567,6 @@ while (n < 10) {
 3. break 和 continue 分别把控制转移到哪里？
 
 4. 输入一个非负整数，输出它的位数（用 do-while），关键思路是什么？
-
-
 
 <!-- slide data-notes="" -->
 
@@ -567,6 +584,5 @@ while (n < 10) {
 ## 未完待续
 
 ---
-
 
 

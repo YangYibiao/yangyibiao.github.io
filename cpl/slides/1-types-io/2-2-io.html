@@ -402,7 +402,31 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="scanf-读字符与-遗留的换行">scanf 读字符与"遗留的换行" </h5>
+<hr>
+<ul>
+<li>
+<p><code>%d</code>、<code>%f</code> 会自动跳过空格和换行; <mark><code>%c</code> 不会</mark>——它读到的可能就是上一次输入留下的换行符</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span> <span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> <span class="token operator">&</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 读到的是 '\n' 或空格, 不是用户新输入的字符! */</span></code></pre>
+<ul>
+<li>
+<p>解决: 在 <code>%c</code> 前加一个空格表示"跳过空白": <code>scanf(" %c", &amp;ch);</code></p>
+
+</li>
+<li>
+<p>scanf 与 getchar 混用时的经典坑: scanf 结束后<mark>换行符还留在输入流里</mark>, 会被后面的 <code>getchar()</code> 当"第一个字符"吃掉</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">/* 先把遗留的换行符吃掉, 再读下面的字符 */</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
 <hr>
 <ul>
 <li>
@@ -435,7 +459,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </ul>
 <span class="yellow">:fa-weixin:</span> 要在第一个数字后允许空格, 需改用格式字符串 ==`"%d /%d"`==
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
 <hr>
 <p><mark><code>scanf</code></mark> 和 <mark><code>printf</code></mark> 的调用看起来相似, 但两者之间存在显著差异</p>
 <ul>
@@ -460,7 +484,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
 <hr>
 <p><mark>getchar</mark>: 读取单个字符</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> ch<span class="token punctuation">;</span>              <span class="token comment">/* 注意: 返回值是 int, 不是 char! */</span>
@@ -471,7 +495,7 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 输出换行符 */</span></code></pre>
 <span class="blue">:fa-weixin:</span> getchar/putchar 读写字符的效率高于 scanf/printf, 在==字符处理==类程序(如统计输入字符个数)中常用
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
 <hr>
 <p>*addfrac.c* 程序提示用户输入两个分数, 然后计算和打印它们的和</p>
 <p>示例程序输出:</p>
@@ -498,7 +522,7 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>printf("%-8.3f", x)</code> 中 <code>-</code>、<code>8</code>、<code>.3</code> 分别表示什么？</li>
@@ -507,7 +531,7 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 <li><code>getchar()</code> 返回值的类型是什么？为什么它适合读取字符？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
