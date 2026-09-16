@@ -61,6 +61,11 @@ KEYWORDS = {'int': 'keyword-int', 'void': 'keyword-void', 'return': 'keyword-ret
 
 def esc(s): return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
+def raw_inline(line):
+    """原始 HTML 行里也要转换 :fa-xxx: 图标语法"""
+    return re.sub(r':(fa-[a-z0-9-]+):',
+                  lambda m: '<i class="fa ' + m.group(1) + '" aria-hidden="true"></i>', line)
+
 def highlight_c(code):
     out, i, n = [], 0, len(code)
     while i < n:
@@ -204,10 +209,10 @@ def parse_content(lines):
             tbl, i = parse_table(lines, i)
             out.append(tbl); continue
         if is_raw(ln):
-            raw = [ln]
+            raw = [raw_inline(ln)]
             i += 1
             while i < len(lines) and lines[i].strip() and is_raw(lines[i]):
-                raw.append(lines[i]); i += 1
+                raw.append(raw_inline(lines[i])); i += 1
             out.append('\n'.join(raw)); continue
         if is_bullet(ln) and not re.match(r'^  [-*] ', ln):
             items = []
