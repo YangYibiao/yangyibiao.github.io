@@ -45,7 +45,7 @@ presentation:
 
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
-#### [yangyibiao@nju.edu.cn](yangyibiao@nju.edu.cn)
+#### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
 
 

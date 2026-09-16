@@ -41,8 +41,7 @@ presentation:
 
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
-#### [yangyibiao@nju.edu.cn](yangyibiao@nju.edu.cn)
-
+#### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
 
 <!-- slide data-notes="" -->
@@ -76,8 +75,6 @@ Not prime
 
 is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有一个余数为0, n就不是素数.
 
-
-##### 程序: 判定素数
 
 ---
 
@@ -152,8 +149,6 @@ int main(void) {
 ---
 
 
-##### leap.c
-
 ---
 
 <a href="code/leap-re.c" target="_blank">leap-re.c</a>
@@ -227,8 +222,6 @@ int main() {
 
 ---
 
-
-##### primes.c
 
 ---
 
