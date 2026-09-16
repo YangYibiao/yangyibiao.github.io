@@ -33,8 +33,6 @@ presentation:
 :root { --r-main-font-size: 46px; }
 </style>
 
-
-
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
@@ -87,7 +85,7 @@ presentation:
 <span class="blue">:fa-weixin:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
 
 
-<!-- TODO: 第一节课后删除下面两个QQ群slide（群号与二维码仅第一节课使用） -->
+
 
 <!-- slide data-notes="" -->
 
@@ -104,32 +102,6 @@ presentation:
 - ==一点基础==都没有的同学有多少？
 
 <span class="blue">:fa-lightbulb-o:</span> 调查结果用于调整教学节奏
-
-
-<!-- slide data-notes="" -->
-
-##### QQ群-1班
-
----
-
-<div class="top-2">
-  <img src="../figs/1班qq群.jpg" width=200px>
-</div>
-
-==群号: 1073454008==
-
-
-<!-- slide data-notes="" -->
-
-##### QQ群-8班
-
----
-
-<div class="top-2">
-  <img src="../figs/8班qq群.jpg" width=200px>
-</div>
-
-==群号: 687133341==
 
 
 <!-- slide data-notes="" -->
