@@ -25,15 +25,28 @@ BASE = (os.path.join(here, sys.argv[2]) if len(sys.argv) > 2 else here)
 if not BASE.endswith('/'):
     BASE += '/'
 md = open(BASE + name + '.md', encoding='utf-8').read()
-html = open(BASE + name + '.html', encoding='utf-8').read()
+html_path = BASE + name + '.html'
+try:
+    html = open(html_path, encoding='utf-8').read()
+except FileNotFoundError:
+    # 新课件: 借用同目录任一已有课件做模板 (只取 head/tail)
+    import glob
+    tmpl = next((f for f in sorted(glob.glob(BASE + '*.html'))
+                 if not f.endswith(name + '.html')), None)
+    if tmpl is None:
+        print('no template html in', BASE, '- create one deck first')
+        sys.exit(1)
+    print('new deck: using template', os.path.basename(tmpl))
+    html = open(tmpl, encoding='utf-8').read()
 MARK_RE = r'<!-- slide(?: vertical=true)? data-notes="" -->'
 blocks = re.split(MARK_RE, md)[1:]
 
+if '"width":1280' not in html:
+    html = html.replace('Reveal.initialize({', 'Reveal.initialize({"width":1280,"height":720,', 1)
 first = html.find('<section data-notes')
 last = html.rfind('</section>') + len('</section>')
 head_html, tail_html = html[:first], html[last:]
-if '"width":1280' not in head_html:
-    head_html = head_html.replace('Reveal.initialize({', 'Reveal.initialize({"width":1280,"height":720,', 1)
+head_html = re.sub(r'<title>[^<]*</title>', '<title>' + name + '</title>', head_html)
 
 FA = {'fa-lightbulb-o': 'fa fa-lightbulb-o', 'fa-weixin': 'fa fa-weixin', 'fa-camera': 'fa fa-camera',
       'fa-language': 'fa fa-language', 'fa-car': 'fa fa-car', 'fa-microphone': 'fa fa-microphone',
