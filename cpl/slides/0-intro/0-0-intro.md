@@ -53,8 +53,6 @@ presentation:
   <img src="../figs/lets-code.jpeg" width=360px>
 </div>
 
-
-
 <!-- slide data-notes="" -->
 
 ##### 课程安排
@@ -84,9 +82,6 @@ presentation:
 <span class="blue">:fa-weixin:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 <span class="blue">:fa-weixin:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
 
-
-
-
 <!-- slide data-notes="" -->
 
 ##### 课前小调查
@@ -103,7 +98,6 @@ presentation:
 
 <span class="blue">:fa-lightbulb-o:</span> 调查结果用于调整教学节奏
 
-
 <!-- slide data-notes="" -->
 
 ##### 课程答疑
@@ -113,8 +107,6 @@ presentation:
 - 线上答疑: QQ群内提问或==私聊==线上助教，每班有一位学长主要负责线上答疑
 
 - 线下答疑: ==上机课==时间，每班有一位学长到线下教室答疑
-
-
 
 <!-- slide data-notes="" -->
 
@@ -134,7 +126,6 @@ presentation:
 
 - 在线评测网址: == http://172.28.223.3/ == (仅校园网内访问)
 
-
 <!-- slide data-notes="" -->
 
 ##### 在线评测系统 (OJ)
@@ -146,7 +137,6 @@ presentation:
 - 注册: 用==学号==注册账号 (便于平时作业统计)
 
 - ==务必记住密码==: 校外无法收到修改密码的邮件
-
 
 <!-- slide data-notes="" -->
 
@@ -165,7 +155,6 @@ presentation:
 
 - 注意作业==截止提交时间==
 
-
 <!-- slide data-notes="" -->
 
 ##### OJ 使用注意
@@ -178,10 +167,7 @@ presentation:
 
 - 判题结果含义 (如 等待评测、格式错误、答案错误、运行超时) 见平台 ==「常见问答」==
 
-- 示例: gets 函数在新版本中需用 fgets 替代
-
 - 日常练习: 页面顶部 ==「题目」== 选项卡
-
 
 <!-- slide data-notes="" -->
 
@@ -191,16 +177,14 @@ presentation:
 
 申请免修不免考：
 
-1. 发送邮件确认同意 yangyibiao@nju.edu.cn
-2. 网上办事大厅提交申请 https://ehall.nju.edu.cn
-3. ==务必加入课程QQ群== (作业与通知均通过群发布)
+1. 网上办事大厅提交申请 https://ehall.nju.edu.cn
+2. ==务必加入课程QQ群== (作业与通知均通过群发布)
 
 <!-- 申请免修不免考意味着: 因免修造成的一切后果自负, 而且平时作业、大作业、上机测验和期中/期末等均不免. -->
 
 ==强烈建议== 自学课件与教材中的内容; 
 
 ==友情提醒== 平时作业、上机测验等均需按时完成.
-
 
 <!-- slide data-notes="" -->
 
@@ -218,8 +202,6 @@ presentation:
 
 - ISBN: 9787040302769
 
-
-
 <!-- slide data-notes="" -->
 
 ##### 参考书目
@@ -235,9 +217,6 @@ presentation:
 - 作者: K.N.King
 
 - 出版: 人民邮电出版社
-
-
-
 
 <!-- slide data-notes="" -->
 
