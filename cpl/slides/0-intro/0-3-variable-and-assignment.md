@@ -308,11 +308,13 @@ height = 10;       /* 可以再改: height 现在是 10 */
 
 ---
 
-==`printf`== 可用于打印变量的当前值
+<div style="display:flex;align-items:flex-start;gap:16px;">
+
+<div style="flex:1.15;">
 
 ```C
 #include <stdio.h>
-int main() 
+int main()
 {
   int height = 2;
   char ch = 'a';
@@ -326,10 +328,25 @@ int main()
 }
 ```
 
-- ==%d==: int型变量占位符, 用来指明变量`height`的值显示的位置
-- ==%c==: char型变量占位符, 用来指明变量`ch`的值显示的位置
-- ==%f==: float型变量占位符, 用来指明变量`profit`的值显示的位置
-- ==%f==: double型变量占位符 (printf 中 double 也用 %f; ==`%lf` 只有 scanf 需要==)
+</div>
+
+<div style="flex:1;">
+
+==`printf`== 可用于打印变量的当前值——每个变量对应一个==占位符==:
+
+- ==`%d`==: int (`height`)
+
+- ==`%c`==: char (`ch`)
+
+- ==`%f`==: float (`profit`)
+
+- ==`%f`==: double (`pi`)——printf 里 double 也用 `%f` (==`%lf` 只有 scanf 需要==)
+
+<span class="blue">:fa-lightbulb-o:</span> 占位符要跟变量的==类型==对上
+
+</div>
+
+</div>
 
 ---
 
@@ -408,7 +425,7 @@ int main(void) {
   printf("请输入出生年份: ");
   scanf("%d", &birth_year);
 
-  int age = 2026 - birth_year;      /* 简单的减法表达式 */
+  int age = 2026 - birth_year;   /* TODO(每学期更新): 换成本年 */      /* 简单的减法表达式 */
 
   printf("今年 %d 岁\n", age);
   return 0;
