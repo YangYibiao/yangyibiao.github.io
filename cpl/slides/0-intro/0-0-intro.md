@@ -86,7 +86,9 @@ presentation:
 
 <!-- <span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 <span class="blue">:fa-lightbulb-o:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游 -->
+
 <span class="blue">:fa-weixin:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
+
 <span class="blue">:fa-weixin:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
 
 <!-- slide data-notes="" -->
