@@ -90,6 +90,15 @@ presentation:
 
 <span class="blue">:fa-weixin:</span> 用 ==sizeof== 运算符可查看类型占用的字节数
 
+- `sizeof` 用法: `sizeof(int)` 类型 / `sizeof x` 变量 (括号可省)
+
+```C
+printf("%zu %zu %zu\n", sizeof(int), sizeof(double), sizeof(char));
+```
+
+- 打印 sizeof 的结果用 ==`%zu`== (它不是 int)
+
+
 ---
 
 
@@ -147,6 +156,31 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 
 ---
 
+<!-- slide data-notes="" -->
+
+##### 整数常量的进制
+
+---
+
+同一个整数有三种写法:
+
+```C{.line-numbers}
+int a = 17;      /* 十进制 */
+int b = 021;     /* 八进制: 以 0 开头, 021 = 17 */
+int c = 0x11;    /* 十六进制: 以 0x 开头, 0x11 = 17 */
+```
+
+- <span class="yellow">:fa-weixin:</span> ==坑==: `010` 不是 10, 而是 ==8== (前导 0 表示八进制)
+
+- 打印时用不同转换说明看同一数字的"不同面孔":
+
+```C
+printf("%d %o %x\n", 17, 17, 17);   /* 输出: 17 21 11 */
+```
+
+- 十六进制在==位运算、内存地址、颜色码==中很常见 (如 `0xFF0000` 表示红色)
+
+
 <!-- slide data-notes="" -->##### 字符与 ASCII: char 其实是小整数
 
 ---
@@ -200,6 +234,15 @@ int height;
 float profit = 2150.48f;   /* float: 加 f */
 double pi = 3.14159;       /* double: 不加 f */
 ```
+
+<span class="yellow">:fa-weixin:</span> 赋的值==超出目标类型范围==时, 结果==无意义== (不会自动截到最大/最小值):
+
+```C
+char c = 10000;      /* 无意义 */
+int i = 1.0e20;      /* 无意义: 超出 int 范围 */
+float f = 1.0e100;   /* 无意义: 超出 float 范围 */
+```
+
 
 ---
 <!-- slide data-notes="" -->
