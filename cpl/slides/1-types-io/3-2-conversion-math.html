@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 </div>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 运算符优先级表可用于向缺少括号的表达式添加括号: 从最高优先级的运算符开始, 在运算符及其操作数周围加上括号
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 运算符优先级表可用于向缺少括号的表达式添加括号: 从最高优先级的运算符开始, 在运算符及其操作数周围加上括号</p>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="表达式求值">表达式求值 </h5>
 <hr>
@@ -215,33 +215,18 @@ document.addEventListener("DOMContentLoaded", function () {
 </table>
 </div>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="子表达式求值顺序">子表达式求值顺序 </h5>
-<hr>
-<p>表达式的值可能取决于计算其子表达式的顺序</p>
-<p><mark>C</mark> 没有定义子表达式评估的先后顺序(涉及逻辑与、逻辑或、条件和逗号运算符的子表达式除外)</p>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="4" data-v="0"><p>表达式的值可能取决于<mark>子表达式的计算顺序</mark>——C 没有定义这个先后 (逻辑与或、条件、逗号运算符除外)</p>
 <ul>
 <li>
-<p>在表达式 <code>(a + b) * (c - d)</code> 中并未定义是应该先计算 <code>(a + b)</code> 还是应该先计算 <code>(c – d)</code></p>
-
-</li>
-<li>
-<p>大多数表达式具有相同的值, 无论其子表达式的计算顺序如何; 但当子表达式<mark>修改其操作数</mark>时, 则上述表述不成立:</p>
+<p><code>(a + b) * (c - d)</code>: 先算哪个括号? 不确定; 大多数表达式结果相同, 但子表达式<mark>修改操作数</mark>时就不成立: ```C{.line-numbers} a = 5; c = (b = a + 2) - (a = 1);</p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-c <span class="token operator">=</span> <span class="token punctuation">(</span>b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
-<p>第二条语句的执行结果是未定义的</p>
-
-</li>
-</ul>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 避免在表达式中访问变量值的同时也修改该变量的值
-<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">-</span> 第二条语句的执行结果是未定义的
+<span class="token operator"><</span>span class<span class="token operator">=</span><span class="token string">"blue"</span><span class="token operator">></span><span class="token operator">:</span>fa<span class="token operator">-</span>lightbulb<span class="token operator">-</span>o<span class="token operator">:</span><span class="token operator"><</span><span class="token operator">/</span>span<span class="token operator">></span> 避免在表达式中访问变量值的同时也修改该变量的值</code></pre>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="子表达式求值顺序">子表达式求值顺序 </h5>
 <hr>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 为防止出现问题, 最好避免在子表达式中使用赋值运算符
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 为防止出现问题, 最好避免在子表达式中使用赋值运算符</p>
 <p>相反, 建议使用一串分离的赋值表达式:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
 b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
@@ -275,7 +260,7 @@ j <span class="token operator">=</span> i <span class="token operator">*</span> 
 
 </li>
 </ul>
-<span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 应避免未定义的行为
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 应避免未定义的行为</p>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="副作用-side-effects">副作用(side effects) </h5>
 <hr>
@@ -294,7 +279,7 @@ j <span class="token operator">=</span> i <span class="token operator">*</span> 
 k <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">/* prints "1 1 2" */</span></code></pre>
-<span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>嵌入式赋值</mark> 会使程序难以阅读, 容易隐藏错误
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>嵌入式赋值</mark> 会使程序难以阅读, 容易隐藏错误</p>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="左值">左值 </h5>
 <hr>
@@ -313,19 +298,9 @@ k <span class="token operator">=</span> <span class="token number">1</span> <spa
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token number">12</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>      <span class="token comment">/*** WRONG ***/</span>
 i <span class="token operator">+</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/*** WRONG ***/</span>
 <span class="token operator">-</span>i <span class="token operator">=</span> j<span class="token punctuation">;</span>      <span class="token comment">/*** WRONG ***/</span></code></pre>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型转换">类型转换 </h5>
-<hr>
-<ul>
-<li>
-<p>强制转换还能<mark>避免溢出</mark>: <mark>先提升, 再运算</mark>, 而不是算完再提升</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span> <span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1000000</span><span class="token punctuation">;</span>
-i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>      <span class="token comment">/* 正确: j 先转成 long, 乘法不会溢出 */</span>
-i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 错误: j * j 已经在 int 里溢出了 */</span></code></pre>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型转换---隐式转换">类型转换 - 隐式转换 </h5>
 <hr>
 <p><mark>隐式转换</mark>: 不同类型混合运算/赋值时, 编译器自动转换</p>
 <ul>
@@ -346,12 +321,24 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 </ul>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">1</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>        <span class="token comment">/* 0   (整数除法) */</span>
 <span class="token number">1.0</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>      <span class="token comment">/* 0.5 (2 提升为 double) */</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
+<hr>
 <p><mark>强制转换</mark>: 显式地把值转换为目标类型</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 0.5 */</span>
 <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> <span class="token number">3.9</span><span class="token punctuation">;</span>       <span class="token comment">/* 3 */</span></code></pre>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 强制转换的优先级很高, 只作用于紧邻的操作数; 需要转换整个表达式时要加括号, 如 <mark>(int) (3.9 + 1.1)</mark>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 强制转换的优先级很高, 只作用于紧邻的操作数; 需要转换整个表达式时要加括号, 如 <mark>(int) (3.9 + 1.1)</mark></p>
+<ul>
+<li>
+<p>强制转换还能<mark>避免溢出</mark>: <mark>先提升, 再运算</mark>, 而不是算完再提升</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span> <span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1000000</span><span class="token punctuation">;</span>
+i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>      <span class="token comment">/* 正确: j 先转成 long, 乘法不会溢出 */</span>
+i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 错误: j * j 已经在 int 里溢出了 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="数学库函数">数学库函数 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="数学库函数">数学库函数 </h5>
 <hr>
 <p>调用数学库函数必须包含头文件 <code>#include &lt;math.h&gt;</code>, 并可能需加编译选项 <code>-lm</code></p>
 <div class="fullborder">
@@ -401,21 +388,10 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
 <hr>
-<p>\(6\) 克氧气的分子数是多少?</p>
-<p>\(Q = 6 / 32 \times 6.02 \times 10^{23}\)</p>
-<p>两种格式输出, 结果均使用<mark>科学计数法</mark>表示</p>
-<ul>
-<li>
-<p>第一行结果, 小数点后保留 \(3\) 位</p>
-
-</li>
-<li>
-<p>第二行结果, 保留 \(5\) 位有效数字</p>
-
-</li>
-</ul>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
  * mol.c(6克氧气的分子数)
  */</span>
@@ -431,68 +407,23 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"quantity = %.3e\nquantity = %.5g\n"</span><span class="token punctuation">,</span> quantity<span class="token punctuation">,</span> quantity<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--大学信息管理系统">编码实践: 大学信息管理系统 </h5>
-<hr>
+</div>
+<div style="flex:1;">
+<p>\(6\) 克氧气的分子数是多少?</p>
+<p>\(Q = 6 / 32 \times 6.02 \times 10^{23}\)</p>
+<p>两种格式输出, 结果均使用<mark>科学计数法</mark>表示</p>
 <ul>
 <li>
-<p>校名 (EN) / 校址</p>
+<p>第一行结果, 小数点后保留 \(3\) 位</p>
 
 </li>
 <li>
-<p>类型(综合型C/艺术类A/工科类T)</p>
-
-</li>
-<li>
-<p>校庆日 (mm-dd-yyyy)</p>
-
-</li>
-<li>
-<p>教学质量/研究质量/影响力</p>
-
-</li>
-<li>
-<p>平均分/标准差/排名</p>
+<p>第二行结果, 保留 \(5\) 位有效数字</p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">//</span>
-<span class="token comment">// admin 大学信息管理系统</span>
-<span class="token comment">//</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Nanjing University"</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-char">char</span> address<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Nanjing"</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-char">char</span> type <span class="token operator">=</span> <span class="token string">'C'</span><span class="token punctuation">;</span> <span class="token comment">// C: comprehensive; T: technology; A: arts</span>
-    <span class="token keyword keyword-int">int</span> birth_year <span class="token operator">=</span> <span class="token number">1902</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> birth_month <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> birth_day <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-char">char</span> weekday<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Tuesday"</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-int">int</span> edu_score <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span> <span class="token comment">// 教学质量</span>
-    <span class="token keyword keyword-int">int</span> research_score <span class="token operator">=</span> <span class="token number">98</span><span class="token punctuation">;</span> <span class="token comment">// 研究声誉</span>
-    <span class="token keyword keyword-int">int</span> impact_score <span class="token operator">=</span> <span class="token number">93</span><span class="token punctuation">;</span>   <span class="token comment">// 影响力</span>
-
-    <span class="token keyword keyword-double">double</span> mean <span class="token operator">=</span> <span class="token punctuation">(</span>edu_score <span class="token operator">+</span> research_score <span class="token operator">+</span> impact_score<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">3.0</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-double">double</span> sd <span class="token operator">=</span> <span class="token function">sqrt</span><span class="token punctuation">(</span><span class="token function">pow</span><span class="token punctuation">(</span>edu_score <span class="token operator">-</span> mean<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">pow</span><span class="token punctuation">(</span>research_score <span class="token operator">-</span> mean<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">pow</span><span class="token punctuation">(</span>impact_score <span class="token operator">-</span> mean<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-int">int</span> rank <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s \t %s \t %c \n"</span>
-           <span class="token string">"%.2d-%d-%d \t\t\t %.3s.\n"</span>
-           <span class="token string">"%d \t\t\t\t\t %d \t\t %d\n"</span>
-           <span class="token string">"%.1f \t\t\t\t %.2f \t\t %d%%\n"</span><span class="token punctuation">,</span>
-           name<span class="token punctuation">,</span> address<span class="token punctuation">,</span> <span class="token function">toupper</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span>
-           birth_month<span class="token punctuation">,</span> birth_day<span class="token punctuation">,</span> birth_year<span class="token punctuation">,</span> weekday<span class="token punctuation">,</span>
-           edu_score<span class="token punctuation">,</span> research_score<span class="token punctuation">,</span> impact_score<span class="token punctuation">,</span>
-           mean<span class="token punctuation">,</span> sd<span class="token punctuation">,</span> rank<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>

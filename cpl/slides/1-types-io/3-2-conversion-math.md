@@ -120,22 +120,8 @@ presentation:
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### 子表达式求值顺序
-
----
-
-表达式的值可能取决于计算其子表达式的顺序
-
-==C== 没有定义子表达式评估的先后顺序(涉及逻辑与、逻辑或、条件和逗号运算符的子表达式除外)
-
-- 在表达式 `(a + b) * (c - d)` 中并未定义是应该先计算 `(a + b)` 还是应该先计算 `(c – d)`
-
-- 大多数表达式具有相同的值, 无论其子表达式的计算顺序如何; 但当子表达式==修改其操作数==时, 则上述表述不成立: 
-
-```C{.line-numbers}
+<!-- slide data-notes="" -->表达式的值可能取决于==子表达式的计算顺序==——C 没有定义这个先后 (逻辑与或、条件、逗号运算符除外)
+- `(a + b) * (c - d)`: 先算哪个括号? 不确定; 大多数表达式结果相同, 但子表达式==修改操作数==时就不成立: ```C{.line-numbers}
 a = 5;
 c = (b = a + 2) - (a = 1);
 ```
@@ -252,18 +238,8 @@ i + j = 0;   /*** WRONG ***/
 <!-- slide data-notes="" -->
 
 
-##### 类型转换
+##### 类型转换 - 隐式转换
 
-
-- 强制转换还能==避免溢出==: ==先提升, 再运算==, 而不是算完再提升
-
-```C
-long i; int j = 1000000;
-i = (long) j * j;      /* 正确: j 先转成 long, 乘法不会溢出 */
-i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
-```
-
----
 
 ==隐式转换==: 不同类型混合运算/赋值时, 编译器自动转换
 
@@ -283,6 +259,14 @@ d = i;      /* d 为 3.0 */
 1.0 / 2;      /* 0.5 (2 提升为 double) */
 ```
 
+
+<!-- slide data-notes="" -->
+
+
+##### 类型转换 - 强制转换
+
+---
+
 ==强制转换==: 显式地把值转换为目标类型
 
 ```C
@@ -292,8 +276,17 @@ d = i;      /* d 为 3.0 */
 
 <span class="blue">:fa-lightbulb-o:</span> 强制转换的优先级很高, 只作用于紧邻的操作数; 需要转换整个表达式时要加括号, 如 ==(int) (3.9 + 1.1)==
 
+- 强制转换还能==避免溢出==: ==先提升, 再运算==, 而不是算完再提升
+
+```C
+long i; int j = 1000000;
+i = (long) j * j;      /* 正确: j 先转成 long, 乘法不会溢出 */
+i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
+```
+
 ---
 
+---
 <!-- slide data-notes="" -->
 
 
@@ -338,14 +331,9 @@ int main(void) {
 
 ---
 
-$6$ 克氧气的分子数是多少?
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-$Q = 6 / 32 \times 6.02 \times 10^{23}$
-
-两种格式输出, 结果均使用<mark>科学计数法</mark>表示
-
-- 第一行结果, 小数点后保留 $3$ 位
-- 第二行结果, 保留 $5$ 位有效数字
+<div style="flex:1.25;font-size:0.7em;">
 
 ```C
 /*
@@ -365,63 +353,24 @@ int main(void) {
 }
 ```
 
----
+</div>
 
-<!-- slide data-notes="" -->
+<div style="flex:1;">
+
+$6$ 克氧气的分子数是多少?
+
+$Q = 6 / 32 \times 6.02 \times 10^{23}$
+
+两种格式输出, 结果均使用<mark>科学计数法</mark>表示
+
+- 第一行结果, 小数点后保留 $3$ 位
+- 第二行结果, 保留 $5$ 位有效数字
 
 
-##### 编码实践: 大学信息管理系统
 
----
+</div>
 
-- 校名 (EN) / 校址
-- 类型(综合型C/艺术类A/工科类T)
-- 校庆日 (mm-dd-yyyy)
-- 教学质量/研究质量/影响力
-- 平均分/标准差/排名
-
-```C
-//
-// admin 大学信息管理系统
-//
-#include <stdio.h>
-#include <math.h>
-#include <ctype.h>
-
-int main(void)
-{
-    char name[] = "Nanjing University";
-    char address[] = "Nanjing";
-
-    char type = 'C'; // C: comprehensive; T: technology; A: arts
-    int birth_year = 1902;
-    int birth_month = 5;
-    int birth_day = 20;
-    char weekday[] = "Tuesday";
-
-    int edu_score = 99; // 教学质量
-    int research_score = 98; // 研究声誉
-    int impact_score = 93;   // 影响力
-
-    double mean = (edu_score + research_score + impact_score) / 3.0;
-    double sd = sqrt(pow(edu_score - mean, 2) + pow(research_score - mean, 2) + pow(impact_score - mean, 2));
-
-    int rank = 5;
-    printf("%s \t %s \t %c \n"
-           "%.2d-%d-%d \t\t\t %.3s.\n"
-           "%d \t\t\t\t\t %d \t\t %d\n"
-           "%.1f \t\t\t\t %.2f \t\t %d%%\n",
-           name, address, toupper(type),
-           birth_month, birth_day, birth_year, weekday,
-           edu_score, research_score, impact_score,
-           mean, sd, rank);
-
-    return 0;
-}
-```
-
----
-
+</div>
 <!-- slide data-notes="" -->
 
 
