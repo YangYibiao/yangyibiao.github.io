@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>0-1-programming-and-c</title>
+      <title>0-2-first-c-program</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -16,7 +16,7 @@
       </style>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
       
         <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
       
@@ -32,7 +32,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+</script><style>:root { --r-main-font-size: 46px; }</style><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -77,326 +77,353 @@ document.addEventListener("DOMContentLoaded", function () {
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="程序设计与c语言入门">程序设计与C语言入门 </h2>
+<h2 id="初识c程序">初识C程序 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnmailtoyangyibiaonjueducn"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-</section><section data-notes="" lineno="66" class="slide " data-source-line="66" data-h="1" data-v="0"><h5 id="概述">概述 </h5>
+</section><section data-notes="" lineno="66" class="slide " data-source-line="66" data-h="1" data-v="0"><h5 id="程序--打印hello-nju">程序: 打印Hello NJU </h5>
 <hr>
-<ul>
-<li>
-<p>什么是计算机</p>
-
-</li>
-<li>
-<p>计算机与编程语言</p>
-
-</li>
-<li>
-<p>什么是程序设计语言</p>
-
-</li>
-<li>
-<p>编程思维</p>
-
-</li>
-<li>
-<p>为什么学习<mark>C语言</mark> (答案在第二节课揭晓)</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="思考--问题1">思考: 问题1 </h5>
-<hr>
-<p><mark>问题1</mark>：计算机和<mark>计算器</mark>有什么区别？</p>
-<hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="问题1-的答案--为什么计算机什么都能做">问题1 的答案: 为什么计算机什么都能做？ </h5>
-<hr>
-<ul>
-<li>
-<p>区别1: <mark>存储</mark>——计算机有内存与外存, 可长期保存海量数据; 计算器只能暂存几个数</p>
-
-</li>
-<li>
-<p>区别2: <mark>可编程</mark>——计算器的功能固化在硬件里; 计算机装什么程序, 就能做什么事</p>
-
-</li>
-<li>
-<p>区别3: <mark>处理的信息</mark>——文本、图像、声音、视频; 计算器只会数值运算</p>
-
-</li>
-<li>
-<p>点睛: 打开计算器 App, 计算机就能当计算器用, 计算器却永远变不成计算机</p>
-
-</li>
-<li>
-<p>彩蛋: 计算器其实也是一种小计算机——区别不在"有没有芯片", 而在"程序能不能换"</p>
-
-</li>
-</ul>
-<p><mark>程序是计算机的灵魂</mark>——我们要学的, 就是怎么给这台万能机器写指令</p>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="什么是计算机">什么是计算机 </h5>
-<hr>
-<p>程序跑在哪？——计算机。先认识这台机器:</p>
-<p>计算机: 由<mark>硬件</mark>和<mark>软件</mark>组成, 用于<mark>接收、处理和存储数据</mark>的电子设备</p>
-<ul>
-<li>
-<p>硬件：输入设备、输出设备、存储设备、CPU、内存、主板等物理组件</p>
-
-</li>
-<li>
-<p>软件：操作系统、应用程序等，执行各种任务</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="计算机如何工作">计算机如何工作 </h5>
-<hr>
-<p>程序在这台机器上跑, 靠的是五个环节:</p>
-<div style="display:flex;align-items:center;gap:20px;">
-<div style="flex:1.25;">
-<ul>
-<li>
-<p><mark>输入</mark>：键盘、鼠标、摄像头等接收数据和指令</p>
-
-</li>
-<li>
-<p><mark>处理</mark>：CPU 执行指令，进行数据处理和计算</p>
-
-</li>
-<li>
-<p><mark>存储</mark>：内存临时存储正在处理的数据；存储设备长期保存信息</p>
-
-</li>
-<li>
-<p><mark>输出</mark>：显示器、打印机、扬声器等呈现处理结果</p>
-
-</li>
-<li>
-<p><mark>控制</mark>：操作系统和应用程序管理硬件资源，协调各组件</p>
-
-</li>
-</ul>
-<p><mark>编程</mark>: 使用特定的<mark>编程语言</mark>编写指令, 控制计算机执行上述任务</p>
-</div>
+<div style="display:flex;align-items:flex-start;gap:20px;">
 <div style="flex:1;">
-  <img src="figs/howcomputerworks.png" style="max-width:100%;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, NJU!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1.1;">
+<ul>
+<li>
+<p><mark><code>#include</code></mark>: 预处理指令, 引入标准输入/输出库的头文件*stdio.h*</p>
+
+</li>
+<li>
+<p><mark><code>main函数</code></mark>: 主函数, 程序入口, 任何C程序都需要一个main函数</p>
+
+</li>
+<li>
+<p><mark><code>printf</code></mark>: 输出, <code>\n</code>为换行</p>
+
+</li>
+<li>
+<p><mark><code>return 0;</code></mark>: 程序正常结束, 向操作系统返回值<code>0</code></p>
+
+</li>
+</ul>
 </div>
 </div>
+<div class="top-2"></div>
+<ul>
+<li>
+<p>代码存为 <mark><code>.c</code></mark> 文件 (假设文件名为<code>hw.c</code>)</p>
+
+</li>
+<li>
+<p>编译: <mark><code>gcc hw.c</code></mark> 生成可执行程序<code>a.out</code>; <mark><code>gcc hw.c -o hw</code></mark> 指定生成<code>hw</code></p>
+
+</li>
+<li>
+<p><mark><code>void</code></mark> 参数类型, 可省略</p>
+
+</li>
+</ul>
+<p><mark>演示Hello NJU代码</mark></p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="为什么需要高级语言">为什么需要高级语言 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="gcc-背后做了什么">gcc 背后做了什么 </h5>
 <hr>
-<p>怎么指挥这台机器？它只懂 <mark>0 和 1</mark> 组成的<mark>机器指令</mark>——语言是这样一步步进化来的:</p>
+<p>一条 <code>gcc hw.c</code> 命令背后, 实际做了三件事:</p>
+<ul>
+<li>
+<p><mark>预处理</mark>: 处理 <code>#</code> 开头的指令 (如 <code>#include</code>)</p>
+
+</li>
+<li>
+<p><mark>编译</mark>: 把 C 代码翻译成机器指令</p>
+
+</li>
+<li>
+<p><mark>链接</mark>: 把 printf 等库函数合到一起, 生成可执行程序</p>
+
+</li>
+</ul>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 这三件事都交给 gcc, 我们只写代码</p>
+<p>编译运行之后, 我们来解剖一下 C 程序长什么样:</p>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="简单c程序的一般形式">简单C程序的一般形式 </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>指令
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  语句
+<span class="token punctuation">}</span></code></pre>
+<p>C使用 <mark>\{</mark> 和 <mark>\}</mark> 标识函数开始与结束</p>
+<p>最简单的C程序包含三个关键的语言特性:</p>
+<ul>
+<li>
+<p>指令: 预处理指令</p>
+
+</li>
+<li>
+<p>函数: 可执行代码块, main函数</p>
+
+</li>
+<li>
+<p>语句: 程序执行时的命令</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="指令">指令 </h5>
+<hr>
+<p>指令: 预处理指令, 在编译前修改程序内容的编辑命令, 示例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span></code></pre>
+<p><mark><stdio.h></mark> 是一个包含有关 C 标准 I/O 库信息的<mark>头文件</mark></p>
+<ul>
+<li>
+<p>以 <mark>#</mark> 开头, <mark>#</mark> 用于将C代码中的指令与其他代码区分开来</p>
+
+</li>
+<li>
+<p>默认只占一行, 每条指令的结尾没有分号或者其他特殊标记</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="主函数">主函数 </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span> 
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p><mark>main</mark> 是程序<mark>入口</mark>: 程序执行时, 系统自动调用main函数</p>
+
+</li>
+<li>
+<p><mark>main</mark> 函数是必须的, 不能写成Main或MAIN等</p>
+
+</li>
+<li>
+<p>程序终止时向操作系统返回状态码: <mark>0</mark> 表示正常终止 (没有 <mark>return</mark> 语句, 编译器会警告)</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数">函数 </h5>
+<hr>
+<p>C程序是<mark>函数的集合</mark>, 函数由一系列语句构成</p>
+<ul>
+<li>
+<p><mark>main</mark> 只是其中的一个函数, 由系统自动调用</p>
+
+</li>
+<li>
+<p><mark>printf</mark> 是<mark>库函数</mark>(library function): 由 C 语言实现提供, 由 <mark>#include</mark> 引入进来</p>
+
+</li>
+<li>
+<p>程序员也可以自己编写函数, 给一段语句起名字; <mark>函数调用</mark> 就是让函数执行分配给它的任务</p>
+
+</li>
+<li>
+<p>术语<mark>函数</mark>源于数学: \(f(x) = x + 1\) 对应C代码 <mark><code>return x + 1;</code></mark>; 计算数值的函数用 <mark>return</mark> 语句来指定所返回的值</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="语句">语句 </h5>
+<hr>
+<p><mark>语句</mark> 是程序运行时要执行的命令, 示例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, World!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li>
+<p>每条语句都以<mark>分号</mark>结尾 (复合语句例外; 指令通常只有一行且不以分号结尾)</p>
+
+</li>
+<li>
+<p><mark>printf</mark> 函数显示了一条字符串字面量(string literal)</p>
+
+</li>
+<li>
+<p>显示结束, <mark>printf</mark> 函数不会自动跳转到下一行输出, 需要 <mark>\n</mark> 换行</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序是怎样构成的">程序是怎样构成的 </h5>
+<hr>
+<p>程序是一串 <mark>token</mark>: 编译器认识的最小单位</p>
+<p><code>printf("Height: %d\n", height);</code> 可以拆成 <mark>7 个 token</mark>:</p>
 <div class="fullborder">
 <table>
 <thead>
 <tr>
-<th>语言</th>
-<th>长这样</th>
-<th>问题/特点</th>
+<th>标识符 <code>printf</code></th>
+<th><code>(</code></th>
+<th>字符串 <code>"Height: %d\n"</code></th>
+<th><code>,</code></th>
+<th>标识符 <code>height</code></th>
+<th><code>)</code></th>
+<th><code>;</code></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>机器语言</td>
-<td><code>10110000 00001100</code><br><code>00101100 00000101</code></td>
-<td>难记、易错、依赖具体机器</td>
-</tr>
-<tr>
-<td>汇编语言</td>
-<td><code>MOV AL,12D</code><br><code>SUB AL,5D</code></td>
-<td>助记符好记了, 但仍与机器绑定</td>
-</tr>
-<tr>
-<td>高级语言</td>
-<td><code>result = 12 - 5;</code></td>
-<td>接近自然语言和数学<mark>与机器无关</mark></td>
-</tr>
 </tbody>
 </table>
 </div>
 <ul>
 <li>
-<p>高级语言写的代码<mark>需要翻译</mark>才能执行——这个"翻译官"就是<mark>编译器</mark></p>
+<p>空白(空格、换行、制表符)只是<mark>分隔</mark> token 的胶水</p>
 
 </li>
 <li>
-<p>好处: 易学易用、易读易调试、<mark>可移植</mark>(换台机器不用重写)</p>
+<p>不能把 token 从中间拆开: <code>fl oat</code> 会报错</p>
 
 </li>
 <li>
-<p>C 是高级语言中<mark>离硬件最近</mark>的一个: 既好用, 又高效</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="什么是程序设计语言">什么是程序设计语言 </h5>
-<hr>
-<p>人类交流 → 机器交流</p>
-<ul>
-<li>
-<p>人类要交流需要语言（中文、英文）</p>
-
-</li>
-<li>
-<p>人和计算机交流也需要"语言"——程序设计语言</p>
+<p>字符串字面量<mark>不能跨行</mark></p>
 
 </li>
 </ul>
-<p>对比：自然语言 vs 程序语言</p>
-<ul>
-<li>
-<p>自然语言灵活但有歧义</p>
-<ul>
-<li>
-<p>如: <mark>南京市长江大桥</mark>——是"南京市 · 长江大桥", 还是"南京市长 · 江大桥"?</p>
-</li>
-</ul>
-</li>
-<li>
-<p>程序语言严格、无歧义，让机器可以准确执行</p>
+<p>排版建议: 运算符两侧加空格、缩进显示嵌套、空行分隔逻辑单元</p>
+<p>程序里还有写给<mark>人</mark>看的部分——注释:</p>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="注释">注释 </h5>
+<hr>
+<div style="font-size:0.72em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* hello.c: 我的第一个 C 程序
+   打印 Hello NJU
+*/</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span>     // 引入标准输入/输出库</span>
 
-</li>
-</ul>
-<p><mark>程序设计语言，就是人类和计算机沟通的工具</mark></p>
-<hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序能做什么">程序能做什么 </h5>
-<hr>
-<p><mark>程序是计算机的灵魂</mark>, 那程序能做什么?</p>
-<ol>
-<li>排序一组成绩/批改试卷/统计单词个数等</li>
-<li>游戏、微信、自动驾驶背后都是程序</li>
-</ol>
-<hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="思考--问题2">思考: 问题2 </h5>
-<hr>
-<p>程序这么能干, 是怎么"想"出来的？先看一个小问题:</p>
-<p><mark>问题2</mark>：给全班 100 个同学的成绩，怎么让计算机找出最高分？</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 你不能让它"看一眼"，只能一步步指挥它</p>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="算法--找最高分">算法: 找最高分 </h5>
-<hr>
-<ul>
-<li>
-<p><mark>问题2 的答案</mark>: 人扫一眼就能找到最高分, 但计算机不能"看"</p>
-
-</li>
-<li>
-<p>计算机的做法:</p>
-
-</li>
-</ul>
-<ol>
-<li><mark>假设</mark>第一个成绩是最高分</li>
-<li><mark>逐个比较</mark>剩下的成绩</li>
-<li>遇到更大的就<mark>替换</mark></li>
-<li>比较完, 剩下的一定是最高分</li>
-</ol>
-<ul>
-<li>
-<p>启示: 人觉得简单的事, 计算机需要一个<mark>算法</mark></p>
-
-</li>
-<li>
-<p>程序 = <mark>算法 + 数据</mark></p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="计算机如何工作--找最高分">计算机如何工作: 找最高分 </h5>
-<hr>
-<p>把刚才的算法放回机器的工作流程, 每一步对应哪个环节?</p>
-<ol>
-<li><mark>输入</mark>: 逐个读入成绩</li>
-<li><mark>处理</mark>: 与当前最高分比较, 更大就替换</li>
-<li><mark>存储</mark>: 记住当前最高分 (内存)</li>
-<li><mark>输出</mark>: 比较完, 打印最高分</li>
-</ol>
-<hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编程思维">编程思维 </h5>
-<hr>
-<p>回头看"找最高分"的步骤, 写程序需要的东西全在里面:</p>
-<ul>
-<li>
-<p><mark>结构</mark>: 顺序 (一步步执行)、判断 (if: 更大就替换)、循环 (重复比较, 直到比完)</p>
-
-</li>
-<li>
-<p><mark>数据</mark>: 存储——记住当前最高分 (变量)</p>
-
-</li>
-<li>
-<p><mark>设计</mark>: 分解——大问题拆成小步骤</p>
-
-</li>
-</ul>
-<p>接下来要学的, 就是把这些要素用 <mark>C 语言</mark> 写出来!</p>
-<hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序需要什么--本课程地图">程序需要什么: 本课程地图 </h5>
-<hr>
-<p><mark>编程思维</mark>要落地, 还需要具体工具——从 <mark>输入 → 处理 → 存储 → 输出</mark> 反推:</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>程序的需求</th>
-<th>需要的元素</th>
-<th>什么时候学</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>记住数据</td>
-<td>变量、类型</td>
-<td>第 2 周</td>
-</tr>
-<tr>
-<td>计算</td>
-<td>表达式、运算符</td>
-<td>第 3 周</td>
-</tr>
-<tr>
-<td>不同情况做不同事</td>
-<td>判断 if / switch</td>
-<td>第 4 周</td>
-</tr>
-<tr>
-<td>重复做</td>
-<td>循环 while / for</td>
-<td>第 5 周</td>
-</tr>
-<tr>
-<td>复用与分解</td>
-<td>函数</td>
-<td>第 6-7 周</td>
-</tr>
-<tr>
-<td>一批数据</td>
-<td>数组</td>
-<td>第 8-9 周</td>
-</tr>
-<tr>
-<td>字符串与内存</td>
-<td>指针</td>
-<td>第 10-11 周</td>
-</tr>
-<tr>
-<td>复杂的数据组织</td>
-<td>结构体、链表</td>
-<td>第 12-13 周</td>
-</tr>
-<tr>
-<td>长期保存数据</td>
-<td>文件</td>
-<td>第 14 周</td>
-</tr>
-</tbody>
-</table>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, NJU!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 输出问候, \n 换行</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>                  <span class="token comment">// 程序正常结束</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 每一项都是"<mark>因为需要, 所以才有</mark>"——这就是本学期的路线图</p>
-<p>接下来就动手——写第一个 C 程序:</p>
+<ul>
+<li>
+<p>没有注释, 复杂的程序别人(包括一个月后的自己)很难看懂</p>
+
+</li>
+<li>
+<p><mark>注释</mark>: 写给人看的说明, 编译器会<mark>完全忽略</mark></p>
+
+</li>
+<li>
+<p>多行注释: <mark>/*</mark> 开头, <mark>*/</mark> 结尾, 可以跨行 (见代码顶部)</p>
+
+</li>
+<li>
+<p>单行注释: <mark>//</mark> 开头, 行末结束 (见代码行尾)</p>
+
+</li>
+<li>
+<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 忘记写 <mark>*/</mark> 会导致编译器忽略大片代码</p>
+
+</li>
+</ul>
 <hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="注释">注释 </h5>
+<hr>
+<p><mark>小挑战</mark>: 猜猜这段程序的输出?</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"My "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 忘记闭合这个注释
+printf("cat ");
+printf("has ");   /* 注释在这里才结束 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"fleas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="注释">注释 </h5>
+<hr>
+<p>答案: 输出 <mark>My fleas</mark>——第一个 /* 把中间两行"吞"进注释, 直到遇到第一个 */</p>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="猜数字游戏">猜数字游戏 </h5>
+<hr>
+<p>学了不少语法, 来见一个完整的程序——猜数字游戏:</p>
+<p><a href="https://www.abcya.com/games/guess_the_number">游戏页面</a></p>
+<p><a href="https://en.cppreference.com/w/c/numeric/random/rand">随机数rand函数</a></p>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="猜数字游戏--代码">猜数字游戏: 代码 </h5>
+<hr>
+<div style="font-size:0.75em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> guess<span class="token punctuation">;</span>
+  <span class="token function">srand</span><span class="token punctuation">(</span><span class="token function">time</span><span class="token punctuation">(</span>NULL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> answer <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">100</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"猜一个数字(1-100):"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>guess<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>guess <span class="token operator">==</span> answer<span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"猜中啦!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>guess <span class="token operator"><</span> answer<span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太小了!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太大了!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="猜数字游戏--程序在做什么">猜数字游戏: 程序在做什么 </h5>
+<hr>
+<ul>
+<li>
+<p>三个 <code>#include</code>: stdio 提供 printf/scanf, stdlib 提供 rand/srand, time 提供 time</p>
+
+</li>
+<li>
+<p><code>srand(time(...))</code>: 用当前时间做随机种子</p>
+
+</li>
+<li>
+<p><code>answer = rand() % 100 + 1</code>: 悄悄生成 1~100 的<mark>随机答案</mark></p>
+
+</li>
+<li>
+<p><code>scanf</code> 读你的猜测 → <code>if/else</code> 比较 → 猜中/小了/大了</p>
+
+</li>
+<li>
+<p>想连续猜 7 次? 第 5 周学完<mark>循环</mark>自己改造!</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+<hr>
+<p>今天学了很多——检验一下:</p>
+<ol>
+<li>计算机和计算器最本质的区别是什么？</li>
+<li>写出 Hello World 程序的三要素：入口函数、输出函数、结束语句分别是什么？</li>
+<li>计算机找最高分的流程中，输入、处理、存储、输出分别对应什么？</li>
+<li>C 程序中每条语句的结尾必须是什么符号？注释有哪两种写法？</li>
+</ol>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂挑战">课堂挑战 </h5>
+<hr>
+<p><mark>挑战: 打印你的名片</mark></p>
+<p>用 printf 输出一张个人名片, 至少包含:</p>
+<ol>
+<li>姓名</li>
+<li>学号</li>
+<li>一句想对全班同学说的话</li>
+</ol>
+<p>比一比谁的名片最有个性!</p>
+<hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><hr>
+<div class="bottom20"></div>
+<h1 id="周三见">周三见! </h1>
+<hr class="width50 center">
+<h2 id="未完待续">未完待续 </h2>
 </section>
       </div>
     </div>
