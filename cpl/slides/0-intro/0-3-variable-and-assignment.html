@@ -420,23 +420,25 @@ height <span class="token operator">=</span> <span class="token number">10</span
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="读取输入">读取输入 </h5>
 <hr>
-<p><mark><code>scanf</code></mark> 函数: C语言中对应于 <mark><code>printf</code></mark> 的库函数 <mark><code>scanf</code></mark> 与 <mark><code>printf</code></mark> 中的字母 <mark><code>f</code></mark> 含义相同, 都表示<code>格式化</code></p>
+<p><mark><code>scanf</code></mark> 函数: 与 <mark><code>printf</code></mark> 对应, 两者的字母 <mark><code>f</code></mark> 含义相同, 都表示格式化</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* reads an integer; stores into i */</span></code></pre>
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>&amp;</mark> 符号通常(但不总是)在使用 <mark><code>scanf</code></mark> 时是必需的</p>
 <p>读取浮点值的scanf调用:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span>  f<span class="token punctuation">;</span>  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span>  <span class="token operator">&</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* float*  → %f  */</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* double*  → %lf */</span></code></pre>
 <ul>
 <li>
-<p><mark><code>%f</code></mark> 告诉 <mark><code>scanf</code></mark> 查找浮点格式的输入值(数字可能包含小数点, 但不是必须的)</p>
+<p>读 <mark><code>float</code></mark> 用 <mark><code>%f</code></mark>, 读 <mark><code>double</code></mark> 用 <mark><code>%lf</code></mark> (scanf 传指针, 不像 printf 自动提升)</p>
 
 </li>
 </ul>
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="代码演示1--年龄">代码演示1: 年龄 </h5>
 <hr>
-<p><mark>现场演示</mark></p>
-<p>输入出生年份, 输出今年的年龄 (纯变量 + 表达式)</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* age.c: 计算年龄 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -446,27 +448,33 @@ height <span class="token operator">=</span> <span class="token number">10</span
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入出生年份: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>birth_year<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-int">int</span> age <span class="token operator">=</span> <span class="token number">2026</span> <span class="token operator">-</span> birth_year<span class="token punctuation">;</span>   <span class="token comment">/* TODO(每学期更新): 换成本年 */</span>      <span class="token comment">/* 简单的减法表达式 */</span>
+  <span class="token keyword keyword-int">int</span> age <span class="token operator">=</span> <span class="token number">2026</span> <span class="token operator">-</span> birth_year<span class="token punctuation">;</span>   <span class="token comment">/* TODO(每学期更新): 换成本年 */</span>
 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"今年 %d 岁\n"</span><span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>现场演示</mark></p>
+<p>输入出生年份, 输出今年的年龄 (纯变量 + 表达式)</p>
 <ul>
 <li>
 <p>三个"变量": <code>birth_year</code> (输入)、<code>age</code> (计算)、<code>2026</code> (常量)</p>
 
 </li>
 <li>
-<p>表达式 <code>2026 - birth_year</code> 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==</p>
+<p>表达式 <code>2026 - birth_year</code> 的结果直接赋给 age——<mark>赋值 = 把右边算出来存进左边</mark></p>
 
 </li>
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 加一点判断就能算"生日过了没"——那是第 4 周的内容</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="代码演示2--温度转换">代码演示2: 温度转换 </h5>
 <hr>
-<p><mark>现场演示</mark></p>
-<p>输入摄氏温度, 输出对应的华氏温度: \(F = \frac{9}{5} C + 32\)</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* temp.c: 摄氏转华氏 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -480,6 +488,10 @@ height <span class="token operator">=</span> <span class="token number">10</span
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%.1f C = %.1f F\n"</span><span class="token punctuation">,</span> c<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>现场演示</mark></p>
+<p>输入摄氏温度, 输出对应的华氏温度: \(F = \frac{9}{5} C + 32\)</p>
 <ul>
 <li>
 <p>变量: <code>double</code> c, f (浮点数)</p>
@@ -494,11 +506,13 @@ height <span class="token operator">=</span> <span class="token number">10</span
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="代码演示3--找零计算">代码演示3: 找零计算 </h5>
 <hr>
-<p><mark>现场演示</mark></p>
-<p>输入金额 (整数元), 输出需要各种面额<mark>多少张</mark>: <code>/</code> 与 <code>%</code> 的第一次实战</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.7;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* change.c: 找零计算 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -526,6 +540,10 @@ height <span class="token operator">=</span> <span class="token number">10</span
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  1元: %d 张\n"</span><span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>现场演示</mark></p>
+<p>输入金额 (整数元), 输出需要各种面额<mark>多少张</mark>: <code>/</code> 与 <code>%</code> 的第一次实战</p>
 <ul>
 <li>
 <p><code>/</code> 求"有几个", <code>%</code> 求"剩多少"——两个运算符配合, 把一个数一层层拆开</p>
@@ -536,11 +554,13 @@ height <span class="token operator">=</span> <span class="token number">10</span
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="代码演示4--石头剪刀布">代码演示4: 石头剪刀布 </h5>
 <hr>
-<p><mark>现场演示</mark></p>
-<p>你和电脑各出一个手势, 谁赢?</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.35;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* rps.c: 石头剪刀布 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
@@ -565,6 +585,10 @@ height <span class="token operator">=</span> <span class="token number">10</span
     <span class="token punctuation">}</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>现场演示</mark></p>
+<p>你和电脑各出一个手势, 谁赢?</p>
 <ul>
 <li>
 <p>变量 + 随机数 + if/else, 都是已经见过的元素</p>
@@ -575,6 +599,8 @@ height <span class="token operator">=</span> <span class="token number">10</span
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="集成开发环境">集成开发环境 </h5>
 <hr>
@@ -636,8 +662,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 <hr>
 </section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
-<p><mark>轮到你了: 把课程演示变成自己的程序</mark></p>
-<p>打开 CLion / VSCode, 现场完成 (10 分钟):</p>
+<p><mark>轮到你了: 把课程演示变成自己的程序</mark>——打开 CLion / VSCode, 现场完成 (10 分钟):</p>
 <ol>
 <li><mark>温度转换</mark>: 输入摄氏温度, 输出华氏温度 (\(F = \frac{9}{5}C + 32\))</li>
 <li><mark>成绩判断</mark>: 输入一个成绩, 输出"及格"或"不及格"</li>

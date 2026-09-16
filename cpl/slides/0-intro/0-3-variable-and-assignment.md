@@ -380,8 +380,7 @@ printf("Height: %d Length: %d", height, length);
 
 ---
 
-==`scanf`== 函数: C语言中对应于 ==`printf`== 的库函数
-==`scanf`== 与 ==`printf`== 中的字母 ==`f`== 含义相同, 都表示``格式化``
+==`scanf`== 函数: 与 ==`printf`== 对应, 两者的字母 ==`f`== 含义相同, 都表示格式化
 
 ```C
 int i;
@@ -392,9 +391,11 @@ scanf("%d", &i); /* reads an integer; stores into i */
 
 读取浮点值的scanf调用: 
 ```C
-scanf("%f", &x); 
+float  f;  double d;
+scanf("%f",  &f);    /* float*  → %f  */
+scanf("%lf", &d);    /* double*  → %lf */
 ```
-- ==`%f`== 告诉 ==`scanf`== 查找浮点格式的输入值(数字可能包含小数点, 但不是必须的)
+- 读 ==`float`== 用 ==`%f`==, 读 ==`double`== 用 ==`%lf`== (scanf 传指针, 不像 printf 自动提升)
 
 ---
 
@@ -405,9 +406,9 @@ scanf("%f", &x);
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-输入出生年份, 输出今年的年龄 (纯变量 + 表达式)
+<div style="flex:1.25;font-size:0.7em;">
 
 ```C{.line-numbers}
 /* age.c: 计算年龄 */
@@ -419,12 +420,20 @@ int main(void) {
   printf("请输入出生年份: ");
   scanf("%d", &birth_year);
 
-  int age = 2026 - birth_year;   /* TODO(每学期更新): 换成本年 */      /* 简单的减法表达式 */
+  int age = 2026 - birth_year;   /* TODO(每学期更新): 换成本年 */
 
   printf("今年 %d 岁\n", age);
   return 0;
 }
 ```
+
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+输入出生年份, 输出今年的年龄 (纯变量 + 表达式)
 
 - 三个"变量": `birth_year` (输入)、`age` (计算)、`2026` (常量)
 
@@ -432,8 +441,9 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 加一点判断就能算"生日过了没"——那是第 4 周的内容
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -441,9 +451,9 @@ int main(void) {
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$
+<div style="flex:1.25;font-size:0.7em;">
 
 ```C
 /* temp.c: 摄氏转华氏 */
@@ -461,14 +471,23 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$
+
 - 变量: `double` c, f (浮点数)
 
 - 输入: `scanf("%lf", &c)` 读取 double
 
 - `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 第 3 周细讲)
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -476,9 +495,9 @@ int main(void) {
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-输入金额 (整数元), 输出需要各种面额==多少张==: `/` 与 `%` 的第一次实战
+<div style="flex:1.7;font-size:0.65em;">
 
 ```C{.line-numbers}
 /* change.c: 找零计算 */
@@ -510,22 +529,33 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+输入金额 (整数元), 输出需要各种面额==多少张==: `/` 与 `%` 的第一次实战
+
 - `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把一个数一层层拆开
 
 - 课后 OJ 有 `change.c` 同款题目, 自己动手写一遍
 
----
+</div>
+
+</div>
 
 
 <!-- slide data-notes="" -->
+
 
 ##### 代码演示4: 石头剪刀布
 
 ---
 
-==现场演示==
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-你和电脑各出一个手势, 谁赢?
+<div style="flex:1.35;font-size:0.65em;">
 
 ```C
 /* rps.c: 石头剪刀布 */
@@ -554,12 +584,21 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+==现场演示==
+
+你和电脑各出一个手势, 谁赢?
+
 - 变量 + 随机数 + if/else, 都是已经见过的元素
 
 - 预告: if 语句第 4 周正式学, 随机数第 5 周猜数字改进版
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -605,9 +644,7 @@ int main(void) {
 
 ---
 
-==轮到你了: 把课程演示变成自己的程序==
-
-打开 CLion / VSCode, 现场完成 (10 分钟):
+==轮到你了: 把课程演示变成自己的程序==——打开 CLion / VSCode, 现场完成 (10 分钟):
 
 1. ==温度转换==: 输入摄氏温度, 输出华氏温度 ($F = \frac{9}{5}C + 32$)
 
