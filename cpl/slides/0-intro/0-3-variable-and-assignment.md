@@ -205,7 +205,7 @@ int main(void)
 }
 ```
 
-<span class="blue">:fa-weixin:</span> 在C99中, 声明可以不必出现在语句之前
+<span class="blue">:fa-weixin:</span> C99 起, 变量可以==随用随声明==, 不必把声明都堆在函数开头 (老教材里的 C89 风格要求声明在前)
 
 ---
 
