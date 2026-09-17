@@ -270,6 +270,18 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;">
+
+<div class="top-2">
+  <img src="figs/float-mapping.svg" style="max-width:100%;">
+</div>
+
+</div>
+
+<div style="flex:1;">
+
 浮点数按 ==IEEE 754== 存储——"==二进制的科学计数法==": 符号、有效数字、指数三部分 (类比 $3.14 \times 10^{2}$)
 
 <div class="fullborder">
@@ -298,6 +310,11 @@ float f = 0.1f;  内存里大约是这样:
 <span class="blue">:fa-lightbulb-o:</span> 本页==了解即可==, 不要求掌握位级细节
 
 ---
+
+</div>
+
+</div>
+
 <!-- slide data-notes="" -->##### 字符与 ASCII: char 其实是小整数
 
 ---
