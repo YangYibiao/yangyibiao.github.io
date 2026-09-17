@@ -188,24 +188,27 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="溢出--像时钟一样-绕圈">溢出: 像时钟一样"绕圈" </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="补码的环--溢出就是绕圈">补码的环: 溢出就是绕圈 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1.15;">
 <div class="top-2">
-  <img src="figs/clock-wrap.svg" width=400px style="max-width:100%;">
+  <img src="figs/clock-wrap.svg" width=430px style="max-width:100%;">
 </div>
 </div>
 <div style="flex:1;">
-<p>12 小时钟: <mark>11 点 + 2 小时 = 1 点</mark>——转满一圈, 绕回起点</p>
-<p>int 的取值也像这样一个表盘:</p>
+<p>把 4 位二进制排成一个环: <mark>加 1 顺时针走一格, 减 1 逆时针走一格</mark> (0 起, 共 16 格, 没有"12")</p>
 <ul>
 <li>
-<p><mark>INT_MAX + 1 </mark> INT_MIN==: 最大正数加 1, 绕回最小负数</p>
+<p>负数在左半圈 (最高位为 1), 正数在右半圈 (最高位为 0)</p>
 
 </li>
 <li>
-<p><mark>INT_MIN - 1 </mark> INT_MAX==: 反方向同理</p>
+<p>溢出 = 跨过顶部分界: <mark>0111 (7) + 1 = 1000 (-8)</mark>; 反方向 -8 - 1 = 7</p>
+
+</li>
+<li>
+<p>12 小时钟是同一回事: 11 点 + 2 小时 = 1 点 (模 12 绕圈)</p>
 
 </li>
 <li>

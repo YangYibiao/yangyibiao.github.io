@@ -134,35 +134,36 @@ int main(void) {
 ---
 
 
-<!-- slide data-notes="" -->##### 溢出: 像时钟一样"绕圈"
+<!-- slide data-notes="" -->##### 补码的环: 溢出就是绕圈
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;">
+<div style="flex:1.15;">
 
 <div class="top-2">
-  <img src="figs/clock-wrap.svg" width=400px style="max-width:100%;">
+  <img src="figs/clock-wrap.svg" width=430px style="max-width:100%;">
 </div>
 
 </div>
 
 <div style="flex:1;">
 
-12 小时钟: ==11 点 + 2 小时 = 1 点==——转满一圈, 绕回起点
+把 4 位二进制排成一个环: ==加 1 顺时针走一格, 减 1 逆时针走一格== (0 起, 共 16 格, 没有"12")
 
-int 的取值也像这样一个表盘:
+- 负数在左半圈 (最高位为 1), 正数在右半圈 (最高位为 0)
 
-- ==INT_MAX + 1 == INT_MIN==: 最大正数加 1, 绕回最小负数
+- 溢出 = 跨过顶部分界: ==0111 (7) + 1 = 1000 (-8)==; 反方向 -8 - 1 = 7
 
-- ==INT_MIN - 1 == INT_MAX==: 反方向同理
+- 12 小时钟是同一回事: 11 点 + 2 小时 = 1 点 (模 12 绕圈)
 
 - C 不报错——==溢出不被检查==, 这是追求性能的代价
 
 </div>
 
 </div>
+
 <!-- slide data-notes="" -->
 
 ##### 整数在内存里长什么样 (了解)
