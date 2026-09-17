@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -104,6 +104,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="流">流 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
+</div>
+<div style="flex:1;">
 <p>在 C 中, 术语<strong>流</strong>表示任意输入的源或任意输出的目的地.</p>
 <p>许多小程序从一个流(键盘)获取所有输入, 并将其所有输出写入另一个流(屏幕).</p>
 <p>较大的程序可能需要额外的流.</p>
@@ -114,9 +118,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>FILE类型在<stdio.h>中声明.</p>
 <p>某些流由具有标准名称的文件指针表示.</p>
 <p>可以根据需要声明其他文件指针: <code>FILE *fp1, *fp2;</code></p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="标准流和重定向">标准流和重定向 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+</div>
+<div style="flex:1;">
 <stdio.h>提供了三个标准流: 
 <table>
 <thead>
@@ -153,9 +163,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <p><code>&lt;</code>和<code>&gt;</code>字符不需要与文件名相邻, 重定向文件的列出顺序无关紧要: <code>demo &lt;in.dat&gt; out.dat</code> 等价于: <code>demo &gt;out.dat &lt;in.dat</code></p>
 <p>输出重定向的一个问题是写入stdout的所有内容都被放入一个文件中.</p>
 <p>将错误消息写入stderr而不是stdout可以保证即使stdout已被重定向, 错误信息也会出现在屏幕上.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="文本文件与二进制文件">文本文件与二进制文件 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+</div>
+<div style="flex:1;">
 <stdio.h>支持两种文件: 文本文件和二进制文件. 
 <p><strong>文本文件</strong>中的字节代表字符, 允许人们检查或编辑文件.</p>
 <ul>
@@ -203,9 +219,15 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <p>在二进制文件中, 没有行尾或文件结束标记; 所有字节都被平等对待.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="文本文件与二进制文件--续">文本文件与二进制文件 (续) </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
+</div>
+<div style="flex:1;">
 <p>数据写入文件时, 可以选择以文本格式或二进制格式存储.</p>
 <p>将数字32767存储在文件中, 一种方法是以文本形式写入字符3、2、7、6和7:</p>
 <div class="top-2">
@@ -226,9 +248,17 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <p>当无法确定文件是文本形式还是二进制形式时, 假设它是二进制文件会更安全.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="文件操作">文件操作 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>FILE <span class="token operator">*</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span> restrict filename<span class="token punctuation">,</span>
+	          <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span> restrict mode<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>简单性是输入和输出重定向的魅力之一.</p>
 <p>不幸的是, 重定向在许多应用中受到限制.</p>
 <ul>
@@ -245,8 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p>如果要把文件用作流, 打开时需要调用fopen函数.</p>
 <p>fopen的原型:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>FILE <span class="token operator">*</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span> restrict filename<span class="token punctuation">,</span>
-	          <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span> restrict mode<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>filename是要打开的文件的名称.</p>
 <ul>
 <li>
@@ -255,9 +283,17 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <p>mode是一个"模式字符串", 它指定打算对文件执行的操作.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="打开文件">打开文件 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>fp <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"in.dat"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* 打开 in.dat 以供阅读 */</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>fopen的原型中, restrict关键字出现了两次.</p>
 <p>restrict是 C99 关键字, 表示filename和mode应指向不共享内存单元的字符串.</p>
 <p>fopen的 C89 原型不包含restrict, 但也有这样的要求.</p>
@@ -267,12 +303,16 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>避免该问题的一种方法是用<code>\\</code>代替<code>\</code>: <code>fopen("c:\\project\\test1.dat", "r")</code></p>
 <p>另一种方法是用<code>/</code>代替<code>\</code>: <code>fopen("c:/project/test1.dat", "r")</code></p>
 <p>fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>fp <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"in.dat"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">/* 打开 in.dat 以供阅读 */</span></code></pre>
 <p>无法打开文件时, fopen返回一个空指针.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="打开模式">打开模式 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+</div>
+<div style="flex:1;">
 <p>决定将哪个模式字符串传递给fopen的因素:</p>
 <ul>
 <li>
@@ -368,14 +408,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="关闭文件">关闭文件 </h5>
 <hr>
-<p>fclose函数允许程序关闭不再使用的文件.</p>
-<p>fclose的参数必须是从调用fopen或freopen获得的文件指针.</p>
-<p>如果文件成功关闭, fclose返回零.</p>
-<p>否则, 它返回错误代码EOF(在<stdio.h>中定义的宏).</p>
-<p>打开文件进行读取的程序框架:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
 	 
@@ -394,11 +433,28 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>fclose函数允许程序关闭不再使用的文件.</p>
+<p>fclose的参数必须是从调用fopen或freopen获得的文件指针.</p>
+<p>如果文件成功关闭, fclose返回零.</p>
+<p>否则, 它返回错误代码EOF(在<stdio.h>中定义的宏).</p>
+<p>打开文件进行读取的程序框架:</p>
 <p>可以把fopen的调用与fp的声明相结合: <code>FILE *fp = fopen(FILE_NAME, "r");</code></p>
 <p>还可以与NULL的判断相结合: <code>if((fp = fopen(FILE_NAME, "r")) == NULL) …</code></p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="从命令行获取文件名">从命令行获取文件名 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  …
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>有几种方法可以为程序提供文件名.</p>
 <ul>
 <li>
@@ -416,10 +472,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </ul>
 <p>为demo程序提供两个文件名的示例: <code>demo names.dat dates.dat</code></p>
 <p>将main定义为具有两个参数的函数来访问命令行参数:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  …
-<span class="token punctuation">}</span></code></pre>
 <p>argc是命令行参数的数量.</p>
 <p>argv是指向参数字符串的指针数组.</p>
 <p>argv[0]指向程序名, argv[1]到argv[argc-1]指向剩余的参数, argv[argc]是空指针.</p>
@@ -427,13 +479,13 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="top-2">
   <img src="../img/21-3.png">
 </div>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--检查文件是否可以打开">程序: 检查文件是否可以打开 </h5>
 <hr>
-<p>canopen.c程序判断文件是否存在, 如果存在是否可以打开进行读取.</p>
-<p>用户提供给程序要检查的文件的名字: <code>canopen file</code></p>
-<p>然后程序将显示<code>file can be opened</code>或<code>file can't be opened</code>.</p>
-<p>如果用户在命令行中输入错误数量的参数, 程序将显示消息<code>usage: canopen filename</code>.</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* Checks whether a file can be opened for reading */</span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -457,9 +509,23 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>canopen.c程序判断文件是否存在, 如果存在是否可以打开进行读取.</p>
+<p>用户提供给程序要检查的文件的名字: <code>canopen file</code></p>
+<p>然后程序将显示<code>file can be opened</code>或<code>file can't be opened</code>.</p>
+<p>如果用户在命令行中输入错误数量的参数, 程序将显示消息<code>usage: canopen filename</code>.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="检测文件末尾和错误条件">检测文件末尾和错误条件 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">clearerr</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/* clears eof and error indicators for fp */</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>如果要求...scanf函数读取并存储n个数据项, 那么期望它的返回值为n.</p>
 <p>如果返回值小于n, 则出现问题:</p>
 <ul>
@@ -487,15 +553,19 @@ document.addEventListener("DOMContentLoaded", function () {
 </ul>
 <p>匹配失败不会改变任意一个指示器.</p>
 <p>一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用clearerr函数. clearerr清除文件末尾和错误指示器:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">clearerr</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">/* clears eof and error indicators for fp */</span></code></pre>
 <p>并不需要经常使用clearerr, 因为其他一些库函数的副作用可以清楚指示器.</p>
 <p>feof和ferror函数可用于测试流的指示器以确定先前对流的操作失败的原因.</p>
 <p>如果为与fp关联的流设置了文件末尾指示器, 则调用feof(fp)将返回一个非零值.</p>
 <p>如果设置了错误指示器, 调用ferror(fp)会返回一个非零值.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="检测文件末尾--续">检测文件末尾 (续) </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+</div>
+<div style="flex:1;">
 <p>当scanf返回小于预期的值时, 可以使用feof和ferror来判断原因.</p>
 <ul>
 <li>
@@ -529,9 +599,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="字符的输入-输出">字符的输入/输出 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">fputc</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 将 ch 写入 fp */</span>
+<span class="token function">putc</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 将 ch 写入 fp */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>ch <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ch <span class="token operator">=</span> <span class="token function">getc</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>下一组库函数可以读取和写入单个字符.</p>
 <p>这些函数同样适用于文本流和二进制流.</p>
 <p>这些函数将字符视为int类型的值, 而不是char.</p>
@@ -539,8 +619,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p>putchar将一个字符写入标准输出流: <code>putchar(ch); /* 将 ch 写入标准输出流 */</code></p>
 <p>fputc和putc将一个字符写入任意流:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">fputc</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 将 ch 写入 fp */</span>
-<span class="token function">putc</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 将 ch 写入 fp */</span></code></pre>
 <p>putc通常实现为宏(以及函数), 而fputc仅实现为函数.</p>
 <p>putchar本身通常也定义为宏: <code>#define putchar(c) putc((c), stdout)</code></p>
 <p>C标准允许putc宏对stream参数多次求值, 而fputc不可以.</p>
@@ -549,19 +627,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>否则, 它们返回写入的字符.</p>
 <p>getchar从stdin读取一个字符: <code>ch = getchar();</code></p>
 <p>fgetc和getc从任意流中读取一个字符:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>ch <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-ch <span class="token operator">=</span> <span class="token function">getc</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>这三个函数都将字符视为unsigned char类型的值(返回之前转换为int类型).</p>
 <p>因此, 它们不会返回EOF以外的负值.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="程序--复制文件">程序: 复制文件 </h5>
 <hr>
-<p>fcopy.c程序进行文件的复制操作.</p>
-<p>执行程序时, 将在命令行中指定原始文件和新文件的名称.</p>
-<p>使用fcopy将文件f1.c复制到f2.c的示例: <code>fcopy f1.c f2.c</code></p>
-<p>如果命令行中的文件名不完全是两个, 或者其中一个文件都无法打开, fcopy将产生错误消息.</p>
-<p>使用"rb"和"wb"作为文件模式使fcopy可以复制文本和二进制文件.</p>
-<p>如果改用"r"和"w", 程序将无法复制二进制文件.</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.5;font-size:0.46em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* Copies a file */</span>
  
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -595,9 +669,23 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
   <span class="token function">fclose</span><span class="token punctuation">(</span>dest_fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>fcopy.c程序进行文件的复制操作.</p>
+<p>执行程序时, 将在命令行中指定原始文件和新文件的名称.</p>
+<p>使用fcopy将文件f1.c复制到f2.c的示例: <code>fcopy f1.c f2.c</code></p>
+<p>如果命令行中的文件名不完全是两个, 或者其中一个文件都无法打开, fcopy将产生错误消息.</p>
+<p>使用"rb"和"wb"作为文件模式使fcopy可以复制文本和二进制文件.</p>
+<p>如果改用"r"和"w", 程序将无法复制二进制文件.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="行的输入-输出">行的输入/输出 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+</div>
+<div style="flex:1;">
 <p>下一组中的库函数能够读取和写入行.</p>
 <p>这些函数主要用于文本流, 尽管将它们也能用于二进制流.</p>
 <hr>
@@ -611,50 +699,31 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <p>get逐个读取字符, 将它们存储在str指向的数组中, 直到它读取一个换行符(丢弃换行符).</p>
 <p>fgets是更通用的get版本, 可以从任意流中读取.</p>
 <p>fgets也比gets更安全, 因为它限制了它将存储的字符数.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="块的输入-输出">块的输入/输出 </h5>
 <hr>
-<p>fread和fwrite函数允许程序在单步中读取和写入大的数据块.</p>
-<p>fread和fwrite主要用于二进制流, 尽管也可以用于文本流.</p>
-<hr>
-<p>fwrite旨在将数组从内存复制到流中.</p>
-<p>fwrite调用中的参数:</p>
-<ul>
-<li>
-<p>数组地址</p>
-
-</li>
-<li>
-<p>每个数组元素的大小(以字节为单位)</p>
-
-</li>
-<li>
-<p>要写入的元素数</p>
-
-</li>
-<li>
-<p>文件指针</p>
-
-</li>
-</ul>
-<p>调用fwrite写入数组a的全部内容:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">fwrite</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>fwrite返回实际写入的元素数.</p>
-<p>如果发生写入错误, 此数字将小于第三个参数.</p>
-<p>fread将从流中读取数组的元素.</p>
-<p>将文件内容读入数组a的fread调用:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>n <span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>fread的返回值表示实际读取的元素数.</p>
-<p>此数字应等于第三个参数, 除非已到达输入文件的末尾或发生读取错误.</p>
-<p>fwrite对于需要在终止之前将数据存储在文件中的程序来说很方便.</p>
-<p>以后程序(或其他程序)可以使用fread将数据读回内存.</p>
-<p>数据不需要是数组形式.</p>
-<p>将结构变量s写入文件的fwrite调用: <code>fwrite(&amp;s, sizeof(s), 1, fp);</code></p>
+</div>
+<div style="flex:1;">
+<p><code>fread</code>/<code>fwrite</code> 一次读写<mark>大块数据</mark> (主要用于二进制流, 也可用于文本流).</p>
+<p><code>fwrite</code> 把数组从内存复制到流, 参数: 数组地址、元素大小 (字节)、元素个数、文件指针; 返回<mark>实际写入的元素数</mark> (出错时小于第三个参数).</p>
+<p><code>fread</code> 从流读数组元素, 返回值是实际读取的元素数 (除非到达文件末尾或出错, 否则应等于第三个参数).</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="文件定位">文件定位 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+</div>
+<div style="flex:1;">
 <p>每个流都有一个关联的<strong>文件位置</strong>.</p>
 <p>打开文件时, 文件位置设置在文件的开头.</p>
 <ul>
@@ -689,9 +758,44 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <p>使用fseek移动到文件末尾: <code>fseek(fp, 0L, SEEK_END);</code></p>
 <p>使用fseek往回移动10个字节: <code>fseek(fp, -10L, SEEK_CUR);</code></p>
 <p>如果发生错误(例如, 请求的位置不存在), fseek返回一个非零值.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="程序--修改零件记录文件">程序: 修改零件记录文件 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.5;font-size:0.46em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* Modifies a file of part records by setting the quantity
+   on hand to zero for all records */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NAME_LEN 25</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_PARTS 100</span>
+<span class="token keyword keyword-struct">struct</span> part <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> inventory<span class="token punctuation">[</span>MAX_PARTS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> num_parts<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  FILE <span class="token operator">*</span>fp<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>fp <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"inventory.dat"</span><span class="token punctuation">,</span> <span class="token string">"rb+"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">fprintf</span><span class="token punctuation">(</span>stderr<span class="token punctuation">,</span> <span class="token string">"Can't open inventory file\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span>EXIT_FAILURE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  num_parts <span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> part<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    MAX_PARTS<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_parts<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">rewind</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fwrite</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> part<span class="token punctuation">)</span><span class="token punctuation">,</span> num_parts<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>invclear.c程序执行的操作:</p>
 <ul>
 <li>
@@ -712,45 +816,8 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 </li>
 </ul>
 <p>"rb+"模式打开文件, 允许读写.</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* Modifies a file of part records by setting the quantity
-   on hand to zero for all records */</span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NAME_LEN 25</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_PARTS 100</span>
- 
-<span class="token keyword keyword-struct">struct</span> part <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
-  <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
-<span class="token punctuation">}</span> inventory<span class="token punctuation">[</span>MAX_PARTS<span class="token punctuation">]</span><span class="token punctuation">;</span>
- 
-<span class="token keyword keyword-int">int</span> num_parts<span class="token punctuation">;</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  FILE <span class="token operator">*</span>fp<span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>fp <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"inventory.dat"</span><span class="token punctuation">,</span> <span class="token string">"rb+"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">fprintf</span><span class="token punctuation">(</span>stderr<span class="token punctuation">,</span> <span class="token string">"Can't open inventory file\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">exit</span><span class="token punctuation">(</span>EXIT_FAILURE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
- 
-  num_parts <span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> part<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                    MAX_PARTS<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_parts<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    inventory<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>on_hand <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
- 
-  <span class="token function">rewind</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">fwrite</span><span class="token punctuation">(</span>inventory<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> part<span class="token punctuation">)</span><span class="token punctuation">,</span> num_parts<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>

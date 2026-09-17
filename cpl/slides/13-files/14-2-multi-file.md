@@ -70,59 +70,22 @@ presentation:
 
 ---
 
-可以把 C 程序分割成任意数量的**源文件**. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-按照惯例, 源文件的扩展名是`.c`. 
-
-每个源文件都包含程序的一部分, 主要是函数和变量的定义. 
-
-其中一个源文件必须包含一个名为main的函数, 它是程序的起点. 
+<div style="flex:1.4;font-size:0.55em;">
 
 
----
 
-考虑编写一个简单的计算器程序的问题. 
+</div>
 
-该程序将计算以逆波兰表示法(RPN)输入的整数表达式, 运算符都跟在操作数后面. 
+<div style="flex:1;">
 
-如果用户输入一个表达式, 例如: 
+C 程序可分割成任意数量的==源文件== (扩展名 `.c`), 每个源文件包含程序的一部分 (主要是函数和变量的定义); 其中一个必须包含 `main` 函数, 作为程序的起点.
 
-`30 5 - 7 *`
+例: 逆波兰记法 (RPN) 计算器 (`30 5 - 7 *` → 175)——读取操作数与运算符, 用栈跟踪中间结果, 左列是程序划分方案.
 
-程序应打印其值(在本例中为175).
-
-
-程序将逐个读取操作数和运算符, 使用栈来跟踪中间结果. 
-
-- 如果程序读取一个数字, 它会将这个数字压入栈. 
-
-- 如果程序读取一个运算符, 会从栈中弹出两个数字执行操作, 然后将结果压回栈. 
-
-当程序执行到用户输入的末尾时, 表达式的值将在栈中.
-
-
-计算表达式`30 5 - 7 *`的值: 
-1. 将 30 压入栈. 
-2. 将 5 压入栈. 
-3. 从栈中弹出两个数字, 用30减5, 得到25, 然后将结果压回栈. 
-4. 将 7 压入栈. 
-5. 从栈中弹出两个数字, 将它们相乘, 然后将结果压回栈. 
-
-栈现在将包含 175, 即表达式的值.
-
-
-该程序的main函数将包含一个执行以下操作的循环: 
-
-- 读取"记号"(数或运算符). 
-
-- 如果记号是数字, 则将其压入栈. 
-
-- 如果记号是运算符, 则从栈中弹出其操作数进行运算, 然后将结果推回栈.  
-
-在将这样的程序分割为文件时, 将相关的函数和变量放在同一个文件中是有意义的.
-
----
-
+</div>
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -158,6 +121,16 @@ main函数放入另一个文件calc.c中.
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
+
 当一个程序被分成几个源文件时出现的问题: 
 
 - 一个文件中的函数如何调用另一个文件中定义的函数？ 
@@ -181,8 +154,9 @@ main函数放入另一个文件calc.c中.
 
 按照惯例, 头文件的扩展名为`.h`.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -191,42 +165,21 @@ main函数放入另一个文件calc.c中.
 
 ---
 
-`#include`指令有两种主要形式. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-第一个用于属于 C 自身库的头文件: 
+<div style="flex:1.5;font-size:0.5em;">
 
 ```C
 #include <文件名>
 ```
 
-第二个用于所有其他头文件: 
-
 ```C
 #include "文件名"
 ```
 
-两者的区别在于编译器如何定位头文件.
-
-
-定位头文件的典型规则: 
-
-- ＃include <文件名>: 搜索系统头文件所在的目录(或多个目录). 
-
-- ＃include "文件名": 先搜索当前目录, 后搜索系统头文件所在的目录(或多个目录). 
-
-通常可以通过命令行选项(例如-I 路径)来更改搜索头文件的位置.
-
-
-包含自己编写的头文件时不要使用尖括号: 
-
 ```C
 #include <myheader.h> /*** 错误 ***/
 ```
-
-预处理器可能会在保存系统头文件的地方查找*myheader.h*.
-
-
-`#include`指令中的文件名可能包含有助于定位文件的信息, 例如目录的路径或驱动器号: 
 
 ```C
 #include "c:\cprogs\utils.h"
@@ -236,41 +189,20 @@ main函数放入另一个文件calc.c中.
 /* UNIX 路径 */
 ```
 
-`#include`指令中的引号使文件名看起来像字符串字面量, 但预处理器不会那样对待它们.
-
-
-最好不要在`#include`指令中包含路径或驱动器信息. 
-
-Windows `#include`指令的不良示例: 
-
 ```C
 #include "d:utils.h"
 #include "\cprogs\include\utils.h"
 #include "d:\cprogs\include\utils.h"
 ```
 
-更好的版本: 
-
 ```C
 #include "utils.h"
 #include "..\include\utils.h"
 ```
 
-
-`#include`指令有第三种形式: 
-
 ```C
 #include 标记
 ```
-
-标记是任意预处理标记序列. 预处理器使用宏定义方式替换. 
-
-宏替换完成后, `#include`指令的格式一定与前面两者之一匹配. 
-
-该`#include`优点是文件名由宏定义, 不需"硬拷贝"到指令本身.
-
-
-例子: 
 
 ```C
 #if defined(IA32)
@@ -284,8 +216,19 @@ Windows `#include`指令的不良示例:
 #include CPU_FILE
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+`#include` 有两种形式: `<文件名>` 用于 C 自带库头文件, `"文件名"` 用于其他头文件——区别在于编译器如何定位头文件:
+
+- `<文件名>`: 搜索系统头文件目录
+- `"文件名"`: 先搜当前目录, 再搜系统头文件目录
+
+通常: 自带库用尖括号, 自己写的头文件用引号.
+
+</div>
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -294,14 +237,9 @@ Windows `#include`指令的不良示例:
 
 ---
 
-大多数大型程序包含由多个源文件共享的宏定义和类型定义. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-这些定义应该放入头文件.
-
-
-假设一个程序使用名为BOOL, TRUE和FALSE的宏. 
-
-它们的定义可以放在一个名为*boolean.h*的头文件中: 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 #define BOOL int
@@ -309,12 +247,30 @@ Windows `#include`指令的不良示例:
 #define FALSE 0
 ```
 
-任何需要这些宏的源文件将只包含该行
-
 ```C
 #include "boolean.h"
 ```
 
+```C
+#define TRUE 1
+#define FALSE 0
+typedef int Bool;
+```
+
+</div>
+
+<div style="flex:1;">
+
+大多数大型程序包含由多个源文件共享的宏定义和类型定义. 
+
+这些定义应该放入头文件.
+
+
+假设一个程序使用名为BOOL, TRUE和FALSE的宏. 
+
+它们的定义可以放在一个名为*boolean.h*的头文件中:
+
+任何需要这些宏的源文件将只包含该行
 
 两个文件都包含了boolean.h: 
 
@@ -327,14 +283,7 @@ Windows `#include`指令的不良示例:
 
 例如可使用typedef来创建一个Bool类型, 而不是定义BOOL宏. 
 
-如果我们这样做, boolean.h文件将有下列显示: 
-
-```C
-#define TRUE 1
-#define FALSE 0
-typedef int Bool;
-```
-
+如果我们这样做, boolean.h文件将有下列显示:
 
 将宏和类型的定义放在头文件中的优点: 
 
@@ -344,8 +293,9 @@ typedef int Bool;
 
 - 避免由源文件包含相同宏或类型的不同定义而导致的不一致.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -353,6 +303,22 @@ typedef int Bool;
 ##### 共享函数原型
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C{.line-numbers}
+void make_empty(void);
+int is_empty(void);
+int is_full(void);
+void push(int i);
+int pop(void);
+```
+
+</div>
+
+<div style="flex:1;">
 
 假设源文件包含对另一个文件foo.c中定义的函数f的调用. 
 
@@ -381,16 +347,7 @@ RPN 计算器示例用于说明头文件中函数原型的使用.
 
 *stack.c*包含make_empty, is_empty, is_full, push和pop函数的定义. 
 
-这些函数的原型应放在stack.h头文件中: 
-
-```C{.line-numbers}
-void make_empty(void);
-int is_empty(void);
-int is_full(void);
-void push(int i);
-int pop(void);
-```
-
+这些函数的原型应放在stack.h头文件中:
 
 文件calc.c中将包含stack.h以允许编译器检查出现在后一个文件中的栈函数的任何调用. 
 
@@ -401,8 +358,9 @@ int pop(void);
   <img src="../img/18-2.png">
 </div>
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -411,77 +369,48 @@ int pop(void);
 
 ---
 
-为了在文件之间共享一个函数, 将其定义放在一个源文件中, 然后将声明放在需要调用该函数的其他文件中. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-共享外部变量的方式大致相同.
-
-
-一个同时声明和定义i的示例(使编译器为i留出空间): 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C
 int i;
 ```
 
-关键字extern用于声明一个变量而不定义它: 
-
 ```C
 extern int i;
 ```
-
-extern告诉编译器i在程序的其他地方定义, 无需为其分配空间.
-
-
-在数组的声明中使用extern时, 可以省略数组的长度: 
 
 ```C
 extern int a[];
 ```
 
-由于此时编译器没有为a分配空间, 所以不需要知道a的长度.
-
-
-在多个源文件之间共享变量i, 首先将i的定义放在一个文件中: 
-
 ```C
 int i;
 ```
-
-如果i需要初始化, 可以把初始化式放在这里. 
-
-其他文件将包含i的声明: 
 
 ```C
 extern int i;
 ```
 
-通过在每个文件中声明i, 就可以在这些文件中访问和/或修改i.
-
-
-当同一变量的声明出现在不同的文件中时, 编译器无法检查声明是否与变量的定义匹配. 
-
-例如, 一个文件可能包含定义
-
 ```C
 int i;
 ```
-
-而另一个文件包含声明
 
 ```C
 extern long i;
 ```
 
-这种错误会导致程序的行为异常.
+</div>
 
+<div style="flex:1;">
 
-为了避免不一致, 共享变量的声明通常放在头文件中. 
+共享函数: 定义放在一个源文件, 声明放在需要调用的其他文件; 共享外部变量的方式相同.
 
-然后, 需要访问特定变量的源文件可以包含相应的头文件. 
+声明并定义 `i` (编译器为 i 留空间) 见左; `extern` 关键字==只声明不定义== (i 在别处定义, 无需分配空间); 数组声明用 extern 时可省略长度.
 
-此外, 含有变量定义的源文件需要包含含有变量声明的头文件, 使编译器能够检查两者是否匹配.
-
----
-
+</div>
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -490,21 +419,29 @@ extern long i;
 
 ---
 
-头文件可能包含`#include`指令. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-stack.h包含以下原型: 
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C
 int is_empty(void);
 int is_full(void);
 ```
 
-由于这些函数只返回 0 或 1, 最好将它们的返回类型声明为Bool: 
-
 ```C
 Bool is_empty(void);
 Bool is_full(void);
 ```
+
+</div>
+
+<div style="flex:1;">
+
+头文件可能包含`#include`指令. 
+
+stack.h包含以下原型:
+
+由于这些函数只返回 0 或 1, 最好将它们的返回类型声明为Bool:
 
 在 stack.h 中包含boolean.h, 以便在编译时可以使用Bool的定义.
 
@@ -513,8 +450,9 @@ Bool is_full(void);
 
 然而, 对嵌套包含的偏见已经在很大程度上消失了, 部分原因是嵌套包含是 C++ 中的常见做法.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -522,6 +460,25 @@ Bool is_full(void);
 ##### 保护头文件
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C{.line-numbers}
+#ifndef BOOLEAN_H
+#define BOOLEAN_H
+
+#define TRUE 1
+#define FALSE 0
+typedef int Bool;
+
+#endif
+```
+
+</div>
+
+<div style="flex:1;">
 
 如果一个源文件两次包含相同的头文件, 可能会导致编译错误. 
 
@@ -553,26 +510,15 @@ Bool is_full(void);
 
 为了保护头文件, 将文件的内容包含在#ifndef - #endif对中. 
 
-如何保护boolean.h文件: 
-
-```C{.line-numbers}
-#ifndef BOOLEAN_H
-#define BOOLEAN_H
-
-#define TRUE 1
-#define FALSE 0
-typedef int Bool;
-
-#endif
-```
-
+如何保护boolean.h文件:
 
 使宏的名称类似于头文件的名称是避免与其他宏冲突的好方法. 
 
 由于不能命名宏BOOLEAN.H, 所以像BOOLEAN_H这样的名称是一个不错的选择.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -580,6 +526,16 @@ typedef int Bool;
 ##### 将程序划分为文件
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 设计程序需确定程序需要什么函数并将函数分为逻辑相关的组. 
 
@@ -605,8 +561,9 @@ main函数将放入一个名称与程序名称匹配的文件中.
 
 main所在的文件中也可以有其他函数, 只要程序中的其他文件不会调用它们.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -614,6 +571,16 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 ##### 构建多文件程序
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 构建大型程序与构建小型程序所需的基本步骤相同: 
 
@@ -653,8 +620,9 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 
 -o选项表明我们希望将可执行文件命名为justify.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -663,16 +631,10 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 
 ---
 
-为了更容易构建大型程序, UNIX发明makefile的概念.  
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-makefile不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系. 
+<div style="flex:1.4;font-size:0.55em;">
 
-假设文件foo.c包含文件bar.h. 
-
-我们说foo.c"依赖于"bar.h, 因为修改bar.h之后需要重新编译foo.c.
-
-
-针对justify程序的UNIX系统的makefile: 
 ```
 justify: justify.o word.o line.o
         gcc -o justify justify.o word.o line.o
@@ -687,6 +649,25 @@ line.o: line.c line.h
         gcc -c line.c
 ```
 
+```
+justify: justify.o word.o line.o
+	      gcc -o justify justify.o word.o line.o
+```
+
+</div>
+
+<div style="flex:1;">
+
+为了更容易构建大型程序, UNIX发明makefile的概念.  
+
+makefile不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系. 
+
+假设文件foo.c包含文件bar.h. 
+
+我们说foo.c"依赖于"bar.h, 因为修改bar.h之后需要重新编译foo.c.
+
+
+针对justify程序的UNIX系统的makefile:
 
 有4组代码行；每个组称为一条规则. 
 
@@ -695,11 +676,7 @@ line.o: line.c line.h
 第二行是当目标文件依赖的文件发生改变而需要重新构建目标文件时要执行的命令.
 
 
-在第一条规则中, justify(可执行文件)是目标文件: 
-```
-justify: justify.o word.o line.o
-	      gcc -o justify justify.o word.o line.o
-```
+在第一条规则中, justify(可执行文件)是目标文件:
 
 第一行说明justify依赖于文件justify.o, word.o和line.o. 
 
@@ -707,8 +684,9 @@ justify: justify.o word.o line.o
 
 下一行的命令显示了如何进行重新构建.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 

@@ -70,6 +70,16 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+
+
+</div>
+
+<div style="flex:1;">
+
 在 C 中, 术语**流**表示任意输入的源或任意输出的目的地. 
 
 许多小程序从一个流(键盘)获取所有输入, 并将其所有输出写入另一个流(屏幕). 
@@ -92,8 +102,9 @@ FILE类型在<stdio.h>中声明.
 可以根据需要声明其他文件指针:  
 `FILE *fp1, *fp2;`
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -101,6 +112,16 @@ FILE类型在<stdio.h>中声明.
 ##### 标准流和重定向
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 <stdio.h>提供了三个标准流: 
 | 文件指针 | 流 | 默认含义 |
@@ -139,8 +160,9 @@ FILE类型在<stdio.h>中声明.
 
 将错误消息写入stderr而不是stdout可以保证即使stdout已被重定向, 错误信息也会出现在屏幕上.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -148,6 +170,16 @@ FILE类型在<stdio.h>中声明.
 ##### 文本文件与二进制文件
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 <stdio.h>支持两种文件: 文本文件和二进制文件. 
 
@@ -173,8 +205,9 @@ FILE类型在<stdio.h>中声明.
 
 在二进制文件中, 没有行尾或文件结束标记; 所有字节都被平等对待.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -182,6 +215,16 @@ FILE类型在<stdio.h>中声明.
 ##### 文本文件与二进制文件 (续)
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 数据写入文件时, 可以选择以文本格式或二进制格式存储. 
 
@@ -208,8 +251,9 @@ FILE类型在<stdio.h>中声明.
 
 当无法确定文件是文本形式还是二进制形式时, 假设它是二进制文件会更安全.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -217,6 +261,19 @@ FILE类型在<stdio.h>中声明.
 ##### 文件操作
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+```C
+FILE *fopen(const char * restrict filename,
+	          const char * restrict mode);
+```
+
+</div>
+
+<div style="flex:1;">
 
 简单性是输入和输出重定向的魅力之一. 
 
@@ -231,19 +288,16 @@ FILE类型在<stdio.h>中声明.
 
 如果要把文件用作流, 打开时需要调用fopen函数. 
 
-fopen的原型: 
-```C
-FILE *fopen(const char * restrict filename,
-	          const char * restrict mode);
-```
+fopen的原型:
 
 filename是要打开的文件的名称. 
 - 此参数可能包括有关文件位置的信息, 例如驱动器符或路径. 
 
 mode是一个"模式字符串", 它指定打算对文件执行的操作.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -251,6 +305,19 @@ mode是一个"模式字符串", 它指定打算对文件执行的操作.
 ##### 打开文件
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+fp = fopen("in.dat", "r");
+/* 打开 in.dat 以供阅读 */
+```
+
+</div>
+
+<div style="flex:1;">
 
 fopen的原型中, restrict关键字出现了两次. 
 
@@ -274,16 +341,13 @@ fopen调用中的文件名包含`\`字符时要小心.
 `fopen("c:/project/test1.dat", "r")`
 
 
-fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中: 
-```C
-fp = fopen("in.dat", "r");
-/* 打开 in.dat 以供阅读 */
-```
+fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中:
 
 无法打开文件时, fopen返回一个空指针.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -291,6 +355,16 @@ fp = fopen("in.dat", "r");
 ##### 打开模式
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 决定将哪个模式字符串传递给fopen的因素: 
 - 要对文件执行的操作
@@ -330,8 +404,9 @@ fp = fopen("in.dat", "r");
 - 除非读取操作遇到文件末尾, 否则不先调用文件定位函数就无法从读模式切换到写模式. 
 - 如果既没有调用fflush函数也没有调用文件定位函数, 则无法从写模式切换到读模式.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -340,16 +415,10 @@ fp = fopen("in.dat", "r");
 
 ---
 
-fclose函数允许程序关闭不再使用的文件. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-fclose的参数必须是从调用fopen或freopen获得的文件指针. 
+<div style="flex:1.3;font-size:0.6em;">
 
-如果文件成功关闭, fclose返回零. 
-
-否则, 它返回错误代码EOF(在<stdio.h>中定义的宏).
-
-
-打开文件进行读取的程序框架: 
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -371,6 +440,20 @@ int main(void)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+fclose函数允许程序关闭不再使用的文件. 
+
+fclose的参数必须是从调用fopen或freopen获得的文件指针. 
+
+如果文件成功关闭, fclose返回零. 
+
+否则, 它返回错误代码EOF(在<stdio.h>中定义的宏).
+
+
+打开文件进行读取的程序框架:
 
 可以把fopen的调用与fp的声明相结合:  
 `FILE *fp = fopen(FILE_NAME, "r");`
@@ -378,8 +461,9 @@ int main(void)
 还可以与NULL的判断相结合:  
 `if((fp = fopen(FILE_NAME, "r")) == NULL) …`
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -387,6 +471,21 @@ int main(void)
 ##### 从命令行获取文件名
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+int main(int argc, char *argv[])
+{
+  …
+}
+```
+
+</div>
+
+<div style="flex:1;">
 
 有几种方法可以为程序提供文件名. 
 - 将文件名嵌入程序中不太灵活. 
@@ -397,13 +496,7 @@ int main(void)
 `demo names.dat dates.dat`
 
 
-将main定义为具有两个参数的函数来访问命令行参数: 
-```C
-int main(int argc, char *argv[])
-{
-  …
-}
-```
+将main定义为具有两个参数的函数来访问命令行参数:
 
 argc是命令行参数的数量. 
 
@@ -417,8 +510,9 @@ argv[0]指向程序名, argv[1]到argv[argc-1]指向剩余的参数, argv[argc]�
   <img src="../img/21-3.png">
 </div>
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -427,15 +521,9 @@ argv[0]指向程序名, argv[1]到argv[argc-1]指向剩余的参数, argv[argc]�
 
 ---
 
-canopen.c程序判断文件是否存在, 如果存在是否可以打开进行读取. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-用户提供给程序要检查的文件的名字:  
-`canopen file`
-
-然后程序将显示`file can be opened`或`file can't be opened`. 
-
-如果用户在命令行中输入错误数量的参数, 程序将显示消息`usage: canopen filename`.
-
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C
 /* Checks whether a file can be opened for reading */
@@ -463,8 +551,24 @@ int main(int argc, char *argv[])
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+canopen.c程序判断文件是否存在, 如果存在是否可以打开进行读取. 
+
+用户提供给程序要检查的文件的名字:  
+`canopen file`
+
+然后程序将显示`file can be opened`或`file can't be opened`. 
+
+如果用户在命令行中输入错误数量的参数, 程序将显示消息`usage: canopen filename`.
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -472,6 +576,19 @@ int main(int argc, char *argv[])
 ##### 检测文件末尾和错误条件
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C
+clearerr(fp);
+	/* clears eof and error indicators for fp */
+```
+
+</div>
+
+<div style="flex:1;">
 
 如果要求...scanf函数读取并存储n个数据项, 那么期望它的返回值为n. 
 
@@ -492,11 +609,8 @@ int main(int argc, char *argv[])
 
 
 一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用clearerr函数.  
-clearerr清除文件末尾和错误指示器: 
-```C
-clearerr(fp);
-	/* clears eof and error indicators for fp */
-```
+clearerr清除文件末尾和错误指示器:
+
 并不需要经常使用clearerr, 因为其他一些库函数的副作用可以清楚指示器.
 
 
@@ -506,8 +620,9 @@ feof和ferror函数可用于测试流的指示器以确定先前对流的操作�
 
 如果设置了错误指示器, 调用ferror(fp)会返回一个非零值.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -515,6 +630,16 @@ feof和ferror函数可用于测试流的指示器以确定先前对流的操作�
 ##### 检测文件末尾 (续)
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 当scanf返回小于预期的值时, 可以使用feof和ferror来判断原因. 
 - 如果feof返回非零值, 则已到达输入文件的末尾. 
@@ -534,8 +659,9 @@ find_int返回它找到的整数的值或错误代码:
 - –2 读取错误
 - –3 没有行以整数开头
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -543,6 +669,24 @@ find_int返回它找到的整数的值或错误代码:
 ##### 字符的输入/输出
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C
+fputc(ch, fp); /* 将 ch 写入 fp */
+putc(ch, fp); /* 将 ch 写入 fp */
+```
+
+```C
+ch = fgetc(fp);
+ch = getc(fp);
+```
+
+</div>
+
+<div style="flex:1;">
 
 下一组库函数可以读取和写入单个字符. 
 
@@ -558,11 +702,7 @@ find_int返回它找到的整数的值或错误代码:
 putchar将一个字符写入标准输出流:  
 `putchar(ch); /* 将 ch 写入标准输出流 */`
 
-fputc和putc将一个字符写入任意流: 
-```C
-fputc(ch, fp); /* 将 ch 写入 fp */
-putc(ch, fp); /* 将 ch 写入 fp */
-```
+fputc和putc将一个字符写入任意流:
 
 putc通常实现为宏(以及函数), 而fputc仅实现为函数.
 
@@ -582,18 +722,15 @@ C标准允许putc宏对stream参数多次求值, 而fputc不可以.
 getchar从stdin读取一个字符:  
 `ch = getchar();`
 
-fgetc和getc从任意流中读取一个字符:  
-```C
-ch = fgetc(fp);
-ch = getc(fp);
-```
+fgetc和getc从任意流中读取一个字符:
 
 这三个函数都将字符视为unsigned char类型的值(返回之前转换为int类型). 
 
 因此, 它们不会返回EOF以外的负值.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -602,20 +739,9 @@ ch = getc(fp);
 
 ---
 
-fcopy.c程序进行文件的复制操作. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-执行程序时, 将在命令行中指定原始文件和新文件的名称. 
-
-使用fcopy将文件f1.c复制到f2.c的示例:  
-`fcopy f1.c f2.c`
-
-如果命令行中的文件名不完全是两个, 或者其中一个文件都无法打开, fcopy将产生错误消息.
-
-
-使用"rb"和"wb"作为文件模式使fcopy可以复制文本和二进制文件. 
-
-如果改用"r"和"w", 程序将无法复制二进制文件.
-
+<div style="flex:1.5;font-size:0.46em;">
 
 ```C
 /* Copies a file */
@@ -653,8 +779,29 @@ int main(int argc, char *argv[])
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+fcopy.c程序进行文件的复制操作. 
+
+执行程序时, 将在命令行中指定原始文件和新文件的名称. 
+
+使用fcopy将文件f1.c复制到f2.c的示例:  
+`fcopy f1.c f2.c`
+
+如果命令行中的文件名不完全是两个, 或者其中一个文件都无法打开, fcopy将产生错误消息.
+
+
+使用"rb"和"wb"作为文件模式使fcopy可以复制文本和二进制文件. 
+
+如果改用"r"和"w", 程序将无法复制二进制文件.
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -662,6 +809,16 @@ int main(int argc, char *argv[])
 ##### 行的输入/输出
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 下一组中的库函数能够读取和写入行. 
 
@@ -695,8 +852,9 @@ fgets是更通用的get版本, 可以从任意流中读取.
 
 fgets也比gets更安全, 因为它限制了它将存储的字符数.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -705,57 +863,32 @@ fgets也比gets更安全, 因为它限制了它将存储的字符数.
 
 ---
 
-fread和fwrite函数允许程序在单步中读取和写入大的数据块. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-fread和fwrite主要用于二进制流, 尽管也可以用于文本流. 
+<div style="flex:1.4;font-size:0.5em;">
 
-
----
-
-fwrite旨在将数组从内存复制到流中. 
-
-fwrite调用中的参数: 
-- 数组地址
-- 每个数组元素的大小(以字节为单位)
-- 要写入的元素数
-- 文件指针
-
-调用fwrite写入数组a的全部内容: 
 ```C
 fwrite(a, sizeof(a[0]),
 sizeof(a) / sizeof(a[0]), fp);
 ```
 
-
-fwrite返回实际写入的元素数. 
-
-如果发生写入错误, 此数字将小于第三个参数.
-
-
-fread将从流中读取数组的元素. 
-
-将文件内容读入数组a的fread调用: 
 ```C
 n = fread(a, sizeof(a[0]),
 sizeof(a) / sizeof(a[0]), fp);
 ```
 
-fread的返回值表示实际读取的元素数. 
+</div>
 
-此数字应等于第三个参数, 除非已到达输入文件的末尾或发生读取错误.
+<div style="flex:1;">
 
+`fread`/`fwrite` 一次读写==大块数据== (主要用于二进制流, 也可用于文本流).
 
-fwrite对于需要在终止之前将数据存储在文件中的程序来说很方便. 
+`fwrite` 把数组从内存复制到流, 参数: 数组地址、元素大小 (字节)、元素个数、文件指针; 返回==实际写入的元素数== (出错时小于第三个参数).
 
-以后程序(或其他程序)可以使用fread将数据读回内存. 
+`fread` 从流读数组元素, 返回值是实际读取的元素数 (除非到达文件末尾或出错, 否则应等于第三个参数).
 
-数据不需要是数组形式. 
-
-将结构变量s写入文件的fwrite调用:  
-`fwrite(&s, sizeof(s), 1, fp);`
-
----
-
+</div>
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -763,6 +896,16 @@ fwrite对于需要在终止之前将数据存储在文件中的程序来说很�
 ##### 文件定位
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 每个流都有一个关联的**文件位置**.  
 
@@ -802,8 +945,9 @@ fseek函数更改与第一个参数(文件指针)关联的文件位置.
 
 如果发生错误(例如, 请求的位置不存在), fseek返回一个非零值.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -811,6 +955,46 @@ fseek函数更改与第一个参数(文件指针)关联的文件位置.
 ##### 程序: 修改零件记录文件
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.5;font-size:0.46em;">
+
+```C
+/* Modifies a file of part records by setting the quantity
+   on hand to zero for all records */
+#include <stdio.h>
+#include <stdlib.h>
+#define NAME_LEN 25
+#define MAX_PARTS 100
+struct part {
+  int number;
+  char name[NAME_LEN+1];
+  int on_hand;
+} inventory[MAX_PARTS];
+int num_parts;
+int main(void)
+{
+  FILE *fp;
+  int i;
+  if((fp = fopen("inventory.dat", "rb+")) == NULL) {
+    fprintf(stderr, "Can't open inventory file\n");
+    exit(EXIT_FAILURE);
+  }
+  num_parts = fread(inventory, sizeof(struct part),
+                    MAX_PARTS, fp);
+  for(i = 0; i < num_parts; i++)
+    inventory[i].on_hand = 0;
+  rewind(fp);
+  fwrite(inventory, sizeof(struct part), num_parts, fp);
+  fclose(fp);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
 
 invclear.c程序执行的操作: 
 - 打开包含part结构的二进制文件. 
@@ -821,50 +1005,10 @@ invclear.c程序执行的操作:
 "rb+"模式打开文件, 允许读写.
 
 
-```C
-/* Modifies a file of part records by setting the quantity
-   on hand to zero for all records */
- 
-#include <stdio.h>
-#include <stdlib.h>
- 
-#define NAME_LEN 25
-#define MAX_PARTS 100
- 
-struct part {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
-} inventory[MAX_PARTS];
- 
-int num_parts;
 
-int main(void)
-{
-  FILE *fp;
-  int i;
- 
-  if((fp = fopen("inventory.dat", "rb+")) == NULL) {
-    fprintf(stderr, "Can't open inventory file\n");
-    exit(EXIT_FAILURE);
-  }
- 
-  num_parts = fread(inventory, sizeof(struct part),
-                    MAX_PARTS, fp);
- 
-  for(i = 0; i < num_parts; i++)
-    inventory[i].on_hand = 0;
- 
-  rewind(fp);
-  fwrite(inventory, sizeof(struct part), num_parts, fp);
-  fclose(fp);
- 
-  return 0;
-}
-```
+</div>
 
----
-
+</div>
 
 <!-- slide data-notes="" -->
 

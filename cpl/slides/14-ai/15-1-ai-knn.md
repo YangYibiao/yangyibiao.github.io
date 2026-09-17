@@ -167,6 +167,10 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
 ```C{.line-numbers}
 #define MAX_SAMPLES 150
 #define MAX_LINE 100
@@ -187,10 +191,15 @@ while (fgets(line, sizeof(line), fp) && n_samples < MAX_SAMPLES) {
 fclose(fp);
 ```
 
-- `features[i]` 是一个 ==4 个 double== 的小数组——正好给第 13 周的距离函数用
+</div>
 
----
+<div style="flex:1;">
 
+`features[i]` 是一个 ==4 个 double== 的小数组——正好给第 13 周的距离函数用
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -198,6 +207,10 @@ fclose(fp);
 ##### 算距离与 KNN 预测
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 #include <math.h>
@@ -224,10 +237,15 @@ int knn_predict(double x[4], int k)
 }
 ```
 
-- 完整代码见课件目录 `code/knn.c`——现场演示运行
+</div>
 
----
+<div style="flex:1;">
 
+完整代码见课件目录 `code/knn.c`——现场演示运行
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
