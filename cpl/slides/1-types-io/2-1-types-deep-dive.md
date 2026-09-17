@@ -143,7 +143,7 @@ int main(void) {
 <div style="flex:1;">
 
 <div class="top-2">
-  <img src="figs/clock-wrap.svg" style="max-width:100%;">
+  <img src="figs/clock-wrap.svg" width=400px style="max-width:100%;">
 </div>
 
 </div>
@@ -274,7 +274,7 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 <div style="flex:1.15;">
 
 <div class="top-2">
-  <img src="figs/float-mapping.svg" style="max-width:100%;">
+  <img src="figs/float-mapping.svg" width=500px style="max-width:100%;">
 </div>
 
 </div>
