@@ -543,28 +543,41 @@ scanf("%d", &i);
 
 ---
 
-尽管scanf的参数必须是指针, 但并不总是需要`&`运算符: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.85em;">
+
 ```C
 int i, *p;
 …
 p = &i;
 scanf("%d", p);
 ```
-使用&运算符是错误的: 
+
 ```C
 scanf("%d", &p); /*** 错误的 ***/
 ```
 
-
-传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用: 
 ```C
 decompose(3.14159, i, d)；
 ```
+
+</div>
+
+<div style="flex:1;">
+
+尽管scanf的参数必须是指针, 但并不总是需要`&`运算符:
+
+使用&运算符是错误的:
+
+传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用:
+
 当decompose在 `*int_part` 和 `*frac_part` 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 
 若为 decompose 提供了原型, 编译器会检测到错误; 而 scanf 的例子通常不会被检查出来
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
