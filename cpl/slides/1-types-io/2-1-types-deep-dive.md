@@ -204,14 +204,29 @@ int y = -5;   11111111 11111111 11111111 11111011
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+<div class="top-2">
+  <img src="figs/clock-12h.svg" width=280px style="max-width:100%;">
+</div>
+
+</div>
+
+<div style="flex:1.35;">
+
 <div class="top-2">
   <img src="figs/clock-wrap.svg" width=370px style="max-width:100%;">
 </div>
 
-- 0 起共 16 格: ==加 1 顺时针走一格==; 负数左半圈, 正数右半圈
+</div>
 
-- 溢出 = 跨过顶部分界: ==0111 + 1 = 1000== (7 → -8), 反向 -8 - 1 = 7; C 不检查溢出
+</div>
 
+- 和左图的钟同一结构: 0 起共 16 格, ==加 1 顺时针走一格==; 负数左半圈, 正数右半圈
+
+- 溢出 = 跨过顶部分界: ==0111 + 1 = 1000== (7 → -8); C 不检查溢出
 <!-- slide data-notes="" -->
 
 
