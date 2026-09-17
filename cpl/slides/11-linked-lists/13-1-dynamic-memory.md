@@ -97,14 +97,10 @@ presentation:
 
 ---
 
-如果内存分配函数找不到请求大小的内存块, 则返回**空指针**. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-空指针是可以与所有有效指针区分开来的特殊值. 
+<div style="flex:1.3;font-size:0.6em;">
 
-在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针.
-
-
-malloc的返回值的示例: 
 ```C{.line-numbers}
 p = malloc(10000);
 if (p == NULL) {
@@ -112,20 +108,11 @@ if (p == NULL) {
 }
 ```
 
-NULL是一个表示空指针的宏(在各种库头文件中定义). 
-
-一些程序员将malloc的调用与NULL测试结合起来: 
-
 ```C{.line-numbers}
 if ((p = malloc(10000)) == NULL) {
   /* allocation failed; take appropriate action */
 }
 ```
-
-
-指针以与数字相同的方式测试真假. 
-
-所有非空指针都为真; 只有空指针是假的. 
 
 ```C{.line-numbers}
 if (p == NULL) …
@@ -135,10 +122,32 @@ if (p != NULL) …
 if (p) …
 ```
 
+</div>
+
+<div style="flex:1;">
+
+如果内存分配函数找不到请求大小的内存块, 则返回**空指针**. 
+
+空指针是可以与所有有效指针区分开来的特殊值. 
+
+在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针.
+
+
+malloc的返回值的示例:
+
+NULL是一个表示空指针的宏(在各种库头文件中定义). 
+
+一些程序员将malloc的调用与NULL测试结合起来:
+
+指针以与数字相同的方式测试真假. 
+
+所有非空指针都为真; 只有空指针是假的.
+
 语句1-2等价, 4-5等价
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -146,6 +155,23 @@ if (p) …
 ##### 动态分配字符串
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+char *p;
+p = malloc(n + 1);
+```
+
+```C
+p = (char *) malloc(n + 1);
+```
+
+</div>
+
+<div style="flex:1;">
 
 动态存储分配常用于处理字符串. 
 
@@ -165,21 +191,11 @@ malloc分配size个字节的内存块并返回一个指向它的(类型为void*)
 size_t是库中定义的无符号整数类型.
 
 
-为n个字符的字符串分配内存的malloc调用: 
-
-```C{.line-numbers}
-char *p;
-p = malloc(n + 1);
-```
+为n个字符的字符串分配内存的malloc调用:
 
 每个字符需要一个字节的内存; 加1是为空字符留出空间. 
 
-一些程序员更喜欢强制转换malloc的返回值: 
-
-```C
-p = (char *) malloc(n + 1);
-```
-
+一些程序员更喜欢强制转换malloc的返回值:
 
 malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组: 
 
@@ -187,8 +203,9 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
   <img src="../img/16-1.png">
 </div>
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -197,12 +214,9 @@ malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未�
 
 ---
 
-动态存储分配使得编写返回指向新字符串的指针成为可能. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-编写一个函数, 连接两个字符串而不更改任何一个字符串. 
-
-该函数先计算要拼接的两个字符串的长度, 然后调用malloc为结果分配适量的空间.
-
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 /* 
@@ -226,8 +240,21 @@ char *concat(const char *s1, const char *s2)
 }
 ```
 
----
+</div>
 
+<div style="flex:1;">
+
+动态存储分配使得编写返回指向新字符串的指针成为可能. 
+
+编写一个函数, 连接两个字符串而不更改任何一个字符串. 
+
+该函数先计算要拼接的两个字符串的长度, 然后调用malloc为结果分配适量的空间.
+
+
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -235,6 +262,25 @@ char *concat(const char *s1, const char *s2)
 ##### 动态分配数组
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+int *a;
+a = malloc(n * sizeof(int)); 
+// int *a = (int *) malloc(n * sizeof(int));
+```
+
+```C{.line-numbers}
+for (i = 0; i < n; i++)
+  a[i] = 0;
+```
+
+</div>
+
+<div style="flex:1;">
 
 动态分配的数组与动态分配的字符串具有相同的优点, 动态分配的数组和普通数组一样易于使用. 
 
@@ -247,30 +293,20 @@ char *concat(const char *s1, const char *s2)
 
 假设需要一个包含n个整数的数组, n是在程序运行期间计算的. 
 
-先声明一个指针变量, 依据n, 调用malloc为数组分配空间: 
-
-```C
-int *a;
-a = malloc(n * sizeof(int)); 
-// int *a = (int *) malloc(n * sizeof(int));
-```
+先声明一个指针变量, 依据n, 调用malloc为数组分配空间:
 
 始终使用sizeof运算符来计算每个元素所需的空间量.
 
 
 一旦a指向动态分配的内存块, 就可以将指针a用作数组名称. 
 
-例如, 可以使用以下循环来初始化a指向的数组: 
-
-```C{.line-numbers}
-for (i = 0; i < n; i++)
-  a[i] = 0;
-```
+例如, 可以使用以下循环来初始化a指向的数组:
 
 还可以选择使用指针算术运算代替取下标来访问数组的元素.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -278,6 +314,20 @@ for (i = 0; i < n; i++)
 ##### calloc 函数
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+```C
+struct point { int x, y; } *p;
+
+p = calloc(1, sizeof(struct point));
+```
+
+</div>
+
+<div style="flex:1;">
 
 calloc函数是malloc的替代方法. 
 
@@ -298,16 +348,13 @@ calloc的规则:
 
 `a = calloc(n, sizeof(int));`
 
-以1作为第一个参数调用calloc, 可为任何类型数据项分配空间: 
+以1作为第一个参数调用calloc, 可为任何类型数据项分配空间:
 
-```C
-struct point { int x, y; } *p;
 
-p = calloc(1, sizeof(struct point));
-```
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -315,6 +362,16 @@ p = calloc(1, sizeof(struct point));
 ##### realloc 函数
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
 
 realloc函数可以调整动态分配的数组的大小. 
 
@@ -348,8 +405,9 @@ realloc的规则:
 
 一旦realloc返回, 一定要更新所有指向内存块的指针, 以防内存块被移动.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 

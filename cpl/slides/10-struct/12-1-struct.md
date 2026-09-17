@@ -72,6 +72,30 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+```C{.line-numbers}
+struct {
+  int number;
+  char name[NAME_LEN+1];
+  int on_hand;
+} part1, part2;
+```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+</div>
+
+<div style="flex:1;">
+
 结构体与数组的特性不同. 
 
 - 结构体的元素(成员)不需要具有相同的类型. 
@@ -85,16 +109,7 @@ presentation:
 
 在存储相关数据项的集合时, 结构体是个好选择. 
 
-声明两个结构体变量, 用于存储仓库中零件的信息: 
-
-```C{.line-numbers}
-struct {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
-} part1, part2;
-```
-
+声明两个结构体变量, 用于存储仓库中零件的信息:
 
 结构体的成员按照声明的顺序存储在内存中. part1:
 
@@ -102,8 +117,13 @@ struct {
   <img src="../img/15-1.png" height=500px>
 </div>
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -111,6 +131,36 @@ struct {
 ##### 声明结构体变量
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+```C{.line-numbers}
+struct {
+  int number;
+  char name[NAME_LEN+1];
+  int on_hand;
+} part1, part2;
+
+struct {
+  char name[NAME_LEN+1];
+  int number;
+  char sex;
+} employee1, employee2;
+```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+</div>
+
+<div style="flex:1;">
 
 假设: 
 
@@ -139,24 +189,17 @@ struct {
 每个结构体都为它的成员设置了独立的名字空间.
 
 
-例如, 以下声明可以出现在同一程序中: 
+例如, 以下声明可以出现在同一程序中:
 
-```C{.line-numbers}
-struct {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
-} part1, part2;
 
-struct {
-  char name[NAME_LEN+1];
-  int number;
-  char sex;
-} employee1, employee2;
-```
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -165,7 +208,9 @@ struct {
 
 ---
 
-结构体变量可以在声明的同时进行初始化: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
 
 ```C
 struct {
@@ -175,6 +220,20 @@ struct {
 } part1 = {528, "Disk drive", 10},
   part2 = {914, "Printer cable", 5};
 ```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+</div>
+
+<div style="flex:1;">
+
+结构体变量可以在声明的同时进行初始化:
 
 part1初始化后的样子: 
 
@@ -191,8 +250,13 @@ part1初始化后的样子:
 
 任何"剩余的"成员用 0 作为其初始值.
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -201,20 +265,15 @@ part1初始化后的样子:
 
 ---
 
-要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-打印part1的成员的值的语句: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 printf("Part number: %d\n", part1.number);
 printf("Part name: %s\n", part1.name);
 printf("Quantity on hand: %d\n", part1.on_hand);
 ```
-
-
-结构体的成员是左值. 
-
-它们可以出现在赋值的左侧, 也可以作为自增或自减表达式中的操作数: 
 
 ```C
 part1.number = 258;     
@@ -223,14 +282,33 @@ part1.on_hand++;
  /* increments part1's quantity on hand */
 ```
 
-
-用于访问结构体成员的句点实际上是一个 C 运算符. 
-
-它优先于几乎所有其他运算符. 例子: 
-
 ```C
 scanf("%d", &part1.on_hand);
 ```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+</div>
+
+<div style="flex:1;">
+
+要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称. 
+
+打印part1的成员的值的语句:
+
+结构体的成员是左值. 
+
+它们可以出现在赋值的左侧, 也可以作为自增或自减表达式中的操作数:
+
+用于访问结构体成员的句点实际上是一个 C 运算符. 
+
+它优先于几乎所有其他运算符. 例子:
 
 `.`运算符优先级高于`&`运算符, 因此`&`计算part1.on_hand的地址.
 
@@ -241,8 +319,13 @@ scanf("%d", &part1.on_hand);
 
 该语句的效果是将 part1.number 复制到part2.number, 将 part1.name 复制到 part2.name , 依此类推.
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -282,6 +365,45 @@ a1 = a2;
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C{.line-numbers}
+struct part {
+  int number;
+  char name[NAME_LEN+1];
+  int on_hand;
+};
+```
+
+```C
+struct part {
+ int number;
+ char name[NAME_LEN+1];
+ int on_hand;
+} part1, part2;
+```
+
+```C
+struct part part1 = {528, "Disk drive", 10};
+struct part part2;
+
+part2 = part1; /* legal; both parts have the same type */
+```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+</div>
+
+<div style="flex:1;">
+
 假设程序需要声明几个具有相同成员的结构体变量. 
 
 需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量. 
@@ -297,15 +419,7 @@ a1 = a2;
 
 结构体标记是用于标识特定类型结构体的名称. 
 
-名为part的结构体标记的声明: 
-
-```C{.line-numbers}
-struct part {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
-};
-```
+名为part的结构体标记的声明:
 
 请注意, 分号必须跟在右大括号后面.
 
@@ -323,26 +437,19 @@ part不是类型名; 没有struct这个词, 它是没有意义的.
 结构体标记只有在struct后才有意义, 因此它们不会与程序中使用的其他名称冲突.
 
 
-结构体标记的声明可以与结构体变量的声明相结合: 
-```C
-struct part {
- int number;
- char name[NAME_LEN+1];
- int on_hand;
-} part1, part2;
-```
+结构体标记的声明可以与结构体变量的声明相结合:
+
+所有声明为struct part类型的结构体相互兼容:
 
 
-所有声明为struct part类型的结构体相互兼容: 
-```C
-struct part part1 = {528, "Disk drive", 10};
-struct part part2;
 
-part2 = part1; /* legal; both parts have the same type */
-```
+</div>
 
----
+</div>
 
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -382,9 +489,9 @@ Part的使用方式与内置类型相同:
 
 ---
 
-函数可以有结构体类型的参数和返回值. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-带有结构体参数的函数: 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 void print_part(struct part p)
@@ -395,14 +502,9 @@ void print_part(struct part p)
 }
 ```
 
-调用print_part: 
-
 ```C
 print_part(part1);
 ```
-
-
-返回part结构体的函数: 
 
 ```C{.line-numbers}
 struct part build_part(int number,
@@ -418,12 +520,31 @@ struct part build_part(int number,
 }
 ```
 
-调用build_part: 
-
 ```C
 part1 = build_part(528, "Disk drive", 10);
 ```
 
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+</div>
+
+<div style="flex:1;">
+
+函数可以有结构体类型的参数和返回值. 
+
+带有结构体参数的函数:
+
+调用print_part:
+
+返回part结构体的函数:
+
+调用build_part:
 
 将结构体传递给函数和从函数返回结构体都需要复制结构体中的所有成员. 
 
@@ -442,8 +563,13 @@ part1 = build_part(528, "Disk drive", 10);
 
 每个对已打开文件执行操作的函数都需要一个FILE指针作为参数.
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -451,6 +577,38 @@ part1 = build_part(528, "Disk drive", 10);
 ##### 嵌套的结构体
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+struct person_name {
+  char first[FIRST_NAME_LEN+1];
+  char middle_initial;
+  char last[LAST_NAME_LEN+1];
+};
+```
+
+```C{.line-numbers}
+struct student {
+  struct person_name name;
+  int id, age;
+  char sex;
+} student1, student2;
+```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+</div>
+
+<div style="flex:1;">
 
 结构体和数组可以无限制地组合. 
 
@@ -461,33 +619,21 @@ part1 = build_part(528, "Disk drive", 10);
 
 将一个结构体嵌套在另一个结构体中通常很有用. 
 
-假设person_name是以下结构体: 
+假设person_name是以下结构体:
 
-```C{.line-numbers}
-struct person_name {
-  char first[FIRST_NAME_LEN+1];
-  char middle_initial;
-  char last[LAST_NAME_LEN+1];
-};
-```
-
-
-我们可以使用person_name作为更大结构体的一部分: 
-
-```C{.line-numbers}
-struct student {
-  struct person_name name;
-  int id, age;
-  char sex;
-} student1, student2;
-```
+我们可以使用person_name作为更大结构体的一部分:
 
 访问student1的名字、中间名首字母或姓氏需两次应用`.`运算符: 
 
 `strcpy(student1.name.first, "Fred");`
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -524,16 +670,9 @@ struct student {
 
 ---
 
-初始化结构体数组的方式与初始化多维数组的方式大致相同. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-每个结构体都有自己的大括号括起来的初始化式; 数组的初始化式将另一组大括号包裹在结构体初始化式的外围.
-
-
-初始化结构体数组的一个原因是它包含在程序执行期间不会改变的信息. 
-
-示例: 存储拨打国际电话时使用的国家/地区代码的数组. 
-
-数组的元素将是存储国家名称及其代码的结构体: 
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C
 struct dialing_code {
@@ -541,7 +680,6 @@ struct dialing_code {
   int code;
 };
 ```
-
 
 ```C
 const struct dialing_code country_codes[] =
@@ -563,60 +701,63 @@ const struct dialing_code country_codes[] =
    {"United States",         1}, {"Vietnam",          84} };
 ```
 
-每个结构体值两边的内层大括号是可选的.
-
-
-C99 的指定初始化式允许每一项有多个指示符. 
-
-声明inventory数组, 使用指定初始化式来包含一个零件: 
 ```C
 struct part inventory[100] = 
  {[0].number = 528, [0].on_hand = 10,
   [0].name[0] = '\0'};
 ```
+
+</div>
+
+<div style="flex:1;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+</div>
+
+<div style="flex:1;">
+
+初始化结构体数组的方式与初始化多维数组的方式大致相同. 
+
+每个结构体都有自己的大括号括起来的初始化式; 数组的初始化式将另一组大括号包裹在结构体初始化式的外围.
+
+
+初始化结构体数组的一个原因是它包含在程序执行期间不会改变的信息. 
+
+示例: 存储拨打国际电话时使用的国家/地区代码的数组. 
+
+数组的元素将是存储国家名称及其代码的结构体:
+
+每个结构体值两边的内层大括号是可选的.
+
+
+C99 的指定初始化式允许每一项有多个指示符. 
+
+声明inventory数组, 使用指定初始化式来包含一个零件:
+
 初始化式中的前两项使用两个指示符; 最后一项使用三个.
 
----
+</div>
 
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
 
-##### 程序: 维护零件数据库
+##### 程序: 维护零件数据库 (说明)
 
 ---
 
-inventory.c程序说明了在实践中如何使用嵌套数组和结构体. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-该程序跟踪存储在仓库中的零件. 
+<div style="flex:1.2;font-size:0.46em;">
 
-有关零件的信息存储在结构体数组中. 
-
-每个结构体包含的信息: 
-
-- 零件号
-
-- 名称
-
-- 数量
-
-
-程序支持的操作: 
-
-- 添加新的零件编号、名称和初始数量
-
-- 给定零件编号, 打印零件名称和当前数量
-
-- 给定零件编号, 更改现有数量
-
-- 打印一个表格, 显示数据库中的所有信息
-
-- 终止程序执行
-
-
-代码i(插入)、s(搜索)、u(更新)、p(打印)和q(退出)将用于表示这些操作. 
-
-与程序的会话: 
 ```
 Enter operation code: i
 Enter part number: 528
@@ -654,15 +795,32 @@ Part Number   Part Name             Quantity on Hand
 Enter operation code: q
 ```
 
+</div>
 
-该程序将在结构体中存储每种零件的信息. 
+<div style="flex:1;">
 
-这些结构体将存储在inventory数组中. 
+inventory.c 演示==嵌套数组与结构体==的实战: 零件存在结构体数组中, 每个结构体含零件号、名称、数量.
 
-num_parts变量将跟踪当前存储在数组中的零件数.
+支持的操作: 插入 (i)、搜索 (s)、更新 (u)、打印 (p)、退出 (q).
+
+结构体存进 inventory 数组, num_parts 跟踪当前零件数.
+
+</div>
+</div>
 
 
-程序主循环的概要: 
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 维护零件数据库 (代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.6em;">
+
 ```C{.line-numbers}
 for (;;) {
  prompt user to enter operation code;
@@ -678,7 +836,17 @@ for (;;) {
 }
 ```
 
----
+</div>
+
+<div style="flex:1;">
+
+主循环: 读操作码 → 调用对应函数 (insert/search/update/print); 每种零件的信息保存在结构体中, 结构体存进 inventory 数组.
+
+代码结构: struct part 定义 → 各操作函数 → main 主循环.
+
+</div>
+</div>
+
 
 
 <!-- slide data-notes="" -->

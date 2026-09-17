@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -126,30 +126,43 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="空指针">空指针 </h5>
 <hr>
-<p>如果内存分配函数找不到请求大小的内存块, 则返回<strong>空指针</strong>.</p>
-<p>空指针是可以与所有有效指针区分开来的特殊值.</p>
-<p>在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针.</p>
-<p>malloc的返回值的示例:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
  <span class="token comment">/* allocation failed; take appropriate action */</span>
 <span class="token punctuation">}</span></code></pre>
-<p>NULL是一个表示空指针的宏(在各种库头文件中定义).</p>
-<p>一些程序员将malloc的调用与NULL测试结合起来:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment">/* allocation failed; take appropriate action */</span>
 <span class="token punctuation">}</span></code></pre>
-<p>指针以与数字相同的方式测试真假.</p>
-<p>所有非空指针都为真; 只有空指针是假的.</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> NULL<span class="token punctuation">)</span> …
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>p<span class="token punctuation">)</span> …
 
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> NULL<span class="token punctuation">)</span> …
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> …</code></pre>
+</div>
+<div style="flex:1;">
+<p>如果内存分配函数找不到请求大小的内存块, 则返回<strong>空指针</strong>.</p>
+<p>空指针是可以与所有有效指针区分开来的特殊值.</p>
+<p>在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针.</p>
+<p>malloc的返回值的示例:</p>
+<p>NULL是一个表示空指针的宏(在各种库头文件中定义).</p>
+<p>一些程序员将malloc的调用与NULL测试结合起来:</p>
+<p>指针以与数字相同的方式测试真假.</p>
+<p>所有非空指针都为真; 只有空指针是假的.</p>
 <p>语句1-2等价, 4-5等价</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="动态分配字符串">动态分配字符串 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>动态存储分配常用于处理字符串.</p>
 <p>若字符串存储在字符数组中, 很难预测数组需要的长度.</p>
 <p>动态分配字符串, 则允许在程序运行时决定长度.</p>
@@ -159,21 +172,19 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>malloc分配size个字节的内存块并返回一个指向它的(类型为void*)指针.</p>
 <p>size_t是库中定义的无符号整数类型.</p>
 <p>为n个字符的字符串分配内存的malloc调用:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>每个字符需要一个字节的内存; 加1是为空字符留出空间.</p>
 <p>一些程序员更喜欢强制转换malloc的返回值:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组:</p>
 <div class="top-2">
   <img src="../img/16-1.png">
 </div>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="在字符串函数中使用动态存储分配">在字符串函数中使用动态存储分配 </h5>
 <hr>
-<p>动态存储分配使得编写返回指向新字符串的指针成为可能.</p>
-<p>编写一个函数, 连接两个字符串而不更改任何一个字符串.</p>
-<p>该函数先计算要拼接的两个字符串的长度, 然后调用malloc为结果分配适量的空间.</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 
  * two macros defined in &lt;stdlib.h&gt;
  * #define EXIT_SUCCESS 0
@@ -193,27 +204,47 @@ p <span class="token operator">=</span> <span class="token function">malloc</spa
   <span class="token function">strcat</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> result<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>动态存储分配使得编写返回指向新字符串的指针成为可能.</p>
+<p>编写一个函数, 连接两个字符串而不更改任何一个字符串.</p>
+<p>该函数先计算要拼接的两个字符串的长度, 然后调用malloc为结果分配适量的空间.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="动态分配数组">动态分配数组 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
+a <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment">// int *a = (int *) malloc(n * sizeof(int));</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>动态分配的数组与动态分配的字符串具有相同的优点, 动态分配的数组和普通数组一样易于使用.</p>
 <p>可以使用<code>malloc</code>为数组分配空间, 也可以使用<code>calloc</code>函数, 后者会初始化它分配的内存.</p>
 <p><code>realloc</code>函数允许我们根据需要使数组<mark>扩展</mark>或<mark>缩减</mark>.</p>
 <hr>
 <p>假设需要一个包含n个整数的数组, n是在程序运行期间计算的.</p>
 <p>先声明一个指针变量, 依据n, 调用malloc为数组分配空间:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
-a <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-<span class="token comment">// int *a = (int *) malloc(n * sizeof(int));</span></code></pre>
 <p>始终使用sizeof运算符来计算每个元素所需的空间量.</p>
 <p>一旦a指向动态分配的内存块, 就可以将指针a用作数组名称.</p>
 <p>例如, 可以使用以下循环来初始化a指向的数组:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
 <p>还可以选择使用指针算术运算代替取下标来访问数组的元素.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="calloc-函数">calloc 函数 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> point <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+
+p <span class="token operator">=</span> <span class="token function">calloc</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> point<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>calloc函数是malloc的替代方法.</p>
 <p>calloc的原型:</p>
 <p><code>void *calloc(size_t nmemb, size_t size);</code></p>
@@ -235,12 +266,15 @@ a <span class="token operator">=</span> <span class="token function">malloc</spa
 <p>为n个整数的数组分配空间的calloc调用:</p>
 <p><code>a = calloc(n, sizeof(int));</code></p>
 <p>以1作为第一个参数调用calloc, 可为任何类型数据项分配空间:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> point <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-
-p <span class="token operator">=</span> <span class="token function">calloc</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> point<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="realloc-函数">realloc 函数 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+</div>
+<div style="flex:1;">
 <p>realloc函数可以调整动态分配的数组的大小.</p>
 <p>realloc的原型:</p>
 <p><code>void *realloc(void *ptr, size_t size);</code></p>
@@ -278,6 +312,8 @@ p <span class="token operator">=</span> <span class="token function">calloc</spa
 </ul>
 <p>如果不能扩大一个块, realloc会在别处分配一个新块, 然后将旧块的内容复制到新块中.</p>
 <p>一旦realloc返回, 一定要更新所有指向内存块的指针, 以防内存块被移动.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="释放存储空间--free">释放存储空间: free </h5>
 <hr>

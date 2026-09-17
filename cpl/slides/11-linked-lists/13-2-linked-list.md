@@ -129,6 +129,16 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
+
 构建链表时, 需要逐个创建结点, 并添加到链表中. 
 
 创建结点的步骤: 
@@ -167,8 +177,9 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 
 `*new_node`周围的括号是强制要求的, 因为.运算符优先于*运算符.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -206,6 +217,16 @@ scanf调用中的示例:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+
+
+</div>
+
+<div style="flex:1;">
+
 链表的优点之一是可以在链表中的任何位置添加结点. 
 
 但是, 链表的开头是最容易插入结点的地方. 
@@ -230,8 +251,9 @@ scanf调用中的示例:
 
 首先插入一个包含数字10的结点, 然后插入一个包含20的结点.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -240,21 +262,15 @@ scanf调用中的示例:
 
 ---
 
-虽然while循环也可以搜索链表, 但for语句通常是首选. 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-访问链表中结点的循环, 使用指针变量p来跟踪"当前"结点: 
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
 for (p = first; p != NULL; p = p->next)
   …
 ```
 
-这种形式的循环可用于在链表中搜索整数n的函数.
-
-
-如果找到n, 该函数将返回一个指向包含n的结点的指针; 否则, 它将返回一个空指针. 
-
-该函数的初始版本: 
 ```C
 struct node *search_list(struct node *list, int n)
 {
@@ -267,10 +283,6 @@ struct node *search_list(struct node *list, int n)
 }
 ```
 
-
-还有很多其他的方法来编写search_list. 
-
-一种替代方法是消除变量p, 用list本身来跟踪当前结点: 
 ```C
 struct node *search_list(struct node *list, int n)
 {
@@ -281,10 +293,30 @@ struct node *search_list(struct node *list, int n)
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
+虽然while循环也可以搜索链表, 但for语句通常是首选. 
+
+访问链表中结点的循环, 使用指针变量p来跟踪"当前"结点:
+
+这种形式的循环可用于在链表中搜索整数n的函数.
+
+
+如果找到n, 该函数将返回一个指向包含n的结点的指针; 否则, 它将返回一个空指针. 
+
+该函数的初始版本:
+
+还有很多其他的方法来编写search_list. 
+
+一种替代方法是消除变量p, 用list本身来跟踪当前结点:
+
 由于list是原始链表指针的副本, 因此在函数中更改它没有损害.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -292,6 +324,21 @@ struct node *search_list(struct node *list, int n)
 ##### 从链表中删除结点
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+for (cur = list, prev = NULL;
+    cur != NULL && cur->value != n;
+    prev = cur, cur = cur->next)
+  ;
+```
+
+</div>
+
+<div style="flex:1;">
 
 将数据存储在链表中的一大优势是我们可以轻松删除结点. 
 
@@ -312,13 +359,7 @@ struct node *search_list(struct node *list, int n)
 
 假设list指向要搜索的链表, n是要删除的整数. 
 
-实现步骤1的循环: 
-```C
-for (cur = list, prev = NULL;
-    cur != NULL && cur->value != n;
-    prev = cur, cur = cur->next)
-  ;
-```
+实现步骤1的循环:
 
 当循环终止时, cur指向要删除的结点, prev指向前一个结点.
 
@@ -335,8 +376,9 @@ for (cur = list, prev = NULL;
   <img src="../img/16-11-2.png">
 </div>
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -361,6 +403,23 @@ for (cur = list, prev = NULL;
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.5;font-size:0.5em;">
+
+```C{.line-numbers}
+struct part {
+  int number;
+  char name[NAME_LEN+1];
+  int on_hand;
+  struct part *next;
+};
+```
+
+</div>
+
+<div style="flex:1;">
+
 *inventory2.c*程序是对第 16 章零件数据库程序的修改, 这次数据库存储在一个链表中. 
 
 使用链表的优点: 
@@ -372,16 +431,7 @@ for (cur = list, prev = NULL;
 在原始程序中, 数据库没有排序.
 
 
-part结构将包含一个额外的成员(指向下一个结点的指针): 
-
-```C{.line-numbers}
-struct part {
-  int number;
-  char name[NAME_LEN+1];
-  int on_hand;
-  struct part *next;
-};
-```
+part结构将包含一个额外的成员(指向下一个结点的指针):
 
 inventory将指向链表首结点: 
 
@@ -392,8 +442,9 @@ inventory将指向链表首结点:
 
 find_part和insert会更复杂, 因为将按零件编号对链表inventory中的结点进行排序.
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 
