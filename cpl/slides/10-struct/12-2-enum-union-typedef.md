@@ -151,7 +151,7 @@ u的成员存储在同一个地址.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.5em;">
 
 ```
 Books: Title, author, number of pages

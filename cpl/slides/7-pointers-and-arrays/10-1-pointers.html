@@ -326,16 +326,22 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="指针作为参数">指针作为参数 </h5>
 <hr>
-<p>尽管scanf的参数必须是指针, 但并不总是需要<code>&amp;</code>运算符:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
 …
 p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>使用&运算符是错误的:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
-<p>传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">decompose</span><span class="token punctuation">(</span><span class="token number">3.14159</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> d<span class="token punctuation">)</span>；</code></pre>
+</div>
+<div style="flex:1;">
+<p>尽管scanf的参数必须是指针, 但并不总是需要<code>&amp;</code>运算符:</p>
+<p>使用&运算符是错误的:</p>
+<p>传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用:</p>
 <p>当decompose在 <code>*int_part</code> 和 <code>*frac_part</code> 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 若为 decompose 提供了原型, 编译器会检测到错误; 而 scanf 的例子通常不会被检查出来</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--查找数组中最大和最小的元素">程序: 查找数组中最大和最小的元素 </h5>
 <hr>
