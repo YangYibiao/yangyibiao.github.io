@@ -134,36 +134,27 @@ int main(void) {
 ---
 
 
-<!-- slide data-notes="" -->##### 溢出: 从时钟到补码环
+<!-- slide data-notes="" -->##### 溢出: 先看 12 小时钟
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="top-2">
+  <img src="figs/clock-12h.svg" width=380px style="max-width:100%;">
+</div>
 
-<div style="flex:1;">
+- 钟面是"模 12"的数: 1~12 首尾相接; ==12 ≡ 0==, "12 + 1 = 1" 其实是 0 + 1
+
+- 绕圈是==改名==造成的: 计数照常, 只是把 0 叫成 12<!-- slide data-notes="" -->##### 4 位补码环: 溢出就是绕圈
+
+---
 
 <div class="top-2">
-  <img src="figs/clock-12h.svg" width=360px style="max-width:100%;">
+  <img src="figs/clock-wrap.svg" width=370px style="max-width:100%;">
 </div>
 
-</div>
+- 0 起共 16 格: ==加 1 顺时针走一格==; 负数左半圈, 正数右半圈
 
-<div style="flex:1;">
-
-<div class="top-2">
-  <img src="figs/clock-wrap.svg" width=360px style="max-width:100%;">
-</div>
-
-</div>
-
-</div>
-
-- 左: 熟悉的 ==12 小时钟==——==12 ≡ 0==: "12 + 1 = 1" 其实是 0 + 1
-
-- 右: ==4 位补码环==同一回事——加 1 顺时针走一格; 负数左半圈, 正数右半圈
-
-- 溢出 = 跨过顶部分界: ==0111 + 1 = 1000== (7 → -8); C 不检查溢出
-<!-- slide data-notes="" -->
+- 溢出 = 跨过顶部分界: ==0111 + 1 = 1000== (7 → -8), 反向 -8 - 1 = 7; C 不检查溢出<!-- slide data-notes="" -->
 
 ##### 整数在内存里长什么样 (了解)
 
