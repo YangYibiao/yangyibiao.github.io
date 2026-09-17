@@ -605,7 +605,7 @@ int main() {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.58em;">
+<div style="flex:1.4;font-size:0.55em;">
 
 ```C
 #include <stdio.h>
@@ -647,7 +647,7 @@ int main(void) {
 对照流程图写代码: 输入年份, 判断是否为闰年
 
 <div class="top-2">
-  <img src="../img/leap-year-flowchart.png" width=400px>
+  <img src="../img/leap-year-flowchart.png" width=360px>
 </div>
 
 

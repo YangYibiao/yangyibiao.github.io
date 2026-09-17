@@ -576,7 +576,7 @@ int find_largest(const int a[], int n)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 int find_largest(int *a, int n)

@@ -502,28 +502,20 @@ int main(void) {
 ```C{.line-numbers}
 /* change.c: 找零计算 */
 #include <stdio.h>
-
 int main(void) {
   int amount;
-
   printf("请输入金额 (元): ");
   scanf("%d", &amount);
-
   printf("100元: %d 张\n", amount / 100);     /* 整除: 有几个 100 */
   amount = amount % 100;                       /* 取余: 剩下多少 */
-
   printf(" 50元: %d 张\n", amount / 50);
   amount = amount % 50;
-
   printf(" 20元: %d 张\n", amount / 20);
   amount = amount % 20;
-
   printf(" 10元: %d 张\n", amount / 10);
   amount = amount % 10;
-
   printf("  5元: %d 张\n", amount / 5);
   amount = amount % 5;
-
   printf("  1元: %d 张\n", amount);
   return 0;
 }
