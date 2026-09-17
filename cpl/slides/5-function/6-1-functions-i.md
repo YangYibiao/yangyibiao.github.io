@@ -331,6 +331,10 @@ average(5.1, 8.9)和average(x/2, y/3)都是合法的函数调用.
 printf("Average: %g\n", average(x, y));
 ```
 
+```C
+avg = average(x, y); 
+```
+
 ```C{.line-numbers}
 /* Computes pairwise averages of three numbers */
  
@@ -359,13 +363,29 @@ int main(void)
 
 <div style="flex:1;">
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+我们把average函数的调用放在需要使用其返回值的地方. 
 
-<div style="flex:1.3;font-size:0.5em;">
+计算并显示x和y平均值的语句:
+
+不保存average函数的返回值, 程序显示这个值然后丢弃它. 
+
+如果要在稍后程序中用到返回值, 可以把返回值赋值给变量:
+
+---
+
+*average.c*程序读取3个数并使用average函数计算它们的平均值, 每次计算一对数的平均值: 
+
+Enter three numbers: <u>3.5 9.6 10.2</u>
+Average of 3.5 and 9.6: 6.55
+Average of 9.6 and 10.2: 9.9
+Average of 3.5 and 10.2: 6.85
+
+---
 
 
+---
 
-
+*average.c*
 
 </div>
 
@@ -377,10 +397,6 @@ int main(void)
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.6em;">
-
-```C
-avg = average(x, y); 
-```
 
 ```C{.line-numbers}
 /* Prints a countdown */
@@ -407,7 +423,9 @@ int main(void)
 
 <div style="flex:1;">
 
+---
 
+*countdown.c*
 
 输出: T minus 10 and counting ... T minus 1 and counting
 

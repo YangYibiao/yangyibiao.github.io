@@ -135,7 +135,7 @@ is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.48em;">
+<div style="flex:1.3;font-size:0.46em;">
 
 ```C
 #include <stdio.h>
@@ -232,9 +232,9 @@ int main() {
 
 <div style="flex:1;">
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<a href="code/primes.c" target="_blank">primes.c</a>
 
-<div style="flex:1.3;font-size:0.55em;">
+原版: 主函数里逐个判断
 
 </div>
 
@@ -249,7 +249,6 @@ int main() {
 
 ```C
 #include <stdio.h>
-
 int is_prime(int n) {
   int prime = 1;
   for (int j = 2; j * j <= n; j++) {
@@ -260,11 +259,9 @@ int is_prime(int n) {
   }
   return prime;
 }
-
 int main() {
   int max;
   scanf("%d", &max);
-
   int count = 0;
   for (int i = 2; i <= max; i++) {
     // determine if i is a prime
@@ -282,22 +279,9 @@ int main() {
 
 <div style="flex:1;">
 
-
-</div>
-
-<div style="flex:1;">
-
-<a href="code/primes.c" target="_blank">primes.c</a>
-
 ---
 
 <a href="code/primes-re.c" target="_blank">primes-re.c</a>
-
-
-
-</div>
-
-</div>
 
 </div>
 

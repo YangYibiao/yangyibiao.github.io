@@ -47,6 +47,7 @@ presentation:
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
 
+
 <!-- slide data-notes="" -->
 
 ##### 提纲
@@ -101,8 +102,6 @@ printf(字符串, 表达式1, 表达式2, ...);
 - ==转换说明== 则需用待显示的值来替换填充
 
 <div style="font-size:0.8em;">
-
-<div style="font-size:0.85em;">
 
 ```C{.line-numbers}
 int i, j;
@@ -331,6 +330,8 @@ printf("\\"); /* prints one \ character */
 ==`scanf`== 根据指定格式读取输入; 格式字符串同样含==普通字符==与==转换说明==, 与 ==`printf`== 基本相同
 
 <span class="yellow">:fa-weixin:</span> 在多数情况下, ==`scanf`== 格式字符串只包含转换说明: 
+
+<div style="font-size:0.85em;">
 
 ```C{.line-numbers}
 int i, j;
