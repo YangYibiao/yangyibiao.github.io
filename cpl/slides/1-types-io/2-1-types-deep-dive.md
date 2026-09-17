@@ -134,36 +134,35 @@ int main(void) {
 ---
 
 
-<!-- slide data-notes="" -->##### 补码的环: 溢出就是绕圈
+<!-- slide data-notes="" -->##### 溢出: 从时钟到补码环
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.15;">
+<div style="flex:1;">
 
 <div class="top-2">
-  <img src="figs/clock-wrap.svg" width=430px style="max-width:100%;">
+  <img src="figs/clock-12h.svg" width=360px style="max-width:100%;">
 </div>
 
 </div>
 
 <div style="flex:1;">
 
-把 4 位二进制排成一个环: ==加 1 顺时针走一格, 减 1 逆时针走一格== (0 起, 共 16 格, 没有"12")
-
-- 负数在左半圈 (最高位为 1), 正数在右半圈 (最高位为 0)
-
-- 溢出 = 跨过顶部分界: ==0111 (7) + 1 = 1000 (-8)==; 反方向 -8 - 1 = 7
-
-- 12 小时钟是同一回事: 11 点 + 2 小时 = 1 点 (模 12 绕圈)
-
-- C 不报错——==溢出不被检查==, 这是追求性能的代价
+<div class="top-2">
+  <img src="figs/clock-wrap.svg" width=360px style="max-width:100%;">
+</div>
 
 </div>
 
 </div>
 
+- 左: 熟悉的 ==12 小时钟==——12 + 1 = 1, 转满一圈绕回起点
+
+- 右: ==4 位补码环==是同一回事——0 起共 16 格, ==加 1 顺时针走一格==; 负数在左半圈 (最高位 1)
+
+- 溢出 = 跨过顶部分界: ==0111 (7) + 1 = 1000 (-8)==; C 不报错——==溢出不被检查==
 <!-- slide data-notes="" -->
 
 ##### 整数在内存里长什么样 (了解)
