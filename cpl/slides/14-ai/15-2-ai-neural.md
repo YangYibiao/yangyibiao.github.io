@@ -131,13 +131,9 @@ double relu(double x) { return x > 0 ? x : 0; }   /* 第 4 周: 条件表达式 
 
 ---
 
-一层有 3 个神经元、输入 4 个特征: 每个神经元各有一组权重
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-$$\mathbf{y} = f(W\mathbf{x} + \mathbf{b})$$
-
-- $W$ 是 ==3×4 的权重矩阵== (3 个神经元 × 4 个特征)
-
-- 这就是第 9 周写的==矩阵乘向量==: 三重循环退化为两重
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 /* W: 3×4 权重, x: 4 个输入, b: 3 个偏置, y: 3 个输出 */
@@ -149,10 +145,23 @@ for (int i = 0; i < 3; i++) {
 }
 ```
 
-- 第 1 周说"AI 的张量就是连续内存 + 指针, 矩阵乘法就是二维数组 + 循环"——这就是原样
+</div>
 
----
+<div style="flex:1;">
 
+一层有 3 个神经元、输入 4 个特征: 每个神经元各有一组权重
+
+$$\mathbf{y} = f(W\mathbf{x} + \mathbf{b})$$
+
+- $W$ 是 ==3×4 的权重矩阵== (3 个神经元 × 4 个特征)
+
+- 这就是第 9 周写的==矩阵乘向量==: 三重循环退化为两重
+
+第 1 周说"AI 的张量就是连续内存 + 指针, 矩阵乘法就是二维数组 + 循环"——这就是原样
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -161,7 +170,9 @@ for (int i = 0; i < 3; i++) {
 
 ---
 
-用昨天的 iris 数据, 只取两类 (0 和 1), 写一个==单层感知机==:
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 /* 训练循环 (简化版): 每个样本预测 → 算误差 → 调权重 */
@@ -177,12 +188,19 @@ for (int epoch = 0; epoch < 100; epoch++) {
 }
 ```
 
-- `0.01` 是==学习率==: 每步"学"多少
+</div>
+
+<div style="flex:1;">
+
+用昨天的 iris 数据, 只取两类 (0 和 1), 写一个==单层感知机==:
+
+`0.01` 是==学习率==: 每步"学"多少
 
 - 现场运行: 训练前后各测一次准确率, 看数字变好
 
----
+</div>
 
+</div>
 
 <!-- slide data-notes="" -->
 

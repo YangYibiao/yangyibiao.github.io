@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 第 1 周说过: AI 的底层是 C——今天就用手写 C 代码实现一个真正的机器学习算法
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 第 1 周说过: AI 的底层是 C——今天就用手写 C 代码实现一个真正的机器学习算法</p>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="knn-的思想--近朱者赤">KNN 的思想: 近朱者赤 </h5>
 <hr>
@@ -194,10 +194,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <li><mark>找最近的 k 个</mark> (第 5 周循环 + 第 8 周数组): 求每个训练样本的距离, 找最小的 k 个</li>
 <li><mark>投票</mark> (第 4 周判断 + 第 8 周数组): 统计 k 个邻居里哪个类别最多</li>
 </ol>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 没有新语法——难点只在"把已经会的东西组合起来"
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 没有新语法——难点只在"把已经会的东西组合起来"</p>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="读数据--fgets---sscanf">读数据: fgets + sscanf </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_SAMPLES 150</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_LINE 100</span>
 
@@ -215,15 +217,16 @@ FILE <span class="token operator">*</span>fp <span class="token operator">=</spa
   n_samples<span class="token operator">++</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
+</div>
+<div style="flex:1;">
 <p><code>features[i]</code> 是一个 <mark>4 个 double</mark> 的小数组——正好给第 13 周的距离函数用</p>
-
-</li>
-</ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="算距离与-knn-预测">算距离与 KNN 预测 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
 
 <span class="token keyword keyword-double">double</span> <span class="token function">distance</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>   <span class="token comment">/* 第 9 周: 数组作参数 */</span>
@@ -246,12 +249,11 @@ FILE <span class="token operator">*</span>fp <span class="token operator">=</spa
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>votes<span class="token punctuation">[</span>c<span class="token punctuation">]</span> <span class="token operator">></span> votes<span class="token punctuation">[</span>best<span class="token punctuation">]</span><span class="token punctuation">)</span> best <span class="token operator">=</span> c<span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> best<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<ul>
-<li>
+</div>
+<div style="flex:1;">
 <p>完整代码见课件目录 <code>code/knn.c</code>——现场演示运行</p>
-
-</li>
-</ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="现场演示与讨论">现场演示与讨论 </h5>
 <hr>
@@ -261,7 +263,7 @@ FILE <span class="token operator">*</span>fp <span class="token operator">=</spa
 <li>观察 <mark>k 取不同值</mark> (k=1 / 3 / 5) 时预测结果的变化</li>
 <li>讨论: 把一部分数据<mark>留出来当测试集</mark>, 数一数预测对了多少——这就是"准确率"</li>
 </ol>
-<span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 回顾第 1 周: AI 框架 (PyTorch/TensorFlow) 里的"KNN 分类器", 底层就是这样一段 C 代码——今天你亲手写了它的简化版
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 回顾第 1 周: AI 框架 (PyTorch/TensorFlow) 里的"KNN 分类器", 底层就是这样一段 C 代码——今天你亲手写了它的简化版</p>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
