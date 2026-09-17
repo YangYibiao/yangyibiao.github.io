@@ -100,6 +100,12 @@ window.onload = function() {
                     tier_str = '(<span class="' + cls + '">' + tier + '</span>)';
                 }
 
+                var award = e.award;
+                var award_str = "";
+                if(award != "" && award != null) {
+                    award_str = ' <span class="venue-award">🏆 ' + award + '</span>';
+                }
+
                 var row_class = (highlight == true) ? 'publication-row highlight' : 'publication-row ';
 
                 html +=
@@ -108,7 +114,7 @@ window.onload = function() {
                         '<p class="publication-item">' +
                             title_str + '<br>' +
                             author_str + '<br>' +
-                            '<em>' + suffix + ' ' + tier_str + '</em>' +
+                            '<em>' + suffix + ' ' + tier_str + award_str + '</em>' +
                             (meta_str != "" ? '<br>' + meta_str : '') +
                         '</p>' +
                     '</td>' +
