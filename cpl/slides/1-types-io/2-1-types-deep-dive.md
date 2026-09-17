@@ -260,6 +260,10 @@ printf("%d %o %x\n", 17, 17, 17);   /* 输出: 17 21 11 */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;">
+
 上一周知道 char 存的是==编码==; 今天把它当整数用
 
 - 'a'=97, 'A'=65, '0'=48, ' '=32——大写字母与小写字母==差 32==
@@ -273,13 +277,19 @@ printf("%c\n", ch - 32);         /* A      */
 printf("%d\n", '9' - '0');       /* 9 (字符数字转整数) */
 ```
 
-<div class="top-2">
-  <img src="figs/ASCII.png" width=460px>
-</div>
-
 - 常用技巧: ==toupper/tolower== (ctype.h); '9'-'0' 把字符数字变成整数
 
----
+</div>
+
+<div style="flex:1;">
+
+<div class="top-2">
+  <img src="figs/ASCII.png" width=480px style="max-width:100%;">
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
