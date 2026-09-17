@@ -87,8 +87,13 @@ presentation:
 常见组合: `short int`, `long int`, `unsigned int`, `unsigned long`
 
 - 位数: `short` ≤ `int` ≤ `long`
+<!-- slide data-notes="" -->##### sizeof 运算符
 
-<span class="blue">:fa-weixin:</span> 用 ==sizeof== 运算符可查看类型占用的字节数
+---
+
+==sizeof== 运算符可查看类型占用的==字节数==
+
+用 ==sizeof== 运算符可查看类型占用的字节数
 
 - `sizeof` 用法: `sizeof(int)` 类型 / `sizeof x` 变量 (括号可省)
 
@@ -100,8 +105,6 @@ printf("%zu %zu %zu\n", sizeof(int), sizeof(double), sizeof(char));
 
 
 ---
-
-
 <!-- slide data-notes="" -->
 
 ##### 整型的取值范围与溢出
