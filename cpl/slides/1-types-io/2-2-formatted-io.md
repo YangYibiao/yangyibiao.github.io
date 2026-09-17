@@ -536,8 +536,7 @@ putchar('\n');    /* 输出换行符 */
 <div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
-/* Adds two fractions */
- 
+
 #include <stdio.h>
  
 int main(void)
