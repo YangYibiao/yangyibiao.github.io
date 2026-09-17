@@ -342,6 +342,8 @@ k = 10 * i + j;   /* k is now 55 */
 
 如果 ==`v`== 和 ==`e`== 的类型不同, 在赋值时 ==`e`== 的值将转换为 ==`v`== 的类型: 
 
+<div style="font-size:0.8em;">
+
 ```C
 int i;
 float f;
@@ -349,6 +351,8 @@ float f;
 i = 72.99f;   /* i is now 72 */
 f = 136;      /* f is now 136.0 */
 ```
+
+</div>
 
 ---
 
