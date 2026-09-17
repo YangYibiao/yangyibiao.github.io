@@ -113,7 +113,7 @@ presentation:
 数组m的存储方式: 
 
 <div class="top-2">
-    <img src="figs/8-4.png" width=400px>
+    <img src="../4-loops/figs/8-4.png" width=400px>
 </div>
 
 <!-- <div class="row0-2-column2-11-fullborder">

@@ -73,7 +73,7 @@ presentation:
 在大多数现代计算机中, 内存被划分为字节, 每个字节能够存储8位信息: 
 
 <div class="top-2">
-    <img src="../img/11-1.png">
+    <img src="figs/11-1.png">
 </div>
 
 每个字节都有一个唯一的地址.
@@ -82,7 +82,7 @@ presentation:
 如果内存中有n个字节, 我们可以将地址视为$0 \sim n – 1$的数字: 
 
 <div class="top-2">
-    <img src="../img/11-2.png" width=280px>
+    <img src="figs/11-2.png" width=280px>
 </div>
 
 ---
@@ -100,7 +100,7 @@ presentation:
 下图中, 变量i的地址为 2000: 
 
 <div class="top-2">
-    <img src="../img/11-3.png">
+    <img src="figs/11-3.png">
 </div>
 
 
@@ -109,7 +109,7 @@ presentation:
 图形表示: 
 
 <div class="top-2">
-    <img src="../img/11-4.png">
+    <img src="figs/11-4.png">
 </div>
 
 ---
@@ -205,7 +205,7 @@ int i, *p = &i;
 把i的地址赋值给变量p, 使p指向i: 
 
 <div class="top-2">
-    <img src="../img/11-5.png">
+    <img src="figs/11-5.png">
 </div>
 
 
@@ -291,11 +291,11 @@ printf("%d\n", *p); /* 打印 2 */
 
 
 <div class="top-2">
-  <img src="../img/11-6.png" width=200px>
+  <img src="figs/11-6.png" width=200px>
 </div><div class="top-2">
-  <img src="../img/11-7.png" width=200px>
+  <img src="figs/11-7.png" width=200px>
 </div><div class="top-2">
-  <img src="../img/11-8.png" width=200px>
+  <img src="figs/11-8.png" width=200px>
 </div>
 
 将间接寻址运算符应用于未初始化的指针变量会导致未定义的行为:
@@ -378,18 +378,18 @@ C 允许使用赋值运算符来复制相同类型的指针.
 
 q现在指向与p相同的位置: 
 <div class="top-2">
-    <img src="../img/11-9.png">
+    <img src="figs/11-9.png">
 </div>
 
 
 如果p和q都指向i, 就可以通过为`*p`或`*q`赋一个新值来更改i:
 
 <div class="top-2">
-    <img src="../img/11-10.png" width=200px>
+    <img src="figs/11-10.png" width=200px>
 </div>
 
 <div class="top-2">
-    <img src="../img/11-11.png" width=200px>
+    <img src="figs/11-11.png" width=200px>
 </div>
 
 任意数量的指针变量都可以指向同一个对象.
@@ -424,14 +424,14 @@ q = &j;
 i = 1;
 ```
 <div class="top-2">
-    <img src="../img/11-12.png" width=200px>
+    <img src="figs/11-12.png" width=200px>
 </div>
 
 ```C
 *q = *p;
 ```
 <div class="top-2">
-    <img src="../img/11-13.png" width=200px>
+    <img src="figs/11-13.png" width=200px>
 </div>
 
 ---
@@ -495,7 +495,7 @@ decompose的原型可以是:
 作为调用的结果, 指向i的指针存储在int_part中, 指向d的指针存储在frac_part中: 
 
 <div class="top-2">
-    <img src="../img/11-14.png" width=300px>
+    <img src="figs/11-14.png" width=300px>
 </div>
 
 </div>
@@ -515,13 +515,13 @@ decompose的原型可以是:
 
 decompose函数体中的第一个赋值将x的值转换为long类型, 并将其存储在int_part指向的对象中: 
 <div class="top-2">
-    <img src="../img/11-15.png" width=300px>
+    <img src="figs/11-15.png" width=300px>
 </div>
 
 
 第二个赋值把`x - *int_part`的值存储到frac_part指向的对象中: 
 <div class="top-2">
-    <img src="../img/11-16.png" width=300px>
+    <img src="figs/11-16.png" width=300px>
 </div>
 
 

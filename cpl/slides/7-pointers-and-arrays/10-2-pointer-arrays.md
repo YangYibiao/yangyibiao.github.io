@@ -87,7 +87,7 @@ p = &a[0];
 图形表示: 
 
 <div class="top-2">
-    <img src="../img/13-1.png">
+    <img src="figs/13-1.png">
 </div>
 
 
@@ -100,7 +100,7 @@ p = &a[0];
 图示如下: 
 
 <div class="top-2">
-    <img src="../img/13-2.png">
+    <img src="figs/13-2.png">
 </div>
 
 
@@ -157,13 +157,13 @@ p -= 6;
 
 指针加法示例:
 
-<div class="top-2"><img src="../img/13-3.png" width=280px></div>
+<div class="top-2"><img src="figs/13-3.png" width=280px></div>
 
 
 如果p指向a[i], 那么p-j指向a[i-j]. 指针减法示例:
 
 <div class="top-2">
-    <img src="../img/13-4.png" width=280px>
+    <img src="figs/13-4.png" width=280px>
 </div>
 
 </div>
@@ -187,7 +187,7 @@ q = &a[1];
 ```
 
 <div class="top-2">
-    <img src="../img/13-5.png" width=300px>
+    <img src="figs/13-5.png" width=300px>
 </div>
 
 ```C
@@ -240,7 +240,7 @@ p >= q; // expression value: 1
 - 在第三次迭代结束时: 
 
 <div class="top-2">
-    <img src="../img/13-6.png" width=300px>
+    <img src="figs/13-6.png" width=300px>
 </div>
 
 
@@ -707,7 +707,7 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 r行的数组的布局: 
   
 <div class="top-2">
-    <img src="../img/13-7.png">
+    <img src="figs/13-7.png">
 </div>
 
 如果p最初指向二维数组的第0行第0列的元素, 即$a[0][0]$, 就可以通过重复自增p来访问数组中的每个元素.

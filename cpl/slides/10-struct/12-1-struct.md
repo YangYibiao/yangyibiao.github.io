@@ -114,7 +114,7 @@ struct {
 结构体的成员按照声明的顺序存储在内存中. part1:
 
 <div class="top-2">
-  <img src="../img/15-1.png" height=500px>
+  <img src="figs/15-1.png" height=500px>
 </div>
 
 </div>
@@ -176,7 +176,7 @@ struct {
 结构体的抽象表示: 
 
 <div class="top-2">
-  <img src="../img/15-2.png">
+  <img src="figs/15-2.png">
 </div>
 
 成员的值将在稍后放入盒子中.
@@ -238,7 +238,7 @@ struct {
 part1初始化后的样子: 
 
 <div class="top-2">
-  <img src="../img/15-3.png">
+  <img src="figs/15-3.png">
 </div>
 
 
