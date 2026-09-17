@@ -83,6 +83,8 @@ $$y = f(w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b)$$
 
 - 用 C 表达: 一个循环求加权和, 再调用激活函数——就是第 5 周的函数!
 
+<div style="font-size:0.85em;">
+
 ```C
 double neuron(double x[], double w[], double b, int n)
 {
@@ -92,6 +94,8 @@ double neuron(double x[], double w[], double b, int n)
   return sigmoid(s);        /* 激活函数 */
 }
 ```
+
+</div>
 
 ---
 
