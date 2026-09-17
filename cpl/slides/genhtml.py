@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 </head>""".replace('VER', katex_ver)
 head_html = head_html.replace('</head>', KATEX, 1)
+# 代码块不显示滚动条: 单行代码出现上下滚动条很刺眼, 且各页代码均已按宽度/字号适配
+head_html = head_html.replace('</head>', '<style>pre[class*=language-]{overflow:hidden}</style></head>', 1)
 
 FA = {'fa-lightbulb-o': 'fa fa-lightbulb-o', 'fa-weixin': 'fa fa-weixin', 'fa-camera': 'fa fa-camera',
       'fa-language': 'fa fa-language', 'fa-car': 'fa fa-car', 'fa-microphone': 'fa fa-microphone',
