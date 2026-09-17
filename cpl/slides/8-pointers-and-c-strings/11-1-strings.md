@@ -155,22 +155,32 @@ C库提供了一组用于处理字符串的函数.
 
 可以在任何允许使用`char *`指针的地方使用字符串字面量: 
 
+<div style="font-size:0.85em;">
+
 ```C
 char *p;
 p = "abc"; /* 正确 */
 ```
+
+</div>
 
 该赋值使p指向字符串的第一个字符.
 
 
 可以对字符串字面量取下标: 
 
+<div style="font-size:0.85em;">
+
 ```C
 char ch;
 ch = "abc"[1];  // ch is now 'b'
 ```
 
+</div>
+
 将 0 ~ 15 的数字转换为等价的十六进制的字符形式的函数: 
+
+<div style="font-size:0.85em;">
 
 ```C
 char digit_to_hex_char(int digit)
@@ -178,6 +188,8 @@ char digit_to_hex_char(int digit)
   return "0123456789ABCDEF"[digit];
 }
 ```
+
+</div>
 
 ---
 
