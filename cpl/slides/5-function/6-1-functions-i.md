@@ -373,7 +373,7 @@ int main(void)
 
 ---
 
-*average.c*程序读取3个数并使用average函数计算它们的平均值, 每次计算一对数的平均值: 
+`average.c`程序读取3个数并使用average函数计算它们的平均值, 每次计算一对数的平均值: 
 
 Enter three numbers: <u>3.5 9.6 10.2</u>
 Average of 3.5 and 9.6: 6.55
@@ -385,7 +385,7 @@ Average of 3.5 and 10.2: 6.85
 
 ---
 
-*average.c*
+`average.c`
 
 </div>
 
@@ -425,7 +425,7 @@ int main(void)
 
 ---
 
-*countdown.c*
+`countdown.c`
 
 输出: T minus 10 and counting ... T minus 1 and counting
 
@@ -456,7 +456,7 @@ print_count的调用必须自成一个语句:
 print_count(i);
 ```
 
-*countdown.c*程序在循环内调用了10次print_count.
+`countdown.c`程序在循环内调用了10次print_count.
 
 ---
 
@@ -508,7 +508,7 @@ int main(void)
 
 调用不带实际参数的函数, 只需写出函数名后跟括号(==括号必须==):
 
-*pun2.c*程序测试了print_pun函数.
+`pun2.c`程序测试了print_pun函数.
 
 
 ---
@@ -672,7 +672,7 @@ double average(double a, double b)
 
 C不要求函数的定义在其调用之前. 
 
-假设我们重新编排*average.c*程序, 将average函数的定义放在main函数的定义之后.
+假设我们重新编排`average.c`程序, 将average函数的定义放在main函数的定义之后.
 
 
 
@@ -757,7 +757,7 @@ double average(double, double);
 
 函数的声明必须与函数的定义一致. 
 
-这是为average函数添加了声明的*average.c*程序.
+这是为average函数添加了声明的`average.c`程序.
 
 ---
 
