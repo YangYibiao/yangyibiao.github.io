@@ -32,15 +32,15 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.renderMathInElement) {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "\[", right: "\]", display: true},
-        {left: "\(", right: "\)", display: false}
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
       ],
       throwOnError: false
     });
@@ -104,20 +104,26 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="联合">联合 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>union <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> u<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> s<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>u<span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">82</span><span class="token punctuation">;</span>
+u<span class="token punctuation">.</span>d <span class="token operator">=</span> <span class="token number">74.8</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>像结构体一样, 联合由一个或多个成员组成, 这些成员可能是不同类型的.</p>
 <p>编译器只为最大的成员分配足够的空间, 联合的成员在这个空间内彼此覆盖.</p>
 <p>为一个成员赋予新值也会改变其他成员的值.</p>
 <hr>
 <p>联合变量的示例:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>union <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
-<span class="token punctuation">}</span> u<span class="token punctuation">;</span></code></pre>
 <p>联合声明与结构体声明非常相似:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-  <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
-<span class="token punctuation">}</span> s<span class="token punctuation">;</span></code></pre>
 <p>结构体s和联合变量u只有一处不同.</p>
 <p>s的成员存储在不同的内存地址中.</p>
 <p>u的成员存储在同一个地址.</p>
@@ -125,8 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
   <img src="../img/15-4.png" height=400px>
 </div>
 <p>联合成员的访问方式与结构体成员的访问方式相同:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>u<span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">82</span><span class="token punctuation">;</span>
-u<span class="token punctuation">.</span>d <span class="token operator">=</span> <span class="token number">74.8</span><span class="token punctuation">;</span></code></pre>
 <p>更改联合的一个成员会更改以前存储在任何其他成员中的值.</p>
 <ul>
 <li>
@@ -141,16 +145,16 @@ u<span class="token punctuation">.</span>d <span class="token operator">=</span>
 <p>联合的性质与结构体的性质几乎相同.</p>
 <p>可以像声明结构体标记和类型一样声明联合标记和类型.</p>
 <p>与结构体一样, 联合可以使用=运算符复制、传递给函数和由函数返回.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="使用联合来节省空间">使用联合来节省空间 </h5>
 <hr>
-<p>联合可用于节省结构体中的空间.</p>
-<p>假设我们正在设计一个结构体, 该结构体将包含有关通过礼品册销售的物品的信息.</p>
-<p>每个项目都有库存量、价格以及与商品类型相关的其他信息:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>Books<span class="token operator">:</span> Title<span class="token punctuation">,</span> author<span class="token punctuation">,</span> number of pages
 Mugs<span class="token operator">:</span> Design
 Shirts<span class="token operator">:</span> Design<span class="token punctuation">,</span> colors available<span class="token punctuation">,</span> sizes available</code></pre>
-<p>catalog_item结构体的最初设计:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> catalog_item <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> stock_number<span class="token punctuation">;</span>
   <span class="token keyword keyword-double">double</span> price<span class="token punctuation">;</span>
@@ -162,10 +166,6 @@ Shirts<span class="token operator">:</span> Design<span class="token punctuation
   <span class="token keyword keyword-int">int</span> colors<span class="token punctuation">;</span>
   <span class="token keyword keyword-int">int</span> sizes<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>成员item_type的值将是BOOK、MUG或SHIRT之一.</p>
-<p>成员colors和sizes将存储颜色和尺寸的组合代码.</p>
-<p>这种结构体浪费空间, 因为结构体中只有部分信息对礼品册中的所有商品是通用的.</p>
-<p>在结构体catalog_item中放置一个联合, 可以减少结构体所需的空间.</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> catalog_item <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> stock_number<span class="token punctuation">;</span>
   <span class="token keyword keyword-double">double</span> price<span class="token punctuation">;</span>
@@ -186,11 +186,17 @@ Shirts<span class="token operator">:</span> Design<span class="token punctuation
     <span class="token punctuation">}</span> shirt<span class="token punctuation">;</span>
   <span class="token punctuation">}</span> item<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>联合可用于<mark>节省结构体空间</mark>: 设计礼品册商品结构体, 每件物品有库存量、价格和与类型相关的其他信息:</p>
+<p>catalog_item 的最初设计: item_type 取 BOOK/MUG/SHIRT 之一; colors 与 sizes 存颜色和尺寸的组合码——只有部分信息对全部商品通用, 这样设计<mark>浪费空间</mark>; 在结构体里放一个联合可减少所需空间</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="为联合添加-标记字段">为联合添加"标记字段" </h5>
 <hr>
-<p>不容易确定联合最后改变的成员, 因此包含的值可能是无意义的.</p>
-<p>考虑编写一个显示存储在联合Number中的值的函数:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_number</span><span class="token punctuation">(</span>Number n<span class="token punctuation">)</span> 
 <span class="token punctuation">{</span>
  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n contains an integer<span class="token punctuation">)</span>
@@ -198,11 +204,6 @@ Shirts<span class="token operator">:</span> Design<span class="token punctuation
  <span class="token keyword keyword-else">else</span>
    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%g"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>print_number无法确定n包含的是整数还是浮点数.</p>
-<p>为了跟踪这些信息, 我们可以将联合嵌入到一个结构体中, 且此结构体还含有另一个成员: "标记字段"或"判别式".</p>
-<p>标记字段的目的是提示当前存储在联合中的内容.</p>
-<p>结构体catalog_item中的item_type用于此目的.</p>
-<p>把Number类型转换成具有嵌入联合的结构体类型:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> INT_KIND 0</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> DOUBLE_KIND 1</span>
 
@@ -213,22 +214,45 @@ Shirts<span class="token operator">:</span> Design<span class="token punctuation
    <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
  <span class="token punctuation">}</span> u<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> Number<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>n<span class="token punctuation">.</span>kind <span class="token operator">=</span> INT_KIND<span class="token punctuation">;</span>
+n<span class="token punctuation">.</span>u<span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">82</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>不容易确定联合最后改变的成员, 因此包含的值可能是无意义的.</p>
+<p>考虑编写一个显示存储在联合Number中的值的函数:</p>
+<p>print_number无法确定n包含的是整数还是浮点数.</p>
+<p>为了跟踪这些信息, 我们可以将联合嵌入到一个结构体中, 且此结构体还含有另一个成员: "标记字段"或"判别式".</p>
+<p>标记字段的目的是提示当前存储在联合中的内容.</p>
+<p>结构体catalog_item中的item_type用于此目的.</p>
+<p>把Number类型转换成具有嵌入联合的结构体类型:</p>
 <p>kind的值可能是INT_KIND或DOUBLE_KIND.</p>
 <p>每次为u的成员赋值时, 也会改变kind, 从而提示出修改的是u的哪个成员.</p>
 <p>对u的成员i进行赋值操作的示例:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>n<span class="token punctuation">.</span>kind <span class="token operator">=</span> INT_KIND<span class="token punctuation">;</span>
-n<span class="token punctuation">.</span>u<span class="token punctuation">.</span>i <span class="token operator">=</span> <span class="token number">82</span><span class="token punctuation">;</span></code></pre>
 <p>假定n为Number类型的变量.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="枚举">枚举 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> s<span class="token punctuation">;</span>   <span class="token comment">/* s will store a suit */</span>
+…
+s <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 2 represents "hearts" */</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SUIT     int</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> CLUBS    0</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> DIAMONDS 1</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> HEARTS   2</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SPADES   3</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>SUIT s<span class="token punctuation">;</span>
+…
+s <span class="token operator">=</span> HEARTS<span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>在许多程序中, 我们需要只有少量有意义的值的变量.</p>
 <p>存储扑克牌花色的变量应该只有4种可能的值: "梅花"、"方片"、"红心"和"黑桃".</p>
 <hr>
 <p>可以将花色变量声明为一个整数, 并用一组编码表示变量的可能值:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> s<span class="token punctuation">;</span>   <span class="token comment">/* s will store a suit */</span>
-…
-s <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 2 represents "hearts" */</span></code></pre>
 <p>这种方法的问题:</p>
 <ul>
 <li>
@@ -241,15 +265,7 @@ s <span class="token operator">=</span> <span class="token number">2</span><span
 </li>
 </ul>
 <p>使用宏定义花色"类型"和各种花色的名称是朝着正确方向迈出的一步:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SUIT     int</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> CLUBS    0</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> DIAMONDS 1</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> HEARTS   2</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SPADES   3</span></code></pre>
 <p>上一个示例的改进版本:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>SUIT s<span class="token punctuation">;</span>
-…
-s <span class="token operator">=</span> HEARTS<span class="token punctuation">;</span></code></pre>
 <p>这种方法的问题:</p>
 <ul>
 <li>
@@ -268,6 +284,8 @@ s <span class="token operator">=</span> HEARTS<span class="token punctuation">;<
 <p>C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.</p>
 <p><strong>枚举类型</strong>是其值由程序员列出("枚举")的类型.</p>
 <p>每个值都必须有一个名称(枚举常量).</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="枚举标记和类型名称">枚举标记和类型名称 </h5>
 <hr>
@@ -281,23 +299,14 @@ Suit s1<span class="token punctuation">,</span> s2<span class="token punctuation
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="枚举作为整数">枚举作为整数 </h5>
 <hr>
-<p>在系统内部, C 将枚举变量和常量视为整数.</p>
-<p>默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量.</p>
-<p>在花色枚举中, CLUBS、DIAMONDS、HEARTS和SPADES分别代表 0、1、2和3.</p>
-<p>程序员可以为枚举常量选择不同的值:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>enum suit <span class="token punctuation">{</span>CLUBS <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> DIAMONDS <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
           HEARTS <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> SPADES <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>枚举常量的值可以是任意整数, 不用按特定顺序列出:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>enum dept <span class="token punctuation">{</span>RESEARCH <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span>
           PRODUCTION <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> SALES <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>两个或多个枚举常量具有相同的值甚至也是合法的.</p>
-<p>当没有为枚举常量指定值时, 它的值比前一个常量的值大1.</p>
-<p>第一个枚举常量的值默认为0.</p>
-<p>例子:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>enum EGA_colors <span class="token punctuation">{</span>BLACK<span class="token punctuation">,</span> LT_GRAY <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span>
                 DK_GRAY<span class="token punctuation">,</span> WHITE <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>BLACK的值为0, LT_GRAY为7, DK_GRAY为8, WHITE为15.</p>
-<p>枚举值可以与普通整数混合:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 enum <span class="token punctuation">{</span>CLUBS<span class="token punctuation">,</span> DIAMONDS<span class="token punctuation">,</span> HEARTS<span class="token punctuation">,</span> SPADES<span class="token punctuation">}</span> s<span class="token punctuation">;</span>
 
@@ -305,13 +314,28 @@ i <span class="token operator">=</span> DIAMONDS<span class="token punctuation">
 s <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>          <span class="token comment">/* s is now 0 (CLUBS)    */</span>
 s<span class="token operator">++</span><span class="token punctuation">;</span>            <span class="token comment">/* s is now 1 (DIAMONDS) */</span>
 i <span class="token operator">=</span> s <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>      <span class="token comment">/* i is now 3            */</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>在系统内部, C 将枚举变量和常量视为整数.</p>
+<p>默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量.</p>
+<p>在花色枚举中, CLUBS、DIAMONDS、HEARTS和SPADES分别代表 0、1、2和3.</p>
+<p>程序员可以为枚举常量选择不同的值:</p>
+<p>枚举常量的值可以是任意整数, 不用按特定顺序列出:</p>
+<p>两个或多个枚举常量具有相同的值甚至也是合法的.</p>
+<p>当没有为枚举常量指定值时, 它的值比前一个常量的值大1.</p>
+<p>第一个枚举常量的值默认为0.</p>
+<p>例子:</p>
+<p>BLACK的值为0, LT_GRAY为7, DK_GRAY为8, WHITE为15.</p>
+<p>枚举值可以与普通整数混合:</p>
 <p>s被视为整型变量.</p>
 <p>CLUBS、DIAMONDS、HEARTS和SPADES是整数0、1、2和3的名称.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="用枚举声明-标记字段">用枚举声明"标记字段" </h5>
 <hr>
-<p>枚举非常适合用来确定联合中最后一个被赋值的成员.</p>
-<p>在Number结构体中, 可以将kind成员声明为枚举而不是int:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
  enum <span class="token punctuation">{</span>INT_KIND<span class="token punctuation">,</span> DOUBLE_KIND<span class="token punctuation">}</span> kind<span class="token punctuation">;</span>
  union <span class="token punctuation">{</span>
@@ -319,6 +343,10 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
    <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
  <span class="token punctuation">}</span> u<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> Number<span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>枚举非常适合用来确定联合中最后一个被赋值的成员.</p>
+<p>在Number结构体中, 可以将kind成员声明为枚举而不是int:</p>
 <p>新结构体的使用方式与旧结构体完全相同.</p>
 <p>新结构体的优点:</p>
 <ul>
@@ -331,9 +359,20 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型限定符--const-等">类型限定符 (const 等) </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> tax_brackets<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+  <span class="token punctuation">{</span><span class="token number">750</span><span class="token punctuation">,</span> <span class="token number">2250</span><span class="token punctuation">,</span> <span class="token number">3750</span><span class="token punctuation">,</span> <span class="token number">5250</span><span class="token punctuation">,</span> <span class="token number">7000</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>有两种类型限定符: const和volatile .</p>
 <ul>
 <li>
@@ -344,10 +383,6 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 <p>volatile在第 20 章中讨论.</p>
 <p>const用于声明"只读"对象.</p>
 <p>例子:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> tax_brackets<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
-  <span class="token punctuation">{</span><span class="token number">750</span><span class="token punctuation">,</span> <span class="token number">2250</span><span class="token punctuation">,</span> <span class="token number">3750</span><span class="token punctuation">,</span> <span class="token number">5250</span><span class="token punctuation">,</span> <span class="token number">7000</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<hr>
 <p>将对象声明为const的优点:</p>
 <ul>
 <li>
@@ -368,9 +403,9 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 <p>const对象受制于与变量相同的作用域规则; 使用#define创建的常量不是.</p>
 <p>const对象的值与宏的值不同, 可以在调试器中查看.</p>
 <p>与宏不同, const对象不能用于常量表达式:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> <span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 <p>对const对象应用&是合法的, 因为它有一个地址; 宏没有地址.</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="使用-typedef-简化声明">使用 typedef 简化声明 </h5>
 <hr>
