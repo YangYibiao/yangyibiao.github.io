@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
-</head><body for="html-export" data-presentation-mode="">
+<style>pre[class*=language-]{overflow:hidden}</style></head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -160,24 +160,17 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="printf函数">printf函数 </h5>
 <hr>
-<p>编译器不会检查格式字符串中转换说明数量与输出项数量是否匹配</p>
 <ul>
 <li>
-<p>转换说明过多:</p>
+<p>编译器<mark>不检查</mark>格式串与输出项是否匹配:</p>
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/*** WRONG: 转换说明过多 ***/</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/*** WRONG: 转换说明太少 ***/</span></code></pre>
 <ul>
 <li>
-<p>转换说明太少:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** WRONG ***/</span></code></pre>
-<ul>
-<li>
-<p>编译器也不会去检查转换说明是否合适, 使用不正确的转换说明, 程序将产生无意义的输出</p>
+<p>也不检查转换说明是否合适; 用错了 → <mark>无意义的输出</mark></p>
 
 </li>
 </ul>
