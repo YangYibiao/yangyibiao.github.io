@@ -135,12 +135,12 @@ C库提供了一组用于处理字符串的函数.
 字符串字面量"abc"存储为4个字符的数组: 
 
 <div class="top-2">
-  <img src="../img/14-1.png" height=100px>
+  <img src="figs/14-1.png" height=100px>
 </div>
 
 字符串""(空串)存储为一个空字符: 
 <div class="top-2">
-  <img src="../img/14-2.png" height=100px>
+  <img src="figs/14-2.png" height=100px>
 </div>
 
 ---
@@ -269,7 +269,7 @@ STR_LEN + 1 长度的字符数组可以保存长度为 0 ~ STR_LEN之间的字�
 编译器将自动添加一个空字符, 使date1可以用作字符串: 
 
 <div class="top-2">
-  <img src="../img/14-3.png" height=100px>
+  <img src="figs/14-3.png" height=100px>
 </div>
 
 "June  14"在此上下文中不是字符串字面量. 
@@ -296,7 +296,7 @@ char date2[9] = "June  14" ;
 之后, date2将如下所示: 
 
 <div class="top-2">
-  <img src="../img/14-4.png" height=80px>
+  <img src="figs/14-4.png" height=80px>
 </div>
 
 
@@ -308,7 +308,7 @@ char date3[7] = "June 14";
 
 因为没有给空字符留空间, 编译器不会尝试存储空字符: 
 <div class="top-2">
-  <img src="../img/14-5.png" height=100px>
+  <img src="figs/14-5.png" height=100px>
 </div>
 
 ---
@@ -910,7 +910,7 @@ char *planets[] = {"Mercury", "Venus", "Earth",
 不幸的是, planets数组浪费了相当多的空间(额外的空字符): 
 
 <div class="top-2">
-  <img src="../img/14-10.png">
+  <img src="figs/14-10.png">
 </div>
 
 

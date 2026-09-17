@@ -119,7 +119,7 @@ s的成员存储在不同的内存地址中.
 u的成员存储在同一个地址. 
 
 <div class="top-2">
-  <img src="../img/15-4.png" height=400px>
+  <img src="figs/15-4.png" height=400px>
 </div>
 
 

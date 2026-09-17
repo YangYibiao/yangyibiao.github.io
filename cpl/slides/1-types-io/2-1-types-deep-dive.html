@@ -219,20 +219,19 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="整数在内存里长什么样--了解">整数在内存里长什么样 (了解) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.8em;">
+<div style="flex:1.25;font-size:0.8em;">
+<p><mark>补码 = 按位取反再加 1</mark> (5 与 -5):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span>  <span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000101</span>
-<span class="token keyword keyword-int">int</span> y <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111011</span>
-              <span class="token punctuation">(</span>补码 <span class="token operator">=</span> 按位取反再加 <span class="token number">1</span><span class="token punctuation">)</span>
-
-最高位是符号位<span class="token operator">:</span> <span class="token number">0</span> 表示正<span class="token punctuation">,</span> <span class="token number">1</span> 表示负 <span class="token punctuation">(</span>对 <span class="token keyword keyword-signed">signed</span> 而言<span class="token punctuation">)</span></code></pre>
+<span class="token keyword keyword-int">int</span> y <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">;</span>   <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111011</span></code></pre>
+<p><mark>为什么 -1 是全 1</mark> (0 减 1 借位到底):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>  <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span>
 <span class="token operator">-</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000000</span> <span class="token number">00000001</span>
 <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
   <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111111</span> <span class="token number">11111111</span></code></pre>
+<p>最高位是符号位: 0 表示正, 1 表示负 (对 signed 而言)</p>
 </div>
 <div style="flex:1;">
 <p>整数用 <mark>二进制</mark> 存; 负数的存法有个巧妙设计: <mark>补码</mark></p>
-<p>换个角度看: 0 减 1 一路借位到底, 结果全是 1——这就是 -1 (见左):</p>
 <ul>
 <li>
 <p>为什么用补码? 让<mark>减法变成加法</mark> (\(5 + (-5)\) 直接相加得 0), 电路更简单</p>
@@ -256,7 +255,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </ul>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token number">2147483647</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* -2147483648 */</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 本页<mark>了解即可</mark>: 知道"负数用补码、最高位是符号位"就够了</p>
-<hr>
 </div>
 </div>
 <hr>
@@ -394,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> ch <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">/* A      */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token string">'9'</span> <span class="token operator">-</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 9 (字符数字转整数) */</span></code></pre>
 <div class="top-2">
-  <img src="../1-types-io/img/ASCII.png" width=460px>
+  <img src="figs/ASCII.png" width=460px>
 </div>
 <ul>
 <li>

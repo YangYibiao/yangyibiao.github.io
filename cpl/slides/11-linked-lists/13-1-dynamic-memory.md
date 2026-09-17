@@ -200,7 +200,7 @@ size_t是库中定义的无符号整数类型.
 malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组: 
 
 <div class="top-2">
-  <img src="../img/16-1.png">
+  <img src="figs/16-1.png">
 </div>
 
 </div>

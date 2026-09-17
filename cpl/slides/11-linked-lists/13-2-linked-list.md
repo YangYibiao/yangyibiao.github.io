@@ -74,7 +74,7 @@ presentation:
 
 **链表**由一系列结构(称为**结点**)组成, 每个结点都包含指向链中下一个结点的指针: 
 <div class="top-2">
-    <img src="../img/16-5.png" width=280px>
+    <img src="figs/16-5.png" width=280px>
 </div>
 
 链表中的最后一个结点包含一个空指针. 
@@ -163,7 +163,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 new_node现在指向一个刚好足以容纳结点结构体的内存块: 
 
 <div class="top-2">
-  <img src="../img/16-6.png">
+  <img src="figs/16-6.png">
 </div>
 
 
@@ -172,7 +172,7 @@ new_node现在指向一个刚好足以容纳结点结构体的内存块:
 
 赋值后: 
 <div class="top-2">
-  <img src="../img/16-7.png">
+  <img src="figs/16-7.png">
 </div>
 
 `*new_node`周围的括号是强制要求的, 因为.运算符优先于*运算符.
@@ -367,13 +367,13 @@ for (cur = list, prev = NULL;
 假设链表如下并且n为20: 
 
 <div class="top-2">
-  <img src="../img/16-11-1.png">
+  <img src="figs/16-11-1.png">
 </div>
 
 执行完`cur = list, prev = NULL`后: 
 
 <div class="top-2">
-  <img src="../img/16-11-2.png">
+  <img src="figs/16-11-2.png">
 </div>
 
 </div>

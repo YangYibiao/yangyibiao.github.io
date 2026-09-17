@@ -248,7 +248,7 @@ j = -i;
 ---
 
 <div class="top-2">
-  <img src="img/upc.png" width=100px>
+  <img src="../img/upc.png" width=100px>
 </div>
 
 条形码下方数字的含义: 第 1 位商品类型, 两组五位数分别是制造商与产品, ==末位是校验位== (识别前面的数字错误)
