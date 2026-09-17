@@ -106,7 +106,7 @@ int main(void)
 
 <div style="flex:1;">
 
-*prime.c*程序测试一个数字是否为素数: 
+`prime.c`程序测试一个数字是否为素数: 
 
 Enter a number: <u>34</u>
 Not prime
@@ -118,7 +118,7 @@ is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有�
 
 ---
 
-*prime.c*
+`prime.c`
 
 
 

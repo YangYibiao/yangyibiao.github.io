@@ -185,7 +185,7 @@ else
 
 最低收费为 `$39`
 
-*broker.c*程序要求用户输入交易金额, 然后显示佣金金额: 
+`broker.c`程序要求用户输入交易金额, 然后显示佣金金额: 
 
 Enter value of trade: <u>30000</u>
 Commission: `$166.00`
@@ -238,7 +238,7 @@ int main(void)
 
 <div style="flex:1;">
 
-*broker.c*
+`broker.c`
 
 
 
@@ -731,7 +731,7 @@ int main(void)
 
 `Dated this __________ day of __________ , 20__ .`
 
-*date.c*程序将以这种形式显示日期: 
+`date.c`程序将以这种形式显示日期: 
 
 Enter date (mm/dd/yy): <u>7/19/14</u>
 Dated this 19th day of July, 2014.

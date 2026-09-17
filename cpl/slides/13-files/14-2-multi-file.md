@@ -94,9 +94,9 @@ C 程序可分割成任意数量的==源文件== (扩展名 `.c`), 每个源文�
 
 ---
 
-读取记号的函数可以与任何需要用到记号的函数一起放入一个源文件(例如*token.c*). 
+读取记号的函数可以与任何需要用到记号的函数一起放入一个源文件(例如`token.c`). 
 
-与栈相关的函数, 如push, pop, make_empty, is_empty和is_full可以放入另一个文件*stack.c*中. 
+与栈相关的函数, 如push, pop, make_empty, is_empty和is_full可以放入另一个文件`stack.c`中. 
 
 代表栈的变量也放入stack.c. 
 
@@ -345,7 +345,7 @@ int pop(void);
 
 RPN 计算器示例用于说明头文件中函数原型的使用. 
 
-*stack.c*包含make_empty, is_empty, is_full, push和pop函数的定义. 
+`stack.c`包含make_empty, is_empty, is_full, push和pop函数的定义. 
 
 这些函数的原型应放在stack.h头文件中:
 

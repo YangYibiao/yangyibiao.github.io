@@ -313,7 +313,7 @@ int main(void)
 - 从 $9$ 中减去余数
 - 结果是 $5$
 
-*upc.c*
+`upc.c`
 
 
 

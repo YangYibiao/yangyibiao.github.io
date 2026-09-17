@@ -287,7 +287,7 @@ int main(void)
 
 <div style="flex:1;">
 
-*square.c*程序使用`while`语句来打印一个平方表
+`square.c`程序使用`while`语句来打印一个平方表
 
 用户指定表中的条目数:
 
@@ -437,7 +437,7 @@ int main(void)
 
 <div style="flex:1;">
 
-*numdigits.c*程序计算用户输入的整数的位数:
+`numdigits.c`程序计算用户输入的整数的位数:
 
 程序会反复将用户输入除以`10`, 直到变为`0`; 除法的次数就是所求的位数
 

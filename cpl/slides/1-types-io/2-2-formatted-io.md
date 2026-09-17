@@ -246,7 +246,7 @@ int main(void)
 
 <div style="flex:1;">
 
-*tprintf.c*程序使用 ==printf== 以各种格式显示整数和浮点数
+`tprintf.c`程序使用 ==printf== 以各种格式显示整数和浮点数
 
 <div style="font-size:0.8em;">
 
