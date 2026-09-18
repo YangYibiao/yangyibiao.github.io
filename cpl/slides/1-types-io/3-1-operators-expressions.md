@@ -279,7 +279,7 @@ j = -i;
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.72em;">
+<div style="flex:1.3;font-size:0.74em;">
 
 ```C{.line-numbers}
 /* Computes a Universal Product Code check digit */
