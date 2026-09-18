@@ -184,32 +184,40 @@ j = -i;
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### 运算符优先级
+<!-- slide data-notes="" -->##### 运算符优先级
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
 
 `i + j * k` 是先加再乘, 还是先乘再加? 加括号可以消歧; 省略括号时, C 用==运算符优先级==规则来确定含义
 
-==算术运算符== 的优先级: 
+==算术运算符== 的优先级:
+
 - 最高: `+ -` (一元)
+
 - 其次: `* / %` (二元)
+
 - 最低: `+ -` (二元)
 
-示例: 
-
-<div class="fullborder">
-
-| `i + j * k`  | 等价于  | `i + (j * k)`    | 
-| :--          | :--    | :--              |
-| `-i * -j`    | 等价于  | `(-i) * (-j)`    | 
-| `+i + j / k` | 等价于  | `(+i) + (j / k)` | 
+示例:
 
 </div>
 
----
+<div style="flex:1;">
+
+<div class="fullborder">
+| `i + j * k`  | 等价于  | `i + (j * k)`    |
+| :--          | :--    | :--              |
+| `-i * -j`    | 等价于  | `(-i) * (-j)`    |
+| `+i + j / k` | 等价于  | `(+i) + (j / k)` |
+</div>
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
