@@ -190,7 +190,7 @@ int y = -5;   11111111 11111111 11111111 11111011
 
 ---
 
-<div class="top-2">
+<div class="top-2" style="text-align:center;">
   <img src="figs/clock-12h.svg" width=380px style="max-width:100%;">
 </div>
 
