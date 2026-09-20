@@ -309,9 +309,19 @@ def parse_content(lines):
                     break
                 item_text = re.sub(r'^\d+\. ', '', lines[i].strip()).strip()
                 i += 1
-                while i < len(lines) and lines[i].strip() and not is_ol(lines[i]) and not is_fence(lines[i]) and not is_raw(lines[i]) and not is_hr(lines[i]):
+                while i < len(lines) and lines[i].strip() and not is_ol(lines[i]) and not is_fence(lines[i]) and not is_raw(lines[i]) and not is_hr(lines[i]) and not re.match(r'^ {2,}[-*] ', lines[i]):
                     item_text += ' ' + lines[i].strip(); i += 1
-                items.append('<li>' + inline(item_text) + '</li>')
+                nested = ''
+                if i < len(lines) and re.match(r'^ {2,}[-*] ', lines[i]):
+                    nested_items = []
+                    while i < len(lines) and re.match(r'^ {2,}[-*] ', lines[i]):
+                        sub_text = lines[i].strip()[2:].strip()
+                        i += 1
+                        while i < len(lines) and lines[i].strip() and not re.match(r'^[-*] ', lines[i].strip()) and not is_ol(lines[i]) and not is_fence(lines[i]) and not is_raw(lines[i]) and not is_hr(lines[i]):
+                            sub_text += ' ' + lines[i].strip(); i += 1
+                        nested_items.append('<li>' + inline(sub_text) + '</li>')
+                    nested = '<ul>\n' + '\n'.join(nested_items) + '\n</ul>'
+                items.append('<li>' + inline(item_text) + '\n' + nested + '</li>')
             out.append('<ol>\n' + '\n'.join(items) + '\n</ol>'); continue
         if is_hr(ln):
             out.append('<hr>'); i += 1; continue
