@@ -423,17 +423,17 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 
 ---
 
+- ==1 到 2== 之间有 $2^{23}$ ≈ ==840 万个== float; ==2 到 4== 之间也只有 840 万个——区间长度翻倍, 格子数不变
+
+- 每个格子"管"的范围翻倍 → 离 0 越远越稀疏; ==约一半的 float 都挤在 -1 到 1 之间==
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;">
 
 <div class="top-2">
-  <img src="figs/float-binades.svg" width=640px style="max-width:100%;">
+  <img src="figs/float-binades.svg" width=680px style="max-width:100%;">
 </div>
-
-- ==1 到 2== 之间有 $2^{23}$ ≈ ==840 万个== float; ==2 到 4== 之间也只有 840 万个——区间长度翻倍, 格子数不变
-
-- 每个格子"管"的范围翻倍 → 离 0 越远越稀疏; ==约一半的 float 都挤在 -1 到 1 之间==
 
 </div>
 
@@ -480,13 +480,13 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.85em;">
 
 <div style="flex:1;">
 
 ==赋值==: 通过赋值的方式获得值
 
-```C{.line-numbers}
+```C
 height = 8;
 length = 12;
 width = 10;
@@ -500,8 +500,8 @@ gender = 'M';
 浮点常量的小尾巴: ==float 加 f==, double 不加
 
 ```C
-float profit = 2150.48f;   /* float: 加 f */
-double pi = 3.14159;       /* double: 不加 f */
+float profit = 2150.48f;  /* float 加 f */
+double pi = 3.14159;      /* double 不加 f */
 ```
 
 </div>
@@ -510,7 +510,7 @@ double pi = 3.14159;       /* double: 不加 f */
 
 <span class="yellow">:fa-weixin:</span> 赋的值==超出目标类型范围==时, 结果==无意义== (不会自动截到最大/最小值):
 
-<div style="font-size:0.85em;">
+<div style="font-size:0.8em;">
 
 ```C
 char c = 10000;      /* 无意义 */
