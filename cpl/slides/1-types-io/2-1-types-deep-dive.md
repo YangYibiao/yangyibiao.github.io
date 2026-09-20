@@ -287,6 +287,8 @@ printf("%d\n", '9' - '0');       /* 9 (字符数字转整数) */
   <img src="figs/ASCII.png" width=480px style="max-width:100%;">
 </div>
 
+<span class="blue">:fa-lightbulb-o:</span> 表中的数值是==16 进制== (如 0x41 = 'A')
+
 </div>
 
 </div>
