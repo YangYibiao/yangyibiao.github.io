@@ -287,9 +287,9 @@ int main(void)
 
 - 一个字符串可以包含任意数量的转义序列: 
 
-```C
-printf("Item\tUnit\tPurchase\n\tPrice\tDate\n");
-```
+  ```C
+  printf("Item\tUnit\tPurchase\n\tPrice\tDate\n");
+  ```
 
 ---
 
@@ -300,17 +300,25 @@ printf("Item\tUnit\tPurchase\n\tPrice\tDate\n");
 
 ---
 
+<div>
+
 另一常见的转义序列是 ==`\"`==, 代表 ==`"`== 字符: 
 
 ```C
 printf("\"Hello!\""); /* prints "Hello!" */
 ```
 
+</div>
+
+<div>
+
 要打印单个 ==`\`== 字符, 在字符串中放置两个 ==`\`==: 
 
 ```C
 printf("\\"); /* prints one \ character */
 ```
+
+</div>
 
 ---
 
