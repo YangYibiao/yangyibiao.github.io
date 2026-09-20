@@ -272,9 +272,9 @@ printf("%d %o %x\n", 17, 17, 17);   /* 输出: 17 21 11 */
 
 ```C
 char ch = 'a';
-printf("%c  %d\n", ch, ch);      /* a  97 */
-printf("%c\n", ch - 32);         /* A      */
-printf("%d\n", '9' - '0');       /* 9 (字符数字转整数) */
+printf("%c  %d\n", ch, ch);   /* a 97 */
+printf("%c\n", ch - 32);      /* A */
+printf("%d\n", '9' - '0');    /* 9 */
 ```
 
 - 常用技巧: ==toupper/tolower== (ctype.h); '9'-'0' 把字符数字变成整数
