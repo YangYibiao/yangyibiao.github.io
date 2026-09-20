@@ -406,11 +406,29 @@ scanf("%lf", &d);    /* double*  → %lf */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+==现场演示==
 
-<div style="flex:1.25;font-size:0.7em;">
+输入出生年份, 输出今年的年龄 (纯变量 + 表达式)
 
-```C{.line-numbers}
+- 三个"变量": `birth_year` (输入)、`age` (计算)、`2026` (常量)
+
+- 表达式 `2026 - birth_year` 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==
+
+- 加一点判断就能算"生日过了没"——那是第 4 周的内容
+
+<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 age.c——下一页是参考代码
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 代码演示1: 年龄 (参考代码)
+
+---
+
+<div style="font-size:0.8em;">
+
+```C
 /* age.c: 计算年龄 */
 #include <stdio.h>
 
@@ -429,21 +447,7 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
-
-==现场演示==
-
-输入出生年份, 输出今年的年龄 (纯变量 + 表达式)
-
-- 三个"变量": `birth_year` (输入)、`age` (计算)、`2026` (常量)
-
-- 表达式 `2026 - birth_year` 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==
-
-<span class="blue">:fa-lightbulb-o:</span> 加一点判断就能算"生日过了没"——那是第 4 周的内容
-
-</div>
-
-</div>
+---
 
 <!-- slide data-notes="" -->
 
@@ -451,9 +455,27 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+==现场演示==
 
-<div style="flex:1.25;font-size:0.7em;">
+输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$
+
+- 变量: `double` c, f (浮点数)
+
+- 输入: `scanf("%lf", &c)` 读取 double
+
+- `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 第 3 周细讲)
+
+<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 temp.c——下一页是参考代码
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 代码演示2: 温度转换 (参考代码)
+
+---
+
+<div style="font-size:0.8em;">
 
 ```C
 /* temp.c: 摄氏转华氏 */
@@ -473,21 +495,7 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
-
-==现场演示==
-
-输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$
-
-- 变量: `double` c, f (浮点数)
-
-- 输入: `scanf("%lf", &c)` 读取 double
-
-- `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 第 3 周细讲)
-
-</div>
-
-</div>
+---
 
 <!-- slide data-notes="" -->
 
@@ -495,11 +503,27 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+==现场演示==
 
-<div style="flex:1.7;font-size:0.65em;">
+输入金额 (整数元), 输出需要各种面额==多少张==: `/` 与 `%` 的第一次实战
 
-```C{.line-numbers}
+- `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把一个数一层层拆开
+
+- 课后 OJ 有 `change.c` 同款题目, 自己动手写一遍
+
+<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 change.c——下一页是参考代码
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 代码演示3: 找零计算 (参考代码)
+
+---
+
+<div style="font-size:0.7em;">
+
+```C
 /* change.c: 找零计算 */
 #include <stdio.h>
 int main(void) {
@@ -523,19 +547,7 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
-
-==现场演示==
-
-输入金额 (整数元), 输出需要各种面额==多少张==: `/` 与 `%` 的第一次实战
-
-- `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把一个数一层层拆开
-
-- 课后 OJ 有 `change.c` 同款题目, 自己动手写一遍
-
-</div>
-
-</div>
+---
 
 
 <!-- slide data-notes="" -->
