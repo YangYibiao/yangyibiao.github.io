@@ -418,12 +418,23 @@ document.addEventListener("DOMContentLoaded", function () {
 <ul>
 <li>符号位: <mark>0</mark> (正数)</li>
 <li>指数位: -1 → 加 127 = <mark>126 = 01111110</mark></li>
-<li>尾数位: <mark>1000…0</mark> (23 位, 隐含的 1 不存)</li>
+<li>尾数位: 小数部分 <mark>1</mark>, 后面补 0 到 23 位 (隐含的 1 不存)</li>
 </ul></li>
-<li>存储: <mark>0 01111110 1000…0 (23 位)</mark>
+<li>存储 (32 位), 三个字段对号入座:
 </li>
-<li>反推验算: 指数 126−127 = −1; 尾数补回隐含 1 得 1.1₂ = 1.5 → <mark>1.5 × 2⁻¹ = 0.75 ✓</mark>
-</li>
+</ol>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>   符号位   指数位          尾数位 <span class="token punctuation">(</span><span class="token number">23</span> 位<span class="token punctuation">)</span>
+    ↓        ↓              ↓
+    <span class="token number">0</span>   <span class="token number">01111110</span>   <span class="token number">10000000000000000000000</span>
+    ↑
+    正 <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span></code></pre>
+<ol>
+<li>反推验算:
+<ul>
+<li>指数: 01111110 = 126, 减偏移 127 → <mark>-1</mark></li>
+<li>尾数: 补回隐含的 1 → <mark>1.10000000000000000000000₂ = 1.5</mark></li>
+<li>结果: <mark>1.5 × 2⁻¹ = 0.75 ✓</mark></li>
+</ul></li>
 </ol>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="有限图案---无限数轴">有限图案 → 无限数轴 </h5>
