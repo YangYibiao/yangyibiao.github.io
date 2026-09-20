@@ -354,8 +354,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.1;">
 <p>浮点数按 <mark>IEEE 754</mark> 存储——"<mark>二进制的科学计数法</mark>": 符号、有效数字、指数三部分</p>
 <div class="fullborder">
 <table>
@@ -396,34 +394,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>位数决定精度: float 约 6-7 位有效数字, double 约 15-16 位</p>
+<p>位数决定精度: 23+1=24 位 × 0.301 ≈ 7.2 → float 约 6-7 位有效数字; double 约 15-16 位</p>
 
 </li>
-</ul>
-</div>
-<div style="flex:1.05;">
-<div style="font-size:0.85em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>验算<span class="token operator">:</span> <span class="token number">0.75</span> <span class="token operator">=</span> <span class="token number">0.11</span>₂ <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">/</span><span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>
-          <span class="token operator">=</span> <span class="token number">1.1</span> × <span class="token number">2</span>⁻¹
-
-符号 <span class="token number">0</span> <span class="token operator">|</span> 指数 <span class="token operator">-</span><span class="token number">1</span> → 存 <span class="token number">127</span><span class="token operator">-</span><span class="token number">1</span> <span class="token operator">=</span> <span class="token number">126</span>
-尾数 <span class="token number">1000</span>…<span class="token number">0</span> <span class="token punctuation">(</span>隐含 <span class="token number">1</span> 不存<span class="token punctuation">)</span>
-
-存储<span class="token operator">:</span> <span class="token number">0</span> <span class="token number">01111110</span> <span class="token number">1000</span>…<span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">23</span> 位<span class="token punctuation">)</span>
-
-反推<span class="token operator">:</span> 指数 <span class="token number">126</span><span class="token operator">-</span><span class="token number">127</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-      尾数 <span class="token number">1.1</span>₂ <span class="token operator">=</span> <span class="token number">1.5</span> → <span class="token number">1.5</span> × <span class="token number">2</span>⁻¹ <span class="token operator">=</span> <span class="token number">0.75</span> ✓</code></pre>
-</div>
-<ul>
 <li>
 <p>对比 <mark>0.1</mark>: 二进制是无限循环小数, 尾数只能截断——存进去的已不是 0.1</p>
 
 </li>
 </ul>
-</div>
-</div>
+<p>下一页: 亲手验算一个 float</p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="有限图案---无限数轴">有限图案 → 无限数轴 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="验算一个-float--0-75">验算一个 float: 0.75 </h5>
+<hr>
+<ol>
+<li>二进制: <mark>0.75 = 0.11₂ = 1/2 + 1/4</mark></li>
+<li>规范化: <mark>0.11₂ = 1.1 × 2⁻¹</mark></li>
+<li>三个字段: - 符号位: <mark>0</mark> (正数) - 指数位: -1 → 加 127 = <mark>126 = 01111110</mark> - 尾数位: <mark>1000…0</mark> (23 位, 隐含的 1 不存)</li>
+<li>存储: <mark>0 01111110 1000…0 (23 位)</mark></li>
+<li>反推验算: 指数 126−127 = −1; 尾数补回隐含 1 得 1.1₂ = 1.5 → <mark>1.5 × 2⁻¹ = 0.75 ✓</mark></li>
+</ol>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="有限图案---无限数轴">有限图案 → 无限数轴 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.15;">
@@ -450,7 +441,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="为什么-0-附近密-远处稀">为什么 0 附近密、远处稀? </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="为什么-0-附近密-远处稀">为什么 0 附近密、远处稀? </h5>
 <hr>
 <div class="top-2" style="text-align:center;">
   <img src="figs/float-binades.svg" width=720px style="max-width:100%;">
@@ -466,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="特殊值的编码">特殊值的编码 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="特殊值的编码">特殊值的编码 </h5>
 <hr>
 <p>指数段<mark>全 0</mark> 与<mark>全 1</mark> 被保留, 用于表示特殊值:</p>
 <div class="fullborder">
@@ -514,7 +505,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
 <hr>
 <p><mark>赋值</mark>: 通过赋值的方式获得值</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
@@ -531,7 +522,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">1.0e100</span><span class="token punctuation">;</span>   <span class="token comment">/* 无意义: 超出 float 范围 */</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
 <hr>
 <p><mark>常量</mark>: 值已知且不能改变的量 (<code>8</code>, <code>12</code>, <code>'M'</code>); <mark>符号常量</mark>: 给常量起名字, 提高可读性、便于修改</p>
 <ul>
@@ -553,7 +544,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 宏里如果含运算符, <mark>整体要加括号</mark>, 否则替换后会因优先级出错:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -589,7 +580,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -625,7 +616,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？</li>
@@ -634,7 +625,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <li>计算圆的面积时为什么要用符号常量 <code>PI</code> 而不是直接写 <code>3.14159</code>？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
