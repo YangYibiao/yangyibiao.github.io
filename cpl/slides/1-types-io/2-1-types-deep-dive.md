@@ -384,7 +384,7 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 ---
 
 <div class="top-2" style="text-align:center;">
-  <img src="figs/float-binades.svg" width=720px style="max-width:100%;">
+  <img src="figs/float-binades.svg" width=650px style="max-width:100%;">
 </div>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -395,6 +395,8 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 | 区间 | 形式 | 指数 e |
 | :-- | :-- | :-- |
 | [1/2, 1) | $1.xxx \times 2^{-1}$ | -1 |
+| (0, 1) 更深 | 每对半切一次, e 减 1 | -2, -3, …, -126 |
+| (0, 2⁻¹²⁶) | 非规格化数接手 | 固定 -126 |
 | [1, 2) | $1.xxx \times 2^{0}$ | 0 |
 | [2, 4) | $1.xxx \times 2^{1}$ | +1 |
 | [4, 8) | $1.xxx \times 2^{2}$ | +2 |
