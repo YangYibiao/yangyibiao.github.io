@@ -355,51 +355,33 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
 <hr>
-<p>浮点数按 <mark>IEEE 754</mark> 存储——"<mark>二进制的科学计数法</mark>": 符号、有效数字、指数三部分</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>总位数</th>
-<th>符号位</th>
-<th>指数位</th>
-<th>尾数位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>float</td>
-<td>32</td>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-<tr>
-<td>double</td>
-<td>64</td>
-<td>1</td>
-<td>11</td>
-<td>52</td>
-</tr>
-</tbody>
-</table>
-</div>
+<ol>
+<li>拆成 2 的幂: <mark>0.75 = 0.5 + 0.25 = 1×2⁻¹ + 1×2⁻² = 0.11₂</mark>
+</li>
+<li>规范化: <mark>0.11₂ = 1.1 × 2⁻¹</mark>
+</li>
+<li>三个字段:
 <ul>
-<li>
-<p><mark>规范化</mark>: 正常数都存成 \(1.xxx \times 2^e\)——开头的 1 是必然的, <mark>隐含不存</mark>, 白赚一位精度</p>
-
+<li>符号位: <mark>0</mark> (正数)</li>
+<li>指数位: -1 → 加 127 = <mark>126 = 01111110</mark></li>
+<li>尾数位: 小数部分 <mark>1</mark>, 后面补 0 到 23 位 (隐含的 1 不存)</li>
+</ul></li>
+<li>存储 (32 位), 三个字段对号入座:
 </li>
-<li>
-<p>指数用<mark>移码</mark>存 (加 127): 让位模式顺序 == 数值顺序——比较浮点数可直接当整数比, 硬件更简单</p>
-
-</li>
-<li>
-<p>位数决定精度: 二进制 \(n\) 位 ≈ \(n \times \log_{10}2\) ≈ \(n \times 0.301\) 个十进制位; float 23+1=24 位 → ≈7.2, 保守说 6-7 位; double 53 位 → ≈16, 说 15-16 位</p>
-
-</li>
-</ul>
-<p>下一页: 亲手验算一个 float</p>
+</ol>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>   符号位   指数位          尾数位 <span class="token punctuation">(</span><span class="token number">23</span> 位<span class="token punctuation">)</span>
+    ↓        ↓              ↓
+    <span class="token number">0</span>   <span class="token number">01111110</span>   <span class="token number">10000000000000000000000</span>
+    ↑
+    正 <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span></code></pre>
+<ol>
+<li>反推验算:
+<ul>
+<li>指数: 01111110 = 126, 减偏移 127 → <mark>-1</mark></li>
+<li>尾数: 补回隐含的 1 → <mark>1.10000000000000000000000₂ = 1.5</mark></li>
+<li>结果: <mark>1.5 × 2⁻¹ = 0.75 ✓</mark></li>
+</ul></li>
+</ol>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="验算一个-float--0-75">验算一个 float: 0.75 </h5>
 <hr>
