@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="flex:1;">
 <ul>
 <li>
-<p><mark>规范化</mark>: 正常数都存成 \(1.xxx \times 2^e\) (<mark>xxx 是 23 位 0/1</mark>)——开头的 1 是必然的, <mark>隐含不存</mark>, 白赚一位精度</p>
+<p><mark>规范化</mark>: 正常数都存成 \(1.xxx_2 \times 2^e\) (<mark>xxx 是 23 位 0/1</mark>)——开头的 1 是必然的, <mark>隐含不存</mark>, 白赚一位精度</p>
 
 </li>
 <li>
@@ -479,10 +479,22 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="为什么-0-附近密-远处稀">为什么 0 附近密、远处稀? </h5>
 <hr>
-<div class="top-2" style="text-align:center;">
-  <img src="figs/float-binades.svg" width=650px style="max-width:100%;">
-</div>
 <div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;">
+<div class="top-2">
+  <img src="figs/float-binades.svg" width=640px style="max-width:100%;">
+</div>
+<ul>
+<li>
+<p><mark>1 到 2</mark> 之间有 \(2^{23}\) ≈ <mark>840 万个</mark> float; <mark>2 到 4</mark> 之间也只有 840 万个——区间长度翻倍, 格子数不变</p>
+
+</li>
+<li>
+<p>每个格子"管"的范围翻倍 → 离 0 越远越稀疏; <mark>约一半的 float 都挤在 -1 到 1 之间</mark></p>
+
+</li>
+</ul>
+</div>
 <div style="flex:1;">
 <div class="fullborder">
 <table>
@@ -496,49 +508,37 @@ document.addEventListener("DOMContentLoaded", function () {
 <tbody>
 <tr>
 <td>[1/2, 1)</td>
-<td>\(1.xxx \times 2^{-1}\)</td>
+<td>\(1.xxx_2 \times 2^{-1}\)</td>
 <td>-1</td>
 </tr>
 <tr>
 <td>(1/4, 1/2), (1/8, 1/4), …</td>
-<td>\(1.xxx \times 2^{e}\), 一直对半切到 \(2^{-126}\)</td>
+<td>\(1.xxx_2 \times 2^{e}\), 一直对半切到 \(2^{-126}\)</td>
 <td>-2, -3, …, -126</td>
 </tr>
 <tr>
 <td>(0, \(2^{-126}\))</td>
-<td>\(0.xxx \times 2^{-126}\) (非规格化数)</td>
+<td>\(0.xxx_2 \times 2^{-126}\) (非规格化数)</td>
 <td>固定 -126</td>
 </tr>
 <tr>
 <td>[1, 2)</td>
-<td>\(1.xxx \times 2^{0}\)</td>
+<td>\(1.xxx_2 \times 2^{0}\)</td>
 <td>0</td>
 </tr>
 <tr>
 <td>[2, 4)</td>
-<td>\(1.xxx \times 2^{1}\)</td>
+<td>\(1.xxx_2 \times 2^{1}\)</td>
 <td>+1</td>
 </tr>
 <tr>
 <td>[4, 8)</td>
-<td>\(1.xxx \times 2^{2}\)</td>
+<td>\(1.xxx_2 \times 2^{2}\)</td>
 <td>+2</td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div style="flex:1;">
-<ul>
-<li>
-<p><mark>1 到 2</mark> 之间有 \(2^{23}\) ≈ <mark>840 万个</mark> float; <mark>2 到 4</mark> 之间也只有 840 万个——区间长度翻倍, 格子数不变</p>
-
-</li>
-<li>
-<p>每个格子"管"的范围翻倍 → 离 0 越远越稀疏; <mark>约一半的 float 都挤在 -1 到 1 之间</mark></p>
-
-</li>
-</ul>
 </div>
 </div>
 <hr>
