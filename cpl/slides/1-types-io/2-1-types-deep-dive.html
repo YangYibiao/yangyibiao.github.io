@@ -462,13 +462,57 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>区间长度 ×2 → 间距 ×2 → 离 0 越远越稀疏; <mark>约一半的 float 都挤在 -1 到 1 之间</mark></p>
 
 </li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="特殊值的编码">特殊值的编码 </h5>
+<hr>
+<p>指数段<mark>全 0</mark> 与<mark>全 1</mark> 被保留, 用于表示特殊值:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>指数段</th>
+<th>尾数段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code> / <code>-0.0</code></td>
+<td>全 0</td>
+<td>全 0</td>
+<td>符号位区分 ±0; <code>0.0f</code> 的内存就是 32 个 0</td>
+</tr>
+<tr>
+<td>非规格化数</td>
+<td>全 0</td>
+<td>非 0</td>
+<td>真实指数固定为 -126, 存 \(0.xxx \times 2^{-126}\), 填 0 附近的空隙</td>
+</tr>
+<tr>
+<td><code>±∞</code></td>
+<td>全 1</td>
+<td>全 0</td>
+<td>溢出 (如 <code>1e38f * 10</code>)</td>
+</tr>
+<tr>
+<td><code>NaN</code></td>
+<td>全 1</td>
+<td>非 0</td>
+<td>非法运算 (0/0、∞-∞); NaN 与任何数比较都为假</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
 <li>
-<p>特殊值: <mark>0 / -0.0</mark> (全 0)、<mark>非规格化数</mark> (\(0.xxx \times 2^{-126}\), 填 0 附近的空隙)、<mark>±∞</mark> (指数全 1 尾数 0)、<mark>NaN</mark> (指数全 1 尾数非 0)</p>
+<p>两个保留编码正好落在位模式的两个极端——这是移码设计的第二个好处</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
 <hr>
 <p><mark>赋值</mark>: 通过赋值的方式获得值</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
@@ -485,7 +529,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">1.0e100</span><span class="token punctuation">;</span>   <span class="token comment">/* 无意义: 超出 float 范围 */</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
 <hr>
 <p><mark>常量</mark>: 值已知且不能改变的量 (<code>8</code>, <code>12</code>, <code>'M'</code>); <mark>符号常量</mark>: 给常量起名字, 提高可读性、便于修改</p>
 <ul>
@@ -507,7 +551,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 宏里如果含运算符, <mark>整体要加括号</mark>, 否则替换后会因优先级出错:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -543,7 +587,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -579,7 +623,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？</li>
@@ -588,7 +632,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <li>计算圆的面积时为什么要用符号常量 <code>PI</code> 而不是直接写 <code>3.14159</code>？</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
