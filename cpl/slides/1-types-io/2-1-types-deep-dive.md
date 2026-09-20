@@ -387,9 +387,30 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
   <img src="figs/float-binades.svg" width=720px style="max-width:100%;">
 </div>
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+<div class="fullborder">
+| 区间 | 形式 | 指数 e |
+| :-- | :-- | :-- |
+| [1/2, 1) | $1.xxx \times 2^{-1}$ | -1 |
+| [1, 2) | $1.xxx \times 2^{0}$ | 0 |
+| [2, 4) | $1.xxx \times 2^{1}$ | +1 |
+| [4, 8) | $1.xxx \times 2^{2}$ | +2 |
+</div>
+
+</div>
+
+<div style="flex:1;">
+
 - ==1 到 2== 之间有 $2^{23}$ ≈ ==840 万个== float; ==2 到 4== 之间也只有 840 万个——区间长度翻倍, 格子数不变
 
 - 每个格子"管"的范围翻倍 → 离 0 越远越稀疏; ==约一半的 float 都挤在 -1 到 1 之间==
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->##### 特殊值的编码
 
