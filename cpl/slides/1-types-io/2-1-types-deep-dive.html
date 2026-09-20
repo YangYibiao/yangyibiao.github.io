@@ -544,48 +544,76 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="特殊值的编码">特殊值的编码 </h5>
 <hr>
-<p>指数段<mark>全 0</mark> 与<mark>全 1</mark> 被保留, 用于表示特殊值:</p>
+<p>指数段<mark>全 0</mark> 与<mark>全 1</mark> 被保留; 浮点数的边界值也都落在它们旁边:</p>
 <div class="fullborder">
 <table>
 <thead>
 <tr>
+<th>名字</th>
 <th>值</th>
 <th>指数段</th>
 <th>尾数段</th>
-<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>最大正规数</td>
+<td>≈ \(3.4 \times 10^{38}\)</td>
+<td>11111110</td>
+<td>全 1</td>
+</tr>
+<tr>
+<td>最小正规数 (负)</td>
+<td>≈ \(-3.4 \times 10^{38}\)</td>
+<td>11111110</td>
+<td>全 1</td>
+</tr>
+<tr>
+<td>最小正正规数</td>
+<td>\(2^{-126}\) ≈ \(1.18 \times 10^{-38}\)</td>
+<td>00000001</td>
+<td>全 0</td>
+</tr>
+<tr>
+<td>最小正数</td>
+<td>\(2^{-149}\) ≈ \(1.4 \times 10^{-45}\)</td>
+<td>00000000</td>
+<td>000…001</td>
+</tr>
+<tr>
 <td><code>0</code> / <code>-0.0</code></td>
+<td>0</td>
 <td>全 0</td>
 <td>全 0</td>
-<td>符号位区分 ±0; <code>0.0f</code> 的内存就是 32 个 0</td>
 </tr>
 <tr>
 <td>非规格化数</td>
+<td>\(0.xxx \times 2^{-126}\)</td>
 <td>全 0</td>
 <td>非 0</td>
-<td>真实指数固定为 -126, 存 \(0.xxx \times 2^{-126}\), 填 0 附近的空隙</td>
 </tr>
 <tr>
 <td><code>±∞</code></td>
+<td>无穷</td>
 <td>全 1</td>
 <td>全 0</td>
-<td>溢出 (如 <code>1e38f * 10</code>)</td>
 </tr>
 <tr>
 <td><code>NaN</code></td>
+<td>非数</td>
 <td>全 1</td>
 <td>非 0</td>
-<td>非法运算 (0/0、∞-∞); NaN 与任何数比较都为假</td>
 </tr>
 </tbody>
 </table>
 </div>
 <ul>
 <li>
-<p>两个保留编码正好落在位模式的两个极端——这是移码设计的第二个好处</p>
+<p>最大数不是 \(1 \times 2^{127}\) 而是接近 \(2 \times 2^{127}\)——尾数可以全 1; 最小正正规数不是 \(2^{-127}\)——指数段 0 被非规格化数征用了</p>
+
+</li>
+<li>
+<p>两个保留编码落在位模式的两个极端——这是移码设计的第二个好处</p>
 
 </li>
 </ul>
