@@ -283,11 +283,20 @@ printf("%d\n", '9' - '0');    /* 9 */
 
 <div style="flex:1;">
 
-<div class="top-2">
-  <img src="figs/ASCII.png" width=480px style="max-width:100%;">
+<div class="fullborder">
+| 字符 | 16 进制 | 10 进制 | 说明 |
+| :-- | :-- | :-- | :-- |
+| `'0'` | 0x30 | 48 | 数字起点 |
+| `'9'` | 0x39 | 57 | |
+| `'A'` | 0x41 | 65 | 大写起点 |
+| `'Z'` | 0x5A | 90 | |
+| `'a'` | 0x61 | 97 | 小写起点 |
+| `'z'` | 0x7A | 122 | |
+| `' '` | 0x20 | 32 | 空格 |
+| `'\n'` | 0x0A | 10 | 换行 |
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 表中的数值是==16 进制== (如 0x41 = 'A')
+<span class="blue">:fa-lightbulb-o:</span> ==大写 + 32 = 小写== (如 'A' 65 + 32 = 97 = 'a'); 完整表见 [man ascii](https://man7.org/linux/man-pages/man7/ascii.7.html)
 
 </div>
 
