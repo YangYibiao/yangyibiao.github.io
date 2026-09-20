@@ -616,14 +616,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
 <p><mark>赋值</mark>: 通过赋值的方式获得值</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
 length <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
 width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 gender <span class="token operator">=</span> <span class="token string">'M'</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
 <p>浮点常量的小尾巴: <mark>float 加 f</mark>, double 不加</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-float">float</span> profit <span class="token operator">=</span> <span class="token number">2150.48</span>f<span class="token punctuation">;</span>   <span class="token comment">/* float: 加 f */</span>
 <span class="token keyword keyword-double">double</span> pi <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>       <span class="token comment">/* double: 不加 f */</span></code></pre>
+</div>
+</div>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 赋的值<mark>超出目标类型范围</mark>时, 结果<mark>无意义</mark> (不会自动截到最大/最小值):</p>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> c <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>      <span class="token comment">/* 无意义 */</span>
@@ -634,6 +640,8 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
 <hr>
 <p><mark>常量</mark>: 值已知且不能改变的量 (<code>8</code>, <code>12</code>, <code>'M'</code>); <mark>符号常量</mark>: 给常量起名字, 提高可读性、便于修改</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
 <ul>
 <li>
 <p>宏定义: 预处理命令, 结尾<mark>没有分号</mark></p>
@@ -642,6 +650,8 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </ul>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> PI 3.14159</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> GRAM_PER_MOL 32</span></code></pre>
+</div>
+<div style="flex:1;">
 <ul>
 <li>
 <p>const限定: 声明为只读变量</p>
@@ -650,13 +660,32 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </ul>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-double">double</span> MOL <span class="token operator">=</span> <span class="token number">6.02E23</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> GRAM_PER_MOL <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">;</span></code></pre>
+</div>
+</div>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 宏里如果含运算符, <mark>整体要加括号</mark>, 否则替换后会因优先级出错:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */</span></code></pre>
 <hr>
 </section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.25;font-size:0.7em;">
+<p>给定一个圆的<mark>半径</mark> (如 \(10\)), 计算其<mark>周长</mark>和<mark>面积</mark></p>
+<div style="text-align:center;">
+<p>\(L = 2\pi r \qquad S = \pi r^2\)</p>
+</div>
+<ul>
+<li>
+<p>每个结果各占一行</p>
+
+</li>
+<li>
+<p>小数点后保留两位</p>
+
+</li>
+</ul>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 打开 CLion, 一起写 circle.c——下一页是参考代码</p>
+<hr>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--circle-参考代码">演示: Circle (参考代码) </h5>
+<hr>
+<div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
  * circle.c(计算周长和面积)
  */</span>
@@ -673,26 +702,28 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<p>给定一个圆的<mark>半径</mark> (如 \(10\)), 计算其<mark>周长</mark>和<mark>面积</mark></p>
-<p>\(L = 2\pi r\) &emsp; \(S = \pi r^2\)</p>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
+<hr>
+<p>给定一个球的<mark>半径</mark> (如 \(100\)), 计算其<mark>表面积</mark>和<mark>体积</mark></p>
+<div style="text-align:center;">
+<p>\(A = 4 \pi r^2 \qquad V = \frac{4}{3} \pi r^3\)</p>
+</div>
 <ul>
 <li>
-<p>每个结果各占一行</p>
+<p>每个结果占 \(1\) 行, 小数点后保留 \(4\) 位</p>
 
 </li>
 <li>
-<p>小数点后保留两位</p>
+<p>每个结果至少占 \(15\) 字符, 左对齐</p>
 
 </li>
 </ul>
-</div>
-</div>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 同样打开 CLion, 一起写 sphere.c——下一页是参考代码</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="演示--sphere-参考代码">演示: Sphere (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.25;font-size:0.7em;">
+<div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
  * sphere.c(球的体积和面积)
 */</span>
@@ -709,23 +740,8 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
            surface_area<span class="token punctuation">,</span> volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<p>给定一个球的<mark>半径</mark> (如 \(100\)), 计算其<mark>表面积</mark>和<mark>体积</mark></p>
-<p>\(A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3\)</p>
-<ul>
-<li>
-<p>每个结果占 \(1\) 行, 小数点后保留 \(4\) 位</p>
-
-</li>
-<li>
-<p>每个结果至少占 \(15\) 字符, 左对齐</p>
-
-</li>
-</ul>
-</div>
-</div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？
@@ -738,7 +754,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="23" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

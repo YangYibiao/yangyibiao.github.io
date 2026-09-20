@@ -480,6 +480,10 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==赋值==: 通过赋值的方式获得值
 
 ```C{.line-numbers}
@@ -489,12 +493,20 @@ width = 10;
 gender = 'M';
 ```
 
+</div>
+
+<div style="flex:1;">
+
 浮点常量的小尾巴: ==float 加 f==, double 不加
 
 ```C
 float profit = 2150.48f;   /* float: 加 f */
 double pi = 3.14159;       /* double: 不加 f */
 ```
+
+</div>
+
+</div>
 
 <span class="yellow">:fa-weixin:</span> 赋的值==超出目标类型范围==时, 结果==无意义== (不会自动截到最大/最小值):
 
@@ -519,6 +531,10 @@ float f = 1.0e100;   /* 无意义: 超出 float 范围 */
 
 ==常量==: 值已知且不能改变的量 (`8`, `12`, `'M'`); ==符号常量==: 给常量起名字, 提高可读性、便于修改
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 - 宏定义: 预处理命令, 结尾==没有分号==
 
 ```C
@@ -526,12 +542,20 @@ float f = 1.0e100;   /* 无意义: 超出 float 范围 */
 #define GRAM_PER_MOL 32
 ```
 
+</div>
+
+<div style="flex:1;">
+
 - const限定: 声明为只读变量
 
 ```C
 const double MOL = 6.02E23;
 const int GRAM_PER_MOL = 32;
 ```
+
+</div>
+
+</div>
 
 <span class="yellow">:fa-weixin:</span> 宏里如果含运算符, ==整体要加括号==, 否则替换后会因优先级出错:
 
@@ -549,9 +573,30 @@ const int GRAM_PER_MOL = 32;
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+给定一个圆的==半径== (如 $10$), 计算其==周长==和==面积==
 
-<div style="flex:1.25;font-size:0.7em;">
+<div style="text-align:center;">
+
+$L = 2\pi r \qquad S = \pi r^2$
+
+</div>
+
+- 每个结果各占一行
+
+- 小数点后保留两位
+
+<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 circle.c——下一页是参考代码
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: Circle (参考代码)
+
+---
+
+<div style="font-size:0.8em;">
 
 ```C
 /*
@@ -573,21 +618,7 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
-
-给定一个圆的==半径== (如 $10$), 计算其==周长==和==面积==
-
-$L = 2\pi r$ &emsp; $S = \pi r^2$
-
-- 每个结果各占一行
-
-- 小数点后保留两位
-
-
-
-</div>
-
-</div>
+---
 
 <!-- slide data-notes="" -->
 
@@ -596,9 +627,30 @@ $L = 2\pi r$ &emsp; $S = \pi r^2$
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+给定一个球的==半径== (如 $100$), 计算其==表面积==和==体积==
 
-<div style="flex:1.25;font-size:0.7em;">
+<div style="text-align:center;">
+
+$A = 4 \pi r^2 \qquad V = \frac{4}{3} \pi r^3$
+
+</div>
+
+- 每个结果占 $1$ 行, 小数点后保留 $4$ 位
+
+- 每个结果至少占 $15$ 字符, 左对齐
+
+<span class="blue">:fa-lightbulb-o:</span> 同样打开 CLion, 一起写 sphere.c——下一页是参考代码
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: Sphere (参考代码)
+
+---
+
+<div style="font-size:0.8em;">
 
 ```C
 /*
@@ -620,21 +672,7 @@ int main() {
 
 </div>
 
-<div style="flex:1;">
-
-给定一个球的==半径== (如 $100$), 计算其==表面积==和==体积==
-
-$A = 4 \pi r^2\quad V = \frac{4}{3} \pi r^3$
-
-- 每个结果占 $1$ 行, 小数点后保留 $4$ 位
-
-- 每个结果至少占 $15$ 字符, 左对齐
-
-
-
-</div>
-
-</div>
+---
 
 <!-- slide data-notes="" -->
 
