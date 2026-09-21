@@ -326,7 +326,34 @@ q <span class="token operator">=</span> <span class="token function">malloc</spa
 p <span class="token operator">=</span> q<span class="token punctuation">;</span></code></pre>
 <p>调用free会释放p指向的内存块.</p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="悬空指针-问题">"悬空指针"问题 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="演示--忘记-free-的后果">演示: 忘记 free 的后果 </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">1000</span> <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 每次借走 4000 字节 */</span>
+        <span class="token function">usleep</span><span class="token punctuation">(</span><span class="token number">20000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                        <span class="token comment">/* 放慢, 便于观察 */</span>
+        <span class="token comment">/* 用完没有 free! */</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<ul>
+<li>
+<p>每循环一次就<mark>借走一块内存且永不归还</mark>——可用内存越来越少, 程序最终被系统"杀掉"或整台机器变卡</p>
+
+</li>
+<li>
+<p>现场观察: 另开一个终端, <code>top</code> 里看这个进程的<mark>内存不断上涨</mark></p>
+
+</li>
+<li>
+<p>教训: <mark>malloc 与 free 成对出现</mark>; 用完不再需要的块要及时释放</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="悬空指针-问题">"悬空指针"问题 </h5>
 <hr>
 <p>使用free会导致一个新问题: <strong>悬空指针</strong>.</p>
 <p><code>free(p)</code>释放p指向的内存块, 但不改变p本身.</p>
@@ -340,16 +367,20 @@ p <span class="token operator">=</span> q<span class="token punctuation">;</span
 <p>悬空指针很难被发现, 因为几个指针可能指向同一个内存块.</p>
 <p>当块被释放时, 所有的指针都悬空.</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li><code>int *p = malloc(sizeof(int) * 10);</code> 分配了多大的内存？用完必须做什么？</li>
-<li><code>malloc</code> 失败时返回什么？为什么要检查它？</li>
-<li><code>free(p)</code> 之后还能用 p 吗？为什么？应该把 p 置成什么？</li>
-<li><code>calloc</code> 与 <code>malloc</code> 的区别是什么？</li>
+<li><code>int *p = malloc(sizeof(int) * 10);</code> 分配了多大的内存？用完必须做什么？
+</li>
+<li><code>malloc</code> 失败时返回什么？为什么要检查它？
+</li>
+<li><code>free(p)</code> 之后还能用 p 吗？为什么？应该把 p 置成什么？
+</li>
+<li><code>calloc</code> 与 <code>malloc</code> 的区别是什么？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="13" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
