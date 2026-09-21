@@ -429,6 +429,10 @@ i += 2;   /* same as i = i + 2; */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;">
+
 `v += e`与`v = v + e`可能==不等价==
 
 - 一是运算符优先级:  
@@ -437,9 +441,17 @@ i += 2;   /* same as i = i + 2; */
 
 - 在极少数情况下, `v += e` 不同于 `v = v + e` 因为 `v`本身有副作用(如`v`为`++i`或`i++`等)
 
+</div>
+
+<div style="flex:1;">
+
 <span class="blue">:fa-lightbulb-o:</span> 使用复合赋值运算符时, 不要交换构成复合运算符的两个字符
 
 虽然`i =+ j`能编译通过, 但意义不同, 它相当于 `i = (+j)`, 它只是将`j`的值复制到`i`中
+
+</div>
+
+</div>
 
 ---
 
