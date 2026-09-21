@@ -75,6 +75,10 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
 到目前为止所涉及的运算符: 
 
 <div class="threelines column7-border-right-solid head-highlight-1 tr-hover row3-border-top-dashed row7-border-top-dashed">
@@ -93,7 +97,19 @@ presentation:
 
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 运算符优先级表可用于向缺少括号的表达式添加括号: 从最高优先级的运算符开始, 在运算符及其操作数周围加上括号
+</div>
+
+<div style="flex:1;">
+
+- 单目运算符 (1、2 级) 高于双目算术, 赋值 (5 级) 最低
+
+- 结合性: 后缀 `++`/`--` 左结合; 前缀 `++`/`--`、一元 `+`/`-`、赋值是右结合; 算术左结合
+
+<span class="blue">:fa-lightbulb-o:</span> 优先级表可用于给缺少括号的表达式==加括号==: 从最高优先级开始, 在运算符及其操作数周围加上括号 (下一页演示)
+
+</div>
+
+</div>
 
 ---
 
