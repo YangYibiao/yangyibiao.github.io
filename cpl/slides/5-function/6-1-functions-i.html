@@ -565,7 +565,38 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="演示--swap-为什么不生效">演示: swap 为什么不生效? </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span>  a <span class="token operator">=</span> b<span class="token punctuation">;</span>  b <span class="token operator">=</span> t<span class="token punctuation">;</span>      <span class="token comment">/* 交换的是副本! */</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token function">swap</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x = %d, y = %d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<p>运行结果:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">5</span></code></pre>
+<ul>
+<li>
+<p>传值调用: <code>a</code>、<code>b</code> 只是 <code>x</code>、<code>y</code> 的<mark>副本</mark>, 函数内交换副本, 外面<mark>纹丝不动</mark></p>
+
+</li>
+<li>
+<p>这是新手最困惑的现象之一: 函数明明执行了, "为什么没效果?"</p>
+
+</li>
+<li>
+<p>记住这个悬念——<mark>第 10 周学指针</mark>后, 用 <code>swap(&amp;x, &amp;y)</code> 就能真正交换 (先记下来, 不剧透)</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
 <hr>
 <p>C允许实际参数的类型与形式参数的类型不匹配的函数调用.</p>
 <p>实际参数如何转换取决于编译器在调用函数之前是否已经遇到函数的原型(或函数的完整定义).</p>
@@ -574,7 +605,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>每个参数的值都隐式转换为相应形式参数的类型, 类似赋值一样.</p>
 <p>示例: 如果将int型的实际参数传递给期望得到double型参数的函数, 则该实际参数将自动转换为double类型.</p>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -611,7 +642,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="return语句">return语句 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="return语句">return语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -630,7 +661,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="return语句">return语句 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="return语句">return语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -657,7 +688,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="程序终止">程序终止 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="程序终止">程序终止 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -684,7 +715,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="exit函数">exit函数 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="exit函数">exit函数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -726,16 +757,20 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>函数定义由哪两部分组成？<code>return</code> 的作用是什么？</li>
-<li>函数调用之前必须有什么？函数声明的一般形式是什么？</li>
-<li>C 语言中参数按什么方式传递？实参和形参是什么关系？</li>
-<li><code>void</code> 返回类型表示什么？<code>exit(0)</code> 与 <code>return 0</code> 有什么区别？</li>
+<li>函数定义由哪两部分组成？<code>return</code> 的作用是什么？
+</li>
+<li>函数调用之前必须有什么？函数声明的一般形式是什么？
+</li>
+<li>C 语言中参数按什么方式传递？实参和形参是什么关系？
+</li>
+<li><code>void</code> 返回类型表示什么？<code>exit(0)</code> 与 <code>return 0</code> 有什么区别？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="28" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
