@@ -121,15 +121,23 @@ while (i < n) /* 控制表达式 */
 
 ---
 
-用 `while` 计算 ≥ `n` 的最小 2 的幂: ```C{.line-numbers}
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+用 `while` 计算 ≥ `n` 的最小 2 的幂:
+
+```C{.line-numbers}
 i = 1;
 while (i < n)
   i = i * 2;
 ```
 
-当n的值为 10 时, while语句的执行情况:
+</div>
 
-<div style="font-size:0.8em;">
+<div style="flex:1.15;font-size:0.72em;">
+
+当n的值为 10 时, while语句的执行情况:
 
 ```C{.line-numbers}
 i = 1;          i is now 1         
@@ -143,6 +151,8 @@ Is i < n?       Yes; continue
 i = i * 2;      i is now 16        
 Is i < n?       No; exit from loop 
 ```
+
+</div>
 
 </div>
 

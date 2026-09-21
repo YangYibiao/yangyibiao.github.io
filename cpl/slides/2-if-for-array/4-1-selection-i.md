@@ -514,11 +514,19 @@ if (i > j) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==现场演示==
 
 输入两个整数, 输出其中较小的一个
 
-<div style="font-size:0.7em;">
+<span class="blue">:fa-weixin:</span> if/else 各只控制一条语句时, 花括号可省略
+
+</div>
+
+<div style="flex:1.15;font-size:0.7em;">
 
 ```C
 #include <stdio.h>
@@ -539,7 +547,7 @@ int main() {
 
 </div>
 
-<span class="blue">:fa-weixin:</span> if/else 各只控制一条语句时, 花括号可省略
+</div>
 
 ---
 

@@ -121,16 +121,24 @@ while (表达式2) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;">
+
 研究等效的while语句有助于更好地理解for语句
 
-例如, 如果`i--`被替换为`—-i`会如何？
+例如, 如果`i--`被替换为`—-i`会如何？等效的while循环表明这种更改对循环没有影响
+
+for语句中的第一个和第三个表达式都是以语句的方式执行的, 它们的值是无关紧要的——它们有用仅仅是因为有副作用; 因此, 这两个表达式通常是赋值递增/递减表达式
+
+</div>
+
+<div style="flex:1;font-size:0.72em;">
 
 ```C
 for (i = 10; i > 0; --i) 
   printf("T minus %d and counting\n", i);
 ```
-
-等效的while循环表明这种更改对循环没有影响:
 
 ```C
 i = 10;
@@ -140,7 +148,9 @@ while (i > 0) {
 }
 ```
 
-for语句中的第一个和第三个表达式都是以语句的方式执行的, 它们的值是无关紧要的——它们有用仅仅是因为有副作用; 因此, 这两个表达式通常是赋值递增/递减表达式
+</div>
+
+</div>
 
 ---
 
@@ -394,32 +404,32 @@ int main(void)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==数据交换==: 交换两个变量的值 (借助临时变量)
 
-<div style="font-size:0.85em;">
+==累加==: 计算 1+2+...+n
+
+==累乘==: 计算 n! (注意: 初始值为 1, 且很快溢出)
+
+<span class="blue">:fa-weixin:</span> 累加器初始化为 0, 累乘器初始化为 1——这是循环的经典写法
+
+</div>
+
+<div style="flex:1;font-size:0.8em;">
 
 ```C
 int a = 3, b = 5, t;
 t = a; a = b; b = t;   /* a 为 5, b 为 3 */
 ```
 
-</div>
-
-==累加==: 计算 1+2+...+n
-
-<div style="font-size:0.85em;">
-
 ```C
 int sum = 0;
 for (int i = 1; i <= n; i++)
     sum += i;
 ```
-
-</div>
-
-==累乘==: 计算 n! (注意: 初始值为 1, 且很快溢出)
-
-<div style="font-size:0.85em;">
 
 ```C
 int product = 1;
@@ -429,7 +439,7 @@ for (int i = 1; i <= n; i++)
 
 </div>
 
-<span class="blue">:fa-weixin:</span> 累加器初始化为 0, 累乘器初始化为 1——这是循环的经典写法
+</div>
 
 ---
 

@@ -399,7 +399,17 @@ printf函数调用有时可以从条件表达式中受益:
 
 ---
 
-`C89` 没有布尔类型, 传统做法是用 `int` 变量充当标志(flag): 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;">
+
+`C89` 没有布尔类型, 传统做法是用 `int` 变量充当标志(flag)
+
+为提高可读性, C89 程序员用宏定义 TRUE/FALSE
+
+</div>
+
+<div style="flex:1;font-size:0.72em;">
 
 ```C{.line-numbers}
 int flag;
@@ -407,8 +417,6 @@ flag = 0;
 …
 flag = 1;
 ```
-
-为提高可读性, C89 程序员用宏定义 TRUE/FALSE: 
 
 ```C{.line-numbers}
 #define TRUE 1
@@ -421,6 +429,10 @@ if (flag) …      /* 直接测试即可 */
 if (!flag) …     /* 测试是否为假 */
 ```
 
+</div>
+
+</div>
+
 ---
 
 <!-- slide data-notes="" -->
@@ -430,14 +442,24 @@ if (!flag) …     /* 测试是否为假 */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 `C99` 提供了布尔类型: `_Bool`, 只能赋值 `0` 或 `1`
+
+`<stdbool.h>` 头文件让布尔值更好用
+
+<span class="blue">:fa-weixin:</span> 建议使用 `<stdbool.h>` 的 `bool`, `true`, `false`
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
 
 ```C
 _Bool flag;
 flag = 5;   /* flag is assigned 1 */
 ```
-
-`<stdbool.h>` 头文件让布尔值更好用: 
 
 ```C
 bool flag;   /* same as _Bool flag; */
@@ -446,7 +468,9 @@ flag = false;
 flag = true;
 ```
 
-<span class="blue">:fa-weixin:</span> 建议使用 `<stdbool.h>` 的 `bool`, `true`, `false`
+</div>
+
+</div>
 
 ---
 
@@ -594,7 +618,17 @@ switch (grade) {
 
 ---
 
-为了节省空间, 可以将多个case标签放在同一行: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+为了节省空间, 可以将多个case标签放在同一行
+
+如果缺少`default`, 且控制表达式的值与任何case都不匹配, 则控制传递到switch之后的下一条语句
+
+</div>
+
+<div style="flex:1.15;font-size:0.72em;">
 
 ```C{.line-numbers}
 switch (grade) {
@@ -610,7 +644,9 @@ switch (grade) {
 }
 ```
 
-如果缺少`default`, 且控制表达式的值与任何case都不匹配, 则控制传递到switch之后的下一条语句
+</div>
+
+</div>
 
 ---
 
@@ -663,9 +699,19 @@ switch (grade) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 省略`break`有时是故意的, 但通常是因为疏忽
 
-明确指出故意省略`break`语句是个好的习惯: 
+明确指出故意省略`break`语句是个好的习惯
+
+尽管最后一个 `case` 永远不需要`break`语句, 但包含一个`break`可以避免在将来添加 `case` 时出错
+
+</div>
+
+<div style="flex:1.15;font-size:0.72em;">
 
 ```C{.line-numbers}
 switch (grade) {
@@ -677,7 +723,9 @@ switch (grade) {
 }
 ```
 
-尽管最后一个 `case` 永远不需要`break`语句, 但包含一个`break`可以避免在将来添加 `case` 时出错
+</div>
+
+</div>
 
 ---
 
