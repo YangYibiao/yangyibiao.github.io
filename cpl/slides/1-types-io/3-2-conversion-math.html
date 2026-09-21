@@ -236,17 +236,22 @@ c <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="子表达式求值顺序">子表达式求值顺序 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;">
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 为防止出现问题, 最好避免在子表达式中使用赋值运算符</p>
-<p>相反, 建议使用一串分离的赋值表达式:</p>
+<p>相反, 建议使用一串分离的赋值表达式, 这样 <code>c</code>的值是确定的, 将始终为 <code>6</code></p>
+<p>除了赋值运算符之外, 唯一修改其操作数的运算符是自增和自减</p>
+<p>很自然地认为<code>j</code>被赋值为<code>4</code>. 然而, <code>j</code>也可以被赋值为<code>6</code>——求值顺序不同, 结果不同</p>
+</div>
+<div style="flex:1;font-size:0.75em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
 b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
 a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 c <span class="token operator">=</span> b <span class="token operator">-</span> a<span class="token punctuation">;</span></code></pre>
-<p><code>c</code>的值是确定的, 将始终为 <code>6</code></p>
-<p>除了赋值运算符之外, 唯一修改其操作数的运算符是自增和自减</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 j <span class="token operator">=</span> i <span class="token operator">*</span> i<span class="token operator">++</span><span class="token punctuation">;</span></code></pre>
-<p>很自然地认为<code>j</code>被赋值为<code>4</code>. 然而, <code>j</code>也可以被赋值为<code>6</code>——求值顺序不同, 结果不同</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="未定义的行为">未定义的行为 </h5>
 <hr>
@@ -312,27 +317,60 @@ i <span class="token operator">+</span> j <span class="token operator">=</span> 
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型转换---隐式转换">类型转换 - 隐式转换 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;">
 <p><mark>隐式转换</mark>: 不同类型混合运算/赋值时, 编译器自动转换</p>
 <ul>
 <li>
 <p>赋值: 右值自动转换为左值变量的类型</p>
 
 </li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-double">double</span> d <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>
-i <span class="token operator">=</span> d<span class="token punctuation">;</span>      <span class="token comment">/* i 为 3 (截断小数) */</span>
-d <span class="token operator">=</span> i<span class="token punctuation">;</span>      <span class="token comment">/* d 为 3.0 */</span></code></pre>
-<ul>
 <li>
 <p>运算: 较低类型提升为较高类型 (<code>char</code>/<code>short</code> → <code>int</code>; <code>int</code> + <code>double</code> → <code>double</code>)</p>
 
 </li>
 </ul>
+</div>
+<div style="flex:1;font-size:0.75em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-double">double</span> d <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">;</span>
+i <span class="token operator">=</span> d<span class="token punctuation">;</span>      <span class="token comment">/* i 为 3 (截断小数) */</span>
+d <span class="token operator">=</span> i<span class="token punctuation">;</span>      <span class="token comment">/* d 为 3.0 */</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">1</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>        <span class="token comment">/* 0   (整数除法) */</span>
 <span class="token number">1.0</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>      <span class="token comment">/* 0.5 (2 提升为 double) */</span></code></pre>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="演示--为什么--f-打出了奇怪的数">演示: 为什么 %f 打出了奇怪的数? </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> a <span class="token operator">/</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">/* 2: 整数除法截断 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%f\n"</span><span class="token punctuation">,</span> a <span class="token operator">/</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">/* 错! 用 %f 打印 int → 结果不可预测 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%f\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span>a <span class="token operator">/</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 2.250000: 先转换再除 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%f\n"</span><span class="token punctuation">,</span> a <span class="token operator">/</span> <span class="token number">4.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">/* 2.250000: 4.0 是 double, 整体提升 */</span></code></pre>
+</div>
+<p>常见的运行结果:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">2</span>
+<span class="token number">0.000000</span>
+<span class="token number">2.250000</span>
+<span class="token number">2.250000</span></code></pre>
+<ul>
+<li>
+<p>类型转换发生在<mark>运算时</mark>: <code>a / b</code> 两个 <code>int</code> 相除, <mark>先截断、后转换</mark>, 轮到 <code>printf</code> 时已经来不及了</p>
+
+</li>
+<li>
+<p><code>%f</code> 期待 <code>double</code> 却收到 <code>int</code> → <mark>未定义行为</mark>, 常见打出 <code>0.000000</code> 或乱码——<code>printf</code> 不会替你检查类型</p>
+
+</li>
+<li>
+<p>正确姿势: 转换一个操作数 <code>(double)a / b</code>, 或直接用浮点字面量 <code>a / 4.0</code></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
 <hr>
 <p><mark>强制转换</mark>: 显式地把值转换为目标类型</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 0.5 */</span>
@@ -348,8 +386,10 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>      <span class="token comment">/* 正确: j 先转成 long, 乘法不会溢出 */</span>
 i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 错误: j * j 已经在 int 里溢出了 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="数学库函数">数学库函数 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="数学库函数">数学库函数 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.15;">
 <p>调用数学库函数必须包含头文件 <code>#include &lt;math.h&gt;</code>, 并可能需加编译选项 <code>-lm</code></p>
 <div class="fullborder">
 <table>
@@ -387,6 +427,8 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </tbody>
 </table>
 </div>
+</div>
+<div style="flex:1;font-size:0.72em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
 
@@ -397,8 +439,10 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|3 - 5.5| = %f\n"</span><span class="token punctuation">,</span> <span class="token function">fabs</span><span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">-</span> <span class="token number">5.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -435,16 +479,20 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？</li>
-<li><code>i = d;</code> 中 d 是 double 型 3.99，赋值后 i 是多少？有精度损失提示吗？</li>
-<li>计算 <code>sqrt(16)</code> 需要包含哪个头文件？编译时可能还需要什么选项？</li>
-<li>为什么 <code>j = i * i++;</code> 的结果不确定？这类表达式应该怎么避免？</li>
+<li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
+</li>
+<li><code>i = d;</code> 中 d 是 double 型 3.99，赋值后 i 是多少？有精度损失提示吗？
+</li>
+<li>计算 <code>sqrt(16)</code> 需要包含哪个头文件？编译时可能还需要什么选项？
+</li>
+<li>为什么 <code>j = i * i++;</code> 的结果不确定？这类表达式应该怎么避免？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
