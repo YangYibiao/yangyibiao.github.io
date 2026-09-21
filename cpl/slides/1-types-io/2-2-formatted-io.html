@@ -312,9 +312,9 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <li>
 <p>一个字符串可以包含任意数量的转义序列:</p>
 
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Item\tUnit\tPurchase\n\tPrice\tDate\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </li>
 </ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Item\tUnit\tPurchase\n\tPrice\tDate\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="转义序列">转义序列 </h5>
 <hr>
@@ -420,7 +420,40 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="scanf-读字符与-遗留的换行">scanf 读字符与"遗留的换行" </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="scanf-与输入缓冲区">scanf 与输入缓冲区 </h5>
+<hr>
+<p><mark>scanf</mark> 每次<mark>从上次读到的位置接着读</mark>, 程序里的多次调用共享同一条<mark>输入字符流</mark>:</p>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入两个整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">/* 读走 10, 缓冲区剩 " 20↵" */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a = %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 马上打印已经读到的 */</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">/* 跳过空格, 接着读 20 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"b = %d\n"</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<p>用户<mark>只输入一行</mark> <code>10 20↵</code>, 运行结果:</p>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>请输入两个整数<span class="token operator">:</span> <span class="token number">10</span> <span class="token number">20</span>↵
+a <span class="token operator">=</span> <span class="token number">10</span>
+b <span class="token operator">=</span> <span class="token number">20</span></code></pre>
+</div>
+<ul>
+<li>
+<p>输入<mark>先全部进入缓冲区</mark>, 两条 <mark><code>scanf</code></mark> 依次"消费": 第一个只拿走 <code>10</code>, 第二个接着拿走 <code>20</code></p>
+
+</li>
+<li>
+<p>夹在中间的 <mark><code>printf</code></mark> 打印的是"已经读到的"——输入与输出互不干扰</p>
+
+</li>
+<li>
+<p><mark><code>scanf</code></mark> 读走的数据<mark>不会再次被读到</mark>(不回看、不重复)</p>
+
+</li>
+</ul>
+<p>试一试: 如果第一次只输入 <code>10↵</code> 就回车, 会发生什么? 程序会<mark>卡住</mark>等待继续输入——第二个 <mark><code>scanf</code></mark> 在缓冲区里找不到整数</p>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="scanf-读字符与-遗留的换行">scanf 读字符与"遗留的换行" </h5>
 <hr>
 <ul>
 <li>
@@ -444,7 +477,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">/* 先把遗留的换行符吃掉, 再读下面的字符 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
 <hr>
 <ul>
 <li>
@@ -477,7 +510,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </ul>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 要在第一个数字后允许空格, 需改用格式字符串 <mark><code>"%d /%d"</code></mark></p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
 <hr>
 <p><mark><code>scanf</code></mark> 和 <mark><code>printf</code></mark> 的调用看起来相似, 但两者之间存在显著差异</p>
 <ul>
@@ -502,7 +535,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
 <hr>
 <p><mark>getchar</mark>: 读取单个字符</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> ch<span class="token punctuation">;</span>              <span class="token comment">/* 注意: 返回值是 int, 不是 char! */</span>
@@ -513,7 +546,7 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 输出换行符 */</span></code></pre>
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> getchar/putchar 读写字符的效率高于 scanf/printf, 在<mark>字符处理</mark>类程序(如统计输入字符个数)中常用</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -543,16 +576,20 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li><code>printf("%-8.3f", x)</code> 中 <code>-</code>、<code>8</code>、<code>.3</code> 分别表示什么？</li>
-<li>要打印出字符 <code>"</code> 和 <code>\</code>，转义序列分别怎么写？</li>
-<li><code>scanf("%d/%d", &amp;a, &amp;b)</code> 要求用户怎么输入？</li>
-<li><code>getchar()</code> 返回值的类型是什么？为什么它适合读取字符？</li>
+<li><code>printf("%-8.3f", x)</code> 中 <code>-</code>、<code>8</code>、<code>.3</code> 分别表示什么？
+</li>
+<li>要打印出字符 <code>"</code> 和 <code>\</code>，转义序列分别怎么写？
+</li>
+<li><code>scanf("%d/%d", &amp;a, &amp;b)</code> 要求用户怎么输入？
+</li>
+<li><code>getchar()</code> 返回值的类型是什么？为什么它适合读取字符？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
