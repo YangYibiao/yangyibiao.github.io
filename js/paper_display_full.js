@@ -84,6 +84,8 @@ window.onload = function() {
                 var title_str = title;
                 if(link != "" && link != null) {
                     title_str = '<a href="' + link + '" class="paper-title">' + title + '</a>';
+                } else {
+                    title_str = '<span class="paper-title">' + title + '</span>';
                 }
 
                 var suffix = publisher + ", " + year;
