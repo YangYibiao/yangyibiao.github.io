@@ -420,6 +420,32 @@ int main(void) {
 
 ---
 
+$6$ 克氧气的分子数是多少?
+
+<div style="font-size:1.1em;">
+
+$Q = 6 / 32 \times 6.02 \times 10^{23}$
+
+</div>
+
+两种格式输出, 结果均用<mark>科学计数法</mark>表示: 
+
+- 第一行: 小数点后保留 $3$ 位 → `%.3e`
+
+- 第二行: 保留 $5$ 位有效数字 → `%.5g`
+
+<span class="yellow">:fa-weixin:</span> 提醒: `6` 和 `32` 都是整数——直接写 `6 / 32` 会发生什么? (上节课 `9/4` 的坑!) 先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 编码实践: mol (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.25;font-size:0.7em;">
@@ -446,16 +472,11 @@ int main(void) {
 
 <div style="flex:1;">
 
-$6$ 克氧气的分子数是多少?
+- `mass * 1.0 / GRAM_PER_MOL`: 乘上 `1.0` 把运算==提升为浮点==, 避开整数除法的坑
 
-$Q = 6 / 32 \times 6.02 \times 10^{23}$
+- `%.3e` 与 `%.5g` 分别控制小数位与有效数字
 
-两种格式输出, 结果均使用<mark>科学计数法</mark>表示
-
-- 第一行结果, 小数点后保留 $3$ 位
-- 第二行结果, 保留 $5$ 位有效数字
-
-
+- 运行结果: `quantity = 1.129e+23` 与 `1.1288e+23`
 
 </div>
 

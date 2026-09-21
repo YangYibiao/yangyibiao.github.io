@@ -460,6 +460,25 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
 <hr>
+<p>\(6\) 克氧气的分子数是多少?</p>
+<div style="font-size:1.1em;">
+<p>\(Q = 6 / 32 \times 6.02 \times 10^{23}\)</p>
+</div>
+<p>两种格式输出, 结果均用<mark>科学计数法</mark>表示:</p>
+<ul>
+<li>
+<p>第一行: 小数点后保留 \(3\) 位 → <code>%.3e</code></p>
+
+</li>
+<li>
+<p>第二行: 保留 \(5\) 位有效数字 → <code>%.5g</code></p>
+
+</li>
+</ul>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提醒: <code>6</code> 和 <code>32</code> 都是整数——直接写 <code>6 / 32</code> 会发生什么? (上节课 <code>9/4</code> 的坑!) 先自己写, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="编码实践--mol--参考代码">编码实践: mol (参考代码) </h5>
+<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
@@ -479,23 +498,24 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>\(6\) 克氧气的分子数是多少?</p>
-<p>\(Q = 6 / 32 \times 6.02 \times 10^{23}\)</p>
-<p>两种格式输出, 结果均使用<mark>科学计数法</mark>表示</p>
 <ul>
 <li>
-<p>第一行结果, 小数点后保留 \(3\) 位</p>
+<p><code>mass * 1.0 / GRAM_PER_MOL</code>: 乘上 <code>1.0</code> 把运算<mark>提升为浮点</mark>, 避开整数除法的坑</p>
 
 </li>
 <li>
-<p>第二行结果, 保留 \(5\) 位有效数字</p>
+<p><code>%.3e</code> 与 <code>%.5g</code> 分别控制小数位与有效数字</p>
+
+</li>
+<li>
+<p>运行结果: <code>quantity = 1.129e+23</code> 与 <code>1.1288e+23</code></p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
@@ -508,7 +528,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
