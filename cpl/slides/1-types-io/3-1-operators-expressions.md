@@ -63,7 +63,7 @@ presentation:
 
 - 自增和自减运算符
 
-- 案例: 计算产品代码校验位
+- 案例: 计算 ISBN-13 书号校验位
 
 ---
 
@@ -242,29 +242,25 @@ j = -i;
 <!-- slide data-notes="" -->
 
 
-##### 程序: 计算产品代码校验位(s)
+##### 程序: 计算 ISBN-13 书号校验位
 
 ---
 
-<div class="top-2">
-  <img src="../img/upc.png" width=100px>
-</div>
-
-条形码下方数字的含义: 第 1 位商品类型, 两组五位数分别是制造商与产品, ==末位是校验位== (识别前面的数字错误)
+书背面条形码下方的 ISBN-13: 前 12 位数字, ==末位是校验位== (识别抄写或录入错误)
 
 计算校验位流程: 
 
-- 第`1`、`3`、`5`、`7`、`9`和第`11`位数字求和
-- 第`2`、`4`、`6`、`8`和第`10`位数字求和
-- 第一个总和 × `3` 加第二个总和, 再减 `1`
-- 调整后的总数除以 `10` 取余数, 再用 `9` 减去它
+- 第`1`、`3`、`5`、`7`、`9`、`11`位 (奇数位) 数字求和
+- 第`2`、`4`、`6`、`8`、`10`、`12`位 (偶数位) 数字求和
+- 总数 = 奇数位和 + `3` × 偶数位和
+- 校验位 = (`10` - 总数 mod `10`) mod `10`
 
 ---
 
 <!-- slide data-notes="" -->
 
 
-##### 程序: 计算产品代码校验位(s)
+##### 程序: 计算 ISBN-13 书号校验位
 
 ---
 
@@ -273,27 +269,24 @@ j = -i;
 <div style="flex:1.3;font-size:0.72em;">
 
 ```C{.line-numbers}
-/* Computes a Universal Product Code check digit */
- 
+/* Computes an ISBN-13 check digit (e.g., the textbook 978-7-04-030276-9) */
+
 #include <stdio.h>
- 
+
 int main(void)
 {
-  int d, i1, i2, i3, i4, i5, j1, j2, j3, j4, j5,
-      first_sum, second_sum, total;
- 
-  printf("Enter the first (single) digit: ");
-  scanf("%1d", &d);
-  printf("Enter first group of five digits: ");
-  scanf("%1d%1d%1d%1d%1d", &i1, &i2, &i3, &i4, &i5);
-  printf("Enter second group of five digits: ");
-  scanf("%1d%1d%1d%1d%1d", &j1, &j2, &j3, &j4, &j5);
-  first_sum = d + i2 + i4 + j1 + j3 + j5;
-  second_sum = i1 + i3 + i5 + j2 + j4;
-  total = 3 * first_sum + second_sum;
- 
-  printf("Check digit: %d\n", 9 - ((total - 1) % 10));
- 
+  int d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12;
+  int odd_sum, even_sum, total;
+
+  printf("Enter the first twelve digits of an ISBN: ");
+  scanf("%1d%1d%1d%1d%1d%1d%1d%1d%1d%1d%1d%1d",
+        &d1, &d2, &d3, &d4, &d5, &d6, &d7, &d8, &d9, &d10, &d11, &d12);
+  odd_sum  = d1 + d3 + d5 + d7 + d9 + d11;
+  even_sum = d2 + d4 + d6 + d8 + d10 + d12;
+  total = odd_sum + 3 * even_sum;
+
+  printf("Check digit: %d\n", (10 - total % 10) % 10);
+
   return 0;
 }
 ```
@@ -302,17 +295,16 @@ int main(void)
 
 <div style="flex:1;">
 
-产品编码为 $0 13800 15173 5$ 的校验位计算示例: 
+教材 ISBN `978-7-04-030276-9` 的校验位计算示例: 
 
-- 第一个总和: $0 + 3 + 0 + 1 + 1 + 3 = 8$
-- 第二个总和: $1 + 8 + 0 + 5 + 7 = 21$
-- 将第一个总和乘以 $3$ 并加上第二个总和得到 $45$
-- 减去 $1$ 得到 $44$
-- 除以 $10$ 的余数是 $4$
-- 从 $9$ 中减去余数
-- 结果是 $5$
+- 奇数位和: $9 + 8 + 0 + 0 + 0 + 7 = 24$
+- 偶数位和: $7 + 7 + 4 + 3 + 2 + 6 = 29$
+- 总数: $24 + 3 \times 29 = 111$
+- $111$ mod $10 = 1$
+- 校验位: $(10 - 1)$ mod $10 = 9$ ✓
+- 课间试试: 翻到课本封底, 验算 ISBN-13
 
-`upc.c`
+`isbn.c`
 
 
 
@@ -393,6 +385,10 @@ i = (j = (k = 0));
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 使用变量的旧值来计算其新值的赋值很常见
 
 例如: `i = i + 2;`
@@ -405,6 +401,10 @@ i += 2;   /* same as i = i + 2; */
 
 还有其他九个复合赋值运算符, 包括: ==`-= *= /= %=`== 和位运算(`^= &= >>= <<= |=`)
 
+</div>
+
+<div style="flex:1.1;">
+
 <div class="fullborder">
 
 | v += e | 将v加e, 将结果存储在v中         |
@@ -413,6 +413,10 @@ i += 2;   /* same as i = i + 2; */
 | v *= e | 将v乘以e, 将结果存储在v中        |
 | v /= e | 将v除以e, 将结果存储在v中        |
 | v %= e | 计算v除以e的余数, 将结果存储在v中 |
+
+</div>
+
+</div>
 
 </div>
 
