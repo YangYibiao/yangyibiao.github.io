@@ -164,25 +164,51 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="预处理概念">预处理概念 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="演示--局部变量的-垃圾值">演示: 局部变量的"垃圾值" </h5>
 <hr>
-<p>编译前的<mark>预处理</mark>阶段: 处理以 <mark>#</mark> 开头的命令</p>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>                    <span class="token comment">/* 没有初始化 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre>
+</div>
+<p>一次运行的结果 (每次可能不同!):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">32764</span></code></pre>
 <ul>
 <li>
-<p>#include: 文件包含</p>
+<p>动态局部变量诞生时<mark>不会自动清零</mark>——里面是内存里残留的"垃圾值"</p>
 
 </li>
 <li>
-<p>#define: 宏定义</p>
+<p>每次运行、每台机器都可能不同; 调试器里恰好是 <code>0</code> 只是假象</p>
 
 </li>
 <li>
-<p>#if / #ifdef / #ifndef: 条件编译</p>
+<p>教训: <mark>局部变量必须初始化后再使用</mark>; 编译加 <code>-Wall</code> 有时能提示 "used uninitialized"</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="预处理器的工作原理--眼见为实">预处理器的工作原理: 眼见为实 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="预处理概念">预处理概念 </h5>
+<hr>
+<p>编译前的<mark>预处理</mark>阶段: 处理以 <mark>#</mark> 开头的命令</p>
+<ul>
+<li>
+<p><code>#include</code>: 文件包含</p>
+
+</li>
+<li>
+<p><code>#define</code>: 宏定义</p>
+
+</li>
+<li>
+<p><code>#if</code> / <code>#ifdef</code> / <code>#ifndef</code>: 条件编译</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="预处理器的工作原理--眼见为实">预处理器的工作原理: 眼见为实 </h5>
 <hr>
 <p>宏 = <mark>纯文本替换</mark>。用 <code>gcc -E</code> 亲眼看看展开前后:</p>
 <div class="fullborder">
@@ -224,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="include-文件包含">#include 文件包含 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="include-文件包含">#include 文件包含 </h5>
 <hr>
 <p>把指定文件的内容<mark>原样复制</mark>到 #include 所在位置</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span>   /* 系统头文件, 尖括号 */</span>
@@ -240,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="宏定义--类对象宏">宏定义: 类对象宏 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="宏定义--类对象宏">宏定义: 类对象宏 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -274,7 +300,7 @@ area <span class="token operator">=</span> PI <span class="token operator">*</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="宏定义--带参宏">宏定义: 带参宏 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="宏定义--带参宏">宏定义: 带参宏 </h5>
 <hr>
 <p><mark>带参宏</mark>: 像函数一样使用, 但只是文本替换</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX(a, b) ((a) &gt; (b) ? (a) : (b))</span>
@@ -296,7 +322,7 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="条件编译">条件编译 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="条件编译">条件编译 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.7em;">
@@ -308,7 +334,7 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 </div>
 <div style="flex:1;">
 <p><mark>条件编译</mark>: 按条件选择性地编译部分代码</p>
-<p>#ifdef X / #ifndef X / #if 表达式 / #elif / #else / #endif</p>
+<p><code>#ifdef X</code> / <code>#ifndef X</code> / <code>#if 表达式</code> / <code>#elif</code> / <code>#else</code> / <code>#endif</code></p>
 <ul>
 <li>
 <p>用途: 调试开关、跨平台代码 (第 14 周多文件再深入)</p>
@@ -326,7 +352,7 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="ai-赋能程序设计-i">AI 赋能程序设计 I </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="ai-赋能程序设计-i">AI 赋能程序设计 I </h5>
 <hr>
 <p><mark>AI 工具与函数</mark></p>
 <ul>
@@ -349,16 +375,20 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 </ul>
 <p>规则不变: <mark>先自己写, 再让 AI 改</mark>——AI 是副驾驶, 方向盘在自己手里。</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>局部变量和全局变量的作用域分别是什么？内层同名变量会发生什么？</li>
-<li>static 局部变量与普通局部变量的区别是什么？</li>
-<li>带参宏 MAX(a, b) 为什么参数和整体都要加括号？MAX(i++, j) 有什么坑？</li>
-<li>#ifdef DEBUG 的用途是什么？</li>
+<li>局部变量和全局变量的作用域分别是什么？内层同名变量会发生什么？
+</li>
+<li>static 局部变量与普通局部变量的区别是什么？
+</li>
+<li>带参宏 MAX(a, b) 为什么参数和整体都要加括号？MAX(i++, j) 有什么坑？
+</li>
+<li>#ifdef DEBUG 的用途是什么？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="13" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
