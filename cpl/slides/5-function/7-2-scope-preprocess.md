@@ -130,17 +130,50 @@ void f(void)
 <!-- slide data-notes="" -->
 
 
+##### 演示: 局部变量的"垃圾值"
+
+---
+
+<div style="font-size:0.8em;">
+
+```C
+void f(void) {
+    int i;                    /* 没有初始化 */
+    printf("i = %d\n", i);
+}
+int main(void) { f(); return 0; }
+```
+
+</div>
+
+一次运行的结果 (每次可能不同!): 
+
+```
+i = 32764
+```
+
+- 动态局部变量诞生时==不会自动清零==——里面是内存里残留的"垃圾值"
+
+- 每次运行、每台机器都可能不同; 调试器里恰好是 `0` 只是假象
+
+- 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
+
+---
+
+<!-- slide data-notes="" -->
+
+
 ##### 预处理概念
 
 ---
 
 编译前的==预处理==阶段: 处理以 ==#== 开头的命令
 
-- #include: 文件包含
+- `#include`: 文件包含
 
-- #define: 宏定义
+- `#define`: 宏定义
 
-- #if / #ifdef / #ifndef: 条件编译
+- `#if` / `#ifdef` / `#ifndef`: 条件编译
 
 ---
 
@@ -283,7 +316,7 @@ x = MAX(p + q, r + s);
 
 ==条件编译==: 按条件选择性地编译部分代码
 
-#ifdef X / #ifndef X / #if 表达式 / #elif / #else / #endif
+`#ifdef X` / `#ifndef X` / `#if 表达式` / `#elif` / `#else` / `#endif`
 
 - 用途: 调试开关、跨平台代码 (第 14 周多文件再深入)
 

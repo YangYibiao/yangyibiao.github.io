@@ -244,7 +244,32 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="程序--数列反向">程序: 数列反向 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="演示--越界写会-伤及无辜">演示: 越界写会"伤及无辜" </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> secret <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span>
+a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>                  <span class="token comment">/* 合法下标只有 0~3! */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"secret = %d\n"</span><span class="token punctuation">,</span> secret<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<p>运行结果 (常见, 但不保证):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>secret <span class="token operator">=</span> <span class="token number">100</span></code></pre>
+<ul>
+<li>
+<p>下标范围是 <mark>0 ~ n-1</mark>; <code>a[4]</code> 越界写入, C 语言<mark>不检查、不报错</mark></p>
+
+</li>
+<li>
+<p>结果不可预知: 可能改坏相邻变量、可能崩溃、也可能碰巧没事——<mark>不报错的错才是最危险的 bug</mark></p>
+
+</li>
+<li>
+<p>教训: 循环写数组时<mark>检查边界</mark> (<code>i &lt; n</code>), 不要依赖编译器或运气</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--数列反向">程序: 数列反向 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -278,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--找最高分">程序: 找最高分 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--找最高分">程序: 找最高分 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -308,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="数组初始化">数组初始化 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="数组初始化">数组初始化 </h5>
 <hr>
 <ul>
 <li>
@@ -325,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="指定初始化式--c99">指定初始化式 (C99) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="指定初始化式--c99">指定初始化式 (C99) </h5>
 <hr>
 <ul>
 <li>
@@ -342,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--检查重复数字">程序: 检查重复数字 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--检查重复数字">程序: 检查重复数字 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -399,7 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
 <hr>
 <ul>
 <li>
@@ -416,7 +441,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -458,7 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -487,16 +512,20 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？</li>
-<li><code>int a[] = {1, 2, 3};</code> 中 a 的长度是多少？怎么用 sizeof 计算元素个数？</li>
-<li>写代码: 找出数组 {5, 2, 9, 1} 中的最小值。</li>
-<li>C99 的变长数组 (VLA) 长度可以是什么？</li>
+<li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？
+</li>
+<li><code>int a[] = {1, 2, 3};</code> 中 a 的长度是多少？怎么用 sizeof 计算元素个数？
+</li>
+<li>写代码: 找出数组 {5, 2, 9, 1} 中的最小值。
+</li>
+<li>C99 的变长数组 (VLA) 长度可以是什么？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
