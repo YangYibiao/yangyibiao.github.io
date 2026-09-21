@@ -35,12 +35,13 @@
 | :----: | :--                             | :--                            |
 | 第1周   | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍（周二）   |
 |   ^    | [入门](slides/0-intro/0-1-programming-and-c.html)        | 程序设计与C语言入门（周二）                    |
-|   ^    | [C 语言历史与 AI](slides/0-intro/0-2-c-and-ai.html)        | C 语言历史与人工智能（周三）                    |
-|   ^    | [变量与基本数据类型](slides/0-intro/0-3-variable-and-assignment.html)        | 变量与基本数据类型（周三）                    |
-| 第2周   | 待发布                            | 数据类型深化                    |
-|   ^    | 待发布                            | 格式化输入输出                    |
-| 第3周   | 待发布                            | 运算符和表达式                |
-|   ^    | 待发布                            | 类型转换与数学库函数                |
+|   ^    | [初识C程序](slides/0-intro/0-2-first-c-program.html)        | 初识C程序：Hello World 与 C 程序结构（周二）                    |
+|   ^    | [C 语言历史与 AI](slides/0-intro/0-3-c-and-ai.html)        | C 语言历史与人工智能（周三）                    |
+|   ^    | [变量与基本数据类型](slides/0-intro/0-4-variable-and-assignment.html)        | 变量与基本数据类型（周三）                    |
+| 第2周   | [数据类型深化](slides/1-types-io/2-1-types-deep-dive.html)   | 数据类型深化                    |
+|   ^    | [格式化输入输出](slides/1-types-io/2-2-formatted-io.html)    | 格式化输入输出                    |
+| 第3周   | [运算符和表达式](slides/1-types-io/3-1-operators-expressions.html) | 运算符和表达式                |
+|   ^    | [类型转换与数学库函数](slides/1-types-io/3-2-conversion-math.html) | 类型转换与数学库函数                |
 | 第4周   | 待发布                            | 选择结构 (上)    |
 |   ^    | 待发布                            | 选择结构 (下)    |
 | 第5周   | 待发布                            | 循环结构 (上)    |
