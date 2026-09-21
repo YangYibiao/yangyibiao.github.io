@@ -135,17 +135,22 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="for语句">for语句 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;">
 <p>研究等效的while语句有助于更好地理解for语句</p>
-<p>例如, 如果<code>i--</code>被替换为<code>—-i</code>会如何？</p>
+<p>例如, 如果<code>i--</code>被替换为<code>—-i</code>会如何？等效的while循环表明这种更改对循环没有影响</p>
+<p>for语句中的第一个和第三个表达式都是以语句的方式执行的, 它们的值是无关紧要的——它们有用仅仅是因为有副作用; 因此, 这两个表达式通常是赋值递增/递减表达式</p>
+</div>
+<div style="flex:1;font-size:0.72em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span> 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>等效的while循环表明这种更改对循环没有影响:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token operator">--</span>i<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>for语句中的第一个和第三个表达式都是以语句的方式执行的, 它们的值是无关紧要的——它们有用仅仅是因为有副作用; 因此, 这两个表达式通常是赋值递增/递减表达式</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="for语句常见用法">for语句常见用法 </h5>
 <hr>
@@ -170,7 +175,36 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="for语句省略表达式">for语句省略表达式 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="演示--浮点计数循环的陷阱">演示: 浮点计数循环的陷阱 </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> x <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">,</span> x <span class="token operator">+=</span> <span class="token number">0.1</span><span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d 次累加后: %.17f\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<p>运行结果 (节选):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code> <span class="token number">1</span> 次累加后<span class="token operator">:</span> <span class="token number">0.10000000000000001</span>
+ <span class="token number">2</span> 次累加后<span class="token operator">:</span> <span class="token number">0.20000000000000001</span>
+ <span class="token number">3</span> 次累加后<span class="token operator">:</span> <span class="token number">0.30000000000000004</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token number">10</span> 次累加后<span class="token operator">:</span> <span class="token number">0.99999999999999989</span></code></pre>
+<ul>
+<li>
+<p><code>0.1</code> 在二进制里是无限循环小数 (第2周讲过), 累加 <mark>10 次并不是 1.0</mark></p>
+
+</li>
+<li>
+<p>若用 <mark><code>for (x = 0.0; x != 1.0; x += 0.1)</code></mark>: 第 10 次后 <code>x</code> 并不等于 <code>1.0</code>, 循环<mark>停不下来</mark> (或次数不对)</p>
+
+</li>
+<li>
+<p>教训: <mark>不要用浮点数计数/判等</mark>; 循环次数用整数控制、浮点只参与运算; 比较浮点用 <code>x &lt; 1.0</code> 而不是 <code>x != 1.0</code></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="for语句省略表达式">for语句省略表达式 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -190,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="c99中的for语句">C99中的for语句 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="c99中的for语句">C99中的for语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -215,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="逗号运算符">逗号运算符 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="逗号运算符">逗号运算符 </h5>
 <hr>
 <p><code>for</code> 需要两个初始化表达式或一次递增多个变量时, 可用<mark>逗号表达式</mark>作第一或第三个表达式, 形式为:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>表达式<span class="token number">1</span><span class="token punctuation">,</span> 表达式<span class="token number">2</span></code></pre>
@@ -234,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>例子:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> k <span class="token operator">=</span> i <span class="token operator">+</span> j   <span class="token comment">/* (i=1), (j=2), (k=i+j) */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--打印平方表--for版">程序: 打印平方表 (for版) </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--打印平方表--for版">程序: 打印平方表 (for版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -262,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="嵌套循环--打印星号塔">嵌套循环: 打印星号塔 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="嵌套循环--打印星号塔">嵌套循环: 打印星号塔 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -293,28 +327,28 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="算法案例--数据交换-累加-累乘">算法案例: 数据交换、累加、累乘 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="算法案例--数据交换-累加-累乘">算法案例: 数据交换、累加、累乘 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
 <p><mark>数据交换</mark>: 交换两个变量的值 (借助临时变量)</p>
-<div style="font-size:0.85em;">
+<p><mark>累加</mark>: 计算 1+2+...+n</p>
+<p><mark>累乘</mark>: 计算 n! (注意: 初始值为 1, 且很快溢出)</p>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 累加器初始化为 0, 累乘器初始化为 1——这是循环的经典写法</p>
+</div>
+<div style="flex:1;font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> t<span class="token punctuation">;</span>
 t <span class="token operator">=</span> a<span class="token punctuation">;</span> a <span class="token operator">=</span> b<span class="token punctuation">;</span> b <span class="token operator">=</span> t<span class="token punctuation">;</span>   <span class="token comment">/* a 为 5, b 为 3 */</span></code></pre>
-</div>
-<p><mark>累加</mark>: 计算 1+2+...+n</p>
-<div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     sum <span class="token operator">+=</span> i<span class="token punctuation">;</span></code></pre>
-</div>
-<p><mark>累乘</mark>: 计算 n! (注意: 初始值为 1, 且很快溢出)</p>
-<div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> product <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     product <span class="token operator">*=</span> i<span class="token punctuation">;</span></code></pre>
 </div>
-<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 累加器初始化为 0, 累乘器初始化为 1——这是循环的经典写法</p>
+</div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -346,7 +380,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="算法案例--非完全平方数的和">算法案例: 非完全平方数的和 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="算法案例--非完全平方数的和">算法案例: 非完全平方数的和 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -378,16 +412,20 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li><code>for (i = 0; i &lt; n; i++)</code> 循环体执行了多少次？</li>
-<li><code>for (;;)</code> 是什么循环？省略的三个表达式分别默认什么？</li>
-<li>打印 n 行星号塔，外层和内层循环分别控制什么？</li>
-<li>计算 1+2+...+100 用循环怎么写？如果 n=100，累乘 100! 用什么类型存结果？</li>
+<li><code>for (i = 0; i &lt; n; i++)</code> 循环体执行了多少次？
+</li>
+<li><code>for (;;)</code> 是什么循环？省略的三个表达式分别默认什么？
+</li>
+<li>打印 n 行星号塔，外层和内层循环分别控制什么？
+</li>
+<li>计算 1+2+...+100 用循环怎么写？如果 n=100，累乘 100! 用什么类型存结果？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
