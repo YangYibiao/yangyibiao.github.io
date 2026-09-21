@@ -142,9 +142,21 @@ c = (b = a + 2) - (a = 1);
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;">
+
 <span class="blue">:fa-lightbulb-o:</span> 为防止出现问题, 最好避免在子表达式中使用赋值运算符
 
-相反, 建议使用一串分离的赋值表达式: 
+相反, 建议使用一串分离的赋值表达式, 这样 `c`的值是确定的, 将始终为 `6`
+
+除了赋值运算符之外, 唯一修改其操作数的运算符是自增和自减
+
+很自然地认为`j`被赋值为`4`. 然而, `j`也可以被赋值为`6`——求值顺序不同, 结果不同
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
 
 ```C{.line-numbers}
 a = 5;
@@ -153,16 +165,14 @@ a = 1;
 c = b - a;
 ```
 
-`c`的值是确定的, 将始终为 `6`
-
-除了赋值运算符之外, 唯一修改其操作数的运算符是自增和自减
-
 ```C{.line-numbers}
 i = 2;
 j = i * i++;
 ```
 
-很自然地认为`j`被赋值为`4`. 然而, `j`也可以被赋值为`6`——求值顺序不同, 结果不同
+</div>
+
+</div>
 
 ---
 
@@ -244,9 +254,19 @@ i + j = 0;   /*** WRONG ***/
 ##### 类型转换 - 隐式转换
 
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;">
+
 ==隐式转换==: 不同类型混合运算/赋值时, 编译器自动转换
 
 - 赋值: 右值自动转换为左值变量的类型
+
+- 运算: 较低类型提升为较高类型 (`char`/`short` → `int`; `int` + `double` → `double`)
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
 
 ```C
 int i;
@@ -255,12 +275,14 @@ i = d;      /* i 为 3 (截断小数) */
 d = i;      /* d 为 3.0 */
 ```
 
-- 运算: 较低类型提升为较高类型 (`char`/`short` → `int`; `int` + `double` → `double`)
-
 ```C
 1 / 2;        /* 0   (整数除法) */
 1.0 / 2;      /* 0.5 (2 提升为 double) */
 ```
+
+</div>
+
+</div>
 
 
 <!-- slide data-notes="" -->
@@ -297,6 +319,10 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;">
+
 调用数学库函数必须包含头文件 `#include <math.h>`, 并可能需加编译选项 `-lm`
 
 <div class="fullborder">
@@ -312,6 +338,10 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 </div>
 
+</div>
+
+<div style="flex:1;font-size:0.72em;">
+
 ```C
 #include <stdio.h>
 #include <math.h>
@@ -324,6 +354,10 @@ int main(void) {
     return 0;
 }
 ```
+
+</div>
+
+</div>
 
 ---
 
