@@ -361,6 +361,35 @@ a1 = a2;
 <!-- slide data-notes="" -->
 
 
+##### 演示: 结构体能赋值, 不能比
+
+---
+
+<div style="font-size:0.8em;">
+
+```C
+struct { int number; char name[20]; } a, b;
+
+a = b;                  /* OK: 整体赋值 (连数组都复制) */
+if (a == b)             /* 编译错误! C 不提供整体比较 */
+    printf("same\n");
+```
+
+</div>
+
+编译报错 (GCC): `invalid operands to binary '=='`
+
+- 整体赋值 `a = b` 合法, 结构体里的数组也跟着复制了
+
+- 但 ==`a == b`== 编译不通过——C 只给了赋值, 没给比较
+
+- 想比较就写函数, ==逐成员比==: `a.number == b.number && strcmp(a.name, b.name) == 0`
+
+---
+
+<!-- slide data-notes="" -->
+
+
 ##### 结构体类型
 
 ---

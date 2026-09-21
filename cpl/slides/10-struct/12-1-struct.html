@@ -271,7 +271,32 @@ a1 <span class="token operator">=</span> a2<span class="token punctuation">;</sp
 <p>除了赋值之外, C 不提供对整个结构体的操作.</p>
 <p>特别是, <code>==</code>和<code>!=</code>运算符不能用于判定两个结构体是否相等.</p>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="结构体类型">结构体类型 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="演示--结构体能赋值--不能比">演示: 结构体能赋值, 不能比 </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span> <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+
+a <span class="token operator">=</span> b<span class="token punctuation">;</span>                  <span class="token comment">/* OK: 整体赋值 (连数组都复制) */</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> b<span class="token punctuation">)</span>             <span class="token comment">/* 编译错误! C 不提供整体比较 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"same\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<p>编译报错 (GCC): <code>invalid operands to binary '=='</code></p>
+<ul>
+<li>
+<p>整体赋值 <code>a = b</code> 合法, 结构体里的数组也跟着复制了</p>
+
+</li>
+<li>
+<p>但 <mark><code>a </mark> b</code>== 编译不通过——C 只给了赋值, 没给比较</p>
+
+</li>
+<li>
+<p>想比较就写函数, <mark>逐成员比</mark>: <code>a.number <mark> b.number &amp;&amp; strcmp(a.name, b.name) </mark> 0</code></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="结构体类型">结构体类型 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -325,7 +350,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="定义结构体类型--typedef">定义结构体类型 (typedef) </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="定义结构体类型--typedef">定义结构体类型 (typedef) </h5>
 <hr>
 <p>除了声明结构体标记, 还可以使用typedef来定义真实的类型名.</p>
 <p>一个名为Part的类型的定义:</p>
@@ -339,7 +364,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 <p>当需要命名结构体时, 通常可以选择声明结构体标记或typedef.</p>
 <p>但是, 当要在链表中使用结构体时, 必须声明结构体标记.</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="结构体作为参数和返回值">结构体作为参数和返回值 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="结构体作为参数和返回值">结构体作为参数和返回值 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -386,7 +411,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="嵌套的结构体">嵌套的结构体 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="嵌套的结构体">嵌套的结构体 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -419,7 +444,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="结构体数组">结构体数组 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="结构体数组">结构体数组 </h5>
 <hr>
 <p>数组和结构体的最常见组合之一是其元素是结构体的数组.</p>
 <p>这种数组可以作为一个简单的数据库.</p>
@@ -429,7 +454,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 <p>访问结构体part中的成员需要结合使用下标和成员选择: <code>inventory[i].number = 883;</code></p>
 <p>访问零件名称中的单个字符需要先取下标, 然后是选择成员, 然后再取下标: <code>inventory[i].name[0] = '\0';</code></p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="初始化结构体数组">初始化结构体数组 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="初始化结构体数组">初始化结构体数组 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -477,7 +502,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--维护零件数据库--说明">程序: 维护零件数据库 (说明) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--维护零件数据库--说明">程序: 维护零件数据库 (说明) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.46em;">
@@ -523,7 +548,7 @@ Enter operation code<span class="token operator">:</span> q</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--维护零件数据库--代码">程序: 维护零件数据库 (代码) </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="程序--维护零件数据库--代码">程序: 维护零件数据库 (代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.6em;">
@@ -546,16 +571,20 @@ Enter operation code<span class="token operator">:</span> q</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>声明一个结构体类型 <code>point</code>，含 <code>int x, y;</code>，并声明一个变量 <code>p</code> 怎么写？</li>
-<li><code>p.x</code> 与 <code>p-&gt;x</code> 分别什么时候用？结构体指针的名词是什么？</li>
-<li>结构体可以直接用 <code>==</code> 比较吗？可以整体赋值吗？</li>
-<li>结构体作函数参数与数组作参数，哪个是"复制"、哪个是"共享"？</li>
+<li>声明一个结构体类型 <code>point</code>，含 <code>int x, y;</code>，并声明一个变量 <code>p</code> 怎么写？
+</li>
+<li><code>p.x</code> 与 <code>p-&gt;x</code> 分别什么时候用？结构体指针的名词是什么？
+</li>
+<li>结构体可以直接用 <code>==</code> 比较吗？可以整体赋值吗？
+</li>
+<li>结构体作函数参数与数组作参数，哪个是"复制"、哪个是"共享"？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
