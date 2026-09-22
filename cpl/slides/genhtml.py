@@ -213,10 +213,26 @@ def is_hr(s): return s.strip() == '---'
 def is_table(s): return s.strip().startswith('|')
 def is_sep_row(cells): return all(re.match(r'^:?-{2,}:?$', c.strip()) for c in cells if c.strip() != '') and any(c.strip() for c in cells)
 
+def split_table_row(line):
+    """按 | 切表格行, 但跳过反引号内的 | (如位运算符 `12 | 10`)"""
+    s = line.strip().strip('|')
+    cells, cur, in_code = [], [], False
+    for ch in s:
+        if ch == '`':
+            in_code = not in_code
+            cur.append(ch)
+        elif ch == '|' and not in_code:
+            cells.append(''.join(cur).strip())
+            cur = []
+        else:
+            cur.append(ch)
+    cells.append(''.join(cur).strip())
+    return cells
+
 def parse_table(lines, i):
     rows = []
     while i < len(lines) and lines[i].strip() and is_table(lines[i]):
-        cells = [c.strip() for c in lines[i].strip().strip('|').split('|')]
+        cells = split_table_row(lines[i])
         rows.append(cells)
         i += 1
     header = None
