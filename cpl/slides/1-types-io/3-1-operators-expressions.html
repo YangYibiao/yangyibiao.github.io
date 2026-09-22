@@ -321,25 +321,25 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 <p>先自己心算下面表达式的值——不用编译器, 想清楚再翻页:</p>
 <div style="font-size:1.05em;">
 <ol>
-<li><code>5 + 3 * 2</code>
+<li><code>10 + 20 % 7 * 3</code>
 </li>
-<li><code>10 / 3</code>
-</li>
-<li><code>10 % 3</code>
+<li><code>2 + 3 * 4 / 2 % 3</code>
 </li>
 <li><code>-10 / 3</code>
 </li>
-<li><code>2 + 3 * 4 / 2</code>
+<li><code>(10 + 4) / (3 + 1)</code>
 </li>
-<li><code>(2 + 3) * 4 / 2</code>
+<li><code>9 - 3 / 2 + 1</code>
 </li>
-<li><code>7 - 2 - 3</code>
+<li><code>-5 - -3</code>
+</li>
+<li><code>-5 + 6 * 4 % 5</code>
 </li>
 <li><code>10 - 4 % 3</code>
 </li>
 </ol>
 </div>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 每题问自己两个问题: <mark>先算谁</mark>? (优先级) 同级的<mark>从左还是从右</mark>? (结合性)</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 每题问自己两个问题: <mark>先算谁</mark>? (优先级) 同级的<mark>从左还是从右</mark>? (结合性) 两个 <mark>-</mark> 挨着是什么意思? (一元负号)</p>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="动手算一算--答案">动手算一算: 答案 </h5>
 <hr>
@@ -356,19 +356,14 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 </thead>
 <tbody>
 <tr>
-<td><code>5 + 3 * 2</code></td>
-<td><code>11</code></td>
-<td>先乘后加</td>
+<td><code>10 + 20 % 7 * 3</code></td>
+<td><code>28</code></td>
+<td><code>%</code> 高于 <code>+</code>; (20%7)*3 = 18</td>
 </tr>
 <tr>
-<td><code>10 / 3</code></td>
-<td><code>3</code></td>
-<td>整数除法截断</td>
-</tr>
-<tr>
-<td><code>10 % 3</code></td>
-<td><code>1</code></td>
-<td>10 除以 3 余 1</td>
+<td><code>2 + 3 * 4 / 2 % 3</code></td>
+<td><code>2</code></td>
+<td>长链同级, 全部左结合: ((3*4)/2)%3 = 0</td>
 </tr>
 <tr>
 <td><code>-10 / 3</code></td>
@@ -376,19 +371,24 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 <td>向零截断 (不是 -4!)</td>
 </tr>
 <tr>
-<td><code>2 + 3 * 4 / 2</code></td>
-<td><code>8</code></td>
-<td>同级左结合</td>
+<td><code>(10 + 4) / (3 + 1)</code></td>
+<td><code>3</code></td>
+<td>括号管顺序, 管不了截断: 14/4</td>
 </tr>
 <tr>
-<td><code>(2 + 3) * 4 / 2</code></td>
-<td><code>10</code></td>
-<td>括号先算</td>
+<td><code>9 - 3 / 2 + 1</code></td>
+<td><code>9</code></td>
+<td>先截断: 3/2 = 1, 再 9-1+1</td>
 </tr>
 <tr>
-<td><code>7 - 2 - 3</code></td>
-<td><code>2</code></td>
-<td>左结合: (7-2)-3</td>
+<td><code>-5 - -3</code></td>
+<td><code>-2</code></td>
+<td>(-5) - (-3); 第二个 <code>-</code> 是一元负号</td>
+</tr>
+<tr>
+<td><code>-5 + 6 * 4 % 5</code></td>
+<td><code>-1</code></td>
+<td>先 6*4%5 = 4, 再 -5+4</td>
 </tr>
 <tr>
 <td><code>10 - 4 % 3</code></td>
@@ -402,15 +402,19 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 <div style="flex:1;">
 <ul>
 <li>
-<p>第 1、6、8 题: <mark>优先级</mark>——<code>* / %</code> 高于 <code>+ -</code></p>
+<p>第 1、8 题: <mark>优先级</mark>——<code>%</code> 高于 <code>+ -</code></p>
 
 </li>
 <li>
-<p>第 5、7 题: <mark>结合性</mark>——同级从左往右</p>
+<p>第 2 题: <mark>结合性</mark>——同级长链全部从左往右</p>
 
 </li>
 <li>
-<p>第 2、3、4 题: <code>/</code> 与 <code>%</code> 的截断、余数、负数向零</p>
+<p>第 3、4、5 题: <mark>截断三连</mark>——负数向零、括号救不了、中间截断</p>
+
+</li>
+<li>
+<p>第 6、7 题: <mark>一元负号</mark>——<code>-3</code> 是一个数, 不是减号</p>
 
 </li>
 <li>
