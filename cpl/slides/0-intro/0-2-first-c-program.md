@@ -51,6 +51,24 @@ presentation:
 
 <!-- slide data-notes="" -->
 
+##### 提纲
+
+---
+
+- 程序: 打印 Hello NJU
+
+- 简单 C 程序的一般形式
+
+- 注释
+
+- 猜数字游戏
+
+- 课堂挑战
+
+---
+
+<!-- slide data-notes="" -->
+
 
 ##### 程序: 打印Hello NJU
 
