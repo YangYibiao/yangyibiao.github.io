@@ -262,7 +262,7 @@ printf("%d %o %x\n", 17, 17, 17);   /* 输出: 17 21 11 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.15;">
+<div style="flex:1;">
 
 上一周知道 char 存的是==编码==; 今天把它当整数用
 
@@ -281,10 +281,10 @@ printf("%d\n", '9' - '0');    /* 9 */
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1.35;">
 
 <div class="top-2">
-  <img src="figs/ascii-table-wide.svg" width=500px style="max-width:100%;">
+  <img src="figs/ascii-table-7bit.svg" width=600px style="max-width:100%;">
 </div>
 
 <span class="blue">:fa-lightbulb-o:</span> Hex 列是==两位 16 进制==; ==大写 + 32 = 小写== (如 0x41 + 0x20 = 0x61)
@@ -412,7 +412,7 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 
 - 比如 0.1: 只能存成离它==最近的那个可表示数== (就近截断)
 
-- 结论: 浮点是==近似存储==; 比较浮点数不要用 `==`, 用 `fabs(a - b) < 1e-9`
+- 结论: 浮点是==近似存储==; 比较浮点数不要用 `==`, 用 `fabs(a - b) < 1e-9` (`fabs` 是 math.h 的绝对值函数, 第 3 周细讲)
 
 <span class="blue">:fa-lightbulb-o:</span> 0 附近密、越远越稀——下一页放大看为什么
 

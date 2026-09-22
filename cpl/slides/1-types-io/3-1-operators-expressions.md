@@ -59,6 +59,8 @@ presentation:
 
 - 优先级与结合性
 
+- 数学库函数
+
 - 赋值运算符
 
 - 自增和自减运算符
@@ -273,6 +275,55 @@ int main(void) {
 - 罪魁祸首是==整数除法的截断==: `9/4` 悄悄丢掉了小数部分 (下一课深入)
 
 - 拿不准时==加括号==, 让意图明确: `(9 / 4) * 4` 或 `9 * 4 / 4`
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 数学库函数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;">
+
+`+ - * / %` 就这么多, 要==开方、幂、对数、三角==? 调用 C 的==数学库函数==: 先 `#include <math.h>`, 编译时可能还要加选项 `-lm`
+
+<div class="fullborder">
+
+| 函数                     | 含义                      |
+| :--                      | :--                       |
+| `abs(x)` / `fabs(x)`     | 整数 / 浮点数绝对值         |
+| `sqrt(x)`                | x 的平方根                 |
+| `pow(x, y)`              | x 的 y 次方                |
+| `exp(x)` / `log(x)`      | e 的 x 次方 / 自然对数      |
+| `log10(x)`               | 常用对数                   |
+| `sin(x)` / `cos(x)` / `tan(x)` | 三角函数 (x 为==弧度==) |
+
+</div>
+
+</div>
+
+<div style="flex:1;font-size:0.72em;">
+
+```C
+#include <stdio.h>
+#include <math.h>
+
+int main(void) {
+    double x = 9.0;
+    printf("sqrt(9) = %f\n", sqrt(x));
+    printf("2^10 = %f\n", pow(2.0, 10));
+    printf("|3 - 5.5| = %f\n", fabs(3 - 5.5));
+    return 0;
+}
+```
+
+</div>
+
+</div>
 
 ---
 
@@ -687,6 +738,8 @@ i * j - 1; /* not useful */
 3. `i += 2` 等价于什么？`i *= j + k` 等价于 `i = i * j + k` 吗？
 
 4. `i = 1; j = i++;` 执行后 `i` 和 `j` 分别是多少？
+
+5. 计算 `sqrt(16)` 需要包含哪个头文件？编译时可能还需要什么选项？
 
 
 

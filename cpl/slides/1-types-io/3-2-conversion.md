@@ -39,7 +39,7 @@ presentation:
 
 <hr class="width50 center">
 
-## 类型转换与数学库函数
+## 类型转换与未定义行为
 
 <div class="bottom8"></div>
 
@@ -60,8 +60,6 @@ presentation:
 - 副作用与左值
 
 - 类型转换
-
-- 数学库函数
 
 - 编码实践
 
@@ -363,55 +361,7 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 ---
 
----
-<!-- slide data-notes="" -->
-
-
-##### 数学库函数
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.15;">
-
-调用数学库函数必须包含头文件 `#include <math.h>`, 并可能需加编译选项 `-lm`
-
-<div class="fullborder">
-
-| 函数                     | 含义                      |
-| :--                      | :--                       |
-| `abs(x)` / `fabs(x)`     | 整数 / 浮点数绝对值         |
-| `sqrt(x)`                | x 的平方根                 |
-| `pow(x, y)`              | x 的 y 次方                |
-| `exp(x)` / `log(x)`      | e 的 x 次方 / 自然对数      |
-| `log10(x)`               | 常用对数                   |
-| `sin(x)` / `cos(x)` / `tan(x)` | 三角函数 (x 为==弧度==) |
-
-</div>
-
-</div>
-
-<div style="flex:1;font-size:0.72em;">
-
-```C
-#include <stdio.h>
-#include <math.h>
-
-int main(void) {
-    double x = 9.0;
-    printf("sqrt(9) = %f\n", sqrt(x));
-    printf("2^10 = %f\n", pow(2.0, 10));
-    printf("|3 - 5.5| = %f\n", fabs(3 - 5.5));
-    return 0;
-}
-```
-
-</div>
-
-</div>
-
----
+--
 
 <!-- slide data-notes="" -->
 
@@ -492,9 +442,7 @@ int main(void) {
 
 2. `i = d;` 中 d 是 double 型 3.99，赋值后 i 是多少？有精度损失提示吗？
 
-3. 计算 `sqrt(16)` 需要包含哪个头文件？编译时可能还需要什么选项？
-
-4. 为什么 `j = i * i++;` 的结果不确定？这类表达式应该怎么避免？
+3. 为什么 `j = i * i++;` 的结果不确定？这类表达式应该怎么避免？
 
 
 
