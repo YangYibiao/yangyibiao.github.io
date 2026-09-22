@@ -504,6 +504,51 @@ getchar();              /* 先把遗留的换行符吃掉, 再读下面的字符
 
 ---
 
+<!-- slide data-notes="" -->
+
+##### scanf 读字符串
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.7em;">
+
+```C{.line-numbers}
+char name[100];
+scanf("%s", name);      /* 输入 Yang Yibiao↵ */
+printf("hi, %s\n", name);  /* hi, Yang */
+```
+
+```C{.line-numbers}
+char line[100];
+getchar();              /* 先吃掉上一行遗留的 \n */
+scanf("%[^\n]", line);  /* 整行读入, 空格不停 */
+printf("[%s]\n", line); /* [Hello World] */
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 字符串 = ==char 数组==: `char s[100];` 开得==足够大==, 结尾是 `'\0'`
+
+- `scanf("%s", s)`: ==不加 `&`==; 遇==空白==(空格/Tab/换行)就停 → 只读一个"单词"
+
+- 想读==带空格的一整行==: `scanf("%[^\n]", s)` —— 一直读到换行才停
+
+- 坑: 上一行 ==`scanf`== 读完后缓冲区==遗留的换行==会让 `%[^\n]` 立刻空手而归 → 先 ==`getchar()`== 吃掉
+
+- 输出: `printf("%s", s)`; 单个字符用 `%c`
+
+<span class="blue">:fa-lightbulb-o:</span> 输入比数组长会==溢出==——为什么危险, 第 10 周讲指针时再说
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->##### 格式字符串中的普通字符
 
 ---

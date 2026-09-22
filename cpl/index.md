@@ -41,7 +41,7 @@
 | 第2周   | [数据类型深化](slides/1-types-io/2-1-types-deep-dive.html)   | 数据类型深化                    |
 |   ^    | [格式化输入输出](slides/1-types-io/2-2-formatted-io.html)    | 格式化输入输出                    |
 | 第3周   | [运算符和表达式](slides/1-types-io/3-1-operators-expressions.html) | 运算符和表达式                |
-|   ^    | [类型转换与数学库函数](slides/1-types-io/3-2-conversion-math.html) | 类型转换与数学库函数                |
+|   ^    | [类型转换与未定义行为](slides/1-types-io/3-2-conversion.html) | 类型转换与未定义行为                |
 | 第4周   | 待发布                            | 选择结构 (上)    |
 |   ^    | 待发布                            | 选择结构 (下)    |
 | 第5周   | 待发布                            | 循环结构 (上)    |

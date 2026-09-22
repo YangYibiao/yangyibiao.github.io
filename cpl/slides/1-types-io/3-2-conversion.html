@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>3-2-conversion-math</title>
+      <title>3-2-conversion</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
-<h2 id="类型转换与数学库函数">类型转换与数学库函数 </h2>
+<h2 id="类型转换与未定义行为">类型转换与未定义行为 </h2>
 <div class="bottom8"></div>
 <h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnmailtoyangyibiaonjueducn"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
@@ -94,10 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 <li>
 <p>类型转换</p>
-
-</li>
-<li>
-<p>数学库函数</p>
 
 </li>
 <li>
@@ -402,63 +398,9 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>      <span class="token comment">/* 正确: j 先转成 long, 乘法不会溢出 */</span>
 i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 错误: j * j 已经在 int 里溢出了 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="数学库函数">数学库函数 </h5>
+<p>--</p>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.15;">
-<p>调用数学库函数必须包含头文件 <code>#include &lt;math.h&gt;</code>, 并可能需加编译选项 <code>-lm</code></p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>abs(x)</code> / <code>fabs(x)</code></td>
-<td>整数 / 浮点数绝对值</td>
-</tr>
-<tr>
-<td><code>sqrt(x)</code></td>
-<td>x 的平方根</td>
-</tr>
-<tr>
-<td><code>pow(x, y)</code></td>
-<td>x 的 y 次方</td>
-</tr>
-<tr>
-<td><code>exp(x)</code> / <code>log(x)</code></td>
-<td>e 的 x 次方 / 自然对数</td>
-</tr>
-<tr>
-<td><code>log10(x)</code></td>
-<td>常用对数</td>
-</tr>
-<tr>
-<td><code>sin(x)</code> / <code>cos(x)</code> / <code>tan(x)</code></td>
-<td>三角函数 (x 为<mark>弧度</mark>)</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div style="flex:1;font-size:0.72em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-double">double</span> x <span class="token operator">=</span> <span class="token number">9.0</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sqrt(9) = %f\n"</span><span class="token punctuation">,</span> <span class="token function">sqrt</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"2^10 = %f\n"</span><span class="token punctuation">,</span> <span class="token function">pow</span><span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|3 - 5.5| = %f\n"</span><span class="token punctuation">,</span> <span class="token function">fabs</span><span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">-</span> <span class="token number">5.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
 <hr>
 <p>\(6\) 克氧气的分子数是多少?</p>
 <div style="font-size:1.1em;">
@@ -477,7 +419,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </ul>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提醒: <code>6</code> 和 <code>32</code> 都是整数——直接写 <code>6 / 32</code> 会发生什么? (上节课 <code>9/4</code> 的坑!) 先自己写, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="编码实践--mol--参考代码">编码实践: mol (参考代码) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--mol--参考代码">编码实践: mol (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -515,20 +457,18 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
 </li>
 <li><code>i = d;</code> 中 d 是 double 型 3.99，赋值后 i 是多少？有精度损失提示吗？
 </li>
-<li>计算 <code>sqrt(16)</code> 需要包含哪个头文件？编译时可能还需要什么选项？
-</li>
 <li>为什么 <code>j = i * i++;</code> 的结果不确定？这类表达式应该怎么避免？
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
