@@ -340,20 +340,49 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 `printf` 打印 `double` 会自动四舍五入, 但怎样把 `double` ==变量本身==四舍五入成整数?
 
-技巧: ==`(int)(x + 0.5)`==——强制转换是"向零截断", 先加 `0.5` 再截断就是四舍五入
+<span class="yellow">:fa-weixin:</span> 提示: 强制转换是"向零截断"——小数部分直接丢掉。想个办法"借" `0.5`, 让截断变成四舍五入? 先自己写, 再翻页看参考代码
 
-<div style="font-size:0.8em;">
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 动手小练习: 四舍五入 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.7em;">
 
 ```C
-double x = 3.7;
-int r = (int)(x + 0.5);      /* r = 4 */
+#include <stdio.h>
+int main(void) {
+    double x;
+    printf("请输入一个数: ");
+    scanf("%lf", &x);
+    int r = (int)(x + 0.5);
+    printf("%.2f 四舍五入 = %d\n", x, r);
+    return 0;
+}
 ```
 
 </div>
 
-试一试: 负数呢? `(int)(-3.7 + 0.5)` = `(int)(-3.2)` = ==-3==, 但 -3.7 四舍五入应为 -4
+<div style="flex:1;">
 
-- C 的截断是==向零取整==, 负数四舍五入要用 `(int)(x - 0.5)`
+- 核心一行: ==`(int)(x + 0.5)`==——先加 `0.5` 再截断, `3.7` → 4、`3.4` → 3
+
+- 运行示例: 输入 `3.7` → `3.70 四舍五入 = 4`
+
+- 试一试负数: `(int)(-3.7 + 0.5)` = `-3`, 但 -3.7 四舍五入应为 -4——C 的截断是==向零取整==, 负数要用 `(int)(x - 0.5)`
+
+- 一个程序同时处理正负需要条件判断——==第 4 周==学完 `if` 就能写出来
+
+</div>
+
+</div>
 
 ---
 <!-- slide data-notes="" -->

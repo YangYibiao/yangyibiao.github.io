@@ -378,20 +378,45 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="动手小练习--四舍五入">动手小练习: 四舍五入 </h5>
 <hr>
 <p><code>printf</code> 打印 <code>double</code> 会自动四舍五入, 但怎样把 <code>double</code> <mark>变量本身</mark>四舍五入成整数?</p>
-<p>技巧: <mark><code>(int)(x + 0.5)</code></mark>——强制转换是"向零截断", 先加 <code>0.5</code> 再截断就是四舍五入</p>
-<div style="font-size:0.8em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> x <span class="token operator">=</span> <span class="token number">3.7</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> r <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>x <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* r = 4 */</span></code></pre>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 强制转换是"向零截断"——小数部分直接丢掉。想个办法"借" <code>0.5</code>, 让截断变成四舍五入? 先自己写, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="动手小练习--四舍五入--参考代码">动手小练习: 四舍五入 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入一个数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> r <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>x <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%.2f 四舍五入 = %d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> r<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
-<p>试一试: 负数呢? <code>(int)(-3.7 + 0.5)</code> = <code>(int)(-3.2)</code> = <mark>-3</mark>, 但 -3.7 四舍五入应为 -4</p>
+<div style="flex:1;">
 <ul>
 <li>
-<p>C 的截断是<mark>向零取整</mark>, 负数四舍五入要用 <code>(int)(x - 0.5)</code></p>
+<p>核心一行: <mark><code>(int)(x + 0.5)</code></mark>——先加 <code>0.5</code> 再截断, <code>3.7</code> → 4、<code>3.4</code> → 3</p>
+
+</li>
+<li>
+<p>运行示例: 输入 <code>3.7</code> → <code>3.70 四舍五入 = 4</code></p>
+
+</li>
+<li>
+<p>试一试负数: <code>(int)(-3.7 + 0.5)</code> = <code>-3</code>, 但 -3.7 四舍五入应为 -4——C 的截断是<mark>向零取整</mark>, 负数要用 <code>(int)(x - 0.5)</code></p>
+
+</li>
+<li>
+<p>一个程序同时处理正负需要条件判断——<mark>第 4 周</mark>学完 <code>if</code> 就能写出来</p>
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="编码实践--数字拆分">编码实践: 数字拆分 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--数字拆分">编码实践: 数字拆分 </h5>
 <hr>
 <p>输入一个<mark>4 位整数</mark> <code>N</code>, 输出两样东西:</p>
 <ul>
@@ -407,7 +432,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <p>例: 输入 <code>1234</code> → 输出 <code>和 = 10</code>、<code>反转 = 4321</code></p>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: <code>/</code> 取高位、<code>%</code> 取低位——千位 = <code>n / 1000</code>, 百位呢? 反转数可以用 <code>%d%d%d%d</code> 打印四个一位数, 也可以重新组装。先自己写, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--数字拆分--参考代码">编码实践: 数字拆分 (参考代码) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--数字拆分--参考代码">编码实践: 数字拆分 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -442,7 +467,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂习题课">课堂习题课 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂习题课">课堂习题课 </h5>
 <hr>
 <p>四道题, 限时 15 分钟, 每题都藏着<mark>一个坑</mark> (答案见讲义):</p>
 <ol>
@@ -456,7 +481,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
@@ -467,7 +492,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
