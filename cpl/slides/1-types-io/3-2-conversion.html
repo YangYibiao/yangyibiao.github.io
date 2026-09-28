@@ -468,12 +468,50 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂习题课">课堂习题课 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="编码实践--时间换算">编码实践: 时间换算 </h5>
 <hr>
-<p>四道题, 限时 15 分钟, 每题都藏着<mark>一个坑</mark> (答案见讲义):</p>
-<ol>
-<li><mark>时间换算</mark>: 输入总秒数 <code>N</code>, 输出"X 小时 Y 分 Z 秒"。例: 输入 <code>3671</code>, 输出 <code>1 小时 1 分 11 秒</code>
+<p>输入总秒数 <code>N</code>, 输出"<code>X</code> 小时 <code>Y</code> 分 <code>Z</code> 秒"</p>
+<p>例: 输入 <code>3671</code> → 输出 <code>1 小时 1 分 11 秒</code></p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 一小时 <code>3600</code> 秒——先 <code>/</code> 得到小时数, 剩下的秒数再继续拆。和数字拆分是同一个套路! 先自己写, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="编码实践--时间换算--参考代码">编码实践: 时间换算 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> N<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入总秒数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> h <span class="token operator">=</span> N <span class="token operator">/</span> <span class="token number">3600</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> m <span class="token operator">=</span> N <span class="token operator">%</span> <span class="token number">3600</span> <span class="token operator">/</span> <span class="token number">60</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> s <span class="token operator">=</span> N <span class="token operator">%</span> <span class="token number">60</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 小时 %d 分 %d 秒\n"</span><span class="token punctuation">,</span> h<span class="token punctuation">,</span> m<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><code>h = N / 3600</code>: 一共几小时; <code>m = N % 3600 / 60</code>: 扣掉小时<mark>剩下</mark>的秒里取分钟; <code>s = N % 60</code>: 最后剩下的秒</p>
+
 </li>
+<li>
+<p>层层剥: <mark>先除后模</mark>, 和数字拆分的千/百/十/个位一个套路</p>
+
+</li>
+<li>
+<p>输入 <code>3671</code> → <code>1 小时 1 分 11 秒</code></p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂习题课">课堂习题课 </h5>
+<hr>
+<p>三道题, 限时 10 分钟, 每题都藏着<mark>一个坑</mark> (答案见讲义):</p>
+<ol>
 <li><mark>温度转换</mark>: 输入摄氏度 <code>C</code>, 输出华氏度 <code>F = C × 9 / 5 + 32</code>。检验: <code>100</code> 应输出 <code>212</code>; 若输出 <code>132</code>, 说明踩了整数除法的坑
 </li>
 <li><mark>平均分</mark>: 输入三门课成绩 (整数), 输出平均分<mark>保留两位小数</mark>。例: 输入 <code>85 92 78</code>, 输出 <code>85.00</code>
@@ -482,7 +520,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
@@ -493,7 +531,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
