@@ -247,12 +247,17 @@ presentation:
 <div style="flex:1.25;font-size:0.7em;">
 
 ```C{.line-numbers}
-int x = 0;
-if (x = 5)          /* 本意是 x == 5, 少打了一个 = */
-    printf("x 等于 5\n");
-else
-    printf("x 不等于 5\n");
-printf("x = %d\n", x);
+#include <stdio.h>
+
+int main(void) {
+    int x = 0;
+    if (x = 5)          /* 本意是 x == 5, 少打了一个 = */
+        printf("x 等于 5\n");
+    else
+        printf("x 不等于 5\n");
+    printf("x = %d\n", x);
+    return 0;
+}
 ```
 
 ```
