@@ -687,6 +687,20 @@ int main() {
 
 ---
 
+==现场演示==: 输入三个整数, 输出其中最小的一个
+
+<span class="yellow">:fa-weixin:</span> 提示: 先在 `a`、`b` 里挑小的, 再和 `c` 比——==嵌套的 if/else==; 或延续"先假定再修正"思路, `min` 先取 `a`, 逐个比较替换。先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: min of three (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.2;font-size:0.62em;">
@@ -722,11 +736,11 @@ int main() {
 
 <div style="flex:1;">
 
-==现场演示==
+- 外层 `if (a < b)` 决定先排除谁, 内层再和 `c` 比——==嵌套 if/else== 的经典结构
 
-输入三个整数, 输出其中最小的一个 (嵌套的 if else)
+- 输入 `8 3 5` → `min(8, 3, 5) = 3`
 
-
+- 另一种写法 (更通用): `min = a; if (b < min) min = b; if (c < min) min = c;`——"先假定再修正", 后面学数组后特别好用
 
 </div>
 
