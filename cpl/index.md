@@ -42,8 +42,8 @@
 |   ^    | [格式化输入输出](slides/1-types-io/2-2-formatted-io.html)    | 格式化输入输出                    |
 | 第3周   | [运算符和表达式](slides/1-types-io/3-1-operators-expressions.html) | 运算符和表达式                |
 |   ^    | [类型转换与未定义行为](slides/1-types-io/3-2-conversion.html) | 类型转换与未定义行为                |
-| 第4周   | 待发布                            | 选择结构 (上)    |
-|   ^    | 待发布                            | 选择结构 (下)    |
+| 第4周   | [选择结构 (上)](slides/2-if-for-array/4-1-selection-i.html) | 选择结构 (上) |
+|   ^    | [选择结构 (下)](slides/2-if-for-array/4-2-selection-ii.html) | 选择结构 (下) |
 | 第5周   | 待发布                            | 循环结构 (上)    |
 |   ^    | 待发布                            | 循环结构 (下)    |
 | 第6周   | 待发布                            | 函数 (I)    |
