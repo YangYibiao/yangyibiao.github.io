@@ -748,27 +748,6 @@ int main() {
 <!-- slide data-notes="" -->
 
 
-##### 演示: 闰年判断
-
----
-
-==现场演示==: 输入年份, 判断是否为闰年
-
-闰年规则: ==能被 4 整除且不能被 100 整除, 或能被 400 整除== (2024 是闰年, 1900 不是, 2000 是)
-
-<div class="top-2">
-  <img src="../img/leap-year-flowchart.png" width=400px>
-</div>
-
-<span class="yellow">:fa-weixin:</span> 提示: 对照流程图写代码; 用一个 ==leap 标志变量==记"是/否" (`0`/`1`)。先自己写, 再翻页看参考代码
-
----
-
-
-
-<!-- slide data-notes="" -->
-
-
 ##### 演示: min of three (挑战: 另一种写法)
 
 ---
@@ -822,6 +801,27 @@ int main(void) {
 </div>
 
 ---
+<!-- slide data-notes="" -->
+
+
+##### 演示: 闰年判断
+
+---
+
+==现场演示==: 输入年份, 判断是否为闰年
+
+闰年规则: ==能被 4 整除且不能被 100 整除, 或能被 400 整除== (2024 是闰年, 1900 不是, 2000 是)
+
+<div class="top-2">
+  <img src="../img/leap-year-flowchart.png" width=400px>
+</div>
+
+<span class="yellow">:fa-weixin:</span> 提示: 对照流程图写代码; 用一个 ==leap 标志变量==记"是/否" (`0`/`1`)。先自己写, 再翻页看参考代码
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
