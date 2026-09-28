@@ -61,7 +61,7 @@ presentation:
 
 - if 语句与 else 子句
 
-- 演示: min 与闰年判断
+- 演示: min、闰年、三角形、奇偶判断
 
 ---
 
