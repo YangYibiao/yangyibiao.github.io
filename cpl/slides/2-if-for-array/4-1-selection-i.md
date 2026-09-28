@@ -68,7 +68,6 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-
 ##### 结构化算法与三种基本结构
 
 ---
@@ -77,37 +76,30 @@ presentation:
 
 - ==顺序==: 语句一条接一条执行
 
-- ==选择==: 根据条件决定走哪条分支 (if/switch)
+- ==选择==: 根据条件决定走哪条分支 (`if` / `switch`)
 
-- ==循环==: 重复执行一段语句 (while/do/for)
+- ==循环==: 重复执行一段语句 (`while` / `do` / `for`)
 
-<span class="blue">:fa-lightbulb-o:</span> 本节学习 ==选择== 结构: 让程序会"判断"
+<span class="blue">:fa-lightbulb-o:</span> 本节学习 ==选择== 结构——让程序会"判断"
 
 ---
-
-
 <!-- slide data-notes="" -->
-
 
 ##### 选择语句
 
 ---
 
-到目前为止, 我们已经讲完了返回语句和表达式语句. 
+到目前为止, 我们已经写过了返回语句和表达式语句。==C 语言==其余的大部分语句: 
 
-`C` 的其他大部分语句: 
+- ==选择语句==: `if` 和 `switch` (本节讲 `if`)
 
-- 选择语句: `if`和`switch`
+- ==循环语句==: `while`、`do` 和 `for`
 
-- 循环语句: `while`, `do`和`for`
+- ==跳转语句==: `break`、`continue`、`goto` (`return` 也属于这一类)
 
-- 跳转语句: `break`, `continue`和`goto`(`return`也属于这一类)
-
-- 其他语句: 复合语句 和 空语句(Null)
+- ==其他语句==: 复合语句 `{ }` 和空语句 `;`
 
 ---
-
-
 <!-- slide data-notes="" -->
 
 
@@ -139,12 +131,15 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-
 ##### 关系运算符
 
 ---
 
-`C` 的关系运算符: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==关系运算符== 用来比较两个值的大小: 
 
 <div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
 
@@ -157,48 +152,65 @@ presentation:
 
 </div>
 
-这些运算符在表达式中使用时会产生 `0` (==假==)或 `1` (==真==)
+</div>
 
-关系运算符可用于比较整数和浮点数, 允许不同类型的混合运算
+<div style="flex:1;">
 
-关系运算符的优先级 ==低于== 算术运算符: `i + j < k – 1` 表示 `(i + j) < (k - 1)`
+- 比较的结果是整数 `0` (==假==) 或 `1` (==真==)
 
-关系运算符是左结合的
+- 可以比较整数、浮点数, 也允许==混合比较== (`1 < 2.5` 成立)
+
+- 优先级==低于==算术运算符: `i + j < k - 1` 表示 `(i + j) < (k - 1)`
+
+- 关系运算符是==左结合==的
+
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### 关系运算符
 
 ---
 
-表达方式 `i < j < k` 是合法的, 但并不是测试 `j` 的大小是否在 `i` 和 `k` 之间
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-因为 `<` 运算符是`左结合的`, 所以这个表达式等价于
+<div style="flex:1.25;">
+
+`i < j < k` 看起来像"判断 `j` 是否在 `i` 和 `k` 之间", 语法上==合法==——但==不是那个意思==: 
 
 ```C
 (i < j) < k
 ```
 
-- `i < j` 产生的 `1` 或 `0` 随后将与k进行比较
+`<` 是==左结合==的: 先算 `i < j` 得 `0` 或 `1`, 再拿结果和 `k` 比
 
-- 并非测试`j`是否位于`i`与`k`之间
+</div>
 
-<span class="yellow">:fa-weixin:</span> 正确的表达式是 `i < j && j < k`
+<div style="flex:1;">
+
+- 例: `i = 5, j = 1, k = 2`——数学上 `5 < 1` 已不成立, 应判假; 而 C 算 `(5 < 1) < 2` = `0 < 2` = `1`, ==判了真==
+
+<span class="yellow">:fa-weixin:</span> 正确写法: `i < j && j < k` (逻辑与, 下一页讲)
+
+</div>
+
+</div>
 
 ---
-
-
 <!-- slide data-notes="" -->
-
 
 ##### 判等运算符
 
 ---
 
-C 提供了两个判等运算符: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==判等运算符== 判断两个值是否相等: 
 
 <div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
 
@@ -209,28 +221,32 @@ C 提供了两个判等运算符:
 
 </div>
 
-判等运算符也是`左结合的`, 产生 `0` (==假==)或 `1` (==真==)作为其结果. 
+</div>
 
-判等运算符优先级 ==低于== 关系运算符, 因此表达式: 
+<div style="flex:1;">
 
-`i < j == j < k`
-等价于
-`(i < j) == (j < k)`
+- 结果同样是 `0` (==假==) 或 `1` (==真==), 左结合
 
-<span class="yellow">:fa-weixin:</span> ==判等== `==` 与 ==赋值== `=` 极易混淆, 是 C 语言的经典错误
+- 优先级==低于==关系运算符: `i < j == j < k` 等价于 `(i < j) == (j < k)`
+
+<span class="yellow">:fa-weixin:</span> ==判等== `==` 与 ==赋值== `=` 极易混淆——下一页演示后果
+
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### 演示: if (x = 5) 的经典 bug
 
 ---
 
-<div style="font-size:0.8em;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-```C
+<div style="flex:1.25;font-size:0.7em;">
+
+```C{.line-numbers}
 int x = 0;
 if (x = 5)          /* 本意是 x == 5, 少打了一个 = */
     printf("x 等于 5\n");
@@ -239,14 +255,14 @@ else
 printf("x = %d\n", x);
 ```
 
-</div>
-
-运行结果: 
-
 ```
 x 等于 5
 x = 5
 ```
+
+</div>
+
+<div style="flex:1;">
 
 - `x = 5` 是==赋值表达式==, 它的值就是 `5` (非零 → ==真==), 条件永远成立
 
@@ -254,155 +270,199 @@ x = 5
 
 - 防御写法: 把常量放左边 ==`if (5 == x)`==——写错成 `5 = x` 时编译器直接报错 (不能给常量赋值)
 
+</div>
+
+</div>
+
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### 逻辑运算符
 
 ---
 
-利用逻辑运算符, 可以从简单逻辑表达式构建复杂逻辑表达式: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==逻辑运算符== 把简单判断组合成复杂判断: 
 
 <div class="threelines column1-border-left-solid column1-border-right-solid column2-border-right-solid head-highlight-1 tr-hover">
 
 | 符号 | 含义 |
 | :-- | :-- |
-| `!` | 逻辑非 |
-| `&&` | 逻辑与 |
-| `\|\|` | 逻辑或 |
+| `!` | 逻辑非 (一元) |
+| `&&` | 逻辑与 (二元) |
+| `\|\|` | 逻辑或 (二元) |
 
 </div>
 
-`!`运算符是一元的, 而`&&`和`||`是二元的
+- ==任何非零值都算真==, `0` 算假; 结果也是 `0` 或 `1`
 
-逻辑运算符产生 `0` 或 `1` 作为其结果
+</div>
 
-逻辑运算符将任何非零操作数视为真值, 零值操作数视为假值
+<div style="flex:1;">
 
-- 如果 ==表达式== 的值为 `0`, 则 ==!表达式== 的值为`1`
+- `!表达式`: 表达式为 `0` 时结果为 `1` (取反)
 
-- 如果 ==表达式1== 和 ==表达式2== 值都不为零, 则 ==表达式1 && 表达式2== 的值为 `1`
+- `表达式1 && 表达式2`: ==两个都不为零==才得 `1`
 
-- 如果 ==表达式1== 或 ==表达式2== 中任意一个不为零, 则 ==表达式1 || 表达式2== 的值为 `1`
+- `表达式1 || 表达式2`: ==任意一个不为零==就得 `1`
+
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### 逻辑运算符
 
 ---
 
-==&&== 和 ==||== 会进行 =="短路"== 计算: 先计算左操作数, 然后是右操作数
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-若表达式的值可 ==单独== 从左操作数推导出来, 则不计算右操作数
+<div style="flex:1.2;">
 
-例子: `(i != 0) && (j / i > 0)`
+==&&== 和 ==||== 会进行 =="短路"== 计算: 先算左操作数, 若结果已经能定, ==右边就不算了==
 
-- 先计算`(i != 0)` 如果`i`不等于 `0`, 则计算`(j / i > 0)`的值
+```C
+(i != 0) && (j / i > 0)
+```
 
-- 若`i`为`0`, 则整个表达式必定为假, 因此无需计算`(j / i > 0)`
+</div>
 
-- 如果没有短路计算, 就会发生除零
+<div style="flex:1;">
+
+- 若 `i` 为 `0`: 左边已为假, 整个 `&&` 必定为假 → 右边的 `j / i` ==不会计算==, 避免了除零
+
+- 若 `i` 不为 `0`: 才轮到右边——这正是"==先判除数非零, 再做除法=="的安全写法
+
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### 逻辑运算符
 
 ---
 
-因为 ==&&== 和 ==||== 两种运算符的短路特性, 逻辑表达式中的副作用可能不会产生
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-例子: `i > 0 && ++j > 0`
+<div style="flex:1.25;">
 
-- 如果`i > 0`为假, 则不会计算`++j > 0`, `j`也就不会自增
+因为短路, 表达式里的==副作用可能根本不发生==: `i > 0 && ++j > 0`
 
-`!`运算符与一元加号和减号运算符具有相同的优先级
+- 若 `i > 0` 为假, `++j` 不会执行, `j` 也不自增
 
-`&&`和`||`的优先级低于关系运算符和等式运算符
+</div>
 
-例子: `i < j && k == m` 表示: `(i < j) && (k == m)`
+<div style="flex:1;">
 
-- `!`运算符是右结合的
-- `&&`和`||`是左结合的
+优先级小结: `!` 与一元正负同级; `&&`、`||` ==低于==关系/判等; `&&` 高于 `||`
+
+- `i < j && k == m` 表示 `(i < j) && (k == m)`
+
+- `!` 右结合; `&&`、`||` 左结合
+
+</div>
+
+</div>
 
 ---
-
-
 <!-- slide data-notes="" -->
-
 
 ##### if语句
 
 ---
 
-`if` 语句形式:
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-==[if语句]== &emsp; `if (表达式) 语句`
+<div style="flex:1.3;">
 
-判定表达式的值是真还是假, 不为零, 则执行语句, 如: 
+==if 语句==的形式: `if (表达式) 语句`
+
+- 表达式非零 (真) → 执行语句; 为零 (假) → 跳过语句
+
+- <span class="yellow">:fa-weixin:</span> 表达式两边的==圆括号是必须的==——它是 `if` 语句的组成部分
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
 
 ```C{.line-numbers}
 if (line_num == MAX_LINES)
-  line_num = 0;
+    line_num = 0;
 ```
 
-<span class="yellow">:fa-weixin:</span> 表达式两边的圆括号是必须的，它是`if`语句的组成部分
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### if语句
 
 ---
 
-<span class="blue">:fa-weixin:</span> 将`==`(判等)和`=`(赋值)混淆是常见的 ==C== 语言编程错误
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-```C{.line-numbers}
-if (i == 0) …  
-/* 检查i是否等于0 */
+<div style="flex:1.15;font-size:0.72em;">
 
-if (i = 0) … 
-/* 将0赋值给i, 然后检查结果是否为非零 */
+<span class="yellow">:fa-weixin:</span> 把 `==` 写成 `=` 是最常见的 C 错误: 
+
+```C
+if (i == 0) …   /* 检查 i 是否等于 0 */
+
+if (i = 0) …    /* 把 0 赋给 i, 再判断结果 */
+                /* 赋完 i 是 0 → 条件永远为假! */
 ```
 
-通常, `if`语句中的表达式检查变量是否在某个值范围内
+</div>
 
-判定i是否满足 $0 \leq i < n$:
+<div style="flex:1;">
 
-`if (0 <= i && i < n) …`
+`if` 常用于==范围判断==。判断 `i` 满足 $0 \leq i < n$:
 
-要判定相反的条件(`i`超出范围):
+```C
+if (0 <= i && i < n) …
+```
 
-`if (i < 0 || i >= n) …`
+判断相反条件 (`i` 超出范围): `if (i < 0 || i >= n) …`
+
+</div>
+
+</div>
 
 ---
-
-
 <!-- slide data-notes="" -->
-
 
 ##### 复合语句
 
 ---
 
-`if` 模板里 statement 是==单数==: `if (表达式) 语句`; 要控制多条语句, 用==复合语句==: `{ 多条语句 }`
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-在一组语句周围放置大括号会强制编译器将其视为单个语句
+<div style="flex:1.2;">
+
+`if` 的模板里 statement 是==单数==: `if (表达式) 语句`
+
+要控制==多条==语句, 用==复合语句==把多条包成"一条": `{ 语句1 语句2 … }`
+
+- 大括号让编译器把一组语句==当作一条语句==
+
+- 内部语句照常带分号; ==复合语句本身没有分号==
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
 
 ```C
 { line_num = 0; page_num++; }
 ```
-
-复合语句通常放在多行中, 每行一条语句: 
 
 ```C
 {
@@ -411,31 +471,41 @@ if (i = 0) …
 }
 ```
 
-每个内部语句仍然以分号结尾, 但复合语句本身没有分号
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->
-
 
 ##### 复合语句
 
 ---
 
-if语句中使用的复合语句示例: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.75em;">
 
 ```C
 if (line_num == MAX_LINES) {
-  line_num = 0;
-  page_num++;
+    line_num = 0;
+    page_num++;
 }
 ```
 
-复合语句在循环和其他C语法要求单个语句的地方也很常见
+</div>
+
+<div style="flex:1;">
+
+- 条件成立时, 大括号里的==两条语句都执行==; 不加大括号只会执行第一条
+
+- 复合语句也用在循环等其他"只接受一条语句"的地方
+
+</div>
+
+</div>
 
 ---
-
-
 <!-- slide data-notes="" -->
 
 
@@ -535,20 +605,17 @@ if (i > j) {
 
 <!-- slide data-notes="" -->
 
-
 ##### else子句
 
 ---
 
-使用大括号的优点(即使在不需要时): 
+大括号的优点 (即使只有一条语句也建议加): 
 
-- 使程序更易于修改, 可以轻松地将更多语句添加到任何`if`或`else`子句中
+- 程序更易修改——以后往 `if`/`else` 里加语句不用补大括号
 
-- 避免使用`if`或`else`子句时忘记使用大括号而导致的错误
+- 避免"忘加大括号"类错误——缩进对齐了, 逻辑没对齐 (下一课的"悬空 else"就是典型)
 
 ---
-
-
 <!-- slide data-notes="" -->
 
 
