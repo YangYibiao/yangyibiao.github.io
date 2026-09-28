@@ -761,6 +761,26 @@ if (c < min) min = c;     /* c 更小就换 */
 
 ---
 
+==现场演示==: 输入年份, 判断是否为闰年
+
+闰年规则: ==能被 4 整除且不能被 100 整除, 或能被 400 整除== (2024 是闰年, 1900 不是, 2000 是)
+
+<div class="top-2">
+  <img src="../img/leap-year-flowchart.png" width=400px>
+</div>
+
+<span class="yellow">:fa-weixin:</span> 提示: 对照流程图写代码; 用一个 ==leap 标志变量==记"是/否" (`0`/`1`)。先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: 闰年判断 (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.4;font-size:0.55em;">
@@ -800,15 +820,13 @@ int main(void) {
 
 <div style="flex:1;">
 
-==现场演示==
+- 三层嵌套 if/else 对应流程图的==三个判断框==
 
-对照流程图写代码: 输入年份, 判断是否为闰年
+- `leap` 是==标志变量== (flag/indicator): 先算"是闰年吗"存成 `0`/`1`, 输出时再看标志——"算"和"用"分离, 结构清晰
 
-<div class="top-2">
-  <img src="../img/leap-year-flowchart.png" width=360px>
-</div>
+- 化简版 (一个 `&&`/`||` 复合条件搞定) 周三 4-2 讲
 
-
+- 测试: `2024` → leap year; `1900` → common year; `2000` → leap year
 
 </div>
 
