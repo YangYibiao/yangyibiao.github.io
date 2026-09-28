@@ -628,17 +628,21 @@ if (i > j) {
 
 ---
 
+==现场演示==: 输入两个整数, 输出其中较小的一个
+
+<span class="yellow">:fa-weixin:</span> 提示: 需要一个变量 `min` 记"当前最小"; if/else 各只控制一条语句时, 花括号可以省略。先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: min of two (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-==现场演示==
-
-输入两个整数, 输出其中较小的一个
-
-<span class="blue">:fa-weixin:</span> if/else 各只控制一条语句时, 花括号可省略
-
-</div>
 
 <div style="flex:1.15;font-size:0.7em;">
 
@@ -658,6 +662,16 @@ int main() {
     printf("min(%d, %d) = %d", a, b, min);
 }
 ```
+
+</div>
+
+<div style="flex:1;">
+
+- `min` 先取 `a`, 若 `b` 更小再换成 `b`——"==先假定, 再修正=="的常用思路
+
+- 输入 `5 3` → `min(5, 3) = 3`
+
+- if/else 各控制一条语句, 花括号可省略; 但养成==加花括号==的习惯更安全
 
 </div>
 
