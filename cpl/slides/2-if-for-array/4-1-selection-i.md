@@ -689,7 +689,7 @@ int main() {
 
 ==现场演示==: 输入三个整数, 输出其中最小的一个
 
-<span class="yellow">:fa-weixin:</span> 提示: 先在 `a`、`b` 里挑小的, 再和 `c` 比——==嵌套的 if/else==; 或延续"先假定再修正"思路, `min` 先取 `a`, 逐个比较替换。先自己写, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 提示: 先在 `a`、`b` 里挑小的, 再和 `c` 比——==嵌套的 if/else==。先自己写, 再翻页看参考代码 1
 
 ---
 
@@ -697,7 +697,7 @@ int main() {
 <!-- slide data-notes="" -->
 
 
-##### 演示: min of three (参考代码)
+##### 演示: min of three (参考代码 1: 嵌套版)
 
 ---
 
@@ -740,15 +740,6 @@ int main() {
 
 - 输入 `8 3 5` → `min(8, 3, 5) = 3`
 
-- ==另一种写法: 单分支 if==——if 不配 else 也合法: 
-
-```C
-int min = a;              /* 先假定 a 最小 */
-if (b < min) min = b;     /* b 更小就换 */
-if (c < min) min = c;     /* c 更小就换 */
-```
-
-- "先假定, 再修正"的思路==第 8 周学数组后会大放异彩==
 
 </div>
 
@@ -774,6 +765,63 @@ if (c < min) min = c;     /* c 更小就换 */
 ---
 
 
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: min of three (挑战: 另一种写法)
+
+---
+
+写完了? ==还有另一种写法==——不用嵌套
+
+延续 min of two 的"==先假定, 再修正=="思路: `min` 先取 `a`, 然后逐个比较替换
+
+<span class="yellow">:fa-weixin:</span> 试试看, 再翻页看参考代码 2
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: min of three (参考代码 2: 单分支版)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
+
+```C
+#include <stdio.h>
+
+int main(void) {
+    int a = 0, b = 0, c = 0;
+    scanf("%d%d%d", &a, &b, &c);
+    int min = a;              /* 先假定 a 最小 */
+    if (b < min) min = b;     /* b 更小就换 */
+    if (c < min) min = c;     /* c 更小就换 */
+    printf("min(%d, %d, %d) = %d", a, b, c, min);
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 三个 `if` 都是==单分支==——if 不配 else 也合法
+
+- 输入 `8 3 5` → `min(8, 3, 5) = 3` (先 3 换掉 8, 5 不动)
+
+- "先假定, 再修正"的思路==第 8 周学数组后会大放异彩== (循环里不断更新最小值)
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 

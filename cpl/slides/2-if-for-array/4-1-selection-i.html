@@ -648,9 +648,9 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="演示--min-of-three">演示: min of three </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入三个整数, 输出其中最小的一个</p>
-<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 先在 <code>a</code>、<code>b</code> 里挑小的, 再和 <code>c</code> 比——<mark>嵌套的 if/else</mark>; 或延续"先假定再修正"思路, <code>min</code> 先取 <code>a</code>, 逐个比较替换。先自己写, 再翻页看参考代码</p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 先在 <code>a</code>、<code>b</code> 里挑小的, 再和 <code>c</code> 比——<mark>嵌套的 if/else</mark>。先自己写, 再翻页看参考代码 1</p>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="演示--min-of-three--参考代码">演示: min of three (参考代码) </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="演示--min-of-three--参考代码-1--嵌套版">演示: min of three (参考代码 1: 嵌套版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -689,19 +689,6 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 <p>输入 <code>8 3 5</code> → <code>min(8, 3, 5) = 3</code></p>
 
 </li>
-<li>
-<p><mark>另一种写法: 单分支 if</mark>——if 不配 else 也合法:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> min <span class="token operator">=</span> a<span class="token punctuation">;</span>              <span class="token comment">/* 先假定 a 最小 */</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>b <span class="token operator"><</span> min<span class="token punctuation">)</span> min <span class="token operator">=</span> b<span class="token punctuation">;</span>     <span class="token comment">/* b 更小就换 */</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>c <span class="token operator"><</span> min<span class="token punctuation">)</span> min <span class="token operator">=</span> c<span class="token punctuation">;</span>     <span class="token comment">/* c 更小就换 */</span></code></pre>
-<ul>
-<li>
-<p>"先假定, 再修正"的思路<mark>第 8 周学数组后会大放异彩</mark></p>
-
-</li>
 </ul>
 </div>
 </div>
@@ -715,7 +702,47 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 对照流程图写代码; 用一个 <mark>leap 标志变量</mark>记"是/否" (<code>0</code>/<code>1</code>)。先自己写, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="演示--闰年判断--参考代码">演示: 闰年判断 (参考代码) </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="演示--min-of-three--挑战--另一种写法">演示: min of three (挑战: 另一种写法) </h5>
+<hr>
+<p>写完了? <mark>还有另一种写法</mark>——不用嵌套</p>
+<p>延续 min of two 的"<mark>先假定, 再修正</mark>"思路: <code>min</code> 先取 <code>a</code>, 然后逐个比较替换</p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 试试看, 再翻页看参考代码 2</p>
+<hr>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--min-of-three--参考代码-2--单分支版">演示: min of three (参考代码 2: 单分支版) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">,</span> <span class="token operator">&</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> min <span class="token operator">=</span> a<span class="token punctuation">;</span>              <span class="token comment">/* 先假定 a 最小 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>b <span class="token operator"><</span> min<span class="token punctuation">)</span> min <span class="token operator">=</span> b<span class="token punctuation">;</span>     <span class="token comment">/* b 更小就换 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>c <span class="token operator"><</span> min<span class="token punctuation">)</span> min <span class="token operator">=</span> c<span class="token punctuation">;</span>     <span class="token comment">/* c 更小就换 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"min(%d, %d, %d) = %d"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> min<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>三个 <code>if</code> 都是<mark>单分支</mark>——if 不配 else 也合法</p>
+
+</li>
+<li>
+<p>输入 <code>8 3 5</code> → <code>min(8, 3, 5) = 3</code> (先 3 换掉 8, 5 不动)</p>
+
+</li>
+<li>
+<p>"先假定, 再修正"的思路<mark>第 8 周学数组后会大放异彩</mark> (循环里不断更新最小值)</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--闰年判断--参考代码">演示: 闰年判断 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -770,13 +797,13 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--三角形判定">演示: 三角形判定 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="演示--三角形判定">演示: 三角形判定 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入三边 <code>a b c</code>, 判断能否构成三角形</p>
 <p>规则: <mark>任意两边之和大于第三边</mark>——三个条件要<mark>同时</mark>成立</p>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 三个条件用 <code>&amp;&amp;</code> 连起来一次判断完。先自己写, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--三角形判定--参考代码">演示: 三角形判定 (参考代码) </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="演示--三角形判定--参考代码">演示: 三角形判定 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -807,12 +834,12 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="演示--奇偶判断">演示: 奇偶判断 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="演示--奇偶判断">演示: 奇偶判断 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个整数, 输出它是奇数还是偶数</p>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 除了 <code>% 2</code> 的余数, 第 3 周学的<mark>位运算</mark>也能判断 (最低位是 0 还是 1)。两种方法都想一想, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="演示--奇偶判断--参考代码">演示: 奇偶判断 (参考代码) </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="演示--奇偶判断--参考代码">演示: 奇偶判断 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -852,7 +879,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="课堂习题">课堂习题 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="课堂习题">课堂习题 </h5>
 <hr>
 <p>两道题, 限时 10 分钟, 答案见讲义:</p>
 <ol>
@@ -862,7 +889,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>i &lt; j &lt; k</code> 能判断 j 是否在 i 和 k 之间吗？正确的写法是什么？
@@ -875,7 +902,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="31" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
