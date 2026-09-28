@@ -770,21 +770,99 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂习题">课堂习题 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--三角形判定">演示: 三角形判定 </h5>
 <hr>
-<p>四道题, 限时 15 分钟, 答案见讲义:</p>
+<p><mark>现场演示</mark>: 输入三边 <code>a b c</code>, 判断能否构成三角形</p>
+<p>规则: <mark>任意两边之和大于第三边</mark>——三个条件要<mark>同时</mark>成立</p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 三个条件用 <code>&amp;&amp;</code> 连起来一次判断完。先自己写, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--三角形判定--参考代码">演示: 三角形判定 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">,</span> <span class="token operator">&</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b <span class="token operator">></span> c <span class="token operator">&amp;&amp;</span> a <span class="token operator">+</span> c <span class="token operator">></span> b <span class="token operator">&amp;&amp;</span> b <span class="token operator">+</span> c <span class="token operator">></span> a<span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"能构成三角形\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"不能构成三角形\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>现场边写边讲</mark>: ① 声明 <code>a b c</code> + <code>scanf</code>; ② 写条件——把三个条件用刚学的 <mark><code>&amp;&amp;</code></mark> 连起来; ③ 补 <code>printf</code> 两个分支</p>
+<ul>
+<li>
+<p>边界: <code>1 2 3</code> → 不能 (<code>1 + 2 &gt; 3</code> 为假, 相等也不行)</p>
+
+</li>
+<li>
+<p><code>&amp;&amp;</code> 有短路: 第一个条件不成立, 后面就不算了</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="演示--奇偶判断">演示: 奇偶判断 </h5>
+<hr>
+<p><mark>现场演示</mark>: 输入一个整数, 输出它是奇数还是偶数</p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 除了 <code>% 2</code> 的余数, 第 3 周学的<mark>位运算</mark>也能判断 (最低位是 0 还是 1)。两种方法都想一想, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="演示--奇偶判断--参考代码">演示: 奇偶判断 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>              <span class="token comment">/* 方法一: 取余 */</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是偶数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是奇数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">&</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>            <span class="token comment">/* 方法二: 位运算 */</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是偶数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是奇数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>现场边写边讲</mark>: ① 先用刚学的 <code>%</code> 写直白版; ② 问: 第 3 周的<mark>位运算</mark>能不能判?——最低位 <code>n &amp; 1</code> 试写一遍</p>
+<ul>
+<li>
+<p><code>n % 2</code>: 偶数除以 2 余 0——最直白</p>
+
+</li>
+<li>
+<p><code>n &amp; 1</code>: 二进制最低位, 偶数必为 0——位运算的第一次实战</p>
+
+</li>
+<li>
+<p>两种方法结果相同: 位运算往往<mark>更快</mark>, 但 <code>% 2</code> 更易读——先写对、再谈快</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="课堂习题">课堂习题 </h5>
+<hr>
+<p>两道题, 限时 10 分钟, 答案见讲义:</p>
 <ol>
 <li><mark>正负判定</mark>: 输入一个整数, 输出"正数 / 负数 / 零"三个分支 (if/else 嵌套)
 </li>
-<li><mark>三角形判定</mark>: 输入三边 <code>a b c</code>, 判断能否构成三角形 (<mark>任意两边之和大于第三边</mark>, <code>&amp;&amp;</code> 实战)。例: <code>3 4 5</code> → 能; <code>1 2 3</code> → 不能 (边界!)
-</li>
 <li><mark>水仙花数判定</mark>: 输入一个 3 位整数, 判断是否水仙花数 (各位立方和等于本身, 如 <code>153 = 1³+5³+3³</code>)——复习第 3 周的数字拆分
-</li>
-<li>(选做) <mark>奇偶判断</mark>: 用两种方法判断奇偶——<code>n % 2</code> 和第 3 周的位运算 <code>n &amp; 1</code>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>i &lt; j &lt; k</code> 能判断 j 是否在 i 和 k 之间吗？正确的写法是什么？
@@ -797,7 +875,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="31" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
