@@ -362,25 +362,19 @@ int r = (int)(x + 0.5);      /* r = 4 */
 <!-- slide data-notes="" -->
 
 
-##### 编码实践: mol
+##### 编码实践: 数字拆分
 
 ---
 
-$6$ 克氧气的分子数是多少?
+输入一个==4 位整数== `N`, 输出两样东西: 
 
-<div style="font-size:1.1em;">
+- 各位数字之==和==
 
-$Q = 6 / 32 \times 6.02 \times 10^{23}$
+- ==反转==后的数
 
-</div>
+例: 输入 `1234` → 输出 `和 = 10`、`反转 = 4321`
 
-两种格式输出, 结果均用<mark>科学计数法</mark>表示: 
-
-- 第一行: 小数点后保留 $3$ 位 → `%.3e`
-
-- 第二行: 保留 $5$ 位有效数字 → `%.5g`
-
-<span class="yellow">:fa-weixin:</span> 提醒: `6` 和 `32` 都是整数——直接写 `6 / 32` 会发生什么? (上节课 `9/4` 的坑!) 先自己写, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 提示: `/` 取高位、`%` 取低位——千位 = `n / 1000`, 百位呢? 反转数可以用 `%d%d%d%d` 打印四个一位数, 也可以重新组装。先自己写, 再翻页看参考代码
 
 ---
 
@@ -388,7 +382,7 @@ $Q = 6 / 32 \times 6.02 \times 10^{23}$
 <!-- slide data-notes="" -->
 
 
-##### 编码实践: mol (参考代码)
+##### 编码实践: 数字拆分 (参考代码)
 
 ---
 
@@ -397,19 +391,16 @@ $Q = 6 / 32 \times 6.02 \times 10^{23}$
 <div style="flex:1.25;font-size:0.7em;">
 
 ```C
-/*
- * mol.c(6克氧气的分子数)
- */
 #include <stdio.h>
-
 int main(void) {
-    const double MOL = 6.02E23;
-    const int GRAM_PER_MOL = 32;
-    int mass = 6;
-
-    double quantity = mass * 1.0 /GRAM_PER_MOL * MOL;
-
-    printf("quantity = %.3e\nquantity = %.5g\n", quantity, quantity);
+    int n;
+    scanf("%d", &n);
+    int qian = n / 1000;
+    int bai  = n / 100 % 10;
+    int shi  = n / 10 % 10;
+    int ge   = n % 10;
+    printf("和 = %d\n", qian + bai + shi + ge);
+    printf("反转 = %d%d%d%d\n", ge, shi, bai, qian);
     return 0;
 }
 ```
@@ -418,11 +409,11 @@ int main(void) {
 
 <div style="flex:1;">
 
-- `mass * 1.0 / GRAM_PER_MOL`: 乘上 `1.0` 把运算==提升为浮点==, 避开整数除法的坑
+- 千位 `n / 1000`; 百位 `n / 100 % 10`; 十位 `n / 10 % 10`; 个位 `n % 10`——==先除后模==, 一层层剥
 
-- `%.3e` 与 `%.5g` 分别控制小数位与有效数字
+- 反转数两种做法: `%d%d%d%d` 直接排四个一位数 (注意 `1000` 会打成 `0001`), 或 `ge*1000 + shi*100 + bai*10 + qian` 重新组装
 
-- 运行结果: `quantity = 1.129e+23` 与 `1.1288e+23`
+- 输入 `1234` → `和 = 10`、`反转 = 4321`
 
 </div>
 
@@ -443,7 +434,7 @@ int main(void) {
 
 3. ==平均分==: 输入三门课成绩 (整数), 输出平均分==保留两位小数==。例: 输入 `85 92 78`, 输出 `85.00`
 
-4. (选做) ==四舍五入==: 输入一个 `double`, 输出四舍五入后的整数; 负数也试试
+4. (选做) ==XOR 交换==: 用位运算交换两个变量的值, ==不用临时变量==; 试试两个变量相同会怎样
 
 ---
 <!-- slide data-notes="" -->
