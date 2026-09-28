@@ -235,78 +235,44 @@ document.addEventListener("DOMContentLoaded", function () {
 </table>
 </div>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="子表达式求值顺序">子表达式求值顺序 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="子表达式求值顺序与未定义行为">子表达式求值顺序与未定义行为 </h5>
 <hr>
 <p>表达式的值可能取决于<mark>子表达式的计算顺序</mark>——C 没有定义这个先后 (逻辑与或、条件、逗号运算符除外)</p>
-<ul>
-<li>
-<p><code>(a + b) * (c - d)</code>: 先算哪个括号? 不确定; 大多数表达式结果相同, 但子表达式<mark>修改操作数</mark>时就不成立:</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-c <span class="token operator">=</span> <span class="token punctuation">(</span>b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
-<p>第二条语句的执行结果是未定义的</p>
-
-</li>
-</ul>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 避免在表达式中访问变量值的同时也修改该变量的值</p>
-<hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="子表达式求值顺序">子表达式求值顺序 </h5>
-<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.1;">
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 为防止出现问题, 最好避免在子表达式中使用赋值运算符</p>
-<p>相反, 建议使用一串分离的赋值表达式, 这样 <code>c</code>的值是确定的, 将始终为 <code>6</code></p>
-<p>除了赋值运算符之外, 唯一修改其操作数的运算符是自增和自减</p>
-<p>很自然地认为<code>j</code>被赋值为<code>4</code>. 然而, <code>j</code>也可以被赋值为<code>6</code>——求值顺序不同, 结果不同</p>
-</div>
-<div style="flex:1;font-size:0.75em;">
+<div style="flex:1.1;font-size:0.75em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
-a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-c <span class="token operator">=</span> b <span class="token operator">-</span> a<span class="token punctuation">;</span></code></pre>
+c <span class="token operator">=</span> <span class="token punctuation">(</span>b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* c 是几? */</span></code></pre>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-j <span class="token operator">=</span> i <span class="token operator">*</span> i<span class="token operator">++</span><span class="token punctuation">;</span></code></pre>
+j <span class="token operator">=</span> i <span class="token operator">*</span> i<span class="token operator">++</span><span class="token punctuation">;</span>                  <span class="token comment">/* j 是 4 还是 6? */</span></code></pre>
 </div>
-</div>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="未定义的行为">未定义的行为 </h5>
-<hr>
-<p><code>c = (b = a + 2) - (a = 1);</code>和<code>j = i * i++;</code>均会产生未定义的行为</p>
-<p>未定义行为的可能影响:</p>
+<div style="flex:1;">
 <ul>
 <li>
-<p>当使用不同的编译器编译时, 程序运行的行为可能会有所不同</p>
+<p>同一表达式里<mark>既读又改</mark>同一变量, 产生<mark>未定义的行为</mark>: 结果随编译器不同而不同</p>
 
 </li>
 <li>
-<p>该程序可能一开始就无法编译</p>
+<p>后果可能是: 结果不同 / 崩溃 / <mark>\"看起来正常\"</mark>——第三种最危险, 换个环境就翻车</p>
 
 </li>
 <li>
-<p>能编译但无法运行</p>
-
-</li>
-<li>
-<p>能运行, 但程序可能会崩溃、行为不正常或产生无意义的结果</p>
+<p>规避: <mark>拆成多条语句</mark>, 每句只做一件事</p>
 
 </li>
 </ul>
-<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 应避免未定义的行为</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+c <span class="token operator">=</span> b <span class="token operator">-</span> a<span class="token punctuation">;</span>      <span class="token comment">/* c 确定是 6 */</span></code></pre>
+</div>
+</div>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 避免在表达式中<mark>访问变量值的同时也修改该变量</mark></p>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="副作用-side-effects">副作用(side effects) </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="副作用-side-effects">副作用(side effects) </h5>
 <hr>
-<p>修改操作数的运算符被称为具有 <mark>副作用</mark> , 如 <code>i + j</code> 没有 副作用</p>
+<p>修改操作数的运算符被称为具有 <mark>副作用</mark>; <code>i + j</code> 没有副作用, 而 <mark>赋值、自增自减</mark>有</p>
 <ul>
 <li>
-<p>简单的赋值运算符有副作用: 它修改了左操作数, 表达式 <code>i = 0</code> 的结果为 <code>0</code>, 它的副作用是将 <code>0</code> 赋值给<code>i</code></p>
-
-</li>
-<li>
-<p>允许 <code>v</code> 类型值的地方都可以进行形如 <code>v = e</code> 的赋值:</p>
+<p>表达式 <code>i = 0</code> 的<mark>结果</mark>是 <code>0</code>, 副作用是把 <code>0</code> 存进 <code>i</code></p>
 
 </li>
 </ul>
@@ -314,9 +280,15 @@ j <span class="token operator">=</span> i <span class="token operator">*</span> 
 k <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">/* prints "1 1 2" */</span></code></pre>
-<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>嵌入式赋值</mark> 会使程序难以阅读, 容易隐藏错误</p>
+<ul>
+<li>
+<p>这种<mark>嵌入式赋值</mark>语法合法, 但难读、易藏错——不推荐</p>
+
+</li>
+</ul>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 赋值表达式也有值——这正是 <code>if (x = 5)</code> 那个 bug 的根源 (第 4 周就会遇到)</p>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="左值">左值 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="左值">左值 </h5>
 <hr>
 <p>赋值运算符需要一个 <mark>左值</mark> 作为其左操作数</p>
 <p><mark>左值</mark> 表示存储在计算机内存中的对象, 而不是常量或计算结果</p>
@@ -335,7 +307,7 @@ i <span class="token operator">+</span> j <span class="token operator">=</span> 
 <span class="token operator">-</span>i <span class="token operator">=</span> j<span class="token punctuation">;</span>      <span class="token comment">/*** WRONG ***/</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型转换---隐式转换">类型转换 - 隐式转换 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="类型转换---隐式转换">类型转换 - 隐式转换 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.05;">
@@ -361,7 +333,7 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="演示--为什么--f-打出了奇怪的数">演示: 为什么 %f 打出了奇怪的数? </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="演示--为什么--f-打出了奇怪的数">演示: 为什么 %f 打出了奇怪的数? </h5>
 <hr>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
@@ -390,7 +362,7 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
 <hr>
 <p><mark>强制转换</mark>: 显式地把值转换为目标类型</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 0.5 */</span>
@@ -408,7 +380,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 <p>--</p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="编码实践--mol">编码实践: mol </h5>
 <hr>
 <p>\(6\) 克氧气的分子数是多少?</p>
 <div style="font-size:1.1em;">
@@ -427,7 +399,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </ul>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提醒: <code>6</code> 和 <code>32</code> 都是整数——直接写 <code>6 / 32</code> 会发生什么? (上节课 <code>9/4</code> 的坑!) 先自己写, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--mol--参考代码">编码实践: mol (参考代码) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="编码实践--mol--参考代码">编码实践: mol (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -465,7 +437,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
@@ -476,7 +448,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="13" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
