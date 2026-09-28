@@ -201,8 +201,6 @@ printf("%d %d %d\n", i, j, k);
 
 - 这种==嵌入式赋值==语法合法, 但难读、易藏错——不推荐
 
-<span class="yellow">:fa-weixin:</span> 赋值表达式也有值——这正是 `if (x = 5)` 那个 bug 的根源 (第 4 周就会遇到)
-
 ---
 
 
