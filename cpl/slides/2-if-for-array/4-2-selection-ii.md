@@ -63,7 +63,7 @@ presentation:
 
 - 布尔值与闰年化简
 
-- 案例: 经纪人佣金与法律日期
+- 案例: 经纪人佣金与月份天数
 
 ---
 
@@ -650,41 +650,35 @@ switch (grade) {
 <!-- slide data-notes="" -->
 
 
-##### 程序: 以法律形式打印日期
+##### 程序: 某年某月有多少天
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.5;font-size:0.5em;">
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void)
 {
-  int month, day, year;
-  printf("Enter date (mm/dd/yy): ");
-  scanf("%d /%d /%d", &month, &day, &year);
-  printf("Dated this %d", day);
-  switch (day) {
-    case 1: case 21: case 31:
-      printf("st"); break;
-    case 2: case 22:
-      printf("nd"); break;
-    case 3: case 23:
-      printf("rd"); break;
-    default: printf("th"); break;
-  }
-  printf(" day of ");
+  int year, month;
+  printf("请输入年份和月份: ");
+  scanf("%d%d", &year, &month);
+
   switch (month) {
-  case 1:  printf("January");   break;  case 2:  printf("February");  break;
-  case 3:  printf("March");     break;  case 4:  printf("April");     break;
-  case 5:  printf("May");       break;  case 6:  printf("June");      break;
-  case 7:  printf("July");      break;  case 8:  printf("August");    break;
-  case 9:  printf("September"); break;  case 10: printf("October");   break;
-  case 11: printf("November");  break;  case 12: printf("December");  break;
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+      printf("31 天\n"); break;
+    case 4: case 6: case 9: case 11:
+      printf("30 天\n"); break;
+    case 2:
+      printf("%d 天\n",
+             (year % 4 == 0 && year % 100 != 0)
+               || year % 400 == 0 ? 29 : 28);
+      break;
+    default:
+      printf("非法月份\n");
   }
-  printf(", 20%.2d.\n", year);
   return 0;
 }
 ```
@@ -693,18 +687,13 @@ int main(void)
 
 <div style="flex:1;">
 
-合同和其他法律文件通常按以下方式注明日期: 
+`monthdays.c`: 输入年份和月份, 输出该月天数
 
-`Dated this __________ day of __________ , 20__ .`
+- 大月 (31 天) 七个 `case` ==共用一个语句==——多 case 标签的典型用法
 
-`date.c`程序将以这种形式显示日期: 
+- 2 月用==条件表达式== + ==闰年判断== (刚讲过的 `leap` 条件直接复用)
 
-Enter date (mm/dd/yy): <u>7/19/14</u>
-Dated this 19th day of July, 2014.
-
-该程序使用`switch`语句将`"th"`(或`"st"`或`"nd"`或`"rd"`)添加到日期, 并将月份打印为单词而不是数字
-
-
+- 测试: `2024 2` → 29; `1900 2` → 28; `2000 2` → 29; `2026 9` → 30; `13` → 非法月份
 
 </div>
 
