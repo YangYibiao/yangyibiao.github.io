@@ -982,12 +982,14 @@ int main(void) {
 int main(void) {
     int n = 0;
     scanf("%d", &n);
-    if (n % 2 == 0)              /* 方法一: 取余 */
+    /* 方法一: 取余 */
+    if (n % 2 == 0)
         printf("%d 是偶数\n", n);
     else
         printf("%d 是奇数\n", n);
 
-    if ((n & 1) == 0)            /* 方法二: 位运算 */
+    /* 方法二: 位运算 */
+    if ((n & 1) == 0)
         printf("%d 是偶数\n", n);
     else
         printf("%d 是奇数\n", n);
