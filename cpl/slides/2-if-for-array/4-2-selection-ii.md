@@ -587,6 +587,8 @@ switch (grade) {
 
 <div style="flex:1.2;font-size:0.6em;">
 
+==没有 break 的版本==: 
+
 ```C{.line-numbers}
 switch (grade) {
   case 4:  printf("Excellent");
@@ -600,23 +602,13 @@ switch (grade) {
 
 </div>
 
-<div style="flex:1;">
-
-执行`break`语句会导致程序从`switch`语句中 ==中断==, 在 `switch` 之后的下一条语句继续执行
-
-`switch`语句实际上是 ==计算跳转== 的一种形式
-
-- 计算控制表达式时, 控制跳转到与switch表达式的值匹配的 case 标签
-
-- case 标签是一个标记, 表示switch中的一个位置
-
-没有 `break`(或其他跳转语句), 控制将流入下一个 `case`:
-
-如果`grade`的值为 `3`, 则打印的消息为 `GoodAveragePoorFailingIllegal grade`
-
 </div>
 
-</div>
+- 执行 `break` 会让程序从 `switch` 中==中断==, 继续执行 `switch` 之后的下一条语句
+
+- `switch` 本质是==计算跳转==: 控制跳到与表达式匹配的 `case` 标签; `case` 标签只是"入口标记"
+
+- 没有 `break`(或其他跳转语句), 控制会==流入下一个 case==: `grade` 为 `3` 时打印 `GoodAveragePoorFailingIllegal grade`
 
 <!-- slide data-notes="" -->
 
