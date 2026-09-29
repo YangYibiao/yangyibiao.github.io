@@ -131,11 +131,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -219,11 +215,7 @@ scanf调用中的示例:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 

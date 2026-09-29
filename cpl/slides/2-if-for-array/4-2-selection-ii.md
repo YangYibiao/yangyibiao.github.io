@@ -375,10 +375,8 @@ i = 1;
 j = 2;
 k = i > j ? i : j;          /* k is now 2 */
 k = (i >= 0 ? i : 0) + j;   /* k is now 3 */
-```
 
-```C
-printf("%d\n", i > j ? i : j);
+printf("%d\n", i > j ? i : j);   /* prints 2 */
 ```
 
 </div>
@@ -393,7 +391,7 @@ printf("%d\n", i > j ? i : j);
 
 条件表达式常用于返回语句: `return i > j ? i : j;`
 
-printf函数调用有时可以从条件表达式中受益:
+printf 的实参也可以直接写条件表达式 (如左最后一行)
 
 
 

@@ -90,9 +90,7 @@ struct {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -156,9 +154,7 @@ struct {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -227,9 +223,7 @@ struct {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -292,9 +286,7 @@ scanf("%d", &part1.on_hand);
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -427,9 +419,7 @@ part2 = part1; /* legal; both parts have the same type */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -559,9 +549,7 @@ part1 = build_part(528, "Disk drive", 10);
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -633,9 +621,7 @@ struct student {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-</div>
 
 <div style="flex:1;">
 
@@ -742,9 +728,7 @@ struct part inventory[100] =
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-</div>
 
 <div style="flex:1;">
 

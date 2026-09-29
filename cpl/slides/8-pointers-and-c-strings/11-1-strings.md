@@ -438,11 +438,7 @@ m和p可以组合使用:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -508,11 +504,7 @@ fgets(line, sizeof(line), stdin);   /* 正确: 带上限长度 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 

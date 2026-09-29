@@ -32,7 +32,22 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script></head><body for="html-export" data-presentation-mode="">
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style></head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -60,18 +75,19 @@
     <div class="reveal">
       <div class="slides">
         <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
-<h1 id="c语言程序设计基础">C语言程序设计基础 </h1>
+<h1 id="智能程序设计c语言">C语言程序设计基础 </h1>
 <hr class="width50 center">
-<h2 id="loops-more-examples">Loops (More examples) </h2>
+<h2 id="loopsmoreexamples">Loops (More examples) </h2>
 <div class="bottom8"></div>
-<h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
+<h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-</section><section data-notes="" lineno="50" class="slide " data-source-line="50" data-h="1" data-v="0"><h5 id="overview">Overview </h5>
+</section><section data-notes="" lineno="66" class="slide " data-source-line="66" data-h="1" data-v="0"><h5 id="overview">Overview </h5>
 <hr>
-<h3 id="font-color–redloops-more-examplesfont"><font color="red">Loops (More Examples)</font> </h3>
+<p>### <font color = red>Loops (More Examples)</font></p>
 <br>
-<h3 id="font-color–bluemultidimensional-arrays-多维数组font"><font color="blue">Multidimensional Arrays (多维数组)</font> </h3>
-</section><section><section data-notes="" lineno="64" class="slide " data-source-line="64" data-h="2" data-v="0"><h5 id="一维数组">一维数组 </h5>
+<p>### <font color = blue>Multidimensional Arrays (多维数组)</font></p>
+<hr>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="一维数组">一维数组 </h5>
 <hr>
 <p>数组是包含多个数据值的数据结构, 每个数据值具有相同类型.</p>
 <p>数据值称为元素, 可以根据它们在数组中的位置选择出来.</p>
@@ -80,61 +96,64 @@
 <table>
 <thead>
 <tr>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
-<th style="text-align:left"> </th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
+<th>&emsp;</th>
 </tr>
 </thead>
+<tbody>
+</tbody>
 </table>
 </div>
 <hr>
-</section><section vertical="true" data-notes="" lineno="86" class="slide " data-source-line="86" data-h="2" data-v="1"><h5 id="数组下标">数组下标 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="数组下标">数组下标 </h5>
 <hr>
 <p>要访问数组元素, 可在数组名后加上一个方括号括起来的整数值.</p>
 <p>这被称为对数组取下标或进行索引.</p>
-<p>长度为n的数组元素的索引从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mtext>–</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">n – 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord mathnormal">n</span><span class="mord">–1</span></span></span></span>.</p>
-<p>若数组a长度为<code>10</code>, 元素依次可标记为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mi>a</mi><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>a</mi><mo stretchy="false">[</mo><mn>9</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[0], a[1], ..., a[9]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">9</span><span class="mclose">]</span></span></span></span>:</p>
+<p>长度为n的数组元素的索引从\(0\)到\(n – 1\).</p>
+<p>若数组a长度为<code>10</code>, 元素依次可标记为\(a[0], a[1], ..., a[9]\):</p>
 <div class="row1-2-column1-10-fullborder">
+<!-- <div class="fullborder"> -->
 <table>
 <thead>
 <tr>
-<th style="text-align:center">a[0]</th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">2</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">3</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>4</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[4]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">4</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>5</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[5]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">5</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>6</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[6]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">6</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>7</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[7]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>8</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[8]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">8</span><span class="mclose">]</span></span></span></span></th>
-<th style="text-align:center"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">[</mo><mn>9</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">a[9]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">[</span><span class="mord">9</span><span class="mclose">]</span></span></span></span></th>
+<th>a[0]</th>
+<th>\(a[1]\)</th>
+<th>\(a[2]\)</th>
+<th>\(a[3]\)</th>
+<th>\(a[4]\)</th>
+<th>\(a[5]\)</th>
+<th>\(a[6]\)</th>
+<th>\(a[7]\)</th>
+<th>\(a[8]\)</th>
+<th>\(a[9]\)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 </tbody>
 </table>
 </div>
 <hr>
-</section></section><section><section data-notes="" lineno="111" class="slide " data-source-line="111" data-h="3" data-v="0"><h5 id="多维数组">多维数组 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="多维数组">多维数组 </h5>
 <hr>
 <p>数组可以有任意维数</p>
 <p>下面的声明创建了一个二维数组(数学术语称为矩阵):</p>
@@ -142,115 +161,173 @@
 <p>数组m有5行9列, 行和列下标都从0开始索引:</p>
 <div class="row1-5-column2-10-fullborder">
 <table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">0</th>
-<th style="text-align:center">1</th>
-<th style="text-align:center">2</th>
-<th style="text-align:center">3</th>
-<th style="text-align:center">4</th>
-<th style="text-align:center">5</th>
-<th style="text-align:center">6</th>
-<th style="text-align:center">7</th>
-<th style="text-align:center">8</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
 </tr>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>:-:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
 </tr>
 <tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>0</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 <tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>1</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 <tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>2</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+</tr>
+<tr>
+<td>4</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section><section vertical="true" data-notes="" lineno="139" class="slide " data-source-line="139" data-h="3" data-v="1"><h5 id="多维数组-1">多维数组 </h5>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="多维数组">多维数组 </h5>
 <hr>
 <p>为了访问i行j列的元素, 需要写成<code>m[i][j]</code>的形式.</p>
 <p>表达式<code>m[i]</code>指定数组m第i行, 而<code>m[i][j]</code>选择该行中第j个元素.</p>
 <p>不要把<code>m[i][j]</code>写成<code>m[i,j]</code></p>
 <p>这里, C将逗号视为 <mark>逗号运算符</mark>, 因此<code>m[i,j]</code>等同于<code>m[j]</code></p>
-</section><section vertical="true" data-notes="" lineno="157" class="slide " data-source-line="157" data-h="3" data-v="2"><h5 id="多维数组-2">多维数组 </h5>
 <hr>
-<p>虽然我们以表格形式显示二维数组, 但这并不是它们在计算机内存中实际存储的方式.<br>
-行主序存储数组, 从第 0 行开始, 接着第 1 行, 依此类推.<br>
-数组m的存储方式:</p>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="多维数组">多维数组 </h5>
+<hr>
+<p>虽然我们以表格形式显示二维数组, 但这并不是它们在计算机内存中实际存储的方式. 行主序存储数组, 从第 0 行开始, 接着第 1 行, 依此类推. 数组m的存储方式:</p>
 <div class="top-2">
-    <img src="figs/8-4.png" width="400px">
+    <img src="figs/8-4.png" width=400px>
 </div>
 <p>注意：此处图片中<code>m[0,0]</code>仅因为展示方便，实际应为<code>m[0][0]</code>等</p>
+<!-- <div class="row0-2-column2-11-fullborder">
+<table>
+<tbody>
+<tr>
+<td></td>
+<td>></td>
+<td>></td>
+<td>row0</td>
+<td>></td>
+<td>></td>
+<td>row1</td>
+<td>...</td>
+<td>></td>
+<td>></td>
+<td>row4</td>
+</tr>
+<tr>
+<td>:-:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+</tr>
+<tr>
+<td></td>
+<td>m[0][0]</td>
+<td>...</td>
+<td>m[0][8]</td>
+<td>m[1][0]</td>
+<td>...</td>
+<td>m[1][8]</td>
+<td>...</td>
+<td>m[4][0]</td>
+<td>...</td>
+<td>m[4][8]</td>
+</tr>
+</tbody>
+</table>
+</div> -->
 <hr>
-</section></section><section data-notes="" lineno="186" class="slide " data-source-line="186" data-h="4" data-v="0"><h5 id="多维数组-3">多维数组 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="多维数组">多维数组 </h5>
 <hr>
 <ul>
-<li>使用嵌套for循环处理多维数组.</li>
+<li>
+<p>使用嵌套for循环处理多维数组.</p>
+
+</li>
 </ul>
 <p>示例：单位矩阵的数组的初始化: <mark>嵌套的for循环</mark></p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token number">10</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
 
 <span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 存放在堆中</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> row <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> row <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> row<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> col <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> col<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> row <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> row <span class="token operator"><</span> N<span class="token punctuation">;</span> row<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> col <span class="token operator"><</span> N<span class="token punctuation">;</span> col<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>row <span class="token operator">==</span> col<span class="token punctuation">)</span>
         ident<span class="token punctuation">[</span>row<span class="token punctuation">]</span><span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
       <span class="token keyword keyword-else">else</span>
@@ -258,162 +335,177 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section><section data-notes="" lineno="221" class="slide " data-source-line="221" data-h="5" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
+</code></pre>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>通过嵌套一维初始化式的方法可以产生二维数组的初始化式:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>高维数组的初始化式以类似的方式构造.</p>
+                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>高维数组的初始化式以类似的方式构造.</p>
 <p>C 提供了多种方法来缩写多维数组的初始化式</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="243" class="slide " data-source-line="243" data-h="5" data-v="1"><h5 id="多维数组初始化-1">多维数组初始化 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>如果初始值化式不足以填充整个多维数组, 则剩余元素赋值为0.</p>
 <p>下面初始化式只填充了数组m的前三行; 后两行将赋值为0:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="262" class="slide " data-source-line="262" data-h="5" data-v="2"><h5 id="多维数组初始化-2">多维数组初始化 </h5>
+                <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>如果内层列表的长度不足以填满数组的一行, 则该行中的剩余元素将初始化为<code>0</code>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="281" class="slide " data-source-line="281" data-h="5" data-v="3"><h5 id="多维数组初始化-3">多维数组初始化 </h5>
+                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>内层的花括号可以 <mark>省略</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
                <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
                <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
                <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
-               <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>一旦编译器发现数值足以填满一行, 它就会开始填充下一行.</p>
+               <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>一旦编译器发现数值足以填满一行, 它就会开始填充下一行.</p>
 <p>多维数组中省略内层大括号有风险, 额外的元素或缺失的元素会影响剩下的初始化式, 省略的花括号会引起编译警告</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="305" class="slide " data-source-line="305" data-h="5" data-v="4"><h5 id="多维数组初始化-4">多维数组初始化 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>C99 的指定初始化式也适用于多维数组.</p>
 <p>创建2×2单位矩阵:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>像通常一样, 所有未指定值的元素都默认为0.</p>
-</section></section><section><section data-notes="" lineno="324" class="slide " data-source-line="324" data-h="6" data-v="0"><h5 id="常量数组">常量数组 </h5>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>像通常一样, 所有未指定值的元素都默认为0.</p>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="常量数组">常量数组 </h5>
 <hr>
 <p>在声明数组的最开始处加上 <mark>const</mark> 可以使数组成为 <mark>常量</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
-  <span class="token punctuation">{</span><span class="token char">'0'</span><span class="token punctuation">,</span> <span class="token char">'1'</span><span class="token punctuation">,</span> <span class="token char">'2'</span><span class="token punctuation">,</span> <span class="token char">'3'</span><span class="token punctuation">,</span> <span class="token char">'4'</span><span class="token punctuation">,</span> <span class="token char">'5'</span><span class="token punctuation">,</span> <span class="token char">'6'</span><span class="token punctuation">,</span> <span class="token char">'7'</span><span class="token punctuation">,</span> <span class="token char">'8'</span><span class="token punctuation">,</span> <span class="token char">'9'</span><span class="token punctuation">,</span>
-   <span class="token char">'A'</span><span class="token punctuation">,</span> <span class="token char">'B'</span><span class="token punctuation">,</span> <span class="token char">'C'</span><span class="token punctuation">,</span> <span class="token char">'D'</span><span class="token punctuation">,</span> <span class="token char">'E'</span><span class="token punctuation">,</span> <span class="token char">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>程序不应修改声明为const的数组.</p>
+  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'5'</span><span class="token punctuation">,</span> <span class="token string">'6'</span><span class="token punctuation">,</span> <span class="token string">'7'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span>
+   <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>程序不应修改声明为const的数组.</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="342" class="slide " data-source-line="342" data-h="6" data-v="1"><h5 id="常量数组-1">常量数组 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="常量数组">常量数组 </h5>
 <hr>
 <p>将数组声明为const的优点:</p>
 <ul>
 <li>
 <p>表明程序不会更改数组.</p>
+
 </li>
 <li>
 <p>帮助编译器捕获错误.</p>
+
 </li>
 <li>
 <p>const不仅限于数组, 也可用于任何别的变量.</p>
+
 </li>
 <li>
 <p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
+
 </li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="361" class="slide " data-source-line="361" data-h="6" data-v="2"><h5 id="coding">Coding </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="coding">Coding </h5>
 <hr>
-<h2 id="markgame-of-lifec-ensp-mergec-ensp-insertion-sortc-ensp-bubble-sortc"><mark>game-of-life.c   merge.c   insertion-sort.c   bubble-sort.c </mark></h2>
-</section><section vertical="true" data-notes="" lineno="370" class="slide " data-source-line="370" data-h="6" data-v="3"><hr>
-<h5 id="conways-game-of-life">Conway’s Game of Life </h5>
+<p>## <mark>game-of-life.c &ensp; merge.c &ensp; insertion-sort.c &ensp; bubble-sort.c</p>
 <hr>
-<p><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway’s Game of Life @ wiki</a></p>
-<p><img src="figs/Conway.jpg" alt=""></p>
-<h4 id="john-horton-conway-1937-sim-2020">John Horton Conway (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1937</mn><mo>∼</mo><mn>2020</mn></mrow><annotation encoding="application/x-tex">1937 \sim 2020</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1937</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2020</span></span></span></span>) </h4>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+<p>##### Conway's Game of Life</p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="387" class="slide " data-source-line="387" data-h="6" data-v="4"><h5 id="conways-game-of-life-1">Conway’s Game of Life </h5>
+<p><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life @ wiki</a> !<a href="figs/Conway.jpg">w:500</a> #### John Horton Conway (\(1937 \sim 2020\))</p>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="conway-s-game-of-life">Conway's Game of Life </h5>
 <hr>
 <p><a href="https://playgameoflife.com/">playgameoflife.com (Cellular Automata; 元胞自动机)</a></p>
 <ul>
 <li>
-<p>Any <font color="blue"><strong>live</strong></font> cell with two or three live neighbours survives.</p>
+<p>Any <font color = blue><strong>live</strong></font> cell with two or three live neighbours survives.</p>
+
 </li>
 <li>
-<p>Any <font color="red"><strong>dead</strong></font> cell with three live neighbours becomes a live cell.<br>
-<br></p>
+<p>Any <font color = red><strong>dead</strong></font> cell with three live neighbours becomes a live cell.</p>
+
+</li>
+</ul>
+<br>
+<ul>
+<li>
+<p>All other <font color = blue><strong>live</strong></font> cells die in the next generation.</p>
+
 </li>
 <li>
-<p>All other <font color="blue"><strong>live</strong></font> cells die in the next generation.</p>
-</li>
-<li>
-<p>All other <font color="red"><strong>dead</strong></font> cells stay dead.</p>
+<p>All other <font color = red><strong>dead</strong></font> cells stay dead.</p>
+
 </li>
 </ul>
 <p>游戏规则</p>
 <ul>
-<li>任何活细胞周围有2-3个活细胞则存活</li>
-<li>任何死细胞周围有3个活细胞则复活</li>
-<li>其他情况下细胞死亡</li>
+<li>
+<p>任何活细胞周围有2-3个活细胞则存活</p>
+
+</li>
+<li>
+<p>任何死细胞周围有3个活细胞则复活</p>
+
+</li>
+<li>
+<p>其他情况下细胞死亡</p>
+
+</li>
 </ul>
 <hr>
-</section><section vertical="true" data-notes="" lineno="410" class="slide " data-source-line="410" data-h="6" data-v="5"><h5 id="conways-game-of-life-2">Conway’s Game of Life </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="conway-s-game-of-life">Conway's Game of Life </h5>
 <hr>
-<p><img src="figs/Gospers-glider-gun.gif" alt="">   <img src="figs/breeder.gif" alt=""></p>
+<p>!<a href="figs/Gospers-glider-gun.gif">left w:600</a> &ensp; !<a href="figs/breeder.gif">right w:600</a></p>
 <hr>
-</section><section vertical="true" data-notes="" lineno="422" class="slide " data-source-line="422" data-h="6" data-v="6"><h5></h5>
-<hr>
-<video controls="" width="1100">
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+<!-- <video controls width = "1100"> <source src="videos/Conway-Game-of-Life.mp4" type = "video/mp4"> </video> -->
+<video controls width="1100">
   <source src="videos/Conway-Game-of-Life.mp4" type="video/mp4">
-  您的浏览器不支持视频播放，请
-  [下载视频](videos/Conway-Game-of-Life.mp4) 观看。
+<p>您的浏览器不支持视频播放，请 <a href="videos/Conway-Game-of-Life.mp4">下载视频</a> 观看。</p>
 </video>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="merge---mark-merge-c--mark">Merge (<mark>merge.c</mark>) </h5>
 <hr>
-</section><section vertical="true" data-notes="" lineno="439" class="slide " data-source-line="439" data-h="6" data-v="7"><h5 id="merge-markmergecmark">Merge (<mark>merge.c</mark>) </h5>
+<p>!<a href="figs/merge-arrays.png">w:1200</a></p>
 <hr>
-<p><img src="figs/merge-arrays.png" alt=""></p>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="merge---mark-merge-c--mark">Merge (<mark>merge.c</mark>) </h5>
 <hr>
-</section><section vertical="true" data-notes="" lineno="451" class="slide " data-source-line="451" data-h="6" data-v="8"><h5 id="merge-markmergecmark-1">Merge (<mark>merge.c</mark>) </h5>
+<p>!<a href="figs/mergesort.png">bg w:700</a></p>
 <hr>
-<p><img src="figs/mergesort.png" alt=""></p>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="merge---mark-merge-c--mark">Merge (<mark>merge.c</mark>) </h5>
 <hr>
-</section><section vertical="true" data-notes="" lineno="463" class="slide " data-source-line="463" data-h="6" data-v="9"><h5 id="merge-markmergecmark-2">Merge (<mark>merge.c</mark>) </h5>
+<p>!<a href="figs/mergesort-animation.gif">bg w:1000</a></p>
 <hr>
-<p><img src="figs/mergesort-animation.gif" alt=""></p>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="insertion-sort">Insertion Sort </h5>
 <hr>
-</section><section vertical="true" data-notes="" lineno="474" class="slide " data-source-line="474" data-h="6" data-v="10"><h5 id="insertion-sort">Insertion Sort </h5>
+<p>!<a href="figs/insertion-sort-poker.png">w:600</a></p>
 <hr>
-<p><img src="figs/insertion-sort-poker.png" alt=""></p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="485" class="slide " data-source-line="485" data-h="6" data-v="11"><h5 id="insertion-sort-1">Insertion Sort </h5>
-<hr>
-<div class="top-2">
-  <img src="figs/hushi-poker.png" width="500px">
-</div>
-<hr>
-</section><section vertical="true" data-notes="" lineno="497" class="slide " data-source-line="497" data-h="6" data-v="12"><h5 id="bubble-sort">Bubble Sort </h5>
-<hr>
-<p><img src="figs/bubble-sort.png" alt=""></p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="508" class="slide " data-source-line="508" data-h="6" data-v="13"><h5 id="bubble-sort-1">Bubble Sort </h5>
-<hr>
-<p><img src="figs/bubble-sort-wiki.gif" alt=""></p>
-<hr>
-</section><section vertical="true" data-notes="" lineno="519" class="slide " data-source-line="519" data-h="6" data-v="14"><h5 id="-1"></h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="insertion-sort">Insertion Sort </h5>
 <hr>
 <div class="top-2">
-  <img src="figs/see-you.png" width="500px">
+  <img src="figs/hushi-poker.png" width=500px>
 </div>
-</section></section>
+<hr>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="bubble-sort">Bubble Sort </h5>
+<hr>
+<p>!<a href="figs/bubble-sort.png">w:900</a></p>
+<hr>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="bubble-sort">Bubble Sort </h5>
+<hr>
+<p>!<a href="figs/bubble-sort-wiki.gif">w:900</a></p>
+<hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
+<div class="top-2">
+  <img src="figs/see-you.png" width=500px>
+</div>
+</section>
       </div>
     </div>
     
@@ -423,7 +515,7 @@
     
     
       <script>
-        Reveal.initialize({"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
+        Reveal.initialize({"width":1280,"height":720,"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
       </script>
       
     

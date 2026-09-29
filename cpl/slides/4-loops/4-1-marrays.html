@@ -32,7 +32,22 @@
   document.addEventListener("DOMContentLoaded", function () {
     // your code here
   });
-</script></head><body for="html-export" data-presentation-mode="">
+</script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style></head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -59,24 +74,27 @@
 </div>
     <div class="reveal">
       <div class="slides">
-        <section data-notes="" lineno="30" class="slide " data-source-line="30" data-h="0" data-v="0"><div class="bottom20"></div>
-<h1 id="c语言程序设计基础">C语言程序设计基础 </h1>
+        <section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
+<h1 id="智能程序设计c语言">C语言程序设计基础 </h1>
 <hr class="width50 center">
 <h2 id="多维数组">多维数组 </h2>
 <div class="bottom8"></div>
-<h3 id="计算机学院-nbspnbsp-杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
+<h3 id="计算机学院nbspnbsp杨已彪">计算机学院 &nbsp;&nbsp; 杨已彪 </h3>
 <h4 id="yangyibiaonjueducnyangyibiaonjueducn"><a href="yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a> </h4>
-</section><section data-notes="" lineno="46" class="slide " data-source-line="46" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
+</section><section data-notes="" lineno="66" class="slide " data-source-line="66" data-h="1" data-v="0"><h5 id="提纲">提纲 </h5>
 <hr>
 <ul>
 <li>
 <p>多维数组</p>
+
 </li>
 <li>
 <p>C99中的变长数组</p>
+
 </li>
 </ul>
-</section><section><section data-notes="" lineno="59" class="slide " data-source-line="59" data-h="2" data-v="0"><h5 id="多维数组-1">多维数组 </h5>
+<hr>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="多维数组">多维数组 </h5>
 <hr>
 <p>数组可以有任意维数</p>
 <p>下面的声明创建了一个二维数组(数学术语称为矩阵):</p>
@@ -84,218 +102,290 @@
 <p>数组m有5行9列, 行和列下标都从0开始索引:</p>
 <div class="row1-5-column2-10-fullborder">
 <table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">0</th>
-<th style="text-align:center">1</th>
-<th style="text-align:center">2</th>
-<th style="text-align:center">3</th>
-<th style="text-align:center">4</th>
-<th style="text-align:center">5</th>
-<th style="text-align:center">6</th>
-<th style="text-align:center">7</th>
-<th style="text-align:center">8</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
 </tr>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>:-:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
 </tr>
 <tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>0</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 <tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>1</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 <tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
-<td style="text-align:center">‌</td>
+<td>2</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+</tr>
+<tr>
+<td>4</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
+<td>&zwnj;</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section><section vertical="true" data-notes="" lineno="87" class="slide " data-source-line="87" data-h="2" data-v="1"><h5 id="多维数组-2">多维数组 </h5>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="多维数组">多维数组 </h5>
 <hr>
 <p>为了访问i行j列的元素, 需要写成<code>m[i][j]</code>的形式.</p>
 <p>表达式<code>m[i]</code>指定数组m第i行, 而<code>m[i][j]</code>选择该行中第j个元素.</p>
 <p>不要把<code>m[i][j]</code>写成<code>m[i,j]</code></p>
 <p>这里, C将逗号视为 <mark>逗号运算符</mark>, 因此<code>m[i,j]</code>等同于<code>m[j]</code></p>
-</section><section vertical="true" data-notes="" lineno="105" class="slide " data-source-line="105" data-h="2" data-v="2"><h5 id="多维数组-3">多维数组 </h5>
 <hr>
-<p>虽然我们以表格形式显示二维数组, 但这并不是它们在计算机内存中实际存储的方式.<br>
-行主序存储数组, 从第 0 行开始, 接着第 1 行, 依此类推.<br>
-数组m的存储方式:</p>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="多维数组">多维数组 </h5>
+<hr>
+<p>虽然我们以表格形式显示二维数组, 但这并不是它们在计算机内存中实际存储的方式. 行主序存储数组, 从第 0 行开始, 接着第 1 行, 依此类推. 数组m的存储方式:</p>
 <div class="top-2">
-    <img src="figs/8-4.png" width="400px">
+    <img src="figs/8-4.png" width=400px>
 </div>
-</section><section vertical="true" data-notes="" lineno="128" class="slide " data-source-line="128" data-h="2" data-v="3"><h5 id="多维数组-4">多维数组 </h5>
+<!-- <div class="row0-2-column2-11-fullborder">
+<table>
+<tbody>
+<tr>
+<td></td>
+<td>></td>
+<td>></td>
+<td>row0</td>
+<td>></td>
+<td>></td>
+<td>row1</td>
+<td>...</td>
+<td>></td>
+<td>></td>
+<td>row4</td>
+</tr>
+<tr>
+<td>:-:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+<td>:----:</td>
+</tr>
+<tr>
+<td></td>
+<td>m[0][0]</td>
+<td>...</td>
+<td>m[0][8]</td>
+<td>m[1][0]</td>
+<td>...</td>
+<td>m[1][8]</td>
+<td>...</td>
+<td>m[4][0]</td>
+<td>...</td>
+<td>m[4][8]</td>
+</tr>
+</tbody>
+</table>
+</div> -->
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="多维数组">多维数组 </h5>
 <hr>
 <p>嵌套for循环非常适合处理多维数组.</p>
 <p>单位矩阵的数组的初始化: <mark>嵌套的for循环</mark></p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token number">10</span></span></span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
 
 <span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> row<span class="token punctuation">,</span> col<span class="token punctuation">;</span>
- 
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>row <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> row <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> row<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> col <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> col<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ 
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>row <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> row <span class="token operator"><</span> N<span class="token punctuation">;</span> row<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> col <span class="token operator"><</span> N<span class="token punctuation">;</span> col<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>row <span class="token operator">==</span> col<span class="token punctuation">)</span>
       ident<span class="token punctuation">[</span>row<span class="token punctuation">]</span><span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-else">else</span>
       ident<span class="token punctuation">[</span>row<span class="token punctuation">]</span><span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section></section><section><section data-notes="" lineno="159" class="slide " data-source-line="159" data-h="3" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
+<span class="token punctuation">}</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>通过嵌套一维初始化式的方法可以产生二维数组的初始化式:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>高维数组的初始化式以类似的方式构造.</p>
+                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>高维数组的初始化式以类似的方式构造.</p>
 <p>C 提供了多种方法来缩写多维数组的初始化式</p>
-</section><section vertical="true" data-notes="" lineno="181" class="slide " data-source-line="181" data-h="3" data-v="1"><h5 id="多维数组初始化-1">多维数组初始化 </h5>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>如果初始值化式不足以填充整个多维数组, 则剩余元素赋值为0.</p>
 <p>下面初始化式只填充了数组m的前三行; 后两行将赋值为0:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="200" class="slide " data-source-line="200" data-h="3" data-v="2"><h5 id="多维数组初始化-2">多维数组初始化 </h5>
+                <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>如果内层列表的长度不足以填满数组的一行, 则该行中的剩余元素将初始化为<code>0</code>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-</section><section vertical="true" data-notes="" lineno="219" class="slide " data-source-line="219" data-h="3" data-v="3"><h5 id="多维数组初始化-3">多维数组初始化 </h5>
+                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>内层的花括号可以 <mark>省略</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
                <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
                <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
                <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
-               <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>一旦编译器发现数值足以填满一行, 它就会开始填充下一行.</p>
+               <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>一旦编译器发现数值足以填满一行, 它就会开始填充下一行.</p>
 <p>多维数组中省略内层大括号有风险, 额外的元素或缺失的元素会影响剩下的初始化式, 省略的花括号会引起编译警告</p>
-</section><section vertical="true" data-notes="" lineno="243" class="slide " data-source-line="243" data-h="3" data-v="4"><h5 id="多维数组初始化-4">多维数组初始化 </h5>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <p>C99 的指定初始化式也适用于多维数组.</p>
 <p>创建2×2单位矩阵:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>像通常一样, 所有未指定值的元素都默认为0.</p>
-</section></section><section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="4" data-v="0"><h5 id="常量数组">常量数组 </h5>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>像通常一样, 所有未指定值的元素都默认为0.</p>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="常量数组">常量数组 </h5>
 <hr>
 <p>在声明数组的最开始处加上 <mark>const</mark> 可以使数组成为 <mark>常量</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
-  <span class="token punctuation">{</span><span class="token char">'0'</span><span class="token punctuation">,</span> <span class="token char">'1'</span><span class="token punctuation">,</span> <span class="token char">'2'</span><span class="token punctuation">,</span> <span class="token char">'3'</span><span class="token punctuation">,</span> <span class="token char">'4'</span><span class="token punctuation">,</span> <span class="token char">'5'</span><span class="token punctuation">,</span> <span class="token char">'6'</span><span class="token punctuation">,</span> <span class="token char">'7'</span><span class="token punctuation">,</span> <span class="token char">'8'</span><span class="token punctuation">,</span> <span class="token char">'9'</span><span class="token punctuation">,</span>
-   <span class="token char">'A'</span><span class="token punctuation">,</span> <span class="token char">'B'</span><span class="token punctuation">,</span> <span class="token char">'C'</span><span class="token punctuation">,</span> <span class="token char">'D'</span><span class="token punctuation">,</span> <span class="token char">'E'</span><span class="token punctuation">,</span> <span class="token char">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>程序不应修改声明为const的数组.</p>
-</section><section vertical="true" data-notes="" lineno="279" class="slide " data-source-line="279" data-h="4" data-v="1"><h5 id="常量数组-1">常量数组 </h5>
+  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'5'</span><span class="token punctuation">,</span> <span class="token string">'6'</span><span class="token punctuation">,</span> <span class="token string">'7'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span>
+   <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>程序不应修改声明为const的数组.</p>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="常量数组">常量数组 </h5>
 <hr>
 <p>将数组声明为const的优点:</p>
 <ul>
 <li>
 <p>表明程序不会更改数组.</p>
+
 </li>
 <li>
 <p>帮助编译器捕获错误.</p>
+
 </li>
 <li>
 <p>const不仅限于数组, 也可用于任何别的变量.</p>
+
 </li>
 <li>
 <p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
+
 </li>
 </ul>
-</section></section><section><section data-notes="" lineno="297" class="slide " data-source-line="297" data-h="5" data-v="0"><h5 id="程序-发牌">程序: 发牌 </h5>
 <hr>
-<p><em>deal.c</em>程序说明了二维数组和常量数组的用法.</p>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
+<hr>
+<p>*deal.c*程序说明了二维数组和常量数组的用法.</p>
 <p>该程序从一副标准的扑克牌中随机处理一手牌.</p>
-<p>标准套牌中的每张牌都有花色{梅花♣(<code>c</code>), 方块♦(<code>d</code>), 红桃♥(<code>h</code>), 黑桃♠(<code>s</code>)}和等级{<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>6</mn><mo separator="true">,</mo><mn>7</mn><mo separator="true">,</mo><mn>8</mn><mo separator="true">,</mo><mn>9</mn><mo separator="true">,</mo><mn>10</mn><mo separator="true">,</mo><mi>J</mi><mo separator="true">,</mo><mi>Q</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">10</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">Q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">A</span></span></span></span>}.</p>
-</section><section vertical="true" data-notes="" lineno="310" class="slide " data-source-line="310" data-h="5" data-v="1"><h5 id="程序-发牌-1">程序: 发牌 </h5>
+<p>标准套牌中的每张牌都有花色{梅花&clubs;(<code>c</code>), 方块&diams;(<code>d</code>), 红桃&hearts;(<code>h</code>), 黑桃&spades;(<code>s</code>)}和等级{\(2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A\)}.</p>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
 <hr>
 <p>用户将指定手中应该有多少张牌:</p>
-<p>输入手牌数量: <u>5</u><br>
-你的牌: 7c 2s 5d as 2h</p>
+<p>输入手牌数量: <u>5</u> 你的牌: 7c 2s 5d as 2h</p>
 <p>需要解决的问题:</p>
 <ul>
 <li>
 <p>如何从牌组中随机挑选牌？</p>
+
 </li>
 <li>
 <p>如何避免两次选择同一张牌？</p>
+
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="327" class="slide " data-source-line="327" data-h="5" data-v="2"><h5 id="程序-发牌-2">程序: 发牌 </h5>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
 <hr>
 <p>为了随机挑选卡片, 可以采用一些 C 库函数:</p>
 <ul>
 <li>
 <p>time函数(来自<code>&lt;time.h&gt;</code>): 返回当前时间, 用一个数表示.</p>
+
 </li>
 <li>
 <p>srand函数(来自<code>&lt;stdlib.h&gt;</code>): 初始化 C 的随机数生成器.</p>
+
 </li>
 <li>
 <p>rand函数(来自<code>&lt;stdlib.h&gt;</code>): 每次调用时都会产生一个看似随机的数.</p>
+
 </li>
 </ul>
 <p>通过使用%运算符, 缩放rand函数返回值, 使其介于0和3之间(表示花色)或介于0和12之间(表示等级).</p>
-</section><section vertical="true" data-notes="" lineno="347" class="slide " data-source-line="347" data-h="5" data-v="3"><h5 id="程序-发牌-3">程序: 发牌 </h5>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
 <hr>
 <p>in_hand数组用于记录已经选择过的牌.</p>
 <p>数组有4行13列; 每个元素对应52 张牌中的一张.</p>
@@ -304,44 +394,48 @@
 <ul>
 <li>
 <p>如果为真, 就需要选择另一张牌.</p>
+
 </li>
 <li>
 <p>如果为假, 就把ture存储到对应的元素中, 以便稍后提醒我们这张牌已经被选中.</p>
+
 </li>
 </ul>
-</section><section vertical="true" data-notes="" lineno="367" class="slide " data-source-line="367" data-h="5" data-v="4"><h5 id="程序-发牌-4">程序: 发牌 </h5>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
 <hr>
 <p>一旦验证了一张卡片是<code>"新"</code>的, 就需要将它的等级和花色转换成字符, 然后显示出来.</p>
 <p>为了将等级和花色转换为字符形式, 程序设置两个字符数组: 一个用于等级, 一个用于花色</p>
 <p>然后用等级和花色作为下标取数组元素.</p>
 <p>数组在程序执行期间不会改变, 因此被声明为<code>const</code>.</p>
-</section><section vertical="true" data-notes="" lineno="383" class="slide " data-source-line="383" data-h="5" data-v="5"><h5 id="程序-发牌-5">程序: 发牌 </h5>
 <hr>
-<p><em>deal.c</em></p>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
+<hr>
+<p>*deal.c*</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 随机发牌 */</span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span>   <span class="token comment">/* C99 only */</span></span>
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span>   /* C99 only */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NUM_SUITS</span> <span class="token expression"><span class="token number">4</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NUM_RANKS</span> <span class="token expression"><span class="token number">13</span></span></span>
- 
+ 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_SUITS 4</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_RANKS 13</span>
+ 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   bool in_hand<span class="token punctuation">[</span>NUM_SUITS<span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_RANKS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>false<span class="token punctuation">}</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-int">int</span> num_cards<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> suit<span class="token punctuation">;</span>
-  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> rank_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token char">'2'</span><span class="token punctuation">,</span><span class="token char">'3'</span><span class="token punctuation">,</span><span class="token char">'4'</span><span class="token punctuation">,</span><span class="token char">'5'</span><span class="token punctuation">,</span><span class="token char">'6'</span><span class="token punctuation">,</span><span class="token char">'7'</span><span class="token punctuation">,</span><span class="token char">'8'</span><span class="token punctuation">,</span>
-                            <span class="token char">'9'</span><span class="token punctuation">,</span><span class="token char">'t'</span><span class="token punctuation">,</span><span class="token char">'j'</span><span class="token punctuation">,</span><span class="token char">'q'</span><span class="token punctuation">,</span><span class="token char">'k'</span><span class="token punctuation">,</span><span class="token char">'a'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> suit_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token char">'c'</span><span class="token punctuation">,</span><span class="token char">'d'</span><span class="token punctuation">,</span><span class="token char">'h'</span><span class="token punctuation">,</span><span class="token char">'s'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token function">srand</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span><span class="token punctuation">)</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> rank_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span>
+                            <span class="token string">'9'</span><span class="token punctuation">,</span><span class="token string">'t'</span><span class="token punctuation">,</span><span class="token string">'j'</span><span class="token punctuation">,</span><span class="token string">'q'</span><span class="token punctuation">,</span><span class="token string">'k'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> suit_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'c'</span><span class="token punctuation">,</span><span class="token string">'d'</span><span class="token punctuation">,</span><span class="token string">'h'</span><span class="token punctuation">,</span><span class="token string">'s'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token function">srand</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span><span class="token punctuation">)</span> <span class="token function">time</span><span class="token punctuation">(</span>NULL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of cards in hand: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>num_cards<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>num_cards<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Your hand:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>num_cards <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>num_cards <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     suit <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_SUITS<span class="token punctuation">;</span>    <span class="token comment">/* picks a random suit */</span>
     rank <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_RANKS<span class="token punctuation">;</span>    <span class="token comment">/* picks a random rank */</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>in_hand<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">[</span>rank<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -351,66 +445,71 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+ 
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section></section><section><section data-notes="" lineno="433" class="slide " data-source-line="433" data-h="6" data-v="0"><h5 id="变长数组-c99">变长数组 (C99) </h5>
+<span class="token punctuation">}</span></code></pre>
+<hr>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <p>在C89中, 数组变量的长度必须由常量表达式指定.</p>
 <p>在C99中, 数组变量的长度也可使用非常量表达式(<mark>变长数组</mark>).</p>
-<p><em>reverse2.c</em>程序(<em>reverse.c</em>的修改版)展示了这种用法.</p>
-</section><section vertical="true" data-notes="" lineno="449" class="slide " data-source-line="449" data-h="6" data-v="1"><h5 id="程序-使用变长数组-c99">程序: 使用变长数组 (C99) </h5>
+<p>*reverse2.c*程序(*reverse.c*的修改版)展示了这种用法.</p>
 <hr>
-<p><em>reverse2.c</em></p>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="程序--使用变长数组--c99">程序: 使用变长数组 (C99) </h5>
+<hr>
+<p>*reverse2.c*</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 使用变长数组反转数列 - 仅限 C99 */</span>
- 
+ 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
+ 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
- 
+ 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"How many numbers do you want to reverse? "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
   <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">/* C99 only - length of array depends on n */</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d numbers: "</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d numbers: "</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"In reverse order:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %d"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+ 
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre><hr>
-</section><section vertical="true" data-notes="" lineno="487" class="slide " data-source-line="487" data-h="6" data-v="2"><h5 id="变长数组-c99-1">变长数组 (C99) </h5>
+<span class="token punctuation">}</span></code></pre>
 <hr>
-<p><em>reverse2.c</em>程序中的数组a是变长数组.</p>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
+<hr>
+<p>*reverse2.c*程序中的数组a是变长数组.</p>
 <p>变长数组的长度是在程序执行时计算的.</p>
 <p>变长数组的主要优点是程序可以准确计算需要多少元素.</p>
 <p>如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错).</p>
-</section><section vertical="true" data-notes="" lineno="503" class="slide " data-source-line="503" data-h="6" data-v="3"><h5 id="变长数组-c99-2">变长数组 (C99) </h5>
+<hr>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <p>变长数组的长度不一定要用变量来指定. 任意表达式都可以:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>j<span class="token operator">+</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span> 
-</code></pre><p>与其他数组一样, 变长数组可以是多维的:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> c<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-</code></pre><p>对变长数组的主要限制:</p>
+<span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>j<span class="token operator">+</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span> </code></pre>
+<p>与其他数组一样, 变长数组可以是多维的:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> c<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<p>对变长数组的主要限制:</p>
 <ul>
 <li>
 <p>没有静态存储期限(在第 18 章中讨论).</p>
+
 </li>
 <li>
 <p>没有初始化式.</p>
+
 </li>
 </ul>
-</section></section>
+<hr>
+</section>
       </div>
     </div>
     
@@ -420,7 +519,7 @@
     
     
       <script>
-        Reveal.initialize({"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
+        Reveal.initialize({"width":1280,"height":720,"margin":0,"center":false,"transition":"convex","enableSpeakerNotes":true,"slideNumber":"c/t","navigationMode":"linear","dependencies":[{"src":"revealjs_deps/notes.js","async":true}]})
       </script>
       
     

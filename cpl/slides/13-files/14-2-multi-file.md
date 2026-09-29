@@ -54,7 +54,7 @@ presentation:
 
 - 源文件与头文件
 
-- #include、共享宏/类型/函数原型
+- `#include`、共享宏/类型/函数原型
 
 - 保护头文件
 
@@ -72,11 +72,7 @@ presentation:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -123,11 +119,7 @@ main函数放入另一个文件calc.c中.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -502,11 +494,7 @@ typedef int Bool;
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
