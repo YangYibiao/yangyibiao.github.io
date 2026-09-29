@@ -110,19 +110,19 @@ document.addEventListener("DOMContentLoaded", function () {
 p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>第 11 章展示了指针可以指向数组元素:</p>
-<p>图形表示:</p>
+<p>指针可以指向<mark>数组元素</mark>:</p>
+<p>图示:</p>
 <div class="top-2">
     <img src="figs/13-1.png">
 </div>
 <hr>
-<p>可以通过p访问a[0]. 例如, 可以通过下面写法将值5存储在a[0]中:</p>
+<p>通过 p 可以访问 a[0]——比如把 5 存进 a[0]:</p>
 <p><code>*p = 5;</code></p>
-<p>图示如下:</p>
+<p>如下图:</p>
 <div class="top-2">
     <img src="figs/13-2.png">
 </div>
-<p>如果p指向数组a的一个元素, 则可以通过对p执行指针算术运算(或地址运算)来访问a的其他元素</p>
+<p>p 指向数组 a 的某个元素时, 对 p 做<mark>指针算术</mark>(也叫地址运算)就能访问其他元素</p>
 <p>C支持三种(且只有三种)<mark>指针运算</mark>形式:</p>
 <ul>
 <li>
@@ -155,11 +155,11 @@ p <span class="token operator">-=</span> <span class="token number">6</span><spa
 </div>
 <div style="flex:1;">
 <p>将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后.</p>
-<p>更准确地说, 如果p指向数组元素a[i], 那么p + j指向a[i+j].</p>
-<p>假设有以下声明:</p>
+<p>准确地说: p 指向 a[i], 则 p + j 指向 a[i+j]。</p>
+<p>假设声明如下:</p>
 <p>指针加法示例:</p>
 <div class="top-2"><img src="figs/13-3.png" width=280px></div>
-<p>如果p指向a[i], 那么p-j指向a[i-j]. 指针减法示例:</p>
+<p>p 指向 a[i], 则 p - j 指向 a[i-j]。指针减法示例:</p>
 <div class="top-2">
     <img src="figs/13-4.png" width=280px>
 </div>
@@ -169,7 +169,7 @@ p <span class="token operator">-=</span> <span class="token number">6</span><spa
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="两个指针相减">两个指针相减 </h5>
 <hr>
 <p>当一个指针从另一个指针中减去时, 结果是<mark>指针之间的距离</mark>(数组元素的个数).</p>
-<p>如果p指向a[i]并且q指向a[j], 那么\(p - q\)等于\(i - j\). 示例:</p>
+<p>p 指向 a[i]、q 指向 a[j], 则 \(p - q = i - j\)。示例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 q <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
 <div class="top-2">
@@ -188,7 +188,7 @@ i <span class="token operator">=</span> q <span class="token operator">-</span> 
 q <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 p <span class="token operator">&lt;=</span> q<span class="token punctuation">;</span> <span class="token comment">// expression value: 0</span>
 p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</span> <span class="token comment">// expression value: 1</span></code></pre>
-<p>任务完成后:</p>
+<p>完成后:</p>
 <ul>
 <li>
 <p>p<=q的值为0</p>
@@ -304,7 +304,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 <div style="flex:1;">
 <p>\*和<code>--</code>运算符的组合方式与\*和<code>++</code>相同.</p>
-<p>对于应用*和<code>--</code>的组合, 让我们回到第10章的栈的示例.</p>
+<p>看一个 <code>*</code> 和 <code>--</code> 组合的例子, 回到上一课的"栈":</p>
 <p>原始版本的栈依赖于名为top的整型变量来记录contents数组中的<mark>栈顶</mark>的位置.</p>
 <p>现在将top替换为初始指向contents数组的第0个元素的指针变量:</p>
 <p>新的push和pop函数:</p>
@@ -336,7 +336,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 <div style="flex:1;">
 <p>假设a声明如下:</p>
-<p>使用a作为指针的示例:</p>
+<p>把数组名 a 当指针用的示例:</p>
 <p>一般情况, <code>a+i</code>与<code>&amp;a[i]</code>相同, 都表示指向数组a中的元素i的指针.</p>
 <p>此外, <code>*(a+i)</code>等价于<code>a[i]</code>, 两者都代表元素i本身.</p>
 <p>数组名称可以用作指针这一事实使得编写遍历数组的循环变得更加容易.</p>
@@ -425,7 +425,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 
 </li>
 </ul>
-<p>例如, 以下函数将数组中的每个元素都重置为零:</p>
+<p>比如下面这个函数, 把数组每个元素清零:</p>
 <p>为了表明数组参数不会被修改, 我们可以在它的声明中包含单词const:</p>
 <p>编译器会检查find_largest函数体没有对a中元素进行赋值.</p>
 </div>
@@ -472,7 +472,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 
 </li>
 </ul>
-<p>将find_largest应用于数组元素b[5] ~ b[14]的示例:</p>
+<p>对 b[5] ~ b[14] 调用 find_largest 的示例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 largest <span class="token operator">=</span> <span class="token function">find_largest</span><span class="token punctuation">(</span><span class="token operator">&</span>b<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
@@ -516,7 +516,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 <div class="top-2">
     <img src="figs/13-7.png">
 </div>
-<p>如果p最初指向二维数组的第0行第0列的元素, 即\(a[0][0]\), 就可以通过重复自增p来访问数组中的每个元素.</p>
+<p>p 一开始指向第 0 行第 0 列 (\(a[0][0]\)), 不断自增 p 就能挨个访问每个元素。</p>
 <p>考虑将以下数组的所有元素初始化为0的问题:</p>
 <p>将二维数组视为一维适用于大多数 C 编译器.</p>
 <p>该方法会损害程序的可读性, 对老的编译器可能产生效率提升.</p>
