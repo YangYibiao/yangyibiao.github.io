@@ -408,7 +408,7 @@ printf 的实参也可以直接写条件表达式 (如左最后一行)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.5em;">
+<div style="flex:1;font-size:0.55em;">
 
 ==级联 if 版==: 
 
@@ -429,7 +429,7 @@ else
 
 </div>
 
-<div style="flex:1;font-size:0.5em;">
+<div style="flex:1;font-size:0.55em;">
 
 ==switch 版==: 
 
@@ -452,17 +452,13 @@ switch (grade) {
 
 </div>
 
-<div style="flex:1;">
+</div>
 
 - 级联 if 适合==区间判定==; 与一系列==离散值==比较时, switch 更清晰
 
 - 同一个 `grade` 要写六遍 `==` vs 一个 `switch (grade)`
 
 - 每个分支末尾的 `break` 后面细讲
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->
 
