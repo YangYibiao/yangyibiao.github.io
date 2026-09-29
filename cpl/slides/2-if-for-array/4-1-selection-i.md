@@ -523,7 +523,8 @@ if (0 <= i && i < n) …
 <div style="flex:1.25;font-size:0.75em;">
 
 ```C
-if (a > b) {                 /* 若 a 比 b 大就交换 */
+/* 若 a 比 b 大就交换 */
+if (a > b) {
     int t = a;
     a = b;
     b = t;
