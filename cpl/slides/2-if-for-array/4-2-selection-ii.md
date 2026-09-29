@@ -160,17 +160,9 @@ else
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.2;font-size:0.6em;">
 
-
-
-</div>
-
-<div style="flex:1;">
-
-当通过经纪人出售或购买股票时, 经纪人的佣金通常取决于所交易股票的价值
-
-假设经纪人收取下表中的金额: 
+股票交易的佣金取决于交易金额, 某经纪人按下表收费: 
 
 <div class="threelines column1-border-left-solid column2-border-right-solid column1-border-right-solid head-highlight-1 tr-hover">
 
@@ -185,14 +177,22 @@ else
 
 </div>
 
-最低收费为 `$39`
+- 另有==最低收费==: 佣金不足 `$39` 按 `$39` 收
 
-`broker.c`程序要求用户输入交易金额, 然后显示佣金金额: 
+</div>
 
-Enter value of trade: <u>30000</u>
-Commission: `$166.00`
+<div style="flex:1;">
 
-该程序的核心是一个级联的`if`语句, 用于判定交易属于哪个范围
+`broker.c` 输入交易金额, 输出佣金: 
+
+```
+Enter value of trade: 30000
+Commission: $166.00
+```
+
+- 核心是一个==级联 if==, 判定交易落在哪个区间
+
+- 两个要点: 区间按大小==从低到高排==, 只需 `<` 不用 `&&`; 最后再==用 if 兜住最低收费==
 
 </div>
 
@@ -240,9 +240,11 @@ int main(void)
 
 <div style="flex:1;">
 
-`broker.c`
+- 六个区间 → 六个分支: 从低到高, 每个条件==只写上限== (`value < 2500.00f` …)
 
+- 佣金不足 `$39` 时, 最后一个 `if` 把佣金==兜底==到 `$39`
 
+- 对照左栏: 每个 `else if` 对应表里一行
 
 </div>
 
