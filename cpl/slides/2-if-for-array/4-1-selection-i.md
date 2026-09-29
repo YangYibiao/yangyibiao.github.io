@@ -759,8 +759,6 @@ int main() {
 
 延续 min of two 的"==先假定, 再修正=="思路: `min` 先取 `a`, 然后逐个比较替换
 
-<span class="yellow">:fa-weixin:</span> 试试看, 再翻页看参考代码 2
-
 ---
 
 
