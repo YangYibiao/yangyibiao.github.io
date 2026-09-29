@@ -121,8 +121,8 @@ presentation:
 <div style="flex:1;font-size:0.75em;">
 
 ```C{.line-numbers}
-if (line_num == MAX_LINES)
-    line_num = 0;
+if (guess == reward)          /* 第 1 周的猜数字游戏 */
+    printf("恭喜, 猜对了!\n");
 ```
 
 </div>
@@ -494,13 +494,14 @@ if (0 <= i && i < n) …
 <div style="flex:1;font-size:0.75em;">
 
 ```C
-{ line_num = 0; page_num++; }
+{ t = a; a = b; b = t; }   /* 交换两个数: 三条语句包成一条 */
 ```
 
 ```C
 {
-  line_num = 0;
-  page_num++;
+  t = a;
+  a = b;
+  b = t;
 }
 ```
 
@@ -520,9 +521,10 @@ if (0 <= i && i < n) …
 <div style="flex:1.25;font-size:0.75em;">
 
 ```C
-if (line_num == MAX_LINES) {
-    line_num = 0;
-    page_num++;
+if (a > b) {                 /* 若 a 比 b 大就交换 */
+    int t = a;
+    a = b;
+    b = t;
 }
 ```
 
