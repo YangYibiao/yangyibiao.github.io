@@ -154,11 +154,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="程序--计算经纪人佣金">程序: 计算经纪人佣金 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
-</div>
-<div style="flex:1;">
-<p>当通过经纪人出售或购买股票时, 经纪人的佣金通常取决于所交易股票的价值</p>
-<p>假设经纪人收取下表中的金额:</p>
+<div style="flex:1.2;font-size:0.6em;">
+<p>股票交易的佣金取决于交易金额, 某经纪人按下表收费:</p>
 <div class="threelines column1-border-left-solid column2-border-right-solid column1-border-right-solid head-highlight-1 tr-hover">
 <table>
 <thead>
@@ -195,10 +192,27 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 </div>
-<p>最低收费为 <code>$39</code></p>
-<p><code>broker.c</code>程序要求用户输入交易金额, 然后显示佣金金额:</p>
-<p>Enter value of trade: <u>30000</u> Commission: <code>$166.00</code></p>
-<p>该程序的核心是一个级联的<code>if</code>语句, 用于判定交易属于哪个范围</p>
+<ul>
+<li>
+<p>另有<mark>最低收费</mark>: 佣金不足 <code>$39</code> 按 <code>$39</code> 收</p>
+
+</li>
+</ul>
+</div>
+<div style="flex:1;">
+<p><code>broker.c</code> 输入交易金额, 输出佣金:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>Enter value of trade<span class="token operator">:</span> <span class="token number">30000</span>
+Commission<span class="token operator">:</span> $<span class="token number">166.00</span></code></pre>
+<ul>
+<li>
+<p>核心是一个<mark>级联 if</mark>, 判定交易落在哪个区间</p>
+
+</li>
+<li>
+<p>两个要点: 区间按大小<mark>从低到高排</mark>, 只需 <code>&lt;</code> 不用 <code>&amp;&amp;</code>; 最后再<mark>用 if 兜住最低收费</mark></p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
@@ -232,7 +246,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p><code>broker.c</code></p>
+<ul>
+<li>
+<p>六个区间 → 六个分支: 从低到高, 每个条件<mark>只写上限</mark> (<code>value &lt; 2500.00f</code> …)</p>
+
+</li>
+<li>
+<p>佣金不足 <code>$39</code> 时, 最后一个 <code>if</code> 把佣金<mark>兜底</mark>到 <code>$39</code></p>
+
+</li>
+<li>
+<p>对照左栏: 每个 <code>else if</code> 对应表里一行</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
