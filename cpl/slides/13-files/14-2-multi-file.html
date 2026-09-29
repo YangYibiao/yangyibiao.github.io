@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>与栈相关的函数, 如push, pop, make_empty, is_empty和is_full可以放入另一个文件<code>stack.c</code>中.</p>
 <p>代表栈的变量也放入stack.c.</p>
 <p>main函数放入另一个文件calc.c中.</p>
-<p>将程序拆分为多个源文件具有显着优势:</p>
+<p>把程序拆成多个源文件的好处:</p>
 <ul>
 <li>
 <p>将相关函数和变量分组到一个文件中可以使程序的结构清晰.</p>
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>当一个程序被分成几个源文件时出现的问题:</p>
+<p>程序拆成几个源文件后, 新问题来了:</p>
 <ul>
 <li>
 <p>一个文件中的函数如何调用另一个文件中定义的函数？</p>
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> CPU_FILE</span></code></pre>
 </div>
 <div style="flex:1;">
-<p><code>#include</code> 有两种形式: <code>&lt;文件名&gt;</code> 用于 C 自带库头文件, <code>"文件名"</code> 用于其他头文件——区别在于编译器如何定位头文件:</p>
+<p><code>#include</code> 有两种写法: <code>&lt;文件名&gt;</code> 找 C 自带的库头文件, <code>"文件名"</code> 找其他头文件——区别在于编译器<mark>去哪里找</mark>:</p>
 <ul>
 <li>
 <p><code>&lt;文件名&gt;</code>: 搜索系统头文件目录</p>
@@ -222,16 +222,16 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>大多数大型程序包含由多个源文件共享的宏定义和类型定义.</p>
 <p>这些定义应该放入头文件.</p>
 <p>假设一个程序使用名为BOOL, TRUE和FALSE的宏.</p>
-<p>它们的定义可以放在一个名为*boolean.h*的头文件中:</p>
+<p>它们的定义可以放进一个叫 *boolean.h* 的头文件:</p>
 <p>任何需要这些宏的源文件将只包含该行</p>
-<p>两个文件都包含了boolean.h:</p>
+<p>两个文件都包含 boolean.h:</p>
 <div class="top-2">
   <img src="../img/18-1.png">
 </div>
 <p>类型定义在头文件中也很常见.</p>
 <p>例如可使用typedef来创建一个Bool类型, 而不是定义BOOL宏.</p>
-<p>如果我们这样做, boolean.h文件将有下列显示:</p>
-<p>将宏和类型的定义放在头文件中的优点:</p>
+<p>这么做了之后, boolean.h 里会是:</p>
+<p>把宏和类型定义放头文件的好处:</p>
 <ul>
 <li>
 <p>节省时间. 我们不必将定义复制到需要它们的源文件中.</p>
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token keyword keyword-int">int</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>源文件调用 foo.c 里定义的函数 f 时, 不声明有风险: 编译器假定返回 int、参数个数与调用匹配、实参做默认提升. 到处声明又造成维护"噩梦". 更好的方案: <mark>原型放头文件 (foo.h)</mark>, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.</p>
+<p>源文件调用 foo.c 里定义的函数 f 时, 不声明有风险: 编译器假设返回 int、参数个数与调用匹配、实参做默认提升. 到处声明又造成维护"噩梦". 更好的方案: <mark>原型放头文件 (foo.h)</mark>, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.</p>
 <p>foo.c 的大多数函数应在 foo.h 声明; 只在 foo.c 内部使用的函数<mark>不应</mark>写进头文件 (会误导).</p>
 <p>RPN 计算器示例: <code>stack.c</code> 定义 make_empty / is_empty / is_full / push / pop, 原型放 stack.h; calc.c 包含 stack.h 检查调用, stack.c 也包含它核对定义一致:</p>
 <div class="top-2">
@@ -298,11 +298,11 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 <div style="flex:1;">
 <p>头文件可能包含<code>#include</code>指令.</p>
-<p>stack.h包含以下原型:</p>
-<p>由于这些函数只返回 0 或 1, 最好将它们的返回类型声明为Bool:</p>
+<p>stack.h 里的原型:</p>
+<p>这些函数只返回 0 或 1, 返回类型最好声明成 Bool:</p>
 <p>在 stack.h 中包含boolean.h, 以便在编译时可以使用Bool的定义.</p>
 <p>传统上, C 程序员避免使用嵌套包含.</p>
-<p>然而, 对嵌套包含的偏见已经在很大程度上消失了, 部分原因是嵌套包含是 C++ 中的常见做法.</p>
+<p>如今对嵌套包含已经没什么偏见了——部分原因是 C++ 里嵌套包含很常见。</p>
 </div>
 </div>
 <hr>
