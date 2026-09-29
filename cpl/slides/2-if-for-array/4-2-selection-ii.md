@@ -112,7 +112,9 @@ else
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:1.1;font-size:0.58em;">
+
+==具体例子== (判断 n 与 0 的关系): 
 
 ```C{.line-numbers}
 if (n < 0)
@@ -122,6 +124,12 @@ else if (n == 0)
 else
   printf("n is greater than 0\n"); 
 ```
+
+</div>
+
+<div style="flex:0.9;font-size:0.58em;">
+
+==通用形式==: 
 
 ```C
 if (表达式)
@@ -139,13 +147,11 @@ else
 
 <div style="flex:1;">
 
-尽管第二个if语句嵌套在第一个中, 但 C 程序员通常不会对它进行缩进
+- 其实 `else if` 是嵌套: 第二个 `if` 嵌在第一个的 `else` 里
 
-相反, 他们将每个else与原始if对齐:
+- 惯例: ==不缩进==, 每个 `else` 与第一个 `if` 对齐, 写成 `else if` 链
 
-即把 `else` 与第一个 `if` 对齐, 写成 ==`else if` 链==——避免判定很多时==层层缩进==的问题
-
-
+- 好处: 判定很多时避免==层层缩进==; 一旦某个条件为真, 后面的分支不再判断
 
 </div>
 
