@@ -424,85 +424,6 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 数学库函数
-
----
-
-`+ - * / %` 就这么多, 要==开方、幂、对数、三角==? 调用 C 的==数学库函数==: 先 `#include <math.h>`
-
-<div class="fullborder">
-
-| 函数                     | 含义                      |
-| :--                      | :--                       |
-| `abs(x)` / `fabs(x)`     | 整数 / 浮点数绝对值         |
-| `sqrt(x)`                | x 的平方根                 |
-| `pow(x, y)`              | x 的 y 次方                |
-| `exp(x)` / `log(x)`      | e 的 x 次方 / 自然对数      |
-| `log10(x)`               | 常用对数                   |
-| `sin(x)` / `cos(x)` / `tan(x)` | 三角函数 (x 为==弧度==) |
-
-</div>
-
-- 返回值都是 ==double==, 打印用 `%f`
-
-- 下一页: 动手用一用
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 数学库函数: 使用
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.15;font-size:0.72em;">
-
-```C{.line-numbers}
-#include <stdio.h>
-#include <math.h>
-
-int main(void) {
-    printf("sqrt(9) = %f\n", sqrt(9.0));
-    printf("pow(2, 10) = %f\n", pow(2.0, 10));
-    printf("fabs(3 - 5.5) = %f\n", fabs(3 - 5.5));
-    printf("sqrt(2) = %.3f\n", sqrt(2));
-    printf("pow(2, 0.5) = %.3f\n", pow(2, 0.5)); /* 0.5 次方 = 开方 */
-    return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.8em;">
-
-运行结果: 
-
-```
-sqrt(9) = 3.000000
-pow(2, 10) = 1024.000000
-fabs(3 - 5.5) = 2.500000
-sqrt(2) = 1.414
-pow(2, 0.5) = 1.414
-```
-
-- 函数调用是==表达式==: `sqrt(9.0)` 可以直接放进 `printf` 里算
-
-- `pow(2, 0.5)` 就是 $\sqrt{2}$——==0.5 次方 = 开方==
-
-- 返回 double 用 `%f` 打印; 控制小数位用 `%.3f`
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
 ##### 程序: 计算 ISBN-13 书号校验位
 
 ---
@@ -888,6 +809,86 @@ i = 1;     /* useful */
 i--;       /* useful */
 i * j - 1; /* not useful */
 ```
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 数学库函数
+
+---
+
+`+ - * / %` 就这么多, 要==开方、幂、对数、三角==? 调用 C 的==数学库函数==: 先 `#include <math.h>`
+
+<div class="fullborder">
+
+| 函数                     | 含义                      |
+| :--                      | :--                       |
+| `abs(x)` / `fabs(x)`     | 整数 / 浮点数绝对值         |
+| `sqrt(x)`                | x 的平方根                 |
+| `pow(x, y)`              | x 的 y 次方                |
+| `exp(x)` / `log(x)`      | e 的 x 次方 / 自然对数      |
+| `log10(x)`               | 常用对数                   |
+| `sin(x)` / `cos(x)` / `tan(x)` | 三角函数 (x 为==弧度==) |
+
+</div>
+
+- 返回值都是 ==double==, 打印用 `%f`
+
+- 下一页: 动手用一用
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 数学库函数: 使用
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.72em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <math.h>
+
+int main(void) {
+    printf("sqrt(9) = %f\n", sqrt(9.0));
+    printf("pow(2, 10) = %f\n", pow(2.0, 10));
+    printf("fabs(3 - 5.5) = %f\n", fabs(3 - 5.5));
+    printf("sqrt(2) = %.3f\n", sqrt(2));
+    /* 0.5 次方 = 开方 */
+    printf("pow(2, 0.5) = %.3f\n", pow(2, 0.5)); 
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.8em;">
+
+运行结果: 
+
+```
+sqrt(9) = 3.000000
+pow(2, 10) = 1024.000000
+fabs(3 - 5.5) = 2.500000
+sqrt(2) = 1.414
+pow(2, 0.5) = 1.414
+```
+
+- 函数调用是==表达式==: `sqrt(9.0)` 可以直接放进 `printf` 里算
+
+- `pow(2, 0.5)` 就是 $\sqrt{2}$——==0.5 次方 = 开方==
+
+- 返回 double 用 `%f` 打印; 控制小数位用 `%.3f`
 
 </div>
 
