@@ -121,7 +121,8 @@ presentation:
 <div style="flex:1;font-size:0.75em;">
 
 ```C{.line-numbers}
-if (guess == reward)          /* 第 1 周的猜数字游戏 */
+/* 第 1 周的猜数字游戏 */
+if (guess == reward)
     printf("恭喜, 猜对了!\n");
 ```
 
