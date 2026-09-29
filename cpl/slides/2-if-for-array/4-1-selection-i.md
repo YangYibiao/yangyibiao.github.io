@@ -57,9 +57,9 @@ presentation:
 
 - 结构化算法与三种基本结构
 
-- 关系、判等与逻辑运算
-
 - if 语句与 else 子句
+
+- 关系、判等与逻辑运算
 
 - 演示: min、闰年、三角形、奇偶判断
 
@@ -100,6 +100,77 @@ presentation:
 - ==其他语句==: 复合语句 `{ }` 和空语句 `;`
 
 ---
+<!-- slide data-notes="" -->
+
+##### if语句
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;">
+
+==if 语句==的形式: `if (表达式) 语句`
+
+- 表达式非零 (真) → 执行语句; 为零 (假) → 跳过语句
+
+- <span class="yellow">:fa-weixin:</span> 表达式两边的==圆括号是必须的==——它是 `if` 语句的组成部分
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
+
+```C{.line-numbers}
+if (line_num == MAX_LINES)
+    line_num = 0;
+```
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->
+
+
+##### else子句
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+```C{.line-numbers}
+if (i > j)
+  max = i;
+else
+  max = j;
+```
+
+```C{.line-numbers}
+if (i > j) max = i;
+else max = j;
+```
+
+</div>
+
+<div style="flex:1;">
+
+`if` 语句可以带一个 ==`else`== 子句: `if (表达式) 语句 else 语句`
+
+- 表达式值为 `0` → 执行 `else` 后面的语句; 非零 → 执行 `if` 后面的语句
+
+- 内部语句短时, 可以==写成一行== (如左)
+
+- `if`/`else` 各控制==一条==语句; 要控制多条, 记得用复合语句 `{ }` (后面会讲)
+
+
+
+</div>
+
+</div>
+
 <!-- slide data-notes="" -->
 
 
@@ -379,56 +450,9 @@ x = 5
 ---
 <!-- slide data-notes="" -->
 
-##### if语句
+##### if语句: 范围判断
 
 ---
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;">
-
-==if 语句==的形式: `if (表达式) 语句`
-
-- 表达式非零 (真) → 执行语句; 为零 (假) → 跳过语句
-
-- <span class="yellow">:fa-weixin:</span> 表达式两边的==圆括号是必须的==——它是 `if` 语句的组成部分
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
-
-```C{.line-numbers}
-if (line_num == MAX_LINES)
-    line_num = 0;
-```
-
-</div>
-
-</div>
-
----
-<!-- slide data-notes="" -->
-
-##### if语句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.15;font-size:0.72em;">
-
-<span class="yellow">:fa-weixin:</span> 把 `==` 写成 `=` 是最常见的 C 错误: 
-
-```C
-if (i == 0) …   /* 检查 i 是否等于 0 */
-
-if (i = 0) …    /* 把 0 赋给 i, 再判断结果 */
-                /* 赋完 i 是 0 → 条件永远为假! */
-```
-
-</div>
-
-<div style="flex:1;">
 
 `if` 常用于==范围判断==。判断 `i` 满足 $0 \leq i < n$:
 
@@ -438,9 +462,9 @@ if (0 <= i && i < n) …
 
 判断相反条件 (`i` 超出范围): `if (i < 0 || i >= n) …`
 
-</div>
+- 数学上的"连写" `0 <= i < n` 在 C 里==是错的== (连比较陷阱, 前面刚讲过)——必须用 `&&` 把两个条件连起来
 
-</div>
+<span class="blue">:fa-lightbulb-o:</span> 范围判断是 if 的==最高频用法==: 检查下标、成绩、温度……都长这样
 
 ---
 <!-- slide data-notes="" -->
@@ -511,47 +535,6 @@ if (line_num == MAX_LINES) {
 </div>
 
 ---
-<!-- slide data-notes="" -->
-
-
-##### else子句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.62em;">
-
-```C{.line-numbers}
-if (i > j)
-  max = i;
-else
-  max = j;
-```
-
-```C{.line-numbers}
-if (i > j) max = i;
-else max = j;
-```
-
-</div>
-
-<div style="flex:1;">
-
-`if` 语句可以带一个 ==`else`== 子句: `if (表达式) 语句 else 语句`
-
-- 表达式值为 `0` → 执行 `else` 后面的语句; 非零 → 执行 `if` 后面的语句
-
-- 内部语句短时, 可以==写成一行== (如左)
-
-- `if`/`else` 各控制==一条==语句; 要控制多条, 记得用复合语句 `{ }` (下页)
-
-
-
-</div>
-
-</div>
-
 <!-- slide data-notes="" -->
 
 
