@@ -402,96 +402,15 @@ printf 的实参也可以直接写条件表达式 (如左最后一行)
 <!-- slide data-notes="" -->
 
 
-##### 布尔值
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.05;">
-
-`C89` 没有布尔类型, 传统做法是用 `int` 变量充当标志(flag)
-
-为提高可读性, C89 程序员用宏定义 TRUE/FALSE
-
-</div>
-
-<div style="flex:1;font-size:0.72em;">
-
-```C{.line-numbers}
-int flag;
-flag = 0;
-…
-flag = 1;
-```
-
-```C{.line-numbers}
-#define TRUE 1
-#define FALSE 0
-
-flag = FALSE;
-…
-flag = TRUE;
-if (flag) …      /* 直接测试即可 */
-if (!flag) …     /* 测试是否为假 */
-```
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 布尔值
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-`C99` 提供了布尔类型: `_Bool`, 只能赋值 `0` 或 `1`
-
-`<stdbool.h>` 头文件让布尔值更好用
-
-<span class="blue">:fa-weixin:</span> 建议使用 `<stdbool.h>` 的 `bool`, `true`, `false`
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
-
-```C
-_Bool flag;
-flag = 5;   /* flag is assigned 1 */
-```
-
-```C
-bool flag;   /* same as _Bool flag; */
-flag = false;
-…
-flag = true;
-```
-
-</div>
-
-</div>
-
----
-
-
-<!-- slide data-notes="" -->
-
-
 ##### switch语句
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1;font-size:0.5em;">
+
+==级联 if 版==: 
 
 ```C{.line-numbers}
 if (grade == 4)
@@ -507,6 +426,12 @@ else if (grade == 0)
 else
   printf("Illegal grade"); 
 ```
+
+</div>
+
+<div style="flex:1;font-size:0.5em;">
+
+==switch 版==: 
 
 ```C{.line-numbers}
 switch (grade) {
@@ -529,9 +454,11 @@ switch (grade) {
 
 <div style="flex:1;">
 
-级联 if 适合==区间判定==; 当只是把同一个表达式和一系列==离散值==比较时, switch 语句是更清晰的选择 (如左)
+- 级联 if 适合==区间判定==; 与一系列==离散值==比较时, switch 更清晰
 
+- 同一个 `grade` 要写六遍 `==` vs 一个 `switch (grade)`
 
+- 每个分支末尾的 `break` 后面细讲
 
 </div>
 
@@ -856,6 +783,31 @@ int main(void) {
 
 </div>
 
+<!-- slide data-notes="" -->
+
+##### 布尔值 (C99)
+
+---
+
+`C89` 没有布尔类型, 我们一直用 `int` 变量当标志 (比如上一页的 `leap`)
+
+`C99` 提供了真正的布尔类型: `_Bool` + 头文件 `<stdbool.h>` 的 `bool / true / false`
+
+```C
+#include <stdbool.h>
+
+bool leap = false;
+…
+leap = true;
+if (leap) …      /* 直接测试 */
+if (!leap) …     /* 测试是否为假 */
+```
+
+- `bool` 变量只能存 `0` 或 `1`: `flag = 5;` 会变成 `1`
+
+- 建议: 新代码用 `<stdbool.h>` 的 `bool`——但==不强制==, `int` 标志照旧能用 (本课作业两种都行)
+
+---
 <!-- slide data-notes="" -->
 
 
