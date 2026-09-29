@@ -770,7 +770,7 @@ p <= q; // expression value: 0
 p >= q; // expression value: 1
 ```
 
-任务完成后: 
+完成后: 
 - p<=q的值为0
 - p>=q的值为1. 
 

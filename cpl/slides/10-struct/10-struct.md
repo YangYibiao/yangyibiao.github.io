@@ -1635,7 +1635,7 @@ n.kind = INT_KIND;
 n.u.i = 82;
 ```
 
-假定n为Number类型的变量. 
+假设n为Number类型的变量. 
 
 ---
 
