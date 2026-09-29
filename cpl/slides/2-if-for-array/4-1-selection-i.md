@@ -550,7 +550,9 @@ if (a > b) {                 /* 若 a 比 b 大就交换 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
+<div style="flex:1;font-size:0.55em;">
+
+==缩进对齐版== (不用大括号): 
 
 ```C{.line-numbers}
 if (i > j)
@@ -564,6 +566,12 @@ else
   else 
     max = k;
 ```
+
+</div>
+
+<div style="flex:1;font-size:0.55em;">
+
+==大括号版== (层次清晰): 
 
 ```C{.line-numbers}
 if (i > j) {
@@ -585,11 +593,13 @@ if (i > j) {
 
 <div style="flex:1;">
 
-`if`语句嵌套在其他`if`语句中也很普遍:
+`if` 语句嵌套在另一个 `if` 里==很普遍==
 
-`else`与匹配的`if`对齐可以使嵌套层次更易辨别; 为避免混淆, 最好添加大括号:
+- 左右两种写法==功能完全一样==
 
+- 靠缩进对齐 `else` 能帮助辨别层次, 但容易写错
 
+- ==大括号==让层次一目了然, 是更稳妥的习惯
 
 </div>
 
