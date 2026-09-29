@@ -139,12 +139,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量.</p>
 <p>这样做需要使用指向指针的指针.</p>
 <hr>
-<p>向add_to_list函数传递一个指向原始链表首结点的指针; 它返回一个指向新链表首结点的指针:</p>
+<p>传给 add_to_list 一个指向原链表首结点的指针; 它返回新链表首结点的指针:</p>
 <p>如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的.</p>
 <p>调用函数: <code>add_to_list(first, 10);</code></p>
 <p>在调用点, first被复制到list中.</p>
 <p>函数可以改变list的值, 使其指向新结点, 但first不受影响.</p>
-<p>让函数add_to_list修改first是可能的, 需要向add_to_list传递一个指向first的指针:</p>
+<p>想让 add_to_list 修改 first 本身, 就传 first 的地址 (指向指针的指针):</p>
 </div>
 </div>
 <hr>
@@ -163,9 +163,9 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <div style="flex:1;">
 <p>运行程序时, 经常需要提供一些信息.</p>
 <p>这可能包括文件名或修改程序行为的开关.</p>
-<p>UNIX <code>ls</code>命令的示例:</p>
+<p>UNIX <code>ls</code> 命令的示例:</p>
 <p>命令行信息对所有程序都是可用的, 不仅仅是操作系统命令.</p>
-<p>要访问 <mark>命令行参数</mark>, main必须含有两个参数:</p>
+<p>要用<mark>命令行参数</mark>, main 必须带两个参数:</p>
 <p>命令行参数在 C 标准中称为 <mark>程序参数</mark>.</p>
 <p>argc: (argument count)参数计数是命令行参数的数量.</p>
 <p>argv: (argument vector)参数向量是指向命令行参数的指针数组(以字符串形式存储).</p>
@@ -189,7 +189,7 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <p>将函数指针作为参数传递是相当普遍的.</p>
 <hr>
 <p>编写integrate函数求函数f在a点和b点之间的积分, 可以把f作为参数传入, 从而使其尽可能通用.</p>
-<p>integrate原型:</p>
+<p>integrate 的原型:</p>
 <p><code>*f</code>两边的括号表示f是指向函数的指针.</p>
 <p>另一种原型:</p>
 </div>
@@ -197,10 +197,10 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="函数指针作为参数">函数指针作为参数 </h5>
 <hr>
-<p>调用integrate计算sin函数从0到\(\pi\)/2的积分:</p>
+<p>调用 integrate 计算 sin 从 0 到 \(\pi/2\) 的积分:</p>
 <p><code>result = integrate(sin, 0.0, PI/2);</code></p>
 <p>当函数名后面没有括号时, C 编译器会生成一个指向该函数的指针.</p>
-<p>在integrate函数体内, 可以调用f指向的函数:</p>
+<p>在 integrate 函数体里, 可以调用 f 指向的函数:</p>
 <p><code>y = (*f)(x);</code></p>
 <p>允许使用f(x)代替(*f)(x) .</p>
 <hr>
@@ -213,11 +213,11 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 </div>
 <div style="flex:1;">
 <p>C 库中一些功能强大的函数要求把函数指针作为参数.</p>
-<p>其中之一是qsort, 它的原型在<stdlib.h>中.</p>
+<p>其中之一是 qsort, 原型在 <stdlib.h> 里。</p>
 <p>qsort是一个通用的排序函数, 能够对任何数组进行排序.</p>
 <p>必须告诉qsort如何确定两个数组元素中的哪个"更小".</p>
-<p>这是通过向qsort传递一个指向比较函数的指针来完成的.</p>
-<p>当给定两个指向数组元素的指针p和q时, 比较函数必须返回一个整数, 即:</p>
+<p>做法: 给 qsort 传一个<mark>指向比较函数的指针</mark>。</p>
+<p>比较函数拿到两个元素的指针 p、q, 返回一个整数:</p>
 <ul>
 <li>
 <p>如果*p “小于” *q, 返回负数;</p>
@@ -232,7 +232,7 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 
 </li>
 </ul>
-<p>qsort的原型:</p>
+<p>qsort 的原型:</p>
 <p>base必须指向数组中的第一个元素(或要排序的部分中的第一个元素).</p>
 <p>nmemb是要排序的元素数.</p>
 <p>size是每个数组元素的大小, 以字节为单位.</p>
@@ -300,7 +300,7 @@ Enter increment<span class="token operator">:</span> <span class="token punctuat
 <p>tabulate.c程序打印显示cos、sin和tan函数值的表格.</p>
 <p>程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值.</p>
 <p>tabulate使用了ceil函数.</p>
-<p>当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数.</p>
+<p>给一个 double 参数 x, ceil 返回 ≥ x 的最小整数。</p>
 <p>tabulate.c的会话:</p>
 </div>
 </div>

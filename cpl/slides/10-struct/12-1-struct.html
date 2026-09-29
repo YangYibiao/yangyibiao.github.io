@@ -122,15 +122,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>结构体的成员有名字; 为了选择特定的成员, 需要指明它的名字, 而不是它的位置.</p>
+<p>成员有名字——访问时<mark>写名字</mark>, 不写位置。</p>
 
 </li>
 </ul>
 <p>在某些语言中, 结构体称为记录, 成员称为字段.</p>
 <hr>
 <p>在存储相关数据项的集合时, 结构体是个好选择.</p>
-<p>声明两个结构体变量, 用于存储仓库中零件的信息:</p>
-<p>结构体的成员按照声明的顺序存储在内存中. part1:</p>
+<p>声明两个结构体变量, 存仓库里零件的信息:</p>
+<p>成员按声明顺序存放在内存里。part1:</p>
 <div class="top-2">
   <img src="figs/15-1.png" height=500px>
 </div>
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
-<p>结构体的抽象表示:</p>
+<p>结构体的抽象示意:</p>
 <div class="top-2">
   <img src="figs/15-2.png">
 </div>
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>每个结构体代表一种新的作用域.</p>
 <p>在该作用域内声明的任何名称都不会与程序中的其他名称冲突.</p>
 <p>每个结构体都为它的成员设置了独立的名字空间.</p>
-<p>例如, 以下声明可以出现在同一程序中:</p>
+<p>比如, 下面的声明可以同时出现在程序里:</p>
 </div>
 </div>
 </div>
@@ -205,8 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="flex:1;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>结构体变量可以在声明的同时进行初始化:</p>
-<p>part1初始化后的样子:</p>
+<p>声明结构体变量的同时可以初始化:</p>
+<p>part1 初始化后的样子:</p>
 <div class="top-2">
   <img src="figs/15-3.png">
 </div>
@@ -236,13 +236,13 @@ part1<span class="token punctuation">.</span>on_hand<span class="token operator"
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
 <p>要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称.</p>
-<p>打印part1的成员的值的语句:</p>
+<p>打印 part1 成员值的语句:</p>
 <p>结构体的成员是左值.</p>
-<p>它们可以出现在赋值的左侧, 也可以作为自增或自减表达式中的操作数:</p>
+<p>它们可以做赋值的目标, 也可以出现在自增/自减表达式里:</p>
 <p>用于访问结构体成员的句点实际上是一个 C 运算符.</p>
-<p>它优先于几乎所有其他运算符. 例子:</p>
+<p>它比几乎所有运算符优先级都高。例子:</p>
 <p><code>.</code>运算符优先级高于<code>&amp;</code>运算符, 因此<code>&amp;</code>计算part1.on_hand的地址.</p>
-<p>另一个主要的结构体操作是赋值:</p>
+<p>结构体另一个常用操作是赋值:</p>
 <p><code>part2 = part1;</code></p>
 <p>该语句的效果是将 part1.number 复制到part2.number, 将 part1.name 复制到 part2.name , 依此类推.</p>
 </div>
@@ -253,7 +253,7 @@ part1<span class="token punctuation">.</span>on_hand<span class="token operator"
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="对结构体的操作--续">对结构体的操作 (续) </h5>
 <hr>
 <p><code>=</code>运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组.</p>
-<p>一些程序员利用此属性创建"空"结构体来封装稍后将复制的数组来:</p>
+<p>有的程序员利用此属性创建"空"结构体来封装稍后将复制的数组来:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">;</span>
 a1 <span class="token operator">=</span> a2<span class="token punctuation">;</span>
  <span class="token comment">/* legal, since a1 and a2 are structures */</span></code></pre>
@@ -310,7 +310,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 <div style="flex:1;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>假设程序需要声明几个具有相同成员的结构体变量.</p>
+<p>如果程序里要声明多个成员相同的结构体变量:</p>
 <p>需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量.</p>
 <p>命名结构体的方法:</p>
 <ul>
@@ -421,7 +421,7 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 <p>数组可以有结构体作为元素, 结构体可以包含数组和结构体作为成员.</p>
 <hr>
 <p>将一个结构体嵌套在另一个结构体中通常很有用.</p>
-<p>假设person_name是以下结构体:</p>
+<p>假设 person_name 是这样的结构体:</p>
 <p>我们可以使用person_name作为更大结构体的一部分:</p>
 <p>访问student1的名字、中间名首字母或姓氏需两次应用<code>.</code>运算符:</p>
 <p><code>strcpy(student1.name.first, "Fred");</code></p>
