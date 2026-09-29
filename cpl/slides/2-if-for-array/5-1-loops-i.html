@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>循环(loop)是重复执行其他语句(循环体)的一种语句</p>
 <p>在 C 语言中, 每个循环都有一个控制表达式</p>
 <p>每次执行循环体(循环重复一次)时, 都要对控制表达式求值; 如果表达式为真(值不为零), 则循环继续执行</p>
-<p>C 提供了三种重复语句:</p>
+<p>C 有三种循环语句:</p>
 <ul>
 <li>
 <p><mark>while语句</mark> 在循环体执行之前测试控制表达式</p>
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
-<p>while语句示例:</p>
+<p>while 示例:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token comment">/* 控制表达式 */</span>
   i <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment">/* 循环体 */</span></code></pre>
 <p>执行while语句时, 首先计算控制表达式</p>
@@ -148,13 +148,13 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>用 <code>while</code> 计算 ≥ <code>n</code> 的最小 2 的幂:</p>
+<p>用 <code>while</code> 找 ≥ <code>n</code> 的最小 2 的幂:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span>
   i <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1.15;font-size:0.72em;">
-<p>当n的值为 10 时, while语句的执行情况:</p>
+<p><code>n = 10</code> 时, while 的执行过程:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>          i is now <span class="token number">1</span>         
 Is i <span class="token operator"><</span> n<span class="token operator">?</span>       Yes<span class="token punctuation">;</span> <span class="token keyword keyword-continue">continue</span>      
 i <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>      i is now <span class="token number">2</span>         
@@ -186,17 +186,17 @@ Is i <span class="token operator"><</span> n<span class="token operator">?</span
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>循环体必须是单独的一条语句</p>
-<p>如果需要多个语句, 只要用一对大括号构造成一条复合语句:</p>
-<p>即使在没有严格要求的时候, 一些程序员也总是使用大括号:</p>
-<p>以下语句显示一串"倒计数"信息:</p>
+<p>循环体必须是<mark>一条</mark>语句</p>
+<p>要执行多条语句, 就用大括号包成<mark>一条复合语句</mark>:</p>
+<p>即使只有一条语句, <mark>建议也用大括号</mark>——以后加语句不用补:</p>
+<p>看一个"倒计数"的例子:</p>
 <p>最后打印的消息是<code>T minus 1 and counting</code></p>
 </div>
 </div>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="while语句">while语句 </h5>
 <hr>
-<p>对while语句的一些讨论:</p>
+<p>while 的几个注意点:</p>
 <ul>
 <li>
 <p>当while循环终止时, 控制表达式为假. 因此, 当由i>0控制的循环终止, \(i\leq0\) 为真.</p>
@@ -207,7 +207,7 @@ Is i <span class="token operator"><</span> n<span class="token operator">?</span
 
 </li>
 <li>
-<p>while语句通常可以有多种写法. 倒计数循环的更简洁版本:</p>
+<p>while 通常有多种写法——倒计数的更简洁版本:</p>
 
 </li>
 </ul>
@@ -217,7 +217,7 @@ Is i <span class="token operator"><</span> n<span class="token operator">?</span
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="无限循环">无限循环 </h5>
 <hr>
 <p>如果控制表达式的值始终非零, while语句将无法终止</p>
-<p>使用非零常量作为控制表达式来创建无限循环:</p>
+<p>控制表达式恒为非零, 就是无限循环:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> …</code></pre>
 <p>这样的while语句将永远执行, 除非它的循环体中含有跳出循环控制的语句(break, goto, return)或调用导致程序终止的函数</p>
 <hr>
@@ -255,7 +255,7 @@ Enter number of entries in table<span class="token operator">:</span> <span clas
 </div>
 <div style="flex:1;">
 <p><code>square.c</code>程序使用<code>while</code>语句来打印一个平方表</p>
-<p>用户指定表中的条目数:</p>
+<p>用户指定打印几行:</p>
 </div>
 </div>
 <hr>

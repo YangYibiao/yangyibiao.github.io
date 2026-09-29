@@ -232,7 +232,7 @@ p = malloc(n + 1);
 
 每个字符需要一个字节的内存; 加1是为空字符留出空间. 
 
-一些程序员更喜欢强制转换malloc的返回值: 
+有的程序员更喜欢强制转换malloc的返回值: 
 
 ```C
 p = (char *) malloc(n + 1);
@@ -686,7 +686,7 @@ p = q;
 
 ---
 
-程序不可再访问到的内存块被称为**垃圾**. 
+程序不可再访问到的内存块叫作**垃圾**. 
 
 留有垃圾的程序存在**内存泄漏**. 
 
@@ -2290,7 +2290,7 @@ void tabulate(double (*f)(double), double first,
 int * restrict p;
 ```
 
-p被称为**受限指针**. 
+p叫作**受限指针**. 
 
 目的是如果p指向一个稍后被修改的对象, 那么该对象不会允许除了p之外的任何方式访问. 
 
@@ -2432,7 +2432,7 @@ struct vstring *str = malloc(sizeof(struct vstring) + n - 1);
 str->len = n;
 ```
 
-这种技术被称为"struct hack". 
+这种技术叫作"struct hack". 
 
 
 
