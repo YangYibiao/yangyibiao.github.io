@@ -97,6 +97,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>布尔值与闰年化简</p>
+
+</li>
+<li>
 <p>案例: 经纪人佣金与法律日期</p>
 
 </li>
@@ -115,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>"级联" <code>if</code>语句通常是判定一系列条件的最佳方式, 一旦其中一个条件为真就停止</p>
-<p>例子:</p>
+<p>"级联" <code>if</code> 语句适合<mark>逐级判定</mark>: 一旦某个条件为真就停止, 后面的不再判断</p>
+<p>例子: 判断 n 与 0 的关系 (负/零/正)——如左</p>
 </div>
 </div>
 <hr>
@@ -143,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="flex:1;">
 <p>尽管第二个if语句嵌套在第一个中, 但 C 程序员通常不会对它进行缩进</p>
 <p>相反, 他们将每个else与原始if对齐:</p>
-<p>这种布局避免了判定数量很多时过度缩进的问题:</p>
+<p>即把 <code>else</code> 与第一个 <code>if</code> 对齐, 写成 <mark><code>else if</code> 链</mark>——避免判定很多时<mark>层层缩进</mark>的问题</p>
 </div>
 </div>
 <hr>
@@ -251,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 当 <code>if</code> 语句嵌套时, 千万当心出现"悬空else"问题</p>
 <p>缩进暗示<code>else</code>子句属于外部if语句</p>
 <p>然而, 根据C 语言的规则, <code>else</code>子句实际上属于尚未与<code>else</code>配对的最近的<code>if</code>语句</p>
-<p>正确缩进的版本如下:</p>
+<p>正确缩进的版本如左:</p>
 </div>
 </div>
 <hr>
@@ -315,12 +319,16 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="布尔值">布尔值 </h5>
 <hr>
-<p><code>C89</code> 没有布尔类型, 传统做法是用 <code>int</code> 变量充当标志(flag):</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;">
+<p><code>C89</code> 没有布尔类型, 传统做法是用 <code>int</code> 变量充当标志(flag)</p>
+<p>为提高可读性, C89 程序员用宏定义 TRUE/FALSE</p>
+</div>
+<div style="flex:1;font-size:0.72em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> flag<span class="token punctuation">;</span>
 flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 …
 flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
-<p>为提高可读性, C89 程序员用宏定义 TRUE/FALSE:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
 
@@ -329,18 +337,26 @@ flag <span class="token operator">=</span> FALSE<span class="token punctuation">
 flag <span class="token operator">=</span> TRUE<span class="token punctuation">;</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">)</span> …      <span class="token comment">/* 直接测试即可 */</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>flag<span class="token punctuation">)</span> …     <span class="token comment">/* 测试是否为假 */</span></code></pre>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="布尔值">布尔值 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
 <p><code>C99</code> 提供了布尔类型: <code>_Bool</code>, 只能赋值 <code>0</code> 或 <code>1</code></p>
+<p><code>&lt;stdbool.h&gt;</code> 头文件让布尔值更好用</p>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 建议使用 <code>&lt;stdbool.h&gt;</code> 的 <code>bool</code>, <code>true</code>, <code>false</code></p>
+</div>
+<div style="flex:1;font-size:0.75em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>_Bool flag<span class="token punctuation">;</span>
 flag <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>   <span class="token comment">/* flag is assigned 1 */</span></code></pre>
-<p><code>&lt;stdbool.h&gt;</code> 头文件让布尔值更好用:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>bool flag<span class="token punctuation">;</span>   <span class="token comment">/* same as _Bool flag; */</span>
 flag <span class="token operator">=</span> false<span class="token punctuation">;</span>
 …
 flag <span class="token operator">=</span> true<span class="token punctuation">;</span></code></pre>
-<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 建议使用 <code>&lt;stdbool.h&gt;</code> 的 <code>bool</code>, <code>true</code>, <code>false</code></p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
@@ -374,8 +390,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>级联if语句用于将表达式与一系列值进行比较:</p>
-<p>switch语句是另一种选择:</p>
+<p>级联 if 适合<mark>区间判定</mark>; 当只是把同一个表达式和一系列<mark>离散值</mark>比较时, switch 语句是更清晰的选择 (如左)</p>
 </div>
 </div>
 <hr>
@@ -440,7 +455,12 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
-<p>为了节省空间, 可以将多个case标签放在同一行:</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p>为了节省空间, 可以将多个case标签放在同一行</p>
+<p>如果缺少<code>default</code>, 且控制表达式的值与任何case都不匹配, 则控制传递到switch之后的下一条语句</p>
+</div>
+<div style="flex:1.15;font-size:0.72em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Passing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -452,7 +472,8 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>如果缺少<code>default</code>, 且控制表达式的值与任何case都不匹配, 则控制传递到switch之后的下一条语句</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
 <hr>
@@ -487,8 +508,13 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <hr>
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
 <p>省略<code>break</code>有时是故意的, 但通常是因为疏忽</p>
-<p>明确指出故意省略<code>break</code>语句是个好的习惯:</p>
+<p>明确指出故意省略<code>break</code>语句是个好的习惯</p>
+<p>尽管最后一个 <code>case</code> 永远不需要<code>break</code>语句, 但包含一个<code>break</code>可以避免在将来添加 <code>case</code> 时出错</p>
+</div>
+<div style="flex:1.15;font-size:0.72em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>
     num_passing<span class="token operator">++</span><span class="token punctuation">;</span>
@@ -496,7 +522,8 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
   <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span> total_grades<span class="token operator">++</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>尽管最后一个 <code>case</code> 永远不需要<code>break</code>语句, 但包含一个<code>break</code>可以避免在将来添加 <code>case</code> 时出错</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--以法律形式打印日期">程序: 以法律形式打印日期 </h5>
 <hr>
@@ -542,6 +569,12 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--闰年判断的化简">演示: 闰年判断的化简 </h5>
 <hr>
+<p><mark>现场演示</mark>: 把上一课的闰年嵌套版<mark>化简</mark></p>
+<p>用 <mark><code>&amp;&amp;</code></mark> 和 <mark><code>||</code></mark> 把三条规则合并成一个布尔表达式: "能被 4 整除且不能被 100 整除, 或能被 400 整除"</p>
+<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 结果可以直接赋给 <code>leap</code> (布尔表达式的结果就是 0/1)。先自己写, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="演示--闰年判断的化简--参考代码">演示: 闰年判断的化简 (参考代码) </h5>
+<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -565,20 +598,24 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <div style="flex:1;">
 <p><mark>现场演示</mark></p>
 <p>用逻辑运算化简级联 if (leap.c):</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 回顾: 级联 if → 条件合并 → 布尔表达式直接赋值, 三种写法功能相同</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 级联 if → 条件合并 → 布尔表达式直接赋值, 三种写法功能相同; 测试 2024/1900/2000 与嵌套版一致</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>级联式 if 语句适合什么场景？它和嵌套 if 的书写区别是什么？</li>
-<li>条件表达式 <code>i &gt; j ? i : j</code> 的值是什么？可以嵌套使用吗？</li>
-<li>switch 语句中如果漏写 break 会发生什么？多个 case 共用一段代码怎么写？</li>
-<li>悬空 else 问题中，else 实际和哪个 if 配对？如何避免歧义？</li>
+<li>级联式 if 语句适合什么场景？它和嵌套 if 的书写区别是什么？
+</li>
+<li>条件表达式 <code>i &gt; j ? i : j</code> 的值是什么？可以嵌套使用吗？
+</li>
+<li>switch 语句中如果漏写 break 会发生什么？多个 case 共用一段代码怎么写？
+</li>
+<li>悬空 else 问题中，else 实际和哪个 if 配对？如何避免歧义？
+</li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
