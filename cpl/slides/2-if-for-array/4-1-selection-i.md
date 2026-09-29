@@ -706,7 +706,7 @@ int main() {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:1.6;font-size:0.62em;">
 
 ```C
 #include <stdio.h>
