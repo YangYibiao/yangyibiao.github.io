@@ -809,15 +809,27 @@ int main(void) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==现场演示==: 输入年份, 判断是否为闰年
 
 闰年规则: ==能被 4 整除且不能被 100 整除, 或能被 400 整除== (2024 是闰年, 1900 不是, 2000 是)
 
-<div class="top-2">
-  <img src="../img/leap-year-flowchart.png" width=400px>
+<span class="yellow">:fa-weixin:</span> 对照流程图写代码
+
 </div>
 
-<span class="yellow">:fa-weixin:</span> 对照流程图写代码
+<div style="flex:1.2;">
+
+<div class="top-2">
+  <img src="../img/leap-year-flowchart.png" width=520px>
+</div>
+
+</div>
+
+</div>
 
 ---
 
