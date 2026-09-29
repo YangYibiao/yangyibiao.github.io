@@ -293,17 +293,13 @@ if (y != 0)
 
 </div>
 
-<div style="flex:1;">
+</div>
 
 - C 的规则: ==else 属于尚未配对的最近一个 if==——缩进骗不了编译器
 
 - 后果: `y` 为 0 时反而==静默跳过== (不报错); `x` 为 0 时却误报 "y is equal to 0"
 
 - 下一页看大括号修复版
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->
 
