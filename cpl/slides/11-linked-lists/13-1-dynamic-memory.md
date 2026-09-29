@@ -365,11 +365,7 @@ calloc的规则:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 

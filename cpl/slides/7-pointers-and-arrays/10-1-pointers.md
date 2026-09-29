@@ -474,9 +474,7 @@ decompose(3.14159, &i, &d);
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-</div>
 
 <div style="flex:1;">
 

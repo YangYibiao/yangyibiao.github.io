@@ -129,11 +129,7 @@ int a[N];
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 

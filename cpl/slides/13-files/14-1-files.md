@@ -72,11 +72,7 @@ presentation:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -115,11 +111,7 @@ FILE类型在<stdio.h>中声明.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -173,11 +165,7 @@ FILE类型在<stdio.h>中声明.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -218,11 +206,7 @@ FILE类型在<stdio.h>中声明.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -358,11 +342,7 @@ fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -659,11 +639,7 @@ feof和ferror函数可用于测试流的指示器以确定先前对流的操作�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -832,11 +808,7 @@ fcopy.c程序进行文件的复制操作.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
@@ -919,11 +891,7 @@ sizeof(a) / sizeof(a[0]), fp);
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
 
-
-
-</div>
 
 <div style="flex:1;">
 
