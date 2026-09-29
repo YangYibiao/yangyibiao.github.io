@@ -442,15 +442,15 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 <ul>
 <li>
-<p>执行 <code>break</code> 会让程序从 <code>switch</code> 中<mark>中断</mark>, 继续执行 <code>switch</code> 之后的下一条语句</p>
+<p><code>break</code> 的作用: 从 switch 中<mark>立刻跳出</mark>, 继续执行 switch 之后的语句</p>
 
 </li>
 <li>
-<p><code>switch</code> 本质是<mark>计算跳转</mark>: 控制跳到与表达式匹配的 <code>case</code> 标签; <code>case</code> 标签只是"入口标记"</p>
+<p>switch 的工作方式: 先算控制表达式, <mark>直接跳</mark>到匹配的 <code>case</code> 标签——标签只是入口, 跳进去之后<mark>一路向下</mark>执行</p>
 
 </li>
 <li>
-<p>没有 <code>break</code>(或其他跳转语句), 控制会<mark>流入下一个 case</mark>: <code>grade</code> 为 <code>3</code> 时打印 <code>GoodAveragePoorFailingIllegal grade</code></p>
+<p>没有 <code>break</code>, 控制会<mark>流入下一个 case</mark> (穿透): <code>grade</code> 为 <code>3</code> 时, 输出 <code>GoodAveragePoorFailingIllegal grade</code></p>
 
 </li>
 </ul>
@@ -459,9 +459,17 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>省略<code>break</code>有时是故意的, 但通常是因为疏忽</p>
-<p>明确指出故意省略<code>break</code>语句是个好的习惯</p>
-<p>尽管最后一个 <code>case</code> 永远不需要<code>break</code>语句, 但包含一个<code>break</code>可以避免在将来添加 <code>case</code> 时出错</p>
+<p>穿透有时是<mark>故意</mark>的 (如左: 4/3/2/1 一起计入 num_passing), 但大多数是<mark>疏忽</mark></p>
+<ul>
+<li>
+<p>故意穿透时, 加注释 <mark><code>/* FALL THROUGH */</code></mark> 表明意图</p>
+
+</li>
+<li>
+<p>最后一个 <code>case</code> 其实不需要 <code>break</code>——但<mark>建议照写</mark>, 以后加新 <code>case</code> 时不会忘</p>
+
+</li>
+</ul>
 </div>
 <div style="flex:1.15;font-size:0.72em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>

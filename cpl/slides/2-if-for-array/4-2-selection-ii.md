@@ -486,11 +486,11 @@ switch (grade) {
 
 </div>
 
-- 执行 `break` 会让程序从 `switch` 中==中断==, 继续执行 `switch` 之后的下一条语句
+- `break` 的作用: 从 switch 中==立刻跳出==, 继续执行 switch 之后的语句
 
-- `switch` 本质是==计算跳转==: 控制跳到与表达式匹配的 `case` 标签; `case` 标签只是"入口标记"
+- switch 的工作方式: 先算控制表达式, ==直接跳==到匹配的 `case` 标签——标签只是入口, 跳进去之后==一路向下==执行
 
-- 没有 `break`(或其他跳转语句), 控制会==流入下一个 case==: `grade` 为 `3` 时打印 `GoodAveragePoorFailingIllegal grade`
+- 没有 `break`, 控制会==流入下一个 case== (穿透): `grade` 为 `3` 时, 输出 `GoodAveragePoorFailingIllegal grade`
 
 <!-- slide data-notes="" -->
 
@@ -503,11 +503,11 @@ switch (grade) {
 
 <div style="flex:1;">
 
-省略`break`有时是故意的, 但通常是因为疏忽
+穿透有时是==故意==的 (如左: 4/3/2/1 一起计入 num_passing), 但大多数是==疏忽==
 
-明确指出故意省略`break`语句是个好的习惯
+- 故意穿透时, 加注释 ==`/* FALL THROUGH */`== 表明意图
 
-尽管最后一个 `case` 永远不需要`break`语句, 但包含一个`break`可以避免在将来添加 `case` 时出错
+- 最后一个 `case` 其实不需要 `break`——但==建议照写==, 以后加新 `case` 时不会忘
 
 </div>
 
