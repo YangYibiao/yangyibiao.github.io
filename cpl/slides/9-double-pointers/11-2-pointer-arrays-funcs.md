@@ -121,7 +121,7 @@ void add_to_list(struct node **list, int n)
 
 ---
 
-向add_to_list函数传递一个指向原始链表首结点的指针; 它返回一个指向新链表首结点的指针:
+传给 add_to_list 一个指向原链表首结点的指针; 它返回新链表首结点的指针:
 
 如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的. 
 
@@ -133,7 +133,7 @@ void add_to_list(struct node **list, int n)
 函数可以改变list的值, 使其指向新结点, 但first不受影响.
 
 
-让函数add_to_list修改first是可能的, 需要向add_to_list传递一个指向first的指针:
+想让 add_to_list 修改 first 本身, 就传 first 的地址 (指向指针的指针):
 
 
 
@@ -173,11 +173,11 @@ int main(int argc, char *argv[])
 
 这可能包括文件名或修改程序行为的开关. 
 
-UNIX `ls`命令的示例:
+UNIX `ls` 命令的示例:
 
 命令行信息对所有程序都是可用的, 不仅仅是操作系统命令. 
 
-要访问 ==命令行参数==, main必须含有两个参数:
+要用==命令行参数==, main 必须带两个参数:
 
 命令行参数在 C 标准中称为 ==程序参数==.
 
@@ -232,7 +232,7 @@ C 不要求指针只指向数据; 也可以有指向函数的指针.
 
 编写integrate函数求函数f在a点和b点之间的积分, 可以把f作为参数传入, 从而使其尽可能通用. 
 
-integrate原型:
+integrate 的原型:
 
 `*f`两边的括号表示f是指向函数的指针. 
 
@@ -251,13 +251,13 @@ integrate原型:
 
 ---
 
-调用integrate计算sin函数从0到$\pi$/2的积分: 
+调用 integrate 计算 sin 从 0 到 $\pi/2$ 的积分: 
 
 `result = integrate(sin, 0.0, PI/2);`
 
 当函数名后面没有括号时, C 编译器会生成一个指向该函数的指针. 
 
-在integrate函数体内, 可以调用f指向的函数: 
+在 integrate 函数体里, 可以调用 f 指向的函数: 
 
 `y = (*f)(x);`
 
@@ -288,16 +288,16 @@ void qsort(void *base, size_t nmemb, size_t size,
 
 C 库中一些功能强大的函数要求把函数指针作为参数. 
 
-其中之一是qsort, 它的原型在<stdlib.h>中. 
+其中之一是 qsort, 原型在 <stdlib.h> 里。
 
 qsort是一个通用的排序函数, 能够对任何数组进行排序.
 
 
 必须告诉qsort如何确定两个数组元素中的哪个"更小". 
 
-这是通过向qsort传递一个指向比较函数的指针来完成的. 
+做法: 给 qsort 传一个==指向比较函数的指针==。
 
-当给定两个指向数组元素的指针p和q时, 比较函数必须返回一个整数, 即: 
+比较函数拿到两个元素的指针 p、q, 返回一个整数: 
 
 - 如果*p “小于” *q, 返回负数; 
 
@@ -306,7 +306,7 @@ qsort是一个通用的排序函数, 能够对任何数组进行排序.
 - 如果*p “大于” *q, 返回正数.
 
 
-qsort的原型:
+qsort 的原型:
 
 base必须指向数组中的第一个元素(或要排序的部分中的第一个元素). 
 
@@ -420,7 +420,7 @@ tabulate.c程序打印显示cos、sin和tan函数值的表格.
 
 tabulate使用了ceil函数. 
 
-当给定一个double类型的参数x时, ceil返回大于或等于x的最小整数.
+给一个 double 参数 x, ceil 返回 ≥ x 的最小整数。
 
 
 tabulate.c的会话:
