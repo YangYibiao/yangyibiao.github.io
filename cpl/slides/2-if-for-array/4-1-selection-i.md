@@ -551,6 +551,8 @@ if (a > b) {
 
 ---
 
+回到 `else` 子句: 前面的例子都只有一层判断, 但 ==`if` 里面还可以再嵌一个 `if`==——判断里还有判断时, 就出现了嵌套
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1;font-size:0.55em;">
