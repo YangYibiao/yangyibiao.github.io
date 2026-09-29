@@ -279,6 +279,30 @@ d = i;      /* d 为 3.0 */
 
 ---
 
+看这段代码, 预测输出——==尤其是第二行==: 
+
+<div style="font-size:0.8em;">
+
+```C
+int a = 9, b = 4;
+printf("%d\n", a / b);          /* 整数除法 */
+printf("%f\n", a / b);          /* %f 却收到 int */
+```
+
+</div>
+
+<span class="yellow">:fa-weixin:</span> 第二行会打出什么? 猜一猜, 再翻页看实际运行结果
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: 为什么 %f 打出了奇怪的数? (实际结果)
+
+---
+
 <div style="font-size:0.8em;">
 
 ```C
