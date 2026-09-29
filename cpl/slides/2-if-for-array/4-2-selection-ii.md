@@ -145,17 +145,13 @@ else
 
 </div>
 
-<div style="flex:1;">
+</div>
 
 - 其实 `else if` 是嵌套: 第二个 `if` 嵌在第一个的 `else` 里
 
 - 惯例: ==不缩进==, 每个 `else` 与第一个 `if` 对齐, 写成 `else if` 链
 
 - 好处: 判定很多时避免==层层缩进==; 一旦某个条件为真, 后面的分支不再判断
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->
 
