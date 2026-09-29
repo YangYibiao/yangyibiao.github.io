@@ -106,12 +106,12 @@ int main(void)
 
 <div style="flex:1;">
 
-`prime.c`程序测试一个数字是否为素数: 
+`prime.c`: 判断一个数是不是素数。
 
 Enter a number: <u>34</u>
 Not prime
 
-该程序定义一个名为is_prime的函数, 如果其参数是质数则返回true, 否则返回false. 
+它定义了一个 `is_prime` 函数: 参数是素数返回 1, 否则返回 0。 
 
 is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有一个余数为0, n就不是素数.
 
