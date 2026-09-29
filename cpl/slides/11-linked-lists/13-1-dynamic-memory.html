@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>动态存储分配最常用于字符串、数组和结构.</p>
 <p>动态分配的结构可以链接形成链表、树和其他数据结构.</p>
 <p>动态存储分配是通过调用内存分配函数来完成的.</p>
-<stdlib.h>头文件声明了三个内存分配函数: 
+<stdlib.h> 里有三个内存分配函数: 
 <ul>
 <li>
 <p>malloc — 分配内存块, 但不对其进行初始化.</p>
@@ -145,9 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>如果内存分配函数找不到请求大小的内存块, 则返回<strong>空指针</strong>.</p>
 <p>空指针是可以与所有有效指针区分开来的特殊值.</p>
 <p>在将函数的返回值存储在指针变量中之后, 需要判断它是否为空指针.</p>
-<p>malloc的返回值的示例:</p>
+<p>malloc 返回值的示例:</p>
 <p>NULL是一个表示空指针的宏(在各种库头文件中定义).</p>
-<p>一些程序员将malloc的调用与NULL测试结合起来:</p>
+<p>也有的把 malloc 和 NULL 判断写在一起:</p>
 <p>指针以与数字相同的方式测试真假.</p>
 <p>所有非空指针都为真; 只有空指针是假的.</p>
 <p>语句1-2等价, 4-5等价</p>
@@ -167,14 +167,14 @@ p <span class="token operator">=</span> <span class="token function">malloc</spa
 <p>若字符串存储在字符数组中, 很难预测数组需要的长度.</p>
 <p>动态分配字符串, 则允许在程序运行时决定长度.</p>
 <hr>
-<p>malloc函数的原型:</p>
+<p>malloc 的原型:</p>
 <p><code>void *malloc(size_t size);</code></p>
 <p>malloc分配size个字节的内存块并返回一个指向它的(类型为void*)指针.</p>
 <p>size_t是库中定义的无符号整数类型.</p>
-<p>为n个字符的字符串分配内存的malloc调用:</p>
+<p>给 n 个字符的字符串分配内存:</p>
 <p>每个字符需要一个字节的内存; 加1是为空字符留出空间.</p>
-<p>一些程序员更喜欢强制转换malloc的返回值:</p>
-<p>malloc分配的内存不需要清零, 因此p将指向带有n+1个字符的未初始化的数组:</p>
+<p>有的习惯给 malloc 的返回值加强制转换:</p>
+<p>malloc 分到的内存<mark>不会清零</mark>, p 指向的是 n+1 个字符的未初始化数组:</p>
 <div class="top-2">
   <img src="figs/16-1.png">
 </div>
@@ -228,10 +228,10 @@ a <span class="token operator">=</span> <span class="token function">malloc</spa
 <p><code>realloc</code>函数允许我们根据需要使数组<mark>扩展</mark>或<mark>缩减</mark>.</p>
 <hr>
 <p>假设需要一个包含n个整数的数组, n是在程序运行期间计算的.</p>
-<p>先声明一个指针变量, 依据n, 调用malloc为数组分配空间:</p>
+<p>先声明指针变量, 再按 n 的大小用 malloc 给数组分配空间:</p>
 <p>始终使用sizeof运算符来计算每个元素所需的空间量.</p>
 <p>一旦a指向动态分配的内存块, 就可以将指针a用作数组名称.</p>
-<p>例如, 可以使用以下循环来初始化a指向的数组:</p>
+<p>比如, 用下面的循环初始化 a 指向的数组:</p>
 <p>还可以选择使用指针算术运算代替取下标来访问数组的元素.</p>
 </div>
 </div>
@@ -248,7 +248,7 @@ p <span class="token operator">=</span> <span class="token function">calloc</spa
 <p>calloc函数是malloc的替代方法.</p>
 <p>calloc的原型:</p>
 <p><code>void *calloc(size_t nmemb, size_t size);</code></p>
-<p>calloc的规则:</p>
+<p>calloc 的规则:</p>
 <ul>
 <li>
 <p>为nmemb个元素的数组分配空间, 每个元素的长度都是size个字节.</p>
@@ -278,7 +278,7 @@ p <span class="token operator">=</span> <span class="token function">calloc</spa
 <p><code>void *realloc(void *ptr, size_t size);</code></p>
 <p>ptr必须指向通过先前调用malloc、calloc或realloc获得的内存块.</p>
 <p>size表示块的新大小, 可能大于或小于原始大小.</p>
-<p>realloc的规则:</p>
+<p>realloc 的规则:</p>
 <ul>
 <li>
 <p>当扩展内存块时, realloc不会初始化添加到块中的字节.</p>
@@ -297,7 +297,7 @@ p <span class="token operator">=</span> <span class="token function">calloc</spa
 
 </li>
 </ul>
-<p>我们期望realloc相当有效:</p>
+<p>realloc 通常效率不错:</p>
 <ul>
 <li>
 <p>当被要求减小内存块的大小时, realloc应该"在原先的内存块上"直接缩减.</p>

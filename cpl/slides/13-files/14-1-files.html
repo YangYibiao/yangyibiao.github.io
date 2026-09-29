@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>在 C 中, 术语<strong>流</strong>表示任意输入的源或任意输出的目的地.</p>
+<p>C 里, <strong>流</strong>就是任意输入的来源或输出的目的地。</p>
 <p>许多小程序从一个流(键盘)获取所有输入, 并将其所有输出写入另一个流(屏幕).</p>
 <p>较大的程序可能需要额外的流.</p>
 <p>流通常表示存储在不同介质上的文件.</p>
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>访问流是通过<strong>文件指针</strong>完成的, 该指针具有FILE *类型.</p>
 <p>FILE类型在<stdio.h>中声明.</p>
 <p>某些流由具有标准名称的文件指针表示.</p>
-<p>可以根据需要声明其他文件指针: <code>FILE *fp1, *fp2;</code></p>
+<p>需要时可以声明更多文件指针: <code>FILE *fp1, *fp2;</code></p>
 </div>
 </div>
 <hr>
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<stdio.h>提供了三个标准流: 
+<stdio.h> 自带三个标准流: 
 <table>
 <thead>
 <tr>
@@ -153,11 +153,11 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>这些流可以直接使用——我们不需要声明它们, 也不打开或关闭它们.</p>
 <p>前面章节中讨论的 I/O 函数从stdin获取输入并将输出发送到stdout.</p>
 <p>许多操作系统允许通过称为<strong>重定向</strong>的机制更改这些默认含义.</p>
-<p>强制程序从文件而不是键盘获取输入的典型方法: <code>demo &lt;in.dat</code> 这种方法称为<strong>输入重定向</strong>.</p>
+<p>让程序从文件而不是键盘读入的常用方法: <code>demo &lt;in.dat</code> 这种方法称为<strong>输入重定向</strong>.</p>
 <p><strong>输出重定向</strong>类似: <code>demo &gt;out.dat</code> 所有写入stdout的数据现在都将进入out.dat文件, 而不是出现在屏幕上.</p>
-<p>输入重定向和输出重定向可以结合使用: <code>demo &lt;in.dat &gt;out.dat</code></p>
-<p><code>&lt;</code>和<code>&gt;</code>字符不需要与文件名相邻, 重定向文件的列出顺序无关紧要: <code>demo &lt;in.dat&gt; out.dat</code> 等价于: <code>demo &gt;out.dat &lt;in.dat</code></p>
-<p>输出重定向的一个问题是写入stdout的所有内容都被放入一个文件中.</p>
+<p>输入、输出重定向可以一起用: <code>demo &lt;in.dat &gt;out.dat</code></p>
+<p><code>&lt;</code>、<code>&gt;</code> 和文件名之间有没有空格都行, 多个重定向文件的顺序也无所谓: <code>demo &lt;in.dat&gt; out.dat</code> 等价于: <code>demo &gt;out.dat &lt;in.dat</code></p>
+<p>输出重定向要注意: 所有写到 stdout 的内容都会进同一个文件。</p>
 <p>将错误消息写入stderr而不是stdout可以保证即使stdout已被重定向, 错误信息也会出现在屏幕上.</p>
 </div>
 </div>
@@ -221,18 +221,18 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
 <p>数据写入文件时, 可以选择以文本格式或二进制格式存储.</p>
-<p>将数字32767存储在文件中, 一种方法是以文本形式写入字符3、2、7、6和7:</p>
+<p>把数字 32767 存进文件, 一种方式是按文本写入字符 3、2、7、6、7:</p>
 <div class="top-2">
   <img src="../img/21-1.png">
 </div>
-<p>另一种选择是以二进制形式存储数字, 这只需两个字节:</p>
+<p>另一种是按二进制存, 只要两个字节:</p>
 <div class="top-2">
   <img src="../img/21-2.png">
 </div>
 <p>以二进制存储数字通常可以节省空间.</p>
 <p>从文件读取或写入文件的程序必须考虑它是文本还是二进制文件.</p>
 <p>在屏幕上显示文件内容的程序可能会假设它是一个文本文件.</p>
-<p>另一方面, 文件复制程序不能假定要复制的文件是文本文件.</p>
+<p>另一方面, 文件复制程序不能假设要复制的文件是文本文件.</p>
 <ul>
 <li>
 <p>如果是这样, 则不会完全复制包含文件结尾字符的二进制文件.</p>
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>filename是要打开的文件的名称.</p>
 <ul>
 <li>
-<p>此参数可能包括有关文件位置的信息, 例如驱动器符或路径.</p>
+<p>这个参数可以带路径信息, 比如盘符或目录。</p>
 
 </li>
 </ul>
@@ -292,8 +292,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>restrict对fopen的行为没有影响, 因此通常可以忽略它.</p>
 <p>fopen调用中的文件名包含<code>\</code>字符时要小心.</p>
 <p>调用 <code>fopen("c:\project\test1.dat", "r")</code> 将失败, 因为<code>\t</code>被视为转义字符.</p>
-<p>避免该问题的一种方法是用<code>\\</code>代替<code>\</code>: <code>fopen("c:\\project\\test1.dat", "r")</code></p>
-<p>另一种方法是用<code>/</code>代替<code>\</code>: <code>fopen("c:/project/test1.dat", "r")</code></p>
+<p>避开这个问题的一种写法: 用 <code>\\</code> 代替 <code>\</code>: <code>fopen("c:\\project\\test1.dat", "r")</code></p>
+<p>另一种写法: 用 <code>/</code> 代替 <code>\</code>: <code>fopen("c:/project/test1.dat", "r")</code></p>
 <p>fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中:</p>
 <p>无法打开文件时, fopen返回一个空指针.</p>
 </div>
@@ -728,20 +728,20 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>每个流都有一个关联的<strong>文件位置</strong>.</p>
-<p>打开文件时, 文件位置设置在文件的开头.</p>
+<p>每个流都有一个<strong>文件位置</strong>。</p>
+<p>打开文件时, 文件位置在开头。</p>
 <ul>
 <li>
-<p>在"追加"模式下, 初始文件位置可能在开头或结尾, 具体取决于实现.</p>
+<p>"追加"模式下, 初始位置可能在开头也可能在结尾, 看具体实现。</p>
 
 </li>
 </ul>
-<p>当执行读取或写入操作时, 文件位置会自动前进, 从而提供对数据的顺序访问.</p>
+<p>每次读写后, 文件位置自动前进——所以是顺序访问。</p>
 <hr>
 <p>尽管顺序访问对许多应用程序来说都很好, 但有些程序需要能够在文件中跳转.</p>
 <p>如果文件包含一系列记录, 我们可能希望直接跳转到特定记录.</p>
-<stdio.h>提供五个函数, 允许程序确定当前文件位置或更改它.
-<p>fseek函数更改与第一个参数(文件指针)关联的文件位置.</p>
+<stdio.h> 提供五个函数, 用来查当前文件位置或修改它。
+<p>fseek 修改第一个参数 (文件指针) 的文件位置。</p>
 <p>第三个参数是三个宏之一:</p>
 <ul>
 <li>
@@ -761,7 +761,7 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <p>使用fseek移动到文件的开头: <code>fseek(fp, 0L, SEEK_SET);</code></p>
 <p>使用fseek移动到文件末尾: <code>fseek(fp, 0L, SEEK_END);</code></p>
 <p>使用fseek往回移动10个字节: <code>fseek(fp, -10L, SEEK_CUR);</code></p>
-<p>如果发生错误(例如, 请求的位置不存在), fseek返回一个非零值.</p>
+<p>出错时 (比如请求的位置不存在), fseek 返回非零值。</p>
 </div>
 </div>
 <hr>
