@@ -456,7 +456,7 @@ switch (grade) {
 
 - 级联 if 适合==区间判定==; 与一系列==离散值==比较时, switch 更清晰
 
-- 同一个 `grade` 要写六遍 `==` vs 一个 `switch (grade)`
+- 左边的 if 版把 `grade == x` 写了六遍; switch 版只写一次 `switch (grade)`
 
 - 每个分支末尾的 `break` 后面细讲
 
