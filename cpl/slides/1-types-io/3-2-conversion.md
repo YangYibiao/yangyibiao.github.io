@@ -368,7 +368,7 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 `printf` 打印 `double` 会自动四舍五入, 但怎样把 `double` ==变量本身==四舍五入成整数?
 
-<span class="yellow">:fa-weixin:</span> 提示: 强制转换是"向零截断"——小数部分直接丢掉。自己先写, 下一页是参考代码
+<span class="yellow">:fa-weixin:</span> 提示: 强制转换是"向零截断"——小数部分直接丢掉
 
 ---
 
@@ -430,7 +430,7 @@ int main(void) {
 
 <span class="yellow">:fa-weixin:</span> 本题==假设输入合法== (就是 4 位数); 想拒绝非 4 位数的输入, 要等第 4 周学了 `if` 才能做校验
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: `/` 取高位、`%` 取低位。自己先写, 下一页是参考代码
+<span class="blue">:fa-lightbulb-o:</span> 提示: `/` 取高位、`%` 取低位
 
 ---
 
@@ -487,7 +487,7 @@ int main(void) {
 
 例: 输入 `3671` → 输出 `1 小时 1 分 11 秒`
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 一小时 `3600` 秒。自己先写, 下一页是参考代码
+<span class="blue">:fa-lightbulb-o:</span> 提示: 一小时 `3600` 秒
 
 ---
 

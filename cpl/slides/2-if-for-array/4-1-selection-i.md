@@ -615,8 +615,6 @@ if (i > j) {
 
 ==现场演示==: 输入两个整数, 输出其中较小的一个
 
-<span class="yellow">:fa-weixin:</span> 自己先写, 下一页是参考代码
-
 ---
 
 
@@ -673,8 +671,6 @@ int main() {
 ---
 
 ==现场演示==: 输入三个整数, 输出其中最小的一个
-
-<span class="yellow">:fa-weixin:</span> 自己先写, 下一页是参考代码 1
 
 ---
 
@@ -801,7 +797,7 @@ int main(void) {
   <img src="../img/leap-year-flowchart.png" width=400px>
 </div>
 
-<span class="yellow">:fa-weixin:</span> 对照流程图写代码。自己先写, 下一页是参考代码
+<span class="yellow">:fa-weixin:</span> 对照流程图写代码
 
 ---
 
@@ -878,8 +874,6 @@ int main(void) {
 
 规则: ==任意两边之和大于第三边==——三个条件要==同时==成立
 
-<span class="yellow">:fa-weixin:</span> 自己先写, 下一页是参考代码
-
 ---
 
 
@@ -934,7 +928,7 @@ int main(void) {
 
 ==现场演示==: 输入一个整数, 输出它是奇数还是偶数
 
-<span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 第 3 周学的==位运算==也能判断——两种方法都想一想, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 第 3 周学的==位运算==也能判断——两种方法都想一想
 
 ---
 
