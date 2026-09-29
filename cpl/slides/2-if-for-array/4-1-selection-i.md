@@ -611,7 +611,7 @@ if (i > j) {
 
 ==现场演示==: 输入两个整数, 输出其中较小的一个
 
-<span class="yellow">:fa-weixin:</span> 提示: 需要一个变量 `min` 记"当前最小"; if/else 各只控制一条语句时, 花括号可以省略。先自己写, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 先自己写, 再翻页看参考代码
 
 ---
 
@@ -670,7 +670,7 @@ int main() {
 
 ==现场演示==: 输入三个整数, 输出其中最小的一个
 
-<span class="yellow">:fa-weixin:</span> 提示: 先在 `a`、`b` 里挑小的, 再和 `c` 比——==嵌套的 if/else==。先自己写, 再翻页看参考代码 1
+<span class="yellow">:fa-weixin:</span> 先自己写, 再翻页看参考代码 1
 
 ---
 
@@ -797,7 +797,7 @@ int main(void) {
   <img src="../img/leap-year-flowchart.png" width=400px>
 </div>
 
-<span class="yellow">:fa-weixin:</span> 提示: 对照流程图写代码; 用一个 ==leap 标志变量==记"是/否" (`0`/`1`)。先自己写, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 对照流程图写代码。先自己写, 再翻页看参考代码
 
 ---
 
@@ -874,7 +874,7 @@ int main(void) {
 
 规则: ==任意两边之和大于第三边==——三个条件要==同时==成立
 
-<span class="yellow">:fa-weixin:</span> 提示: 三个条件用 `&&` 连起来一次判断完。先自己写, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 先自己写, 再翻页看参考代码
 
 ---
 
@@ -930,7 +930,7 @@ int main(void) {
 
 ==现场演示==: 输入一个整数, 输出它是奇数还是偶数
 
-<span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 第 3 周学的==位运算==也能判断 (最低位是 0 还是 1)。两种方法都想一想, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 第 3 周学的==位运算==也能判断——两种方法都想一想, 再翻页看参考代码
 
 ---
 
