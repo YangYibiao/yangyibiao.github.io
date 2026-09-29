@@ -360,51 +360,11 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="布尔值">布尔值 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.05;">
-<p><code>C89</code> 没有布尔类型, 传统做法是用 <code>int</code> 变量充当标志(flag)</p>
-<p>为提高可读性, C89 程序员用宏定义 TRUE/FALSE</p>
-</div>
-<div style="flex:1;font-size:0.72em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> flag<span class="token punctuation">;</span>
-flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-…
-flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
-
-flag <span class="token operator">=</span> FALSE<span class="token punctuation">;</span>
-…
-flag <span class="token operator">=</span> TRUE<span class="token punctuation">;</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">)</span> …      <span class="token comment">/* 直接测试即可 */</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>flag<span class="token punctuation">)</span> …     <span class="token comment">/* 测试是否为假 */</span></code></pre>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="布尔值">布尔值 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p><code>C99</code> 提供了布尔类型: <code>_Bool</code>, 只能赋值 <code>0</code> 或 <code>1</code></p>
-<p><code>&lt;stdbool.h&gt;</code> 头文件让布尔值更好用</p>
-<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 建议使用 <code>&lt;stdbool.h&gt;</code> 的 <code>bool</code>, <code>true</code>, <code>false</code></p>
-</div>
-<div style="flex:1;font-size:0.75em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>_Bool flag<span class="token punctuation">;</span>
-flag <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>   <span class="token comment">/* flag is assigned 1 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>bool flag<span class="token punctuation">;</span>   <span class="token comment">/* same as _Bool flag; */</span>
-flag <span class="token operator">=</span> false<span class="token punctuation">;</span>
-…
-flag <span class="token operator">=</span> true<span class="token punctuation">;</span></code></pre>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="switch语句">switch语句 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1;font-size:0.5em;">
+<p><mark>级联 if 版</mark>:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span>
@@ -417,6 +377,9 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-else">else</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
+</div>
+<div style="flex:1;font-size:0.5em;">
+<p><mark>switch 版</mark>:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
@@ -433,11 +396,24 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>级联 if 适合<mark>区间判定</mark>; 当只是把同一个表达式和一系列<mark>离散值</mark>比较时, switch 语句是更清晰的选择 (如左)</p>
+<ul>
+<li>
+<p>级联 if 适合<mark>区间判定</mark>; 与一系列<mark>离散值</mark>比较时, switch 更清晰</p>
+
+</li>
+<li>
+<p>同一个 <code>grade</code> 要写六遍 <code>==</code> vs 一个 <code>switch (grade)</code></p>
+
+</li>
+<li>
+<p>每个分支末尾的 <code>break</code> 后面细讲</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="switch语句">switch语句 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -464,7 +440,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="switch语句">switch语句 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -496,7 +472,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="switch语句">switch语句 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -518,7 +494,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.6em;">
@@ -549,7 +525,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -568,7 +544,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--以法律形式打印日期">程序: 以法律形式打印日期 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="程序--以法律形式打印日期">程序: 以法律形式打印日期 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.5;font-size:0.5em;">
@@ -610,12 +586,12 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--闰年判断的化简">演示: 闰年判断的化简 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="演示--闰年判断的化简">演示: 闰年判断的化简 </h5>
 <hr>
 <p><mark>现场演示</mark>: 把上一课的闰年嵌套版<mark>化简</mark></p>
 <p>用 <mark><code>&amp;&amp;</code></mark> 和 <mark><code>||</code></mark> 把三条规则合并成一个布尔表达式: "能被 4 整除且不能被 100 整除, 或能被 400 整除"</p>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="演示--闰年判断的化简--参考代码">演示: 闰年判断的化简 (参考代码) </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="演示--闰年判断的化简--参考代码">演示: 闰年判断的化简 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.65em;">
@@ -644,7 +620,29 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="布尔值--c99">布尔值 (C99) </h5>
+<hr>
+<p><code>C89</code> 没有布尔类型, 我们一直用 <code>int</code> 变量当标志 (比如上一页的 <code>leap</code>)</p>
+<p><code>C99</code> 提供了真正的布尔类型: <code>_Bool</code> + 头文件 <code>&lt;stdbool.h&gt;</code> 的 <code>bool / true / false</code></p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span></span>
+
+bool leap <span class="token operator">=</span> false<span class="token punctuation">;</span>
+…
+leap <span class="token operator">=</span> true<span class="token punctuation">;</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>leap<span class="token punctuation">)</span> …      <span class="token comment">/* 直接测试 */</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>leap<span class="token punctuation">)</span> …     <span class="token comment">/* 测试是否为假 */</span></code></pre>
+<ul>
+<li>
+<p><code>bool</code> 变量只能存 <code>0</code> 或 <code>1</code>: <code>flag = 5;</code> 会变成 <code>1</code></p>
+
+</li>
+<li>
+<p>建议: 新代码用 <code>&lt;stdbool.h&gt;</code> 的 <code>bool</code>——但<mark>不强制</mark>, <code>int</code> 标志照旧能用 (本课作业两种都行)</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>级联式 if 语句适合什么场景？它和嵌套 if 的书写区别是什么？
@@ -657,7 +655,7 @@ flag <span class="token operator">=</span> true<span class="token punctuation">;
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
