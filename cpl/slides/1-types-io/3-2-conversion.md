@@ -291,7 +291,7 @@ printf("%f\n", a / b);          /* %f 却收到 int */
 
 </div>
 
-<span class="yellow">:fa-weixin:</span> 第二行会打出什么? 猜一猜, 再翻页看实际运行结果
+<span class="yellow">:fa-weixin:</span> 第二行会打出什么? 猜一猜
 
 ---
 
