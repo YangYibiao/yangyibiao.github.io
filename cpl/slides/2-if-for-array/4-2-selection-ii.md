@@ -259,7 +259,9 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.65em;">
+<div style="flex:1;font-size:0.55em;">
+
+==缩进暗示的版本== (程序员想配外层): 
 
 ```C
 if (y != 0)
@@ -268,6 +270,12 @@ if (y != 0)
 else
   printf("Error: y is equal to 0\n");
 ```
+
+</div>
+
+<div style="flex:1;font-size:0.55em;">
+
+==C 的实际配对== (else 属于最近的 if): 
 
 ```C{.line-numbers}
 if (y != 0)
@@ -281,15 +289,11 @@ if (y != 0)
 
 <div style="flex:1;">
 
-<span class="blue">:fa-weixin:</span> 当 `if` 语句嵌套时, 千万当心出现"悬空else"问题
+- C 的规则: ==else 属于尚未配对的最近一个 if==——缩进骗不了编译器
 
-缩进暗示`else`子句属于外部if语句
+- 后果: `y` 为 0 时反而==静默跳过== (不报错); `x` 为 0 时却误报 "y is equal to 0"
 
-然而, 根据C 语言的规则, `else`子句实际上属于尚未与`else`配对的最近的`if`语句
-
-正确缩进的版本如左:
-
-
+- 下一页看大括号修复版
 
 </div>
 
