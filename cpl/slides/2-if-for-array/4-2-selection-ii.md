@@ -458,7 +458,78 @@ switch (grade) {
 
 - 左边的 if 版把 `grade == x` 写了六遍; switch 版只写一次 `switch (grade)`
 
-- 每个分支末尾的 `break` 后面细讲
+- 每个分支末尾的 `break`——下一页就讲它的作用
+
+<!-- slide data-notes="" -->
+
+
+##### break语句的作用
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+==没有 break 的版本==: 
+
+```C{.line-numbers}
+switch (grade) {
+  case 4:  printf("Excellent");
+  case 3:  printf("Good");
+  case 2:  printf("Average");
+  case 1:  printf("Poor");
+  case 0:  printf("Failing");
+  default: printf("Illegal grade");
+}
+```
+
+</div>
+
+</div>
+
+- 执行 `break` 会让程序从 `switch` 中==中断==, 继续执行 `switch` 之后的下一条语句
+
+- `switch` 本质是==计算跳转==: 控制跳到与表达式匹配的 `case` 标签; `case` 标签只是"入口标记"
+
+- 没有 `break`(或其他跳转语句), 控制会==流入下一个 case==: `grade` 为 `3` 时打印 `GoodAveragePoorFailingIllegal grade`
+
+<!-- slide data-notes="" -->
+
+
+##### break语句的作用
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+省略`break`有时是故意的, 但通常是因为疏忽
+
+明确指出故意省略`break`语句是个好的习惯
+
+尽管最后一个 `case` 永远不需要`break`语句, 但包含一个`break`可以避免在将来添加 `case` 时出错
+
+</div>
+
+<div style="flex:1.15;font-size:0.72em;">
+
+```C{.line-numbers}
+switch (grade) {
+  case 4: case 3: case 2: case 1:
+    num_passing++;
+    /* FALL THROUGH */
+  case 0: total_grades++;
+    break;
+}
+```
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -566,77 +637,6 @@ switch (grade) {
     break;
   default: 
     printf("Illegal grade");
-    break;
-}
-```
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### break语句的作用
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.6em;">
-
-==没有 break 的版本==: 
-
-```C{.line-numbers}
-switch (grade) {
-  case 4:  printf("Excellent");
-  case 3:  printf("Good");
-  case 2:  printf("Average");
-  case 1:  printf("Poor");
-  case 0:  printf("Failing");
-  default: printf("Illegal grade");
-}
-```
-
-</div>
-
-</div>
-
-- 执行 `break` 会让程序从 `switch` 中==中断==, 继续执行 `switch` 之后的下一条语句
-
-- `switch` 本质是==计算跳转==: 控制跳到与表达式匹配的 `case` 标签; `case` 标签只是"入口标记"
-
-- 没有 `break`(或其他跳转语句), 控制会==流入下一个 case==: `grade` 为 `3` 时打印 `GoodAveragePoorFailingIllegal grade`
-
-<!-- slide data-notes="" -->
-
-
-##### break语句的作用
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-省略`break`有时是故意的, 但通常是因为疏忽
-
-明确指出故意省略`break`语句是个好的习惯
-
-尽管最后一个 `case` 永远不需要`break`语句, 但包含一个`break`可以避免在将来添加 `case` 时出错
-
-</div>
-
-<div style="flex:1.15;font-size:0.72em;">
-
-```C{.line-numbers}
-switch (grade) {
-  case 4: case 3: case 2: case 1:
-    num_passing++;
-    /* FALL THROUGH */
-  case 0: total_grades++;
     break;
 }
 ```

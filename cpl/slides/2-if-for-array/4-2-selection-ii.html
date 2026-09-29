@@ -421,12 +421,61 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 
 </li>
 <li>
-<p>每个分支末尾的 <code>break</code> 后面细讲</p>
+<p>每个分支末尾的 <code>break</code>——下一页就讲它的作用</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="switch语句">switch语句 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.6em;">
+<p><mark>没有 break 的版本</mark>:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Good"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Poor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+</div>
+<ul>
+<li>
+<p>执行 <code>break</code> 会让程序从 <code>switch</code> 中<mark>中断</mark>, 继续执行 <code>switch</code> 之后的下一条语句</p>
+
+</li>
+<li>
+<p><code>switch</code> 本质是<mark>计算跳转</mark>: 控制跳到与表达式匹配的 <code>case</code> 标签; <code>case</code> 标签只是"入口标记"</p>
+
+</li>
+<li>
+<p>没有 <code>break</code>(或其他跳转语句), 控制会<mark>流入下一个 case</mark>: <code>grade</code> 为 <code>3</code> 时打印 <code>GoodAveragePoorFailingIllegal grade</code></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p>省略<code>break</code>有时是故意的, 但通常是因为疏忽</p>
+<p>明确指出故意省略<code>break</code>语句是个好的习惯</p>
+<p>尽管最后一个 <code>case</code> 永远不需要<code>break</code>语句, 但包含一个<code>break</code>可以避免在将来添加 <code>case</code> 时出错</p>
+</div>
+<div style="flex:1.15;font-size:0.72em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>
+    num_passing<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token comment">/* FALL THROUGH */</span>
+  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span> total_grades<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -458,7 +507,7 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="switch语句">switch语句 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -490,7 +539,7 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="switch语句">switch语句 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="switch语句">switch语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -507,55 +556,6 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-default">default</span><span class="token operator">:</span> 
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.6em;">
-<p><mark>没有 break 的版本</mark>:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Good"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Poor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-</div>
-<ul>
-<li>
-<p>执行 <code>break</code> 会让程序从 <code>switch</code> 中<mark>中断</mark>, 继续执行 <code>switch</code> 之后的下一条语句</p>
-
-</li>
-<li>
-<p><code>switch</code> 本质是<mark>计算跳转</mark>: 控制跳到与表达式匹配的 <code>case</code> 标签; <code>case</code> 标签只是"入口标记"</p>
-
-</li>
-<li>
-<p>没有 <code>break</code>(或其他跳转语句), 控制会<mark>流入下一个 case</mark>: <code>grade</code> 为 <code>3</code> 时打印 <code>GoodAveragePoorFailingIllegal grade</code></p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="break语句的作用">break语句的作用 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p>省略<code>break</code>有时是故意的, 但通常是因为疏忽</p>
-<p>明确指出故意省略<code>break</code>语句是个好的习惯</p>
-<p>尽管最后一个 <code>case</code> 永远不需要<code>break</code>语句, 但包含一个<code>break</code>可以避免在将来添加 <code>case</code> 时出错</p>
-</div>
-<div style="flex:1.15;font-size:0.72em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>grade<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">4</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span>
-    num_passing<span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token comment">/* FALL THROUGH */</span>
-  <span class="token keyword keyword-case">case</span> <span class="token number">0</span><span class="token operator">:</span> total_grades<span class="token operator">++</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
