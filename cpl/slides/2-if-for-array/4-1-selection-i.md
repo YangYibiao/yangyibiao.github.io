@@ -325,7 +325,8 @@ else max = j;
 
 int main(void) {
     int x = 0;
-    if (x = 5)          /* 本意是 x == 5, 少打了一个 = */
+    /* 本意是 x == 5, 少打了一个 = */
+    if (x = 5)
         printf("x 等于 5\n");
     else
         printf("x 不等于 5\n");
