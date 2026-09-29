@@ -803,7 +803,7 @@ Dated this 19th day of July, 2014.
 
 用 ==`&&`== 和 ==`||`== 把三条规则合并成一个布尔表达式: "能被 4 整除且不能被 100 整除, 或能被 400 整除"
 
-<span class="yellow">:fa-weixin:</span> 提示: 结果可以直接赋给 `leap` (布尔表达式的结果就是 0/1)。先自己写, 再翻页看参考代码
+<span class="yellow">:fa-weixin:</span> 先自己写, 再翻页看参考代码
 
 ---
 
