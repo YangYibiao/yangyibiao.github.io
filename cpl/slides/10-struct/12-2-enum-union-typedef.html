@@ -122,16 +122,16 @@ u<span class="token punctuation">.</span>d <span class="token operator">=</span>
 <p>编译器只为最大的成员分配足够的空间, 联合的成员在这个空间内彼此覆盖.</p>
 <p>为一个成员赋予新值也会改变其他成员的值.</p>
 <hr>
-<p>联合变量的示例:</p>
-<p>联合声明与结构体声明非常相似:</p>
+<p>联合变量示例:</p>
+<p>联合的声明和结构体很像:</p>
 <p>结构体s和联合变量u只有一处不同.</p>
 <p>s的成员存储在不同的内存地址中.</p>
 <p>u的成员存储在同一个地址.</p>
 <div class="top-2">
   <img src="figs/15-4.png" height=400px>
 </div>
-<p>联合成员的访问方式与结构体成员的访问方式相同:</p>
-<p>更改联合的一个成员会更改以前存储在任何其他成员中的值.</p>
+<p>联合成员的访问方式和结构体完全一样:</p>
+<p>改了联合的一个成员, 之前存的其他成员的值就<mark>被覆盖</mark>了。</p>
 <ul>
 <li>
 <p>把一个值存储到u.d中会导致之前存储在u.i中的值丢失.</p>
@@ -188,7 +188,7 @@ Shirts<span class="token operator">:</span> Design<span class="token punctuation
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>联合可用于<mark>节省结构体空间</mark>: 设计礼品册商品结构体, 每件物品有库存量、价格和与类型相关的其他信息:</p>
+<p>用联合可以<mark>省结构体空间</mark>: 设计礼品册商品, 每件物品有库存量、价格, 外加类型相关的信息:</p>
 <p>catalog_item 的最初设计: item_type 取 BOOK/MUG/SHIRT 之一; colors 与 sizes 存颜色和尺寸的组合码——只有部分信息对全部商品通用, 这样设计<mark>浪费空间</mark>; 在结构体里放一个联合可减少所需空间</p>
 </div>
 </div>
@@ -219,15 +219,15 @@ n<span class="token punctuation">.</span>u<span class="token punctuation">.</spa
 </div>
 <div style="flex:1;">
 <p>不容易确定联合最后改变的成员, 因此包含的值可能是无意义的.</p>
-<p>考虑编写一个显示存储在联合Number中的值的函数:</p>
+<p>写一个函数, 显示联合 Number 里存的值:</p>
 <p>print_number无法确定n包含的是整数还是浮点数.</p>
-<p>为了跟踪这些信息, 我们可以将联合嵌入到一个结构体中, 且此结构体还含有另一个成员: "标记字段"或"判别式".</p>
+<p>为了记住"现在存的是哪种", 把联合嵌进结构体, 再加一个成员当<mark>标记字段</mark>(判别式)。</p>
 <p>标记字段的目的是提示当前存储在联合中的内容.</p>
 <p>结构体catalog_item中的item_type用于此目的.</p>
-<p>把Number类型转换成具有嵌入联合的结构体类型:</p>
+<p>把 Number 改成"内嵌联合的结构体":</p>
 <p>kind的值可能是INT_KIND或DOUBLE_KIND.</p>
 <p>每次为u的成员赋值时, 也会改变kind, 从而提示出修改的是u的哪个成员.</p>
-<p>对u的成员i进行赋值操作的示例:</p>
+<p>给 u 的成员 i 赋值的示例:</p>
 <p>假设n为Number类型的变量.</p>
 </div>
 </div>
@@ -250,13 +250,13 @@ s <span class="token operator">=</span> HEARTS<span class="token punctuation">;<
 </div>
 <div style="flex:1;">
 <p>在许多程序中, 我们需要只有少量有意义的值的变量.</p>
-<p>存储扑克牌花色的变量应该只有4种可能的值: "梅花"、"方片"、"红心"和"黑桃".</p>
+<p>存扑克牌花色的变量只该有 4 种值: 梅花、方片、红心、黑桃。</p>
 <hr>
-<p>可以将花色变量声明为一个整数, 并用一组编码表示变量的可能值:</p>
-<p>这种方法的问题:</p>
+<p>可以把花色声明成整数, 用一组编码表示四种花色:</p>
+<p>这样做的问题:</p>
 <ul>
 <li>
-<p>读程序时不会意识到s只有4个可能的值.</p>
+<p>读代码的人看不出 s 只有 4 种可能值。</p>
 
 </li>
 <li>
@@ -264,9 +264,9 @@ s <span class="token operator">=</span> HEARTS<span class="token punctuation">;<
 
 </li>
 </ul>
-<p>使用宏定义花色"类型"和各种花色的名称是朝着正确方向迈出的一步:</p>
+<p>用宏给花色"类型"和四个名字——方向对了, 但还有更好的办法:</p>
 <p>上一个示例的改进版本:</p>
-<p>这种方法的问题:</p>
+<p>但宏的问题:</p>
 <ul>
 <li>
 <p>没有指出宏表示具有相同"类型"的值.</p>
@@ -346,7 +346,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 </div>
 <div style="flex:1;">
 <p>枚举非常适合用来确定联合中最后一个被赋值的成员.</p>
-<p>在Number结构体中, 可以将kind成员声明为枚举而不是int:</p>
+<p>Number 结构体里, kind 成员可以声明成枚举而不是 int:</p>
 <p>新结构体的使用方式与旧结构体完全相同.</p>
 <p>新结构体的优点:</p>
 <ul>
@@ -355,7 +355,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 
 </li>
 <li>
-<p>阐明kind只有两种可能的值: INT_KIND和DOUBLE_KIND</p>
+<p>一眼看清 kind 只有两种可能值: INT_KIND 和 DOUBLE_KIND</p>
 
 </li>
 </ul>
@@ -374,7 +374,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 </div>
 <div style="flex:1;">
 <p>类型限定符: <mark>const</mark> (只读) 与 <mark>volatile</mark> (第 20 章讨论); C99 还有 <mark>restrict</mark> (只用于指针). 例子:</p>
-<p>将对象声明为const的优点:</p>
+<p>把对象声明成 const 的好处:</p>
 <ul>
 <li>
 <p>const是文档格式.</p>
