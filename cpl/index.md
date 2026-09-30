@@ -44,8 +44,8 @@
 |   ^    | [类型转换与未定义行为](slides/1-types-io/3-2-conversion.html) | 类型转换与未定义行为                |
 | 第4周   | [选择结构 (上)](slides/2-if-for-array/4-1-selection-i.html) | 选择结构 (上) |
 |   ^    | [选择结构 (下)](slides/2-if-for-array/4-2-selection-ii.html) | 选择结构 (下) |
-| 第5周   | 待发布                            | 循环结构 (上)    |
-|   ^    | 待发布                            | 循环结构 (下)    |
+| 第5周   | [循环结构 (上)](slides/2-if-for-array/5-1-loops-i.html) | 循环结构 (上) |
+|   ^    | [循环结构 (下)](slides/2-if-for-array/5-2-loops-ii.html) | 循环结构 (下) |
 | 第6周   | 待发布                            | 函数 (I)    |
 |   ^    | 待发布                            | 函数 (II)    |
 | 第7周   | 待发布                            | 递归函数 |
