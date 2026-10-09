@@ -239,43 +239,58 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--打印平方表">程序: 打印平方表 </h5>
 <hr>
+<p><mark>现场演示</mark>: 打印平方表——用户指定行数, 每行输出"数字 + 它的平方"</p>
+<p>样例 (输入 5):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>请输入行数<span class="token operator">:</span> <span class="token number">5</span>
+         <span class="token number">1</span>         <span class="token number">1</span>
+         <span class="token number">2</span>         <span class="token number">4</span>
+         <span class="token number">3</span>         <span class="token number">9</span>
+         <span class="token number">4</span>        <span class="token number">16</span>
+         <span class="token number">5</span>        <span class="token number">25</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 两列右对齐——第 2 周的 <code>%10d</code> 字段宽度还记得吗?</p>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--打印平方表--参考代码">程序: 打印平方表 (参考代码) </h5>
+<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>This program prints a table of squares<span class="token punctuation">.</span>
-Enter number of entries in table<span class="token operator">:</span> <span class="token number">5</span>
-<span class="token number">1</span>         <span class="token number">1</span>
-<span class="token number">2</span>         <span class="token number">4</span>
-<span class="token number">3</span>         <span class="token number">9</span>
-<span class="token number">4</span>        <span class="token number">16</span>
-<span class="token number">5</span>        <span class="token number">25</span></code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 使用 while 语句打印一个平方表 */</span>
- 
+<div style="flex:1.3;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 打印平方表 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
+
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
-  
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"This program prints a table of squares.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of entries in table: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入行数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+
   i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;=</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%10d%10d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> i <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
     i<span class="token operator">++</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
- 
+
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p><code>square.c</code>程序使用<code>while</code>语句来打印一个平方表</p>
-<p>用户指定打印几行:</p>
+<ul>
+<li>
+<p><code>i</code> 从 1 到 n, 循环条件 <code>i &lt;= n</code>——<mark>计数循环</mark>用 while 的最常见写法</p>
+
+</li>
+<li>
+<p>循环体两条语句: 打印一行 + 计数递增——所以用大括号</p>
+
+</li>
+<li>
+<p><code>%10d</code>: 占 10 格右对齐, 两列对齐成表</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--数列求和">程序: 数列求和 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--数列求和">程序: 数列求和 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -307,7 +322,7 @@ Enter number of entries in table<span class="token operator">:</span> <span clas
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="do语句">do语句 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="do语句">do语句 </h5>
 <hr>
 <p>do 语句的一般形式: <code>do 语句 while (表达式);</code></p>
 <p>执行do语句时, 先执行循环体, 再计算控制表达式的值</p>
@@ -320,7 +335,7 @@ Enter number of entries in table<span class="token operator">:</span> <span clas
 <span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>与 <code>while</code> 的唯一区别: do 的循环体<mark>至少执行一次</mark></p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="do语句">do语句 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="do语句">do语句 </h5>
 <hr>
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 无论是否需要, 最好给所有的do语句都加上大括号, 没有大括号的do语句很容易被误认为是while语句</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-do">do</span>
@@ -328,7 +343,7 @@ Enter number of entries in table<span class="token operator">:</span> <span clas
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>粗心的读者可能会认为单词while是while语句的开始.</p>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--计算整数的位数">程序: 计算整数的位数 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--计算整数的位数">程序: 计算整数的位数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.58em;">
@@ -362,7 +377,7 @@ The number has <span class="token number">2</span> <span class="token function">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="break语句">break语句 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="break语句">break语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.65em;">
@@ -381,7 +396,7 @@ The number has <span class="token number">2</span> <span class="token function">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="break语句">break语句 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="break语句">break语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.65em;">
@@ -408,7 +423,7 @@ The number has <span class="token number">2</span> <span class="token function">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="continue语句">continue语句 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="continue语句">continue语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.55em;">
@@ -451,7 +466,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="空语句--一个分号的代价">空语句: 一个分号的代价 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="空语句--一个分号的代价">空语句: 一个分号的代价 </h5>
 <hr>
 <p><mark>空语句</mark>: 只有一个分号 <code>;</code>, 什么都不做</p>
 <ul>
@@ -476,7 +491,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>while 和 do-while 唯一的区别是什么？
@@ -489,7 +504,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
