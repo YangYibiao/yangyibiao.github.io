@@ -162,15 +162,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>常见的 for 错误:</p>
 <ul>
 <li>
-<p>在控制表达式中把<code>&gt;</code>写成<code>&lt;</code>(或者相反). 向上计数循环的控制语句应使用<code>&lt;</code>或<code>&lt;=</code>运算符. 向下计数循环应该使用<code>&gt;</code>或<code>&gt;=</code></p>
+<p>方向写反: 向上计数用 <code>&lt;</code>/<code>&lt;=</code>, 向下计数用 <code>&gt;</code>/<code>&gt;=</code>——把 <code>&gt;</code> 写成 <code>&lt;</code> 方向就反了</p>
 
 </li>
 <li>
-<p>在控制表达式中把<code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>或<code>&gt;=</code>写成<code>==</code>——这类判定的初始值不为真, 没有意义</p>
+<p>把比较符写成 <code><mark></code>: 初始值就不成立, 循环体</mark>一次都不执行==</p>
 
 </li>
 <li>
-<p>循环次数差一错误, 例如在控制表达式中把<code>i &lt; n</code>写为<code>i &lt;= n</code></p>
+<p><mark>差一错误</mark> (off-by-one): 把 <code>i &lt; n</code> 写成 <code>i &lt;= n</code> 会多循环一次</p>
 
 </li>
 </ul>
@@ -178,10 +178,14 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="演示--浮点计数循环的陷阱">演示: 浮点计数循环的陷阱 </h5>
 <hr>
 <div style="font-size:0.8em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> x <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">,</span> x <span class="token operator">+=</span> <span class="token number">0.1</span><span class="token punctuation">)</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d 次累加后: %.17f\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> x <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">,</span> x <span class="token operator">+=</span> <span class="token number">0.1</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d 次累加后: %.17f\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
 <p>运行结果 (节选):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code> <span class="token number">1</span> 次累加后<span class="token operator">:</span> <span class="token number">0.10000000000000001</span>
@@ -208,11 +212,11 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> 
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span> 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">)</span> 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> …</code></pre>
 </div>
 <div style="flex:1;">
@@ -280,10 +284,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
   
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"This program prints a table of squares.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of entries in table: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入行数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%10d%10d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> i <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
  
@@ -298,6 +301,14 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="嵌套循环--打印星号塔">嵌套循环: 打印星号塔 </h5>
 <hr>
+<p><mark>现场演示</mark>: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)</p>
+<div class="top-2">
+  <img src="../3-for-a-while/figs/stars.jpg" width=450px>
+</div>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 需要<mark>两层循环</mark>——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮。先自己写, 再翻页看参考代码</p>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="嵌套循环--打印星号塔--参考代码">嵌套循环: 打印星号塔 (参考代码) </h5>
+<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* stars.c: 打印星号塔 */</span>
@@ -306,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter height: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入高度: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token comment">/* 外层: 控制行数 */</span>
@@ -318,16 +329,24 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p><mark>现场演示</mark></p>
-<p>用两层循环打印星号塔:</p>
-<div class="top-2">
-  <img src="../3-for-a-while/figs/stars.jpg" width=400px>
-</div>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 外层循环每执行一次, 内层循环完整执行一轮</p>
+<ul>
+<li>
+<p>外层 <code>i</code> 从 1 到 n: 第 i 行</p>
+
+</li>
+<li>
+<p>内层 <code>j</code> 从 1 到 i: 打印 i 颗星——内层的上限<mark>依赖外层变量</mark>, 这是嵌套循环的精髓</p>
+
+</li>
+<li>
+<p>输入 <code>5</code> → 5 行星号塔</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="算法案例--数据交换-累加-累乘">算法案例: 数据交换、累加、累乘 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="算法案例--数据交换-累加-累乘">算法案例: 数据交换、累加、累乘 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -348,7 +367,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -357,7 +376,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> d<span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter a number: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator"><</span> n<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -365,9 +384,9 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
             <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>              <span class="token comment">/* 找到约数, 提前退出 */</span>
 
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>d <span class="token operator"><</span> n<span class="token punctuation">)</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d is not a prime\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 不是素数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-else">else</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d is a prime\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是素数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
@@ -380,7 +399,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="算法案例--非完全平方数的和">算法案例: 非完全平方数的和 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="算法案例--非完全平方数的和">算法案例: 非完全平方数的和 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -390,7 +409,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter n: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 n: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -399,7 +418,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
             <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>          <span class="token comment">/* 完全平方数, 跳过 */</span>
         sum <span class="token operator">+=</span> i<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum = %d\n"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"非完全平方数之和 = %d\n"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
@@ -412,7 +431,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>for (i = 0; i &lt; n; i++)</code> 循环体执行了多少次？
@@ -425,7 +444,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
