@@ -116,8 +116,15 @@ C 有三种循环语句 (控制表达式的玩法下面细讲):
 while 示例: 
 
 ```C{.line-numbers}
-while (i < n) /* 控制表达式 */
-  i = i * 2; /* 循环体 */
+#include <stdio.h>
+int main(void) {
+    int n, i = 1;
+    scanf("%d", &n);
+    while (i < n)        /* 控制表达式 */
+        i = i * 2;       /* 循环体 */
+    printf("%d\n", i);
+    return 0;
+}
 ```
 
 执行while语句时, 首先计算控制表达式
@@ -415,11 +422,16 @@ do 语句的一般形式: `do 语句 while (表达式);`
 将前面的`倒计数`程序用do语句重写: 
 
 ```C{.line-numbers}
-i = 10;
-do {
-  printf("T minus %d and counting\n", i);
-  --i;
-} while (i > 0);
+#include <stdio.h>
+int main(void) {
+    int i = 10;
+    do {
+        printf("%d\n", i);
+        --i;
+    } while (i > 0);
+    printf("发射!\n");
+    return 0;
+}
 ```
 
 与 `while` 的唯一区别: do 的循环体==至少执行一次==
@@ -512,16 +524,20 @@ int main(void)
 <div style="flex:1.2;font-size:0.65em;">
 
 ```C{.line-numbers}
-for (d = 2; d < n; d++)
-  if (n % d == 0)
-    break;
-```
-
-```C{.line-numbers}
-if (d < n)
-  printf("%d is divisible by %d\n", n, d);
-else
-  printf("%d is prime\n", n);
+#include <stdio.h>
+int main(void) {
+    int n = 13, d = 2;
+    while (d < n) {
+        if (n % d == 0)
+            break;
+        d++;
+    }
+    if (d < n)
+        printf("%d 能被 %d 整除\n", n, d);
+    else
+        printf("%d 是素数\n", n);
+    return 0;
+}
 ```
 
 </div>
@@ -552,12 +568,17 @@ else
 <div style="flex:1.2;font-size:0.65em;">
 
 ```C{.line-numbers}
-for (;;) {
-  printf("Enter a number (enter 0 to stop): ");
-  scanf("%d", &n);
-  if (n == 0)
-    break;
-  printf("%d cubed is %d\n", n, n * n * n);
+#include <stdio.h>
+int main(void) {
+    int n;
+    while (1) {
+        printf("输入一个数 (0 结束): ");
+        scanf("%d", &n);
+        if (n == 0)
+            break;
+        printf("%d 的立方是 %d\n", n, n * n * n);
+    }
+    return 0;
 }
 ```
 
