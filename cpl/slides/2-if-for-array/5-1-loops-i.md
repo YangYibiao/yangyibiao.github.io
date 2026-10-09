@@ -518,7 +518,6 @@ int main(void)
   } while (n > 0);
 
   printf("它有 %d 位数字\n", digits);
-
   return 0;
 }
 ```
