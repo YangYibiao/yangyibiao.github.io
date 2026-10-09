@@ -152,16 +152,16 @@ while (i < n)
 `n = 10` 时, while 的执行过程:
 
 ```C{.line-numbers}
-i = 1;          i is now 1         
-Is i < n?       Yes; continue      
-i = i * 2;      i is now 2         
-Is i < n?       Yes; continue      
-i = i * 2;      i is now 4         
-Is i < n?       Yes; continue      
-i = i * 2;      i is now 8         
-Is i < n?       Yes; continue      
-i = i * 2;      i is now 16        
-Is i < n?       No; exit from loop 
+i = 1;        i 现在是 1
+i < n?        是, 继续
+i = i * 2;    i 现在是 2
+i < n?        是, 继续
+i = i * 2;    i 现在是 4
+i < n?        是, 继续
+i = i * 2;    i 现在是 8
+i < n?        是, 继续
+i = i * 2;    i 现在是 16
+i < n?        否, 退出循环
 ```
 
 </div>
