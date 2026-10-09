@@ -350,18 +350,23 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 <p>do 语句的一般形式: <code>do 语句 while (表达式);</code></p>
 <p>执行do语句时, 先执行循环体, 再计算控制表达式的值</p>
 <p>表达式的值不为零 \(\rightarrow\) 执行循环体 \(\rightarrow\) 计算表达式的值 \(\rightarrow\) ....</p>
-<p>将前面的<code>倒计数</code>程序用do语句重写:</p>
+<p><mark>do-while 最典型的用途: 输入校验</mark>——必须先读一次, 才知道合不合法:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
     <span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">--</span>i<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"发射!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入一个正整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"你输入了 %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>与 <code>while</code> 的唯一区别: do 的循环体<mark>至少执行一次</mark></p>
+<ul>
+<li>
+<p>与 <code>while</code> 的唯一区别: do 的循环体<mark>至少执行一次</mark>——"先读后判"的场景, while 写起来很别扭 (得先预读一次), do-while 刚刚好</p>
+
+</li>
+</ul>
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="do语句">do语句 </h5>
 <hr>
