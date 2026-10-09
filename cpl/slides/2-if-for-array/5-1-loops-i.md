@@ -269,39 +269,52 @@ while (1) …
 
 ---
 
+==现场演示==: 打印平方表——用户指定行数, 每行输出"数字 + 它的平方"
+
+样例 (输入 5):
+
+```
+请输入行数: 5
+         1         1
+         2         4
+         3         9
+         4        16
+         5        25
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 两列右对齐——第 2 周的 `%10d` 字段宽度还记得吗?
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 打印平方表 (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
-
-```
-This program prints a table of squares.
-Enter number of entries in table: 5
-1         1
-2         4
-3         9
-4        16
-5        25
-```
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
-/* 使用 while 语句打印一个平方表 */
- 
+/* 打印平方表 */
 #include <stdio.h>
- 
+
 int main(void)
 {
   int i, n;
-  
-  printf("This program prints a table of squares.\n");
-  printf("Enter number of entries in table: ");
+
+  printf("请输入行数: ");
   scanf("%d", &n);
- 
+
   i = 1;
   while (i <= n) {
     printf("%10d%10d\n", i, i * i);
     i++;
   }
- 
+
   return 0;
 }
 ```
@@ -310,11 +323,11 @@ int main(void)
 
 <div style="flex:1;">
 
-`square.c`程序使用`while`语句来打印一个平方表
+- `i` 从 1 到 n, 循环条件 `i <= n`——==计数循环==用 while 的最常见写法
 
-用户指定打印几行:
+- 循环体两条语句: 打印一行 + 计数递增——所以用大括号
 
-
+- `%10d`: 占 10 格右对齐, 两列对齐成表
 
 </div>
 
