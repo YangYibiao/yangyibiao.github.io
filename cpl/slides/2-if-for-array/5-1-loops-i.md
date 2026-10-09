@@ -340,29 +340,47 @@ int main(void)
 
 ---
 
+==现场演示==: 对用户输入的整数数列求和——用户不断输入整数, 直到输入 ==`0`== 为止, 输出总和
+
+样例:
+
+```
+输入整数 (0 结束): 8 23 71 5 0
+总和是: 107
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: `0` 是==哨兵值==——本身不参与求和, 只用来表示"输完了"。先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 数列求和 (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* 对数列求和 */
- 
 #include <stdio.h>
- 
+
 int main(void)
 {
   int n, sum = 0;
-  
-  printf("This program sums a series of integers.\n");
-  printf("Enter integers (0 to terminate): ");
- 
+
+  printf("输入整数 (0 结束): ");
   scanf("%d", &n);
   while (n != 0) {
     sum += n;
     scanf("%d", &n);
   }
-  printf("The sum is: %d\n", sum);
- 
+  printf("总和是: %d\n", sum);
+
   return 0;
 }
 ```
@@ -371,14 +389,11 @@ int main(void)
 
 <div style="flex:1;">
 
-`sum.c`程序对用户输入的整数数列求和: 
+- 先读一个数, 不是 `0` 就累加、再读下一个——==读一个, 判一个, 加一个==
 
-`输入整数(0 终止):` <u>8•23•71•5•0</u>
-`总和是: 107`
+- `sum` 初值必须为 ==0== (累加的起点)
 
-该程序需要一个循环, 循环中使用scanf读取一个数字并将其累加
-
-
+- 哨兵值模式: 用特殊值标记"输入结束", 循环条件就是 `n != 0`
 
 </div>
 
