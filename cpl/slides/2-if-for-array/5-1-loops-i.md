@@ -500,7 +500,6 @@ while (i > 0);
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.25;font-size:0.65em;">
-
 ```C{.line-numbers}
 /* 计算整数的位数 */
 #include <stdio.h>
