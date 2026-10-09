@@ -502,7 +502,7 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="continue语句">continue语句 </h5>
 <hr>
-<p>任务: <mark>读入 10 个非负整数求和</mark>——遇到负数视为非法输入, 直接忽略 (不累加、不计数)</p>
+<p>任务: <mark>读入 10 个整数, 计算 100/i 的和</mark>——<code>i</code> 为 <code>0</code> 时除零会崩溃, 必须跳过</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.55em;">
 <p><mark>用 continue 的版本</mark>:</p>
@@ -510,9 +510,9 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>      <span class="token comment">/* 负数忽略, 不累加不计数 */</span>
-  sum <span class="token operator">+=</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>      <span class="token comment">/* 跳过除零 */</span>
+  sum <span class="token operator">+=</span> <span class="token number">100</span> <span class="token operator">/</span> i<span class="token punctuation">;</span>
   n<span class="token operator">++</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
@@ -522,8 +522,8 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    sum <span class="token operator">+=</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    sum <span class="token operator">+=</span> <span class="token number">100</span> <span class="token operator">/</span> i<span class="token punctuation">;</span>
     n<span class="token operator">++</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
@@ -535,7 +535,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 
 </li>
 <li>
-<p>效果: 读到<mark>负数</mark>就忽略——不累加 (加进去结果就错了)、不计数, 其余输入照常处理</p>
+<p>效果: 读到 <code>0</code> 必须跳过——否则 <code>100 / i</code> <mark>除零崩溃</mark>; continue 的必要性不依赖题目规定, 而是程序的生死问题</p>
 
 </li>
 <li>
