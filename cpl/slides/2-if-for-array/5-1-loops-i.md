@@ -413,11 +413,11 @@ int main(void)
 
 ---
 
-do 语句的一般形式: `do 语句 while (表达式);`
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-执行do语句时, 先执行循环体, 再计算控制表达式的值
+<div style="flex:1.25;font-size:0.7em;">
 
-表达式的值不为零 $\rightarrow$ 执行循环体 $\rightarrow$ 计算表达式的值 $\rightarrow$ ....
+一般形式: `do 语句 while (表达式);`
 
 ==do-while 最典型的用途: 输入校验==——必须先读一次, 才知道合不合法:
 
@@ -434,7 +434,19 @@ int main(void) {
 }
 ```
 
-- 与 `while` 的唯一区别: do 的循环体==至少执行一次==——"先读后判"的场景, while 写起来很别扭 (得先预读一次), do-while 刚刚好
+</div>
+
+<div style="flex:1;">
+
+- 执行顺序: ==先执行循环体 → 再算控制表达式 → 非零再来一轮==
+
+- 与 `while` 的唯一区别: 循环体==至少执行一次==
+
+- "先读后判"的场景 while 写起来很别扭 (得先预读一次), do-while 刚刚好——对比上一页数列求和的预读写法
+
+</div>
+
+</div>
 
 ---
 
