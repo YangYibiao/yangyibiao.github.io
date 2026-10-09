@@ -503,17 +503,20 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="continue语句">continue语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.55em;">
+<div style="flex:1;font-size:0.55em;">
+<p><mark>用 continue 的版本</mark>:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>      <span class="token comment">/* 跳到本轮末尾 */</span>
   sum <span class="token operator">+=</span> i<span class="token punctuation">;</span>
   n<span class="token operator">++</span><span class="token punctuation">;</span>
-  <span class="token comment">/* continue jumps to here */</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.55em;">
+<p><mark>不用 continue 的版本</mark>:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -524,24 +527,21 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<p><code>continue</code>语句类似于<code>break</code>:</p>
+</div>
 <ul>
 <li>
-<p><code>break</code>将程序控制转移到循环体末尾之后</p>
+<p><code>break</code> 跳出循环; <code>continue</code> 跳到<mark>本轮循环体末尾</mark>, 直接进入下一轮 (循环照常继续)</p>
 
 </li>
 <li>
-<p><code>continue</code>将控制转移到循环体末尾之前</p>
+<p>效果: 输入 <code>0</code> 时跳过累加和计数, 其余输入照常处理</p>
+
+</li>
+<li>
+<p>另一个区别: <code>break</code> 可用于 switch 和循环; <mark><code>continue</code> 只能用于循环</mark></p>
 
 </li>
 </ul>
-<p>使用<code>break</code>会使程序控制跳出循环; 而<code>continue</code>会把程序控制保留在循环内</p>
-<p><code>break</code>和<code>continue</code>之间还有另一个区别: <code>break</code>可用于<code>switch</code>语句和循环(<code>while</code>、<code>do</code>和<code>for</code>), 而<code>continue</code>仅限于循环</p>
-<p>使用<code>continue</code>语句的循环:</p>
-<p>不使用<code>continue</code>编写的相同循环:</p>
-</div>
-</div>
 <hr>
 </section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="空语句--一个分号的代价">空语句: 一个分号的代价 </h5>
 <hr>

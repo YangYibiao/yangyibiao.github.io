@@ -640,7 +640,9 @@ while (…) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.55em;">
+<div style="flex:1;font-size:0.55em;">
+
+==用 continue 的版本==: 
 
 ```C{.line-numbers}
 n = 0;
@@ -648,12 +650,17 @@ sum = 0;
 while (n < 10) {
   scanf("%d", &i);
   if (i == 0)
-    continue;
+    continue;      /* 跳到本轮末尾 */
   sum += i;
   n++;
-  /* continue jumps to here */
 }
 ```
+
+</div>
+
+<div style="flex:1;font-size:0.55em;">
+
+==不用 continue 的版本==: 
 
 ```C{.line-numbers}
 n = 0;
@@ -669,27 +676,15 @@ while (n < 10) {
 
 </div>
 
-<div style="flex:1;">
-
-`continue`语句类似于`break`: 
-
-- `break`将程序控制转移到循环体末尾之后
-
-- `continue`将控制转移到循环体末尾之前
-
-使用`break`会使程序控制跳出循环; 而`continue`会把程序控制保留在循环内
-
-`break`和`continue`之间还有另一个区别: `break`可用于`switch`语句和循环(`while`、`do`和`for`), 而`continue`仅限于循环
-
-使用`continue`语句的循环:
-
-不使用`continue`编写的相同循环:
-
-
-
 </div>
 
-</div>
+- `break` 跳出循环; `continue` 跳到==本轮循环体末尾==, 直接进入下一轮 (循环照常继续)
+
+- 效果: 输入 `0` 时跳过累加和计数, 其余输入照常处理
+
+- 另一个区别: `break` 可用于 switch 和循环; ==`continue` 只能用于循环==
+
+
 
 <!-- slide data-notes="" -->
 
