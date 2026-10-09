@@ -509,8 +509,8 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>      <span class="token comment">/* 跳到本轮末尾 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>      <span class="token comment">/* 负数忽略, 不累加不计数 */</span>
   sum <span class="token operator">+=</span> i<span class="token punctuation">;</span>
   n<span class="token operator">++</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
@@ -521,7 +521,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     sum <span class="token operator">+=</span> i<span class="token punctuation">;</span>
     n<span class="token operator">++</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
@@ -534,7 +534,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 
 </li>
 <li>
-<p>效果: 输入 <code>0</code> 时跳过累加和计数, 其余输入照常处理</p>
+<p>效果: 读到<mark>负数</mark>就忽略——不累加 (加进去结果就错了)、不计数, 其余输入照常处理</p>
 
 </li>
 <li>
