@@ -457,15 +457,15 @@ int main(void) {
 
 ---
 
-<span class="blue">:fa-weixin:</span> 无论是否需要, 最好给所有的do语句都加上大括号, 没有大括号的do语句很容易被误认为是while语句
+<span class="blue">:fa-weixin:</span> ==建议给所有 do 语句都加大括号==——没有大括号的 do 很容易被误读成 while:
 
 ```C
 do
-  printf("T minus %d and counting\n", i--);
+    printf("%d\n", i--);
 while (i > 0);
 ```
 
-粗心的读者可能会认为单词while是while语句的开始. 
+- 粗心的读者会把结尾的 `while` 当成新循环的开头 
 
 ---
 
