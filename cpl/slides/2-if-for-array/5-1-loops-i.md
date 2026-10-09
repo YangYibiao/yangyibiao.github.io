@@ -476,34 +476,49 @@ while (i > 0);
 
 ---
 
+==现场演示==: 输入一个非负整数, 输出它是几位数
+
+样例:
+
+```
+输入一个非负整数: 60
+它有 2 位数字
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 每除以 10 一次, 位数就多 1——直到除成 0。想想为什么这里用 do-while 比 while 更合适? 先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 计算整数的位数 (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.58em;">
-
-```
-Enter a nonnegative integer: 60
-The number has 2 digit(s).
-```
+<div style="flex:1.25;font-size:0.65em;">
 
 ```C{.line-numbers}
 /* 计算整数的位数 */
- 
 #include <stdio.h>
- 
+
 int main(void)
 {
   int digits = 0, n;
- 
-  printf("Enter a nonnegative integer: ");
+
+  printf("输入一个非负整数: ");
   scanf("%d", &n);
- 
+
   do {
     n /= 10;
     digits++;
   } while (n > 0);
- 
-  printf("The number has %d digit(s).\n", digits);
- 
+
+  printf("它有 %d 位数字\n", digits);
+
   return 0;
 }
 ```
@@ -512,13 +527,11 @@ int main(void)
 
 <div style="flex:1;">
 
-`numdigits.c`程序计算用户输入的整数的位数:
+- 思路: 反复除以 `10` 直到变 `0`, ==除的次数就是位数== (60 → 6 → 0, 两次 → 2 位)
 
-程序会反复将用户输入除以`10`, 直到变为`0`; 除法的次数就是所求的位数
+- 为什么用 do-while: 每个整数==至少有一位数字==——输入 `0` 时 while 版会输出 0 位 (错的!), do-while 先除一次正好
 
-此循环用do语句编写比使用while语句更好, 因为每个整数(包括`0`)都至少有一位数字
-
-
+- `digits` 初值 0, 每轮 +1——计数循环的惯用写法
 
 </div>
 
