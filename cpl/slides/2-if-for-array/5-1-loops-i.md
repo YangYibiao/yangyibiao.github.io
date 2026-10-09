@@ -638,6 +638,8 @@ while (…) {
 
 ---
 
+任务: ==读入 10 个非负整数求和==——遇到负数视为非法输入, 直接忽略 (不累加、不计数)
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1;font-size:0.55em;">
