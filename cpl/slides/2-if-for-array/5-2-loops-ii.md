@@ -172,11 +172,11 @@ while (i > 0) {
 
 常见的 for 错误:
 
-- 在控制表达式中把`>`写成`<`(或者相反). 向上计数循环的控制语句应使用`<`或`<=`运算符. 向下计数循环应该使用`>`或`>=`
+- 方向写反: 向上计数用 `<`/`<=`, 向下计数用 `>`/`>=`——把 `>` 写成 `<` 方向就反了
 
-- 在控制表达式中把`<`、`<=`、`>`或`>=`写成`==`——这类判定的初始值不为真, 没有意义
+- 把比较符写成 `==`: 初始值就不成立, 循环体==一次都不执行==
 
-- 循环次数差一错误, 例如在控制表达式中把`i < n`写为`i <= n`
+- ==差一错误== (off-by-one): 把 `i < n` 写成 `i <= n` 会多循环一次
 
 ---
 
@@ -190,10 +190,14 @@ while (i > 0) {
 <div style="font-size:0.8em;">
 
 ```C
-int i;
-double x;
-for (i = 0, x = 0.0; i <= 10; i++, x += 0.1)
-    printf("%2d 次累加后: %.17f\n", i, x);
+#include <stdio.h>
+int main(void) {
+    int i;
+    double x;
+    for (i = 0, x = 0.0; i <= 10; i++, x += 0.1)
+        printf("%2d 次累加后: %.17f\n", i, x);
+    return 0;
+}
 ```
 
 </div>
@@ -228,14 +232,14 @@ for (i = 0, x = 0.0; i <= 10; i++, x += 0.1)
 <div style="flex:1.2;font-size:0.7em;">
 
 ```C{.line-numbers}
-i = 10; 
-for (; i > 0; --i) 
-  printf("T minus %d and counting\n", i);
+i = 10;
+for (; i > 0; --i)
+  printf("%d\n", i);
 ```
 
 ```C{.line-numbers}
-for (i = 10; i > 0;) 
-  printf("T minus %d and counting\n", i--);
+for (i = 10; i > 0;)
+  printf("%d\n", i--);
 ```
 
 ```C
@@ -362,10 +366,9 @@ int main(void)
 {
   int i, n;
   
-  printf("This program prints a table of squares.\n");
-  printf("Enter number of entries in table: ");
+  printf("请输入行数: ");
   scanf("%d", &n);
- 
+
   for (i = 1; i <= n; i++)
     printf("%10d%10d\n", i, i * i);
  
@@ -392,6 +395,24 @@ int main(void)
 
 ---
 
+==现场演示==: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)
+
+<div class="top-2">
+  <img src="../3-for-a-while/figs/stars.jpg" width=450px>
+</div>
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮。先自己写, 再翻页看参考代码
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 嵌套循环: 打印星号塔 (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.55em;">
@@ -403,7 +424,7 @@ int main(void)
 int main(void)
 {
     int n;
-    printf("Enter height: ");
+    printf("输入高度: ");
     scanf("%d", &n);
 
     for (int i = 1; i <= n; i++) {        /* 外层: 控制行数 */
@@ -419,15 +440,11 @@ int main(void)
 
 <div style="flex:1;">
 
-==现场演示==
+- 外层 `i` 从 1 到 n: 第 i 行
 
-用两层循环打印星号塔:
+- 内层 `j` 从 1 到 i: 打印 i 颗星——内层的上限==依赖外层变量==, 这是嵌套循环的精髓
 
-<div class="top-2">
-  <img src="../3-for-a-while/figs/stars.jpg" width=400px>
-</div>
-
-<span class="blue">:fa-lightbulb-o:</span> 外层循环每执行一次, 内层循环完整执行一轮
+- 输入 `5` → 5 行星号塔
 
 </div>
 
@@ -496,7 +513,7 @@ for (int i = 1; i <= n; i++)
 
 int main(void) {
     int n, d;
-    printf("Enter a number: ");
+    printf("输入一个数: ");
     scanf("%d", &n);
 
     for (d = 2; d < n; d++)
@@ -504,9 +521,9 @@ int main(void) {
             break;              /* 找到约数, 提前退出 */
 
     if (d < n)
-        printf("%d is not a prime\n", n);
+        printf("%d 不是素数\n", n);
     else
-        printf("%d is a prime\n", n);
+        printf("%d 是素数\n", n);
     return 0;
 }
 ```
@@ -545,7 +562,7 @@ int main(void) {
 
 int main(void) {
     int n, sum = 0;
-    printf("Enter n: ");
+    printf("输入 n: ");
     scanf("%d", &n);
 
     for (int i = 1; i <= n; i++) {
@@ -554,7 +571,7 @@ int main(void) {
             continue;          /* 完全平方数, 跳过 */
         sum += i;
     }
-    printf("sum = %d\n", sum);
+    printf("非完全平方数之和 = %d\n", sum);
     return 0;
 }
 ```
