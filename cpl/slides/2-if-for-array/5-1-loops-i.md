@@ -53,13 +53,17 @@ presentation:
 
 ---
 
-- 重复语句与 while
+- 为什么需要循环: 三种循环语句
 
-- do-while 语句
+- while 语句与复合循环体
 
-- break 与 continue
+- do-while 与输入校验
 
 - 案例: 平方表、数列求和、整数的位数
+
+- break、continue 与空语句陷阱
+
+- 课堂小测: 概念 + 编码
 
 ---
 
