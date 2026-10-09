@@ -419,22 +419,22 @@ do 语句的一般形式: `do 语句 while (表达式);`
 
 表达式的值不为零 $\rightarrow$ 执行循环体 $\rightarrow$ 计算表达式的值 $\rightarrow$ ....
 
-将前面的`倒计数`程序用do语句重写: 
+==do-while 最典型的用途: 输入校验==——必须先读一次, 才知道合不合法:
 
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void) {
-    int i = 10;
+    int n;
     do {
-        printf("%d\n", i);
-        --i;
-    } while (i > 0);
-    printf("发射!\n");
+        printf("请输入一个正整数: ");
+        scanf("%d", &n);
+    } while (n <= 0);
+    printf("你输入了 %d\n", n);
     return 0;
 }
 ```
 
-与 `while` 的唯一区别: do 的循环体==至少执行一次==
+- 与 `while` 的唯一区别: do 的循环体==至少执行一次==——"先读后判"的场景, while 写起来很别扭 (得先预读一次), do-while 刚刚好
 
 ---
 
