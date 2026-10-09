@@ -182,14 +182,14 @@ i < n?        否, 退出循环
 <div style="flex:1.2;font-size:0.7em;">
 
 ```C{.line-numbers}
-while (i > 0) {
-  printf("T minus %d and counting\n", i);
+while (i > 0) {          /* 循环体: 两条语句 */
+  printf("%d\n", i);
   i--;
 }
 ```
 
 ```C{.line-numbers}
-while (i < n) {
+while (i < n) {          /* 循环体只有一条语句 */
   i = i * 2;
 }
 ```
@@ -197,9 +197,10 @@ while (i < n) {
 ```C{.line-numbers}
 i = 10;
 while (i > 0) {
-  printf("T minus %d and counting\n", i);
+  printf("%d\n", i);
   i--;
 }
+printf("发射!\n");
 ```
 
 </div>
@@ -212,9 +213,9 @@ while (i > 0) {
 
 即使只有一条语句, ==建议也用大括号==——以后加语句不用补:
 
-看一个"倒计数"的例子:
+看一个火箭发射倒计时的例子: 打印 10、9、…、1, 最后喊出"发射!"
 
-最后打印的消息是`T minus 1 and counting`
+最后一行输出是 `发射!`
 
 </div>
 
@@ -237,7 +238,7 @@ while 的几个注意点:
 
 ```C{.line-numbers}
 while (i > 0)
-  printf("T minus %d and counting\n", i--);
+  printf("%d\n", i--);
 ```
 
 ---
