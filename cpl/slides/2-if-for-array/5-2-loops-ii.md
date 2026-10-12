@@ -564,7 +564,32 @@ int main(void) {
 ---<!-- slide data-notes="" -->
 
 
-##### 程序: 打印平方表 (for版)
+##### 程序: 打印平方表 (for 版)
+
+---
+
+==现场演示==: 用 `for` 重写上一课的平方表程序——输出一模一样
+
+样例 (输入 5):
+
+```
+请输入行数: 5
+         1         1
+         2         4
+         3         9
+         4        16
+         5        25
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: while 版的三件事 (初始化、判定、递增) 怎么搬进 for 的三个表达式?
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 打印平方表 (for 版 参考代码)
 
 ---
 
@@ -573,21 +598,20 @@ int main(void) {
 <div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
-/* 使用 for 语句打印一个平方表 */
- 
+/* 打印平方表 (for 版) */
 #include <stdio.h>
- 
+
 int main(void)
 {
   int i, n;
-  
+
   printf("请输入行数: ");
   scanf("%d", &n);
 
   for (i = 1; i <= n; i++) {
     printf("%10d%10d\n", i, i * i);
-}
- 
+  }
+
   return 0;
 }
 ```
@@ -596,9 +620,11 @@ int main(void)
 
 <div style="flex:1;">
 
-使用 `for` 语句重写平方表程序:
+- 三件事搬进三个表达式: `i = 1` → 表达式1; `i <= n` → 表达式2; `i++` → 表达式3
 
-对比 while 版本: for 把初始化、判定、递增三件事集中在一行, 计数循环更清晰
+- 输出与 while 版完全一致 (输入 5 → 5 行平方表)
+
+- for 把三件事集中一行, 计数循环更清晰——这正是 ==for 的主场==
 
 </div>
 
