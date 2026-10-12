@@ -824,6 +824,10 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是完全平方数? (第 3 周的 sqrt + 强制转换); 遇到完全平方数要跳过——用什么?
 
+<div class="top-2">
+  <img src="../3-for-a-while/figs/perfectSquare.gif" width=360px>
+</div>
+
 ---
 
 
@@ -866,10 +870,6 @@ int main(void) {
 - `r = (int) sqrt(i)` + `r * r == i`: 第 3 周的强制转换在这里兑现
 
 - `continue` 跳过完全平方数——==循环与数学库函数的第一次合作==
-
-<div class="top-2">
-  <img src="../3-for-a-while/figs/perfectSquare.gif" width=300px>
-</div>
 
 </div>
 
