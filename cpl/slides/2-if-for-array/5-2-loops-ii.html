@@ -305,28 +305,39 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="for语句省略表达式--全省--省略2">for语句省略表达式 (全省: 省略2) </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.7em;">
 <p><mark>三个表达式全省</mark>: 条件<mark>默认为真</mark>——<code>for(;;)</code> 是最常见的无限循环写法</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    …               <span class="token comment">/* 靠 break/return 跳出 */</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个数 (0 结束): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>      <span class="token comment">/* 靠 break 跳出 */</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 的平方是 %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> n <span class="token operator">*</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
 <ul>
 <li>
 <p>分号不能少: <code>for(;;)</code> 里两个分号都在</p>
 
 </li>
 <li>
-<p>循环不会自己停, 要靠 <code>break</code>/<code>return</code> 跳出 (下页就讲 break)</p>
+<p>没有 <code>break</code>/<code>return</code>, 循环永远不停——<mark>试试把 break 删掉再跑</mark>, 用 <mark>Ctrl+C</mark> 打断</p>
 
 </li>
 <li>
-<p>刻意不写可运行版——真跑起来就停不下来; 想试就复制去跑, <mark>Ctrl+C</mark> 打断</p>
-
-</li>
-<li>
-<p>和 5-1 的 <code>while (1)</code> 是同类写法, 习惯用哪个都行</p>
+<p><code>break</code> 下页细讲; 和 5-1 的 <code>while (1)</code> 是同类写法, 习惯用哪个都行</p>
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="c99中的for语句--声明循环变量">C99中的for语句 (声明循环变量) </h5>
 <hr>

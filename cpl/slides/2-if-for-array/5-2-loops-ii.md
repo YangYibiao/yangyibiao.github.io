@@ -354,21 +354,40 @@ int main(void) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.7em;">
+
 ==三个表达式全省==: 条件==默认为真==——`for(;;)` 是最常见的无限循环写法
 
-```C
-for (;;) {
-    …               /* 靠 break/return 跳出 */
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int n;
+    for (;;) {
+        printf("输入一个数 (0 结束): ");
+        scanf("%d", &n);
+        if (n == 0)
+            break;      /* 靠 break 跳出 */
+        printf("%d 的平方是 %d\n", n, n * n);
+    }
+    return 0;
 }
 ```
 
+</div>
+
+<div style="flex:1;">
+
 - 分号不能少: `for(;;)` 里两个分号都在
 
-- 循环不会自己停, 要靠 `break`/`return` 跳出 (下页就讲 break)
+- 没有 `break`/`return`, 循环永远不停——==试试把 break 删掉再跑==, 用 ==Ctrl+C== 打断
 
-- 刻意不写可运行版——真跑起来就停不下来; 想试就复制去跑, ==Ctrl+C== 打断
+- `break` 下页细讲; 和 5-1 的 `while (1)` 是同类写法, 习惯用哪个都行
 
-- 和 5-1 的 `while (1)` 是同类写法, 习惯用哪个都行
+</div>
+
+</div>
 
 ---
 
