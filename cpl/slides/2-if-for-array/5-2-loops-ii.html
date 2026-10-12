@@ -218,19 +218,36 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 省略表达式1: 初始化挪到循环前 */</span>
+i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 省略表达式3: 递减写进循环体 */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> …</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 省略表达式2: 条件默认为真 */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> …</code></pre>
 </div>
 <div style="flex:1;">
-<p><code>C</code>允许省略<code>for语句</code>中的表达式</p>
-<p>省略表达式1: 循环前不初始化:</p>
-<p>省略表达式3: 循环体必须自己让条件最终变假:</p>
-<p>当<code>for</code>语句同时省略第一个和第三个表达式时, 它和<code>while</code>语句没有任何分别, <code>while</code>版本更清晰, 因此更推荐</p>
-<p>省略表达式2: <mark>默认为真</mark>, 循环不会自己停 (除非 break)——<code>for(;;)</code> 就是最常见的无限循环写法:</p>
+<p>C 允许省略 for 的三个表达式, 各有用场:</p>
+<ul>
+<li>
+<p><mark>省略表达式1</mark>: 初始化放到循环前 (左 1)——初值本来就在前面算好了</p>
+
+</li>
+<li>
+<p><mark>省略表达式3</mark>: 递增/递减写进循环体 (左 2)——但条件最终要能变假, 否则死循环</p>
+
+</li>
+<li>
+<p>省 1 又省 3: 就和 <code>while</code> 一样了——此时 <code>while</code> 更清晰, 更推荐</p>
+
+</li>
+<li>
+<p><mark>省略表达式2</mark>: 条件<mark>默认为真</mark>, 不会自己停 (除非 break)——<code>for(;;)</code> 是最常见的无限循环写法 (左 3)</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
