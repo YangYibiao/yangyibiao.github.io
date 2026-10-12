@@ -1072,11 +1072,4 @@ for (int i = 1; i <= 3; i++)
 printf("%d\n", count);
 ```
 
----<!-- slide data-notes="" -->
-
-
-#####
-
 ---
-
-
