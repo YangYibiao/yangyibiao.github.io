@@ -648,10 +648,6 @@ makefile不仅列出了作为程序一部分的文件, 而且还描述了文件�
 
 ---
 
-<div class="top-2">
-  <img src="../figs/see-you.png" width=500px>
-</div>
-
 ---
 
 

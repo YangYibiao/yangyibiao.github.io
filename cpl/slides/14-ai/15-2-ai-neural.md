@@ -253,10 +253,6 @@ for (int epoch = 0; epoch < 100; epoch++) {
 
 ---
 
-<div class="top-2">
-  <img src="../figs/see-you.png" width=500px>
-</div>
-
 ---
 
 

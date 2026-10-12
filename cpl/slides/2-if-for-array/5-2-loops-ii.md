@@ -954,7 +954,9 @@ for (;;) {
 
 写完后用热键终端跑一遍验证
 
----<!-- slide data-notes="" -->
+---
+
+<!-- slide data-notes="" -->
 
 
 ##### 课堂小测 5
@@ -990,6 +992,44 @@ for (int i = 1; i <= 9; i++)
 ```
 
 - 运行一下会看到什么? 和真正的口诀表差在哪?
+
+---<!-- slide data-notes="" -->
+##### 课堂小测 7
+
+---
+
+分析运行结果: 下面嵌套循环输出什么?
+
+```C
+for (int i = 1; i <= 3; i++) {
+    int j = 1;
+    while (j <= i) {
+        printf("*");
+        j++;
+    }
+    printf("\n");
+}
+```
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 课堂小测 8
+
+---
+
+分析运行结果: `count` 最后是多少?
+
+```C
+int count = 0;
+for (int i = 1; i <= 3; i++)
+    for (int j = 1; j <= 2; j++)
+        count++;
+printf("%d\n", count);
+```
 
 ---<!-- slide data-notes="" -->
 

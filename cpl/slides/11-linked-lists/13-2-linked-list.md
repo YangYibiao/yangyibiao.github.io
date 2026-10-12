@@ -461,10 +461,6 @@ find_part和insert会更复杂, 因为将按零件编号对链表inventory中的
 
 ---
 
-<div class="top-2">
-  <img src="../figs/see-you.png" width=500px>
-</div>
-
 ---
 
 

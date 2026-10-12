@@ -446,8 +446,4 @@ $\mathit{min} = \min_{i} A_{i}$
 
 ---
 
-<div class="top-2">
-  <img src="figs/see-you.png" width=500px>
-</div>
-
 ---

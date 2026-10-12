@@ -809,10 +809,6 @@ if (!leap) …     /* 测试是否为假 */
 
 ---
 
-<div class="top-2">
-  <img src="../0-intro/figs/see-you.png" width=500px>
-</div>
-
 ---
 
 
