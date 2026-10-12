@@ -648,7 +648,7 @@ int main(void)
 
 ==现场演示==: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮
+<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——一层管行数, 一层管每行的星号数
 
 </div>
 
@@ -687,8 +687,9 @@ int main(void)
     scanf("%d", &n);
 
     for (int i = 1; i <= n; i++) {        /* 外层: 控制行数 */
-        for (int j = 1; j <= i; j++)      /* 内层: 控制每行星号个数 */
+        for (int j = 1; j <= i; j++) {    /* 内层: 每行星号个数 */
             printf("*");
+        }
         printf("\n");
     }
     return 0;
