@@ -854,7 +854,7 @@ int main(void) {
 
 (1~10 的和 55, 减去完全平方数 1+4+9 = 41)
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是完全平方数? (第 3 周的 sqrt + 强制转换); 遇到完全平方数要跳过——用什么?
+<span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是完全平方数? (想想第 3 周的工具箱); 遇到完全平方数要跳过——用什么?
 
 </div>
 
