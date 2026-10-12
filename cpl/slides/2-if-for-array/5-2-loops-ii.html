@@ -139,17 +139,18 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.05;">
-<p><code>i--</code> 换成 <code>--i</code>, 结果一样吗? 看等价的 while 就明白了——<mark>一样</mark></p>
-<p>表达式1 和表达式3 都是<mark>语句</mark>, 它们的<mark>值</mark>无关紧要——起作用的是<mark>副作用</mark> (赋值、自增自减), 所以这两个位置通常放 <code>i++</code>/<code>i--</code></p>
+<p>表达式1 和表达式3 都是<mark>语句</mark>, 它们的<mark>值</mark>无关紧要——起作用的是<mark>副作用</mark> (赋值、自增自减)</p>
+<p>所以表达式3 <mark>不一定非要是 <code>i++</code>/<code>i--</code></mark>——步长 2、累加之类都行:</p>
+<p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> 小注: 表达式3 写 <code>i--</code> 还是 <code>--i</code> 结果一样 (只看副作用, 不看值)——第 3 周自增自减的知识在这里兑现</p>
 </div>
 <div style="flex:1;font-size:0.72em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">--</span>i<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 求 2+4+6+...+n 的偶数和 */</span>
+<span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    sum <span class="token operator">+=</span> i<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 表达式3 也可以是累加: 一行写完累加循环 */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> sum <span class="token operator">+=</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">;</span></code></pre>
 </div>
 </div>
 <hr>
