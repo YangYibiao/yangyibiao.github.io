@@ -293,10 +293,29 @@ secret = 100
 
 ---
 
+<!-- slide data-notes="" -->##### 程序: 数列反向
+
+---
+
+==现场演示==: 输入 10 个数, 逆序输出
+
+样例:
+
+```
+输入 10 个数: 34 82 49 102 7 94 23 11 50 31
+逆序输出: 31 50 11 23 94 7 102 49 82 34
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 先全部读进数组, 再从最后一个元素往回打印
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
-##### 程序: 数列反向
+##### 程序: 数列反向 (参考代码)
 
 ---
 
@@ -306,52 +325,59 @@ secret = 100
 
 ```C{.line-numbers}
 /* 数列反向 */
-
 #include <stdio.h>
- 
+
 #define N 10
- 
+
 int main(void)
 {
   int a[N], i;
- 
-  printf("Enter %d numbers: ", N);
+
+  printf("输入 %d 个数: ", N);
   for (i = 0; i < N; i++)
     scanf("%d", &a[i]);
- 
-  printf("In reverse order:");
+
+  printf("逆序输出:");
   for (i = N - 1; i >= 0; i--)
     printf(" %d", a[i]);
   printf("\n");
- 
+
   return 0;
 }
-```
-
-```C
-int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 ```
 
 </div>
 
 <div style="flex:1;">
 
-`reverse.c`
+- 正着读 (`i` 从 0 到 N-1), 倒着打 (`i` 从 N-1 到 0)——==同一数组, 两种遍历方向==
 
-与其他变量一样, 数组可以在声明时获得一个初始值. 
-
-数组初始化式最常见的格式是用大括号括起来的常量表达式列表, 常量表达式之间用逗号分隔:
-
-
+- 数据先全部存下来, 才能"回头"——数组的价值就在这
 
 </div>
 
 </div>
+
+---
+
+<!-- slide data-notes="" -->##### 程序: 找最高分
+
+---
+
+==现场演示==: 还记得第 1 周的"找最高分"吗? 现在用数组把它==真正写出来==——输入 5 个分数, 输出最高分
+
+第 1 周的四步算法: 假设第一个 → 逐个比较 → 更大就替换 → 输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: `max` 先取第 0 个元素, 从第 1 个开始比
+
+---
+
+
 
 <!-- slide data-notes="" -->
 
 
-##### 程序: 找最高分
+##### 程序: 找最高分 (参考代码)
 
 ---
 
@@ -359,7 +385,7 @@ int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 <div style="flex:1.3;font-size:0.6em;">
 
-```C
+```C{.line-numbers}
 #include <stdio.h>
 int main(void)
 {
@@ -370,7 +396,7 @@ int main(void)
     if (numbers[i] > max)
       max = numbers[i];
 
-  printf("max is %d\n", max);
+  printf("最高分是 %d\n", max);
   return 0;
 }
 ```
@@ -379,15 +405,17 @@ int main(void)
 
 <div style="flex:1;">
 
-还记得第 1 周的"找最高分"吗? 现在用数组把它==真正写出来==:
-
-第 1 周的四步算法: 假设第一个 → 逐个比较 → 更大就替换 → 输出
+- `max = numbers[0]` 先假设第一个最大——第 5 周小测的"max 初始化"坑, 数组版天然解决
 
 - 循环 + 数组 = 处理成百上千个数据的起点
 
+- 改一下 `numbers` 的初始值再跑, 输出跟着变
+
 </div>
 
 </div>
+
+---
 
 <!-- slide data-notes="" -->##### 数组初始化
 
@@ -405,10 +433,29 @@ int main(void)
 
 - 赋值更短更易读, 且==顺序无关==: `int a[15] = {[9] = 7, [2] = 29};`
 
-- 指示符须为整型常量表达式, 取值 0 ~ n-1; 省略长度时可为任意非负整数, 编译器从==最大指示符==推出长度: `int b[] = {[23] = 5};` → 24 个元素<!-- slide data-notes="" -->
+- 指示符须为整型常量表达式, 取值 0 ~ n-1; 省略长度时可为任意非负整数, 编译器从==最大指示符==推出长度: `int b[] = {[23] = 5};` → 24 个元素<!-- slide data-notes="" -->##### 程序: 检查重复数字
+
+---
+
+==现场演示==: 输入一个整数, 判断它的各位数字里有没有==重复==的 (如 28245 有重复的 2)
+
+样例:
+
+```
+输入一个数: 28245
+有重复数字
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 用==布尔数组== `digit_seen[10]` 记录 0~9 哪些出现过——第 3 周数字拆分 + 本周数组的组合
+
+---
 
 
-##### 程序: 检查重复数字
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 检查重复数字 (参考代码)
 
 ---
 
@@ -418,17 +465,16 @@ int main(void)
 
 ```C{.line-numbers}
 /* 检查数字中是否有重复的数字 */
- 
-#include <stdbool.h>   /* C99 only */
+#include <stdbool.h>
 #include <stdio.h>
- 
+
 int main(void)
 {
   bool digit_seen[10] = {false};
   int digit;
   long n;
- 
-  printf("Enter a number: ");
+
+  printf("输入一个数: ");
   scanf("%ld", &n);
   while (n > 0) {
     digit = n % 10;
@@ -437,11 +483,10 @@ int main(void)
     digit_seen[digit] = true;
     n /= 10;
   }
- if (n > 0)
-    printf("Repeated digit\n");
+  if (n > 0)
+    printf("有重复数字\n");
   else
-    printf("No repeated digit\n");
- 
+    printf("没有重复数字\n");
   return 0;
 }
 ```
@@ -450,37 +495,17 @@ int main(void)
 
 <div style="flex:1;">
 
-程序使用一个由`10`个布尔值的数组来跟踪数字中出现的数字. 
+- `digit_seen` 是==布尔数组==: 下标是数字 (0~9), 值是"出现过没有"
 
-最初, `digit_seen`数组的每个元素为假. 
+- 拆一位 → 查表 → 标记录 → 拆下一位; 查到已出现就 break
 
-程序每次取出n中的一个数字, 并存储在变量`digit`中: 
-
-- 如果`digit_seen[digit]`为真, 则`digit`在n中至少出现两次. 
-
-- 如果`digit_seen[digit]`为假, 则`digit`之前未出现过, 将其设置为真并继续. 
-
----
-
-
-`repdigit.c`
-
-`sizeof`运算符可以确定数组的大小(字节数)
-
-若数组`a`有`10`个整数, 则`sizeof(a)`为`40`(假设每个整数`4`字节)
-
-我们还可以用`sizeof`来计算数组元素(如`a[0]`)的大小
-
-将数组大小除以元素大小可以得出数组的长度: 
-
-`sizeof(a) / sizeof(a[0])`
-
-
----
+- 数组当"记账本"用——这是标志数组的经典模式
 
 </div>
 
 </div>
+
+---
 
 <!-- slide data-notes="" -->##### 对数组使用sizeof运算符
 
