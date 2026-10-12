@@ -522,10 +522,31 @@ argv[0]指向程序名, argv[1]到argv[argc-1]指向剩余的参数, argv[argc]�
 
 </div>
 
+<!-- slide data-notes="" -->##### 程序: 检查文件是否可以打开
+
+---
+
+==现场演示==: 写一个程序 `canopen`, 判断命令行参数给出的文件能不能打开
+
+样例:
+
+```
+$ ./canopen demo.txt
+demo.txt 可以打开
+$ ./canopen 不存在.txt
+不存在.txt 打不开
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: `fopen` 失败会返回 NULL——判断它; 参数个数不对要提示用法
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
-##### 程序: 检查文件是否可以打开
+##### 程序: 检查文件是否可以打开 (参考代码)
 
 ---
 
@@ -533,7 +554,7 @@ argv[0]指向程序名, argv[1]到argv[argc-1]指向剩余的参数, argv[argc]�
 
 <div style="flex:1.4;font-size:0.55em;">
 
-```C
+```C{.line-numbers}
 /* Checks whether a file can be opened for reading */
 
 #include <stdio.h>
@@ -544,12 +565,12 @@ int main(int argc, char *argv[])
   FILE *fp;
  
   if(argc != 2) {
-    printf("usage: canopen filename\n");
+    printf("用法: canopen 文件名\n");
     exit(EXIT_FAILURE);
   }
  
   if((fp = fopen(argv[1], "r")) == NULL) {
-    printf("%s can't be opened\n", argv[1]);
+    printf("%s 打不开\n", argv[1]);
     exit(EXIT_FAILURE);
   }
  
@@ -563,20 +584,17 @@ int main(int argc, char *argv[])
 
 <div style="flex:1;">
 
-canopen.c程序判断文件是否存在, 如果存在是否可以打开进行读取. 
+- `argc != 2` 先检查参数个数——命令行参数的第一个实战
 
-用户提供给程序要检查的文件的名字:  
-`canopen file`
+- `fopen(..., "r")` 失败返回 ==NULL==——判 NULL 是文件程序的标配
 
-然后程序将显示`file can be opened`或`file can't be opened`. 
-
-如果用户在命令行中输入错误数量的参数, 程序将显示消息`usage: canopen filename`.
-
-
+- 失败用 `exit(EXIT_FAILURE)` 直接退出, 不再往下走
 
 </div>
 
 </div>
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -730,18 +748,37 @@ fgetc和getc从任意流中读取一个字符:
 
 </div>
 
+<!-- slide data-notes="" -->##### 程序: 复制文件
+
+---
+
+==现场演示==: 写一个程序 `fcopy`, 把源文件复制到目标文件 (二进制安全)
+
+样例:
+
+```
+$ ./fcopy a.txt b.txt
+复制完成
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 用 `"rb"`/`"wb"` 二进制模式; 逐个字符读、逐个写——上一页的 fgetc/fputc
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
-##### 程序: 复制文件
+##### 程序: 复制文件 (参考代码)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.5;font-size:0.46em;">
+<div style="flex:1.4;font-size:0.5em;">
 
-```C
+```C{.line-numbers}
 /* Copies a file */
  
 #include <stdio.h>
@@ -753,17 +790,17 @@ int main(int argc, char *argv[])
   int ch;
  
   if(argc != 3) {
-    fprintf(stderr, "usage: fcopy source dest\n");
+    fprintf(stderr, "用法: fcopy 源文件 目标文件\n");
     exit(EXIT_FAILURE);
   }
 
   if((source_fp = fopen(argv[1], "rb")) == NULL) {
-    fprintf(stderr, "Can't open %s\n", argv[1]);
+    fprintf(stderr, "打不开 %s\n", argv[1]);
     exit(EXIT_FAILURE);
   }
  
   if((dest_fp = fopen(argv[2], "wb")) == NULL) {
-    fprintf(stderr, "Can't open %s\n", argv[2]);
+    fprintf(stderr, "打不开 %s\n", argv[2]);
     fclose(source_fp);
     exit(EXIT_FAILURE);
   }
@@ -781,25 +818,17 @@ int main(int argc, char *argv[])
 
 <div style="flex:1;">
 
-fcopy.c程序进行文件的复制操作. 
+- `"rb"`/`"wb"` 二进制模式——文本和二进制文件都能复制
 
-执行程序时, 将在命令行中指定原始文件和新文件的名称. 
+- 逐个字符 `fgetc`/`fputc`, 直到 EOF——文件循环的标准写法
 
-使用fcopy将文件f1.c复制到f2.c的示例:  
-`fcopy f1.c f2.c`
-
-如果命令行中的文件名不完全是两个, 或者其中一个文件都无法打开, fcopy将产生错误消息.
-
-
-使用"rb"和"wb"作为文件模式使fcopy可以复制文本和二进制文件. 
-
-如果改用"r"和"w", 程序将无法复制二进制文件.
-
-
+- 三个参数、两个 fopen 都判错——错误处理是文件程序的半壁江山
 
 </div>
 
 </div>
+
+---
 
 <!-- slide data-notes="" -->
 
