@@ -263,49 +263,70 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--列三角函数表">程序: 列三角函数表 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.5em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>Enter initial value<span class="token operator">:</span> <span class="token number">0</span>
-Enter final value<span class="token operator">:</span> <span class="token punctuation">.</span><span class="token number">5</span>
-Enter increment<span class="token operator">:</span> <span class="token punctuation">.</span><span class="token number">1</span>
+<p><mark>现场演示</mark>: 输入初值、终值、步长, 打印一张三角函数表 (sin、cos、tan 三张)</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入初值<span class="token operator">:</span> <span class="token number">0</span>
+输入终值<span class="token operator">:</span> <span class="token number">0.5</span>
+输入步长<span class="token operator">:</span> <span class="token number">0.1</span>
 
      x        <span class="token function">cos</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
   <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>    <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
   <span class="token number">0.00000</span>    <span class="token number">1.00000</span>
   <span class="token number">0.10000</span>    <span class="token number">0.99500</span>
-  <span class="token number">0.20000</span>    <span class="token number">0.98007</span>
-  <span class="token number">0.30000</span>    <span class="token number">0.95534</span>
-  <span class="token number">0.40000</span>    <span class="token number">0.92106</span>
-  <span class="token number">0.50000</span>    <span class="token number">0.87758</span>
-
-     x        <span class="token function">sin</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-  <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>    <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
-  <span class="token number">0.00000</span>    <span class="token number">0.00000</span>
-  <span class="token number">0.10000</span>    <span class="token number">0.09983</span>
-  <span class="token number">0.20000</span>    <span class="token number">0.19867</span>
-  <span class="token number">0.30000</span>    <span class="token number">0.29552</span>
-  <span class="token number">0.40000</span>    <span class="token number">0.38942</span>
-  <span class="token number">0.50000</span>    <span class="token number">0.47943</span>
-
-     x        <span class="token function">tan</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-  <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>    <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
-  <span class="token number">0.00000</span>    <span class="token number">0.00000</span>
-  <span class="token number">0.10000</span>    <span class="token number">0.10033</span>
-  <span class="token number">0.20000</span>    <span class="token number">0.20271</span>
-  <span class="token number">0.30000</span>    <span class="token number">0.30934</span>
-  <span class="token number">0.40000</span>    <span class="token number">0.42279</span>
-  <span class="token number">0.50000</span>    <span class="token number">0.54630</span></code></pre>
-</div>
-<div style="flex:1;">
-<p>tabulate.c程序打印显示cos、sin和tan函数值的表格.</p>
-<p>程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值.</p>
-<p>tabulate使用了ceil函数.</p>
-<p>给一个 double 参数 x, ceil 返回 ≥ x 的最小整数。</p>
-<p>tabulate.c的会话:</p>
-</div>
-</div>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 同一个循环跑三次, 每次换一个数学函数——怎么把"函数"当作参数传进去?</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="ai-赋能程序设计-ii">AI 赋能程序设计 II </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--列三角函数表--参考代码">程序: 列三角函数表 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.5em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 列三角函数表: 函数指针作参数 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">tabulate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> step<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"     x       f(x)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  -------   -------\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>x <span class="token operator">=</span> a<span class="token punctuation">;</span> x <span class="token operator">&lt;=</span> b<span class="token punctuation">;</span> x <span class="token operator">+=</span> step<span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  %7.5f  %7.5f\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入初值: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入终值: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入步长: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\ncos(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">tabulate</span><span class="token punctuation">(</span>cos<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nsin(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">tabulate</span><span class="token punctuation">(</span>sin<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\ntan(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">tabulate</span><span class="token punctuation">(</span>tan<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>```
+
+<span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
+
+<span class="token operator"><</span>div style<span class="token operator">=</span><span class="token string">"flex:1;"</span><span class="token operator">></span>
+
+<span class="token operator">-</span> <span class="token operator">==</span>函数指针<span class="token operator">==</span> `f` 作参数<span class="token operator">:</span> `<span class="token function">tabulate</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span>`——三次调用传 `cos`<span class="token operator">/</span>`sin`<span class="token operator">/</span>`tan`
+
+<span class="token operator">-</span> `<span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>` 调用指针指向的函数——循环体一模一样<span class="token punctuation">,</span> 只换函数
+
+<span class="token operator">-</span> 函数指针的典型用途<span class="token operator">:</span> 把<span class="token string">"做什么"</span>也变成参数
+
+<span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
+
+<span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="ai-赋能程序设计-ii">AI 赋能程序设计 II </h5>
 <hr>
 <p><mark>AI 与指针/函数指针</mark></p>
 <ul>
@@ -328,7 +349,7 @@ Enter increment<span class="token operator">:</span> <span class="token punctuat
 </ul>
 <p>规则不变: <mark>先自己写, 再让 AI 改</mark>。</p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int **pp;</code> 是什么？它和 <code>int *p;</code> 的区别？
@@ -341,7 +362,7 @@ Enter increment<span class="token operator">:</span> <span class="token punctuat
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="11" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
 <div class="top-2">
   <img src="../figs/see-you.png" width=500px>
 </div>

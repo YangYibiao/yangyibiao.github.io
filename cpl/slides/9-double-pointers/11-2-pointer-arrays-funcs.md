@@ -366,10 +366,36 @@ C 将指向函数的指针视为指向数据的指针.
 
 </div>
 
+<!-- slide data-notes="" -->##### 程序: 列三角函数表
+
+---
+
+==现场演示==: 输入初值、终值、步长, 打印一张三角函数表 (sin、cos、tan 三张)
+
+样例:
+
+```
+输入初值: 0
+输入终值: 0.5
+输入步长: 0.1
+
+     x        cos(x)
+  -------    -------
+  0.00000    1.00000
+  0.10000    0.99500
+  ...
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 同一个循环跑三次, 每次换一个数学函数——怎么把"函数"当作参数传进去?
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
-##### 程序: 列三角函数表
+##### 程序: 列三角函数表 (参考代码)
 
 ---
 
@@ -377,59 +403,54 @@ C 将指向函数的指针视为指向数据的指针.
 
 <div style="flex:1.4;font-size:0.5em;">
 
-```
-Enter initial value: 0
-Enter final value: .5
-Enter increment: .1
+```C{.line-numbers}
+/* 列三角函数表: 函数指针作参数 */
+#include <stdio.h>
+#include <math.h>
 
-     x        cos(x)
-  -------    -------
-  0.00000    1.00000
-  0.10000    0.99500
-  0.20000    0.98007
-  0.30000    0.95534
-  0.40000    0.92106
-  0.50000    0.87758
+void tabulate(double (*f)(double), double a, double b, double step)
+{
+    double x;
+    printf("     x       f(x)\n");
+    printf("  -------   -------\n");
+    for (x = a; x <= b; x += step)
+        printf("  %7.5f  %7.5f\n", x, f(x));
+}
 
-     x        sin(x)
-  -------    -------
-  0.00000    0.00000
-  0.10000    0.09983
-  0.20000    0.19867
-  0.30000    0.29552
-  0.40000    0.38942
-  0.50000    0.47943
+int main(void)
+{
+    double a, b, step;
+    printf("输入初值: ");
+    scanf("%lf", &a);
+    printf("输入终值: ");
+    scanf("%lf", &b);
+    printf("输入步长: ");
+    scanf("%lf", &step);
 
-     x        tan(x)
-  -------    -------
-  0.00000    0.00000
-  0.10000    0.10033
-  0.20000    0.20271
-  0.30000    0.30934
-  0.40000    0.42279
-  0.50000    0.54630
-```
+    printf("\ncos(x):\n");
+    tabulate(cos, a, b, step);
+    printf("\nsin(x):\n");
+    tabulate(sin, a, b, step);
+    printf("\ntan(x):\n");
+    tabulate(tan, a, b, step);
+    return 0;
+}```
 
 </div>
 
 <div style="flex:1;">
 
-tabulate.c程序打印显示cos、sin和tan函数值的表格. 
+- ==函数指针== `f` 作参数: `tabulate(f, a, b, step)`——三次调用传 `cos`/`sin`/`tan`
 
-程序围绕名为tabulate的函数构建, 当传递函数指针f时, 它会打印出函数f的值. 
+- `f(x)` 调用指针指向的函数——循环体一模一样, 只换函数
 
-tabulate使用了ceil函数. 
-
-给一个 double 参数 x, ceil 返回 ≥ x 的最小整数。
-
-
-tabulate.c的会话:
-
-
+- 函数指针的典型用途: 把"做什么"也变成参数
 
 </div>
 
 </div>
+
+---
 
 <!-- slide data-notes="" -->
 
