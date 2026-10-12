@@ -360,7 +360,7 @@ int main(void)
 总和是: 107
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: `0` 是==哨兵值==——本身不参与求和, 只用来表示"输完了"。先自己写, 再翻页看参考代码
+<span class="blue">:fa-lightbulb-o:</span> 提示: `0` 是==哨兵值==——本身不参与求和, 只用来表示"输完了"
 
 ---
 
@@ -489,7 +489,7 @@ while (i > 0);
 它有 2 位数字
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 每除以 10 一次, 位数就多 1——直到除成 0。想想为什么这里用 do-while 比 while 更合适? 先自己写, 再翻页看参考代码
+<span class="blue">:fa-lightbulb-o:</span> 提示: 每除以 10 一次, 位数就多 1——直到除成 0。想想为什么这里用 do-while 比 while 更合适?
 
 ---
 
