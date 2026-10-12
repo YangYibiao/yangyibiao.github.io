@@ -346,7 +346,15 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--数列反向-改进版">程序: 数列反向(改进版) </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--数列反向-指针版">程序: 数列反向(指针版) </h5>
+<hr>
+<p><mark>现场演示</mark>: 用<mark>指针</mark>重写第 8 周的数列反向程序——不用下标 <code>a[i]</code>, 全部用指针完成</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个数<span class="token operator">:</span> <span class="token number">34</span> <span class="token number">82</span> <span class="token number">49</span> <span class="token number">102</span> <span class="token number">7</span> <span class="token number">94</span> <span class="token number">23</span> <span class="token number">11</span> <span class="token number">50</span> <span class="token number">31</span>
+逆序输出<span class="token operator">:</span> <span class="token number">31</span> <span class="token number">50</span> <span class="token number">11</span> <span class="token number">23</span> <span class="token number">94</span> <span class="token number">7</span> <span class="token number">102</span> <span class="token number">49</span> <span class="token number">82</span> <span class="token number">34</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 指针从 <code>a</code> 走到 <code>a + N - 1</code> (正着读), 再走回来 (倒着打)</p>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--数列反向-指针版-参考代码">程序: 数列反向(指针版 参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -361,11 +369,11 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d numbers: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 %d 个数: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> a<span class="token punctuation">;</span> p <span class="token operator"><</span> a <span class="token operator">+</span> N<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"In reverse order:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"逆序输出:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> a <span class="token operator">+</span> N <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> p <span class="token operator">&gt;=</span> a<span class="token punctuation">;</span> p<span class="token operator">--</span><span class="token punctuation">)</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %d"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -374,14 +382,24 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>之前的<code>reverse.c</code>程序读取 10 个数字, 然后逆序输出这些数字.</p>
-<p>原始程序将数字存储在一个数组中, 利用下标访问数组的元素.</p>
-<p><code>reverse3.c</code>是一个改进后的程序, 用指针的算术运算取代数组的取下标操作.</p>
-<p><code>reverse3.c</code></p>
+<ul>
+<li>
+<p>正着读: <code>p</code> 从 <code>a</code> 到 <code>a + N</code> (注意 <code>p++</code> 就是下一个元素)</p>
+
+</li>
+<li>
+<p>倒着打: <code>p</code> 从 <code>a + N - 1</code> 回退到 <code>a</code></p>
+
+</li>
+<li>
+<p>对比第 8 周下标版: <code>a[i]</code> 与 <code>*p</code> 一一对应, 指针版没有下标变量 i</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="数组型实际参数-改进版">数组型实际参数(改进版) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="数组型实际参数-改进版">数组型实际参数(改进版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -431,7 +449,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="数组型实际参数-改进版">数组型实际参数(改进版) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="数组型实际参数-改进版">数组型实际参数(改进版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -460,7 +478,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="数组型实际参数-改进版">数组型实际参数(改进版) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="数组型实际参数-改进版">数组型实际参数(改进版) </h5>
 <hr>
 <p>后一种情况下, a不是数组; 试图将其用作数组可能会导致灾难性的后果.</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
@@ -477,7 +495,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 largest <span class="token operator">=</span> <span class="token function">find_largest</span><span class="token punctuation">(</span><span class="token operator">&</span>b<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="使用指针作为数组名">使用指针作为数组名 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="使用指针作为数组名">使用指针作为数组名 </h5>
 <hr>
 <p>C允许把指针看作数组名进行取下标操作:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
@@ -491,7 +509,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 <p>指针可以指向一维数组的元素, 也可以指向多维数组的元素.</p>
 <p>本节探讨使用指针处理多维数组元素的常用方法.</p>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="处理多维数组的元素">处理多维数组的元素 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="处理多维数组的元素">处理多维数组的元素 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -524,7 +542,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="处理多维数组的行">处理多维数组的行 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="处理多维数组的行">处理多维数组的行 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.5em;">
@@ -576,7 +594,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="处理多维数组的列">处理多维数组的列 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="处理多维数组的列">处理多维数组的列 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -615,7 +633,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int a[5]; int *p = a;</code> 中 <code>p + 1</code> 表示什么？<code>p + 1</code> 的地址比 p 大多少字节？
@@ -628,7 +646,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
 <div class="top-2">
   <img src="../figs/see-you.png" width=500px>
 </div>
