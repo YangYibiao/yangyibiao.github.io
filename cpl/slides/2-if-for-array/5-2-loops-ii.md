@@ -82,8 +82,9 @@ for (表达式1; 表达式2; 表达式3) 语句
 ```
 
 ```C
-for (i = 10; i > 0; i--)
+for (i = 10; i > 0; i--) {
     printf("%d\n", i);
+}
 ```
 
 ```C
@@ -136,8 +137,9 @@ while (表达式2) {
 ```C
 /* 求 2+4+6+...+n 的偶数和 */
 int sum = 0;
-for (i = 2; i <= n; i += 2)
+for (i = 2; i <= n; i += 2) {
     sum += i;
+}
 ```
 
 ```C
@@ -196,8 +198,9 @@ for (i = 1; i <= n; sum += i++)
 int main(void) {
     int i;
     double x;
-    for (i = 0, x = 0.0; i <= 10; i++, x += 0.1)
+    for (i = 0, x = 0.0; i <= 10; i++, x += 0.1) {
         printf("%2d 次累加后: %.17f\n", i, x);
+    }
     return 0;
 }
 ```
@@ -239,8 +242,9 @@ int main(void) {
 #include <stdio.h>
 int main(void) {
     int n = 100, i = 1, sum = 0;
-    for (; i <= n; ++i)
+    for (; i <= n; ++i) {
         sum += i;
+    }
     printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
@@ -280,8 +284,9 @@ int main(void) {
 #include <stdio.h>
 int main(void) {
     int n = 100, i, sum = 0;
-    for (i = 1; i <= n;)
+    for (i = 1; i <= n;) {
         sum += i++;
+    }
     printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
@@ -335,8 +340,9 @@ int main(void) {
 #include <stdio.h>
 int main(void) {
     int n = 100, i = 1, sum = 0;
-    while (i <= n)
+    while (i <= n) {
         sum += i++;
+    }
     printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
@@ -460,8 +466,9 @@ int main(void) {
 #include <stdio.h>
 int main(void) {
     int n = 100, sum = 0;
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n; i++) {
         sum += i;
+    }
     /* printf("%d", i);  编译错误: i 出了循环不可见 */
     printf("1+...+%d = %d\n", n, sum);
     return 0;
@@ -502,8 +509,9 @@ for 可以一次声明多个变量 (类型相同), 用逗号分隔:
 #include <stdio.h>
 int main(void) {
     int n = 5, sum = 0;
-    for (int i = 1, j = 1; i <= n; i++, j += 2)
+    for (int i = 1, j = 1; i <= n; i++, j += 2) {
         sum += j;
+    }
     printf("前 %d 个奇数之和 = %d\n", n, sum);
     return 0;
 }
@@ -574,8 +582,9 @@ int main(void)
   printf("请输入行数: ");
   scanf("%d", &n);
 
-  for (i = 1; i <= n; i++)
+  for (i = 1; i <= n; i++) {
     printf("%10d%10d\n", i, i * i);
+}
  
   return 0;
 }
@@ -685,14 +694,16 @@ t = a; a = b; b = t;   /* a 为 5, b 为 3 */
 
 ```C
 int sum = 0;
-for (int i = 1; i <= n; i++)
+for (int i = 1; i <= n; i++) {
     sum += i;
+}
 ```
 
 ```C
 int product = 1;
-for (int i = 1; i <= n; i++)
+for (int i = 1; i <= n; i++) {
     product *= i;
+}
 ```
 
 </div>
@@ -721,9 +732,10 @@ int main(void) {
     printf("输入一个数: ");
     scanf("%d", &n);
 
-    for (d = 2; d < n; d++)
+    for (d = 2; d < n; d++) {
         if (n % d == 0)
-            break;              /* 找到约数, 提前退出 */
+            break;
+    }              /* 找到约数, 提前退出 */
 
     if (d < n)
         printf("%d 不是素数\n", n);
