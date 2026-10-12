@@ -587,7 +587,7 @@ $L = 2\pi r \qquad S = \pi r^2$
 
 - 小数点后保留两位
 
-<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 circle.c——下一页是参考代码
+<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 circle.c
 
 ---
 
@@ -641,7 +641,7 @@ $A = 4 \pi r^2 \qquad V = \frac{4}{3} \pi r^3$
 
 - 每个结果至少占 $15$ 字符, 左对齐
 
-<span class="blue">:fa-lightbulb-o:</span> 同样打开 CLion, 一起写 sphere.c——下一页是参考代码
+<span class="blue">:fa-lightbulb-o:</span> 同样打开 CLion, 一起写 sphere.c
 
 ---
 
