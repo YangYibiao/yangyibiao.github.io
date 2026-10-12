@@ -313,9 +313,23 @@ int main(void) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.72em;">
+<div style="flex:1.2;font-size:0.66em;">
 
-==省 1 又省 3==: 就等于 `while` 了——此时 `while` 更清晰, 更推荐
+==省 1 又省 3 的 for==: 两个分号之间只剩条件——和 `while` 一模一样:
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int n = 100, i = 1, sum = 0;
+    for (; i <= n;) {
+        sum += i++;
+    }
+    printf("1+...+%d = %d\n", n, sum);
+    return 0;
+}
+```
+
+等价 while 版 (更清晰, ==更推荐==):
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -328,7 +342,7 @@ int main(void) {
 }
 ```
 
-运行结果: `1+...+100 = 5050`——与前面两个 for 版本完全相同
+两版输出相同: `1+...+100 = 5050`
 
 ==省略表达式 2==: 条件==默认为真==——`for(;;)` 是最常见的无限循环写法 (真跑会停不下来, 示意即可):
 
