@@ -67,8 +67,6 @@ presentation:
 
 
 <!-- slide data-notes="" -->
-
-
 ##### for语句
 
 ---
@@ -77,21 +75,21 @@ presentation:
 
 <div style="flex:1.2;font-size:0.7em;">
 
+`for` 特别适合==次数已知==的循环 ("重复 n 次"型), 一般形式:
+
 ```C
 for (表达式1; 表达式2; 表达式3) 语句
 ```
 
-```C
-for (i = 10; i > 0; i--) {
-    printf("%d\n", i);
-}
-```
-
-```C
-表达式1;
-while (表达式2) {
-  语句
-  表达式3;
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int i;
+    for (i = 10; i > 0; i--) {
+        printf("%d\n", i);
+    }
+    printf("发射!\n");
+    return 0;
 }
 ```
 
@@ -99,7 +97,7 @@ while (表达式2) {
 
 <div style="flex:1;">
 
-`for` 特别适合==次数已知==的循环 ("重复 n 次"型)——三件事 (从几开始、到哪停、每次加几) 排在一行, 一眼看清; 也能用于其他循环。一般形式:
+三个表达式各司其职:
 
 - 表达式1: ==初始化==——只在循环开始前执行一次
 
@@ -107,13 +105,13 @@ while (表达式2) {
 
 - 表达式3: ==递增/递减==——每轮最后执行
 
-`for` 和 `while` 几乎总能互相改写 (如左)
+三件事排在一行, 起点、终点、步长一眼看清——这就是 for 的==主场==
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->
+---<!-- slide data-notes="" -->
 
 
 ##### for语句
