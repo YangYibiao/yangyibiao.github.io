@@ -617,7 +617,7 @@ int main(void)
   <img src="../3-for-a-while/figs/stars.jpg" width=450px>
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮。先自己写, 再翻页看参考代码
+<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮
 
 ---
 
