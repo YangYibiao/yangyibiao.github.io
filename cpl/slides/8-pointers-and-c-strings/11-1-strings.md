@@ -777,36 +777,36 @@ strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回�
 <div style="flex:1.4;font-size:0.5em;">
 
 ```
-Enter day and reminder: 24 Susan's birthday
-Enter day and reminder: 5 6:00 - Dinner with Marge and Russ
-Enter day and reminder: 26 Movie - "Chinatown"
-Enter day and reminder: 7 10:30 - Dental appointment
-Enter day and reminder: 12 Movie - "Dazed and Confused"
-Enter day and reminder: 5 Saturday class
-Enter day and reminder: 12 Saturday class
-Enter day and reminder: 0
+输入日期和提醒: 24 妈妈的生日
+输入日期和提醒: 5 18:00 与朋友聚餐
+输入日期和提醒: 26 看电影
+输入日期和提醒: 7 10:30 看牙医
+输入日期和提醒: 12 交作业
+输入日期和提醒: 5 上课
+输入日期和提醒: 12 上课
+输入日期和提醒: 0
  
-Day Reminder
-  5 Saturday class
-  5 6:00 - Dinner with Marge and Russ
-  7 10:30 - Dental appointment
- 12 Saturday class
- 12 Movie - "Dazed and Confused"
- 24 Susan's birthday
- 26 Movie - "Chinatown"
+日期  提醒
+  5 上课
+  5 18:00 与朋友聚餐
+  7 10:30 看牙医
+ 12 上课
+ 12 交作业
+ 24 妈妈的生日
+ 26 看电影
 ```
 
 </div>
 
 <div style="flex:1;">
 
-`remind.c`程序打印一个月的每日提醒列表. 
+`remind.c` 维护一个月的每日提醒列表：
 
-用户将输入一系列提醒, 每个提醒有一个前缀说明是一个月中的哪一天. 
+用户逐条输入"日期 + 提醒内容"，
 
-当用户输入 0 而不是有效日期时, 程序将打印输入的所有提醒的列表, 按日期排序. 
+输入 0 结束，程序按日期排序打印全部提醒。
 
-下一张幻灯片显示了该程序的会话.
+下一页是程序运行会话。
 
 总体策略: 
 

@@ -577,24 +577,36 @@ decompose(3.14159, i, d)；
 
 </div>
 
+<!-- slide data-notes="" -->##### 程序: 查找数组中最大和最小的元素
+
+---
+
+==现场演示==: 输入 10 个数, 输出其中最大和最小值——用函数完成, 且函数要==带回两个结果==
+
+样例:
+
+```
+输入 10 个数: 3 8 1 9 2 7 4 6 5 0
+最大: 9
+最小: 0
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: `return` 只能带回一个值, 两个结果怎么传出来? (想想地址的作用)
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
-##### 程序: 查找数组中最大和最小的元素
+##### 程序: 查找数组中最大和最小的元素 (参考代码)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.4;font-size:0.5em;">
-
-```C
-void max_min(int a[], int n, int *max, int *min);
-```
-
-```C
-max_min(b, N, &big, &small);
-```
 
 ```C{.line-numbers}
 /* Finds the largest and smallest elements in an array */
@@ -604,13 +616,13 @@ void max_min(int a[], int n, int *max, int *min);
 int main(void)
 {
   int b[N], i, big, small;
-  printf("Enter %d numbers: ", N);
+  printf("输入 %d 个数: ", N);
   for (i = 0; i < N; i++) {
     scanf("%d", &b[i]);
   }
   max_min(b, N, &big, &small);
-  printf("Largest: %d\n", big);
-  printf("Smallest: %d\n", small);
+  printf("最大: %d\n", big);
+  printf("最小: %d\n", small);
   return 0;
 }
 void max_min(int a[], int n, int *max, int *min)
@@ -631,14 +643,17 @@ void max_min(int a[], int n, int *max, int *min)
 
 <div style="flex:1;">
 
-max_min.c 用 max_min 函数找数组的最大/最小元素 (原型与调用见左): 最大元素经 `*max` 存进 big, 最小经 `*min` 存进 small; max_min.c 读 10 个数传给 max_min 并打印结果:
+- `max_min(b, N, &big, &small)`——把 big、small 的==地址==传给函数, 函数通过指针把结果写回去
 
-输入10个数字: <u>34 82 49 102 7 94 23 11 50 31</u>
+- `*max = a[0]` 先假设, 遍历中更大/更小就更新——指针参数让函数一次"带回"两个值
 
-最大: 102 &emsp; 最小: 7
+- 这也是 `return` 单值限制的经典解法
 
 </div>
+
 </div>
+
+---
 
 <!-- slide data-notes="" -->
 
