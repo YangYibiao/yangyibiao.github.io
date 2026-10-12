@@ -642,13 +642,25 @@ int main(void)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==现场演示==: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)
 
-<div class="top-2">
-  <img src="../3-for-a-while/figs/stars.jpg" width=450px>
+<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮
+
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮
+<div style="flex:1.1;">
+
+<div class="top-2">
+  <img src="../3-for-a-while/figs/stars.jpg" width=440px>
+</div>
+
+</div>
+
+</div>
 
 ---
 
@@ -745,6 +757,10 @@ for (int i = 1; i <= n; i++) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==现场演示==: 输入一个整数, 判断它是不是素数 (只能被 1 和自己整除)
 
 样例:
@@ -756,8 +772,16 @@ for (int i = 1; i <= n; i++) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 检查 2 ~ n-1 里有没有约数; ==找到第一个约数就可以停了==——想一想用什么
 
+</div>
+
+<div style="flex:1.1;">
+
 <div class="top-2">
-  <img src="../3-for-a-while/figs/prime.jpg" width=380px>
+  <img src="../3-for-a-while/figs/prime.jpg" width=420px>
+</div>
+
+</div>
+
 </div>
 
 ---
@@ -815,6 +839,10 @@ int main(void) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 ==现场演示==: 输入 n, 计算 1~n 中所有==非完全平方数==的和 (完全平方数: 1、4、9、16、…)
 
 样例 (n = 10):
@@ -828,8 +856,16 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是完全平方数? (第 3 周的 sqrt + 强制转换); 遇到完全平方数要跳过——用什么?
 
+</div>
+
+<div style="flex:1.1;">
+
 <div class="top-2">
-  <img src="../3-for-a-while/figs/perfectSquare.gif" width=360px>
+  <img src="../3-for-a-while/figs/perfectSquare.gif" width=400px>
+</div>
+
+</div>
+
 </div>
 
 ---
