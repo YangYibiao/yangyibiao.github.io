@@ -313,7 +313,7 @@ int main(void) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.66em;">
+<div style="flex:1.25;font-size:0.66em;">
 
 ==省 1 又省 3 的 for==: 两个分号之间只剩条件——和 `while` 一模一样:
 
@@ -329,7 +329,7 @@ int main(void) {
 }
 ```
 
-等价 while 版 (更清晰, ==更推荐==):
+等价 while 版:
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -342,7 +342,19 @@ int main(void) {
 }
 ```
 
-两版输出相同: `1+...+100 = 5050`
+</div>
+
+<div style="flex:1;">
+
+- 两版输出相同: `1+...+100 = 5050`
+
+- 都省了初始化与递增, 语义完全等价
+
+- 这种场合 ==while 更清晰, 更推荐==——看到 `for (; …;)` 时想想是不是 while 更合适
+
+</div>
+
+</div>
 
 ---
 
