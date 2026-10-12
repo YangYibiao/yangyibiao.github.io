@@ -214,44 +214,98 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="for语句省略表达式">for语句省略表达式 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="for语句省略表达式--省略1">for语句省略表达式 (省略1) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 省略表达式1: 初始化挪到循环前 */</span>
-i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 省略表达式3: 递减写进循环体 */</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 省略表达式2: 条件默认为真 */</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> …</code></pre>
+<p><mark>省略表达式 1</mark>: 初始化挪到循环前</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>C 允许省略 for 的三个表达式, 各有用场:</p>
 <ul>
 <li>
-<p><mark>省略表达式1</mark>: 初始化放到循环前 (左 1)——初值本来就在前面算好了</p>
+<p>循环变量的初值<mark>已经在前面算好了</mark>, 表达式 1 的位置就空着 (分号照写)</p>
 
 </li>
 <li>
-<p><mark>省略表达式3</mark>: 递增/递减写进循环体 (左 2)——但条件最终要能变假, 否则死循环</p>
+<p>运行结果: 打印 10、9、…、1</p>
 
 </li>
 <li>
-<p>省 1 又省 3: 就和 <code>while</code> 一样了——此时 <code>while</code> 更清晰, 更推荐</p>
-
-</li>
-<li>
-<p><mark>省略表达式2</mark>: 条件<mark>默认为真</mark>, 不会自己停 (除非 break)——<code>for(;;)</code> 是最常见的无限循环写法 (左 3)</p>
+<p>常见于初值来自前面计算结果的循环</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="c99中的for语句">C99中的for语句 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="for语句省略表达式--省略3">for语句省略表达式 (省略3) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.7em;">
+<p><mark>省略表达式 3</mark>: 递增/递减写进循环体</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>递增/递减<mark>挪进循环体</mark> (如 <code>printf</code> 里的 <code>i--</code>), 表达式 3 的位置空着</p>
+
+</li>
+<li>
+<p><mark>风险</mark>: 循环体必须保证条件最终变假——忘了递减就是死循环</p>
+
+</li>
+<li>
+<p>运行结果: 同样打印 10、9、…、1</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="for语句省略表达式--省1-3-省2">for语句省略表达式 (省1+3、省2) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.72em;">
+<p><mark>省 1 又省 3</mark>: 就等于 <code>while</code> 了——此时 <code>while</code> 更清晰, 更推荐</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><mark>省略表达式 2</mark>: 条件<mark>默认为真</mark>——<code>for(;;)</code> 是最常见的无限循环写法 (真跑会停不下来, 示意即可):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> …</code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>三个表达式<mark>都可以省略</mark>, 但分号不能少</p>
+
+</li>
+<li>
+<p>省 2 的循环不会自己停, 要靠 <code>break</code>/<code>return</code> 跳出 (下页就讲 break)</p>
+
+</li>
+<li>
+<p>完整可运行版在左栏 while 示例; <code>for(;;)</code> 只是写法示意</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="c99中的for语句">C99中的for语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -275,7 +329,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="逗号运算符">逗号运算符 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="逗号运算符">逗号运算符 </h5>
 <hr>
 <p><code>for</code> 需要两个初始化表达式或一次递增多个变量时, 可用<mark>逗号表达式</mark>作第一或第三个表达式, 形式为:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>表达式<span class="token number">1</span><span class="token punctuation">,</span> 表达式<span class="token number">2</span></code></pre>
@@ -294,7 +348,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <p>例子:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> k <span class="token operator">=</span> i <span class="token operator">+</span> j   <span class="token comment">/* (i=1), (j=2), (k=i+j) */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--打印平方表--for版">程序: 打印平方表 (for版) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--打印平方表--for版">程序: 打印平方表 (for版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -321,7 +375,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="嵌套循环--打印星号塔">嵌套循环: 打印星号塔 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="嵌套循环--打印星号塔">嵌套循环: 打印星号塔 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)</p>
 <div class="top-2">
@@ -329,7 +383,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </div>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 需要<mark>两层循环</mark>——外层控制行数, 内层控制每行星号个数; 外层每执行一次, 内层完整跑一轮。先自己写, 再翻页看参考代码</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="嵌套循环--打印星号塔--参考代码">嵌套循环: 打印星号塔 (参考代码) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="嵌套循环--打印星号塔--参考代码">嵌套循环: 打印星号塔 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -368,7 +422,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="算法案例--数据交换-累加-累乘">算法案例: 数据交换、累加、累乘 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="算法案例--数据交换-累加-累乘">算法案例: 数据交换、累加、累乘 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -389,7 +443,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -421,7 +475,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="算法案例--非完全平方数的和">算法案例: 非完全平方数的和 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="算法案例--非完全平方数的和">算法案例: 非完全平方数的和 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -453,7 +507,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>for (i = 0; i &lt; n; i++)</code> 循环体执行了多少次？
@@ -466,7 +520,7 @@ t <span class="token operator">=</span> a<span class="token punctuation">;</span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>
