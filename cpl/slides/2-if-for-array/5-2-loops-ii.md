@@ -310,17 +310,15 @@ int main(void) {
 
 
 <!-- slide data-notes="" -->
-
-
 ##### for语句省略表达式 (省1+3)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.25;font-size:0.66em;">
+<div style="flex:1;font-size:0.62em;">
 
-==省 1 又省 3 的 for==: 两个分号之间只剩条件——和 `while` 一模一样:
+==省 1 又省 3 的 for==: 两个分号之间只剩条件:
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -334,7 +332,11 @@ int main(void) {
 }
 ```
 
-等价 while 版:
+</div>
+
+<div style="flex:1;font-size:0.62em;">
+
+==等价 while 版==:
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -350,22 +352,13 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
+</div>
 
-- 两版输出相同: `1+...+100 = 5050`
-
-- 都省了初始化与递增, 语义完全等价
+- 两版输出相同: `1+...+100 = 5050`——都省了初始化与递增, 语义完全等价
 
 - 这种场合 ==while 更清晰, 更推荐==——看到 `for (; …;)` 时想想是不是 while 更合适
 
-</div>
-
-</div>
-
----
-
-
-<!-- slide data-notes="" -->
+---<!-- slide data-notes="" -->
 
 
 ##### for语句省略表达式 (全省: 省略2)
