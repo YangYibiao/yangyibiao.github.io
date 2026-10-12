@@ -392,7 +392,30 @@ Average of 3.5 and 10.2: 6.85
 </div>
 
 </div>
-<!-- slide data-notes="" -->##### 程序: 打印倒计时 (countdown.c)
+<!-- slide data-notes="" -->##### 程序: 打印倒计时
+
+---
+
+==现场演示==: 把火箭倒计时封装成函数——`print_count(n)` 打印一行数字, 主函数循环调用它完成 10 到 1 的倒计时
+
+样例输出:
+
+```
+10
+9
+...
+1
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 函数只负责"打印一行", 循环调用放在 main 里——第 5 周的知识和函数第一次配合
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 打印倒计时 (参考代码)
 
 ---
 
@@ -401,22 +424,22 @@ Average of 3.5 and 10.2: 6.85
 <div style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
-/* Prints a countdown */
- 
+/* 火箭倒计时: 函数 + 循环 */
 #include <stdio.h>
- 
+
 void print_count(int n)
 {
-  printf("T minus %d and counting\n", n);
-} 
- 
+  printf("%d\n", n);
+}
+
 int main(void)
 {
   int i;
- 
+
   for (i = 10; i > 0; --i)
     print_count(i);
- 
+  printf("发射!\n");
+
   return 0;
 }
 ```
@@ -425,15 +448,17 @@ int main(void)
 
 <div style="flex:1;">
 
+- `print_count` 每次调用只打印一行——==一个函数只做一件事==
+
+- 循环在 main 里, 函数被调用了 10 次——函数和循环第一次配合
+
+- 输出: 10、9、…、1、发射!
+
+</div>
+
+</div>
+
 ---
-
-`countdown.c`
-
-输出: T minus 10 and counting ... T minus 1 and counting
-
-</div>
-
-</div>
 <!-- slide data-notes="" -->
 
 
@@ -446,7 +471,7 @@ int main(void)
 ```C
 void print_count(int n)
 {
-  printf("T minus %d and counting\n", n);
+  printf("%d\n", n);
 }
 ```
 
@@ -458,7 +483,26 @@ print_count的调用必须自成一个语句:
 print_count(i);
 ```
 
-`countdown.c`程序在循环内调用了10次print_count.
+`countdown.c` 在循环里调用了 10 次 print_count。
+
+---
+
+
+<!-- slide data-notes="" -->##### 程序: 打印分隔线
+
+---
+
+==现场演示==: 写一个无参函数 `print_line`, 打印一行分隔线 (等号); 主函数用它装饰标题
+
+样例输出:
+
+```
+================================
+   我的第一个函数程序
+================================
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 函数没有参数, 括号里写什么? 调用时括号能省吗?
 
 ---
 
@@ -466,7 +510,7 @@ print_count(i);
 <!-- slide data-notes="" -->
 
 
-##### 程序: 显示双关语(改进版)
+##### 程序: 打印分隔线 (参考代码)
 
 ---
 
@@ -474,30 +518,20 @@ print_count(i);
 
 <div style="flex:1.3;font-size:0.6em;">
 
-```C
-void print_pun(void)
-{
-  printf("To C, or not to C: that is the question.\n");
-}
-```
-
-```C
-print_pun();
-```
-
 ```C{.line-numbers}
-/* Prints a bad pun */
- 
+/* 打印一行分隔线 */
 #include <stdio.h>
- 
-void print_pun(void)
+
+void print_line(void)
 {
-  printf("To C, or not to C: that is the question.\n");
+  printf("================================\n");
 }
- 
+
 int main(void)
 {
-  print_pun();
+  print_line();
+  printf("   我的第一个函数程序\n");
+  print_line();
   return 0;
 }
 ```
@@ -506,23 +540,17 @@ int main(void)
 
 <div style="flex:1;">
 
-当函数没有参数时, 可将单词void放在函数名后面的括号中:
+- 函数没有参数时, 括号里写 ==void==
 
-调用不带实际参数的函数, 只需写出函数名后跟括号(==括号必须==):
+- 调用无参函数, 函数名后跟 ==空括号==——括号必须, 否则编译器当作变量
 
-`pun2.c`程序测试了print_pun函数.
+- `print_line` 被调用了两次——写一次, 处处用
 
+</div>
+
+</div>
 
 ---
-
-pun2.c
-
-
-
-</div>
-
-</div>
-
 <!-- slide data-notes="" -->
 
 
