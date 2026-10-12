@@ -238,9 +238,10 @@ int main(void) {
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void) {
-    int i = 10;
-    for (; i > 0; --i)
-        printf("%d\n", i);
+    int n = 100, i = 1, sum = 0;
+    for (; i <= n; ++i)
+        sum += i;
+    printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
 ```
@@ -251,7 +252,7 @@ int main(void) {
 
 - 循环变量的初值==已经在前面算好了==, 表达式 1 的位置就空着 (分号照写)
 
-- 运行结果: 打印 10、9、…、1
+- 运行结果: `1+...+100 = 5050`
 
 - 常见于初值来自前面计算结果的循环
 
@@ -278,9 +279,10 @@ int main(void) {
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void) {
-    int i;
-    for (i = 10; i > 0;)
-        printf("%d\n", i--);
+    int n = 100, i, sum = 0;
+    for (i = 1; i <= n;)
+        sum += i++;
+    printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
 ```
@@ -289,11 +291,11 @@ int main(void) {
 
 <div style="flex:1;">
 
-- 递增/递减==挪进循环体== (如 `printf` 里的 `i--`), 表达式 3 的位置空着
+- 递增==挪进循环体== (藏在 `sum += i++` 里), 表达式 3 的位置空着
 
-- ==风险==: 循环体必须保证条件最终变假——忘了递减就是死循环
+- ==风险==: 循环体必须保证条件最终变假——忘了递增就是死循环
 
-- 运行结果: 同样打印 10、9、…、1
+- 运行结果: 同样 `1+...+100 = 5050`
 
 </div>
 
@@ -316,9 +318,10 @@ int main(void) {
 ==省 1 又省 3==: 就等于 `while` 了——此时 `while` 更清晰, 更推荐
 
 ```C{.line-numbers}
-i = 10;
-while (i > 0)
-    printf("%d\n", i--);
+i = 1;
+sum = 0;
+while (i <= n)
+    sum += i++;
 ```
 
 ==省略表达式 2==: 条件==默认为真==——`for(;;)` 是最常见的无限循环写法 (真跑会停不下来, 示意即可):
@@ -355,10 +358,10 @@ C99 里, for 的表达式1 可以换成==声明==——循环变量直接在 for
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void) {
-    int n = 5;
+    int n = 100, sum = 0;
     for (int i = 1; i <= n; i++)
-        printf("%d ", i);
-    printf("\n");
+        sum += i;
+    printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
 ```
@@ -369,7 +372,7 @@ int main(void) {
 
 - 变量 `i` 不用提前声明, 在 for 里==声明即用==
 
-- 运行结果: `1 2 3 4 5`
+- 运行结果: `1+...+100 = 5050`
 
 - 好处: 循环变量成了循环的"私有变量", 外面看不见也改不了
 
@@ -396,11 +399,11 @@ int main(void) {
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void) {
-    int n = 5;
+    int n = 100, sum = 0;
     for (int i = 1; i <= n; i++)
-        printf("%d ", i);
+        sum += i;
     /* printf("%d", i);  编译错误: i 出了循环不可见 */
-    printf("\n");
+    printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
 ```
@@ -438,10 +441,10 @@ for 可以一次声明多个变量 (类型相同), 用逗号分隔:
 ```C{.line-numbers}
 #include <stdio.h>
 int main(void) {
-    int n = 5;
-    for (int i = 1, j = n; i <= n; i++, j--)
-        printf("%d+%d ", i, j);
-    printf("\n");
+    int n = 5, sum = 0;
+    for (int i = 1, j = 1; i <= n; i++, j += 2)
+        sum += j;
+    printf("前 %d 个奇数之和 = %d\n", n, sum);
     return 0;
 }
 ```
@@ -450,11 +453,11 @@ int main(void) {
 
 <div style="flex:1;">
 
-- 两个变量 `i`、`j` 都在表达式 1 声明, 表达式 3 同时递增/递减
+- 两个变量 `i`、`j` 都在表达式 1 声明, 表达式 3 同时递增 (`i++`、`j += 2`)
 
-- 运行结果: `1+5 2+4 3+3 4+2 5+1`
+- 运行结果: `前 5 个奇数之和 = 25` (1+3+5+7+9)
 
-- 常见场景: 一个循环里需要==两个同步变化的计数变量==
+- 常见场景: 一个循环里需要==两个同步变化的变量== (计数的 + 参与的)
 
 </div>
 
