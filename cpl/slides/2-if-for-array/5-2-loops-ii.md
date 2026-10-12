@@ -225,7 +225,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### for语句省略表达式
+##### for语句省略表达式 (省略1)
 
 ---
 
@@ -233,21 +233,97 @@ int main(void) {
 
 <div style="flex:1.2;font-size:0.7em;">
 
-```C{.line-numbers}
-/* 省略表达式1: 初始化挪到循环前 */
-i = 10;
-for (; i > 0; --i)
-  printf("%d\n", i);
-```
+==省略表达式 1==: 初始化挪到循环前
 
 ```C{.line-numbers}
-/* 省略表达式3: 递减写进循环体 */
-for (i = 10; i > 0;)
-  printf("%d\n", i--);
+#include <stdio.h>
+int main(void) {
+    int i = 10;
+    for (; i > 0; --i)
+        printf("%d\n", i);
+    return 0;
+}
 ```
+
+</div>
+
+<div style="flex:1;">
+
+- 循环变量的初值==已经在前面算好了==, 表达式 1 的位置就空着 (分号照写)
+
+- 运行结果: 打印 10、9、…、1
+
+- 常见于初值来自前面计算结果的循环
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### for语句省略表达式 (省略3)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
+
+==省略表达式 3==: 递增/递减写进循环体
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int i;
+    for (i = 10; i > 0;)
+        printf("%d\n", i--);
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 递增/递减==挪进循环体== (如 `printf` 里的 `i--`), 表达式 3 的位置空着
+
+- ==风险==: 循环体必须保证条件最终变假——忘了递减就是死循环
+
+- 运行结果: 同样打印 10、9、…、1
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### for语句省略表达式 (省1+3、省2)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.72em;">
+
+==省 1 又省 3==: 就等于 `while` 了——此时 `while` 更清晰, 更推荐
+
+```C{.line-numbers}
+i = 10;
+while (i > 0)
+    printf("%d\n", i--);
+```
+
+==省略表达式 2==: 条件==默认为真==——`for(;;)` 是最常见的无限循环写法 (真跑会停不下来, 示意即可):
 
 ```C
-/* 省略表达式2: 条件默认为真 */
 for (;;) …
 ```
 
@@ -255,15 +331,11 @@ for (;;) …
 
 <div style="flex:1;">
 
-C 允许省略 for 的三个表达式, 各有用场:
+- 三个表达式==都可以省略==, 但分号不能少
 
-- ==省略表达式1==: 初始化放到循环前 (左 1)——初值本来就在前面算好了
+- 省 2 的循环不会自己停, 要靠 `break`/`return` 跳出 (下页就讲 break)
 
-- ==省略表达式3==: 递增/递减写进循环体 (左 2)——但条件最终要能变假, 否则死循环
-
-- 省 1 又省 3: 就和 `while` 一样了——此时 `while` 更清晰, 更推荐
-
-- ==省略表达式2==: 条件==默认为真==, 不会自己停 (除非 break)——`for(;;)` 是最常见的无限循环写法 (左 3)
+- 完整可运行版在左栏 while 示例; `for(;;)` 只是写法示意
 
 </div>
 
