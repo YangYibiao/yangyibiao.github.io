@@ -669,7 +669,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 算法案例: 数据交换、累加、累乘
+##### 算法案例: 累加、累乘
 
 ---
 
@@ -677,22 +677,15 @@ int main(void)
 
 <div style="flex:1;">
 
-==数据交换==: 交换两个变量的值 (借助临时变量)
-
 ==累加==: 计算 1+2+...+n
 
 ==累乘==: 计算 n! (注意: 初始值为 1, 且很快溢出)
 
-<span class="blue">:fa-weixin:</span> 累加器初始化为 0, 累乘器初始化为 1——这是循环的经典写法
+<span class="blue">:fa-weixin:</span> 累加器初始化为 ==0==, 累乘器初始化为 ==1==——这是循环的经典写法, 初值写错结果全错
 
 </div>
 
 <div style="flex:1;font-size:0.8em;">
-
-```C
-int a = 3, b = 5, t;
-t = a; a = b; b = t;   /* a 为 5, b 为 3 */
-```
 
 ```C
 int sum = 0;
