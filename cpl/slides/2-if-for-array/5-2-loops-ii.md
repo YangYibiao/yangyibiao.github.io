@@ -418,8 +418,9 @@ C99 里, for 的表达式1 可以换成==声明==——循环变量直接在 for
 #include <stdio.h>
 int main(void) {
     int n = 100, sum = 0;
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n; i++) {
         sum += i;
+    }
     printf("1+...+%d = %d\n", n, sum);
     return 0;
 }
