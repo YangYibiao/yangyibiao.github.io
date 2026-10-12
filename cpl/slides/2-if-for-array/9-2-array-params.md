@@ -239,10 +239,6 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ---
 
-<div class="top-2">
-  <img src="../figs/see-you.png" width=500px>
-</div>
-
 ---
 
 

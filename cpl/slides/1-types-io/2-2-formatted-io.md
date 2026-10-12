@@ -697,10 +697,6 @@ The sum is 38/24
 
 ---
 
-<div class="top-2">
-  <img src="../0-intro/figs/see-you.png" width=500px>
-</div>
-
 ---
 
 
