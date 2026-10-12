@@ -752,6 +752,10 @@ for (int i = 1; i <= n; i++) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 检查 2 ~ n-1 里有没有约数; ==找到第一个约数就可以停了==——想一想用什么
 
+<div class="top-2">
+  <img src="../3-for-a-while/figs/prime.jpg" width=380px>
+</div>
+
 ---
 
 
@@ -793,10 +797,6 @@ int main(void) {
 <div style="flex:1;">
 
 - 循环两种退法: 找到约数 break (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
-
-<div class="top-2">
-  <img src="../3-for-a-while/figs/prime.jpg" width=350px>
-</div>
 
 - 改进: 只需检查到 $\sqrt{n}$ (下节课配合 sqrt 函数实现)
 
