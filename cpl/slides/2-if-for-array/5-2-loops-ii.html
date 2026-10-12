@@ -107,8 +107,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>表达式<span class="token number">1</span><span class="token punctuation">;</span> 表达式<span class="token number">2</span><span class="token punctuation">;</span> 表达式<span class="token number">3</span><span class="token punctuation">)</span> 语句</code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>表达式<span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>表达式<span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   语句
@@ -117,19 +117,21 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div style="flex:1;">
 <p><code>for</code> 特别适合<mark>计数</mark>循环 (也能用于其他循环), 一般形式:</p>
-<p>表达式1: 初始化表达式</p>
 <ul>
 <li>
-<p>表达式2: 条件判断表达式</p>
+<p>表达式1: <mark>初始化</mark>, 只在循环开始前执行一次</p>
 
 </li>
 <li>
-<p>表达式3: 变量递增/减表达式</p>
+<p>表达式2: 控制<mark>何时结束</mark> (非零就继续)</p>
+
+</li>
+<li>
+<p>表达式3: 每轮<mark>最后</mark>执行</p>
 
 </li>
 </ul>
-<p><code>for</code> 和 <code>while</code> 几乎总能互相改写:</p>
-<p>表达式1 是<mark>初始化</mark>, 只在循环开始前执行一次; 表达式2 控制<mark>何时结束</mark> (非零就继续); 表达式3 每轮<mark>最后</mark>执行</p>
+<p><code>for</code> 和 <code>while</code> 几乎总能互相改写 (如左)</p>
 </div>
 </div>
 <hr>
@@ -137,17 +139,16 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.05;">
-<p>研究等效的while语句有助于更好地理解for语句</p>
-<p>例如, 如果<code>i--</code>被替换为<code>—-i</code>会如何？等效的while循环表明这种更改对循环没有影响</p>
-<p>for语句中的第一个和第三个表达式都是以语句的方式执行的, 它们的值是无关紧要的——它们有用仅仅是因为有副作用; 因此, 这两个表达式通常是赋值递增/递减表达式</p>
+<p><code>i--</code> 换成 <code>--i</code>, 结果一样吗? 看等价的 while 就明白了——<mark>一样</mark></p>
+<p>表达式1 和表达式3 都是<mark>语句</mark>, 它们的<mark>值</mark>无关紧要——起作用的是<mark>副作用</mark> (赋值、自增自减), 所以这两个位置通常放 <code>i++</code>/<code>i--</code></p>
 </div>
 <div style="flex:1;font-size:0.72em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span> 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"T minus %d and counting\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">--</span>i<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">--</span>i<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 </div>
@@ -244,12 +245,11 @@ document.addEventListener("DOMContentLoaded", function () {
   …</code></pre>
 </div>
 <div style="flex:1;">
-<p>在 <code>C99</code> 中, <code>for</code>语句中的第一个表达式可以替换为声明</p>
-<p>这样可以在循环内声明专用变量:</p>
-<p>变量i不需要在此语句之前声明</p>
+<p>C99 里, for 的表达式1 可以换成<mark>声明</mark>:</p>
+<p>循环变量不用提前声明, 直接在 for 里声明<mark>专用变量</mark>:</p>
 <p>循环内声明的变量<mark>出了循环就用不了</mark>:</p>
-<p>让<code>for</code>语句声明它自己的循环控制变量通常是一个好主意: 它很方便且程序的可读性更强; 但是, 如果程序需要在循环终止后访问该变量, 则必须使用以前的<code>for</code>语句格式</p>
-<p><code>for</code>语句可以声明多个变量, 只要它们的类型相同:</p>
+<p>通常建议让 for 声明自己的循环控制变量——方便、可读性好; 但如果循环结束后还要用这个变量, 就只能在循环外声明</p>
+<p>for 可以一次声明多个变量 (类型相同):</p>
 </div>
 </div>
 <hr>
