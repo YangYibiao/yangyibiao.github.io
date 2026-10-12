@@ -189,13 +189,13 @@ int main(void) {
 </div>
 
 ---<!-- slide data-notes="" -->
-
-
 ##### 演示: 浮点计数循环的陷阱
 
 ---
 
-<div style="font-size:0.8em;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;font-size:0.7em;">
 
 ```C
 #include <stdio.h>
@@ -211,6 +211,8 @@ int main(void) {
 
 </div>
 
+<div style="flex:1;">
+
 运行结果 (节选): 
 
 ```
@@ -221,15 +223,17 @@ int main(void) {
 10 次累加后: 0.99999999999999989
 ```
 
+</div>
+
+</div>
+
 - `0.1` 在二进制里是无限循环小数 (第2周讲过), 累加 ==10 次并不是 1.0==
 
 - 若用 ==`for (x = 0.0; x != 1.0; x += 0.1)`==: 第 10 次后 `x` 并不等于 `1.0`, 循环==停不下来== (或次数不对)
 
 - 教训: ==不要用浮点数计数/判等==; 循环次数用整数控制、浮点只参与运算; 比较浮点用 `x < 1.0` 而不是 `x != 1.0`
 
----
-
-<!-- slide data-notes="" -->
+---<!-- slide data-notes="" -->
 
 
 ##### for语句省略表达式 (省略1)
