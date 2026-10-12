@@ -342,9 +342,7 @@ for (;;) …
 </div>
 
 <!-- slide data-notes="" -->
-
-
-##### C99中的for语句
+##### C99中的for语句 (声明循环变量)
 
 ---
 
@@ -352,46 +350,117 @@ for (;;) …
 
 <div style="flex:1.2;font-size:0.7em;">
 
-```C
-for (int i = 0; i < n; i++)
-  …
-```
+C99 里, for 的表达式1 可以换成==声明==——循环变量直接在 for 里声明:
 
 ```C{.line-numbers}
-for (int i = 0; i < n; i++) {
-  …
-  printf("%d", i); /* 合法的; i 在循环内可见 */
-  …
+#include <stdio.h>
+int main(void) {
+    int n = 5;
+    for (int i = 1; i <= n; i++)
+        printf("%d ", i);
+    printf("\n");
+    return 0;
 }
-printf("%d", i); /*** WRONG ***/
-```
-
-```C{.line-numbers}
-for (int i = 0, j = 0; i < n; i++)
-  …
 ```
 
 </div>
 
 <div style="flex:1;">
 
-C99 里, for 的表达式1 可以换成==声明==:
+- 变量 `i` 不用提前声明, 在 for 里==声明即用==
 
-循环变量不用提前声明, 直接在 for 里声明==专用变量==:
+- 运行结果: `1 2 3 4 5`
+
+- 好处: 循环变量成了循环的"私有变量", 外面看不见也改不了
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### C99中的for语句 (作用域)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
 
 循环内声明的变量==出了循环就用不了==:
 
-通常建议让 for 声明自己的循环控制变量——方便、可读性好; 但如果循环结束后还要用这个变量, 就只能在循环外声明
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int n = 5;
+    for (int i = 1; i <= n; i++)
+        printf("%d ", i);
+    /* printf("%d", i);  编译错误: i 出了循环不可见 */
+    printf("\n");
+    return 0;
+}
+```
 
-for 可以一次声明多个变量 (类型相同):
+</div>
 
+<div style="flex:1;">
 
+- 变量 `i` 的作用域==只在循环内==——循环结束后访问会编译报错 (把注释打开试试)
+
+- 如果要循环结束后==还要用==这个变量, 就只能在循环外声明
+
+- 多数情况下 for 自管循环变量更方便、可读性更好
 
 </div>
 
 </div>
+
+---
+
 
 <!-- slide data-notes="" -->
+
+
+##### C99中的for语句 (多变量声明)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
+
+for 可以一次声明多个变量 (类型相同), 用逗号分隔:
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int n = 5;
+    for (int i = 1, j = n; i <= n; i++, j--)
+        printf("%d+%d ", i, j);
+    printf("\n");
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 两个变量 `i`、`j` 都在表达式 1 声明, 表达式 3 同时递增/递减
+
+- 运行结果: `1+5 2+4 3+3 4+2 5+1`
+
+- 常见场景: 一个循环里需要==两个同步变化的计数变量==
+
+</div>
+
+</div>
+
+---<!-- slide data-notes="" -->
 
 
 ##### 逗号运算符
