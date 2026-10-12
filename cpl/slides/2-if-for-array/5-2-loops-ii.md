@@ -149,36 +149,46 @@ int main(void) {
 </div>
 
 ---<!-- slide data-notes="" -->
-
-
 ##### for语句常见用法
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.62em;">
+
 `for` 最适合==向上计数==或==向下计数==, 四种常见写法:
 
 ```C{.line-numbers}
-/* 从0到n-1, 共n次 */   for (i = 0; i < n; i++)
-                            printf("%d ", i);     /* 0 1 2 ... n-1 */
-/* 从1到n, 共n次 */     for (i = 1; i <= n; i++)
-                            printf("%d ", i);     /* 1 2 3 ... n */
-/* 从n-1倒数到0 */      for (i = n - 1; i >= 0; i--)
-                            printf("%d ", i);     /* n-1 n-2 ... 0 */
-/* 从n倒数到1 */        for (i = n; i > 0; i--)
-                            printf("%d ", i);     /* n n-1 ... 1 */
+/* 从0到n-1, 共n次 */  for (i = 0; i < n; i++)
+                           printf("%d ", i);
+/* 从1到n, 共n次 */    for (i = 1; i <= n; i++)
+                           printf("%d ", i);
+/* 从n-1倒数到0 */     for (i = n - 1; i >= 0; i--)
+                           printf("%d ", i);
+/* 从n倒数到1 */       for (i = n; i > 0; i--)
+                           printf("%d ", i);
 ```
+
+输出依次为 `0 1 2 …`、`1 2 3 …`、`n-1 … 0`、`n … 1`
+
+</div>
+
+<div style="flex:1;">
 
 常见的 for 错误:
 
-- 方向写反: 向上计数用 `<` 或 `<=`, 向下计数用 `>` 或 `>=`——把 `>` 写成 `<` 方向就反了
+- ==方向写反==: 向上计数用 `<`/`<=`, 向下计数用 `>`/`>=`——把 `>` 写成 `<` 方向就反了
 
-- 把比较符写成 `==`: 初始值就不成立, 循环体一次都不执行
+- ==把比较符写成 `==`==: 初始值就不成立, 循环体一次都不执行
 
 - ==差一错误== (off-by-one): 把 `i < n` 写成 `i <= n` 会多循环一次
 
----
+</div>
 
-<!-- slide data-notes="" -->
+</div>
+
+---<!-- slide data-notes="" -->
 
 
 ##### 演示: 浮点计数循环的陷阱
