@@ -59,27 +59,45 @@ presentation:
 ---
 
 
+<!-- slide data-notes="" -->##### 程序: 判定素数
+
+---
+
+==现场演示==: 写一个函数 `is_prime(n)` 判断素数, 主函数读入并输出结果
+
+样例:
+
+```
+输入一个数: 34
+不是素数
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑第 5 周写过 (break 版); 这次做成函数, 返回 1/0; 检查到 $\sqrt{n}$ 就够 (上一课的预告)
+
+---
+
+
+
 <!-- slide data-notes="" -->
 
 
-##### 程序: 判定素数
+##### 程序: 判定素数 (参考代码)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.48em;">
+<div style="flex:1.3;font-size:0.5em;">
 
 ```C{.line-numbers}
 /* 判断一个数是否为素数 */
- 
-#include <stdbool.h>   /* C99 only */
+#include <stdbool.h>
 #include <stdio.h>
- 
+
 bool is_prime(int n)
 {
   int divisor;
- 
+
   if (n <= 1)
     return false;
   for (divisor = 2; divisor * divisor <= n; divisor++)
@@ -91,13 +109,13 @@ bool is_prime(int n)
 int main(void)
 {
   int n;
- 
-  printf("Enter a number: ");
+
+  printf("输入一个数: ");
   scanf("%d", &n);
   if (is_prime(n))
-    printf("Prime\n");
+    printf("是素数\n");
   else
-    printf("Not prime\n");
+    printf("不是素数\n");
   return 0;
 }
 ```
@@ -106,25 +124,17 @@ int main(void)
 
 <div style="flex:1;">
 
-`prime.c`: 判断一个数是不是素数。
+- 判断逻辑封装进 `is_prime`——main 只剩输入输出, 一眼看清
 
-Enter a number: <u>34</u>
-Not prime
+- `divisor * divisor <= n` 就是检查到 $\sqrt{n}$ 的等价写法 (不用 math.h)
 
-它定义了一个 `is_prime` 函数: 参数是素数返回 1, 否则返回 0。 
+- 返回 `bool` (true/false), 调用处 `if (is_prime(n))` 直接判
 
-is_prime将其参数n除以从2到n的平方根之间的每个数字, 只要有一个余数为0, n就不是素数.
+</div>
 
+</div>
 
 ---
-
-`prime.c`
-
-
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->
 
@@ -147,9 +157,9 @@ int main(void) {
     leap = 1;
   }
   if (leap == 0) {
-    printf("%d is a common year\n", year);
+    printf("%d 是平年\n", year);
   } else {
-    printf("%d is a leap year\n", year);
+    printf("%d 是闰年\n", year);
   }
   return 0;
 }
@@ -163,9 +173,9 @@ int main(void) {
   scanf("%d", &year);
   int leap = is_leap_year(year);
   if (leap == 0) {
-    printf("%d is a common year\n", year);
+    printf("%d 是平年\n", year);
   } else {
-    printf("%d is a leap year\n", year);
+    printf("%d 是闰年\n", year);
   }
   return 0;
 }
@@ -210,7 +220,7 @@ int main() {
 
   int count = 0;
   for (int i = 2; i <= max; i++) {
-    // determine if i is a prime
+    // 判断 i 是否素数
     int prime = 1;
     for (int j = 2; j * j <= i; j++) {
       if (i % j == 0) {
@@ -223,7 +233,7 @@ int main() {
 //      printf("%d ", i);
     }
   }
-  printf("\ntotal count: %d", count);
+  printf("\n素数个数: %d", count);
   return 0;
 }
 ```
@@ -264,13 +274,13 @@ int main() {
   scanf("%d", &max);
   int count = 0;
   for (int i = 2; i <= max; i++) {
-    // determine if i is a prime
+    // 判断 i 是否素数
     int prime = is_prime(i);
     if (prime == 1) {
       count++;
     }
   }
-  printf("\ntotal count: %d", count);
+  printf("\n素数个数: %d", count);
   return 0;
 }
 ```
@@ -305,11 +315,11 @@ int main() {
   scanf("%d", &lines);
 
   for (int i = 0; i < lines; i++) {
-    // NUm ' '
+    // 打印空格 (居中)
     for (int j = 0; j < lines - 1 - i; j++) {
       printf(" ");
     }
-    // 2 * i + 1 '*'
+    // 打印 2*i+1 颗星
     for (int j = 0; j < 2 * i + 1; j++) {
       printf("*");
     }
