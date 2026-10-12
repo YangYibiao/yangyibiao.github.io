@@ -605,6 +605,14 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="算法案例--素数判断">算法案例: 素数判断 </h5>
 <hr>
+<p><mark>现场演示</mark>: 输入一个整数, 判断它是不是素数 (只能被 1 和自己整除)</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入一个数<span class="token operator">:</span> <span class="token number">13</span>
+<span class="token number">13</span> 是素数</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 检查 2 ~ n-1 里有没有约数; <mark>找到第一个约数就可以停了</mark>——想一想用什么</p>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="算法案例--素数判断--参考代码">算法案例: 素数判断 (参考代码) </h5>
+<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* primes.c: 判断 n 是否为素数 */</span>
@@ -617,8 +625,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator"><</span> n<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>              <span class="token comment">/* 找到约数, 提前退出 */</span>
+            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>        <span class="token comment">/* 找到约数, 提前退出 */</span>
+    <span class="token punctuation">}</span>
 
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>d <span class="token operator"><</span> n<span class="token punctuation">)</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 不是素数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -628,15 +636,34 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>判断 n 是否为素数: 检查 2 ~ n-1 之间是否存在约数</p>
+<ul>
+<li>
+<p>循环两种退法: 找到约数 break (<mark>提前退出</mark>) 或跑完 2~n-1 (<mark>正常结束</mark>)——用 <code>d &lt; n</code> 区分</p>
+
+</li>
+</ul>
 <div class="top-2">
   <img src="../3-for-a-while/figs/prime.jpg" width=350px>
 </div>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 改进: 只需检查到 \(\sqrt{n}\) (下节课配合 sqrt 函数实现)</p>
+<ul>
+<li>
+<p>改进: 只需检查到 \(\sqrt{n}\) (下节课配合 sqrt 函数实现)</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="综合案例--非完全平方数的和">综合案例: 非完全平方数的和 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="综合案例--非完全平方数的和">综合案例: 非完全平方数的和 </h5>
+<hr>
+<p><mark>现场演示</mark>: 输入 n, 计算 1~n 中所有<mark>非完全平方数</mark>的和 (完全平方数: 1、4、9、16、…)</p>
+<p>样例 (n = 10):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 n<span class="token operator">:</span> <span class="token number">10</span>
+非完全平方数之和 <span class="token operator">=</span> <span class="token number">41</span></code></pre>
+<p>(1~10 的和 55, 减去完全平方数 1+4+9 = 41)</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 怎么判断一个数是不是完全平方数? (第 3 周的 sqrt + 强制转换); 遇到完全平方数要跳过——用什么?</p>
+<hr>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="综合案例--非完全平方数的和--参考代码">综合案例: 非完全平方数的和 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -660,15 +687,23 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>计算 1~n 中所有<mark>非完全平方数</mark>的和</p>
+<ul>
+<li>
+<p><code>r = (int) sqrt(i)</code> + <code>r * r == i</code>: 第 3 周的强制转换在这里兑现</p>
+
+</li>
+<li>
+<p><code>continue</code> 跳过完全平方数——<mark>循环与数学库函数的第一次合作</mark></p>
+
+</li>
+</ul>
 <div class="top-2">
   <img src="../3-for-a-while/figs/perfectSquare.gif" width=300px>
 </div>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> continue + sqrt 的组合: 循环与数学库函数的第一次合作</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>for (i = 0; i &lt; n; i++)</code> 循环体执行了多少次？
@@ -681,7 +716,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="24" data-v="0"><hr>
 <div class="top-2">
   <img src="../0-intro/figs/see-you.png" width=500px>
 </div>

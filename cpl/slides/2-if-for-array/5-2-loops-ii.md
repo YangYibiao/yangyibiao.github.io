@@ -740,6 +740,27 @@ for (int i = 1; i <= n; i++) {
 
 ---
 
+==现场演示==: 输入一个整数, 判断它是不是素数 (只能被 1 和自己整除)
+
+样例:
+
+```
+输入一个数: 13
+13 是素数
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 检查 2 ~ n-1 里有没有约数; ==找到第一个约数就可以停了==——想一想用什么
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 算法案例: 素数判断 (参考代码)
+
+---
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.55em;">
@@ -755,8 +776,8 @@ int main(void) {
 
     for (d = 2; d < n; d++) {
         if (n % d == 0)
-            break;
-    }              /* 找到约数, 提前退出 */
+            break;        /* 找到约数, 提前退出 */
+    }
 
     if (d < n)
         printf("%d 不是素数\n", n);
@@ -770,13 +791,13 @@ int main(void) {
 
 <div style="flex:1;">
 
-判断 n 是否为素数: 检查 2 ~ n-1 之间是否存在约数
+- 循环两种退法: 找到约数 break (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
 
 <div class="top-2">
   <img src="../3-for-a-while/figs/prime.jpg" width=350px>
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 改进: 只需检查到 $\sqrt{n}$ (下节课配合 sqrt 函数实现)
+- 改进: 只需检查到 $\sqrt{n}$ (下节课配合 sqrt 函数实现)
 
 </div>
 
@@ -786,6 +807,29 @@ int main(void) {
 
 
 ##### 综合案例: 非完全平方数的和
+
+---
+
+==现场演示==: 输入 n, 计算 1~n 中所有==非完全平方数==的和 (完全平方数: 1、4、9、16、…)
+
+样例 (n = 10):
+
+```
+输入 n: 10
+非完全平方数之和 = 41
+```
+
+(1~10 的和 55, 减去完全平方数 1+4+9 = 41)
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是完全平方数? (第 3 周的 sqrt + 强制转换); 遇到完全平方数要跳过——用什么?
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 综合案例: 非完全平方数的和 (参考代码)
 
 ---
 
@@ -818,13 +862,13 @@ int main(void) {
 
 <div style="flex:1;">
 
-计算 1~n 中所有==非完全平方数==的和
+- `r = (int) sqrt(i)` + `r * r == i`: 第 3 周的强制转换在这里兑现
+
+- `continue` 跳过完全平方数——==循环与数学库函数的第一次合作==
 
 <div class="top-2">
   <img src="../3-for-a-while/figs/perfectSquare.gif" width=300px>
 </div>
-
-<span class="blue">:fa-lightbulb-o:</span> continue + sqrt 的组合: 循环与数学库函数的第一次合作
 
 </div>
 
