@@ -560,8 +560,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p><mark>现场演示</mark>: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 需要<mark>两层循环</mark>——一层管行数, 一层管每行的星号数</p>
+<p><mark>现场演示</mark>: 输入高度 n, 打印 n 行的<mark>居中星号塔</mark> (第 i 行: 前面补空格, 星号 2i-1 颗)</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每行 = <mark>空格 + 星号</mark>——空格负责居中 (第 i 行 n-i 个), 星号第 i 行 2i-1 颗; 加上外层, 一共三层循环</p>
 </div>
 <div style="flex:1.1;">
 <div class="top-2">
@@ -574,7 +574,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* stars.c: 打印星号塔 */</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* stars.c: 打印居中星号塔 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -583,8 +583,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入高度: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token comment">/* 外层: 控制行数 */</span>
-        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment">/* 内层: 每行星号个数 */</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>          <span class="token comment">/* 外层: 控制行数 */</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n <span class="token operator">-</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">/* 空格: 居中 */</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> <span class="token number">2</span> <span class="token operator">*</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* 星号: 2i-1 颗 */</span>
             <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -595,15 +598,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="flex:1;">
 <ul>
 <li>
-<p>外层 <code>i</code> 从 1 到 n: 第 i 行</p>
+<p>外层 <code>i</code> 管行数; 两个内层分别管<mark>空格</mark>和<mark>星号</mark>——三层的上限都依赖 <code>i</code></p>
 
 </li>
 <li>
-<p>内层 <code>j</code> 从 1 到 i: 打印 i 颗星——内层的上限<mark>依赖外层变量</mark>, 这是嵌套循环的精髓</p>
+<p>空格数 <code>n - i</code> 递减、星号数 <code>2 * i - 1</code> 递增——居中的数学</p>
 
 </li>
 <li>
-<p>输入 <code>5</code> → 5 行星号塔</p>
+<p>内层上限<mark>依赖外层变量</mark>是嵌套循环的精髓; 输入 <code>5</code> → 5 层金字塔</p>
 
 </li>
 </ul>
