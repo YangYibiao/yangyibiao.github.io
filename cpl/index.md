@@ -46,8 +46,9 @@
 |   ^    | [选择结构 (下)](slides/2-if-for-array/4-2-selection-ii.html) | 选择结构 (下) |
 | 第5周   | [循环结构 (上)](slides/2-if-for-array/5-1-loops-i.html) | 循环结构 (上) |
 |   ^    | [循环结构 (下)](slides/2-if-for-array/5-2-loops-ii.html) | 循环结构 (下) |
-| 第6周   | 待发布                            | 函数 (I)    |
-|   ^    | 待发布                            | 函数 (II)    |
+| 第6周   | [循环习题课](slides/2-if-for-array/5-3-loops-practice.html) | 循环习题课 |
+|   ^    | [函数 (I)](slides/5-function/6-1-functions-i.html) | 函数 (I) |
+|   ^    | [函数 (II)](slides/5-function/6-2-functions-ii.html) | 函数 (II) |
 | 第7周   | 待发布                            | 递归函数 |
 |   ^    | 待发布                            | 作用域、预处理与AI赋能  |
 | 第8周   | 待发布                            | 一维数组 |
