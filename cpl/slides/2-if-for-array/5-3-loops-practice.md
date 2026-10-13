@@ -157,7 +157,7 @@ int main(void) {
 12 不是完全数
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 找出 1 ~ n-1 的全部因数并累加, 最后和 n 比一比
+<span class="blue">:fa-lightbulb-o:</span> 提示: 完全数等于除自身外的因数之和——怎么==找出这些因数==?
 
 </div>
 
@@ -300,7 +300,7 @@ int main(void) {
 最终得分: 9.00
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 同时追踪最高分和最低分; 总分减去它们再除以 6
+<span class="blue">:fa-lightbulb-o:</span> 提示: 去掉最高和最低——你需要在循环里同时维护==哪几个量==?
 
 </div>
 
@@ -368,7 +368,7 @@ int main(void) {
 153 370 371 407
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 外层枚举 100~999, 内层做第 3 周的数位拆分——一个数拆出百位、十位、个位
+<span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是水仙花数? 每位数字怎么拆出来? (第 3 周的老朋友)
 
 </div>
 
@@ -525,7 +525,7 @@ int main(void) {
 A: 2  B: 1  C: 1  D: 1  F: 1
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: `score / 10` 能把成绩映射到档位 (10 和 9 → A, 8 → B, …); 每个等级一个计数器
+<span class="blue">:fa-lightbulb-o:</span> 提示: 怎么把 0~100 的成绩划分成 A~F 五档? 每个等级需要一个什么?
 
 </div>
 
