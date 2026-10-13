@@ -55,6 +55,8 @@ presentation:
 
 - 练习: 数字三角形、跳水评分、水仙花数
 
+- 进阶练习 (选做): 回文数、斐波那契、百钱百鸡
+
 - 组合练习 (选做): 菜单计算器、成绩等级统计
 
 - 每题都是"先任务后代码", 写完编译运行验证
@@ -411,6 +413,228 @@ int main(void) {
 - 数位拆分是第 3 周的"先除后模"套路, 这里在循环里批量使用
 
 - 立方直接连乘 (`bai*bai*bai`), 不需要 pow
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 回文数判定 (选做)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==独立练习==: 输入一个正整数, 判断它是不是==回文数== (正着读和反着读一样)
+
+样例:
+
+```
+输入一个数: 12321
+12321 是回文数
+输入一个数: 12345
+12345 不是回文数
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 怎么把数"反过来读"? 数位拆分的老朋友, 但这次要把拆出来的数字==重新拼起来==
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 回文数判定 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int n, m, rev = 0;
+    printf("输入一个数: ");
+    scanf("%d", &n);
+    m = n;
+    while (m > 0) {
+        rev = rev * 10 + m % 10;   /* 末位接到 rev 后面 */
+        m /= 10;
+    }
+    if (rev == n)
+        printf("%d 是回文数\n", n);
+    else
+        printf("%d 不是回文数\n", n);
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- `rev = rev * 10 + m % 10` 是==反转构造==的经典一行: 每次把末位"接"到 rev 后面
+
+- `m` 复制了 n——n 要留到最后比较, 不能改
+
+- 数位拆分 (水仙花) 是"拆", 这里是"拆了再拼"——同一套 `% 10` / `/ 10` 的两种用法
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 斐波那契数列 (选做)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==独立练习==: 输入 n, 输出斐波那契数列的前 n 项 (1、1、2、3、5、8、…)
+
+样例 (n = 10):
+
+```
+1 1 2 3 5 8 13 21 34 55
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 每项是前两项之和——需要同时==记住哪两个数==? 每轮它们怎么变?
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 斐波那契数列 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int n, i, a = 1, b = 1, t;
+    printf("输入 n: ");
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++) {
+        printf("%d ", a);
+        t = a + b;      /* 下一项 */
+        a = b;          /* 滚动: 旧 b 变新 a */
+        b = t;          /* 新 b 是刚才的和 */
+    }
+    printf("\n");
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 两个变量 `a`、`b` ==滚动更新==——循环里"记住前两项"的标准模型
+
+- 每轮: 打印 a → 算下一项 t → a、b 各往前挪一格
+
+- 这个数列==第 7 周递归会再见==——到时对比两种写法
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 百钱百鸡 (选做)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==独立练习==: 公鸡 5 文一只、母鸡 3 文一只、小鸡 1 文 3 只。用 100 文钱买 100 只鸡, 输出所有方案
+
+样例:
+
+```
+公鸡 0   母鸡 25  小鸡 75
+公鸡 4   母鸡 18  小鸡 78
+公鸡 8   母鸡 11  小鸡 81
+公鸡 12  母鸡 4   小鸡 84
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 公鸡和母鸡的只数都枚举一遍, 小鸡只数能==推出来==吗? 价钱条件怎么写?
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 百钱百鸡 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int g, h, c;
+    for (g = 0; g <= 20; g++) {        /* 公鸡最多 20 只 */
+        for (h = 0; h <= 33; h++) {    /* 母鸡最多 33 只 */
+            c = 100 - g - h;           /* 小鸡只数: 推出来 */
+            if (5 * g + 3 * h + c / 3 == 100 && c % 3 == 0)
+                printf("公鸡 %d  母鸡 %d  小鸡 %d\n", g, h, c);
+        }
+    }
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- ==枚举两个、推导第三个==: c 由 g、h 直接算出, 少一层循环
+
+- 条件两个: 总价 `5g + 3h + c/3 == 100`, 且小鸡数 `c % 3 == 0` (不能买半只)
+
+- 共 4 组解——第一次体会"循环暴力求解"的快感
 
 </div>
 

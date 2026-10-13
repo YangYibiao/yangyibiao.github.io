@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>进阶练习 (选做): 回文数、斐波那契、百钱百鸡</p>
+
+</li>
+<li>
 <p>组合练习 (选做): 菜单计算器、成绩等级统计</p>
 
 </li>
@@ -354,7 +358,157 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="练习--菜单计算器--选做">练习: 菜单计算器 (选做) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="练习--回文数判定--选做">练习: 回文数判定 (选做) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p><mark>独立练习</mark>: 输入一个正整数, 判断它是不是<mark>回文数</mark> (正着读和反着读一样)</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入一个数<span class="token operator">:</span> <span class="token number">12321</span>
+<span class="token number">12321</span> 是回文数
+输入一个数<span class="token operator">:</span> <span class="token number">12345</span>
+<span class="token number">12345</span> 不是回文数</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 怎么把数"反过来读"? 数位拆分的老朋友, 但这次要把拆出来的数字<mark>重新拼起来</mark></p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="练习--回文数判定--参考代码">练习: 回文数判定 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">,</span> rev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    m <span class="token operator">=</span> n<span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>m <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        rev <span class="token operator">=</span> rev <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> m <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>   <span class="token comment">/* 末位接到 rev 后面 */</span>
+        m <span class="token operator">/=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>rev <span class="token operator">==</span> n<span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是回文数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 不是回文数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><code>rev = rev * 10 + m % 10</code> 是<mark>反转构造</mark>的经典一行: 每次把末位"接"到 rev 后面</p>
+
+</li>
+<li>
+<p><code>m</code> 复制了 n——n 要留到最后比较, 不能改</p>
+
+</li>
+<li>
+<p>数位拆分 (水仙花) 是"拆", 这里是"拆了再拼"——同一套 <code>% 10</code> / <code>/ 10</code> 的两种用法</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="练习--斐波那契数列--选做">练习: 斐波那契数列 (选做) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p><mark>独立练习</mark>: 输入 n, 输出斐波那契数列的前 n 项 (1、1、2、3、5、8、…)</p>
+<p>样例 (n = 10):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">1</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">5</span> <span class="token number">8</span> <span class="token number">13</span> <span class="token number">21</span> <span class="token number">34</span> <span class="token number">55</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每项是前两项之和——需要同时<mark>记住哪两个数</mark>? 每轮它们怎么变?</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="练习--斐波那契数列--参考代码">练习: 斐波那契数列 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> i<span class="token punctuation">,</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> t<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 n: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>      <span class="token comment">/* 下一项 */</span>
+        a <span class="token operator">=</span> b<span class="token punctuation">;</span>          <span class="token comment">/* 滚动: 旧 b 变新 a */</span>
+        b <span class="token operator">=</span> t<span class="token punctuation">;</span>          <span class="token comment">/* 新 b 是刚才的和 */</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>两个变量 <code>a</code>、<code>b</code> <mark>滚动更新</mark>——循环里"记住前两项"的标准模型</p>
+
+</li>
+<li>
+<p>每轮: 打印 a → 算下一项 t → a、b 各往前挪一格</p>
+
+</li>
+<li>
+<p>这个数列<mark>第 7 周递归会再见</mark>——到时对比两种写法</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="练习--百钱百鸡--选做">练习: 百钱百鸡 (选做) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p><mark>独立练习</mark>: 公鸡 5 文一只、母鸡 3 文一只、小鸡 1 文 3 只。用 100 文钱买 100 只鸡, 输出所有方案</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>公鸡 <span class="token number">0</span>   母鸡 <span class="token number">25</span>  小鸡 <span class="token number">75</span>
+公鸡 <span class="token number">4</span>   母鸡 <span class="token number">18</span>  小鸡 <span class="token number">78</span>
+公鸡 <span class="token number">8</span>   母鸡 <span class="token number">11</span>  小鸡 <span class="token number">81</span>
+公鸡 <span class="token number">12</span>  母鸡 <span class="token number">4</span>   小鸡 <span class="token number">84</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 公鸡和母鸡的只数都枚举一遍, 小鸡只数能<mark>推出来</mark>吗? 价钱条件怎么写?</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="练习--百钱百鸡--参考代码">练习: 百钱百鸡 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> g<span class="token punctuation">,</span> h<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>g <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> g <span class="token operator">&lt;=</span> <span class="token number">20</span><span class="token punctuation">;</span> g<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token comment">/* 公鸡最多 20 只 */</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>h <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> h <span class="token operator">&lt;=</span> <span class="token number">33</span><span class="token punctuation">;</span> h<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment">/* 母鸡最多 33 只 */</span>
+            c <span class="token operator">=</span> <span class="token number">100</span> <span class="token operator">-</span> g <span class="token operator">-</span> h<span class="token punctuation">;</span>           <span class="token comment">/* 小鸡只数: 推出来 */</span>
+            <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token number">5</span> <span class="token operator">*</span> g <span class="token operator">+</span> <span class="token number">3</span> <span class="token operator">*</span> h <span class="token operator">+</span> c <span class="token operator">/</span> <span class="token number">3</span> <span class="token operator">==</span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">%</span> <span class="token number">3</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"公鸡 %d  母鸡 %d  小鸡 %d\n"</span><span class="token punctuation">,</span> g<span class="token punctuation">,</span> h<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><mark>枚举两个、推导第三个</mark>: c 由 g、h 直接算出, 少一层循环</p>
+
+</li>
+<li>
+<p>条件两个: 总价 <code>5g + 3h + c/3 <mark> 100</code>, 且小鸡数 <code>c % 3 </mark> 0</code> (不能买半只)</p>
+
+</li>
+<li>
+<p>共 4 组解——第一次体会"循环暴力求解"的快感</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="练习--菜单计算器--选做">练习: 菜单计算器 (选做) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -375,7 +529,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="练习--菜单计算器--参考代码">练习: 菜单计算器 (参考代码) </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="练习--菜单计算器--参考代码">练习: 菜单计算器 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.58em;">
@@ -418,7 +572,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="练习--成绩等级统计--选做">练习: 成绩等级统计 (选做) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="练习--成绩等级统计--选做">练习: 成绩等级统计 (选做) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -430,7 +584,7 @@ A<span class="token operator">:</span> <span class="token number">2</span>  B<sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="练习--成绩等级统计--参考代码">练习: 成绩等级统计 (参考代码) </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="练习--成绩等级统计--参考代码">练习: 成绩等级统计 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.58em;">
