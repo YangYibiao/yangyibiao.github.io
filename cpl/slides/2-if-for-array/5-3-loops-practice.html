@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>组合练习 (选做): 菜单计算器、成绩等级统计</p>
+
+</li>
+<li>
 <p>每题都是"先任务后代码", 写完编译运行验证</p>
 
 </li>
@@ -344,6 +348,123 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 <li>
 <p>立方直接连乘 (<code>bai*bai*bai</code>), 不需要 pow</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="练习--菜单计算器--选做">练习: 菜单计算器 (选做) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p><mark>独立练习</mark>: 写一个菜单计算器——循环显示菜单, 用户选择运算, 直到选择退出</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">1</span><span class="token punctuation">.</span> 加法
+<span class="token number">2</span><span class="token punctuation">.</span> 减法
+<span class="token number">3</span><span class="token punctuation">.</span> 退出
+请选择<span class="token operator">:</span> <span class="token number">1</span>
+输入两个数<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">5</span>
+<span class="token number">3</span> <span class="token operator">+</span> <span class="token number">5</span> <span class="token operator">=</span> <span class="token number">8</span>
+请选择<span class="token operator">:</span> <span class="token number">2</span>
+输入两个数<span class="token operator">:</span> <span class="token number">10</span> <span class="token number">4</span>
+<span class="token number">10</span> <span class="token operator">-</span> <span class="token number">4</span> <span class="token operator">=</span> <span class="token number">6</span>
+请选择<span class="token operator">:</span> <span class="token number">3</span>
+再见<span class="token operator">!</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 菜单要<mark>反复出现</mark>——哪种循环最合适? 选择项用什么结构处理? 退出要跳出哪一层?</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="练习--菜单计算器--参考代码">练习: 菜单计算器 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.58em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> choice<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+    <span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"1. 加法\n2. 减法\n3. 退出\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请选择: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>choice<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>choice <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">||</span> choice <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入两个数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>choice<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">1</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d + %d = %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">2</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d - %d = %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> a <span class="token operator">-</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">3</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"再见!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-default">default</span><span class="token operator">:</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"无效选择\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>choice <span class="token operator">!=</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><mark>do-while + switch</mark> 的经典组合: 菜单至少出现一次, 选项用 switch 分发</p>
+
+</li>
+<li>
+<p><code>choice != 3</code> 控制循环结束——switch 里的 break 只跳出 switch, <mark>不会跳出循环</mark></p>
+
+</li>
+<li>
+<p>非法输入走 default, 循环继续——菜单程序天然容错</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="练习--成绩等级统计--选做">练习: 成绩等级统计 (选做) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
+<p><mark>独立练习</mark>: 输入一批成绩 (0~100, -1 结束), 统计各等级人数: 90~100 为 A, 80~89 为 B, 70~79 为 C, 60~69 为 D, 0~59 为 F</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入成绩 <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span> 结束<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token number">85</span> <span class="token number">92</span> <span class="token number">78</span> <span class="token number">61</span> <span class="token number">45</span> <span class="token number">92</span> <span class="token operator">-</span><span class="token number">1</span>
+A<span class="token operator">:</span> <span class="token number">2</span>  B<span class="token operator">:</span> <span class="token number">1</span>  C<span class="token operator">:</span> <span class="token number">1</span>  D<span class="token operator">:</span> <span class="token number">1</span>  F<span class="token operator">:</span> <span class="token number">1</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: <code>score / 10</code> 能把成绩映射到档位 (10 和 9 → A, 8 → B, …); 每个等级一个计数器</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="练习--成绩等级统计--参考代码">练习: 成绩等级统计 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.25;font-size:0.58em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> score<span class="token punctuation">,</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> d <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> f <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入成绩 (-1 结束): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>score<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>score <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>score <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">10</span><span class="token operator">:</span> <span class="token keyword keyword-case">case</span> <span class="token number">9</span><span class="token operator">:</span> a<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">8</span><span class="token operator">:</span>  b<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">7</span><span class="token operator">:</span>  c<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-case">case</span> <span class="token number">6</span><span class="token operator">:</span>  d<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-default">default</span><span class="token operator">:</span> f<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>score<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"A: %d  B: %d  C: %d  D: %d  F: %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><code>score / 10</code> 把 0~100 映射成 10 个档——switch 的 case 就是档位</p>
+
+</li>
+<li>
+<p><code>case 10: case 9:</code> <mark>共用一个语句</mark> (A 档)——第 4 周学的多 case 标签在这里兑现</p>
+
+</li>
+<li>
+<p><mark>忘写 break 会串档</mark> (所有档都往下漏)——统计类程序的经典 bug</p>
 
 </li>
 </ul>

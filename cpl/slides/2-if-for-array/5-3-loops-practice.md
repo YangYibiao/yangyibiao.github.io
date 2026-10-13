@@ -55,6 +55,8 @@ presentation:
 
 - 练习: 数字三角形、跳水评分、水仙花数
 
+- 组合练习 (选做): 菜单计算器、成绩等级统计
+
 - 每题都是"先任务后代码", 写完编译运行验证
 
 ---
@@ -409,6 +411,170 @@ int main(void) {
 - 数位拆分是第 3 周的"先除后模"套路, 这里在循环里批量使用
 
 - 立方直接连乘 (`bai*bai*bai`), 不需要 pow
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 菜单计算器 (选做)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==独立练习==: 写一个菜单计算器——循环显示菜单, 用户选择运算, 直到选择退出
+
+样例:
+
+```
+1. 加法
+2. 减法
+3. 退出
+请选择: 1
+输入两个数: 3 5
+3 + 5 = 8
+请选择: 2
+输入两个数: 10 4
+10 - 4 = 6
+请选择: 3
+再见!
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 菜单要==反复出现==——哪种循环最合适? 选择项用什么结构处理? 退出要跳出哪一层?
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 菜单计算器 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.58em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int choice, a, b;
+    do {
+        printf("1. 加法\n2. 减法\n3. 退出\n");
+        printf("请选择: ");
+        scanf("%d", &choice);
+        if (choice == 1 || choice == 2) {
+            printf("输入两个数: ");
+            scanf("%d%d", &a, &b);
+        }
+        switch (choice) {
+            case 1: printf("%d + %d = %d\n", a, b, a + b); break;
+            case 2: printf("%d - %d = %d\n", a, b, a - b); break;
+            case 3: printf("再见!\n"); break;
+            default: printf("无效选择\n");
+        }
+    } while (choice != 3);
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- ==do-while + switch== 的经典组合: 菜单至少出现一次, 选项用 switch 分发
+
+- `choice != 3` 控制循环结束——switch 里的 break 只跳出 switch, ==不会跳出循环==
+
+- 非法输入走 default, 循环继续——菜单程序天然容错
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 成绩等级统计 (选做)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+==独立练习==: 输入一批成绩 (0~100, -1 结束), 统计各等级人数: 90~100 为 A, 80~89 为 B, 70~79 为 C, 60~69 为 D, 0~59 为 F
+
+样例:
+
+```
+输入成绩 (-1 结束): 85 92 78 61 45 92 -1
+A: 2  B: 1  C: 1  D: 1  F: 1
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: `score / 10` 能把成绩映射到档位 (10 和 9 → A, 8 → B, …); 每个等级一个计数器
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 练习: 成绩等级统计 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.58em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+    int score, a = 0, b = 0, c = 0, d = 0, f = 0;
+    printf("输入成绩 (-1 结束): ");
+    scanf("%d", &score);
+    while (score != -1) {
+        switch (score / 10) {
+            case 10: case 9: a++; break;
+            case 8:  b++; break;
+            case 7:  c++; break;
+            case 6:  d++; break;
+            default: f++; break;
+        }
+        scanf("%d", &score);
+    }
+    printf("A: %d  B: %d  C: %d  D: %d  F: %d\n", a, b, c, d, f);
+    return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- `score / 10` 把 0~100 映射成 10 个档——switch 的 case 就是档位
+
+- `case 10: case 9:` ==共用一个语句== (A 档)——第 4 周学的多 case 标签在这里兑现
+
+- ==忘写 break 会串档== (所有档都往下漏)——统计类程序的经典 bug
 
 </div>
 
