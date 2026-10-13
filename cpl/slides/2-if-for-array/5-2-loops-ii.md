@@ -646,9 +646,9 @@ int main(void)
 
 <div style="flex:1;">
 
-==现场演示==: 输入高度 n, 打印 n 行的星号塔 (第 i 行有 i 颗星)
+==现场演示==: 输入高度 n, 打印 n 行的==居中星号塔== (第 i 行: 前面补空格, 星号 2i-1 颗)
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 需要==两层循环==——一层管行数, 一层管每行的星号数
+<span class="blue">:fa-lightbulb-o:</span> 提示: 每行 = ==空格 + 星号==——空格负责居中 (第 i 行 n-i 个), 星号第 i 行 2i-1 颗; 加上外层, 一共三层循环
 
 </div>
 
@@ -677,7 +677,7 @@ int main(void)
 <div style="flex:1.3;font-size:0.55em;">
 
 ```C
-/* stars.c: 打印星号塔 */
+/* stars.c: 打印居中星号塔 */
 #include <stdio.h>
 
 int main(void)
@@ -686,8 +686,11 @@ int main(void)
     printf("输入高度: ");
     scanf("%d", &n);
 
-    for (int i = 1; i <= n; i++) {        /* 外层: 控制行数 */
-        for (int j = 1; j <= i; j++) {    /* 内层: 每行星号个数 */
+    for (int i = 1; i <= n; i++) {          /* 外层: 控制行数 */
+        for (int j = 1; j <= n - i; j++) {  /* 空格: 居中 */
+            printf(" ");
+        }
+        for (int j = 1; j <= 2 * i - 1; j++) { /* 星号: 2i-1 颗 */
             printf("*");
         }
         printf("\n");
@@ -700,11 +703,11 @@ int main(void)
 
 <div style="flex:1;">
 
-- 外层 `i` 从 1 到 n: 第 i 行
+- 外层 `i` 管行数; 两个内层分别管==空格==和==星号==——三层的上限都依赖 `i`
 
-- 内层 `j` 从 1 到 i: 打印 i 颗星——内层的上限==依赖外层变量==, 这是嵌套循环的精髓
+- 空格数 `n - i` 递减、星号数 `2 * i - 1` 递增——居中的数学
 
-- 输入 `5` → 5 行星号塔
+- 内层上限==依赖外层变量==是嵌套循环的精髓; 输入 `5` → 5 层金字塔
 
 </div>
 
