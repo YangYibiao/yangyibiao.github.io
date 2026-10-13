@@ -79,7 +79,7 @@ presentation:
 人数: 2
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 哨兵值 -1 不参与统计; 分数与最高分相等时人数 +1——相等时人数要==重置==吗?
+<span class="blue">:fa-lightbulb-o:</span> 提示: 哨兵值 -1 不参与统计; 出现==更高的分数==时, 人数要==重置==吗?
 
 </div>
 
@@ -295,7 +295,7 @@ int main(void) {
 
 ```
 输入 8 个分数: 9.5 9.0 8.5 9.5 8.0 9.0 9.5 8.5
-最终得分: 9.08
+最终得分: 9.00
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 同时追踪最高分和最低分; 总分减去它们再除以 6
