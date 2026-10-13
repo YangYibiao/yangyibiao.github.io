@@ -50,13 +50,15 @@ presentation:
 
 ---
 
-- 软件设计原则
+- 为什么需要函数: 软件设计原则
 
-- 函数的定义与调用
+- 函数定义与调用 (案例: 平均值)
+
+- 返回类型 void 与无参函数 (案例: 倒计时、分隔线)
 
 - 函数声明
 
-- 参数传递
+- 参数传递 (传值、swap 陷阱、类型转换)
 
 - return 与程序终止
 
@@ -392,6 +394,35 @@ Average of 3.5 and 10.2: 6.85
 </div>
 
 </div>
+<!-- slide data-notes="" -->
+
+
+##### 返回类型: void
+
+---
+
+函数==没有返回值==, 返回类型就写 ==void==: 
+
+```C
+void print_count(int n)
+{
+  printf("%d\n", n);
+}
+```
+
+void是一种没有值的类型. 
+
+print_count的调用必须自成一个语句: 
+
+```C
+print_count(i);
+```
+
+`countdown.c` 在循环里调用了 10 次 print_count。
+
+---
+
+
 <!-- slide data-notes="" -->##### 程序: 打印倒计时
 
 ---
@@ -453,98 +484,6 @@ int main(void)
 - 循环在 main 里, 函数被调用了 10 次——函数和循环第一次配合
 
 - 输出: 10、9、…、1、发射!
-
-</div>
-
-</div>
-
----
-<!-- slide data-notes="" -->
-
-
-##### 程序: 显示倒计时
-
----
-
-函数==没有返回值==, 返回类型就写 ==void==: 
-
-```C
-void print_count(int n)
-{
-  printf("%d\n", n);
-}
-```
-
-void是一种没有值的类型. 
-
-print_count的调用必须自成一个语句: 
-
-```C
-print_count(i);
-```
-
-`countdown.c` 在循环里调用了 10 次 print_count。
-
----
-
-
-<!-- slide data-notes="" -->##### 程序: 打印分隔线
-
----
-
-==现场演示==: 写一个无参函数 `print_line`, 打印一行分隔线 (等号); 主函数用它装饰标题
-
-样例输出:
-
-```
-================================
-   我的第一个函数程序
-================================
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 函数没有参数, 括号里写什么? 调用时括号能省吗?
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 程序: 打印分隔线 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
-
-```C{.line-numbers}
-/* 打印一行分隔线 */
-#include <stdio.h>
-
-void print_line(void)
-{
-  printf("================================\n");
-}
-
-int main(void)
-{
-  print_line();
-  printf("   我的第一个函数程序\n");
-  print_line();
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- 函数没有参数时, 括号里写 ==void==
-
-- 调用无参函数, 函数名后跟 ==空括号==——括号必须, 否则编译器当作变量
-
-- `print_line` 被调用了两次——写一次, 处处用
 
 </div>
 
@@ -810,6 +749,69 @@ C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.
 
 </div>
 
+<!-- slide data-notes="" -->##### 程序: 打印分隔线
+
+---
+
+==现场演示==: 写一个无参函数 `print_line`, 打印一行分隔线 (等号); 主函数用它装饰标题
+
+样例输出:
+
+```
+================================
+   我的第一个函数程序
+================================
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 函数没有参数, 括号里写什么? 调用时括号能省吗?
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 程序: 打印分隔线 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 打印一行分隔线 */
+#include <stdio.h>
+
+void print_line(void)
+{
+  printf("================================\n");
+}
+
+int main(void)
+{
+  print_line();
+  printf("   我的第一个函数程序\n");
+  print_line();
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 函数没有参数时, 括号里写 ==void==
+
+- 调用无参函数, 函数名后跟 ==空括号==——括号必须, 否则编译器当作变量
+
+- `print_line` 被调用了两次——写一次, 处处用
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 

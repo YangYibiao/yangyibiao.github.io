@@ -85,11 +85,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
-<p>软件设计原则</p>
+<p>为什么需要函数: 软件设计原则</p>
 
 </li>
 <li>
-<p>函数的定义与调用</p>
+<p>函数定义与调用 (案例: 平均值)</p>
+
+</li>
+<li>
+<p>返回类型 void 与无参函数 (案例: 倒计时、分隔线)</p>
 
 </li>
 <li>
@@ -97,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>参数传递</p>
+<p>参数传递 (传值、swap 陷阱、类型转换)</p>
 
 </li>
 <li>
@@ -293,7 +297,19 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--打印倒计时">程序: 打印倒计时 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="返回类型--void">返回类型: void </h5>
+<hr>
+<p>函数<mark>没有返回值</mark>, 返回类型就写 <mark>void</mark>:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_count</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>void是一种没有值的类型.</p>
+<p>print_count的调用必须自成一个语句:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_count</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>countdown.c</code> 在循环里调用了 10 次 print_count。</p>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--打印倒计时">程序: 打印倒计时 </h5>
 <hr>
 <p><mark>现场演示</mark>: 把火箭倒计时封装成函数——<code>print_count(n)</code> 打印一行数字, 主函数循环调用它完成 10 到 1 的倒计时</p>
 <p>样例输出:</p>
@@ -303,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token number">1</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 函数只负责"打印一行", 循环调用放在 main 里——第 5 周的知识和函数第一次配合</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--打印倒计时--参考代码">程序: 打印倒计时 (参考代码) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--打印倒计时--参考代码">程序: 打印倒计时 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -344,66 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--显示倒计时">程序: 显示倒计时 </h5>
-<hr>
-<p>函数<mark>没有返回值</mark>, 返回类型就写 <mark>void</mark>:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_count</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>void是一种没有值的类型.</p>
-<p>print_count的调用必须自成一个语句:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_count</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p><code>countdown.c</code> 在循环里调用了 10 次 print_count。</p>
-<hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--打印分隔线">程序: 打印分隔线 </h5>
-<hr>
-<p><mark>现场演示</mark>: 写一个无参函数 <code>print_line</code>, 打印一行分隔线 (等号); 主函数用它装饰标题</p>
-<p>样例输出:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
-   我的第一个函数程序
-<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span></code></pre>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 函数没有参数, 括号里写什么? 调用时括号能省吗?</p>
-<hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--打印分隔线--参考代码">程序: 打印分隔线 (参考代码) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 打印一行分隔线 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword keyword-void">void</span> <span class="token function">print_line</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"================================\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">print_line</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"   我的第一个函数程序\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">print_line</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="flex:1;">
-<ul>
-<li>
-<p>函数没有参数时, 括号里写 <mark>void</mark></p>
-
-</li>
-<li>
-<p>调用无参函数, 函数名后跟 <mark>空括号</mark>——括号必须, 否则编译器当作变量</p>
-
-</li>
-<li>
-<p><code>print_line</code> 被调用了两次——写一次, 处处用</p>
-
-</li>
-</ul>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="函数调用">函数调用 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="函数调用">函数调用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -428,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="函数调用">函数调用 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="函数调用">函数调用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -451,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="函数声明">函数声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -481,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="函数声明">函数声明 </h5>
 <hr>
 <p>main 里调用 average 时编译器没有它的信息: 不报错, 而是假设它返回 <code>int</code>——为该函数创建了<mark>隐式声明</mark></p>
 <hr>
@@ -489,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p>避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="函数声明">函数声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -531,6 +488,53 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p>C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义.</p>
 <p>调用函数时, 如果此前编译器未见其声明或定义, 会导致出错.</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--打印分隔线">程序: 打印分隔线 </h5>
+<hr>
+<p><mark>现场演示</mark>: 写一个无参函数 <code>print_line</code>, 打印一行分隔线 (等号); 主函数用它装饰标题</p>
+<p>样例输出:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+   我的第一个函数程序
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 函数没有参数, 括号里写什么? 调用时括号能省吗?</p>
+<hr>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="程序--打印分隔线--参考代码">程序: 打印分隔线 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 打印一行分隔线 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">print_line</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"================================\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">print_line</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"   我的第一个函数程序\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">print_line</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>函数没有参数时, 括号里写 <mark>void</mark></p>
+
+</li>
+<li>
+<p>调用无参函数, 函数名后跟 <mark>空括号</mark>——括号必须, 否则编译器当作变量</p>
+
+</li>
+<li>
+<p><code>print_line</code> 被调用了两次——写一次, 处处用</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
