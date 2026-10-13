@@ -50,7 +50,7 @@ presentation:
 
 ---
 
-- 函数化改造: leap / primes / stars
+- 函数化改造: 素数、leap、primes、stars
 
 - 函数与栈
 
@@ -72,7 +72,7 @@ presentation:
 不是素数
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑第 5 周写过 (break 版); 这次做成函数, 返回 1/0; 检查到 $\sqrt{n}$ 就够 (上一课的预告)
+<span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑第 5 周写过 (break 版)——这次把它==做成函数==
 
 ---
 
