@@ -55,7 +55,7 @@ presentation:
 
 - 为什么需要数组
 
-- 案例: 数列反向、检查重复数字
+- 案例: 数列反向、检查重复数字、大小写转换
 
 - 现场挑战: 平均分与高于平均、进制转换、回文数
 
@@ -649,6 +649,78 @@ int main(void)
 - 数组当"记账本"用——这是标志数组的经典模式
 
 - 用 `long` 读入: 数字可能超过 10 位, `int` 装不下——第 2 周的==类型范围==
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 案例: 大小写转换
+
+---
+
+==现场演示==: 输入 5 个小写字母, 全部转成大写输出
+
+样例:
+
+```
+输入 5 个小写字母: h e l l o
+HELLO
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 第 2 周讲过 char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 案例: 大小写转换 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
+
+```C{.line-numbers}
+/* 大小写转换 */
+#include <stdio.h>
+
+int main(void)
+{
+  char s[5];
+  int i;
+
+  printf("输入 5 个小写字母: ");
+  for (i = 0; i < 5; i++)
+    scanf(" %c", &s[i]);      /* %c 前空格跳过换行 */
+
+  for (i = 0; i < 5; i++)
+    if (s[i] >= 'a' && s[i] <= 'z')
+      s[i] = s[i] - 'a' + 'A';  /* 'a' 比 'A' 大 32 */
+
+  for (i = 0; i < 5; i++)
+    printf("%c", s[i]);
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 字符数组和数字数组==一样用==: 下标、循环、三件套一个不缺
+
+- `'a'` 比 `'A'` 大 32——char 就是小整数, 第 2 周的老朋友
+
+- 加餐: 把 `s[i] - 'a' + 'A'` 换成 `(s[i] - 'a' + 3) % 26 + 'a'`, 就是凯撒加密
+
+- 下节课的发牌程序, 还会见到字符数组当==对照表==
 
 </div>
 
