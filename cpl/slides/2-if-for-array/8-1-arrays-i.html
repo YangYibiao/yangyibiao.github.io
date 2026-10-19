@@ -332,7 +332,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> C 不规定 <code>=</code> 两边谁先算——就算你试出来"先算右边", 也只是巧合; 换编译器或开优化, 结果就可能变</p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> <code>=</code> 是<mark>右结合</mark>: 它只管怎么加括号——<code>a = b = c</code> 拆成 <code>a = (b = (c = 5))</code>; 谁先算, 它不管</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="演示--越界写会-伤及无辜">演示: 越界写会"伤及无辜" </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="演示--越界读--程序不知道你越界了">演示: 越界读——程序不知道你越界了 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.68em;">
@@ -366,18 +366,62 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 
 </li>
 <li>
-<p>越界<mark>写</mark>更危险: 向前写本机直接崩溃 (栈保护); 向后写 <code>a[-2]</code> 正好落在 i 上——循环变量被改, 循环失控; 开 -O2 又没事 (i 进了寄存器)</p>
-
-</li>
-<li>
-<p>教训: 循环访问数组时<mark>检查边界</mark> (<code>i &lt; n</code>), 不要依赖编译器或运气</p>
+<p>越界读只是"看"了别人的内存——下一页的越界写才动真格</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="为什么需要数组">为什么需要数组 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="演示--越界写会-伤及无辜">演示: 越界写会"伤及无辜" </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.68em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"第 %d 轮\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span>
+      a<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">;</span>      <span class="token comment">/* 越界往回写, 命中 i! */</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>运行结果 (本机):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>第 <span class="token number">0</span> 轮
+第 <span class="token number">1</span> 轮
+第 <span class="token number">2</span> 轮
+第 <span class="token operator">-</span><span class="token number">99</span> 轮
+第 <span class="token operator">-</span><span class="token number">98</span> 轮
+…<span class="token punctuation">(</span>循环失控<span class="token punctuation">,</span> 一路狂奔<span class="token punctuation">)</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>本机布局: <code>i</code> 紧挨在 <code>a</code> 前面——<code>a[-2]</code> 正好是 <code>i</code>, 循环变量被<mark>劫持</mark></p>
+
+</li>
+<li>
+<p>向前写 <code>a[4] = 100</code> 又是另一种下场: 栈保护直接 abort</p>
+
+</li>
+<li>
+<p>开 -O2 反而没事: <code>i</code> 进了寄存器, 内存里没有它</p>
+
+</li>
+<li>
+<p><mark>不报错的错才是最危险的 bug</mark>: 一切由布局和优化决定, 所以叫未定义行为</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="为什么需要数组">为什么需要数组 </h5>
 <hr>
 <p>我们已经会用数组了——回头想想: 它到底解决了什么问题?</p>
 <hr>
@@ -397,7 +441,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 <hr>
 <p>结论: 需要"回头"再看的数据, 必须先<mark>存下来</mark>——这就是数组要解决的问题</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="为什么需要数组--不用数组会怎样">为什么需要数组 (不用数组会怎样) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="为什么需要数组--不用数组会怎样">为什么需要数组 (不用数组会怎样) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -435,7 +479,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--数列反向">程序: 数列反向 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--数列反向">程序: 数列反向 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入 10 个数, 逆序输出</p>
 <p>样例:</p>
@@ -443,7 +487,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 逆序输出<span class="token operator">:</span> <span class="token number">31</span> <span class="token number">50</span> <span class="token number">11</span> <span class="token number">23</span> <span class="token number">94</span> <span class="token number">7</span> <span class="token number">102</span> <span class="token number">49</span> <span class="token number">82</span> <span class="token number">34</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 存储的顺序和打印的顺序是什么关系?</p>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--数列反向--参考代码">程序: 数列反向 (参考代码) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--数列反向--参考代码">程序: 数列反向 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -482,7 +526,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="数组初始化">数组初始化 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="数组初始化">数组初始化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.62em;">
@@ -517,7 +561,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="指定初始化式--c99">指定初始化式 (C99) </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="指定初始化式--c99">指定初始化式 (C99) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.62em;">
@@ -548,7 +592,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="程序--检查重复数字">程序: 检查重复数字 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="程序--检查重复数字">程序: 检查重复数字 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个<mark>长整数</mark> (正数), 判断它的各位数字里有没有重复的 (如 28245 有重复的 2)</p>
 <p>样例:</p>
@@ -556,7 +600,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 有重复数字</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 第 3 周的"拆数字"先用起来; 关键是<mark>怎么记住</mark>哪些数字已经出现过</p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="程序--检查重复数字--参考代码">程序: 检查重复数字 (参考代码) </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--检查重复数字--参考代码">程序: 检查重复数字 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -607,7 +651,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="案例--大小写转换">案例: 大小写转换 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="案例--大小写转换">案例: 大小写转换 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个单词 (不含空格), 全部转成大写输出</p>
 <p>样例:</p>
@@ -615,7 +659,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 HELLO</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 第 2 周讲过 char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="案例--大小写转换--参考代码">案例: 大小写转换 (参考代码) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="案例--大小写转换--参考代码">案例: 大小写转换 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -664,7 +708,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="现场挑战--平均分与高于平均">现场挑战: 平均分与高于平均 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="现场挑战--平均分与高于平均">现场挑战: 平均分与高于平均 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入 10 个成绩, 输出平均分和<mark>高于平均分的人数</mark></p>
 <p>第 1 周找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?</p>
@@ -673,7 +717,7 @@ HELLO</code></pre>
 平均分 <span class="token number">5.8</span><span class="token punctuation">,</span> 高于平均 <span class="token number">5</span> 人</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?</p>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="现场挑战--平均分与高于平均--参考代码">现场挑战: 平均分与高于平均 (参考代码) </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="现场挑战--平均分与高于平均--参考代码">现场挑战: 平均分与高于平均 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -719,7 +763,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="现场挑战--进制转换">现场挑战: 进制转换 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="现场挑战--进制转换">现场挑战: 进制转换 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入十进制数 n 和进制 base (2~10), 输出转换结果</p>
 <p>样例:</p>
@@ -729,7 +773,7 @@ HELLO</code></pre>
 <span class="token number">144</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 注意输出顺序——先算出来的数字要后输出</p>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="现场挑战--进制转换--参考代码">现场挑战: 进制转换 (参考代码) </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="现场挑战--进制转换--参考代码">现场挑战: 进制转换 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -773,7 +817,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="现场挑战--回文数">现场挑战: 回文数 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="现场挑战--回文数">现场挑战: 回文数 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个整数, 判断它是不是<mark>回文数</mark> (正着读倒着读一样, 如 1221、12321)</p>
 <p>样例:</p>
@@ -783,7 +827,7 @@ HELLO</code></pre>
 <span class="token number">1234</span> 不是回文数</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 先想清楚"第 i 位"和"倒数第 i 位"在数组里的下标关系</p>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="现场挑战--回文数--参考代码">现场挑战: 回文数 (参考代码) </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="现场挑战--回文数--参考代码">现场挑战: 回文数 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -831,7 +875,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
 <hr>
 <ul>
 <li>
@@ -848,7 +892,7 @@ HELLO</code></pre>
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -880,7 +924,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -909,7 +953,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
 <hr>
 <p><mark>课堂互动</mark>: 下面三段代码都是 AI 写的——每组先投票: <mark>有 bug / 没 bug</mark></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 公共前提 */</span>
@@ -930,7 +974,7 @@ HELLO</code></pre>
 <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>      <span class="token comment">/* 以为全是 1? */</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 三个 bug 都是本讲刚讲过的知识点</p>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
 <hr>
 <p>① <mark>有 bug</mark>: 下标越界 (<code>a[N]</code> 不存在) 且漏了 <code>a[0]</code>——正确写法 <code>for (i = 0; i &lt; N; i++)</code></p>
 <hr>
@@ -940,7 +984,7 @@ HELLO</code></pre>
 <hr>
 <p><mark>带走清单</mark>: 下标 0~n-1 吗? 最值用 <code>a[0]</code> 起步吗? 初始化式比数组短会怎样? ——写数组循环前先问自己这三句</p>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
 <hr>
 <ol>
 <li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？
@@ -949,7 +993,7 @@ HELLO</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
+</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
 <hr>
 <ol>
 <li>写代码: 找出数组 {5, 2, 9, 1} 中的最小值。
@@ -958,7 +1002,7 @@ HELLO</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="34" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
