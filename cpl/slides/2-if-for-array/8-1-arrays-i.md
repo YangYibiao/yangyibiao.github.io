@@ -613,12 +613,11 @@ int b[] = {[23] = 5};
 
 ```C{.line-numbers}
 /* 检查数字中是否有重复的数字 */
-#include <stdbool.h>
 #include <stdio.h>
 
 int main(void)
 {
-  bool digit_seen[10] = {false};
+  int digit_seen[10] = {0};   /* 0=没出现过, 1=出现过 */
   int digit;
   long n;
 
@@ -628,7 +627,7 @@ int main(void)
     digit = n % 10;
     if (digit_seen[digit])
       break;
-    digit_seen[digit] = true;
+    digit_seen[digit] = 1;
     n /= 10;
   }
   if (n > 0)
@@ -643,7 +642,7 @@ int main(void)
 
 <div style="flex:1;">
 
-- `digit_seen` 是==布尔数组==: 下标是数字 (0~9), 值是"出现过没有"
+- `digit_seen` 是==标志数组==: 下标是数字 (0~9), 值 0/1 表示"出现过没有"——`{0}` 全 0 初始化, 上一页刚学过
 
 - 拆一位 → 查表 → 标记录 → 拆下一位; 查到已出现就 break
 

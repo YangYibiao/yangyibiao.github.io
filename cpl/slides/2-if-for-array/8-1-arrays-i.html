@@ -553,12 +553,11 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 检查数字中是否有重复的数字 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  bool digit_seen<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>false<span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> digit_seen<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* 0=没出现过, 1=出现过 */</span>
   <span class="token keyword keyword-int">int</span> digit<span class="token punctuation">;</span>
   <span class="token keyword keyword-long">long</span> n<span class="token punctuation">;</span>
 
@@ -568,7 +567,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
     digit <span class="token operator">=</span> n <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>digit_seen<span class="token punctuation">[</span>digit<span class="token punctuation">]</span><span class="token punctuation">)</span>
       <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-    digit_seen<span class="token punctuation">[</span>digit<span class="token punctuation">]</span> <span class="token operator">=</span> true<span class="token punctuation">;</span>
+    digit_seen<span class="token punctuation">[</span>digit<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
     n <span class="token operator">/=</span> <span class="token number">10</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
@@ -581,7 +580,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <div style="flex:1;">
 <ul>
 <li>
-<p><code>digit_seen</code> 是<mark>布尔数组</mark>: 下标是数字 (0~9), 值是"出现过没有"</p>
+<p><code>digit_seen</code> 是<mark>标志数组</mark>: 下标是数字 (0~9), 值 0/1 表示"出现过没有"——<code>{0}</code> 全 0 初始化, 上一页刚学过</p>
 
 </li>
 <li>
