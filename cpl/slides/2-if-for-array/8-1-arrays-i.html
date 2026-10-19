@@ -847,7 +847,11 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 </section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
 <hr>
 <p><mark>课堂互动</mark>: 下面三段代码都是 AI 写的——每组先投票: <mark>有 bug / 没 bug</mark></p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ① 把数组 a 全部清零 */</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 公共前提 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
+<span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">;</span>
+
+<span class="token comment">/* ① 把数组 a 全部清零 */</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
   a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
@@ -858,7 +862,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
     max <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
 <span class="token comment">/* ③ 把数组全部初始化为 1 */</span>
-<span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>      <span class="token comment">/* 以为全是 1? */</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 三个 bug 都是本讲刚讲过的知识点</p>
 <hr>
 </section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
@@ -867,7 +871,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <hr>
 <p>② <mark>有 bug</mark>: <code>max = 0</code> 初始化的老坑——成绩全是负数时, 最大值"恒为 0"; 正确写法 <code>max = a[0]</code>, 从下标 1 开始比</p>
 <hr>
-<p>③ <mark>有 bug</mark>: <code>{1}</code> 只把 <code>a[0]</code> 初始化成 1, 其余自动补 0, 不是全 1——想全 1 得写循环</p>
+<p>③ <mark>有 bug</mark>: <code>{1}</code> 只把 <code>b[0]</code> 初始化成 1, 其余自动补 0, 不是全 1——想全 1 得写循环</p>
 <hr>
 <p><mark>带走清单</mark>: 下标 0~n-1 吗? 最值用 <code>a[0]</code> 起步吗? 初始化式比数组短会怎样? ——写数组循环前先问自己这三句</p>
 <hr>
