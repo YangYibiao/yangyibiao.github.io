@@ -51,7 +51,7 @@ presentation:
 
 ---
 
-<div style="font-size:1.3em;">
+<div style="font-size:1.3em;text-align:left;margin-left:2rem;">
 
 - 一维数组: 声明、下标、初始化
 
