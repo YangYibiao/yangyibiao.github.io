@@ -51,6 +51,8 @@ presentation:
 
 ---
 
+<div style="font-size:1.3em;">
+
 - 一维数组: 声明、下标、初始化
 
 - 为什么需要数组
@@ -62,6 +64,8 @@ presentation:
 - sizeof 与变长数组
 
 - AI 审计
+
+</div>
 
 ---
 
