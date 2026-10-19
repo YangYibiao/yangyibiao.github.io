@@ -340,7 +340,7 @@ for (i = 0; i < N; i++)
 
 int main(void)
 {
-  struct { int a[4]; int secret; } s = {{10, 20, 30, 40}, 99};
+  struct { int a[4]; int secret; } s = {10, 20, 30, 40, 99};
 
   s.a[4] = 100;             /* 合法下标只有 0~3! */
   printf("secret = %d\n", s.secret);
