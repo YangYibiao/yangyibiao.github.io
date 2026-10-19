@@ -254,7 +254,7 @@ for (i = 0; i < N; i++)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.65em;">
+<div style="flex:1;font-size:0.65em;">
 
 ```C
 a[i + j * 10] = 0;  /* 先算 i + j*10 */
@@ -264,7 +264,7 @@ a[n - 1 - i];       /* 倒数第 i 个 */
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1.3;">
 
 下标里可以写==任意整数表达式==: 先算出值, 再当下标用
 
