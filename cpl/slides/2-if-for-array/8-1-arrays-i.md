@@ -331,13 +331,22 @@ for (i = 0; i < N; i++)
 
 ---
 
+==现场演示==: 复制到编译器直接运行
+
 <div style="font-size:0.8em;">
 
-```C
-int a[4] = {10, 20, 30, 40};
-int secret = 99;
-a[4] = 100;                  /* 合法下标只有 0~3! */
-printf("secret = %d\n", secret);
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int a[4] = {10, 20, 30, 40};
+  int secret = 99;
+
+  a[4] = 100;               /* 合法下标只有 0~3! */
+  printf("secret = %d\n", secret);
+  return 0;
+}
 ```
 
 </div>
