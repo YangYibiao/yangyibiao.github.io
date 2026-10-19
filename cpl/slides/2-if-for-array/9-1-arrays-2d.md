@@ -51,6 +51,8 @@ presentation:
 
 ---
 
+<div style="font-size:1.3em;">
+
 - 多维数组: 声明、访问与存储
 
 - 多维数组初始化
@@ -58,6 +60,8 @@ presentation:
 - ==矩阵运算==: 转置、乘法、统计
 
 - 案例: 发牌程序
+
+</div>
 
 ---
 
