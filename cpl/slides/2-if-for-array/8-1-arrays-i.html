@@ -85,11 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
-<p>为什么需要数组</p>
+<p>一维数组: 声明、下标、初始化</p>
 
 </li>
 <li>
-<p>一维数组: 声明、下标、初始化</p>
+<p>为什么需要数组</p>
 
 </li>
 <li>
@@ -106,69 +106,14 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="为什么需要数组">为什么需要数组 </h5>
-<hr>
-<ul>
-<li>
-<p>第 1 周的"找最高分": 读一个、比一个、丢一个——<mark>一个变量就够</mark>, 因为不需要回头</p>
-
-</li>
-<li>
-<p>从今天开始, 问题变了:</p>
-
-</li>
-</ul>
-<p>- 把 10 个成绩<mark>逆序</mark>打印——读完了还要"回头"</p>
-<p>- 统计最高分有几人<mark>并列</mark>——同一批数据要看两遍</p>
-<p>- 给全班成绩<mark>排序</mark>——数据之间要反复比较</p>
-<hr>
-<p>结论: 需要"回头"再看的数据, 必须先<mark>存下来</mark>——这就是数组要解决的问题</p>
-<hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="为什么需要数组--不用数组会怎样">为什么需要数组 (不用数组会怎样) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 不用数组: 变量不够用了 */</span>
-<span class="token keyword keyword-int">int</span> n1<span class="token punctuation">,</span> n2<span class="token punctuation">,</span> n3<span class="token punctuation">,</span> n4<span class="token punctuation">,</span> n5<span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> n6<span class="token punctuation">,</span> n7<span class="token punctuation">,</span> n8<span class="token punctuation">,</span> n9<span class="token punctuation">,</span> n10<span class="token punctuation">;</span>
-
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n1<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 第 1 个 */</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n2<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 第 2 个 */</span>
-<span class="token comment">/* … 第 100 个怎么办? 第 i 个呢? */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 用数组: 下标管理一批数据 */</span>
-<span class="token keyword keyword-int">int</span> n<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> n<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 想要第几个都行 */</span></code></pre>
-</div>
-<div style="flex:1;">
-<ul>
-<li>
-<p>10 个变量写 10 行, 1000 个写 1000 行——而且<mark>没法用循环</mark></p>
-
-</li>
-<li>
-<p>数组给一批同类型数据<mark>编号</mark>: 用下标就能批量处理</p>
-
-</li>
-<li>
-<p>这就是数组的第一个重要性: 让"一批数据"变成一个整体</p>
-
-</li>
-</ul>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="标量变量与聚合变量">标量变量与聚合变量 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="标量变量与聚合变量">标量变量与聚合变量 </h5>
 <hr>
 <p>到目前为止, 我们所见的变量都是<code>标量</code>: 用于保存单一数据项.</p>
 <p>C 还支持聚合变量, 它可以存储一组一组的数值.</p>
 <p>C中有两种聚合类型: <mark>数组</mark> 和结构体</p>
 <p>本章的重点是一维数组, 它在 C 语言中的作用比多维数组更大.</p>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="一维数组">一维数组 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="一维数组">一维数组 </h5>
 <hr>
 <p>数组: 存多个<mark>同类型</mark>值的数据结构, 按位置取元素; 一维数组的元素一个接一个排成一行:</p>
 <div class="fullborder">
@@ -200,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
 <p>可以用宏来定义数组的长度</p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="数组下标">数组下标 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="数组下标">数组下标 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -244,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="数组下标">数组下标 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="数组下标">数组下标 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -275,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="数组下标">数组下标 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="数组下标">数组下标 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -301,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="演示--越界写会-伤及无辜">演示: 越界写会"伤及无辜" </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="演示--越界写会-伤及无辜">演示: 越界写会"伤及无辜" </h5>
 <hr>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -325,6 +270,63 @@ a<span class="token punctuation">[</span><span class="token number">4</span><spa
 
 </li>
 </ul>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="为什么需要数组">为什么需要数组 </h5>
+<hr>
+<p>我们已经会用数组了——回头想想: 它到底解决了什么问题?</p>
+<hr>
+<ul>
+<li>
+<p>第 1 周的"找最高分": 读一个、比一个、丢一个——<mark>一个变量就够</mark>, 因为不需要回头</p>
+
+</li>
+<li>
+<p>有了数组, 问题就敢这样提了:</p>
+
+</li>
+</ul>
+<p>- 把 10 个成绩<mark>逆序</mark>打印——读完了还要"回头"</p>
+<p>- 统计最高分有几人<mark>并列</mark>——同一批数据要看两遍</p>
+<p>- 给全班成绩<mark>排序</mark>——数据之间要反复比较</p>
+<hr>
+<p>结论: 需要"回头"再看的数据, 必须先<mark>存下来</mark>——这就是数组要解决的问题</p>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="为什么需要数组--不用数组会怎样">为什么需要数组 (不用数组会怎样) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 不用数组: 变量不够用了 */</span>
+<span class="token keyword keyword-int">int</span> n1<span class="token punctuation">,</span> n2<span class="token punctuation">,</span> n3<span class="token punctuation">,</span> n4<span class="token punctuation">,</span> n5<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> n6<span class="token punctuation">,</span> n7<span class="token punctuation">,</span> n8<span class="token punctuation">,</span> n9<span class="token punctuation">,</span> n10<span class="token punctuation">;</span>
+
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n1<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 第 1 个 */</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n2<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 第 2 个 */</span>
+<span class="token comment">/* … 第 100 个怎么办? 第 i 个呢? */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 用数组: 下标管理一批数据 */</span>
+<span class="token keyword keyword-int">int</span> n<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> n<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 想要第几个都行 */</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>10 个变量写 10 行, 1000 个写 1000 行——而且<mark>没法用循环</mark></p>
+
+</li>
+<li>
+<p>数组给一批同类型数据<mark>编号</mark>: 用下标就能批量处理</p>
+
+</li>
+<li>
+<p>这就是数组的第一个重要性: 让"一批数据"变成一个整体</p>
+
+</li>
+</ul>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--数列反向">程序: 数列反向 </h5>
 <hr>
