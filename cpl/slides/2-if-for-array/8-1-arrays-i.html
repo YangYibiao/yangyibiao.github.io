@@ -332,11 +332,19 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="演示--越界写会-伤及无辜">演示: 越界写会"伤及无辜" </h5>
 <hr>
+<p><mark>现场演示</mark>: 复制到编译器直接运行</p>
 <div style="font-size:0.8em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> secret <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span>
-a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>                  <span class="token comment">/* 合法下标只有 0~3! */</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"secret = %d\n"</span><span class="token punctuation">,</span> secret<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> secret <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span>
+
+  a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>               <span class="token comment">/* 合法下标只有 0~3! */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"secret = %d\n"</span><span class="token punctuation">,</span> secret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
 <p>运行结果 (常见, 但不保证):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>secret <span class="token operator">=</span> <span class="token number">100</span></code></pre>
