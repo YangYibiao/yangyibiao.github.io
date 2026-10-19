@@ -331,8 +331,6 @@ for (i = 0; i < N; i++)
 
 ---
 
-==现场演示==: 复制到编译器直接运行
-
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.68em;">
