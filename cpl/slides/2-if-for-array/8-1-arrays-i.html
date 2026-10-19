@@ -399,8 +399,9 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n1<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 第 1 个 */</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n2<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 第 2 个 */</span>
-<span class="token comment">/* … 第 100 个怎么办? 第 i 个呢? */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 用数组: 下标管理一批数据 */</span>
+<span class="token comment">/* … 第 100 个怎么办? 第 i 个呢? */</span>
+
+<span class="token comment">/* ---- 用数组: 下标管理一批数据 ---- */</span>
 <span class="token keyword keyword-int">int</span> n<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 
@@ -485,7 +486,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 
 </li>
 <li>
-<p>只有相对较少的元素需要显式初始化时, 其他默认赋值: <code>int a[15] = {0, 0, 29, 0, 0, 0, 0, 0, 0, 7};</code>——对大数组这样写冗长易错</p>
+<p>只有相对较少的元素需要显式初始化时, 其他默认赋值: <code>int a[15] = {0, 0, 29, 0, 0, 0, 0, 0, 0, 7};</code>——对大数组这样写冗长易错, <mark>下一页的指定初始化式</mark>来救场</p>
 
 </li>
 </ul>
@@ -513,7 +514,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <p>样例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入一个数<span class="token operator">:</span> <span class="token number">28245</span>
 有重复数字</code></pre>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 用<mark>布尔数组</mark> <code>digit_seen[10]</code> 记录 0~9 哪些出现过——第 3 周数字拆分 + 本周数组的组合</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 第 3 周的"拆数字"先用起来; 关键是<mark>怎么记住</mark>哪些数字已经出现过</p>
 <hr>
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="程序--检查重复数字--参考代码">程序: 检查重复数字 (参考代码) </h5>
 <hr>
@@ -736,7 +737,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <hr>
 <ul>
 <li>
-<p>用 <code>sizeof</code> 表达数组长度: <code>for (i = 0; i &lt; sizeof(a) / sizeof(a[0]); i++)</code> 清零——日后改长度无需改循环</p>
+<p>用 <code>sizeof</code> 表达数组长度: <code>for (i = 0; i &lt; sizeof(a) / sizeof(a[0]); i++)</code> 清零——<mark>日后改长度, 循环不用改</mark></p>
 
 </li>
 <li>
@@ -800,7 +801,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 </div>
 <div style="flex:1;">
 <p>本金 100 元, 5 种利率各存 5 年, 列出每年的余额:</p>
-<p>关键: <mark>第 y+1 年的余额依赖第 y 年</mark>——每一年的中间值都要<mark>存下来</mark></p>
+<p>关键: 第 y+1 年的余额依赖第 y 年——每一年的中间值都要<mark>存下来</mark></p>
 <ul>
 <li>
 <p>数组的第三种用途: 除了"存一批数据"和"批量处理", 还能<mark>保存中间状态</mark></p>
@@ -815,13 +816,15 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <p><mark>课堂互动</mark>: 下面三段代码都是 AI 写的——每组先投票: <mark>有 bug / 没 bug</mark></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ① 把数组 a 全部清零 */</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ② 求数组 a 的最大值 */</span>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* ② 求数组 a 的最大值 */</span>
 <span class="token keyword keyword-int">int</span> max <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> max<span class="token punctuation">)</span>
-    max <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ③ 把数组全部初始化为 1 */</span>
+    max <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* ③ 把数组全部初始化为 1 */</span>
 <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 三个 bug 都是本讲刚讲过的知识点</p>
 <hr>
