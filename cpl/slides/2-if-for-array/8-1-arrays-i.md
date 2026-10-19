@@ -333,7 +333,9 @@ for (i = 0; i < N; i++)
 
 ==现场演示==: 复制到编译器直接运行
 
-<div style="font-size:0.8em;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.68em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -348,13 +350,15 @@ int main(void)
 }
 ```
 
-</div>
-
-运行结果: 
+运行结果:
 
 ```
 secret = 100
 ```
+
+</div>
+
+<div style="flex:1;">
 
 - 下标范围是 0 ~ n-1; `a[4]` 越界写入, C 语言==运行时不检查==——编译器给了警告, 程序照样跑
 
@@ -363,6 +367,10 @@ secret = 100
 - 结果不可预知: 可能改坏相邻数据、可能崩溃、也可能碰巧没事——==不报错的错才是最危险的 bug==
 
 - 教训: 循环写数组时==检查边界== (`i < n`), 不要依赖编译器或运气
+
+</div>
+
+</div>
 
 ---
 
