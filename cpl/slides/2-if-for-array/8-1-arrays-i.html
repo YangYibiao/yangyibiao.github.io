@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="数组下标--循环三件套">数组下标: 循环三件套 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.65em;">
+<div style="flex:1.3;font-size:0.68em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
   a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>             <span class="token comment">/* ① 清零 */</span>
 
@@ -248,7 +248,11 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* ② 读入 */</span>
 
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* ③ 求和 */</span></code></pre>
+  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* ③ 求和 */</span>
+
+<span class="token comment">/* ---- 反面: 这样写会越界 ---- */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>             <span class="token comment">/*** WRONG! ***/</span></code></pre>
 </div>
 <div style="flex:1;">
 <p><code>a[i]</code> 是左值, 可以<mark>像普通变量一样用</mark>: 赋值、打印、自增都行</p>
@@ -260,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </ul>
 <p>- ① 清零 / 赋初值、② 逐个读入、③ 累加 / 统计</p>
 <hr>
-<p>下标范围再强调一次: <code>for (i = 1; i &lt;= 10; i++) a[i] = 0;</code> <mark>越界</mark>——正确写法是从 0 到 N-1</p>
+<p>看最后一段<mark>反面写法</mark>: 下标从 1 写到 10——越界, 还漏了 a[0]; 正确范围是 0 到 N-1</p>
 </div>
 </div>
 <hr>
