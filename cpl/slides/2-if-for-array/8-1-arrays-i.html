@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>现场挑战: 最高分并列统计、进制转换、回文数</p>
+<p>现场挑战: 平均分与高于平均、进制转换、回文数</p>
 
 </li>
 <li>
@@ -384,7 +384,7 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 </li>
 </ul>
 <p>- 把 10 个成绩<mark>逆序</mark>打印——读完了还要"回头"</p>
-<p>- 统计最高分有几人<mark>并列</mark>——同一批数据要看两遍</p>
+<p>- 算完平均分, 统计有几人<mark>高于平均</mark>——先算平均, 再回头比每个人</p>
 <p>- 给全班成绩<mark>排序</mark>——数据之间要反复比较</p>
 <hr>
 <p>结论: 需要"回头"再看的数据, 必须先<mark>存下来</mark>——这就是数组要解决的问题</p>
@@ -564,57 +564,55 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="现场挑战--最高分并列统计">现场挑战: 最高分并列统计 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="现场挑战--平均分与高于平均">现场挑战: 平均分与高于平均 </h5>
 <hr>
-<p><mark>现场演示</mark>: 输入 10 个成绩, 输出<mark>最高分</mark>和<mark>并列人数</mark></p>
-<p>第 1 周我们"流式"找过最高分——一个变量就够了; 现在要数并列人数, 还能不存吗?</p>
+<p><mark>现场演示</mark>: 输入 10 个成绩, 输出平均分和<mark>高于平均分的人数</mark></p>
+<p>第 1 周找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?</p>
 <p>样例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个成绩<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">8</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">2</span> <span class="token number">9</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">9</span> <span class="token number">4</span>
-最高分 <span class="token number">9</span><span class="token punctuation">,</span> 共 <span class="token number">3</span> 人并列</code></pre>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 数组允许你"回头再看一遍"数据</p>
+平均分 <span class="token number">5.8</span><span class="token punctuation">,</span> 高于平均 <span class="token number">5</span> 人</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="现场挑战--最高分并列统计--参考代码">现场挑战: 最高分并列统计 (参考代码) </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="现场挑战--平均分与高于平均--参考代码">现场挑战: 平均分与高于平均 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 最高分与并列人数 */</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 平均分与高于平均分的人数 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> score<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> max<span class="token punctuation">,</span> count<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> score<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> avg<span class="token punctuation">;</span>
 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 %d 个成绩: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sum <span class="token operator">+=</span> score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* 第一遍: 读入并求和 */</span>
+  <span class="token punctuation">}</span>
+  avg <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span> N<span class="token punctuation">;</span>
 
-  max <span class="token operator">=</span> score<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>              <span class="token comment">/* 第一遍: 找最高分 */</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> max<span class="token punctuation">)</span>
-      max <span class="token operator">=</span> score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-  count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                   <span class="token comment">/* 第二遍: 数并列 */</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> max<span class="token punctuation">)</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>     <span class="token comment">/* 第二遍: 回头比平均 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> avg<span class="token punctuation">)</span>
       count<span class="token operator">++</span><span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"最高分 %d, 共 %d 人并列\n"</span><span class="token punctuation">,</span> max<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"平均分 %.1f, 高于平均 %d 人\n"</span><span class="token punctuation">,</span> avg<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
 <ul>
 <li>
-<p><mark>两遍扫描</mark>: 第一遍找 max, 第二遍数个数——不存数据就数不了第二遍</p>
+<p><mark>两遍扫描</mark>: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)</p>
 
 </li>
 <li>
-<p>这就是"找最高分"的完全体: 第 1 周的流式写法到这里就到头了</p>
+<p>对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"<mark>非两遍不可</mark></p>
 
 </li>
 <li>
-<p>OJ 本周同款: 「最大值出现次数」——课上见、OJ 练</p>
+<p><code>sum / N</code> 是整数除法——<code>(double)</code> 强转, 不然 58/10 变成 5</p>
 
 </li>
 </ul>
