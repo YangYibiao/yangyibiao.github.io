@@ -519,7 +519,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
+<div style="flex:1;font-size:0.62em;">
 
 ```C
 int a[10] = {1, 2, 3};
@@ -534,7 +534,7 @@ int a[] = {1, 2, 3};
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1.3;">
 
 - 初始化式比数组短 → 其余元素==自动赋 0==
 
@@ -554,7 +554,7 @@ int a[] = {1, 2, 3};
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
+<div style="flex:1;font-size:0.62em;">
 
 ```C
 int a[15] = {[2] = 29, [9] = 7};
@@ -569,7 +569,7 @@ int b[] = {[23] = 5};
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1.3;">
 
 - C99 的==指定初始化式==: `[下标] = 值`, 只初始化想改的元素
 
