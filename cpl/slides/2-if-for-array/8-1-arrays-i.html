@@ -237,34 +237,30 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p><mark>重点</mark>: 长度 n 的数组没有 a[n]——最后一个元素是 a[n-1]</p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="数组下标">数组下标 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="数组下标--循环三件套">数组下标: 循环三件套 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">++</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<div style="flex:1.3;font-size:0.65em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>             <span class="token comment">/* clears a */</span>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>             <span class="token comment">/* ① 清零 */</span>
 
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* reads data into a */</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* ② 读入 */</span>
 
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* sums the elements of a */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>        <span class="token comment">/*** WRONG: 越界! ***/</span></code></pre>
+  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* ③ 求和 */</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>像 <code>a[i]</code> 这样的表达式是左值, 因此可以像普通变量一样使用它们:</p>
-<p>如果数组包含T类型的元素, 则每个元素都被视为T类型的变量.</p>
+<p><code>a[i]</code> 是左值, 可以<mark>像普通变量一样用</mark>: 赋值、打印、自增都行</p>
+<ul>
+<li>
+<p>对数组的常见操作, 几乎都是"循环 + 下标"的这三个模式:</p>
+
+</li>
+</ul>
+<p>- ① 清零 / 赋初值、② 逐个读入、③ 累加 / 统计</p>
 <hr>
-<p>许多程序包含for循环, 对数组中的每个元素执行一些操作.</p>
-<p>对长度为N的数组a的常见操作示例:</p>
-<p>C不检查下标的范围; 若超出范围, 程序可能执行不可预知的行为</p>
-<p>\(n\)个元素的<mark>数组索引</mark>是从\(0\)到\(n – 1\), 而不是从\(1\)到\(n\):</p>
-<p>对于某些编译器, 这种表面上正确的for语句会导致无限循环.</p>
+<p>下标范围再强调一次: <code>for (i = 1; i &lt;= 10; i++) a[i] = 0;</code> <mark>越界</mark>——正确写法是从 0 到 N-1</p>
 </div>
 </div>
 <hr>
