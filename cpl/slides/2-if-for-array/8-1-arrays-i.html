@@ -340,31 +340,37 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword keyword-int">int</span> secret<span class="token punctuation">;</span> <span class="token punctuation">}</span> s <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">99</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 
-  s<span class="token punctuation">.</span>a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>             <span class="token comment">/* 合法下标只有 0~3! */</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"secret = %d\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>secret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a[%d] = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 读越界! */</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>运行结果:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>secret <span class="token operator">=</span> <span class="token number">100</span></code></pre>
+<p>运行结果 (本机):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">10</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">20</span>
+a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">30</span>
+a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">40</span>
+a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">149683968</span>   ← 不知道哪来的值
+a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span></code></pre>
 </div>
 <div style="flex:1;">
 <ul>
 <li>
-<p>下标范围是 0 ~ n-1; <code>a[4]</code> 越界写入, C 语言<mark>运行时不检查</mark>——编译器给了警告, 程序照样跑</p>
+<p>下标范围是 0 ~ n-1; <code>a[4]</code>、<code>a[5]</code> 越界读, C 语言<mark>不检查、不报错</mark>, 程序照跑</p>
 
 </li>
 <li>
-<p>用 <code>struct</code> 把 <code>secret</code> 紧放在数组后面, 保证被踩中; 若是两个独立变量, 编译器可能放得远远的, 反而"没事"</p>
+<p>读到的值是<mark>垃圾值</mark>: 那块内存里的旧数据——每次运行可能都不一样</p>
 
 </li>
 <li>
-<p>结果不可预知: 可能改坏相邻数据、可能崩溃、也可能碰巧没事——<mark>不报错的错才是最危险的 bug</mark></p>
+<p>越界<mark>写</mark>更危险: 会改坏别人的数据 (改坏哪个, 由编译器布局决定——放远就"碰巧没事", 放近就出事)</p>
 
 </li>
 <li>
-<p>教训: 循环写数组时<mark>检查边界</mark> (<code>i &lt; n</code>), 不要依赖编译器或运气</p>
+<p>教训: 循环访问数组时<mark>检查边界</mark> (<code>i &lt; n</code>), 不要依赖编译器或运气</p>
 
 </li>
 </ul>
