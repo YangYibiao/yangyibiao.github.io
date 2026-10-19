@@ -50,7 +50,7 @@ presentation:
 
 ---
 
-- 为什么需要函数: 软件设计原则
+- 为什么需要函数: 排列组合案例与设计原则
 
 - 函数定义与调用 (案例: 平均值)
 
@@ -68,17 +68,153 @@ presentation:
 <!-- slide data-notes="" -->
 
 
+##### 案例: 排列组合计算器
+
+---
+
+输入 $m$、$n$ ($m \ge n$), 输出排列数和组合数:
+
+$$P(m,n)=\frac{m!}{(m-n)!},\qquad C(m,n)=\frac{m!}{n!\,(m-n)!}$$
+
+==现场演示==: 只用第 5 周学的循环, ==不用函数==, 把这个程序写出来
+
+<span class="blue">:fa-lightbulb-o:</span> 先想想: 一共要算几个阶乘? 每个阶乘怎么写?
+
+---
+
+
+<!-- slide data-notes="" -->##### 不用函数: 三段几乎一样的循环
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 排列组合计算器: 不用函数 */
+#include <stdio.h>
+
+int main(void)
+{
+  long m, n, i;
+  long fact_m = 1, fact_n = 1, fact_mn = 1;
+
+  printf("输入 m n (m>=n): ");
+  scanf("%ld%ld", &m, &n);
+
+  for (i = 1; i <= m; i++)      /* 第一段: 计算 m! */
+    fact_m = fact_m * i;
+
+  for (i = 1; i <= n; i++)      /* 第二段: 计算 n! */
+    fact_n = fact_n * i;
+
+  for (i = 1; i <= m - n; i++)  /* 第三段: 计算 (m-n)! */
+    fact_mn = fact_mn * i;
+
+  printf("P(%ld,%ld) = %ld\n", m, n, fact_m / fact_mn);
+  printf("C(%ld,%ld) = %ld\n", m, n,
+         fact_m / (fact_n * fact_mn));
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 同样一句 `fact = fact * i` 写了==三遍==——只有循环上界不同
+
+- 想再算 $C(m-1,n)$、$P(m,2)$? 每多一个, 就再复制一段循环
+
+- 循环写错了 (比如上界少个 1), 必须==每段都改==; 漏改一段, 程序错得莫名其妙
+
+- 程序才 20 几行, `main` 已经堆满了细节
+
+<a href="code/permutation.c" target="_blank">permutation.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 用函数: 写一次, 处处用
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 排列组合计算器: 用函数 */
+#include <stdio.h>
+
+long factorial(int n)      /* 写一次 */
+{
+  long f = 1;
+  int i;
+
+  for (i = 1; i <= n; i++)
+    f = f * i;
+  return f;
+}
+
+int main(void)
+{
+  long m, n;
+
+  printf("输入 m n (m>=n): ");
+  scanf("%ld%ld", &m, &n);
+
+  /* 处处用: 需要阶乘就调用 */
+  printf("P(%ld,%ld) = %ld\n", m, n,
+         factorial(m) / factorial(m - n));
+  printf("C(%ld,%ld) = %ld\n", m, n,
+         factorial(m) / (factorial(n) * factorial(m - n)));
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 阶乘逻辑只写==一遍==, 需要时调用 `factorial` 即可
+
+- `main` 里只剩流程: 读入 → 计算 → 输出, 一眼看清
+
+- 想再算别的组合? 加一行调用, ==不用复制任何循环==
+
+- 阶乘增长极快: 13! 就溢出 `int`, 所以返回 `long` (21! 连 `long` 也溢出, 课堂数字别太大)
+
+<a href="code/permutation-re.c" target="_blank">permutation-re.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
 ##### 软件设计原则
 
 ---
 
-同样一段代码要写三遍, 改 bug 就要改三处——==函数==给代码起名字, 一次写好、处处使用
+同样一段代码要写三遍, 改 bug 就要改三处——函数给代码起名字, 一次写好、处处使用
 
 ==复用==
 
 模块化：便于调试、代码理解
 
 封装：隐藏实现细节，仅暴漏有限、必要的接口
+
+---
+
+刚才的 `factorial` 就是例证: 写一遍、调用三遍——复用、模块化、封装, 一个例子全用上
 
 ---
 

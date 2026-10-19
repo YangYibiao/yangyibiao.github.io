@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
-<p>为什么需要函数: 软件设计原则</p>
+<p>为什么需要函数: 排列组合案例与设计原则</p>
 
 </li>
 <li>
@@ -110,14 +110,131 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="软件设计原则">软件设计原则 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="案例--排列组合计算器">案例: 排列组合计算器 </h5>
 <hr>
-<p>同样一段代码要写三遍, 改 bug 就要改三处——<mark>函数</mark>给代码起名字, 一次写好、处处使用</p>
+<p>输入 \(m\)、\(n\) (\(m \ge n\)), 输出排列数和组合数:</p>
+<p>\[P(m,n)=\frac{m!}{(m-n)!},\qquad C(m,n)=\frac{m!}{n!\,(m-n)!}\]</p>
+<p><mark>现场演示</mark>: 只用第 5 周学的循环, <mark>不用函数</mark>, 把这个程序写出来</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 先想想: 一共要算几个阶乘? 每个阶乘怎么写?</p>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="不用函数--三段几乎一样的循环">不用函数: 三段几乎一样的循环 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 排列组合计算器: 不用函数 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-long">long</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-long">long</span> fact_m <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> fact_n <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> fact_mn <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 m n (m&gt;=n): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld%ld"</span><span class="token punctuation">,</span> <span class="token operator">&</span>m<span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>      <span class="token comment">/* 第一段: 计算 m! */</span>
+    fact_m <span class="token operator">=</span> fact_m <span class="token operator">*</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>      <span class="token comment">/* 第二段: 计算 n! */</span>
+    fact_n <span class="token operator">=</span> fact_n <span class="token operator">*</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m <span class="token operator">-</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>  <span class="token comment">/* 第三段: 计算 (m-n)! */</span>
+    fact_mn <span class="token operator">=</span> fact_mn <span class="token operator">*</span> i<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"P(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> fact_m <span class="token operator">/</span> fact_mn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"C(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span>
+         fact_m <span class="token operator">/</span> <span class="token punctuation">(</span>fact_n <span class="token operator">*</span> fact_mn<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>同样一句 <code>fact = fact * i</code> 写了<mark>三遍</mark>——只有循环上界不同</p>
+
+</li>
+<li>
+<p>想再算 \(C(m-1,n)\)、\(P(m,2)\)? 每多一个, 就再复制一段循环</p>
+
+</li>
+<li>
+<p>循环写错了 (比如上界少个 1), 必须<mark>每段都改</mark>; 漏改一段, 程序错得莫名其妙</p>
+
+</li>
+<li>
+<p>程序才 20 几行, <code>main</code> 已经堆满了细节</p>
+
+</li>
+</ul>
+<a href="code/permutation.c" target="_blank">permutation.c</a>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="用函数--写一次--处处用">用函数: 写一次, 处处用 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 排列组合计算器: 用函数 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-long">long</span> <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>      <span class="token comment">/* 写一次 */</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-long">long</span> f <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    f <span class="token operator">=</span> f <span class="token operator">*</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> f<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-long">long</span> m<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 m n (m&gt;=n): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld%ld"</span><span class="token punctuation">,</span> <span class="token operator">&</span>m<span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/* 处处用: 需要阶乘就调用 */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"P(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span>
+         <span class="token function">factorial</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">factorial</span><span class="token punctuation">(</span>m <span class="token operator">-</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"C(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span>
+         <span class="token function">factorial</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token function">factorial</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">factorial</span><span class="token punctuation">(</span>m <span class="token operator">-</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p>阶乘逻辑只写<mark>一遍</mark>, 需要时调用 <code>factorial</code> 即可</p>
+
+</li>
+<li>
+<p><code>main</code> 里只剩流程: 读入 → 计算 → 输出, 一眼看清</p>
+
+</li>
+<li>
+<p>想再算别的组合? 加一行调用, <mark>不用复制任何循环</mark></p>
+
+</li>
+<li>
+<p>阶乘增长极快: 13! 就溢出 <code>int</code>, 所以返回 <code>long</code> (21! 连 <code>long</code> 也溢出, 课堂数字别太大)</p>
+
+</li>
+</ul>
+<a href="code/permutation-re.c" target="_blank">permutation-re.c</a>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="软件设计原则">软件设计原则 </h5>
+<hr>
+<p>同样一段代码要写三遍, 改 bug 就要改三处——函数给代码起名字, 一次写好、处处使用</p>
 <p><mark>复用</mark></p>
 <p>模块化：便于调试、代码理解</p>
 <p>封装：隐藏实现细节，仅暴漏有限、必要的接口</p>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="函数">函数 </h5>
+<p>刚才的 <code>factorial</code> 就是例证: 写一遍、调用三遍——复用、模块化、封装, 一个例子全用上</p>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数">函数 </h5>
 <hr>
 <p>函数是<mark>打包在一起并起名字</mark>的一组语句。</p>
 <p>每个函数本质上都是一个自带声明和语句的小程序.</p>
@@ -137,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="函数的定义和调用">函数的定义和调用 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数的定义和调用">函数的定义和调用 </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span>          format<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span>          <span class="token operator">*</span>format<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
@@ -148,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a + b is : %d"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="函数定义">函数定义 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数定义">函数定义 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -181,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数定义">函数定义 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="函数定义">函数定义 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -207,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数定义">函数定义 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="函数定义">函数定义 </h5>
 <hr>
 <p>返回类型为 <code>void</code> 的函数, 函数体可以<mark>为空</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_pun</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -215,7 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 <p>在程序开发过程中, 留下空函数体是有意义的.</p>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="程序--计算平均值">程序: 计算平均值 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--计算平均值">程序: 计算平均值 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -243,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--计算平均值--average-c">程序: 计算平均值 (average.c) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--计算平均值--average-c">程序: 计算平均值 (average.c) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -285,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="返回类型--void">返回类型: void </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="返回类型--void">返回类型: void </h5>
 <hr>
 <p>函数<mark>没有返回值</mark>, 返回类型就写 <mark>void</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_count</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
@@ -297,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_count</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p><code>countdown.c</code> 在循环里调用了 10 次 print_count。</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--打印倒计时">程序: 打印倒计时 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--打印倒计时">程序: 打印倒计时 </h5>
 <hr>
 <p><mark>现场演示</mark>: 把火箭倒计时封装成函数——<code>print_count(n)</code> 打印一行数字, 主函数循环调用它完成 10 到 1 的倒计时</p>
 <p>样例输出:</p>
@@ -307,7 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token number">1</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 函数只负责"打印一行", 循环调用放在 main 里——第 5 周的知识和函数第一次配合</p>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--打印倒计时--参考代码">程序: 打印倒计时 (参考代码) </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="程序--打印倒计时--参考代码">程序: 打印倒计时 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -348,7 +465,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="函数调用">函数调用 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="函数调用">函数调用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -373,7 +490,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="函数调用">函数调用 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="函数调用">函数调用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -396,7 +513,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="函数声明">函数声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -426,7 +543,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="函数声明">函数声明 </h5>
 <hr>
 <p>main 里调用 average 时编译器没有它的信息: 不报错, 而是假设它返回 <code>int</code>——为该函数创建了<mark>隐式声明</mark></p>
 <hr>
@@ -434,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p>避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读</p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="函数声明">函数声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -479,7 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--打印分隔线">程序: 打印分隔线 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="程序--打印分隔线">程序: 打印分隔线 </h5>
 <hr>
 <p><mark>现场演示</mark>: 写一个无参函数 <code>print_line</code>, 打印一行分隔线 (等号); 主函数用它装饰标题</p>
 <p>样例输出:</p>
@@ -488,7 +605,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 函数没有参数, 括号里写什么? 调用时括号能省吗?</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="程序--打印分隔线--参考代码">程序: 打印分隔线 (参考代码) </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="程序--打印分隔线--参考代码">程序: 打印分隔线 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -526,7 +643,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="实际参数">实际参数 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="实际参数">实际参数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -560,7 +677,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数">实际参数 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="实际参数">实际参数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -593,7 +710,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="演示--swap-为什么不生效">演示: swap 为什么不生效? </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--swap-为什么不生效">演示: swap 为什么不生效? </h5>
 <hr>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -624,7 +741,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
 <hr>
 <p>C允许实际参数的类型与形式参数的类型不匹配的函数调用.</p>
 <p>实际参数如何转换取决于编译器在调用函数之前是否已经遇到函数的原型(或函数的完整定义).</p>
@@ -633,7 +750,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>每个参数的值都隐式转换为相应形式参数的类型, 类似赋值一样.</p>
 <p>示例: 如果将int型的实际参数传递给期望得到double型参数的函数, 则该实际参数将自动转换为double类型.</p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -670,7 +787,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="return语句">return语句 </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="return语句">return语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -689,7 +806,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="return语句">return语句 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="return语句">return语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -716,7 +833,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="程序终止">程序终止 </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="程序终止">程序终止 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -743,7 +860,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="exit函数">exit函数 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="exit函数">exit函数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -785,7 +902,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>函数定义由哪两部分组成？<code>return</code> 的作用是什么？
@@ -798,7 +915,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="30" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
