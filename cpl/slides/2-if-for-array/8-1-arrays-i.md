@@ -284,9 +284,7 @@ a[n - 1 - i];       /* 倒数第 i 个 */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.62em;">
+<div style="font-size:0.8em;">
 
 ```C
 i = 0;
@@ -303,7 +301,7 @@ for (i = 0; i < N; i++)
 
 </div>
 
-<div style="flex:1;">
+---
 
 下标里也能写 `i++`——副作用要小心:
 
@@ -311,15 +309,13 @@ for (i = 0; i < N; i++)
 
 - ② 读 i 和改 i 不分先后, 导致==未定义的行为==
 
+- ③ 把自增移出下标——`for` 的第三段专门干这个
+
 <span class="blue">:fa-lightbulb-o:</span> C 不规定 `=` 两边谁先算——就算你试出来"先算右边", 也只是巧合; 换编译器或开优化, 结果就可能变
 
 <span class="blue">:fa-lightbulb-o:</span> `=` 的==右结合==只管 `a=b=c` 怎么分组, 并不规定求值顺序
 
-- ③ 把自增移出下标——`for` 的第三段专门干这个
-
-</div>
-
-</div>
+---
 <!-- slide data-notes="" -->
 
 
