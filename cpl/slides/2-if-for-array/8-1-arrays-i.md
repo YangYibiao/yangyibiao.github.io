@@ -248,25 +248,31 @@ for (i = 0; i < N; i++)
 </div>
 
 </div>
-<!-- slide data-notes="" -->##### 数组下标
+<!-- slide data-notes="" -->##### 数组下标: 可以是表达式
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
+<div style="flex:1.3;font-size:0.65em;">
 
 ```C
-a[i + j * 10] = 0;
+a[i + j * 10] = 0;  /* 先算 i + j*10 */
+a[i * W + j];       /* 第 i 行第 j 列 */
+a[n - 1 - i];       /* 倒数第 i 个 */
 ```
 
 </div>
 
 <div style="flex:1;">
 
-数组下标可以是任何整数表达式:
+下标里可以写==任意整数表达式==: 先算出值, 再当下标用
 
-`i + j * 10` 先算出来, 再用结果当下标——下标不必是简单变量
+---
+
+- `a[i * W + j]`——把二维网格平铺成一维; 周三的二维数组, 底层就是这个
+
+- `a[n - 1 - i]`——倒数第 i 个; 待会儿的数列反向、挑战里的回文数都靠它
 
 </div>
 
