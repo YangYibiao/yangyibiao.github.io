@@ -104,6 +104,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>sizeof 与变长数组</p>
 
 </li>
+<li>
+<p>AI 审计</p>
+
+</li>
 </ul>
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="标量变量与聚合变量">标量变量与聚合变量 </h5>
@@ -213,7 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>长度为n的数组元素的索引从\(0\)到\(n – 1\).</p>
 <p>若数组a长度为<code>10</code>, 元素依次可标记为\(a[0], a[1], ..., a[9]\):</p>
 <div class="row1-2-column1-10-fullborder">
-<!-- <div class="fullborder"> -->
 <table>
 <thead>
 <tr>
@@ -265,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
   sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* sums the elements of a */</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>        <span class="token comment">/*** WRONG: 越界! ***/</span></code></pre>
 </div>
 <div style="flex:1;">
 <p>像 <code>a[i]</code> 这样的表达式是左值, 因此可以像普通变量一样使用它们:</p>
@@ -399,7 +402,7 @@ a<span class="token punctuation">[</span><span class="token number">4</span><spa
 <p>样例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个数<span class="token operator">:</span> <span class="token number">34</span> <span class="token number">82</span> <span class="token number">49</span> <span class="token number">102</span> <span class="token number">7</span> <span class="token number">94</span> <span class="token number">23</span> <span class="token number">11</span> <span class="token number">50</span> <span class="token number">31</span>
 逆序输出<span class="token operator">:</span> <span class="token number">31</span> <span class="token number">50</span> <span class="token number">11</span> <span class="token number">23</span> <span class="token number">94</span> <span class="token number">7</span> <span class="token number">102</span> <span class="token number">49</span> <span class="token number">82</span> <span class="token number">34</span></code></pre>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先全部读进数组, 再从最后一个元素往回打印</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 存储的顺序和打印的顺序是什么关系?</p>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--数列反向--参考代码">程序: 数列反向 (参考代码) </h5>
 <hr>
@@ -719,42 +722,30 @@ a<span class="token punctuation">[</span><span class="token number">4</span><spa
 </section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 使用变长数组反转数列 - 仅限 C99 */</span>
- 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"How many numbers do you want to reverse? "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">/* C99 only - length of array depends on n */</span>
+<div style="flex:1.3;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> i<span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d numbers: "</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"In reverse order:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %d"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>j<span class="token operator">+</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span> </code></pre>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入几个数? "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>        <span class="token comment">/* C99: 长度运行时才定 */</span>
+
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span> <span class="token operator">*</span> i <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">/* 长度可以是任意表达式 */</span></code></pre>
 </div>
 <div style="flex:1;">
-<p><code>reverse2.c</code></p>
-<p><code>reverse2.c</code>程序中的数组a是变长数组.</p>
-<p>变长数组的长度是在程序执行时计算的.</p>
-<p>变长数组的主要优点是程序可以准确计算需要多少元素.</p>
-<p>如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错).</p>
-<hr>
-<p>变长数组的长度不一定要用变量来指定. 任意表达式都可以:</p>
+<p>数组 a 的长度由变量 n 决定, 是<mark>变长数组</mark>:</p>
+<ul>
+<li>
+<p>长度在<mark>程序执行时</mark>才计算——需要多少就开多少, 不多占、不漏放</p>
+
+</li>
+<li>
+<p>长度不一定是变量, 任意(整数)表达式都可以:</p>
+
+</li>
+</ul>
 <hr>
 <p><mark>工程上少用</mark>: C11 把 VLA 降为可选特性 (MSVC 一直不支持), 长度在栈上运行时分配、不可控——课堂了解即可, 实践优先用固定长度数组</p>
 </div>

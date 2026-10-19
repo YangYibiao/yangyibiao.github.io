@@ -61,6 +61,8 @@ presentation:
 
 - sizeof 与变长数组
 
+- AI 审计
+
 ---
 
 
@@ -201,7 +203,6 @@ int a[N];
 若数组a长度为`10`, 元素依次可标记为$a[0], a[1], ..., a[9]$:
 
 <div class="row1-2-column1-10-fullborder">
-<!-- <div class="fullborder"> -->
 
 | a[0] | $a[1]$ | $a[2]$ | $a[3]$ | $a[4]$ | $a[5]$ | $a[6]$ | $a[7]$ | $a[8]$ | $a[9]$ |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
@@ -240,7 +241,7 @@ for (i = 0; i < N; i++)
 ```C
 int a[10], i;
 for (i = 1; i <= 10; i++)
-  a[i] = 0;
+  a[i] = 0;        /*** WRONG: 越界! ***/
 ```
 
 </div>
@@ -450,7 +451,7 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 逆序输出: 31 50 11 23 94 7 102 49 82 34
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 先全部读进数组, 再从最后一个元素往回打印
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 存储的顺序和打印的顺序是什么关系?
 
 ---
 
@@ -843,64 +844,37 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
-/* 使用变长数组反转数列 - 仅限 C99 */
- 
-#include <stdio.h>
- 
-int main(void)
-{
-  int i, n;
- 
-  printf("How many numbers do you want to reverse? ");
-  scanf("%d", &n);
- 
-  int a[n];   /* C99 only - length of array depends on n */
+int n, i;
 
-  printf("Enter %d numbers: ", n);
-  for (i = 0; i < n; i++)
-    scanf("%d", &a[i]);
-  
-  printf("In reverse order:");
-  for (i = n - 1; i >= 0; i--)
-    printf(" %d", a[i]);
-  printf("\n");
- 
-  return 0;
-}
+printf("输入几个数? ");
+scanf("%d", &n);
+
+int a[n];        /* C99: 长度运行时才定 */
+
+for (i = 0; i < n; i++)
+  scanf("%d", &a[i]);
 ```
 
 ```C
-int a[3*i+5];
-int b[j+k]; 
+int a[3 * i + 5];   /* 长度可以是任意表达式 */
 ```
 
 </div>
 
 <div style="flex:1;">
 
-`reverse2.c`
+数组 a 的长度由变量 n 决定, 是==变长数组==:
 
-`reverse2.c`程序中的数组a是变长数组. 
+- 长度在==程序执行时==才计算——需要多少就开多少, 不多占、不漏放
 
-变长数组的长度是在程序执行时计算的. 
-
-变长数组的主要优点是程序可以准确计算需要多少元素. 
-
-如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错). 
-
----
-
-
-变长数组的长度不一定要用变量来指定. 任意表达式都可以:
+- 长度不一定是变量, 任意(整数)表达式都可以:
 
 ---
 
 ==工程上少用==: C11 把 VLA 降为可选特性 (MSVC 一直不支持), 长度在栈上运行时分配、不可控——课堂了解即可, 实践优先用固定长度数组
-
-
 
 </div>
 
