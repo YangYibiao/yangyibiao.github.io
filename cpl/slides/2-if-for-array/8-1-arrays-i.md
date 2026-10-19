@@ -209,7 +209,7 @@ int a[N];
 
 <div style="flex:1.3;font-size:0.68em;">
 
-```C
+```C{.line-numbers}
 a[0] = 1;
 printf("%d\n", a[5]);
 ++a[i];
