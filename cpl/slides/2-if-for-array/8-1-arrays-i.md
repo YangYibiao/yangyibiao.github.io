@@ -207,7 +207,7 @@ int a[N];
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.65em;">
+<div style="flex:1.3;font-size:0.68em;">
 
 ```C{.line-numbers}
 for (i = 0; i < N; i++)
@@ -218,6 +218,10 @@ for (i = 0; i < N; i++)
 
 for (i = 0; i < N; i++)
   sum += a[i];          /* ③ 求和 */
+
+/* ---- 反面: 这样写会越界 ---- */
+for (i = 1; i <= 10; i++)
+  a[i] = 0;             /*** WRONG! ***/
 ```
 
 </div>
@@ -232,7 +236,7 @@ for (i = 0; i < N; i++)
 
 ---
 
-下标范围再强调一次: `for (i = 1; i <= 10; i++) a[i] = 0;` ==越界==——正确写法是从 0 到 N-1
+看最后一段==反面写法==: 下标从 1 写到 10——越界, 还漏了 a[0]; 正确范围是 0 到 N-1
 
 </div>
 
