@@ -633,6 +633,8 @@ a<span class="token punctuation">[</span><span class="token number">4</span><spa
 <p>如果程序员指定长度, 数组可能过长(浪费内存)或过短(导致出错).</p>
 <hr>
 <p>变长数组的长度不一定要用变量来指定. 任意表达式都可以:</p>
+<hr>
+<p><mark>工程上少用</mark>: C11 把 VLA 降为可选特性 (MSVC 一直不支持), 长度在栈上运行时分配、不可控——课堂了解即可, 实践优先用固定长度数组</p>
 </div>
 </div>
 <hr>
@@ -665,7 +667,32 @@ a<span class="token punctuation">[</span><span class="token number">4</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
+<hr>
+<p><mark>课堂互动</mark>: 下面三段代码都是 AI 写的——每组先投票: <mark>有 bug / 没 bug</mark></p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ① 把数组 a 全部清零 */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ② 求数组 a 的最大值 */</span>
+<span class="token keyword keyword-int">int</span> max <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> max<span class="token punctuation">)</span>
+    max <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ③ 把数组全部初始化为 1 */</span>
+<span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 三个 bug 都是本讲刚讲过的知识点</p>
+<hr>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
+<hr>
+<p>① <mark>有 bug</mark>: 下标越界 (<code>a[N]</code> 不存在) 且漏了 <code>a[0]</code>——正确写法 <code>for (i = 0; i &lt; N; i++)</code></p>
+<hr>
+<p>② <mark>有 bug</mark>: <code>max = 0</code> 初始化的老坑——成绩全是负数时, 最大值"恒为 0"; 正确写法 <code>max = a[0]</code>, 从下标 1 开始比</p>
+<hr>
+<p>③ <mark>有 bug</mark>: <code>{1}</code> 只把 <code>a[0]</code> 初始化成 1, 其余自动补 0, 不是全 1——想全 1 得写循环</p>
+<hr>
+<p><mark>带走清单</mark>: 下标 0~n-1 吗? 最值用 <code>a[0]</code> 起步吗? 初始化式比数组短会怎样? ——写数组循环前先问自己这三句</p>
+<hr>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？
@@ -678,7 +705,7 @@ a<span class="token punctuation">[</span><span class="token number">4</span><spa
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="24" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
