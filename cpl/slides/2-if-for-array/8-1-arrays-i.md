@@ -201,57 +201,38 @@ int a[N];
 ---
 
 ==重点==: 长度 n 的数组没有 a[n]——最后一个元素是 a[n-1]
-<!-- slide data-notes="" -->##### 数组下标
+<!-- slide data-notes="" -->##### 数组下标: 循环三件套
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
-
-```C
-a[0] = 1;
-printf("%d\n", a[5]);
-++a[i];
-```
+<div style="flex:1.3;font-size:0.65em;">
 
 ```C{.line-numbers}
 for (i = 0; i < N; i++)
-  a[i] = 0;             /* clears a */
+  a[i] = 0;             /* ① 清零 */
 
 for (i = 0; i < N; i++)
-  scanf("%d", &a[i]);   /* reads data into a */
+  scanf("%d", &a[i]);   /* ② 读入 */
 
 for (i = 0; i < N; i++)
-  sum += a[i];          /* sums the elements of a */
-```
-
-```C
-int a[10], i;
-for (i = 1; i <= 10; i++)
-  a[i] = 0;        /*** WRONG: 越界! ***/
+  sum += a[i];          /* ③ 求和 */
 ```
 
 </div>
 
 <div style="flex:1;">
 
-像 `a[i]` 这样的表达式是左值, 因此可以像普通变量一样使用它们:
+`a[i]` 是左值, 可以==像普通变量一样用==: 赋值、打印、自增都行
 
-如果数组包含T类型的元素, 则每个元素都被视为T类型的变量. 
+- 对数组的常见操作, 几乎都是"循环 + 下标"的这三个模式:
+
+  - ① 清零 / 赋初值、② 逐个读入、③ 累加 / 统计
 
 ---
 
-
-许多程序包含for循环, 对数组中的每个元素执行一些操作. 
-
-对长度为N的数组a的常见操作示例:
-
-C不检查下标的范围; 若超出范围, 程序可能执行不可预知的行为
-
-$n$个元素的==数组索引==是从$0$到$n – 1$, 而不是从$1$到$n$:
-
-对于某些编译器, 这种表面上正确的for语句会导致无限循环. 
+下标范围再强调一次: `for (i = 1; i <= 10; i++) a[i] = 0;` ==越界==——正确写法是从 0 到 N-1
 
 </div>
 
