@@ -235,7 +235,9 @@ document.addEventListener("DOMContentLoaded", function () {
 </table>
 </div>
 <hr>
-<p><mark>重点</mark>: 长度 n 的数组没有 a[n]——最后一个元素是 a[n-1]</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>        <span class="token comment">/*** WRONG: 越界, 还漏了 a[0] ***/</span></code></pre>
+<p><mark>重点</mark>: 长度 n 的数组没有 a[n]——上面的循环就是反面教材, 正确范围是 0 到 n-1</p>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="数组下标--循环三件套">数组下标: 循环三件套 </h5>
 <hr>
@@ -251,11 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* ② 读入 */</span>
 
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* ③ 求和 */</span>
-
-<span class="token comment">/* ---- 反面: 这样写会越界 ---- */</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>             <span class="token comment">/*** WRONG! ***/</span></code></pre>
+  sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* ③ 求和 */</span></code></pre>
 </div>
 <div style="flex:1;">
 <p><code>a[i]</code> 是左值, 可以<mark>像普通变量一样用</mark>——上面三种操作都合法</p>
@@ -268,8 +266,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>- ① 清零 / 赋初值、② 逐个读入、③ 累加 / 统计</p>
 <hr>
 <p><mark>没有捷径</mark>: scanf 一次只能读一个元素——想读整个数组必须循环逐个 <code>scanf("%d", &amp;a[i])</code>; 写 <code>scanf("%d", a)</code> 只会读进 a[0]</p>
-<hr>
-<p>看最后一段<mark>反面写法</mark>: 下标从 1 写到 10——越界, 还漏了 a[0]; 正确范围是 0 到 N-1</p>
 </div>
 </div>
 <hr>
