@@ -55,7 +55,9 @@ presentation:
 
 - 一维数组: 声明、下标、初始化
 
-- 案例: 数列反向、找最高分、检查重复数字
+- 案例: 数列反向、检查重复数字
+
+- 现场挑战: 最高分并列统计、进制转换、回文数
 
 - sizeof 与变长数组
 
@@ -360,61 +362,6 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 程序: 找最高分
-
----
-
-==现场演示==: 还记得第 1 周的"找最高分"吗? 现在用数组把它==真正写出来==——输入 5 个分数, 输出最高分
-
-第 1 周的四步算法: 假设第一个 → 逐个比较 → 更大就替换 → 输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: `max` 先取第 0 个元素, 从第 1 个开始比
-
----
-
-
-
-<!-- slide data-notes="" -->
-
-
-##### 程序: 找最高分 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
-
-```C{.line-numbers}
-#include <stdio.h>
-int main(void)
-{
-  int numbers[5] = {23, 56, 78, 13, 11};
-  int max = numbers[0];
-
-  for (int i = 1; i < 5; i++)
-    if (numbers[i] > max)
-      max = numbers[i];
-
-  printf("最高分是 %d\n", max);
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- `max = numbers[0]` 先假设第一个最大——第 5 周小测的"max 初始化"坑, 数组版天然解决
-
-- 循环 + 数组 = 处理成百上千个数据的起点
-
-- 改一下 `numbers` 的初始值再跑, 输出跟着变
-
-</div>
-
-</div>
-
 ---
 
 <!-- slide data-notes="" -->##### 数组初始化
@@ -500,6 +447,236 @@ int main(void)
 - 拆一位 → 查表 → 标记录 → 拆下一位; 查到已出现就 break
 
 - 数组当"记账本"用——这是标志数组的经典模式
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 现场挑战: 最高分并列统计
+
+---
+
+==现场演示==: 输入 10 个成绩, 输出==最高分==和==并列人数==
+
+第 1 周我们"流式"找过最高分——一个变量就够了; 现在要数并列人数, 还能不存吗?
+
+样例:
+
+```
+输入 10 个成绩: 5 8 3 8 2 9 1 9 9 4
+最高分 9, 共 3 人并列
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 数组允许你"回头再看一遍"数据
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 现场挑战: 最高分并列统计 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 最高分与并列人数 */
+#include <stdio.h>
+#define N 10
+
+int main(void)
+{
+  int score[N], i, max, count;
+
+  printf("输入 %d 个成绩: ", N);
+  for (i = 0; i < N; i++)
+    scanf("%d", &score[i]);
+
+  max = score[0];              /* 第一遍: 找最高分 */
+  for (i = 1; i < N; i++)
+    if (score[i] > max)
+      max = score[i];
+
+  count = 0;                   /* 第二遍: 数并列 */
+  for (i = 0; i < N; i++)
+    if (score[i] == max)
+      count++;
+
+  printf("最高分 %d, 共 %d 人并列\n", max, count);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- ==两遍扫描==: 第一遍找 max, 第二遍数个数——不存数据就数不了第二遍
+
+- 这就是"找最高分"的完全体: 第 1 周的流式写法到这里就到头了
+
+- OJ 本周同款: 「最大值出现次数」——课上见、OJ 练
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 现场挑战: 进制转换
+
+---
+
+==现场演示==: 输入十进制数 n 和进制 base (2~10), 输出转换结果
+
+样例:
+
+```
+输入十进制数和进制: 13 2
+1101
+```
+
+```
+输入十进制数和进制: 100 8
+144
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 注意输出顺序——先算出来的数字要后输出
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 现场挑战: 进制转换 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 进制转换: 反复取余存数组, 逆序输出 */
+#include <stdio.h>
+
+int main(void)
+{
+  int n, base, digits[32];
+  int len = 0, i;
+
+  printf("输入十进制数和进制: ");
+  scanf("%d%d", &n, &base);
+
+  do {
+    digits[len++] = n % base;  /* 余数存进数组 */
+    n /= base;
+  } while (n > 0);
+
+  for (i = len - 1; i >= 0; i--)  /* 逆序输出 */
+    printf("%d", digits[i]);
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 短除法的每一步余数==先后顺序是反的==——存进数组再逆序输出, 正好接上 reverse 的写法
+
+- `len` 既是"下一个空位"又是"已存个数"——数组配合计数变量的经典搭档
+
+- `do-while` 保证 n=0 也能输出一个 0; 16 进制要输出字母, 留作加餐
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 现场挑战: 回文数
+
+---
+
+==现场演示==: 输入一个整数, 判断它是不是==回文数== (正着读倒着读一样, 如 1221、12321)
+
+样例:
+
+```
+输入一个整数: 1221
+1221 是回文数
+```
+
+```
+输入一个整数: 1234
+1234 不是回文数
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 先想清楚"第 i 位"和"倒数第 i 位"在数组里的下标关系
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+##### 现场挑战: 回文数 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 回文数: 数字拆进数组, 首尾对称比较 */
+#include <stdio.h>
+
+int main(void)
+{
+  long n, m;
+  int digits[20], len = 0, i;
+
+  printf("输入一个整数: ");
+  scanf("%ld", &n);
+
+  m = n;                       /* 拆数字, 个位在前 */
+  do {
+    digits[len++] = m % 10;
+    m /= 10;
+  } while (m > 0);
+
+  for (i = 0; i < len / 2; i++)      /* 只比到一半 */
+    if (digits[i] != digits[len - 1 - i]) {
+      printf("%ld 不是回文数\n", n);
+      return 0;
+    }
+  printf("%ld 是回文数\n", n);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 首尾对称: 第 i 位 vs 第 ==len-1-i== 位——下标关系的推演是这题的灵魂
+
+- 发现不对称可以==提前 return==, 不用比完
+
+- 只比到 `len/2`, 奇数长度中间那位不用比
 
 </div>
 
