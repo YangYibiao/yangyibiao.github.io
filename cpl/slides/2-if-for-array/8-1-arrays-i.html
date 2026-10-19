@@ -601,9 +601,9 @@ i <span class="token operator">=</span> <span class="token number">0</span><span
 <hr>
 </section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="案例--大小写转换">案例: 大小写转换 </h5>
 <hr>
-<p><mark>现场演示</mark>: 输入 5 个小写字母, 全部转成大写输出</p>
+<p><mark>现场演示</mark>: 输入一个单词 (不含空格), 全部转成大写输出</p>
 <p>样例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">5</span> 个小写字母<span class="token operator">:</span> h e l l o
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入一个单词<span class="token operator">:</span> hello
 HELLO</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 第 2 周讲过 char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?</p>
 <hr>
@@ -616,39 +616,40 @@ HELLO</code></pre>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-char">char</span> s<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> s<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 5 个小写字母: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">" %c"</span><span class="token punctuation">,</span> <span class="token operator">&</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* %c 前空格跳过换行 */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个单词: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">/* 遇空格就停, 自动补 '\0' */</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">'\0'</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token string">'a'</span> <span class="token operator">&amp;&amp;</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">)</span>
       s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token string">'a'</span> <span class="token operator">+</span> <span class="token string">'A'</span><span class="token punctuation">;</span>  <span class="token comment">/* 'a' 比 'A' 大 32 */</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
 <ul>
 <li>
-<p>字符数组和数字数组<mark>一样用</mark>: 下标、循环、三件套一个不缺</p>
+<p><code>scanf("%s", s)</code>: 遇空格就停, 末尾自动补 <code>'\0'</code></p>
 
 </li>
 <li>
-<p><code>'a'</code> 比 <code>'A'</code> 大 32——char 就是小整数, 第 2 周的老朋友</p>
+<p>读数组<mark>不加 &</mark>——为什么, 指针周揭晓</p>
 
 </li>
 <li>
-<p>加餐: 把 <code>s[i] - 'a' + 'A'</code> 换成 <code>(s[i] - 'a' + 3) % 26 + 'a'</code>, 就是凯撒加密</p>
+<p>循环条件 <code>s[i] != '\0'</code>: 数组遍历的<mark>新写法</mark></p>
 
 </li>
 <li>
-<p>下节课的发牌程序, 还会见到字符数组当<mark>对照表</mark></p>
+<p><code>'a'</code> 比 <code>'A'</code> 大 32——加餐: 换成 <code>(s[i] - 'a' + 3) % 26 + 'a'</code> 就是凯撒加密</p>
+
+</li>
+<li>
+<p>周三的发牌程序, 还会见到字符数组当<mark>对照表</mark></p>
 
 </li>
 </ul>
