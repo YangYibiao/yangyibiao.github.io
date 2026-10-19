@@ -286,7 +286,7 @@ a[n - 1 - i];       /* 倒数第 i 个 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
+<div style="flex:1.1;font-size:0.62em;">
 
 ```C
 i = 0;
