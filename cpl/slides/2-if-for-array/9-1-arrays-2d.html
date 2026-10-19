@@ -105,10 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="多维数组--声明与访问">多维数组: 声明与访问 </h5>
 <hr>
 <p>表格类数据天然是"行×列": 成绩表、棋盘、矩阵……<mark>二维数组</mark>就是一张表</p>
-<p>数组可以有任意维数</p>
-<p>下面的声明创建了一个二维数组 (数学上叫矩阵):</p>
-<p><code>int m[5][9];</code></p>
-<p>数组 m 有 5 行 9 列, 行、列下标都从 0 开始:</p>
+<p>下面的声明创建了一个 5 行 9 列的二维数组 (数学上叫矩阵):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<p>行、列下标都从 0 开始:</p>
 <div class="row1-5-column2-10-fullborder">
 <table>
 <tbody>
@@ -199,64 +198,39 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 </div>
-<p>为了访问i行j列的元素, 需要写成<code>m[i][j]</code>的形式.</p>
-<p>表达式<code>m[i]</code>指定数组m第i行, 而<code>m[i][j]</code>选择该行中第j个元素.</p>
-<p>不要把<code>m[i][j]</code>写成<code>m[i,j]</code></p>
-<p>这里, C将逗号视为 <mark>逗号运算符</mark>, 因此<code>m[i,j]</code>等同于<code>m[j]</code></p>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="多维数组的存储--行主序">多维数组的存储: 行主序 </h5>
+<p>访问 i 行 j 列的元素, 写成 <code>m[i][j]</code>:</p>
+<ul>
+<li>
+<p><code>m[i]</code> 指定第 i 行, <code>m[i][j]</code> 是这一行里的第 j 个元素</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="陷阱--m-i-j--不是-m-i--j">陷阱: m[i,j] 不是 m[i][j] </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>m<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>    <span class="token comment">/* 第 i 行第 j 列 */</span>
+m<span class="token punctuation">[</span>i<span class="token punctuation">,</span>j<span class="token punctuation">]</span>     <span class="token comment">/*** WRONG: 不是二维访问! ***/</span></code></pre>
+<p><code>m[i,j]</code> 里的逗号是<mark>逗号运算符</mark>: 先算 i、再算 j, 整个表达式等于 <code>m[j]</code>——只取了第 j 行, 根本不是二维访问</p>
+<ul>
+<li>
+<p>C 编译不报错——又是"能编译但答非所问"的坑</p>
+
+</li>
+<li>
+<p>键盘上多打一个逗号, 程序就悄悄错了</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="多维数组的存储--行主序">多维数组的存储: 行主序 </h5>
 <hr>
 <p>虽然我们以表格形式显示二维数组, 但这并不是它们在计算机内存中实际存储的方式. 行主序存储数组, 从第 0 行开始, 接着第 1 行, 依此类推. 数组m的存储方式:</p>
 <div class="top-2">
     <img src="../4-loops/figs/8-4.png" width=400px>
 </div>
-<!-- <div class="row0-2-column2-11-fullborder">
-<table>
-<tbody>
-<tr>
-<td></td>
-<td>></td>
-<td>></td>
-<td>row0</td>
-<td>></td>
-<td>></td>
-<td>row1</td>
-<td>...</td>
-<td>></td>
-<td>></td>
-<td>row4</td>
-</tr>
-<tr>
-<td>:-:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-<td>:----:</td>
-</tr>
-<tr>
-<td></td>
-<td>m[0][0]</td>
-<td>...</td>
-<td>m[0][8]</td>
-<td>m[1][0]</td>
-<td>...</td>
-<td>m[1][8]</td>
-<td>...</td>
-<td>m[4][0]</td>
-<td>...</td>
-<td>m[4][8]</td>
-</tr>
-</tbody>
-</table>
-</div> -->
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="二维数组与嵌套循环">二维数组与嵌套循环 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="二维数组与嵌套循环">二维数组与嵌套循环 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -275,12 +249,13 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>嵌套for循环非常适合处理多维数组.</p>
-<p>单位矩阵的数组的初始化: <mark>嵌套的for循环</mark></p>
+<p>嵌套 for 循环非常适合处理多维数组——<mark>外层行, 内层列</mark></p>
+<p>单位矩阵: <code>row == col</code> 放 1, 其余放 0</p>
+<p>想只处理对角线以上? 改 <code>if</code> 的条件就行</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -294,42 +269,58 @@ document.addEventListener("DOMContentLoaded", function () {
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>把一维初始化式嵌套起来, 就得到二维数组的初始化式:</p>
-<p>高维数组的初始化式以类似的方式构造.</p>
-<p>C 提供了多种方法来缩写多维数组的初始化式</p>
-<p>如果初始值化式不足以填充整个多维数组, 则剩余元素赋值为0.</p>
-<p>下面的初始化式只填了数组 m 的前三行; 后两行自动为 0:</p>
+<p>把一维初始化式<mark>嵌套</mark>起来, 就得到二维数组的初始化式</p>
+<p>高维数组以此类推</p>
+<hr>
+<p>初始化式不足以填满时, 其余元素<mark>自动补 0</mark>:</p>
+<p>下面的初始化式只填了前三行——后两行自动为 0</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="多维数组初始化--省略与指定">多维数组初始化: 省略与指定 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="多维数组初始化--省略与指定">多维数组初始化: 省略与指定 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* ① 内层不够填满一行: 该行剩下自动补 0 */</span>
+<span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* ② 内层花括号可以省略: 填满一行自动换行 */</span>
+<span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
                <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
                <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
                <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
-               <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+               <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* ③ C99 指定初始化式同样适用 */</span>
+<span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>内层列表不够填满一行时, 该行剩下的元素自动为 <code>0</code>:</p>
-<p>内层的花括号可以 <mark>省略</mark>:</p>
-<p>一旦编译器发现数值足以填满一行, 它就会开始填充下一行.</p>
-<p>多维数组中省略内层大括号有风险, 额外的元素或缺失的元素会影响剩下的初始化式, 省略的花括号会引起编译警告</p>
-<p>C99 的指定初始化式也适用于多维数组.</p>
-<p>创建2×2单位矩阵:</p>
-<p>像通常一样, 所有未指定值的元素都默认为0.</p>
+<ul>
+<li>
+<p>① 内层不够填满一行时, 该行剩下的元素自动为 <code>0</code></p>
+
+</li>
+<li>
+<p>② 内层花括号可以<mark>省略</mark>——填满一行, 自动开始下一行</p>
+
+</li>
+<li>
+<p>② 省略有<mark>风险</mark>: 多一个或少一个元素, 后面的全乱, 编译器会告警</p>
+
+</li>
+<li>
+<p>③ C99 指定初始化式也适用: 创建 2×2 单位矩阵, 未指定的默认为 0</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="矩阵运算--转置">矩阵运算: 转置 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="矩阵运算--转置">矩阵运算: 转置 </h5>
 <hr>
 <p>转置: 行列互换, <mark>b[j][i] = a[i][j]</mark></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -351,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="矩阵运算--乘法">矩阵运算: 乘法 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="矩阵运算--乘法">矩阵运算: 乘法 </h5>
 <hr>
 <p>矩阵乘法: \(c_{ij} = \sum_k a_{ik} \times b_{kj}\) (a 的列数必须等于 b 的行数)</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* a: m×n, b: n×p, c: m×p */</span>
@@ -367,12 +358,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>这是 AI 里"矩阵乘法"的最朴素版本 (第 15 周 AI 实践会看到它)</p>
+<p>机器学习库底层干的就是这个——三层循环, 一个不差</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="矩阵运算--按行-按列统计">矩阵运算: 按行/按列统计 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="矩阵运算--按行-按列统计">矩阵运算: 按行/按列统计 </h5>
 <hr>
 <p>统计每行的和、每列的和 (成绩表场景):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* scores: 5 名学生 × 3 门课 */</span>
@@ -390,7 +381,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="常量数组">常量数组 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="常量数组">常量数组 </h5>
 <hr>
 <p>声明数组时加 <mark>const</mark>, 数组就变成<mark>只读</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
@@ -417,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
 <hr>
 <p><code>deal.c</code>程序说明了二维数组和常量数组的用法.</p>
 <p>该程序从一副标准的扑克牌中随机处理一手牌.</p>
@@ -436,33 +427,35 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--发牌--代码">程序: 发牌 (代码) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--发牌--代码">程序: 发牌 (代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.48em;">
+<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 随机发牌 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span>   /* C99 only */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
+
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_SUITS 4</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_RANKS 13</span>
+
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  bool in_hand<span class="token punctuation">[</span>NUM_SUITS<span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_RANKS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>false<span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> in_hand<span class="token punctuation">[</span>NUM_SUITS<span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_RANKS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* 52 张牌, 0=还没发 */</span>
   <span class="token keyword keyword-int">int</span> num_cards<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> suit<span class="token punctuation">;</span>
   <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> rank_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span>
-                            <span class="token string">'9'</span><span class="token punctuation">,</span><span class="token string">'t'</span><span class="token punctuation">,</span><span class="token string">'j'</span><span class="token punctuation">,</span><span class="token string">'q'</span><span class="token punctuation">,</span><span class="token string">'k'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+                            <span class="token string">'9'</span><span class="token punctuation">,</span><span class="token string">'t'</span><span class="token punctuation">,</span><span class="token string">'j'</span><span class="token punctuation">,</span><span class="token string">'q'</span><span class="token punctuation">,</span><span class="token string">'k'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* t 代表 10 */</span>
   <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> suit_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'c'</span><span class="token punctuation">,</span><span class="token string">'d'</span><span class="token punctuation">,</span><span class="token string">'h'</span><span class="token punctuation">,</span><span class="token string">'s'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
   <span class="token function">srand</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span><span class="token punctuation">)</span> <span class="token function">time</span><span class="token punctuation">(</span>NULL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of cards in hand: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入手牌数量: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>num_cards<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Your hand:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"你的牌:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>num_cards <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    suit <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_SUITS<span class="token punctuation">;</span>    <span class="token comment">/* picks a random suit */</span>
-    rank <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_RANKS<span class="token punctuation">;</span>    <span class="token comment">/* picks a random rank */</span>
+    suit <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_SUITS<span class="token punctuation">;</span>    <span class="token comment">/* 随机花色 0~3 */</span>
+    rank <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_RANKS<span class="token punctuation">;</span>    <span class="token comment">/* 随机等级 0~12 */</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>in_hand<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">[</span>rank<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      in_hand<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">[</span>rank<span class="token punctuation">]</span> <span class="token operator">=</span> true<span class="token punctuation">;</span>
+      in_hand<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">[</span>rank<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
       num_cards<span class="token operator">--</span><span class="token punctuation">;</span>
       <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %c%c"</span><span class="token punctuation">,</span> rank_code<span class="token punctuation">[</span>rank<span class="token punctuation">]</span><span class="token punctuation">,</span> suit_code<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -472,58 +465,51 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>为了随机挑选卡片, 可以采用一些 C 库函数:</p>
 <ul>
 <li>
-<p>time函数(来自<code>&lt;time.h&gt;</code>): 返回当前时间, 用一个数表示.</p>
+<p>随机: <code>srand(time)</code> 播种 + <code>rand() % 4</code> / <code>% 13</code> 把返回值缩放到 0~3 / 0~12</p>
 
 </li>
 <li>
-<p>srand函数(来自<code>&lt;stdlib.h&gt;</code>): 初始化 C 的随机数生成器.</p>
+<p>去重: <code>in_hand</code> 是 4×13 的<mark>标志数组</mark>——每张牌一个格子, 发过置 1, 重复就重抽</p>
 
 </li>
 <li>
-<p>rand函数(来自<code>&lt;stdlib.h&gt;</code>): 每次调用时都会产生一个看似随机的数.</p>
+<p>查表: <code>rank_code[rank]</code>、<code>suit_code[suit]</code>——下标取字符, 数组当<mark>对照表</mark>用</p>
+
+</li>
+<li>
+<p><code>const</code>: 两张表全程不变, 声明成只读——编译器帮你看住</p>
+
+</li>
+<li>
+<p>10 用 <code>'t'</code> 表示: 两位数会破坏"两字符一张牌"的格式</p>
 
 </li>
 </ul>
-<p>通过使用%运算符, 缩放rand函数返回值, 使其介于0和3之间(表示花色)或介于0和12之间(表示等级).</p>
-<p>in_hand数组用于记录已经选择过的牌.</p>
-<p>数组有4行13列; 每个元素对应52 张牌中的一张.</p>
-<p>数组的所有元素一开始都为假.</p>
-<p>每随机选择一张牌时, 检查in_hand中该牌对应的元素为真或假.</p>
-<ul>
-<li>
-<p>如果为真, 就需要选择另一张牌.</p>
-
-</li>
-<li>
-<p>如果为假, 就把ture存储到对应的元素中, 以便稍后提醒我们这张牌已经被选中.</p>
-
-</li>
-</ul>
-<p>一旦验证了一张卡片是<code>"新"</code>的, 就需要将它的等级和花色转换成字符, 然后显示出来.</p>
-<p>为了将等级和花色转换为字符形式, 程序设置两个字符数组: 一个用于等级, 一个用于花色</p>
-<p>然后用等级和花色作为下标取数组元素.</p>
-<p>数组在程序执行期间不会改变, 因此被声明为<code>const</code>.</p>
-<p><code>deal.c</code></p>
+<a href="code/deal.c" target="_blank">deal.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
 <hr>
 <ol>
 <li>声明一个 3 行 4 列的整型二维数组，怎么写？访问第 2 行第 3 列的元素怎么写？
 </li>
 <li><code>m[i,j]</code> 与 <code>m[i][j]</code> 有什么区别？
 </li>
+</ol>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
+<hr>
+<ol>
 <li>二维数组在内存中是怎么存储的（行主序是什么意思）？
 </li>
 <li>矩阵乘法的三层循环里，最内层的循环在做什么？
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
