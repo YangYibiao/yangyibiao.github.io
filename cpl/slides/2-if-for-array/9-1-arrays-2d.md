@@ -75,24 +75,6 @@ presentation:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;">
-
-行、列下标都从 0 开始:
-
-<div class="row1-5-column2-10-fullborder">
-
-|     |   0    |   1    |   2    |   3    |   4    |   5    |   6    |   7    |   8    |
-| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-|  0  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
-|  1  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
-|  2  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
-|  3  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
-|  4  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
-
-</div>
-
-</div>
-
 <div style="flex:1;">
 
 表格类数据天然是"行×列": 成绩表、棋盘、矩阵……==二维数组==就是一张表
@@ -108,6 +90,24 @@ int m[5][9];
 访问 i 行 j 列: 写成 `m[i][j]`
 
 `m[i]` 是第 i 行, `m[i][j]` 是这一行里的第 j 个元素
+
+</div>
+
+<div style="flex:1.3;">
+
+行、列下标都从 0 开始:
+
+<div class="row1-5-column2-10-fullborder">
+
+|     |   0    |   1    |   2    |   3    |   4    |   5    |   6    |   7    |   8    |
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+|  0  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+|  1  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+|  2  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+|  3  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+|  4  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+
+</div>
 
 </div>
 
