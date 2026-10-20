@@ -561,7 +561,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.55em;">
+<div style="flex:1;min-width:0;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* 生命游戏: 一代更新 */
@@ -582,7 +582,8 @@ int main(void)
       for (di = -1; di <= 1; di++) {
         for (dj = -1; dj <= 1; dj++) {
           int ni = i + di, nj = j + dj;
-          if (ni >= 0 && ni < N && nj >= 0 && nj < N && !(di == 0 && dj == 0))
+          if (ni >= 0 && ni < N && nj >= 0 && nj < N &&
+              !(di == 0 && dj == 0))
             if (old_grid[ni][nj])
               count++;
         }
