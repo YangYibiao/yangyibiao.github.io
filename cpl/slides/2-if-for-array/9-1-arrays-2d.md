@@ -132,11 +132,10 @@ int m[5][9];
 ```C
 m[2][3] = 42;          /* 第 2 行第 3 列 = 42 */
 printf("%d", m[2][3]); /* 像普通变量一样用 */
-```
 
-```C
+/* ---- 配合循环, 扫过一整行 ---- */
 for (j = 0; j < 9; j++)
-  printf("%d ", m[2][j]);  /* 第 2 行挨个访问 */
+  printf("%d ", m[2][j]);
 ```
 
 </div>
@@ -458,7 +457,7 @@ for (int i = 0; i < 5; i++) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* 奇数阶幻方: 右上走 + 回绕 + 冲突下移 */
