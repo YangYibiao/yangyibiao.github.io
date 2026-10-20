@@ -61,6 +61,10 @@ presentation:
 
 - 案例: 幻方、生命游戏
 
+- 课堂编码: 选择排序初体验
+
+- 备选编码任务 (按需取用)
+
 </div>
 
 ---
@@ -625,6 +629,412 @@ int main(void)
 
 <!-- slide data-notes="" -->
 
+
+##### 课堂编码: 选择排序初体验
+
+---
+
+==现场演示==: 输入 5 个数, 从小到大排序输出
+
+样例:
+
+```
+输入 5 个数: 64 25 12 22 11
+排序后: 11 12 22 25 64
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 平均分案例里"找最小"的本事, 用在这里——每轮把最小数放到最前面
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 课堂编码: 选择排序 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 选择排序: 每轮选最小, 放到前面 */
+#include <stdio.h>
+#define N 5
+
+int main(void)
+{
+  int a[N], i, j, min_i, tmp;
+
+  printf("输入 %d 个数: ", N);
+  for (i = 0; i < N; i++)
+    scanf("%d", &a[i]);
+
+  for (i = 0; i < N - 1; i++) {
+    min_i = i;                     /* 假设第 i 个最小 */
+    for (j = i + 1; j < N; j++)
+      if (a[j] < a[min_i])
+        min_i = j;
+    tmp = a[i]; a[i] = a[min_i]; a[min_i] = tmp;  /* 交换 */
+  }
+
+  printf("排序后:");
+  for (i = 0; i < N; i++)
+    printf(" %d", a[i]);
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 外层选"第几轮放哪个位置", 内层找最小——==找最小==的思想就来自平均分案例
+
+- 交换三行是第 4 周的老朋友 (`tmp` 中转)
+
+- 下周正式学: 冒泡、插入、二分查找——今天是==初体验==
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+<!-- slide data-notes="" -->
+
+
+##### 备选编码任务 (按需取用)
+
+---
+
+时间有余时, 从这里挑:
+
+- ==杨辉三角==: 入门, 5 分钟——上一行两个数之和
+
+- ==冒泡排序==: 简单, 10 分钟——相邻比较, 大的往后冒 (1D)
+
+- ==蛇形填数==: 中等, 15 分钟——四方向螺旋走位
+
+- ==数独校验==: 中等, 15 分钟——三种扫描查重 (OJ 1081 同款)
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 杨辉三角
+
+---
+
+==现场演示==: 打印杨辉三角的前 6 行
+
+样例:
+
+```
+   1
+   1   1
+   1   2   1
+   1   3   3   1
+   1   4   6   4   1
+   1   5  10  10   5   1
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 第 i 行第 j 个数, 是"上一行"的哪两个数之和?
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 杨辉三角 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#define N 6
+int main(void)
+{
+  int a[N][N] = {0};
+  int i, j;
+
+  for (i = 0; i < N; i++) {
+    a[i][0] = 1;                  /* 每行开头是 1 */
+    for (j = 1; j <= i; j++)
+      a[i][j] = a[i-1][j-1] + a[i-1][j];
+  }
+
+  for (i = 0; i < N; i++) {
+    for (j = 0; j <= i; j++)
+      printf("%4d", a[i][j]);
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 关系式 `a[i][j] = a[i-1][j-1] + a[i-1][j]` 是二维下标的==经典推演==
+
+- 只用到下三角——上半部分自动是 0, 打印时只打 `j <= i`
+
+- `{0}` 全零初始化: 第 1 行和每行开头, 都靠它兜底
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 冒泡排序
+
+---
+
+==现场演示==: 另一种排序——相邻两个比, 大的往后"冒"
+
+样例:
+
+```
+输入 5 个数: 64 25 12 22 11
+排序后: 11 12 22 25 64
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 一轮下来, 最大的数会"沉"到最右端——下一轮就少比一个
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 冒泡排序 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#define N 5
+int main(void)
+{
+  int a[N], i, j, tmp;
+  printf("输入 %d 个数: ", N);
+  for (i = 0; i < N; i++)
+    scanf("%d", &a[i]);
+
+  for (i = 0; i < N - 1; i++)
+    for (j = 0; j < N - 1 - i; j++)
+      if (a[j] > a[j + 1]) {          /* 相邻比较 */
+        tmp = a[j]; a[j] = a[j + 1]; a[j + 1] = tmp;
+      }
+
+  printf("排序后:");
+  for (i = 0; i < N; i++) printf(" %d", a[i]);
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 与选择排序对比: 选择是"挑最小的放前面", 冒泡是==相邻交换=="沉底"
+
+- 内层上界 `N - 1 - i`: 每轮少比一个——已经沉底的不再动
+
+- 下周的排序周, 这两种都会正式登场
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 蛇形填数
+
+---
+
+==现场演示==: n×n 的格子, 从 1 开始==螺旋==往里填
+
+样例 (n=5):
+
+```
+ 1  2  3  4  5
+16 17 18 19  6
+15 24 25 20  7
+14 23 22 21  8
+13 12 11 10  9
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 右、下、左、上四个方向轮流走; 每走完一边, 边界往里收一格
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 蛇形填数 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#define N 5
+int main(void)
+{
+  int a[N][N] = {0};
+  int num = 1, top = 0, bottom = N - 1;
+  int left = 0, right = N - 1;
+  int i, j;
+
+  while (top <= bottom && left <= right) {
+    for (i = left; i <= right; i++) a[top][i] = num++;   /* → */
+    top++;
+    for (i = top; i <= bottom; i++) a[i][right] = num++; /* ↓ */
+    right--;
+    for (i = right; i >= left; i--) a[bottom][i] = num++;/* ← */
+    bottom--;
+    for (i = bottom; i >= top; i--) a[i][left] = num++;  /* ↑ */
+    left++;
+  }
+
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++)
+      printf("%3d", a[i][j]);
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 四个==边界变量== (top/bottom/left/right) 每轮收缩——二维数组的"橡皮筋"
+
+- 四个方向的循环依次执行, 下标变化各不相同——走位练习的集大成
+
+- `num++` 顺手当计数器: 填一格、涨一个
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 数独校验
+
+---
+
+==现场演示==: 读入 9×9 数独, 判断是否违反规则 (OJ 1081 同款)
+
+规则: 每行、每列、每个 3×3 九宫格, 都恰好是 1~9 各一次
+
+样例输出:
+
+```
+Right   (合法)
+Wrong   (有重复)
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 三次扫描, 每次都是标志数组查重——和 repdigit 同款
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 备选: 数独校验 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.5em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#define N 9
+int main(void)
+{
+  int board[N][N], i, j, k, ok = 1;
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++)
+      scanf("%d", &board[i][j]);
+
+  for (i = 0; i < N && ok; i++) {          /* 每行查重 */
+    int seen[10] = {0};
+    for (j = 0; j < N; j++) {
+      if (seen[board[i][j]]) { ok = 0; break; }
+      seen[board[i][j]] = 1;
+    }
+  }
+  for (j = 0; j < N && ok; j++) {          /* 每列查重 */
+    int seen[10] = {0};
+    for (i = 0; i < N; i++) {
+      if (seen[board[i][j]]) { ok = 0; break; }
+      seen[board[i][j]] = 1;
+    }
+  }
+  for (i = 0; i < N && ok; i += 3)         /* 九宫格查重 */
+    for (j = 0; j < N && ok; j += 3) {
+      int seen[10] = {0};
+      for (k = 0; k < 9; k++) {
+        int v = board[i + k / 3][j + k % 3];
+        if (seen[v]) { ok = 0; break; }
+        seen[v] = 1;
+      }
+    }
+  printf(ok ? "Right\n" : "Wrong\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- 三种扫描 (行/列/九宫格) 是同一招==标志数组查重==的三次使用
+
+- 九宫格的坐标 `i + k/3`、`j + k%3` 是==二维下标推演==的高光时刻
+
+- 出错就 `ok = 0` 提前退出——早停的思想
+
+</div>
+
+</div>
+
+---
 
 ##### 课堂小测 (1/2)
 
