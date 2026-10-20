@@ -61,8 +61,6 @@ presentation:
 
 - 案例: 幻方、生命游戏
 
-- 课堂编码: 选择排序初体验
-
 - 备选编码任务 (按需取用)
 
 </div>
@@ -620,82 +618,6 @@ int main(void)
 - 想跑多代: 把 `new` 拷回 `old` 再来一轮——这就是==整张表更新==
 
 - `cell` 是 const==对照表==: 0/1 变图案——上一课学的常量数组派上用场
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂编码: 选择排序初体验
-
----
-
-==现场演示==: 输入 5 个数, 从小到大排序输出
-
-样例:
-
-```
-输入 5 个数: 64 25 12 22 11
-排序后: 11 12 22 25 64
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: 平均分案例里"找最小"的本事, 用在这里——每轮把最小数放到最前面
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂编码: 选择排序 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
-
-```C{.line-numbers}
-/* 选择排序: 每轮选最小, 放到前面 */
-#include <stdio.h>
-#define N 5
-
-int main(void)
-{
-  int a[N], i, j, min_i, tmp;
-
-  printf("输入 %d 个数: ", N);
-  for (i = 0; i < N; i++)
-    scanf("%d", &a[i]);
-
-  for (i = 0; i < N - 1; i++) {
-    min_i = i;                     /* 假设第 i 个最小 */
-    for (j = i + 1; j < N; j++)
-      if (a[j] < a[min_i])
-        min_i = j;
-    tmp = a[i]; a[i] = a[min_i]; a[min_i] = tmp;  /* 交换 */
-  }
-
-  printf("排序后:");
-  for (i = 0; i < N; i++)
-    printf(" %d", a[i]);
-  printf("\n");
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- 外层选"第几轮放哪个位置", 内层找最小——==找最小==的思想就来自平均分案例
-
-- 交换三行是第 4 周的老朋友 (`tmp` 中转)
-
-- 下周正式学: 冒泡、插入、二分查找——今天是==初体验==
 
 </div>
 
