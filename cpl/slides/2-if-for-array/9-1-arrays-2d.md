@@ -537,9 +537,6 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-<!-- slide data-notes="" -->
-
-
 ##### 生命游戏: 怎么想
 
 ---
@@ -559,6 +556,9 @@ int main(void)
 - 边数边改会怎样? 先改的格子会污染后面格子的邻居判断
 
 ---
+
+<!-- slide data-notes="" -->
+
 
 ##### 生命游戏: 动画演示
 
