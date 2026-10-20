@@ -706,9 +706,6 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-<!-- slide data-notes="" -->
-
-
 ##### 备选编码任务 (按需取用)
 
 ---
@@ -1035,6 +1032,9 @@ int main(void)
 </div>
 
 ---
+
+<!-- slide data-notes="" -->
+
 
 ##### 课堂小测 (1/2)
 
