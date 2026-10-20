@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>案例: 发牌程序</p>
+<p>案例: 发牌程序、生命游戏</p>
 
 </li>
 </ul>
@@ -493,7 +493,89 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="案例--生命游戏">案例: 生命游戏 </h5>
+<hr>
+<p>细胞自动机: 网格里每个格子是"活(1)"或"死(0)", 每一代按<mark>邻居</mark>数更新:</p>
+<ul>
+<li>
+<p>活细胞: 2 或 3 个活邻居 → 继续活; 否则死 (孤独或拥挤)</p>
+
+</li>
+<li>
+<p>死细胞: 恰好 3 个活邻居 → 复活</p>
+
+</li>
+</ul>
+<p>样例: 竖着的"三连"过一代, 变横着的"三连":</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">00000</span>        <span class="token number">00000</span>
+<span class="token number">00100</span>        <span class="token number">00000</span>
+<span class="token number">00100</span>  <span class="token operator">--</span><span class="token operator">></span>   <span class="token number">01110</span>
+<span class="token number">00100</span>        <span class="token number">00000</span>
+<span class="token number">00000</span>        <span class="token number">00000</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 更新第 (i,j) 格时, 邻居们必须还是<mark>旧一代</mark>的</p>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="案例--生命游戏--参考代码">案例: 生命游戏 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 生命游戏: 一代更新 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 5</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> old_grid<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>
+                        <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> new_grid<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> di<span class="token punctuation">,</span> dj<span class="token punctuation">,</span> count<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>di <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> di <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">;</span> di<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>dj <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> dj <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">;</span> dj<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword keyword-int">int</span> ni <span class="token operator">=</span> i <span class="token operator">+</span> di<span class="token punctuation">,</span> nj <span class="token operator">=</span> j <span class="token operator">+</span> dj<span class="token punctuation">;</span>
+          <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>ni <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ni <span class="token operator"><</span> N <span class="token operator">&amp;&amp;</span> nj <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> nj <span class="token operator"><</span> N <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token punctuation">(</span>di <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> dj <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>old_grid<span class="token punctuation">[</span>ni<span class="token punctuation">]</span><span class="token punctuation">[</span>nj<span class="token punctuation">]</span><span class="token punctuation">)</span>
+              count<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>old_grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        new_grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">||</span> count <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-else">else</span>
+        new_grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> new_grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><mark>两张表</mark>是关键: 从 <code>old</code> 数邻居、写进 <code>new</code>——边数边改会把旧一代污染掉</p>
+
+</li>
+<li>
+<p>邻居计数: 外面两重定位格子, 里面两重扫 3×3 邻域 (去掉自己)</p>
+
+</li>
+<li>
+<p>边界: 棋盘外的格子当死细胞——<code>ni &gt;= 0 &amp;&amp; ni &lt; N</code> 挡住</p>
+
+</li>
+<li>
+<p>想跑多代: 把 <code>new</code> 拷回 <code>old</code> 再来一轮——这就是<mark>整张表更新</mark></p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
 <hr>
 <ol>
 <li>声明一个 3 行 4 列的整型二维数组，怎么写？访问第 2 行第 3 列的元素怎么写？
@@ -502,7 +584,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
 <hr>
 <ol>
 <li>二维数组在内存中是怎么存储的（行主序是什么意思）？
@@ -511,7 +593,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

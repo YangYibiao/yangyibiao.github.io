@@ -59,7 +59,7 @@ presentation:
 
 - ==矩阵运算==: 转置、乘法、统计
 
-- 案例: 发牌程序
+- 案例: 发牌程序、生命游戏
 
 </div>
 
@@ -477,6 +477,99 @@ int main(void)
 </div>
 
 <!-- slide data-notes="" -->
+
+##### 案例: 生命游戏
+
+---
+
+细胞自动机: 网格里每个格子是"活(1)"或"死(0)", 每一代按==邻居==数更新:
+
+- 活细胞: 2 或 3 个活邻居 → 继续活; 否则死 (孤独或拥挤)
+
+- 死细胞: 恰好 3 个活邻居 → 复活
+
+样例: 竖着的"三连"过一代, 变横着的"三连":
+
+```
+00000        00000
+00100        00000
+00100  -->   01110
+00100        00000
+00000        00000
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 更新第 (i,j) 格时, 邻居们必须还是==旧一代==的
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 案例: 生命游戏 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 生命游戏: 一代更新 */
+#include <stdio.h>
+#define N 5
+
+int main(void)
+{
+  int old_grid[N][N] = {0,0,0,0,0, 0,0,1,0,0, 0,0,1,0,0,
+                        0,0,1,0,0, 0,0,0,0,0};
+  int new_grid[N][N];
+  int i, j, di, dj, count;
+
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++) {
+      count = 0;
+      for (di = -1; di <= 1; di++)
+        for (dj = -1; dj <= 1; dj++) {
+          int ni = i + di, nj = j + dj;
+          if (ni >= 0 && ni < N && nj >= 0 && nj < N && !(di == 0 && dj == 0))
+            if (old_grid[ni][nj])
+              count++;
+        }
+      if (old_grid[i][j])
+        new_grid[i][j] = (count == 2 || count == 3);
+      else
+        new_grid[i][j] = (count == 3);
+    }
+
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++)
+      printf("%d ", new_grid[i][j]);
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- ==两张表==是关键: 从 `old` 数邻居、写进 `new`——边数边改会把旧一代污染掉
+
+- 邻居计数: 外面两重定位格子, 里面两重扫 3×3 邻域 (去掉自己)
+
+- 边界: 棋盘外的格子当死细胞——`ni >= 0 && ni < N` 挡住
+
+- 想跑多代: 把 `new` 拷回 `old` 再来一轮——这就是==整张表更新==
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
 
 ##### 课堂小测 (1/2)
 
