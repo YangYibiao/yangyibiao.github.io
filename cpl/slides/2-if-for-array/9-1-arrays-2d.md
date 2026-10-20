@@ -505,6 +505,24 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
+##### 生命游戏: 动画演示
+
+---
+
+<video controls width="1100">
+  <source src="../4-loops/videos/Conway-Game-of-Life.mp4" type="video/mp4">
+  [下载视频](../4-loops/videos/Conway-Game-of-Life.mp4) 观看。
+</video>
+
+---
+
+[Conway's Game of Life @ wiki](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+
+---
+
+<!-- slide data-notes="" -->
+
+
 ##### 案例: 生命游戏 (参考代码)
 
 ---
