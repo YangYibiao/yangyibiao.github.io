@@ -787,6 +787,8 @@ int main(void)
 
 ==现场演示==: 读入 9×9 数独, 判断是否违反规则 (OJ 1081 同款)
 
+输入: 9 行, 每行 9 个整数 (1~9)
+
 规则: 每行、每列、每个 3×3 九宫格, 都恰好是 1~9 各一次
 
 样例输出:
@@ -802,86 +804,6 @@ Wrong   (有重复)
 
 <!-- slide data-notes="" -->
 
-
-<!-- slide data-notes="" -->
-
-
-##### 蛇形填数
-
----
-
-==现场演示==: n×n 的格子, 从 1 开始==螺旋==往里填
-
-样例 (n=5):
-
-```
- 1  2  3  4  5
-16 17 18 19  6
-15 24 25 20  7
-14 23 22 21  8
-13 12 11 10  9
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: 右、下、左、上四个方向轮流走; 每走完一边, 边界往里收一格
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 蛇形填数 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
-
-```C{.line-numbers}
-#include <stdio.h>
-#define N 5
-int main(void)
-{
-  int a[N][N] = {0};
-  int num = 1, top = 0, bottom = N - 1;
-  int left = 0, right = N - 1;
-  int i, j;
-
-  while (top <= bottom && left <= right) {
-    for (i = left; i <= right; i++) a[top][i] = num++;   /* → */
-    top++;
-    for (i = top; i <= bottom; i++) a[i][right] = num++; /* ↓ */
-    right--;
-    for (i = right; i >= left; i--) a[bottom][i] = num++;/* ← */
-    bottom--;
-    for (i = bottom; i >= top; i--) a[i][left] = num++;  /* ↑ */
-    left++;
-  }
-
-  for (i = 0; i < N; i++) {
-    for (j = 0; j < N; j++)
-      printf("%3d", a[i][j]);
-    printf("\n");
-  }
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- 四个==边界变量== (top/bottom/left/right) 每轮收缩——二维数组的"橡皮筋"
-
-- 四个方向的循环依次执行, 下标变化各不相同——走位练习的集大成
-
-- `num++` 顺手当计数器: 填一格、涨一个
-
-</div>
-
-</div>
-
----
 
 <!-- slide data-notes="" -->
 
