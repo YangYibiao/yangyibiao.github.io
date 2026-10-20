@@ -86,7 +86,7 @@ int m[5][9];
 <div class="row1-5-column2-10-fullborder">
 
 |     |   0    |   1    |   2    |   3    |   4    |   5    |   6    |   7    |   8    |
-| :-: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
 |  0  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
 |  1  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
 |  2  | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
