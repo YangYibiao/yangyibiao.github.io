@@ -640,7 +640,7 @@ int b[] = {[23] = 5};
 
 </div>
 
-<!-- slide data-notes="" --><!-- slide data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 案例: 平均分与高于平均
@@ -751,6 +751,9 @@ int main(void)
 </div>
 
 ---
+
+<!-- slide data-notes="" -->
+
 
 ##### 程序: 检查重复数字
 
