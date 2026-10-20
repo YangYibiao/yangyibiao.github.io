@@ -804,7 +804,7 @@ int main(void)
 HELLO
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: 前面讲过 char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?
 
 ---
 
