@@ -786,7 +786,7 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" --><!-- slide data-notes="" -->
+<!-- slide data-notes="" -->
 
 
 ##### 常量数组
@@ -817,6 +817,8 @@ const char hex_chars[] =
 - 下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案
 
 ---
+
+<!-- slide data-notes="" -->
 
 
 ##### 现场挑战: 平均分与高于平均
@@ -874,6 +876,8 @@ const char hex_chars[] =
 - 下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案
 
 ---
+
+<!-- slide data-notes="" -->
 
 
 ##### 现场挑战: 平均分与高于平均 (参考代码)
