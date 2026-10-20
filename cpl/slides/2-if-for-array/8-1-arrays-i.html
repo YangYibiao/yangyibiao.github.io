@@ -94,11 +94,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>案例: 数列反向、检查重复数字、大小写转换</p>
+<p>案例: 数列反向、平均分与高于平均、检查重复数字、大小写转换</p>
 
 </li>
 <li>
-<p>现场挑战: 平均分与高于平均、进制转换、回文数</p>
+<p>现场挑战: 进制转换、回文数</p>
 
 </li>
 <li>
@@ -592,7 +592,93 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="程序--检查重复数字">程序: 检查重复数字 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="案例--平均分与高于平均">案例: 平均分与高于平均 </h5>
+<hr>
+<p><mark>现场演示</mark>: 输入 10 个成绩, 输出平均分和<mark>高于平均分的人数</mark></p>
+<p>第一节课找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个成绩<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">8</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">2</span> <span class="token number">9</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">9</span> <span class="token number">4</span>
+平均分 <span class="token number">5.8</span><span class="token punctuation">,</span> 高于平均 <span class="token number">5</span> 人</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?</p>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="常量数组">常量数组 </h5>
+<hr>
+<p>声明数组时加 <code>const</code>, 数组就变成<mark>只读</mark>的:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'5'</span><span class="token punctuation">,</span> <span class="token string">'6'</span><span class="token punctuation">,</span> <span class="token string">'7'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span>
+   <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>程序不应修改声明为const的数组.</p>
+<p>声明成 const 的好处:</p>
+<ul>
+<li>
+<p>表明程序不会更改数组.</p>
+
+</li>
+<li>
+<p>帮助编译器捕获错误.</p>
+
+</li>
+<li>
+<p>const不仅限于数组, 也可用于任何别的变量.</p>
+
+</li>
+<li>
+<p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
+
+</li>
+<li>
+<p>下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="案例--平均分与高于平均--参考代码">案例: 平均分与高于平均 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 平均分与高于平均分的人数 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> score<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> avg<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 %d 个成绩: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sum <span class="token operator">+=</span> score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* 第一遍: 读入并求和 */</span>
+  <span class="token punctuation">}</span>
+  avg <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span> N<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>     <span class="token comment">/* 第二遍: 回头比平均 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> avg<span class="token punctuation">)</span>
+      count<span class="token operator">++</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"平均分 %.1f, 高于平均 %d 人\n"</span><span class="token punctuation">,</span> avg<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><mark>两遍扫描</mark>: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)</p>
+
+</li>
+<li>
+<p>对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"<mark>非两遍不可</mark></p>
+
+</li>
+<li>
+<p><code>sum / N</code> 是整数除法——<code>(double)</code> 强转, 不然 58/10 变成 5</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+<p>##### 程序: 检查重复数字</p>
 <hr>
 <p><mark>现场演示</mark>: 输入一个<mark>长整数</mark> (正数), 判断它的各位数字里有没有重复的 (如 28245 有重复的 2)</p>
 <p>样例:</p>
@@ -600,7 +686,93 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 有重复数字</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 前面的"拆数字"先用起来; 关键是<mark>怎么记住</mark>哪些数字已经出现过</p>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="程序--检查重复数字--参考代码">程序: 检查重复数字 (参考代码) </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="案例--平均分与高于平均">案例: 平均分与高于平均 </h5>
+<hr>
+<p><mark>现场演示</mark>: 输入 10 个成绩, 输出平均分和<mark>高于平均分的人数</mark></p>
+<p>第一节课找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个成绩<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">8</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">2</span> <span class="token number">9</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">9</span> <span class="token number">4</span>
+平均分 <span class="token number">5.8</span><span class="token punctuation">,</span> 高于平均 <span class="token number">5</span> 人</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?</p>
+<hr>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="常量数组">常量数组 </h5>
+<hr>
+<p>声明数组时加 <code>const</code>, 数组就变成<mark>只读</mark>的:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'5'</span><span class="token punctuation">,</span> <span class="token string">'6'</span><span class="token punctuation">,</span> <span class="token string">'7'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span>
+   <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>程序不应修改声明为const的数组.</p>
+<p>声明成 const 的好处:</p>
+<ul>
+<li>
+<p>表明程序不会更改数组.</p>
+
+</li>
+<li>
+<p>帮助编译器捕获错误.</p>
+
+</li>
+<li>
+<p>const不仅限于数组, 也可用于任何别的变量.</p>
+
+</li>
+<li>
+<p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
+
+</li>
+<li>
+<p>下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="案例--平均分与高于平均--参考代码">案例: 平均分与高于平均 (参考代码) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 平均分与高于平均分的人数 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> score<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> avg<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 %d 个成绩: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sum <span class="token operator">+=</span> score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* 第一遍: 读入并求和 */</span>
+  <span class="token punctuation">}</span>
+  avg <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span> N<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>     <span class="token comment">/* 第二遍: 回头比平均 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> avg<span class="token punctuation">)</span>
+      count<span class="token operator">++</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"平均分 %.1f, 高于平均 %d 人\n"</span><span class="token punctuation">,</span> avg<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<ul>
+<li>
+<p><mark>两遍扫描</mark>: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)</p>
+
+</li>
+<li>
+<p>对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"<mark>非两遍不可</mark></p>
+
+</li>
+<li>
+<p><code>sum / N</code> 是整数除法——<code>(double)</code> 强转, 不然 58/10 变成 5</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+<p>##### 程序: 检查重复数字 (参考代码)</p>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -651,7 +823,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="案例--大小写转换">案例: 大小写转换 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="案例--大小写转换">案例: 大小写转换 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个单词 (不含空格), 全部转成大写输出</p>
 <p>样例:</p>
@@ -659,7 +831,7 @@ a<span class="token punctuation">[</span><span class="token number">5</span><spa
 HELLO</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 前面讲过 char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?</p>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="案例--大小写转换--参考代码">案例: 大小写转换 (参考代码) </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="案例--大小写转换--参考代码">案例: 大小写转换 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -708,93 +880,46 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="现场挑战--平均分与高于平均">现场挑战: 平均分与高于平均 </h5>
-<hr>
-<p><mark>现场演示</mark>: 输入 10 个成绩, 输出平均分和<mark>高于平均分的人数</mark></p>
-<p>第一节课找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?</p>
-<p>样例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个成绩<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">8</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">2</span> <span class="token number">9</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">9</span> <span class="token number">4</span>
-平均分 <span class="token number">5.8</span><span class="token punctuation">,</span> 高于平均 <span class="token number">5</span> 人</code></pre>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?</p>
-<hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="常量数组">常量数组 </h5>
-<hr>
-<p>声明数组时加 <code>const</code>, 数组就变成<mark>只读</mark>的:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
-  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'5'</span><span class="token punctuation">,</span> <span class="token string">'6'</span><span class="token punctuation">,</span> <span class="token string">'7'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span>
-   <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>程序不应修改声明为const的数组.</p>
-<p>声明成 const 的好处:</p>
-<ul>
-<li>
-<p>表明程序不会更改数组.</p>
-
-</li>
-<li>
-<p>帮助编译器捕获错误.</p>
-
-</li>
-<li>
-<p>const不仅限于数组, 也可用于任何别的变量.</p>
-
-</li>
-<li>
-<p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
-
-</li>
-<li>
-<p>下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="现场挑战--平均分与高于平均--参考代码">现场挑战: 平均分与高于平均 (参考代码) </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="常量数组--查表">常量数组: 查表 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 平均分与高于平均分的人数 */</span>
+<div style="flex:1.3;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 0~15 转十六进制字符 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> score<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-double">double</span> avg<span class="token punctuation">;</span>
+  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+    <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span><span class="token string">'1'</span><span class="token punctuation">,</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span><span class="token string">'9'</span><span class="token punctuation">,</span>
+     <span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'B'</span><span class="token punctuation">,</span><span class="token string">'C'</span><span class="token punctuation">,</span><span class="token string">'D'</span><span class="token punctuation">,</span><span class="token string">'E'</span><span class="token punctuation">,</span><span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 %d 个成绩: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    sum <span class="token operator">+=</span> score<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* 第一遍: 读入并求和 */</span>
-  <span class="token punctuation">}</span>
-  avg <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span> N<span class="token punctuation">;</span>
-
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>     <span class="token comment">/* 第二遍: 回头比平均 */</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>score<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> avg<span class="token punctuation">)</span>
-      count<span class="token operator">++</span><span class="token punctuation">;</span>
-
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"平均分 %.1f, 高于平均 %d 人\n"</span><span class="token punctuation">,</span> avg<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 0~15: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> hex_chars<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 下标查表 */</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<p>做完了几个案例, 学一个新工具: 用数组<mark>查表</mark></p>
 <ul>
 <li>
-<p><mark>两遍扫描</mark>: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)</p>
+<p>声明时加 <code>const</code>, 数组变成<mark>只读</mark>——编译器帮你看住, 想改直接报错</p>
 
 </li>
 <li>
-<p>对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"<mark>非两遍不可</mark></p>
+<p>查表: 值当下标, 取出对应字符——repdigit 的标志数组是"记", 这张表是"取"</p>
 
 </li>
 <li>
-<p><code>sum / N</code> 是整数除法——<code>(double)</code> 强转, 不然 58/10 变成 5</p>
+<p>下一题进制转换的 16 进制输出、下节课生命游戏的图案打印, 都要靠它</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="现场挑战--进制转换">现场挑战: 进制转换 </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="现场挑战--进制转换">现场挑战: 进制转换 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入十进制数 n 和进制 base (2~16), 输出转换结果</p>
 <p>样例:</p>
@@ -806,7 +931,7 @@ HELLO</code></pre>
 <span class="token number">1</span>f</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 注意输出顺序——先算出来的数字要后输出</p>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="进制转换--先动手算一遍">进制转换: 先动手算一遍 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="进制转换--先动手算一遍">进制转换: 先动手算一遍 </h5>
 <hr>
 <p>13 转二进制, 短除法:</p>
 <table>
@@ -839,29 +964,46 @@ HELLO</code></pre>
 <p>发现: 先算出来的余数要<mark>最后输出</mark>——顺序正好反了</p>
 <p>把"反了"掰正: 存进数组, 倒着打——就是数列反向的写法</p>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="进制转换--16-进制怎么输出">进制转换: 16 进制怎么输出? </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="常量数组--查表">常量数组: 查表 </h5>
 <hr>
-<p>16 进制有字母 a~f, <code>printf("%d")</code> 打不出来——用一张<mark>对照表</mark>按下标取字符:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> digit<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
-  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span><span class="token string">'1'</span><span class="token punctuation">,</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span><span class="token string">'9'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">,</span><span class="token string">'b'</span><span class="token punctuation">,</span><span class="token string">'c'</span><span class="token punctuation">,</span><span class="token string">'d'</span><span class="token punctuation">,</span><span class="token string">'e'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 0~15 转十六进制字符 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> digit<span class="token punctuation">[</span>digits<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* digits[i] 是 0~15 */</span></code></pre>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> hex_chars<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+    <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span><span class="token string">'1'</span><span class="token punctuation">,</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span><span class="token string">'9'</span><span class="token punctuation">,</span>
+     <span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'B'</span><span class="token punctuation">,</span><span class="token string">'C'</span><span class="token punctuation">,</span><span class="token string">'D'</span><span class="token punctuation">,</span><span class="token string">'E'</span><span class="token punctuation">,</span><span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 0~15: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c\n"</span><span class="token punctuation">,</span> hex_chars<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 下标查表 */</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p>做完了几个案例, 学一个新工具: 用数组<mark>查表</mark></p>
 <ul>
 <li>
-<p>表是只读的: 声明时加 <code>const</code>, 编译器帮你看住——想改它直接报错</p>
+<p>声明时加 <code>const</code>, 数组变成<mark>只读</mark>——编译器帮你看住, 想改直接报错</p>
 
 </li>
 <li>
-<p>这正是<mark>常量数组</mark>的经典用途: 查表</p>
+<p>查表: 值当下标, 取出对应字符——repdigit 的标志数组是"记", 这张表是"取"</p>
 
 </li>
 <li>
-<p>下节课的生命游戏打印图案, 用的就是这一招</p>
+<p>下一题进制转换的 16 进制输出、下节课生命游戏的图案打印, 都要靠它</p>
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="现场挑战--进制转换--参考代码">现场挑战: 进制转换 (参考代码) </h5>
+</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="现场挑战--进制转换--参考代码">现场挑战: 进制转换 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -900,14 +1042,14 @@ HELLO</code></pre>
 
 </li>
 <li>
-<p>输出用的就是上一页的 const 查表——数字 0~15 变字符</p>
+<p>输出用的就是前面学的 const 查表——数字 0~15 变字符</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="现场挑战--回文数">现场挑战: 回文数 </h5>
+</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="现场挑战--回文数">现场挑战: 回文数 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个整数, 判断它是不是<mark>回文数</mark> (正着读倒着读一样, 如 1221、12321)</p>
 <p>样例:</p>
@@ -917,7 +1059,7 @@ HELLO</code></pre>
 <span class="token number">1234</span> 不是回文数</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 先想清楚"第 i 位"和"倒数第 i 位"在数组里的下标关系</p>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="现场挑战--回文数--参考代码">现场挑战: 回文数 (参考代码) </h5>
+</section><section data-notes="" lineno="542" class="slide " data-source-line="542" data-h="35" data-v="0"><h5 id="现场挑战--回文数--参考代码">现场挑战: 回文数 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -965,7 +1107,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
+</section><section data-notes="" lineno="556" class="slide " data-source-line="556" data-h="36" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
 <hr>
 <ul>
 <li>
@@ -982,7 +1124,7 @@ HELLO</code></pre>
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
+</section><section data-notes="" lineno="570" class="slide " data-source-line="570" data-h="37" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -1014,7 +1156,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
+</section><section data-notes="" lineno="584" class="slide " data-source-line="584" data-h="38" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -1043,7 +1185,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
+</section><section data-notes="" lineno="598" class="slide " data-source-line="598" data-h="39" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
 <hr>
 <p><mark>课堂互动</mark>: 下面三段代码都是 AI 写的——每组先投票: <mark>有 bug / 没 bug</mark></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 公共前提 */</span>
@@ -1064,7 +1206,7 @@ HELLO</code></pre>
 <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>      <span class="token comment">/* 以为全是 1? */</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 三个 bug 都是本讲刚讲过的知识点</p>
 <hr>
-</section><section data-notes="" lineno="542" class="slide " data-source-line="542" data-h="35" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
+</section><section data-notes="" lineno="612" class="slide " data-source-line="612" data-h="40" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
 <hr>
 <p>① <mark>有 bug</mark>: 下标越界 (<code>a[N]</code> 不存在) 且漏了 <code>a[0]</code>——正确写法 <code>for (i = 0; i &lt; N; i++)</code></p>
 <hr>
@@ -1074,7 +1216,7 @@ HELLO</code></pre>
 <hr>
 <p><mark>带走清单</mark>: 下标 0~n-1 吗? 最值用 <code>a[0]</code> 起步吗? 初始化式比数组短会怎样? ——写数组循环前先问自己这三句</p>
 <hr>
-</section><section data-notes="" lineno="556" class="slide " data-source-line="556" data-h="36" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
+</section><section data-notes="" lineno="626" class="slide " data-source-line="626" data-h="41" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
 <hr>
 <ol>
 <li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？
@@ -1083,7 +1225,7 @@ HELLO</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="570" class="slide " data-source-line="570" data-h="37" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
+</section><section data-notes="" lineno="640" class="slide " data-source-line="640" data-h="42" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
 <hr>
 <ol>
 <li>写代码: 找出数组 {5, 2, 9, 1} 中的最小值。
@@ -1092,7 +1234,7 @@ HELLO</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="38" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="43" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">

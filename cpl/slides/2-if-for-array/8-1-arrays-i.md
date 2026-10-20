@@ -57,9 +57,9 @@ presentation:
 
 - 为什么需要数组
 
-- 案例: 数列反向、检查重复数字、大小写转换
+- 案例: 数列反向、平均分与高于平均、检查重复数字、大小写转换
 
-- 现场挑战: 平均分与高于平均、进制转换、回文数
+- 现场挑战: 进制转换、回文数
 
 - sizeof 与变长数组
 
@@ -640,7 +640,119 @@ int b[] = {[23] = 5};
 
 </div>
 
-<!-- slide data-notes="" -->##### 程序: 检查重复数字
+<!-- slide data-notes="" --><!-- slide data-notes="" -->
+
+
+##### 案例: 平均分与高于平均
+
+---
+
+==现场演示==: 输入 10 个成绩, 输出平均分和==高于平均分的人数==
+
+第一节课找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?
+
+样例:
+
+```
+输入 10 个成绩: 5 8 3 8 2 9 1 9 9 4
+平均分 5.8, 高于平均 5 人
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+<!-- slide data-notes="" -->
+
+
+##### 常量数组
+
+---
+
+声明数组时加 `const`, 数组就变成==只读==的: 
+
+```C
+const char hex_chars[] =
+  {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+   'A', 'B', 'C', 'D', 'E', 'F'};
+```
+
+程序不应修改声明为const的数组.
+
+
+声明成 const 的好处: 
+
+- 表明程序不会更改数组. 
+
+- 帮助编译器捕获错误. 
+
+- const不仅限于数组, 也可用于任何别的变量. 
+
+- const常用于数组的声明, 以保护在程序执行过程中不变的信息.
+
+- 下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 案例: 平均分与高于平均 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 平均分与高于平均分的人数 */
+#include <stdio.h>
+#define N 10
+
+int main(void)
+{
+  int score[N], i, sum = 0, count = 0;
+  double avg;
+
+  printf("输入 %d 个成绩: ", N);
+  for (i = 0; i < N; i++) {
+    scanf("%d", &score[i]);
+    sum += score[i];          /* 第一遍: 读入并求和 */
+  }
+  avg = sum / (double) N;
+
+  for (i = 0; i < N; i++)     /* 第二遍: 回头比平均 */
+    if (score[i] > avg)
+      count++;
+
+  printf("平均分 %.1f, 高于平均 %d 人\n", avg, count);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- ==两遍扫描==: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)
+
+- 对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"==非两遍不可==
+
+- `sum / N` 是整数除法——`(double)` 强转, 不然 58/10 变成 5
+
+</div>
+
+</div>
+
+---
+
+##### 程序: 检查重复数字
 
 ---
 
@@ -661,6 +773,118 @@ int b[] = {[23] = 5};
 
 <!-- slide data-notes="" -->
 
+
+<!-- slide data-notes="" -->
+
+
+##### 案例: 平均分与高于平均
+
+---
+
+==现场演示==: 输入 10 个成绩, 输出平均分和==高于平均分的人数==
+
+第一节课找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?
+
+样例:
+
+```
+输入 10 个成绩: 5 8 3 8 2 9 1 9 9 4
+平均分 5.8, 高于平均 5 人
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?
+
+---
+
+
+
+<!-- slide data-notes="" -->
+
+
+<!-- slide data-notes="" -->
+
+
+##### 常量数组
+
+---
+
+声明数组时加 `const`, 数组就变成==只读==的: 
+
+```C
+const char hex_chars[] =
+  {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+   'A', 'B', 'C', 'D', 'E', 'F'};
+```
+
+程序不应修改声明为const的数组.
+
+
+声明成 const 的好处: 
+
+- 表明程序不会更改数组. 
+
+- 帮助编译器捕获错误. 
+
+- const不仅限于数组, 也可用于任何别的变量. 
+
+- const常用于数组的声明, 以保护在程序执行过程中不变的信息.
+
+- 下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 案例: 平均分与高于平均 (参考代码)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+/* 平均分与高于平均分的人数 */
+#include <stdio.h>
+#define N 10
+
+int main(void)
+{
+  int score[N], i, sum = 0, count = 0;
+  double avg;
+
+  printf("输入 %d 个成绩: ", N);
+  for (i = 0; i < N; i++) {
+    scanf("%d", &score[i]);
+    sum += score[i];          /* 第一遍: 读入并求和 */
+  }
+  avg = sum / (double) N;
+
+  for (i = 0; i < N; i++)     /* 第二遍: 回头比平均 */
+    if (score[i] > avg)
+      count++;
+
+  printf("平均分 %.1f, 高于平均 %d 人\n", avg, count);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+- ==两遍扫描==: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)
+
+- 对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"==非两遍不可==
+
+- `sum / N` 是整数除法——`(double)` 强转, 不然 58/10 变成 5
+
+</div>
+
+</div>
+
+---
 
 ##### 程序: 检查重复数字 (参考代码)
 
@@ -786,98 +1010,28 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### 现场挑战: 平均分与高于平均
-
----
-
-==现场演示==: 输入 10 个成绩, 输出平均分和==高于平均分的人数==
-
-第一节课找最高分, 一个变量流式搞定; 现在要先算平均、再回头比每个人——还能不存吗?
-
-样例:
-
-```
-输入 10 个成绩: 5 8 3 8 2 9 1 9 9 4
-平均分 5.8, 高于平均 5 人
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?
-
----
-
-
-
-<!-- slide data-notes="" -->
-
-
-<!-- slide data-notes="" -->
-
-
-##### 常量数组
-
----
-
-声明数组时加 `const`, 数组就变成==只读==的: 
-
-```C
-const char hex_chars[] =
-  {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-   'A', 'B', 'C', 'D', 'E', 'F'};
-```
-
-程序不应修改声明为const的数组.
-
-
-声明成 const 的好处: 
-
-- 表明程序不会更改数组. 
-
-- 帮助编译器捕获错误. 
-
-- const不仅限于数组, 也可用于任何别的变量. 
-
-- const常用于数组的声明, 以保护在程序执行过程中不变的信息.
-
-- 下节课的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 现场挑战: 平均分与高于平均 (参考代码)
+<!-- slide data-notes="" -->##### 常量数组: 查表
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
-/* 平均分与高于平均分的人数 */
+/* 0~15 转十六进制字符 */
 #include <stdio.h>
-#define N 10
 
 int main(void)
 {
-  int score[N], i, sum = 0, count = 0;
-  double avg;
+  const char hex_chars[] =
+    {'0','1','2','3','4','5','6','7','8','9',
+     'A','B','C','D','E','F'};
 
-  printf("输入 %d 个成绩: ", N);
-  for (i = 0; i < N; i++) {
-    scanf("%d", &score[i]);
-    sum += score[i];          /* 第一遍: 读入并求和 */
-  }
-  avg = sum / (double) N;
-
-  for (i = 0; i < N; i++)     /* 第二遍: 回头比平均 */
-    if (score[i] > avg)
-      count++;
-
-  printf("平均分 %.1f, 高于平均 %d 人\n", avg, count);
+  int n;
+  printf("输入 0~15: ");
+  scanf("%d", &n);
+  printf("%c\n", hex_chars[n]);   /* 下标查表 */
   return 0;
 }
 ```
@@ -886,11 +1040,13 @@ int main(void)
 
 <div style="flex:1;">
 
-- ==两遍扫描==: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)
+做完了几个案例, 学一个新工具: 用数组==查表==
 
-- 对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"==非两遍不可==
+- 声明时加 `const`, 数组变成==只读==——编译器帮你看住, 想改直接报错
 
-- `sum / N` 是整数除法——`(double)` 强转, 不然 58/10 变成 5
+- 查表: 值当下标, 取出对应字符——repdigit 的标志数组是"记", 这张表是"取"
+
+- 下一题进制转换的 16 进制输出、下节课生命游戏的图案打印, 都要靠它
 
 </div>
 
@@ -898,7 +1054,10 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 现场挑战: 进制转换
+<!-- slide data-notes="" -->
+
+
+##### 现场挑战: 进制转换
 
 ---
 
@@ -954,24 +1113,47 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 进制转换: 16 进制怎么输出?
+##### 常量数组: 查表
 
 ---
 
-16 进制有字母 a~f, `printf("%d")` 打不出来——用一张==对照表==按下标取字符:
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-```C
-const char digit[] =
-  {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+<div style="flex:1.3;font-size:0.62em;">
 
-printf("%c", digit[digits[i]]);  /* digits[i] 是 0~15 */
+```C{.line-numbers}
+/* 0~15 转十六进制字符 */
+#include <stdio.h>
+
+int main(void)
+{
+  const char hex_chars[] =
+    {'0','1','2','3','4','5','6','7','8','9',
+     'A','B','C','D','E','F'};
+
+  int n;
+  printf("输入 0~15: ");
+  scanf("%d", &n);
+  printf("%c\n", hex_chars[n]);   /* 下标查表 */
+  return 0;
+}
 ```
 
-- 表是只读的: 声明时加 `const`, 编译器帮你看住——想改它直接报错
+</div>
 
-- 这正是==常量数组==的经典用途: 查表
+<div style="flex:1;">
 
-- 下节课的生命游戏打印图案, 用的就是这一招
+做完了几个案例, 学一个新工具: 用数组==查表==
+
+- 声明时加 `const`, 数组变成==只读==——编译器帮你看住, 想改直接报错
+
+- 查表: 值当下标, 取出对应字符——repdigit 的标志数组是"记", 这张表是"取"
+
+- 下一题进制转换的 16 进制输出、下节课生命游戏的图案打印, 都要靠它
+
+</div>
+
+</div>
 
 ---
 
@@ -1020,7 +1202,7 @@ int main(void)
 
 - `len` 既是"下一个空位"又是"已存个数"——数组配合计数变量的经典搭档
 
-- 输出用的就是上一页的 const 查表——数字 0~15 变字符
+- 输出用的就是前面学的 const 查表——数字 0~15 变字符
 
 </div>
 
