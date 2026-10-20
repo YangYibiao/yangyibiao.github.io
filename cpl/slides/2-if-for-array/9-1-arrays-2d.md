@@ -59,7 +59,7 @@ presentation:
 
 - ==矩阵运算==: 转置、乘法、统计
 
-- 案例: 发牌程序、生命游戏
+- 案例: 幻方、生命游戏
 
 </div>
 
@@ -385,73 +385,70 @@ const char hex_chars[] =
 <!-- slide data-notes="" -->
 
 
-##### 程序: 发牌
+##### 案例: 幻方
 
 ---
 
-`deal.c`程序说明了二维数组和常量数组的用法. 
+==幻方==: n×n 的格子填 1 ~ n², 每行、每列、两条对角线的和都相等
 
-该程序从一副标准的扑克牌中随机处理一手牌. 
+奇数阶幻方的经典构造法 (de la Loubère):
 
-标准套牌中的每张牌都有花色{梅花&clubs;(`c`), 方块&diams;(`d`), 红桃&hearts;(`h`), 黑桃&spades;(`s`)}和等级{$2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A$}.
+- 1 放在第一行正中间
 
+- 下一个数往==右上==走一格; 走出棋盘就==回绕==
 
-用户将指定手中应该有多少张牌: 
+- 右上已被占用, 就改往==正下==走一格
 
-输入手牌数量: <u>5</u>
-你的牌: 7c 2s 5d as 2h
+样例 (n=3):
 
-需要解决的问题: 
+```
+ 8  1  6
+ 3  5  7
+ 4  9  2
+```
 
-- 如何从牌组中随机挑选牌？
-
-- 如何避免两次选择同一张牌？
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 先想清楚"右上"对应两个下标怎么变, "回绕"用什么运算
 
 ---
-
 
 <!-- slide data-notes="" -->
 
 
-##### 程序: 发牌 (代码)
+##### 案例: 幻方 (参考代码)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
-/* 随机发牌 */
+/* 奇数阶幻方: 右上走 + 回绕 + 冲突下移 */
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#define NUM_SUITS 4
-#define NUM_RANKS 13
+#define N 3
 
 int main(void)
 {
-  int in_hand[NUM_SUITS][NUM_RANKS] = {0};   /* 52 张牌, 0=还没发 */
-  int num_cards, rank, suit;
-  const char rank_code[] = {'2','3','4','5','6','7','8',
-                            '9','t','j','q','k','a'};   /* t 代表 10 */
-  const char suit_code[] = {'c','d','h','s'};
+  int magic[N][N] = {0};
+  int i, j, num;
 
-  srand((unsigned) time(NULL));
-  printf("输入手牌数量: ");
-  scanf("%d", &num_cards);
-  printf("你的牌:");
-  while (num_cards > 0) {
-    suit = rand() % NUM_SUITS;    /* 随机花色 0~3 */
-    rank = rand() % NUM_RANKS;    /* 随机等级 0~12 */
-    if (!in_hand[suit][rank]) {
-      in_hand[suit][rank] = 1;
-      num_cards--;
-      printf(" %c%c", rank_code[rank], suit_code[suit]);
+  i = 0; j = N / 2;              /* 1 放在第一行正中间 */
+  for (num = 1; num <= N * N; num++) {
+    magic[i][j] = num;
+    int ni = (i - 1 + N) % N;    /* 右上候选 (回绕) */
+    int nj = (j + 1) % N;
+    if (magic[ni][nj] != 0) {    /* 被占: 改往正下 */
+      i = (i + 1) % N;
+    } else {
+      i = ni; j = nj;
     }
   }
-  printf("\n");
+
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++)
+      printf("%3d", magic[i][j]);
+    printf("\n");
+  }
   return 0;
 }
 ```
@@ -460,17 +457,13 @@ int main(void)
 
 <div style="flex:1;">
 
-- 随机: `srand(time)` 播种 + `rand() % 4` / `% 13` 把返回值缩放到 0~3 / 0~12
+- "右上"是两个下标的==同时变化==: 行 -1、列 +1——二维数组的下标游戏
 
-- 去重: `in_hand` 是 4×13 的==标志数组==——每张牌一个格子, 发过置 1, 重复就重抽
+- 走出棋盘用 `% N` ==回绕==——第 3 周取余的又一次实战
 
-- 查表: `rank_code[rank]`、`suit_code[suit]`——下标取字符, 数组当==对照表==用
+- 格子非 0 就是已被占用: 用数组内容==做标记==, 不用额外的 visited 数组
 
-- `const`: 两张表全程不变, 声明成只读——编译器帮你看住
-
-- 10 用 `'t'` 表示: 两位数会破坏"两字符一张牌"的格式
-
-<a href="code/deal.c" target="_blank">deal.c</a>
+- 把 N 改成 5, 就是 5×5 幻方——每行和都是 65
 
 </div>
 
