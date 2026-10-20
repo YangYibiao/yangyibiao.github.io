@@ -562,7 +562,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.55em;">
+<div style="flex:1;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* 生命游戏: 一代更新 */
