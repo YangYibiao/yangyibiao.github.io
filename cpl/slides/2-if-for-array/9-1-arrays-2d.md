@@ -353,9 +353,11 @@ int a[3][4] = { {1, 2, 3, 4},
                   {9, 10, 11, 12} };
 int b[4][3];
 
-for (int i = 0; i < 3; i++)
-  for (int j = 0; j < 4; j++)
+for (int i = 0; i < 3; i++) {
+  for (int j = 0; j < 4; j++) {
     b[j][i] = a[i][j];   /* 行列互换 */
+  }
+}
 ```
 
 - 3×4 的矩阵 a 转置后是 4×3 的矩阵 b
@@ -375,12 +377,14 @@ for (int i = 0; i < 3; i++)
 
 ```C
 /* a: m×n, b: n×p, c: m×p */
-for (int i = 0; i < m; i++)
+for (int i = 0; i < m; i++) {
   for (int j = 0; j < p; j++) {
     c[i][j] = 0;
-    for (int k = 0; k < n; k++)
+    for (int k = 0; k < n; k++) {
       c[i][j] += a[i][k] * b[k][j];
+    }
   }
+}
 ```
 
 - ==三层循环==: 外层两重选行与列, 最内层求和
@@ -402,11 +406,12 @@ for (int i = 0; i < m; i++)
 /* scores: 5 名学生 × 3 门课 */
 int row_sum[5] = {0}, col_sum[3] = {0};
 
-for (int i = 0; i < 5; i++)
+for (int i = 0; i < 5; i++) {
   for (int j = 0; j < 3; j++) {
     row_sum[i] += scores[i][j];   /* 每行: 某学生的总分 */
     col_sum[j] += scores[i][j];   /* 每列: 某门课的总分 */
   }
+}
 ```
 
 - ==一次遍历同时算两个方向==: 行和进 row_sum[i], 列和进 col_sum[j]
@@ -569,21 +574,23 @@ int main(void)
   const char cell[] = {'.', '#'};   /* 对照表: 0->. 1-># */
   int i, j, di, dj, count;
 
-  for (i = 0; i < N; i++)
+  for (i = 0; i < N; i++) {
     for (j = 0; j < N; j++) {
       count = 0;
-      for (di = -1; di <= 1; di++)
+      for (di = -1; di <= 1; di++) {
         for (dj = -1; dj <= 1; dj++) {
           int ni = i + di, nj = j + dj;
           if (ni >= 0 && ni < N && nj >= 0 && nj < N && !(di == 0 && dj == 0))
             if (old_grid[ni][nj])
               count++;
         }
+      }
       if (old_grid[i][j])
         new_grid[i][j] = (count == 2 || count == 3);
       else
         new_grid[i][j] = (count == 3);
     }
+  }
 
   for (i = 0; i < N; i++) {
     for (j = 0; j < N; j++)
