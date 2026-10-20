@@ -561,7 +561,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.2;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* 生命游戏: 一代更新 */
@@ -658,7 +658,7 @@ int main(void)
 
 <div class="bottom20"></div>
 
-# 周三见!
+# 下周见!
 
 <hr class="width50 center">
 
