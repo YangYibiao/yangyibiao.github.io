@@ -719,9 +719,6 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-<!-- slide data-notes="" -->
-
-
 ##### 备选: 蛇形填数
 
 ---
@@ -798,6 +795,9 @@ int main(void)
 </div>
 
 ---
+
+<!-- slide data-notes="" -->
+
 
 ##### 备选: 数独校验
 
@@ -900,6 +900,9 @@ int main(void)
 </div>
 
 ---
+
+<!-- slide data-notes="" -->
+
 
 ##### 备选: 数独校验 (参考代码)
 
