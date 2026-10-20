@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>案例: 发牌程序、生命游戏</p>
+<p>案例: 幻方、生命游戏</p>
 
 </li>
 </ul>
@@ -410,86 +410,82 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--发牌">程序: 发牌 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="案例--幻方">案例: 幻方 </h5>
 <hr>
-<p><code>deal.c</code>程序说明了二维数组和常量数组的用法.</p>
-<p>该程序从一副标准的扑克牌中随机处理一手牌.</p>
-<p>标准套牌中的每张牌都有花色{梅花&clubs;(<code>c</code>), 方块&diams;(<code>d</code>), 红桃&hearts;(<code>h</code>), 黑桃&spades;(<code>s</code>)}和等级{\(2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A\)}.</p>
-<p>用户将指定手中应该有多少张牌:</p>
-<p>输入手牌数量: <u>5</u> 你的牌: 7c 2s 5d as 2h</p>
-<p>需要解决的问题:</p>
+<p><mark>幻方</mark>: n×n 的格子填 1 ~ n², 每行、每列、两条对角线的和都相等</p>
+<p>奇数阶幻方的经典构造法 (de la Loubère):</p>
 <ul>
 <li>
-<p>如何从牌组中随机挑选牌？</p>
+<p>1 放在第一行正中间</p>
 
 </li>
 <li>
-<p>如何避免两次选择同一张牌？</p>
+<p>下一个数往<mark>右上</mark>走一格; 走出棋盘就<mark>回绕</mark></p>
+
+</li>
+<li>
+<p>右上已被占用, 就改往<mark>正下</mark>走一格</p>
 
 </li>
 </ul>
+<p>样例 (n=3):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code> <span class="token number">8</span>  <span class="token number">1</span>  <span class="token number">6</span>
+ <span class="token number">3</span>  <span class="token number">5</span>  <span class="token number">7</span>
+ <span class="token number">4</span>  <span class="token number">9</span>  <span class="token number">2</span></code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 先想清楚"右上"对应两个下标怎么变, "回绕"用什么运算</p>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--发牌--代码">程序: 发牌 (代码) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="案例--幻方--参考代码">案例: 幻方 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 随机发牌 */</span>
+<div style="flex:1.3;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 奇数阶幻方: 右上走 + 回绕 + 冲突下移 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_SUITS 4</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> NUM_RANKS 13</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 3</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> in_hand<span class="token punctuation">[</span>NUM_SUITS<span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_RANKS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* 52 张牌, 0=还没发 */</span>
-  <span class="token keyword keyword-int">int</span> num_cards<span class="token punctuation">,</span> rank<span class="token punctuation">,</span> suit<span class="token punctuation">;</span>
-  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> rank_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span>
-                            <span class="token string">'9'</span><span class="token punctuation">,</span><span class="token string">'t'</span><span class="token punctuation">,</span><span class="token string">'j'</span><span class="token punctuation">,</span><span class="token string">'q'</span><span class="token punctuation">,</span><span class="token string">'k'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* t 代表 10 */</span>
-  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> suit_code<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'c'</span><span class="token punctuation">,</span><span class="token string">'d'</span><span class="token punctuation">,</span><span class="token string">'h'</span><span class="token punctuation">,</span><span class="token string">'s'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> magic<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> num<span class="token punctuation">;</span>
 
-  <span class="token function">srand</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span><span class="token punctuation">)</span> <span class="token function">time</span><span class="token punctuation">(</span>NULL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入手牌数量: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>num_cards<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"你的牌:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>num_cards <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    suit <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_SUITS<span class="token punctuation">;</span>    <span class="token comment">/* 随机花色 0~3 */</span>
-    rank <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> NUM_RANKS<span class="token punctuation">;</span>    <span class="token comment">/* 随机等级 0~12 */</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>in_hand<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">[</span>rank<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      in_hand<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">[</span>rank<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-      num_cards<span class="token operator">--</span><span class="token punctuation">;</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %c%c"</span><span class="token punctuation">,</span> rank_code<span class="token punctuation">[</span>rank<span class="token punctuation">]</span><span class="token punctuation">,</span> suit_code<span class="token punctuation">[</span>suit<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">=</span> N <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>              <span class="token comment">/* 1 放在第一行正中间 */</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> num <span class="token operator">&lt;=</span> N <span class="token operator">*</span> N<span class="token punctuation">;</span> num<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    magic<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> ni <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">+</span> N<span class="token punctuation">)</span> <span class="token operator">%</span> N<span class="token punctuation">;</span>    <span class="token comment">/* 右上候选 (回绕) */</span>
+    <span class="token keyword keyword-int">int</span> nj <span class="token operator">=</span> <span class="token punctuation">(</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> N<span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>magic<span class="token punctuation">[</span>ni<span class="token punctuation">]</span><span class="token punctuation">[</span>nj<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment">/* 被占: 改往正下 */</span>
+      i <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> N<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+      i <span class="token operator">=</span> ni<span class="token punctuation">;</span> j <span class="token operator">=</span> nj<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%3d"</span><span class="token punctuation">,</span> magic<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
 <ul>
 <li>
-<p>随机: <code>srand(time)</code> 播种 + <code>rand() % 4</code> / <code>% 13</code> 把返回值缩放到 0~3 / 0~12</p>
+<p>"右上"是两个下标的<mark>同时变化</mark>: 行 -1、列 +1——二维数组的下标游戏</p>
 
 </li>
 <li>
-<p>去重: <code>in_hand</code> 是 4×13 的<mark>标志数组</mark>——每张牌一个格子, 发过置 1, 重复就重抽</p>
+<p>走出棋盘用 <code>% N</code> <mark>回绕</mark>——第 3 周取余的又一次实战</p>
 
 </li>
 <li>
-<p>查表: <code>rank_code[rank]</code>、<code>suit_code[suit]</code>——下标取字符, 数组当<mark>对照表</mark>用</p>
+<p>格子非 0 就是已被占用: 用数组内容<mark>做标记</mark>, 不用额外的 visited 数组</p>
 
 </li>
 <li>
-<p><code>const</code>: 两张表全程不变, 声明成只读——编译器帮你看住</p>
-
-</li>
-<li>
-<p>10 用 <code>'t'</code> 表示: 两位数会破坏"两字符一张牌"的格式</p>
+<p>把 N 改成 5, 就是 5×5 幻方——每行和都是 65</p>
 
 </li>
 </ul>
-<a href="code/deal.c" target="_blank">deal.c</a>
 </div>
 </div>
 <hr>
