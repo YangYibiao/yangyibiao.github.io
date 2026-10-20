@@ -642,11 +642,11 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <hr>
 <p><mark>现场演示</mark>: 打印杨辉三角的前 6 行</p>
 <p>样例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>   <span class="token number">1</span>
-   <span class="token number">1</span>   <span class="token number">1</span>
-   <span class="token number">1</span>   <span class="token number">2</span>   <span class="token number">1</span>
-   <span class="token number">1</span>   <span class="token number">3</span>   <span class="token number">3</span>   <span class="token number">1</span>
-   <span class="token number">1</span>   <span class="token number">4</span>   <span class="token number">6</span>   <span class="token number">4</span>   <span class="token number">1</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>             <span class="token number">1</span>
+           <span class="token number">1</span>   <span class="token number">1</span>
+         <span class="token number">1</span>   <span class="token number">2</span>   <span class="token number">1</span>
+       <span class="token number">1</span>   <span class="token number">3</span>   <span class="token number">3</span>   <span class="token number">1</span>
+     <span class="token number">1</span>   <span class="token number">4</span>   <span class="token number">6</span>   <span class="token number">4</span>   <span class="token number">1</span>
    <span class="token number">1</span>   <span class="token number">5</span>  <span class="token number">10</span>  <span class="token number">10</span>   <span class="token number">5</span>   <span class="token number">1</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 第 i 行第 j 个数, 是"上一行"的哪两个数之和?</p>
 <hr>
@@ -659,7 +659,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
 
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>                  <span class="token comment">/* 每行开头是 1 */</span>
@@ -668,6 +668,8 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
   <span class="token punctuation">}</span>
 
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator"><</span> N <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">-</span> i<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>               <span class="token comment">/* 每行先缩进, 摆成等腰 */</span>
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
       <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%4d"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -687,6 +689,10 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 <li>
 <p><code>{0}</code> 全零初始化: 第 1 行和每行开头, 都靠它兜底</p>
+
+</li>
+<li>
+<p>等腰的缩进: 每行先打 <code>N-1-i</code> 组空格——星号塔的旧手艺</p>
 
 </li>
 </ul>
