@@ -383,6 +383,10 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <p>const常用于数组的声明, 以保护在程序执行过程中不变的信息.</p>
 
 </li>
+<li>
+<p>本课稍后的生命游戏, 打印时就靠 const 对照表把 0/1 变成图案</p>
+
+</li>
 </ul>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="矩阵运算--转置">矩阵运算: 转置 </h5>
@@ -539,11 +543,11 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 </ul>
 <p>样例: 竖着的"三连"过一代, 变横着的"三连":</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">00000</span>        <span class="token number">00000</span>
-<span class="token number">00100</span>        <span class="token number">00000</span>
-<span class="token number">00100</span>  <span class="token operator">--</span><span class="token operator">></span>   <span class="token number">01110</span>
-<span class="token number">00100</span>        <span class="token number">00000</span>
-<span class="token number">00000</span>        <span class="token number">00000</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token macro property"><span class="token directive-hash">#</span>..        .....</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token macro property"><span class="token directive-hash">#</span>..  --&gt;   .###.</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token macro property"><span class="token directive-hash">#</span>..        .....</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 更新第 (i,j) 格时, 邻居们必须还是<mark>旧一代</mark>的</p>
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="生命游戏--动画演示">生命游戏: 动画演示 </h5>
@@ -568,6 +572,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
   <span class="token keyword keyword-int">int</span> old_grid<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>
                         <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-int">int</span> new_grid<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> cell<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'.'</span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* 对照表: 0-&gt;. 1-&gt;# */</span>
   <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> di<span class="token punctuation">,</span> dj<span class="token punctuation">,</span> count<span class="token punctuation">;</span>
 
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -588,7 +593,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> new_grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c "</span><span class="token punctuation">,</span> cell<span class="token punctuation">[</span>new_grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -610,6 +615,10 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 <li>
 <p>想跑多代: 把 <code>new</code> 拷回 <code>old</code> 再来一轮——这就是<mark>整张表更新</mark></p>
+
+</li>
+<li>
+<p><code>cell</code> 是 const<mark>对照表</mark>: 0/1 变图案——常量数组在本课的第一处用武之地</p>
 
 </li>
 </ul>
