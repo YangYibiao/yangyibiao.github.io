@@ -839,7 +839,29 @@ HELLO</code></pre>
 <p>发现: 先算出来的余数要<mark>最后输出</mark>——顺序正好反了</p>
 <p>把"反了"掰正: 存进数组, 倒着打——就是数列反向的写法</p>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="现场挑战--进制转换--参考代码">现场挑战: 进制转换 (参考代码) </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="进制转换--16-进制怎么输出">进制转换: 16 进制怎么输出? </h5>
+<hr>
+<p>16 进制有字母 a~f, <code>printf("%d")</code> 打不出来——用一张<mark>对照表</mark>按下标取字符:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> digit<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+  <span class="token punctuation">{</span><span class="token string">'0'</span><span class="token punctuation">,</span><span class="token string">'1'</span><span class="token punctuation">,</span><span class="token string">'2'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'4'</span><span class="token punctuation">,</span><span class="token string">'5'</span><span class="token punctuation">,</span><span class="token string">'6'</span><span class="token punctuation">,</span><span class="token string">'7'</span><span class="token punctuation">,</span><span class="token string">'8'</span><span class="token punctuation">,</span><span class="token string">'9'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">,</span><span class="token string">'b'</span><span class="token punctuation">,</span><span class="token string">'c'</span><span class="token punctuation">,</span><span class="token string">'d'</span><span class="token punctuation">,</span><span class="token string">'e'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> digit<span class="token punctuation">[</span>digits<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* digits[i] 是 0~15 */</span></code></pre>
+<ul>
+<li>
+<p>表是只读的: 声明时加 <code>const</code>, 编译器帮你看住——想改它直接报错</p>
+
+</li>
+<li>
+<p>这正是<mark>常量数组</mark>的经典用途: 查表</p>
+
+</li>
+<li>
+<p>下节课的生命游戏打印图案, 用的就是这一招</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="现场挑战--进制转换--参考代码">现场挑战: 进制转换 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -878,18 +900,14 @@ HELLO</code></pre>
 
 </li>
 <li>
-<p>要支持 16 进制, 只需把输出换成<mark>const 查表</mark>: <code>digit[digits[i]]</code> 按下标取字符</p>
-
-</li>
-<li>
-<p><code>const</code> 表示这张表<mark>只读</mark>——编译器帮你看住; 下节课的生命游戏打印图案用的就是这一招</p>
+<p>输出用的就是上一页的 const 查表——数字 0~15 变字符</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="现场挑战--回文数">现场挑战: 回文数 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="现场挑战--回文数">现场挑战: 回文数 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个整数, 判断它是不是<mark>回文数</mark> (正着读倒着读一样, 如 1221、12321)</p>
 <p>样例:</p>
@@ -899,7 +917,7 @@ HELLO</code></pre>
 <span class="token number">1234</span> 不是回文数</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 先想清楚"第 i 位"和"倒数第 i 位"在数组里的下标关系</p>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="现场挑战--回文数--参考代码">现场挑战: 回文数 (参考代码) </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="现场挑战--回文数--参考代码">现场挑战: 回文数 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -947,7 +965,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="对数组使用sizeof运算符">对数组使用sizeof运算符 </h5>
 <hr>
 <ul>
 <li>
@@ -964,7 +982,7 @@ HELLO</code></pre>
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="变长数组--c99">变长数组 (C99) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -996,7 +1014,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
+</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="程序--计算利息--数组保存中间状态">程序: 计算利息 (数组保存中间状态) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -1025,7 +1043,7 @@ HELLO</code></pre>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
+</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="ai-审计--有-bug-吗">AI 审计: 有 bug 吗? </h5>
 <hr>
 <p><mark>课堂互动</mark>: 下面三段代码都是 AI 写的——每组先投票: <mark>有 bug / 没 bug</mark></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 公共前提 */</span>
@@ -1046,7 +1064,7 @@ HELLO</code></pre>
 <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>      <span class="token comment">/* 以为全是 1? */</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 三个 bug 都是本讲刚讲过的知识点</p>
 <hr>
-</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
+</section><section data-notes="" lineno="542" class="slide " data-source-line="542" data-h="35" data-v="0"><h5 id="ai-审计--揭晓">AI 审计: 揭晓 </h5>
 <hr>
 <p>① <mark>有 bug</mark>: 下标越界 (<code>a[N]</code> 不存在) 且漏了 <code>a[0]</code>——正确写法 <code>for (i = 0; i &lt; N; i++)</code></p>
 <hr>
@@ -1056,7 +1074,7 @@ HELLO</code></pre>
 <hr>
 <p><mark>带走清单</mark>: 下标 0~n-1 吗? 最值用 <code>a[0]</code> 起步吗? 初始化式比数组短会怎样? ——写数组循环前先问自己这三句</p>
 <hr>
-</section><section data-notes="" lineno="542" class="slide " data-source-line="542" data-h="35" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
+</section><section data-notes="" lineno="556" class="slide " data-source-line="556" data-h="36" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
 <hr>
 <ol>
 <li><code>int a[10];</code> 中数组元素的下标范围是什么？越界会发生什么？
@@ -1065,7 +1083,7 @@ HELLO</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="556" class="slide " data-source-line="556" data-h="36" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
+</section><section data-notes="" lineno="570" class="slide " data-source-line="570" data-h="37" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
 <hr>
 <ol>
 <li>写代码: 找出数组 {5, 2, 9, 1} 中的最小值。
@@ -1074,7 +1092,7 @@ HELLO</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="37" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="38" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
