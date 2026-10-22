@@ -729,7 +729,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <span class="token number">15</span> <span class="token number">24</span> <span class="token number">25</span> <span class="token number">20</span>  <span class="token number">7</span>
 <span class="token number">14</span> <span class="token number">23</span> <span class="token number">22</span> <span class="token number">21</span>  <span class="token number">8</span>
 <span class="token number">13</span> <span class="token number">12</span> <span class="token number">11</span> <span class="token number">10</span>  <span class="token number">9</span></code></pre>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 右、下、左、上四个方向轮流走; 每走完一边, 边界往里收一格</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 往右走, 走不动了就拐弯——四个方向轮流试</p>
 <hr>
 </section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="蛇形填数--参考代码">蛇形填数 (参考代码) </h5>
 <hr>
@@ -740,19 +740,18 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> top <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> bottom <span class="token operator">=</span> N <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> right <span class="token operator">=</span> N <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> dx<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment">/* 方向向量: 右 下 左 上 */</span>
+  <span class="token keyword keyword-int">int</span> dy<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> d <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> k<span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>top <span class="token operator">&lt;=</span> bottom <span class="token operator">&amp;&amp;</span> left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> left<span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> right<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>top<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token operator">++</span><span class="token punctuation">;</span>   <span class="token comment">/* → */</span>
-    top<span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> top<span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> bottom<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment">/* ↓ */</span>
-    right<span class="token operator">--</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> right<span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> left<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>bottom<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token operator">++</span><span class="token punctuation">;</span><span class="token comment">/* ← */</span>
-    bottom<span class="token operator">--</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> bottom<span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> top<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token operator">++</span><span class="token punctuation">;</span>  <span class="token comment">/* ↑ */</span>
-    left<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>num <span class="token operator">&lt;=</span> N <span class="token operator">*</span> N<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> num<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> ni <span class="token operator">=</span> i <span class="token operator">+</span> dx<span class="token punctuation">[</span>d<span class="token punctuation">]</span><span class="token punctuation">,</span> nj <span class="token operator">=</span> j <span class="token operator">+</span> dy<span class="token punctuation">[</span>d<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>ni <span class="token operator"><</span> <span class="token number">0</span> <span class="token operator">||</span> ni <span class="token operator">&gt;=</span> N <span class="token operator">||</span> nj <span class="token operator"><</span> <span class="token number">0</span> <span class="token operator">||</span> nj <span class="token operator">&gt;=</span> N <span class="token operator">||</span> a<span class="token punctuation">[</span>ni<span class="token punctuation">]</span><span class="token punctuation">[</span>nj<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+      d <span class="token operator">=</span> <span class="token punctuation">(</span>d <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">4</span><span class="token punctuation">;</span>        <span class="token comment">/* 撞墙或已填: 转弯 */</span>
+    i <span class="token operator">+=</span> dx<span class="token punctuation">[</span>d<span class="token punctuation">]</span><span class="token punctuation">;</span> j <span class="token operator">+=</span> dy<span class="token punctuation">[</span>d<span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -766,15 +765,15 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <div style="flex:1;">
 <ul>
 <li>
-<p>四个<mark>边界变量</mark> (top/bottom/left/right) 每轮收缩——二维数组的"橡皮筋"</p>
+<p><code>dx</code>/<code>dy</code> 是<mark>方向向量</mark>: 四个方向写进两张小表, <code>d</code> 指哪就往哪走</p>
 
 </li>
 <li>
-<p>四个方向的循环依次执行, 下标变化各不相同——走位练习的集大成</p>
+<p>出界或已填 → <code>d = (d+1) % 4</code> <mark>转弯</mark>——取模又见面了</p>
 
 </li>
 <li>
-<p><code>num++</code> 顺手当计数器: 填一格、涨一个</p>
+<p>这是走迷宫、搜索的经典技巧, 以后还会再见</p>
 
 </li>
 </ul>
