@@ -744,7 +744,7 @@ int main(void)
 13 12 11 10  9
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: 右、下、左、上四个方向轮流走; 每走完一边, 边界往里收一格
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 往右走, 走不动了就拐弯——四个方向轮流试
 
 ---
 
@@ -765,19 +765,18 @@ int main(void)
 int main(void)
 {
   int a[N][N] = {0};
-  int num = 1, top = 0, bottom = N - 1;
-  int left = 0, right = N - 1;
-  int i, j;
+  int i = 0, j = 0, num = 1;
+  int dx[] = {0, 1, 0, -1};   /* 方向向量: 右 下 左 上 */
+  int dy[] = {1, 0, -1, 0};
+  int d = 0;
+  int k;
 
-  while (top <= bottom && left <= right) {
-    for (i = left; i <= right; i++) a[top][i] = num++;   /* → */
-    top++;
-    for (i = top; i <= bottom; i++) a[i][right] = num++; /* ↓ */
-    right--;
-    for (i = right; i >= left; i--) a[bottom][i] = num++;/* ← */
-    bottom--;
-    for (i = bottom; i >= top; i--) a[i][left] = num++;  /* ↑ */
-    left++;
+  while (num <= N * N) {
+    a[i][j] = num++;
+    int ni = i + dx[d], nj = j + dy[d];
+    if (ni < 0 || ni >= N || nj < 0 || nj >= N || a[ni][nj] != 0)
+      d = (d + 1) % 4;        /* 撞墙或已填: 转弯 */
+    i += dx[d]; j += dy[d];
   }
 
   for (i = 0; i < N; i++) {
@@ -793,11 +792,11 @@ int main(void)
 
 <div style="flex:1;">
 
-- 四个==边界变量== (top/bottom/left/right) 每轮收缩——二维数组的"橡皮筋"
+- `dx`/`dy` 是==方向向量==: 四个方向写进两张小表, `d` 指哪就往哪走
 
-- 四个方向的循环依次执行, 下标变化各不相同——走位练习的集大成
+- 出界或已填 → `d = (d+1) % 4` ==转弯==——取模又见面了
 
-- `num++` 顺手当计数器: 填一格、涨一个
+- 这是走迷宫、搜索的经典技巧, 以后还会再见
 
 </div>
 
