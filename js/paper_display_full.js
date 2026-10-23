@@ -9,6 +9,7 @@ function confMonth(e) {
     if (t.indexOf("FSE") >= 0) return 11;
     if (t.indexOf("ASE") >= 0) return (y == 2019) ? 11 : 9;
     if (t.indexOf("ISSTA") >= 0) return 7;
+    if (t.indexOf("SIGOPS ATC") >= 0) return 11;
     if (t.indexOf("USENIX ATC") >= 0) return 7;
     if (t.indexOf("ICSE") >= 0) return 5;
     if (t.indexOf("ASPLOS") >= 0) return 3;
