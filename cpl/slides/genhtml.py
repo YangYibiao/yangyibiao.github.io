@@ -12,7 +12,7 @@
 列表(含嵌套)、图片与原始 HTML 透传、行内 `code`/==高亮==/:fa-图标:/链接。
 生成后会做结构自检 (列表配对、重复标题、残留 markdown)。
 
-注意: md 里每个 slide 用 <!-- slide data-notes="" --> 分隔, 不能有遗漏。
+注意: md 里每个 slide 用 <!-- slide data-notes="" --> 或 <!-- slide --> 分隔, 不能有遗漏。
 """
 import os, re, sys
 
@@ -30,15 +30,17 @@ try:
     html = open(html_path, encoding='utf-8').read()
 except FileNotFoundError:
     # 新课件: 借用同目录任一已有课件做模板 (只取 head/tail)
+    # 只选包含 Reveal.initialize 的课件, 避免误用浏览器保存的普通页面
     import glob
     tmpl = next((f for f in sorted(glob.glob(BASE + '*.html'))
-                 if not f.endswith(name + '.html')), None)
+                 if not f.endswith(name + '.html')
+                 and 'Reveal.initialize' in open(f, encoding='utf-8', errors='replace').read()), None)
     if tmpl is None:
         print('no template html in', BASE, '- create one deck first')
         sys.exit(1)
     print('new deck: using template', os.path.basename(tmpl))
     html = open(tmpl, encoding='utf-8').read()
-MARK_RE = r'<!-- slide(?: vertical=true)? data-notes="" -->'
+MARK_RE = r'<!-- slide(?: vertical=true)?(?: data-notes="")? -->'
 blocks = re.split(MARK_RE, md)[1:]
 
 if '"width":1280' not in html:
@@ -72,6 +74,32 @@ document.addEventListener("DOMContentLoaded", function () {
 head_html = head_html.replace('</head>', KATEX, 1)
 # 代码块不显示滚动条: 单行代码出现上下滚动条很刺眼, 且各页代码均已按宽度/字号适配
 head_html = head_html.replace('</head>', '<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style></head>', 1)
+# 注入 Mermaid 运行时 (```mermaid 代码块在浏览器端渲染, 数据挖掘课件使用)
+head_html = re.sub(r'<script defer src="https://cdn\.jsdelivr\.net/npm/mermaid@[\d.]+/dist/mermaid\.min\.js"></script>.*?</head>',
+                   '</head>', head_html, flags=re.S)  # 先移除旧版注入块 (若有), 避免重复注入
+MERMAID = """<script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+<script defer>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.mermaid) {
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { htmlLabels: true, useMaxWidth: true } });
+  }
+});
+</script>
+</head>"""
+head_html = head_html.replace('</head>', MERMAID, 1)
+# 内联 md 头部 @import 的本地 CSS (生成的 html 是自包含的, 浏览器不会处理 md 里的 @import)
+# 含 url(...) 的文件 (字体/背景图等相对路径) 跳过, 避免内联后资源路径失效
+# 先移除上一轮已内联的块, 再按当前文件重新内联, 保证每次生成结果确定
+head_html = re.sub(r'<style>\s*/\* inlined: [^*]*\*/.*?</style>', '', head_html, flags=re.S)
+inlined_css = []
+for m in re.finditer(r'^@import\s+"([^"]+\.css)"\s*$', md, re.M):
+    css_path = os.path.normpath(os.path.join(BASE, m.group(1)))
+    if os.path.exists(css_path):
+        content = open(css_path, encoding='utf-8').read()
+        if 'url(' not in content:
+            inlined_css.append('/* inlined: ' + m.group(1) + ' */\n' + content)
+if inlined_css:
+    head_html = head_html.replace('</head>', '<style>' + '\n'.join(inlined_css) + '</style></head>', 1)
 
 FA = {'fa-lightbulb-o': 'fa fa-lightbulb-o', 'fa-weixin': 'fa fa-weixin', 'fa-camera': 'fa fa-camera',
       'fa-language': 'fa fa-language', 'fa-car': 'fa fa-car', 'fa-microphone': 'fa fa-microphone',
@@ -267,7 +295,12 @@ def parse_content(lines):
             while i < len(lines) and not is_fence(lines[i]):
                 code_lines.append(lines[i]); i += 1
             i += 1
-            out.append(pre_open + highlight_c('\n'.join(code_lines)) + '</code></pre>')
+            if info == 'mermaid':
+                # Mermaid 图: 保留原文交给浏览器端 mermaid.js 渲染, 不做 C 高亮
+                out.append('<pre class="mermaid" style="background:transparent;box-shadow:none;">'
+                           + esc('\n'.join(code_lines)) + '</pre>')
+            else:
+                out.append(pre_open + highlight_c('\n'.join(code_lines)) + '</code></pre>')
             continue
         if is_table(ln) and not is_raw(ln):
             tbl, i = parse_table(lines, i)
@@ -341,11 +374,23 @@ def parse_content(lines):
             out.append('<ol>\n' + '\n'.join(items) + '\n</ol>'); continue
         if is_hr(ln):
             out.append('<hr>'); i += 1; continue
+        if re.match(r'^> ', ln.strip()):
+            # 引用块: 连续的 > 行合并为一个 blockquote, 每行一个段落
+            quote = []
+            while i < len(lines) and re.match(r'^> ', lines[i].strip()):
+                quote.append(re.sub(r'^>\s?', '', lines[i].strip())); i += 1
+            out.append('<blockquote>\n' + '\n'.join('<p>' + inline(q) + '</p>' for q in quote) + '\n</blockquote>')
+            continue
         para = [ln]
         i += 1
-        while i < len(lines) and lines[i].strip() and not is_fence(lines[i]) and not is_bullet(lines[i]) and not is_ol(lines[i]) and not is_raw(lines[i]) and not is_hr(lines[i]) and not is_table(lines[i]):
+        while i < len(lines) and lines[i].strip() and not is_fence(lines[i]) and not is_bullet(lines[i]) and not is_ol(lines[i]) and not is_raw(lines[i]) and not is_hr(lines[i]) and not is_table(lines[i]) and not re.match(r'^> ', lines[i].strip()):
             para.append(lines[i]); i += 1
-        out.append('<p>' + inline(' '.join(p.strip() for p in para)) + '</p>')
+        # 行尾两个空格或显式 <br> 视为硬换行
+        joined = []
+        for p in para:
+            hard = re.search(r' {2,}$', p) or p.rstrip().endswith('<br>')
+            joined.append(p.strip() + ('<br>' if hard else ''))
+        out.append('<p>' + inline(' '.join(joined)) + '</p>')
     return '\n'.join(out)
 
 def build_section(block, idx):
@@ -397,30 +442,36 @@ def build_section(block, idx):
                 f'data-h="{idx}" data-v="0"><h5 id="{hid}">{inline(title)} </h5>\n<hr>\n{inner}\n<hr>\n</section>')
     body = [l for l in lines if l.strip() and l.strip() != '#####']
     # split headings (h1/h2/h3) out, feed the rest to parse_content
+    # 代码围栏内的 # 行 (如 Python 注释) 不是标题, 跳过
     content = []
     buf = []
     i2 = 0
+    in_fence = False
     def flush():
         if buf:
             content.append(parse_content(list(buf)))
             buf.clear()
     while i2 < len(body):
         s = body[i2].strip()
-        m = re.match(r'^# (.*)$', s)
-        if m:
-            flush(); content.append('<h1 id="周三见">' + inline(m.group(1)) + ' </h1>'); i2 += 1; continue
-        m = re.match(r'^## (.*)$', s)
-        if m:
-            flush()
-            t = m.group(1).strip()
-            hid = re.sub(r'[^\w一-鿿]', '', t.lower())
-            content.append(f'<h2 id="{hid}">{t} </h2>'); i2 += 1; continue
-        m = re.match(r'^### (.*)$', s)
-        if m:
-            flush()
-            t = m.group(1).strip()
-            hid = re.sub(r'[^\w一-鿿]', '', t.lower())
-            content.append(f'<h3 id="{hid}">{t} </h3>'); i2 += 1; continue
+        if is_fence(s):
+            in_fence = not in_fence
+            buf.append(body[i2]); i2 += 1; continue
+        if not in_fence:
+            m = re.match(r'^# (.*)$', s)
+            if m:
+                flush(); content.append('<h1 id="周三见">' + inline(m.group(1)) + ' </h1>'); i2 += 1; continue
+            m = re.match(r'^## (.*)$', s)
+            if m:
+                flush()
+                t = m.group(1).strip()
+                hid = re.sub(r'[^\w一-鿿]', '', t.lower())
+                content.append(f'<h2 id="{hid}">{t} </h2>'); i2 += 1; continue
+            m = re.match(r'^### (.*)$', s)
+            if m:
+                flush()
+                t = m.group(1).strip()
+                hid = re.sub(r'[^\w一-鿿]', '', t.lower())
+                content.append(f'<h3 id="{hid}">{t} </h3>'); i2 += 1; continue
         buf.append(body[i2]); i2 += 1
     flush()
     inner = '\n'.join(c for c in content if c)

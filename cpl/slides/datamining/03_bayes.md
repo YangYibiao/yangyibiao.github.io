@@ -16,6 +16,7 @@ presentation:
 @import "../../css/margin.css"
 @import "../../css/table.css"
 @import "../../css/main.css"
+@import "../../css/datamining.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
@@ -29,31 +30,24 @@ presentation:
 
 <!-- slide -->
 
-# 朴素贝叶斯 · 从规则到概率
+<div class="bottom8"></div>
 
-<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
+<h1 style="text-align:center;">朴素贝叶斯 · 从规则到概率</h1>
 
-<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
-当判定需要 "可信度" 而非 "是/否" 的时候
-</div>
+<hr class="width50 center">
 
-<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
-**网空关键词:** 钓鱼邮件识别 · 告警可信度评分 · 概率性研判
-</div>
+<h2 style="text-align:center;">当判定需要 "可信度" 而非 "是/否" 的时候</h2>
 
-<div style="margin-top:100px;text-align:center;line-height:2.2;">
-<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
-杨已彪
-</div>
-<div style="font-size:0.6em;color:var(--solarized-base00);">
-yangyibiao@nju.edu.cn
-</div>
-<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
-南京大学计算机学院 · 计算机软件新技术全国重点实验室
-</div>
-<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+<div class="bottom8"></div>
+
+<h3 style="text-align:center;">南京大学计算机学院 &nbsp;&nbsp; 杨已彪</h3>
+
+<h4 style="text-align:center;">计算机软件新技术全国重点实验室</h4>
+
+<h4 style="text-align:center;"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></h4>
+
+<div style="margin-top:26px;text-align:center;font-size:20pt;color:var(--solarized-base00);letter-spacing:3px;">
 2026 年 10 月
-</div>
 </div>
 
 ---
@@ -82,7 +76,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:12px;font-size:0.55em;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
 **📋 已知情报**
 
 | 情报 | 数据 |
@@ -93,7 +87,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
 **❓ 待求解的问题**
 
 > 新邮件包含 **"紧急"** 字样
@@ -106,14 +100,14 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;font-size:0.5em;">
 
-<div style="background:#1a2d1a;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(133,153,0,0.08);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
 **🌳 决策树会怎么做?**
 "是否包含 '紧急' ?"
 → 是 → **判定为钓鱼**
 输出:**是/否**
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 **📊 贝叶斯会怎么做?**
 用历史数据 + 贝叶斯公式
 → 计算**后验概率**
@@ -136,7 +130,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:14px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.65em;">🧠 人类的直觉</div>
 
 <div style="font-size:0.55em;line-height:1.8;margin-top:4px;">
@@ -151,7 +145,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-weight:700;color:#f39c12;font-size:0.65em;">📐 贝叶斯定理</div>
 
 <div style="font-size:0.5em;line-height:1.6;margin-top:4px;">
@@ -183,7 +177,7 @@ P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:0.55em;">
 
-<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid #268bd2;">
 <div style="font-size:1.2em;font-weight:700;color:#268bd2;">🌳 决策树</div>
 
 | 维度 | 说明 |
@@ -199,7 +193,7 @@ P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
 
 </div>
 
-<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid #f39c12;">
 <div style="font-size:1.2em;font-weight:700;color:#f39c12;">🎲 朴素贝叶斯</div>
 
 | 维度 | 说明 |
@@ -229,7 +223,7 @@ P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
 
 > **先有一个初始判断(先验),看到新证据后更新判断(后验)。**
 
-<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;padding:8px 12px;background:#0d1a2b;border-radius:6px;border:1px solid #586e75;">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;padding:8px 12px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid #586e75;">
 <div style="text-align:center;flex:1;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">初始判断</div>
 <div style="font-size:0.7em;font-weight:700;color:#268bd2;">\( P(\text{钓鱼}) = 15\% \)</div>
@@ -244,26 +238,26 @@ P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
 <div style="font-size:1.2em;color:var(--solarized-base00);">→</div>
 <div style="text-align:center;flex:1;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">更新后的判断</div>
-<div style="font-size:0.7em;font-weight:700;color:#27ae60;">\( P(\text{钓鱼} \mid \text{紧急}) = 92\% \)</div>
+<div style="font-size:0.7em;font-weight:700;color:#27ae60;">\( P(\text{钓鱼} \mid \text{紧急}) \approx 58\% \)</div>
 <div style="font-size:0.45em;color:var(--solarized-base00);">(结合先验 + 证据)</div>
 </div>
 </div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border-left:4px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border-left:4px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.6em;">🔹 先验概率</div>
 <div style="font-size:0.7em;font-weight:600;color:#268bd2;">\( P(\text{钓鱼}) \)</div>
 <div style="font-size:0.5em;color:var(--solarized-base00);">看到证据之前的初始判断</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border-left:4px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border-left:4px solid #f39c12;">
 <div style="font-weight:700;color:#f39c12;font-size:0.6em;">🔸 似然</div>
 <div style="font-size:0.7em;font-weight:600;color:#268bd2;">\( P(\text{紧急} \mid \text{钓鱼}) \)</div>
 <div style="font-size:0.5em;color:var(--solarized-base00);">证据在目标类别中的表现</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.6em;">🔹 后验概率</div>
 <div style="font-size:0.7em;font-weight:600;color:#27ae60;">\( P(\text{钓鱼} \mid \text{紧急}) \)</div>
 <div style="font-size:0.5em;color:var(--solarized-base00);">看到证据之后的更新判断</div>
@@ -282,8 +276,11 @@ P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
 ## 贝叶斯定理 · 数学表达
 
 \[
+\small
 P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 \]
+
+<div style="font-size:0.85em;">
 
 | 符号 | 含义 | 网空场景对应 |
 |------|------|-------------|
@@ -291,6 +288,8 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 | \(P(A)\) | 先验概率:看到证据前,事件 A 发生的概率 | 历史中钓鱼邮件的比例(15%) |
 | \(P(B \mid A)\) | 似然:在事件 A 发生的条件下,看到证据 B 的概率 | 钓鱼邮件中出现 "紧急" 的概率(80%) |
 | \(P(B)\) | 证据概率:看到证据 B 的总概率 | 所有邮件中出现 "紧急" 的总概率 |
+
+</div>
 
 > 翻译成人话: 后验概率 = 先验 × 证据的 "说服力"
 
@@ -304,17 +303,17 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
 
-<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border-top:4px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 12px;border-radius:6px;border-top:4px solid #268bd2;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">🔍 破案角色</div>
 <div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">案发前的怀疑程度</div>
 </div>
 
-<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border-top:4px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 12px;border-radius:6px;border-top:4px solid #f39c12;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">🔍 破案角色</div>
 <div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">嫌疑人的作案特征</div>
 </div>
 
-<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border-top:4px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 12px;border-radius:6px;border-top:4px solid #27ae60;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">🔍 破案角色</div>
 <div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">综合判断</div>
 </div>
@@ -323,17 +322,17 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">📐 数学对应</div>
 <div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">先验 \( P(A) \)</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">📐 数学对应</div>
 <div style="font-size:0.65em;font-weight:700;color:#f39c12;margin-top:2px;">似然 \( P(B \mid A) \)</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">📐 数学对应</div>
 <div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">后验 \( P(A \mid B) \)</div>
 </div>
@@ -342,17 +341,17 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">🎯 网空对应</div>
 <div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">历史钓鱼邮件比例</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">🎯 网空对应</div>
 <div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">"紧急" 在钓鱼邮件中的概率</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">🎯 网空对应</div>
 <div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">看到 "紧急" 后的钓鱼概率</div>
 </div>
@@ -373,7 +372,7 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 
 <div style="display:grid;grid-template-columns:1fr 0.2fr 1fr 0.2fr 1fr;gap:4px;align-items:center;font-size:0.5em;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.9em;">1 条件概率定义</div>
 \[
 P(A|B) = \frac{P(A \cap B)}{P(B)}
@@ -384,7 +383,7 @@ P(A|B) = \frac{P(A \cap B)}{P(B)}
 
 <div style="text-align:center;font-size:1.2em;color:var(--solarized-base00);">→</div>
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-weight:700;color:#f39c12;font-size:0.9em;">2 联合概率对称</div>
 \[
 P(A \cap B) = P(B|A) \times P(A)
@@ -395,7 +394,7 @@ P(A \cap B) = P(B|A) \times P(A)
 
 <div style="text-align:center;font-size:1.2em;color:var(--solarized-base00);">→</div>
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.9em;">3 代入 → 贝叶斯公式</div>
 \[
 P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
@@ -431,7 +430,7 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.38em;margin-top:4px;">
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
 <div style="font-weight:700;color:#e74c3c;font-size:1.1em;">❌ 直接统计</div>
 
 含 "点击链接" 的邮件共 **6 封**(1 封钓鱼 + 5 封正常)
@@ -443,7 +442,7 @@ P(\text{钓鱼}|\text{点击链接}) = \frac{1}{1+5} \approx 16.7\%
 **问题:** 被大量 "正常" 邮件稀释,严重低估真实风险。
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:1.1em;">✅ 贝叶斯</div>
 
 **已知:**
@@ -488,7 +487,7 @@ P(\text{点击链接}|\text{正常}) \times P(\text{正常})}
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:14px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.65em;">📧 邮件特征</div>
 
 <div style="font-size:0.55em;line-height:1.6;margin-top:2px;">
@@ -502,7 +501,7 @@ P(\text{点击链接}|\text{正常}) \times P(\text{正常})}
 
 </div>
 
-<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-weight:700;color:#f39c12;font-size:0.65em;">🧠 朴素假设</div>
 
 <div style="font-size:0.5em;line-height:1.5;margin-top:2px;">
@@ -527,7 +526,7 @@ P(\text{链接} \mid \text{钓鱼})
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.45em;margin-top:4px;">
 
-<div style="background:#1a2d1a;padding:6px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(133,153,0,0.08);padding:6px 12px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.85em;">✅ 为什么有效?</div>
 
 - 计算量从**指数级**降为**线性级**
@@ -536,7 +535,7 @@ P(\text{链接} \mid \text{钓鱼})
 
 </div>
 
-<div style="background:#2d1b1b;padding:6px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(220,50,47,0.08);padding:6px 12px;border-radius:6px;border:1px solid #e74c3c;">
 <div style="font-weight:700;color:#e74c3c;font-size:0.85em;">⚠ 现实中的局限</div>
 
 - 特征通常**相关**("紧急"+"中奖" 常同时出现)
@@ -560,9 +559,9 @@ P(\text{链接} \mid \text{钓鱼})
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:10px;margin-top:8px;">
 
-<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 12px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">📧 输入</div>
-<div style="font-size:0.65em;font-weight:700;color:#fff;margin-top:2px;">新邮件特征</div>
+<div style="font-size:0.65em;font-weight:700;color:#073642;margin-top:2px;">新邮件特征</div>
 <div style="font-size:0.5em;color:var(--solarized-base00);margin-top:4px;">
 紧急 · 中奖 · 链接
 </div>
@@ -570,9 +569,9 @@ P(\text{链接} \mid \text{钓鱼})
 
 <div style="font-size:1.2em;color:var(--solarized-base00);display:flex;align-items:center;justify-content:center;">→</div>
 
-<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 12px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">📊 计算</div>
-<div style="font-size:0.5em;color:#fff;margin-top:2px;line-height:1.6;">
+<div style="font-size:0.5em;color:#073642;margin-top:2px;line-height:1.6;">
 \( P(\text{钓鱼} \mid \text{特征}) = ? \)
 \( P(\text{正常} \mid \text{特征}) = ? \)
 </div>
@@ -580,7 +579,7 @@ P(\text{链接} \mid \text{钓鱼})
 
 <div style="font-size:1.2em;color:var(--solarized-base00);display:flex;align-items:center;justify-content:center;">→</div>
 
-<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 12px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
 <div style="font-size:0.5em;color:var(--solarized-base00);">✅ 决策</div>
 <div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">选概率最大的</div>
 <div style="font-size:0.5em;color:var(--solarized-base00);margin-top:4px;">
@@ -662,16 +661,16 @@ P(\text{紧急}, \text{中奖})
 | 钓鱼 | **15%** | **80%** | **60%** |
 | 正常 | **85%** | **10%** | **5%** |
 
-<div style="font-size:0.5em;margin-top:4px;">
+<div style="font-size:0.45em;margin-top:0;">
 **朴素贝叶斯假设:** "紧急" 和 "中奖" 相互独立
 
 \[
 \begin{aligned}
 P(\text{钓鱼}|\text{紧急},\text{中奖})
-&= \frac{P(\text{紧急}|\text{钓鱼}) \times P(\text{中奖}|\text{钓鱼}) \times P(\text{钓鱼})}{P(\text{紧急},\text{中奖})} \\[6pt]
-&= \frac{(\textcolor{#e74c3c}{0.8}) \times (\textcolor{#f39c12}{0.6}) \times \textcolor{#268bd2}{0.15}}{0.07625} \\[6pt]
-&= \frac{0.48 \times 0.15}{0.07625} \\[6pt]
-&= \frac{0.072}{0.07625} \\[6pt]
+&= \frac{P(\text{紧急}|\text{钓鱼}) \times P(\text{中奖}|\text{钓鱼}) \times P(\text{钓鱼})}{P(\text{紧急},\text{中奖})} \\[2pt]
+&= \frac{(\textcolor{#e74c3c}{0.8}) \times (\textcolor{#f39c12}{0.6}) \times \textcolor{#268bd2}{0.15}}{0.07625} \\[2pt]
+&= \frac{0.48 \times 0.15}{0.07625} \\[2pt]
+&= \frac{0.072}{0.07625} \\[2pt]
 &\approx 0.944
 \end{aligned}
 \]
@@ -685,23 +684,23 @@ P(\text{钓鱼}|\text{紧急},\text{中奖})
 
 ## 计算结果解读
 
-<div style="display:grid;grid-template-columns:1fr 1.5fr 1.5fr;gap:8px;font-size:0.45em;margin-top:4px;">
+<div style="display:grid;grid-template-columns:1fr 1.5fr 1.5fr;gap:8px;font-size:0.6em;margin-top:4px;">
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">判断阶段</div>
 <div style="font-weight:700;margin-top:2px;">先验</div>
 <div style="font-weight:700;margin-top:2px;">看到 "紧急"</div>
 <div style="font-weight:700;margin-top:2px;">+"中奖"</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">概率</div>
 <div style="font-weight:700;color:#268bd2;margin-top:2px;">15%</div>
 <div style="font-weight:700;color:#f39c12;margin-top:2px;">≈ 58%</div>
 <div style="font-weight:700;color:#27ae60;margin-top:2px;font-size:1.1em;">94.4%</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">说明</div>
 <div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">仅凭历史数据</div>
 <div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">"紧急" 是一个强信号</div>
@@ -710,9 +709,9 @@ P(\text{钓鱼}|\text{紧急},\text{中奖})
 
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;font-size:0.4em;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;font-size:0.55em;">
 
-<div style="background:#1a2a3a;padding:6px 10px;border-radius:6px;border-left:4px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.10);padding:6px 10px;border-radius:6px;border-left:4px solid #268bd2;">
 **📊 中间计算(看到 "紧急" 时):**
 
 \[
@@ -723,7 +722,7 @@ P(\text{钓鱼}|\text{紧急}) =
 
 </div>
 
-<div style="background:#1a2d1a;padding:6px 10px;border-radius:6px;border-left:4px solid #27ae60;">
+<div style="background:rgba(133,153,0,0.08);padding:6px 10px;border-radius:6px;border-left:4px solid #27ae60;">
 **🎯 最终判断(两个证据叠加):**
 
 \[
@@ -736,7 +735,7 @@ P(\text{钓鱼}|\text{紧急},\text{中奖})
 
 </div>
 
-<div style="margin-top:4px;padding:4px 12px;background:rgba(243,156,18,0.06);border-left:4px solid #f39c12;border-radius:4px;font-size:0.4em;text-align:center;">
+<div style="margin-top:4px;padding:4px 12px;background:rgba(243,156,18,0.06);border-left:4px solid #f39c12;border-radius:4px;font-size:0.55em;text-align:center;">
 💡 **实战含义:** 单看 "紧急" 不可靠(58%),加上 "中奖" 后可信度显著上升(94%)。这就是贝叶斯 "**多证据综合研判**" 的价值 —— **不是孤立的证据,而是证据的叠加效应**。
 </div>
 
@@ -755,7 +754,7 @@ P(\text{钓鱼}|\text{紧急},\text{中奖})
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;font-size:0.45em;">
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border-left:4px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border-left:4px solid #268bd2;">
 **🌍 空间维度:不同机构基线不同**
 
 - 机构 A 经常被钓鱼攻击 → 先验 15%
@@ -764,7 +763,7 @@ P(\text{钓鱼}|\text{紧急},\text{中奖})
 
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border-left:4px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border-left:4px solid #f39c12;">
 **⏰ 时间维度:同一机构态势变化**
 
 - 平时:先验 1%
@@ -863,7 +862,7 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.55em;">
 
-<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
 ✅ 核心优势
 
 | 优势 | 网空价值 |
@@ -876,7 +875,7 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 </div>
 
-<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #e74c3c;">
 ⚠ 固有局限
 
 | 局限 | 网空应对 |
@@ -931,28 +930,28 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.45em;">
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;">🤖 自动拦截</div>
 <div style="font-size:0.85em;color:var(--solarized-base00);">误拦成本低</div>
 → **决策树(A)**
 需要明确规则,高准确率直接拦截
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-weight:700;color:#f39c12;">🧠 辅助研判</div>
 <div style="font-size:0.85em;color:var(--solarized-base00);">误拦成本高</div>
 → **朴素贝叶斯(B)**
 输出概率,分析师可结合上下文综合判断
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;">⚡ 资源受限</div>
 <div style="font-size:0.85em;color:var(--solarized-base00);">边缘/端侧部署</div>
 → **朴素贝叶斯(B)**
 更轻量,训练和推理更快,无需 GPU
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
 <div style="font-weight:700;color:#e74c3c;">📋 需要审计</div>
 <div style="font-size:0.85em;color:var(--solarized-base00);">合规/溯源要求</div>
 → **决策树(A)**
@@ -984,22 +983,22 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 💡 核心思想
 根据证据不断修正认知 —— 先验 → 似然 → 后验
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
 🔑 关键区别
 概率输出 — 不仅告诉结论,还告诉可信度
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
 ⚡ 核心优势
 极快、小样本、高维友好、概率输出
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
 🎯 网空定位
 从 "确定性规则" 到 "概率性研判" 的认知跃迁
 </div>

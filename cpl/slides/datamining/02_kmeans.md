@@ -16,6 +16,7 @@ presentation:
 @import "../../css/margin.css"
 @import "../../css/table.css"
 @import "../../css/main.css"
+@import "../../css/datamining.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
@@ -29,31 +30,24 @@ presentation:
 
 <!-- slide -->
 
-# K-Means · 让数据自己 "抱团"
+<div class="bottom8"></div>
 
-<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
+<h1 style="text-align:center;">K-Means · 让数据自己 "抱团"</h1>
 
-<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
-当你不确定恶意行为 "长什么样" 的时候
-</div>
+<hr class="width50 center">
 
-<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
-**网空关键词:** 未知威胁发现 · 主机行为画像 · 异常群体识别
-</div>
+<h2 style="text-align:center;">当你不确定恶意行为 "长什么样" 的时候</h2>
 
-<div style="margin-top:100px;text-align:center;line-height:2.2;">
-<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
-杨已彪
-</div>
-<div style="font-size:0.6em;color:var(--solarized-base00);">
-yangyibiao@nju.edu.cn
-</div>
-<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
-南京大学计算机学院 · 计算机软件新技术全国重点实验室
-</div>
-<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+<div class="bottom8"></div>
+
+<h3 style="text-align:center;">南京大学计算机学院 &nbsp;&nbsp; 杨已彪</h3>
+
+<h4 style="text-align:center;">计算机软件新技术全国重点实验室</h4>
+
+<h4 style="text-align:center;"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></h4>
+
+<div style="margin-top:26px;text-align:center;font-size:20pt;color:var(--solarized-base00);letter-spacing:3px;">
 2026 年 10 月
-</div>
 </div>
 
 ---
@@ -84,9 +78,9 @@ yangyibiao@nju.edu.cn
 
 **未知:** 是否存在**从未被发现**的异常行为模式?
 
-<div class="twocol">
+<div class="twocol" style="font-size:0.85em;">
 
-<div style="background:#1a2d1a;padding:14px;border-radius:8px;border:1px solid #27ae60;">
+<div style="background:rgba(133,153,0,0.08);padding:14px;border-radius:8px;border:1px solid #27ae60;">
 
 ### ✅ 有标注 → 用决策树
 
@@ -96,7 +90,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#2d1b1b;padding:14px;border-radius:8px;border:1px solid #e74c3c;">
+<div style="background:rgba(220,50,47,0.08);padding:14px;border-radius:8px;border:1px solid #e74c3c;">
 
 ### ❓ 无标注 → 用 K-Means
 
@@ -112,7 +106,7 @@ yangyibiao@nju.edu.cn
 
 **一句话理解聚类:** 分类是 "对答案",聚类是 "找朋友"。
 
-> **本部分目标:** 在没有 "标准答案" 的情况下,让算法自动发现数据中的结构。
+> **本部分目标:** 没有 "标准答案" 时,让算法自动发现数据中的结构。
 
 ---
 
@@ -132,7 +126,7 @@ yangyibiao@nju.edu.cn
 
 <div class="twocol" style="margin-top:14px;">
 
-<div style="background:#1a2a3a;padding:12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.10);padding:12px;border-radius:6px;border:1px solid #268bd2;">
 
 ### 🌳 决策树
 
@@ -142,7 +136,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#1a2a3a;padding:12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.10);padding:12px;border-radius:6px;border:1px solid #268bd2;">
 
 ### 📊 K-Means
 
@@ -162,7 +156,7 @@ yangyibiao@nju.edu.cn
 
 <div class="twocol">
 
-<div style="background:#1a2a3a;padding:14px;border-radius:8px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.10);padding:14px;border-radius:8px;border:1px solid #268bd2;">
 
 ### ✅ 分类(决策树)
 
@@ -179,7 +173,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#1a2a3a;padding:14px;border-radius:8px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.10);padding:14px;border-radius:8px;border:1px solid #f39c12;">
 
 ### ❓ 聚类(K-Means)
 
@@ -210,10 +204,8 @@ yangyibiao@nju.edu.cn
 
 > **一句话:让相似的数据聚在一起,形成 "团伙"。**
 
-以网空场景为例:
-
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '9px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 12, 'rankSpacing': 18 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '13px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 8, 'rankSpacing': 12 } } }%%
 flowchart TD
     A["📡 内网主机行为数据 <br/> (无标签)"]
     --> B["🔍 K-Means 自动聚类"]
@@ -233,8 +225,6 @@ flowchart TD
     style F fill:#2d1b1b,stroke:#e74c3c,stroke-width:2px,color:#e74c3c
     style G fill:#1a2a3a,stroke:#e74c3c,stroke-width:2px,color:#e74c3c
 ```
-
-> **本质:** 在没有 "答案" 的情况下,让数据自己 "抱团",然后由人来判断 "这些团是什么"。
 
 ---
 
@@ -263,9 +253,9 @@ flowchart TD
 
 每个簇用它的**平均特征**来代表 —— 就像每个群体的 "典型画像"。
 
-<div class="twocol" style="margin-top:16px;">
+<div class="twocol" style="margin-top:10px;font-size:0.85em;">
 
-<div style="background:#1a2d1a;padding:14px 16px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
+<div style="background:rgba(133,153,0,0.08);padding:10px 12px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
 
 ### 🟢 簇 A · 中心点
 
@@ -275,7 +265,7 @@ flowchart TD
 
 </div>
 
-<div style="background:#1a2d1a;padding:14px 16px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
+<div style="background:rgba(133,153,0,0.08);padding:10px 12px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
 
 ### 🟢 簇 B · 中心点
 
@@ -285,7 +275,7 @@ flowchart TD
 
 </div>
 
-<div style="background:#2d1b1b;padding:14px 16px;border-radius:8px;border:1px solid #e74c3c;text-align:center;flex:1;">
+<div style="background:rgba(220,50,47,0.08);padding:10px 12px;border-radius:8px;border:1px solid #e74c3c;text-align:center;flex:1;">
 
 ### 🔴 簇 C · 中心点
 
@@ -297,7 +287,7 @@ flowchart TD
 
 </div>
 
-<div style="margin-top:12px;padding:10px 16px;background:rgba(38,139,210,0.08);border-radius:6px;text-align:center;">
+<div style="margin-top:6px;padding:8px 16px;background:rgba(38,139,210,0.08);border-radius:6px;text-align:center;">
 📌 每个中心点就是该簇所有点的 "平均画像" —— **Means 就是这些中心点的统称**
 </div>
 
@@ -308,7 +298,7 @@ flowchart TD
 ## K-Means 工作流程 · 网空版
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '11px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '15px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
 flowchart LR
     A["📡 无标注数据"]
     --> B["🎯 随机选 K 个<br/>初始中心"]
@@ -383,7 +373,7 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:0.6em;">
 
-<div style="background:#0d1a2b;padding:6px 8px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 8px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-size:0.85em;font-weight:700;color:#27ae60;">🟢 簇 A · 中心 (2,80)</div>
 
 | 主机 | 坐标 | 距离 |
@@ -394,7 +384,7 @@ flowchart LR
 
 </div>
 
-<div style="background:#0d1a2b;padding:6px 8px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 8px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-size:0.85em;font-weight:700;color:#f39c12;">🟡 簇 B · 中心 (15,180)</div>
 
 | 主机 | 坐标 | 距离 |
@@ -405,7 +395,7 @@ flowchart LR
 
 </div>
 
-<div style="background:#0d1a2b;padding:6px 8px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 8px;border-radius:6px;border:1px solid #e74c3c;">
 <div style="font-size:0.85em;font-weight:700;color:#e74c3c;">🔴 簇 C · 中心 (12,10)</div>
 
 | 主机 | 坐标 | 距离 |
@@ -433,7 +423,7 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.55em;">
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-size:0.85em;font-weight:700;color:#27ae60;">🟢 簇 A</div>
 H1 (2,50) + H2 (3,45) + H3 (2,55)
 **旧中心:** (2, 80)
@@ -441,7 +431,7 @@ H1 (2,50) + H2 (3,45) + H3 (2,55)
 ⬇ 向下移动 30
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-size:0.85em;font-weight:700;color:#f39c12;">🟡 簇 B</div>
 H4 (8,150) + H5 (9,140) + H6 (7,160)
 **旧中心:** (15, 180)
@@ -449,7 +439,7 @@ H4 (8,150) + H5 (9,140) + H6 (7,160)
 ⬇ 向左 7 · 向下 30
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
 <div style="font-size:0.85em;font-weight:700;color:#e74c3c;">🔴 簇 C</div>
 H7 (20,30) + H8 (22,25) + H9 (18,35) + H10 (25,20)
 **旧中心:** (12, 10)
@@ -473,7 +463,7 @@ H7 (20,30) + H8 (22,25) + H9 (18,35) + H10 (25,20)
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.5em;">
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:2px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #27ae60;">
 <div style="font-size:0.9em;font-weight:700;color:#27ae60;">🟢 簇 A</div>
 H1 (2,50)  
 H2 (3,45)  
@@ -483,7 +473,7 @@ H3 (2,55)
 → 正常业务
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:2px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #f39c12;">
 <div style="font-size:0.9em;font-weight:700;color:#f39c12;">🟡 簇 B</div>
 H4 (8,150)  
 H5 (9,140)  
@@ -493,7 +483,7 @@ H6 (7,160)
 → 疑似数据外泄
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:2px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #e74c3c;">
 <div style="font-size:0.9em;font-weight:700;color:#e74c3c;">🔴 簇 C</div>
 H7 (20,30)  
 H8 (22,25)  
@@ -514,7 +504,7 @@ H10 (25,20)
 | 第 1 轮 | (2.3, 50) | (8, 150) | (21.3, 27.5) | 更新 |
 | 第 2 轮 | (2.3, 50) | (8, 150) | (21.3, 27.5) | ✓ 收敛 |
 
-<div style="margin-top:6px;padding:6px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;font-size:0.55em;">
+<div style="margin-top:2px;padding:4px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;font-size:0.55em;">
 🎯 **网空发现:** 簇 B 和簇 C 行为异常,建议立即深入排查!
 </div>
 
@@ -524,26 +514,24 @@ H10 (25,20)
 
 ## 距离如何计算? —— 欧氏距离
 
-最常见的距离度量:
-
+<div style="font-size:0.7em;">
 \[
 d(x,y)=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}
 \]
+</div>
 
-**直观理解:** 两点之间的 "直线距离"。
-
-**网空场景示例:**
-
-两台主机的行为特征:
+**网空场景示例:** 两台主机的行为特征:
 
 | 主机 | 外连频率 | 数据外传量 |
 |------|----------|------------|
 | H1 | 2 | 50 |
 | H4 | 8 | 150 |
 
+<div style="font-size:0.7em;">
 \[
 d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 \]
+</div>
 
 > 距离越大 → 两台主机行为差异越大
 
@@ -562,9 +550,11 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 
 ### 目标函数
 
+<div style="font-size:0.75em;">
 \[
 \sum_{k=1}^{K}\sum_{x \in C_k} \|x - \mu_k\|^2
 \]
+</div>
 
 > **人话:** 让每个点都离自己的中心点尽可能近。
 
@@ -574,7 +564,7 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 
 ## 实际做法:多次运行,选最优
 
-<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:0.6em;background:#0d1a2b;padding:8px 12px;border-radius:6px;margin:6px 0;">
+<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:0.6em;background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;margin:6px 0;">
 <div style="font-weight:700;color:var(--solarized-base00);">第 1 次</div>
 <div>随机 → 收敛 → 目标值 1500 <span style="color:#27ae60;">✓ 最优</span></div>
 <div style="font-weight:700;color:var(--solarized-base00);">第 2 次</div>
@@ -600,7 +590,7 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 算法不断重复两步:
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '13px' } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '15px' } } }%%
 flowchart LR
     A["📦 分配<br/>每个点到最近簇"]
     --> B["📊 更新<br/>重新计算中心"]
@@ -660,7 +650,7 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.6em;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 **簇内紧密度( a )**
 同一个簇内的点彼此距离有多近
 
@@ -669,7 +659,7 @@ flowchart LR
 理想状态:**越小越好**(紧凑)
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 **簇间分离度( b )**
 不同簇之间的距离有多远
 
@@ -780,7 +770,7 @@ plt.show()
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid #27ae60;">
 
 ### ✅ 通用优点
 
@@ -790,7 +780,7 @@ plt.show()
 
 </div>
 
-<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid #268bd2;">
 
 ### 🎯 网空场景价值
 
@@ -817,7 +807,7 @@ plt.show()
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid #e74c3c;">
 
 ### ⚠ 固有局限
 
@@ -828,7 +818,7 @@ plt.show()
 
 </div>
 
-<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid #f39c12;">
 
 ### 🎯 网空场景下的应对
 
@@ -890,7 +880,7 @@ K-Means 聚类后发现一个簇:
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.65em;">📊 行为解读</div>
 
 | 行为模式 | 可能的含义 |
@@ -902,7 +892,7 @@ K-Means 聚类后发现一个簇:
 
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-weight:700;color:#268bd2;font-size:0.65em;">🚨 处置流程</div>
 
 <div style="display:flex;flex-direction:column;gap:2px;font-size:0.55em;margin-top:2px;">
@@ -931,22 +921,22 @@ K-Means 聚类后发现一个簇:
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 **💡 核心思想**  
 让数据自己 "抱团" —— **物以类聚**
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
 **🔑 关键区别**  
 **无监督学习** — 不需要标注,发现未知结构
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
 **❓ 两大关键问题**  
 距离怎么算? K 怎么选?
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
 **🎯 网空定位**  
 从 "已知威胁检测" 到 **"未知威胁发现"** 的认知跃迁
 </div>

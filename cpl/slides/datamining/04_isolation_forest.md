@@ -16,6 +16,7 @@ presentation:
 @import "../../css/margin.css"
 @import "../../css/table.css"
 @import "../../css/main.css"
+@import "../../css/datamining.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
@@ -29,31 +30,24 @@ presentation:
 
 <!-- slide -->
 
-# 孤立森林 · 异常即信号
+<div class="bottom8"></div>
 
-<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
+<h1 style="text-align:center;">孤立森林 · 异常即信号</h1>
 
-<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
-当恶意样本极度稀少,连 "规律" 都无从总结的时候
-</div>
+<hr class="width50 center">
 
-<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
-**网空关键词:** 0-day 发现 · 未知威胁检测 · 异常行为识别
-</div>
+<h2 style="text-align:center;">当恶意样本极度稀少,连 "规律" 都无从总结的时候</h2>
 
-<div style="margin-top:100px;text-align:center;line-height:2.2;">
-<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
-杨已彪
-</div>
-<div style="font-size:0.6em;color:var(--solarized-base00);">
-yangyibiao@nju.edu.cn
-</div>
-<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
-南京大学计算机学院 · 计算机软件新技术全国重点实验室
-</div>
-<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+<div class="bottom8"></div>
+
+<h3 style="text-align:center;">南京大学计算机学院 &nbsp;&nbsp; 杨已彪</h3>
+
+<h4 style="text-align:center;">计算机软件新技术全国重点实验室</h4>
+
+<h4 style="text-align:center;"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></h4>
+
+<div style="margin-top:26px;text-align:center;font-size:20pt;color:var(--solarized-base00);letter-spacing:3px;">
 2026 年 10 月
-</div>
 </div>
 
 ---
@@ -82,7 +76,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
-<div style="background:#0d1a2b;padding:14px 16px;border-radius:8px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 16px;border-radius:8px;border:1px solid #e74c3c;">
 <div style="font-weight:700;color:#e74c3c;font-size:0.65em;">❌ 传统方法失效</div>
 
 <div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
@@ -93,7 +87,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#0d1a2b;padding:14px 16px;border-radius:8px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 16px;border-radius:8px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.65em;">✅ 孤立森林的思路</div>
 
 <div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
@@ -120,7 +114,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
-<div style="background:#1a2d1a;padding:12px 16px;border-radius:8px;border:1px solid #27ae60;">
+<div style="background:rgba(133,153,0,0.08);padding:12px 16px;border-radius:8px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.65em;">✅ 正常数据</div>
 
 <div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
@@ -131,7 +125,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#2d1b1b;padding:12px 16px;border-radius:8px;border:1px solid #268bd2;">
+<div style="background:rgba(220,50,47,0.08);padding:12px 16px;border-radius:8px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#e74c3c;font-size:0.65em;">🚨 异常数据</div>
 
 <div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
@@ -158,7 +152,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
 <div style="font-weight:700;color:#f39c12;font-size:0.65em;">👥 直观类比</div>
 
 <div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
@@ -174,7 +168,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
 <div style="font-weight:700;color:#27ae60;font-size:0.65em;">🎯 算法映射</div>
 
 <div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
@@ -193,14 +187,14 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
-<div style="background:#1a2d1a;padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
+<div style="background:rgba(133,153,0,0.08);padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.5em;">🟢 正常点</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
 **聚集在一起** → 需要多次切分才能分开
 </div>
 </div>
 
-<div style="background:#2d1b1b;padding:8px 12px;border-radius:6px;border-left:4px solid #e74c3c;">
+<div style="background:rgba(220,50,47,0.08);padding:8px 12px;border-radius:6px;border-left:4px solid #e74c3c;">
 <div style="font-weight:700;color:#e74c3c;font-size:0.5em;">🔴 异常点</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
 **远离群体** → 几次切分就能单独隔离
@@ -221,7 +215,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #27ae60;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #27ae60;text-align:center;">
 <div style="font-weight:700;color:#27ae60;font-size:0.65em;">🟢 正常点(聚集)</div>
 
 <div style="font-size:1.6em;line-height:1.8;letter-spacing:4px;margin-top:4px;font-weight:300;">
@@ -234,7 +228,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #e74c3c;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #e74c3c;text-align:center;">
 <div style="font-weight:700;color:#e74c3c;font-size:0.65em;">🔴 异常点(孤立)</div>
 
 <div style="font-size:1.6em;line-height:1.8;letter-spacing:8px;margin-top:4px;">
@@ -251,7 +245,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.5em;">✂ 正常点:需要很多刀</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
 密集区域 → 多次随机切分才能分开
@@ -261,7 +255,7 @@ yangyibiao@nju.edu.cn
 </div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
 <div style="font-weight:700;color:#e74c3c;font-size:0.5em;">✂ 异常点:几刀就孤立</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
 远离群体 → 随机切分很快单独分离
@@ -287,7 +281,7 @@ yangyibiao@nju.edu.cn
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.65em;">🌲 孤立树(单棵)</div>
 
 <div style="font-size:0.45em;line-height:1.8;margin-top:4px;">
@@ -299,7 +293,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.65em;">🌳 孤立森林(多棵)</div>
 
 <div style="font-size:0.45em;line-height:1.8;margin-top:4px;">
@@ -323,7 +317,7 @@ yangyibiao@nju.edu.cn
 ## 孤立树构建过程
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '11px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 12, 'rankSpacing': 18 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '15px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 12, 'rankSpacing': 18 } } }%%
 flowchart LR
     A["📊 原始数据"]
     --> B["🎲 随机选特征"]
@@ -343,7 +337,7 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;font-size:0.4em;">
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
 🔑 **关键步骤:**
 
 1. 随机选一个特征
@@ -351,7 +345,7 @@ flowchart LR
 3. 将数据分成左右两份
 </div>
 
-<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
 ⏱ **终止条件:**
 
 样本被完全隔离 → 记录路径长度
@@ -367,11 +361,9 @@ flowchart LR
 
 ## 路径长度 · 核心指标
 
-> **路径长度 = 样本被完全隔离所需的切分次数。异常点路径短,正常点路径长。**
-
 **一个具体例子:外连频率**
 
-<div style="background:#0d1a2b;padding:4px 10px;border-radius:6px;border:1px solid #586e75;margin-top:4px;font-size:0.45em;">
+<div style="background:rgba(38,139,210,0.06);padding:4px 10px;border-radius:6px;border:1px solid #586e75;margin-top:4px;font-size:0.45em;">
 <div style="font-weight:700;color:#f39c12;font-size:0.85em;text-align:center;margin-bottom:2px;">✂ 随机切分过程对比</div>
 
 | 步骤 | 数据(外连频率,次/小时) | 说明 |
@@ -385,7 +377,7 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:6px;margin-top:4px;font-size:0.35em;">
 
-<div style="background:#0d1a2b;padding:3px 8px;border-radius:4px;border-left:4px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:3px 8px;border-radius:4px;border-left:4px solid #27ae60;">
 **为什么正常点难切?**
 
 - 位于密集区域(2~8)
@@ -394,7 +386,7 @@ flowchart LR
 👉 需要很多刀才能分开
 </div>
 
-<div style="background:#0d1a2b;padding:3px 8px;border-radius:4px;border-left:4px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:3px 8px;border-radius:4px;border-left:4px solid #e74c3c;">
 **为什么异常点容易切?**
 
 - 位于稀疏区域(25)
@@ -405,7 +397,7 @@ flowchart LR
 
 </div>
 
-<div style="margin-top:3px;padding:2px 8px;background:rgba(38,139,210,0.06);border-left:3px solid #268bd2;border-radius:4px;font-size:0.3em;text-align:center;">
+<div style="margin-top:3px;padding:2px 8px;background:rgba(38,139,210,0.06);border-left:3px solid #268bd2;border-radius:4px;font-size:0.45em;text-align:center;">
 💡 异常点不是 "被识别" 出来的,而是 "更容易被随机切分孤立" 出来的。
 </div>
 
@@ -419,19 +411,19 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;">
 
-<div style="background:#2d1b1b;padding:8px;border-radius:6px;border:1px solid #e74c3c;text-align:center;font-size:0.55em;">
+<div style="background:rgba(220,50,47,0.08);padding:8px;border-radius:6px;border:1px solid #e74c3c;text-align:center;font-size:0.55em;">
 🔴 得分接近 **1**
 异常可能性高
 → 值得深入排查
 </div>
 
-<div style="background:#1a2a3a;padding:8px;border-radius:6px;border:1px solid #f39c12;text-align:center;font-size:0.55em;">
+<div style="background:rgba(38,139,210,0.10);padding:8px;border-radius:6px;border:1px solid #f39c12;text-align:center;font-size:0.55em;">
 🟡 得分接近 **0.5**
 边界区域
 → 可进一步研判
 </div>
 
-<div style="background:#1a2d1a;padding:8px;border-radius:6px;border:1px solid #27ae60;text-align:center;font-size:0.55em;">
+<div style="background:rgba(133,153,0,0.08);padding:8px;border-radius:6px;border:1px solid #27ae60;text-align:center;font-size:0.55em;">
 🟢 得分接近 **0**
 高度正常
 → 无需关注
@@ -439,7 +431,7 @@ flowchart LR
 
 </div>
 
-<div style="background:#0d1a2b;padding:6px 12px;border-radius:6px;border-left:4px solid #268bd2;margin-top:4px;font-size:0.5em;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 12px;border-radius:6px;border-left:4px solid #268bd2;margin-top:4px;font-size:0.5em;">
 💡 **网空含义:** 异常得分不是 "是不是恶意",而是 "有多不像正常"。得分越高,越值得深入调查。
 </div>
 
@@ -498,7 +490,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.55em;">
 
-<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
 ✅ 核心优势
 
 | 优势 | 网空价值 |
@@ -511,7 +503,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 </div>
 
-<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #e74c3c;">
 ⚠ 固有局限
 
 | 局限 | 网空应对 |
@@ -570,19 +562,19 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:6px;">
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
 <div style="font-size:0.5em;font-weight:700;color:#268bd2;margin-top:2px;">无需标注</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">0-day 攻击无历史样本,监督模型无法训练</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
 <div style="font-size:0.5em;font-weight:700;color:#27ae60;margin-top:2px;">快速筛选</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">从 1 万条中圈出可疑 TOP 10-20</div>
 </div>
 
-<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
 <div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
 <div style="font-size:0.5em;font-weight:700;color:#f39c12;margin-top:2px;">人机协同</div>
 <div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">分析师聚焦少量候选,效率提升 100 倍</div>
@@ -590,7 +582,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 </div>
 
-<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;padding:6px 14px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.35em;">
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;padding:6px 14px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.5em;">
 <div style="font-weight:700;color:#268bd2;">🌲 孤立森林</div>
 <div style="color:var(--solarized-base00);">→ 初筛(10-20 条)</div>
 <div style="color:var(--solarized-base00);font-size:1.2em;">↓</div>
@@ -601,7 +593,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 <div style="color:var(--solarized-base00);">→ 提取特征 → 更新规则库</div>
 </div>
 
-<div style="margin-top:4px;padding:3px 10px;background:rgba(231,76,60,0.06);border-left:3px solid #e74c3c;border-radius:4px;font-size:0.3em;text-align:center;">
+<div style="margin-top:4px;padding:3px 10px;background:rgba(231,76,60,0.06);border-left:3px solid #e74c3c;border-radius:4px;font-size:0.45em;text-align:center;">
 🎯 **核心价值:** 孤立森林做 "初筛",专家做 "终判"。从 1 万条聚焦到 10 条,让专家的工作从 "大海捞针" 变成 "精准打击"。
 </div>
 
@@ -613,22 +605,22 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 💡 核心思想
 异常点更容易被隔离 — 异常即信号
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
 🔑 关键区别
 无需标注 — 不需要任何正常/恶意样本
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
 📊 核心指标
 路径长度:异常点路径短,正常点路径长
 </div>
 
-<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
 🎯 网空定位
 从 "已知威胁检测" 到 "未知威胁发现" 的认知跃迁
 </div>
@@ -645,12 +637,12 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 ## 综合回顾 · 四种思维 · 四把武器
 
-| 遇到的情况 | 选用武器 |
-|------------|----------|
-| 已知威胁,需要可执行的规则 | 📜 决策树 |
-| 未知威胁,没有标注,找异常群体 | 📏 K-Means |
-| 判断概率,辅助决策 | 🎲 朴素贝叶斯 |
-| 从未见过的 0-day | 🚨 孤立森林 |
+| 遇到的情况 | 任务 | 选用武器 |
+|------------|------|----------|
+| 已知威胁,需要可执行的规则 | 分类 | 📜 决策树 |
+| 未知威胁,没有标注,找异常群体 | 聚类 | 📏 K-Means |
+| 判断概率,辅助决策 | 概率分类 | 🎲 朴素贝叶斯 |
+| 从未见过的 0-day | 异常检测 | 🚨 孤立森林 |
 
 <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;padding:8px 16px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.45em;">
 <div style="font-weight:700;color:#268bd2;">📜 决策树</div>
@@ -684,7 +676,9 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 ✅ 🚨 孤立森林 —— 异常本身就是信号
 
-<div style="margin-top:10px;text-align:center;font-size:1.3em;font-weight:600;color:#f39c12;">
+> 今天这四种是 "思维原型" —— 具体算法原理的展开,后续课程还会继续深入。
+
+<div style="margin-top:6px;text-align:center;font-size:1.2em;font-weight:600;color:#f39c12;">
 从问题出发选择方法
 <span style="color:#888;font-weight:400;">而不是</span>
 从算法出发寻找问题
