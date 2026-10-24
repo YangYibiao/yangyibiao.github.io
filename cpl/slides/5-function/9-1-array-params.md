@@ -124,7 +124,7 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 
 - ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
 
-- 原因第 10 周指针章解释 (数组名传的是地址)
+- 原因第 11 周指针与数组揭晓 (数组名传的是地址)
 
 ---
 
@@ -166,7 +166,7 @@ int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
 把第 6 周的转置逻辑封装成函数:
 
 ```C{.line-numbers}
-/* a: rows×4 的矩阵, b: 4×rows 的转置结果 */
+/* a: 3×4 的矩阵, b: 4×3 的转置结果 */
 void transpose(int a[][4], int b[][3], int rows)
 {
   for (int i = 0; i < rows; i++)
@@ -222,7 +222,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 二维数组进 (`scores`)、一维数组出 (`sums`)——都是"数组作参数"
 
-- 把 `sums[i] += scores[i][j]` 改成 `sums[j] += scores[i][j]` 就变成==按列统计==
+- 按列统计要单独写: `sums[j]` 的清零放在==行循环之外== (只清一次), 累加行改成 `sums[j] += scores[i][j]` (结果数组长度变成 3)
 
 </div>
 
@@ -342,9 +342,9 @@ i = 32764
 
 2. 求第 col 列的平均分: `double col_average(int scores[][3], int n, int col)`
 
-3. 判断矩阵是否对称: `int is_symmetric(int a[][3], int n)` (a[i][j] == a[j][i])
+3. 判断一个 3×3 矩阵是否对称: `int is_symmetric(int a[3][3])`
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 每个函数第一步都是想清楚==形参的列数写多少==
+<span class="blue">:fa-lightbulb-o:</span> 提示: 每个函数第一步都是想清楚==形参的列数写多少== (样例: `sum_matrix({{1,2,3,4},{5,6,7,8}}, 2)` 应为 36)
 
 ---
 
@@ -356,7 +356,7 @@ i = 32764
 
 ---
 
-1. 一维数组作参数的三条规则是什么？
+1. 一维数组作参数的写法有哪两个编号要点？为什么函数里改数组会改到原数组？
 
 2. `void f(int a[][4])` 能接收 `int m[3][5]` 吗？
 

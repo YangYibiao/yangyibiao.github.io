@@ -127,9 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">decompose</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-long">long</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">decompose</span><span class="token punctuation">(</span><span class="token number">3.14159</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>第 8 周的 swap 演示还记得吗: 传值改不了实参。传递<mark>变量的地址</mark>而不是变量的值, 函数就能改到调用者的变量——decompose 就是靠这个思路起死回生的.</p>
 <p>decompose的新定义:</p>
 <p>decompose的原型可以是:</p>
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针作为参数--swap-例">指针作为参数: swap 例 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针作为参数--decompose-与-scanf">指针作为参数: decompose 与 scanf </h5>
 <hr>
 <p>decompose函数体中的第一个赋值将x的值转换为long类型, 并将其存储在int_part指向的对象中:</p>
 <div class="top-2">
@@ -163,19 +163,19 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="指针作为参数">指针作为参数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.85em;">
+<div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
 …
 p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">decompose</span><span class="token punctuation">(</span><span class="token number">3.14159</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> d<span class="token punctuation">)</span>；</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">decompose</span><span class="token punctuation">(</span><span class="token number">3.14159</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>尽管scanf的参数必须是指针, 但并不总是需要<code>&amp;</code>运算符:</p>
 <p>使用&运算符是错误的:</p>
 <p>传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用:</p>
-<p>当decompose在 <code>*int_part</code> 和 <code>*frac_part</code> 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 若为 decompose 提供了原型, 编译器会检测到错误; 而 scanf 的例子通常不会被检查出来</p>
+<p>当decompose在 <code>*int_part</code> 和 <code>*frac_part</code> 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 若为 decompose 提供了原型, 编译器会检测到错误; scanf 的参数类型不匹配在开 <code>-Wall</code> 时也会被 <code>-Wformat</code> 检查出来——但仍不能完全依赖编译器, 传参前先想清楚类型</p>
 </div>
 </div>
 <hr>
@@ -221,7 +221,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <ul>
 <li>
 <p><code>max_min(b, N, &amp;big, &amp;small)</code>——把 big、small 的<mark>地址</mark>传给函数, 函数通过指针把结果写回去</p>
@@ -263,7 +263,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
   p <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span> <span class="token comment">/*** 错误 ***/</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>当参数是指向变量x的指针时, 我们通常假设x将被修改:</p>
 <p>但是, 有可能 f 只需要检查 x 的值, 而不是更改它.</p>
 <p>使用指针的原因可能主要是因为效率: 如果变量需要大量的存储空间, 则传递变量的值会浪费时间和空间.</p>
@@ -297,7 +297,7 @@ p <span class="token operator">=</span> <span class="token function">max</span><
     <span class="token keyword keyword-return">return</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>允许函数返回指针:</p>
 <p>调用max函数:</p>
 <p>调用后,  p指向i或j .</p>
@@ -311,11 +311,11 @@ p <span class="token operator">=</span> <span class="token function">max</span><
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
-<li>写 <code>void swap(int *a, int *b)</code>, 在 main 里验证真的交换了——第 8 周传值版的悬念今天揭晓
+<li>写 <code>void swap(int *a, int *b)</code>, 在 main 里验证真的交换了——第 8 周传值版的悬念今天揭晓 (样例: 交换前 <code>x=1, y=2</code>, 调用后 <code>x=2, y=1</code>)
 </li>
-<li>写 <code>void max_min(int a[], int n, int *max, int *min)</code>, 一次带回最大和最小
+<li>写 <code>void max_min(int a[], int n, int *max, int *min, double *avg)</code>, 一次带回最大、最小和平均值
 </li>
-<li>挑战: 写 <code>int *max(int *a, int *b)</code>, 返回较大值的<mark>地址</mark>
+<li>挑战: 写 <code>int *last_max(int *a, int n)</code>, 返回指向<mark>最后一个</mark>最大元素的指针
 </li>
 </ol>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先想清楚"函数要改谁的什么", 再决定传什么地址</p>

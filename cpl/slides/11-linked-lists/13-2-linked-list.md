@@ -161,7 +161,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 构建链表 = 逐个创建结点, 再逐个挂上去。
 
@@ -187,7 +187,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 现在 new_node 指向一块刚好能放下一个结点的内存: 
 
 <div class="top-2">
-  <img src="figs/16-6.png">
+  <img src="figs/16-6.png" width=300px>
 </div>
 
 
@@ -196,7 +196,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 赋值后: 
 <div class="top-2">
-  <img src="figs/16-7.png">
+  <img src="figs/16-7.png" width=300px>
 </div>
 
 `*new_node`周围的括号是强制要求的, 因为.运算符优先于*运算符.
@@ -245,7 +245,7 @@ scanf调用中的示例:
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 链表的优点之一是可以在链表中的任何位置添加结点. 
 
@@ -315,7 +315,7 @@ struct node *search_list(struct node *list, int n)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 虽然while循环也可以搜索链表, 但for语句通常是首选. 
 
@@ -358,7 +358,7 @@ for (cur = list, prev = NULL;
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 链表的一大优势: 删除结点很方便。
 
@@ -383,17 +383,29 @@ for (cur = list, prev = NULL;
 
 当循环终止时, cur指向要删除的结点, prev指向前一个结点.
 
+第 2、3 步的代码:
+
+```C
+if (prev == NULL)          /* 删的是头结点 */
+  list = cur->next;
+else
+  prev->next = cur->next;  /* 绕过 cur */
+free(cur);                 /* 回收内存 */
+```
+
+- 删除头结点要==更新头指针==; free 之后 cur 不能再解引用
+
 
 假设链表如下并且n为20: 
 
 <div class="top-2">
-  <img src="figs/16-11-1.png">
+  <img src="figs/16-11-1.png" width=500px>
 </div>
 
 执行完`cur = list, prev = NULL`后: 
 
 <div class="top-2">
-  <img src="figs/16-11-2.png">
+  <img src="figs/16-11-2.png" width=500px>
 </div>
 
 </div>
@@ -425,7 +437,7 @@ for (cur = list, prev = NULL;
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.5;font-size:0.5em;">
+<div style="flex:1.5;font-size:0.7em;">
 
 ```C{.line-numbers}
 struct part {
@@ -438,9 +450,9 @@ struct part {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
-`inventory2.c`程序是对第 16 章零件数据库程序的修改, 这次数据库存储在一个链表中. 
+`inventory2.c` 是对上一节 13-1 零件数据库程序的改进, 这次数据库存储在一个链表中. 
 
 使用链表的优点: 
 
@@ -474,7 +486,7 @@ find_part和insert会更复杂, 因为将按零件编号对链表inventory中的
 
 1. 链表的一个"结点"至少包含哪两部分？
 
-2. `struct node *next;` 中，为什么结构体里能出现指向自己的指针？
+2. `struct node *next;` 中，为什么必须写 `struct node *` 而不能只写 `node *`？
 
 3. `p->value` 等价于什么（用 `*` 和 `.` 表示）？
 

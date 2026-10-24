@@ -111,7 +111,7 @@ presentation:
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 C 程序可分割成任意数量的==源文件== (扩展名 `.c`), 每个源文件包含程序的一部分 (主要是函数和变量的定义); 其中一个必须包含 `main` 函数, 作为程序的起点.
 
@@ -158,7 +158,7 @@ main函数放入另一个文件calc.c中.
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 程序拆成几个源文件后, 新问题来了: 
 
@@ -230,7 +230,7 @@ main函数放入另一个文件calc.c中.
 ```
 
 ```C
-#include 标记
+#include 标记            /* 标记是宏名, 展开后须形如 <文件名> 或 "文件名" */
 ```
 
 ```C
@@ -247,7 +247,7 @@ main函数放入另一个文件calc.c中.
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 `#include` 有两种写法: `<文件名>` 找 C 自带的库头文件, `"文件名"` 找其他头文件——区别在于编译器==去哪里找==:
 
@@ -288,7 +288,7 @@ typedef int Bool;
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 大多数大型程序包含由多个源文件共享的宏定义和类型定义. 
 
@@ -304,7 +304,7 @@ typedef int Bool;
 两个文件都包含 boolean.h: 
 
 <div class="top-2">
-  <img src="../img/18-1.png">
+  <img src="../img/18-1.png" width=380px>
 </div>
 
 
@@ -342,9 +342,7 @@ x = MAX(p + q, r + s);
 /* 展开为 x = ((p+q) > (r+s) ? (p+q) : (r+s)); */
 ```
 
-- 宏 vs 函数: 宏是替换不求值, 参数无类型; 函数有类型检查
-
-- 经典坑: MAX(i++, j) 会把 i 自增两次——带参宏参数==不要有副作用==
+- 宏 vs 函数: 宏在预处理阶段只做==文本替换==, 实参不会先求值, 也没有类型; 但实参展开后可能出现多次——`MAX(i++, j)` 在 `i++ > j` 时会自增两次, 所以==不要传带副作用的实参==
 
 - <span class="yellow">:fa-weixin:</span> 宏名与左括号之间==不能有空格==: `#define MAX (a,b) ...` 会被当成"无参数的 MAX", 报错信息离现场很远
 
@@ -372,9 +370,9 @@ int pop(void);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
-源文件调用 foo.c 里定义的函数 f 时, 不声明有风险: 编译器假设返回 int、参数个数与调用匹配、实参做默认提升. 到处声明又造成维护"噩梦". 更好的方案: ==原型放头文件 (foo.h)==, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.
+源文件调用 foo.c 里定义的函数 f 时, 不声明会直接报错——C99 起==不再允许隐式声明== (GCC/Clang 默认报 error). 到处声明又造成维护"噩梦". 更好的方案: ==原型放头文件 (foo.h)==, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.
 
 foo.c 的大多数函数应在 foo.h 声明; 只在 foo.c 内部使用的函数==不应==写进头文件 (会误导).
 
@@ -401,40 +399,34 @@ RPN 计算器示例: `stack.c` 定义 make_empty / is_empty / is_full / push / p
 <div style="flex:1.4;font-size:0.55em;">
 
 ```C
-int i;
+/* file1.c */
+int i;                    /* 定义: 为 i 留空间 */
 ```
 
 ```C
-extern int i;
+/* file2.c */
+extern int i;             /* 声明: i 在别处定义 */
 ```
 
 ```C
-extern int a[];
+/* file2.c */
+extern int a[];           /* 数组声明可省略长度 */
 ```
 
 ```C
-int i;
-```
-
-```C
-extern int i;
-```
-
-```C
-int i;
-```
-
-```C
-extern long i;
+/* file2.c (错误示例) */
+extern long i;            /* 与 file1.c 的 int 定义类型不一致! */
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 共享函数: 定义放在一个源文件, 声明放在需要调用的其他文件; 共享外部变量的方式相同.
 
-声明并定义 `i` (编译器为 i 留空间) 见左; `extern` 关键字==只声明不定义== (i 在别处定义, 无需分配空间); 数组声明用 extern 时可省略长度.
+`extern` 关键字==只声明不定义== (不带初始化式时只为声明, 不分配空间).
+
+==类型必须一致==: 某文件定义 `int i;`, 另一文件却写 `extern long i;`, 编译器可能查不出, 运行时行为异常.
 
 </div>
 </div>
@@ -462,7 +454,7 @@ Bool is_full(void);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 头文件可能包含`#include`指令. 
 
@@ -505,43 +497,57 @@ typedef int Bool;
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 如果一个源文件两次包含相同的头文件, 可能会导致编译错误. 
 
-当头文件包含其他头文件时, 此问题很常见. 
-
-假设file1.h包含file3.h, file2.h包含file3.h, prog.c包含file1.h和file2.h.
-
+当头文件包含其他头文件时, 此问题很常见: file1.h 和 file2.h 都包含 file3.h, prog.c 又同时包含 file1.h 和 file2.h——编译 prog.c 时 file3.h 被编译两次:
 
 <div class="top-2">
-  <img src="../img/18-3.png">
+  <img src="../img/18-3.png" width=380px>
 </div>
 
-编译prog.c时, file3.h将被编译两次.
+- 只含宏定义/函数原型/变量声明时重复包含没困难; 含==结构体/枚举定义或变量定义==就会编译错误
+
+- 安全起见, ==所有头文件都加保护==: 以后往头文件里加类型定义也不用担心忘记保护
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
 
 
-两次包含相同的头文件并不总是会导致编译错误. 
+##### 保护头文件: ifndef 写法
 
-如果文件只包含宏定义, 函数原型和/或变量声明, 则不会有任何困难. 
+---
 
-但是, 如果文件包含类型定义, 则会带来编译错误.
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
+<div style="flex:1.4;font-size:0.55em;">
 
-安全起见, 保护所有头文件不被多次包含可能是个好主意. 
+```C{.line-numbers}
+#ifndef BOOLEAN_H
+#define BOOLEAN_H
 
-这样, 可以稍后将类型定义添加到文件中, 而不会有忘记保护文件的风险. 
+#define TRUE 1
+#define FALSE 0
+typedef int Bool;
 
-此外, 在程序开发过程中, 避免不必要地重新编译相同的头文件可以节省一些时间.
+#endif
+```
 
+</div>
 
-为了保护头文件, 将文件的内容包含在#ifndef - #endif对中. 
+<div style="flex:1;font-size:0.6em;">
 
-如何保护boolean.h文件:
+把文件的内容包在 `#ifndef` - `#endif` 对里:
 
-使宏的名称类似于头文件的名称是避免与其他宏冲突的好方法. 
+- 第一次包含: `BOOLEAN_H` 未定义 → 定义它 + 展开内容
 
-由于不能命名宏BOOLEAN.H, 所以像BOOLEAN_H这样的名称是一个不错的选择.
+- 之后再包含: `BOOLEAN_H` 已定义 → 直接跳过全部内容
+
+宏名照头文件名取 (`BOOLEAN.H` 不能作宏名, 用 `BOOLEAN_H`), 避免与其他宏冲突
 
 </div>
 
@@ -558,7 +564,7 @@ typedef int Bool;
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 设计程序需确定程序需要什么函数并将函数分为逻辑相关的组. 
 
@@ -612,26 +618,23 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 
 ```
 justify: justify.o word.o line.o
-        gcc -o justify justify.o word.o line.o
-	 
+	gcc -o justify justify.o word.o line.o
 justify.o: justify.c word.h line.h
-        gcc -c justify.c
-	 
+	gcc -c justify.c
 word.o: word.c word.h
-        gcc -c word.c
-	 
+	gcc -c word.c
 line.o: line.c line.h
-        gcc -c line.c
+	gcc -c line.c
 ```
 
 ```
 justify: justify.o word.o line.o
-	      gcc -o justify justify.o word.o line.o
+        gcc -o justify justify.o word.o line.o   ← 错误: 命令行前是 8 个空格
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 为了更容易构建大型程序, UNIX发明makefile的概念.  
 
@@ -657,7 +660,9 @@ makefile不仅列出了作为程序一部分的文件, 而且还描述了文件�
 
 如果自上次构建程序以来这些文件中的任何一个发生了更改, 则需要重新构建justify. 
 
-下一行的命令显示了如何进行重新构建.
+下一行的命令显示了如何进行重新构建. 
+
+==每个命令行必须以 TAB 开头==——写 8 个空格, make 会报 `missing separator` 错误 (下面第二段代码就是错误示范).
 
 </div>
 
@@ -697,7 +702,7 @@ makefile不仅列出了作为程序一部分的文件, 而且还描述了文件�
 
 2. 为什么头文件要加"保护宏"（#ifndef … #define … #endif）？
 
-3. 三个 .c 文件一起编译，gcc 命令怎么写？
+3. 纠错: make 报 `missing separator`，最可能是什么原因？应该改成什么？
 
 4. 把函数原型放进头文件、函数定义放进 .c 文件，有什么好处？
 
@@ -710,6 +715,12 @@ makefile不仅列出了作为程序一部分的文件, 而且还描述了文件�
 
 ---
 
+<div class="bottom20"></div>
+
+# 下周见!
+
+<hr class="width50 center">
+
+## 未完待续
+
 ---
-
-
