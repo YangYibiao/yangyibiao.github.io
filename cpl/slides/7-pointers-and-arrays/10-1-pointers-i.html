@@ -118,12 +118,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <p>理解指针的第一步是在机器级别观察它们表示的内容. 内存按<mark>字节</mark>划分, 每个字节存 8 位:</p>
 <div class="top-2">
-    <img src="figs/11-1.png">
+    <img src="figs/11-1.png" width=450px>
 </div>
 <p>每个字节都有<mark>唯一的地址</mark>。</p>
 <p>内存共 n 个字节, 地址就是从 \(0\) 到 \(n-1\) 的编号:</p>
 <div class="top-2">
-    <img src="figs/11-2.png" width=280px>
+    <img src="figs/11-2.png" width=140px>
 </div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针变量--为什么需要地址">指针变量: 为什么需要地址 </h5>
@@ -147,13 +147,13 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>q<span class="token punctuation">;</span> <span class="token comment">/* 只指向双精度 */</span>
 <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>r<span class="token punctuation">;</span> <span class="token comment">/* 只指向字符 */</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>声明指针变量时, 名字前面<mark>必须有星号</mark>:</p>
 <p>p是一个指针变量, 能够指向int类型的对象.</p>
 <p>使用术语<mark>对象</mark>而不是变量, 因p可能指向不属于变量的内存区域.</p>
 <p>指针变量可以与其他变量一起出现在声明中:</p>
-<p>C 要求每个指针变量只能指向特定类型(引用类型)的对象:</p>
-<p>对引用类型没有限制.</p>
+<p>C 要求每个指针变量只能指向特定类型(所指向的类型)的对象:</p>
+<p>对指针指向的类型没有限制 (<code>void *</code> 例外: 可存任意对象的地址).</p>
 </div>
 </div>
 <hr>
@@ -169,7 +169,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>声明指针只给它<mark>留了空间</mark>, 还没指向任何对象:</p>
 <p>在使用p之前需要初始化它.</p>
 <p>初始化指针的一种方法: 把变量的地址赋给它:</p>
@@ -189,7 +189,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>j <span class="token operator">=</span> <span class="token operator">*</span><span class="token operator">&</span>i<span class="token punctuation">;</span> <span class="token comment">/* 等同于 j = i; */</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>一旦指针变量指向一个对象, 就可以使用<code>*</code>(间接寻址)运算符来访问对象中存储的内容.</p>
 <p>如果p指向i, 我们可以打印i的值如下:</p>
 <p>对变量使用<code>&amp;</code>运算符生成指向变量的指针</p>
@@ -213,7 +213,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p><code>p = &amp;i;</code></p>
 <p><code>i = 1;</code></p>
 <div class="top-2">
@@ -236,7 +236,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span>
 <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>给*p赋值是特别危险的:</p>
 </div>
 </div>
@@ -251,7 +251,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>C 允许使用赋值运算符来复制相同类型的指针. 假设有以下声明:</p>
 <p>指针赋值示例:</p>
 <p>指针赋值的另一个例子:</p>
@@ -276,7 +276,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p<span class="token punctuation">;</span></code></pre>
 <p>和</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span></code></pre>
-<p>第一条语句是指针赋值, 但第二条不是. 下一张幻灯片上的示例显示了第二个语句的效果.</p>
+<p>第一条语句是指针赋值, 但第二条不是. 下面的示例显示了第二个语句的效果.</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
 q <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span>
 i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
@@ -295,9 +295,9 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </li>
 <li><code>&amp;x</code> 和 <code>*p</code> 分别做什么？它们互为逆运算吗？
 </li>
-<li><code>*p = 10;</code> 与 <code>p = &amp;x;</code> 的区别是什么？
+<li>代码阅读: <code>int i = 1, *p = &amp;i; *p = 2; printf("%d", i);</code> 输出什么？
 </li>
-<li>对未初始化的指针变量做 <code>*p = 1;</code> 会发生什么？
+<li>纠错: <code>int *p; *p = 1;</code> 错在哪里？
 </li>
 </ol>
 <hr>

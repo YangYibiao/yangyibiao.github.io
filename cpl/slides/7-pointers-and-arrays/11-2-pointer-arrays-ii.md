@@ -107,7 +107,7 @@ while (*p != 0)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 假设a声明如下:
 
@@ -145,7 +145,7 @@ while (*p != 0)
 逆序输出: 31 50 11 23 94 7 102 49 82 34
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 指针从 `a` 走到 `a + N - 1` (正着读), 再走回来 (倒着打)
+<span class="blue">:fa-lightbulb-o:</span> 提示: 两个循环——一个负责读入, 一个负责倒序输出; 全程不要出现 `a[i]`
 
 ---
 
@@ -163,37 +163,30 @@ while (*p != 0)
 <div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
-
 /* 数列反向（指针版本） */
-
 #include <stdio.h>
-
 #define N 10
-
 int main(void)
 {
   int a[N], *p;
-
   printf("输入 %d 个数: ", N);
   for (p = a; p < a + N; p++)
     scanf("%d", p);
-
   printf("逆序输出:");
-  for (p = a + N - 1; p >= a; p--)
-    printf(" %d", *p);
+  for (p = a + N; p != a; )       /* 先回退再打印, p 不会走出数组 */
+    printf(" %d", *--p);
   printf("\n");
-
   return 0;
 }
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 - 正着读: `p` 从 `a` 到 `a + N` (注意 `p++` 就是下一个元素)
 
-- 倒着打: `p` 从 `a + N - 1` 回退到 `a`
+- 倒着打: `p` 从 `a + N` 开始, 先 `--p` 再打印, 走到 `a` 为止——p 始终==不走出数组== (指针跑到数组外是未定义行为)
 
 - 对比第 6 周下标版: `a[i]` 与 `*p` 一一对应, 指针版没有下标变量 i
 
@@ -255,7 +248,7 @@ int find_largest(const int a[], int n)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 数组名传递给函数时, 总是被视为指针. 例子:
 
@@ -305,7 +298,7 @@ int *a; /* 编译器仅为指针变量分配空间 */
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 - 数组名传给函数时总被视为指针; ==数组可能被修改== (普通变量传值, 改参数不影响原变量)
 
@@ -408,14 +401,14 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 第 6 周学过: C 以行优先顺序存储二维数组. 
 
 r行的数组的布局: 
   
 <div class="top-2">
-    <img src="figs/13-7.png">
+    <img src="figs/13-7.png" width=480px>
 </div>
 
 p 一开始指向第 0 行第 0 列 ($a[0][0]$), 不断自增 p 就能挨个访问每个元素。
@@ -423,7 +416,7 @@ p 一开始指向第 0 行第 0 列 ($a[0][0]$), 不断自增 p 就能挨个访�
 
 考虑将以下数组的所有元素初始化为0的问题:
 
-将二维数组视为一维适用于大多数 C 编译器. 
+严格说, 把二维数组当一维扁平遍历==依赖实现== (标准不保证可移植), 了解思路即可——正规写法是嵌套循环或下一节的行指针. 
 
 该方法会损害程序的可读性, 对老的编译器可能产生效率提升. 
 
@@ -467,7 +460,7 @@ largest = find_largest(a[i], NUM_COLS);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 指针变量p也可用于处理二维数组的一行中的元素. 
 
@@ -530,7 +523,7 @@ int a[NUM_ROWS][NUM_COLS];
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 处理二维数组一列的元素:
 
@@ -563,13 +556,13 @@ C将a视为一维数组, 其元素是一维数组.
 
 ---
 
-1. 数组名 `a` 在表达式中等价于什么？`a == &a[0]` 成立吗？数组名能像指针一样被赋值吗？
+1. 数组名 `a` 在表达式中等价于什么？`a == &a[0]` 成立吗？
 
 2. `a[i]` 与 `*(a + i)` 是什么关系？
 
 3. `int *p = a;` 之后写 `p[i]` 合法吗？编译器怎么理解它？
 
-4. 二维数组名 `a` 的类型是什么？`p++` 对 `int (*p)[NUM_COLS]` 做什么？
+4. 纠错: `int a[5]; a++;` 错在哪里？想"移动"应该怎么写？
 
 ---
 

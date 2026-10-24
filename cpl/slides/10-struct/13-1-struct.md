@@ -88,13 +88,7 @@ struct {
 
 </div>
 
-<div style="flex:1;">
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-
-
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 结构体与数组的特性不同. 
 
@@ -104,22 +98,38 @@ struct {
 
 在某些语言中, 结构体称为记录, 成员称为字段. 
 
-
----
-
 一个零件有编号、名字、库存量——数组只能存同类型, 拆成三个数组数据就散了。==结构体==把一件事物的信息==打包==在一起: 
 
 声明两个结构体变量, 存仓库里零件的信息:
 
-成员按声明顺序存放在内存里。part1:
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 结构体变量: 内存布局
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.6em;">
+
+- 成员按==声明顺序==存放在内存里, part1 的三个成员在内存中连续排列:
 
 <div class="top-2">
-  <img src="figs/15-1.png" height=500px>
+  <img src="figs/15-1.png" height=300px>
 </div>
 
 </div>
 
-</div>
+<div style="flex:1;font-size:0.6em;">
+
+- 第 6 周学过: 数组是一段连续内存——结构体内部同样是"一段连续内存, 成员依次排开"
+
+- 这也解释了结构体为什么能==整体赋值== (把整段内存复制过去)
 
 </div>
 
@@ -152,13 +162,13 @@ struct {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 假设: 
 
@@ -221,13 +231,13 @@ struct {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 声明结构体变量的同时可以初始化:
 
@@ -284,13 +294,13 @@ scanf("%d", &part1.on_hand);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称. 
 
@@ -417,13 +427,13 @@ part2 = part1; /* legal; both parts have the same type */
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 如果程序里要声明多个成员相同的结构体变量: 
 
@@ -434,9 +444,6 @@ part2 = part1; /* legal; both parts have the same type */
 - 声明一个"结构体标记"
 
 - 使用typedef定义类型名
-
-
----
 
 结构体标记是用于标识特定类型结构体的名称. 
 
@@ -536,14 +543,12 @@ s = HEARTS;
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 在许多程序中, 我们需要只有少量有意义的值的变量. 
 
 存扑克牌花色的变量只该有 4 种值: 梅花、方片、红心、黑桃。
 
-
----
 
 可以把花色声明成整数, 用一组编码表示四种花色:
 
@@ -638,7 +643,7 @@ i = s + 2;      /* i is now 3            */
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 在系统内部, C 将枚举变量和常量视为整数. 
 
@@ -692,12 +697,12 @@ const int tax_brackets[] =
 
 ```C
 const int n = 10;
-int [n]; /*** 错误的 ***/
+static int a[n]; /*** 错误的: 静态数组长度必须是常量表达式 ***/
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 类型限定符: ==const== (只读) 与 ==volatile== (少见); C99 还有 ==restrict== (只用于指针). 例子:
 
@@ -707,7 +712,7 @@ int [n]; /*** 错误的 ***/
 - 提醒编译器对象可以存储在ROM(只读存储器)中.
 
 
-const 与 `#define` 不同: 宏只能给数字/字符/字符串命名, const 可创建==任何类型==的只读对象; const 遵守作用域规则、可在调试器中查看、可对其用 `&` (有地址), 但不能用于常量表达式.
+const 与 `#define` 不同: 宏只做==文本替换== (没有类型、没有作用域、不能用于需要常量表达式的场合), const 创建==有类型、有作用域、有地址==的只读对象, 可在调试器中查看.
 
 </div>
 
@@ -757,13 +762,13 @@ part1 = build_part(528, "Disk drive", 10);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 函数可以有结构体类型的参数和返回值. 
 
@@ -779,7 +784,7 @@ part1 = build_part(528, "Disk drive", 10);
 
 为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身. 
 
-第17章给出了以结构体指针作为参数或作为返回值的函数示例.
+第 10 周见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样.
 
 
 避免复制结构体还有其他原因. 
@@ -829,13 +834,13 @@ struct student {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 结构体和数组可以无限制地组合. 
 
@@ -936,13 +941,13 @@ struct part inventory[100] =
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 初始化结构体数组的方式与初始化多维数组的方式大致相同. 
 
@@ -1022,7 +1027,7 @@ Enter operation code: q
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 inventory.c 演示==嵌套数组与结构体==的实战: 零件存在结构体数组中, 每个结构体含零件号、名称、数量.
 
@@ -1063,7 +1068,7 @@ for (;;) {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 主循环: 读操作码 → 调用对应函数 (insert/search/update/print); 每种零件的信息保存在结构体中, 结构体存进 inventory 数组.
 
@@ -1080,11 +1085,11 @@ for (;;) {
 
 ---
 
-1. 声明一个结构体类型 `point`，含 `int x, y;`，并声明一个变量 `p` 怎么写？
+1. 用结构体标记 `point` 声明含 `int x, y;` 的类型，并定义变量 `pt`；再用 typedef 定义类型名 `Point` 怎么写？
 
-2. `p.x` 与 `p->x` 分别什么时候用？结构体指针的名词是什么？
+2. 已知 `struct point { int x, y; } p;`，`p.x` 中的 `.` 运算符优先级如何？`scanf("%d", &p.x)` 为什么不能写成 `scanf("%d", p.x)`？
 
-3. 结构体可以直接用 `==` 比较吗？可以整体赋值吗？
+3. 代码阅读: `struct { int x; } a, b; a.x = 1; b = a; b.x = 2;` 执行后 `a.x` 是多少？这说明结构体赋值是"复制"还是"共享"？
 
 4. 结构体作函数参数与数组作参数，哪个是"复制"、哪个是"共享"？
 

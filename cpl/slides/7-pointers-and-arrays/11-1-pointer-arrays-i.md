@@ -82,18 +82,16 @@ p = &a[0];
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 指针可以指向==数组元素==:
 
 图示: 
 
 <div class="top-2">
-    <img src="figs/13-1.png">
+    <img src="figs/13-1.png" width=420px>
 </div>
 
-
----
 
 通过 p 可以访问 a[0]——比如把 5 存进 a[0]: 
 
@@ -102,7 +100,7 @@ p = &a[0];
 如下图: 
 
 <div class="top-2">
-    <img src="figs/13-2.png">
+    <img src="figs/13-2.png" width=420px>
 </div>
 
 
@@ -149,7 +147,7 @@ p -= 6;
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后. 
 
@@ -159,13 +157,13 @@ p -= 6;
 
 指针加法示例:
 
-<div class="top-2"><img src="figs/13-3.png" width=280px></div>
+<div class="top-2"><img src="figs/13-3.png" width=180px></div>
 
 
 p 指向 a[i], 则 p - j 指向 a[i-j]。指针减法示例:
 
 <div class="top-2">
-    <img src="figs/13-4.png" width=280px>
+    <img src="figs/13-4.png" width=180px>
 </div>
 
 </div>
@@ -242,7 +240,7 @@ p >= q; // expression value: 1
 - 在第三次迭代结束时: 
 
 <div class="top-2">
-    <img src="figs/13-6.png" width=300px>
+    <img src="figs/13-6.png" width=220px>
 </div>
 
 
@@ -276,7 +274,7 @@ while (p < &a[N])
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 C程序员经常结合使用`*`(间接寻址)和`++`运算符. 
 
@@ -354,15 +352,15 @@ int pop(void)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 \*和`--`运算符的组合方式与\*和`++`相同. 
 
-看一个 `*` 和 `--` 组合的例子, 回到第 8 周讲过的"栈": 
+看一个 `*` 和 `--` 组合的例子——用数组模拟一个==栈== (后进先出):
 
-原始版本的栈依赖于名为top的整型变量来记录contents数组中的==栈顶==的位置. 
+用整型变量 top 记录 contents 数组的==栈顶==位置:
 
-现在将top替换为初始指向contents数组的第0个元素的指针变量:
+现在把 top 换成初始指向 contents[0] 的指针变量:
 
 新的push和pop函数:
 
@@ -387,9 +385,9 @@ int pop(void)
 
 2. `p2 - p1` 得到的是地址差还是元素个数差？
 
-3. `*p++` 等价于什么？先取指针的值还是先移动指针？
+3. `*p++` 等价于什么？先取 p 指向的值，还是先移动 p？
 
-4. 用 `<` 比较两个指针有意义的前提是什么？
+4. 纠错: `int a[10], *p; for (p = a; p <= a + 10; p++) ...` 有什么问题？
 
 ---
 

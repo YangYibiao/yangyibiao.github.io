@@ -51,6 +51,8 @@ presentation:
 
 ---
 
+<div style="font-size:1.3em;text-align:left;margin-left:2rem;">
+
 - 为什么排序
 
 - 三种排序: 选择、冒泡、插入
@@ -58,6 +60,7 @@ presentation:
 - 课堂编码
 
 - 课堂小测
+</div>
 
 ---
 
@@ -75,7 +78,7 @@ presentation:
 
 - 第 6 周我们把数据装进了数组——今天给它们排队
 
-<span class="blue">:fa-lightbulb-o:</span> 第 1 周的冒泡排序预告, 今天正式实现!
+<span class="blue">:fa-lightbulb-o:</span> 第 1 周"程序能做什么"提过排序——今天把它实现出来
 
 ---
 
@@ -90,7 +93,7 @@ presentation:
 每一轮从剩余元素中==选出最小==的, 放到前面
 
 <div class="top-2">
-  <img src="../3-for-a-while/figs/selection-sort.png" width=420px>
+  <img src="../3-for-a-while/figs/selection-sort.png" width=300px>
 </div>
 
 ```C
@@ -133,7 +136,7 @@ for (int i = 0; i < n - 1; i++)           /* 共 n-1 轮 */
 
 - 每一轮结束, 本轮==未排序部分的最大元素"沉"到最后==
 
-- 第 1 周预告过的正是它——现在每个细节都能读懂了
+- 三种排序里最直观的一种——现在每个细节都能读懂了
 
 ---
 
@@ -176,7 +179,7 @@ for (int i = 1; i < n; i++) {
 
 1. 输入 10 个数, 用冒泡排序从小到大输出
 
-2. 把选择排序写出来, 并统计一共交换了多少次
+2. 变体: 把冒泡排序改成==从大到小==, 并输出==每一轮结束后==的数组 (观察"沉底"过程)
 
 ---
 
@@ -191,9 +194,9 @@ for (int i = 1; i < n; i++) {
 
 2. 冒泡排序一轮结束后，什么元素"就位"了？
 
-3. 插入排序的思路是什么？（打牌时你怎么理手牌？）
+3. 代码阅读: 冒泡排序内层循环写成 `for (j = 0; j < n - 1; j++)` (漏了 `- i`)，会发生什么？
 
-4. 三种排序的时间复杂度都是多少？适合多大的数据？
+4. 纠错: 交换写成了 `int t = a[i]; a[i] = a[min]; a[min] = a[i];`——交换为什么没生效？
 
 ---
 

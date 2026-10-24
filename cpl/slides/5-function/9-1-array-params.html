@@ -59599,7 +59599,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 
 </li>
 <li>
-<p>原因第 10 周指针章解释 (数组名传的是地址)</p>
+<p>原因第 11 周指针与数组揭晓 (数组名传的是地址)</p>
 
 </li>
 </ul>
@@ -59629,7 +59629,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="案例--矩阵转置函数化">案例: 矩阵转置函数化 </h5>
 <hr>
 <p>把第 6 周的转置逻辑封装成函数:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* a: rows×4 的矩阵, b: 4×rows 的转置结果 */</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* a: 3×4 的矩阵, b: 4×3 的转置结果 */</span>
 <span class="token keyword keyword-void">void</span> <span class="token function">transpose</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> rows<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -59667,7 +59667,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p>二维数组进 (<code>scores</code>)、一维数组出 (<code>sums</code>)——都是"数组作参数"</p>
 <ul>
 <li>
-<p>把 <code>sums[i] += scores[i][j]</code> 改成 <code>sums[j] += scores[i][j]</code> 就变成<mark>按列统计</mark></p>
+<p>按列统计要单独写: <code>sums[j]</code> 的清零放在<mark>行循环之外</mark> (只清一次), 累加行改成 <code>sums[j] += scores[i][j]</code> (结果数组长度变成 3)</p>
 
 </li>
 </ul>
@@ -59771,15 +59771,15 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 <li>求第 col 列的平均分: <code>double col_average(int scores[][3], int n, int col)</code>
 </li>
-<li>判断矩阵是否对称: <code>int is_symmetric(int a[][3], int n)</code> (a[i][j] == a[j][i])
+<li>判断一个 3×3 矩阵是否对称: <code>int is_symmetric(int a[3][3])</code>
 </li>
 </ol>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每个函数第一步都是想清楚<mark>形参的列数写多少</mark></p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每个函数第一步都是想清楚<mark>形参的列数写多少</mark> (样例: <code>sum_matrix({{1,2,3,4},{5,6,7,8}}, 2)</code> 应为 36)</p>
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>一维数组作参数的三条规则是什么？
+<li>一维数组作参数的写法有哪两个编号要点？为什么函数里改数组会改到原数组？
 </li>
 <li><code>void f(int a[][4])</code> 能接收 <code>int m[3][5]</code> 吗？
 </li>

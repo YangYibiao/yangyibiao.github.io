@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="源文件">源文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>C 程序可分割成任意数量的<mark>源文件</mark> (扩展名 <code>.c</code>), 每个源文件包含程序的一部分 (主要是函数和变量的定义); 其中一个必须包含 <code>main</code> 函数, 作为程序的起点.</p>
 <p>例: 逆波兰记法 (RPN) 计算器 (<code>30 5 - 7 *</code> → 175)——读取操作数与运算符, 用栈跟踪中间结果, 左列是程序划分方案.</p>
 </div>
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="头文件">头文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>程序拆成几个源文件后, 新问题来了:</p>
 <ul>
 <li>
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "d:\cprogs\include\utils.h"</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "utils.h"</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "..\include\utils.h"</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> 标记</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> 标记            /* 标记是宏名, 展开后须形如 &lt;文件名&gt; 或 "文件名" */</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> defined(IA32)</span>
   <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> CPU_FILE "ia32.h" </span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">elif</span> defined(IA64)</span>
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> CPU_FILE</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p><code>#include</code> 有两种写法: <code>&lt;文件名&gt;</code> 找 C 自带的库头文件, <code>"文件名"</code> 找其他头文件——区别在于编译器<mark>去哪里找</mark>:</p>
 <ul>
 <li>
@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
 <span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Bool<span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>大多数大型程序包含由多个源文件共享的宏定义和类型定义.</p>
 <p>这些定义应该放入头文件.</p>
 <p>假设一个程序使用名为BOOL, TRUE和FALSE的宏.</p>
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>任何需要这些宏的源文件将只包含该行</p>
 <p>两个文件都包含 boolean.h:</p>
 <div class="top-2">
-  <img src="../img/18-1.png">
+  <img src="../img/18-1.png" width=380px>
 </div>
 <p>类型定义在头文件中也很常见.</p>
 <p>例如可使用typedef来创建一个Bool类型, 而不是定义BOOL宏.</p>
@@ -323,11 +323,7 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 <span class="token comment">/* 展开为 x = ((p+q) &gt; (r+s) ? (p+q) : (r+s)); */</span></code></pre>
 <ul>
 <li>
-<p>宏 vs 函数: 宏是替换不求值, 参数无类型; 函数有类型检查</p>
-
-</li>
-<li>
-<p>经典坑: MAX(i++, j) 会把 i 自增两次——带参宏参数<mark>不要有副作用</mark></p>
+<p>宏 vs 函数: 宏在预处理阶段只做<mark>文本替换</mark>, 实参不会先求值, 也没有类型; 但实参展开后可能出现多次——<code>MAX(i++, j)</code> 在 <code>i++ &gt; j</code> 时会自增两次, 所以<mark>不要传带副作用的实参</mark></p>
 
 </li>
 <li>
@@ -346,8 +342,8 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 <span class="token keyword keyword-void">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
-<p>源文件调用 foo.c 里定义的函数 f 时, 不声明有风险: 编译器假设返回 int、参数个数与调用匹配、实参做默认提升. 到处声明又造成维护"噩梦". 更好的方案: <mark>原型放头文件 (foo.h)</mark>, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.</p>
+<div style="flex:1;font-size:0.6em;">
+<p>源文件调用 foo.c 里定义的函数 f 时, 不声明会直接报错——C99 起<mark>不再允许隐式声明</mark> (GCC/Clang 默认报 error). 到处声明又造成维护"噩梦". 更好的方案: <mark>原型放头文件 (foo.h)</mark>, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.</p>
 <p>foo.c 的大多数函数应在 foo.h 声明; 只在 foo.c 内部使用的函数<mark>不应</mark>写进头文件 (会误导).</p>
 <p>RPN 计算器示例: <code>stack.c</code> 定义 make_empty / is_empty / is_full / push / pop, 原型放 stack.h; calc.c 包含 stack.h 检查调用, stack.c 也包含它核对定义一致:</p>
 <div class="top-2">
@@ -360,17 +356,19 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>extern <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>extern <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>extern <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>extern <span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file1.c */</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>                    <span class="token comment">/* 定义: 为 i 留空间 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c */</span>
+extern <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>             <span class="token comment">/* 声明: i 在别处定义 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c */</span>
+extern <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>           <span class="token comment">/* 数组声明可省略长度 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c (错误示例) */</span>
+extern <span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span>            <span class="token comment">/* 与 file1.c 的 int 定义类型不一致! */</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>共享函数: 定义放在一个源文件, 声明放在需要调用的其他文件; 共享外部变量的方式相同.</p>
-<p>声明并定义 <code>i</code> (编译器为 i 留空间) 见左; <code>extern</code> 关键字<mark>只声明不定义</mark> (i 在别处定义, 无需分配空间); 数组声明用 extern 时可省略长度.</p>
+<p><code>extern</code> 关键字<mark>只声明不定义</mark> (不带初始化式时只为声明, 不分配空间).</p>
+<p><mark>类型必须一致</mark>: 某文件定义 <code>int i;</code>, 另一文件却写 <code>extern long i;</code>, 编译器可能查不出, 运行时行为异常.</p>
 </div>
 </div>
 <hr>
@@ -383,7 +381,7 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>Bool <span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Bool <span class="token function">is_full</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>头文件可能包含<code>#include</code>指令.</p>
 <p>stack.h 里的原型:</p>
 <p>这些函数只返回 0 或 1, 返回类型最好声明成 Bool:</p>
@@ -406,31 +404,58 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>如果一个源文件两次包含相同的头文件, 可能会导致编译错误.</p>
-<p>当头文件包含其他头文件时, 此问题很常见.</p>
-<p>假设file1.h包含file3.h, file2.h包含file3.h, prog.c包含file1.h和file2.h.</p>
+<p>当头文件包含其他头文件时, 此问题很常见: file1.h 和 file2.h 都包含 file3.h, prog.c 又同时包含 file1.h 和 file2.h——编译 prog.c 时 file3.h 被编译两次:</p>
 <div class="top-2">
-  <img src="../img/18-3.png">
+  <img src="../img/18-3.png" width=380px>
 </div>
-<p>编译prog.c时, file3.h将被编译两次.</p>
-<p>两次包含相同的头文件并不总是会导致编译错误.</p>
-<p>如果文件只包含宏定义, 函数原型和/或变量声明, 则不会有任何困难.</p>
-<p>但是, 如果文件包含类型定义, 则会带来编译错误.</p>
-<p>安全起见, 保护所有头文件不被多次包含可能是个好主意.</p>
-<p>这样, 可以稍后将类型定义添加到文件中, 而不会有忘记保护文件的风险.</p>
-<p>此外, 在程序开发过程中, 避免不必要地重新编译相同的头文件可以节省一些时间.</p>
-<p>为了保护头文件, 将文件的内容包含在#ifndef - #endif对中.</p>
-<p>如何保护boolean.h文件:</p>
-<p>使宏的名称类似于头文件的名称是避免与其他宏冲突的好方法.</p>
-<p>由于不能命名宏BOOLEAN.H, 所以像BOOLEAN_H这样的名称是一个不错的选择.</p>
+<ul>
+<li>
+<p>只含宏定义/函数原型/变量声明时重复包含没困难; 含<mark>结构体/枚举定义或变量定义</mark>就会编译错误</p>
+
+</li>
+<li>
+<p>安全起见, <mark>所有头文件都加保护</mark>: 以后往头文件里加类型定义也不用担心忘记保护</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="将程序划分为文件">将程序划分为文件 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="保护头文件--ifndef-写法">保护头文件: ifndef 写法 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1.4;font-size:0.55em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> BOOLEAN_H</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BOOLEAN_H</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Bool<span class="token punctuation">;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span></code></pre>
+</div>
+<div style="flex:1;font-size:0.6em;">
+<p>把文件的内容包在 <code>#ifndef</code> - <code>#endif</code> 对里:</p>
+<ul>
+<li>
+<p>第一次包含: <code>BOOLEAN_H</code> 未定义 → 定义它 + 展开内容</p>
+
+</li>
+<li>
+<p>之后再包含: <code>BOOLEAN_H</code> 已定义 → 直接跳过全部内容</p>
+
+</li>
+</ul>
+<p>宏名照头文件名取 (<code>BOOLEAN.H</code> 不能作宏名, 用 <code>BOOLEAN_H</code>), 避免与其他宏冲突</p>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="将程序划分为文件">将程序划分为文件 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;font-size:0.6em;">
 <p>设计程序需确定程序需要什么函数并将函数分为逻辑相关的组.</p>
 <p>一旦设计好程序, 就有一种简单的方法可以将其分成文件.</p>
 <hr>
@@ -453,7 +478,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="构建多文件程序">构建多文件程序 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="构建多文件程序">构建多文件程序 </h5>
 <hr>
 <ul>
 <li>
@@ -474,25 +499,22 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="makefile">makefile </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="makefile">makefile </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>justify<span class="token operator">:</span> justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
-        gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
-	 
+	gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
 justify<span class="token punctuation">.</span>o<span class="token operator">:</span> justify<span class="token punctuation">.</span>c word<span class="token punctuation">.</span>h line<span class="token punctuation">.</span>h
-        gcc <span class="token operator">-</span>c justify<span class="token punctuation">.</span>c
-	 
+	gcc <span class="token operator">-</span>c justify<span class="token punctuation">.</span>c
 word<span class="token punctuation">.</span>o<span class="token operator">:</span> word<span class="token punctuation">.</span>c word<span class="token punctuation">.</span>h
-        gcc <span class="token operator">-</span>c word<span class="token punctuation">.</span>c
-	 
+	gcc <span class="token operator">-</span>c word<span class="token punctuation">.</span>c
 line<span class="token punctuation">.</span>o<span class="token operator">:</span> line<span class="token punctuation">.</span>c line<span class="token punctuation">.</span>h
-        gcc <span class="token operator">-</span>c line<span class="token punctuation">.</span>c</code></pre>
+	gcc <span class="token operator">-</span>c line<span class="token punctuation">.</span>c</code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>justify<span class="token operator">:</span> justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
-	      gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o</code></pre>
+        gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o   ← 错误<span class="token operator">:</span> 命令行前是 <span class="token number">8</span> 个空格</code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>为了更容易构建大型程序, UNIX发明makefile的概念.<br></p>
 <p>makefile不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系.</p>
 <p>假设文件foo.c包含文件bar.h.</p>
@@ -505,10 +527,11 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 <p>第一行说明justify依赖于文件justify.o, word.o和line.o.</p>
 <p>如果自上次构建程序以来这些文件中的任何一个发生了更改, 则需要重新构建justify.</p>
 <p>下一行的命令显示了如何进行重新构建.</p>
+<p><mark>每个命令行必须以 TAB 开头</mark>——写 8 个空格, make 会报 <code>missing separator</code> 错误 (下面第二段代码就是错误示范).</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="链接期间的错误">链接期间的错误 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="链接期间的错误">链接期间的错误 </h5>
 <hr>
 <p>一些编译时检测不到的错误会在链接时发现.</p>
 <p>如果程序中缺少函数或变量的定义, 链接器将无法解析对其的外部引用</p>
@@ -530,20 +553,24 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 </ul>
 <p>在 UNIX 中, 当链接使用<math.h>的程序时, 可能需要指定-lm选项.</p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>头文件里通常放什么？源文件 (.c) 里放什么？
 </li>
 <li>为什么头文件要加"保护宏"（#ifndef … #define … #endif）？
 </li>
-<li>三个 .c 文件一起编译，gcc 命令怎么写？
+<li>纠错: make 报 <code>missing separator</code>，最可能是什么原因？应该改成什么？
 </li>
 <li>把函数原型放进头文件、函数定义放进 .c 文件，有什么好处？
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0">
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+<div class="bottom20"></div>
+<h1 id="周三见">下周见! </h1>
+<hr class="width50 center">
+<h2 id="未完待续">未完待续 </h2>
 </section>
       </div>
     </div>

@@ -59632,7 +59632,7 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p><mark>溢出不报错</mark>: <code>INT_MAX + 1</code> 会"绕回"成负数</p>
+<p><mark>溢出不报错</mark>: 有符号整数溢出是<mark>未定义行为</mark>，结果不可预测 (<code>unsigned</code> 才保证"绕回")——不要依赖溢出后的值</p>
 
 </li>
 <li>
@@ -59723,7 +59723,7 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p><code>fgetc</code> / <code>fgets</code> 返回 <code>int</code>, 判断文件结束用返回值而不是 <code>feof</code></p>
+<p><code>fgetc</code> 返回 <code>int</code> (用与 <code>EOF</code> 比较判断结束); <code>fgets</code> 返回 <code>char *</code> (用与 <code>NULL</code> 比较)——都不要靠 <code>feof</code> 预判</p>
 
 </li>
 <li>
@@ -59767,13 +59767,13 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="模拟练习">模拟练习 </h5>
 <hr>
-<p><mark>课堂限时练习</mark> (10 分钟, 选做 1-2 题):</p>
+<p><mark>课堂限时练习</mark> (20 分钟, 必做第 1 题, 选做第 2 或第 3 题):</p>
 <ol>
-<li>输入一行字符串, 统计其中大写字母、小写字母、数字、其他字符的个数
+<li>输入一行字符串 (≤100 字符, 可含空格), 统计其中大写字母、小写字母、数字、其他字符的个数
 </li>
-<li>输入 n 个整数存入数组, 用指针实现: 输出最大值及其下标
+<li>输入 n 个整数存入数组, 用指针实现: 输出最大值及其下标 (重复取第一次)。样例: 输入 <code>5</code>、<code>3 9 1 9 2</code> → <code>max=9 index=1</code>
 </li>
-<li>定义一个结构体 <code>Student {char name[20]; int score;}</code>。输入 5 个学生, 按成绩从高到低排序输出
+<li>定义结构体 <code>struct Student { char name[20]; int score; };</code>。输入 5 个学生, 按成绩从高到低排序输出 (并列时保持输入顺序)
 </li>
 </ol>
 <p>提示: 每题先想<mark>输入 → 处理 → 输出</mark>, 再想需要哪些<mark>循环/判断/数组</mark></p>

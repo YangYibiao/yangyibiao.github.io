@@ -224,12 +224,14 @@ def inline(text):
         # LaTeX 数学: $$..$$ -> \\[..\\], $..$ -> \\(..\\) (排除含逗号的金额写法)
         p = re.sub(r'\$\$([^$\n]{1,200})\$\$', lambda m: '\\[' + m.group(1) + '\\]', p)
         p = re.sub(r'\$([^$\n]{1,80})\$', lambda m: m.group(0) if re.search(r'\d,\d{3}', m.group(1)) else '\\(' + m.group(1) + '\\)', p)
-        # 还原行内代码
-        p = re.sub(r'\x00(\d+)\x00', lambda m: '<code>' + esc(codes[int(m.group(1))]) + '</code>', p)
+        # 高亮/图标/加粗/链接在还原行内代码==之前==处理: 占位符 \x00N\x00 保护代码内容,
+        # 代码里的 == (比较运算符) 不会被误当高亮标记吞掉
         p = re.sub(r':(fa-[a-z0-9-]+):', lambda m: '<span class="blue"><i class="' + FA.get(m.group(1), 'fa ' + m.group(1)) + '" aria-hidden="true"></i></span>', p)
         p = re.sub(r'==([^=]+(?:=[^=]+)*)==', r'<mark>\1</mark>', p)
         p = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)
         p = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', p)
+        # 还原行内代码
+        p = re.sub(r'\x00(\d+)\x00', lambda m: '<code>' + esc(codes[int(m.group(1))]) + '</code>', p)
         out.append(p)
     return ''.join(out)
 

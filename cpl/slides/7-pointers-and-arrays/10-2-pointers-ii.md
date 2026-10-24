@@ -97,13 +97,13 @@ decompose(3.14159, &i, &d);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 第 8 周的 swap 演示还记得吗: 传值改不了实参。传递==变量的地址==而不是变量的值, 函数就能改到调用者的变量——decompose 就是靠这个思路起死回生的.
 
@@ -132,7 +132,7 @@ decompose的原型可以是:
 <!-- slide data-notes="" -->
 
 
-##### 指针作为参数: swap 例
+##### 指针作为参数: decompose 与 scanf
 
 ---
 
@@ -168,7 +168,7 @@ scanf("%d", &i);
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.85em;">
+<div style="flex:1.2;font-size:0.62em;">
 
 ```C
 int i, *p;
@@ -182,12 +182,12 @@ scanf("%d", &p); /*** 错误的 ***/
 ```
 
 ```C
-decompose(3.14159, i, d)；
+decompose(3.14159, i, d);
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 尽管scanf的参数必须是指针, 但并不总是需要`&`运算符:
 
@@ -196,7 +196,7 @@ decompose(3.14159, i, d)；
 传递指针失败可能导致灾难性后果; 缺少 & 的 decompose 调用:
 
 当decompose在 `*int_part` 和 `*frac_part` 中存储值时, 它将修改未知的内存地址, 而不是修改 i 和 d . 
-若为 decompose 提供了原型, 编译器会检测到错误; 而 scanf 的例子通常不会被检查出来
+若为 decompose 提供了原型, 编译器会检测到错误; scanf 的参数类型不匹配在开 `-Wall` 时也会被 `-Wformat` 检查出来——但仍不能完全依赖编译器, 传参前先想清楚类型
 
 </div>
 
@@ -266,7 +266,7 @@ void max_min(int a[], int n, int *max, int *min)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 - `max_min(b, N, &big, &small)`——把 big、small 的==地址==传给函数, 函数通过指针把结果写回去
 
@@ -324,7 +324,7 @@ void f(const int * const p)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 当参数是指向变量x的指针时, 我们通常假设x将被修改:
 
@@ -389,7 +389,7 @@ int *find_middle(int a[], int n) {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
 允许函数返回指针:
 
@@ -425,11 +425,11 @@ f返回后变量i将不存在.
 
 ==现场演示==
 
-1. 写 `void swap(int *a, int *b)`, 在 main 里验证真的交换了——第 8 周传值版的悬念今天揭晓
+1. 写 `void swap(int *a, int *b)`, 在 main 里验证真的交换了——第 8 周传值版的悬念今天揭晓 (样例: 交换前 `x=1, y=2`, 调用后 `x=2, y=1`)
 
-2. 写 `void max_min(int a[], int n, int *max, int *min)`, 一次带回最大和最小
+2. 写 `void max_min(int a[], int n, int *max, int *min, double *avg)`, 一次带回最大、最小和平均值
 
-3. 挑战: 写 `int *max(int *a, int *b)`, 返回较大值的==地址==
+3. 挑战: 写 `int *last_max(int *a, int n)`, 返回指向==最后一个==最大元素的指针
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚"函数要改谁的什么", 再决定传什么地址
 

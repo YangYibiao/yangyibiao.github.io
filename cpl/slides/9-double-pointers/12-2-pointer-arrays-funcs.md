@@ -58,8 +58,6 @@ presentation:
 
 - 函数指针与 qsort
 
-- AI 赋能程序设计 II
-
 ---
 
 
@@ -110,7 +108,7 @@ void add_to_list(struct node **list, int n)
 
 <div style="flex:1;">
 
-第 13 章介绍了指向指针的指针的概念. 
+链表章见过 `struct node *next`——"指向指针的指针"是再进一步: 
 
 "指向指针的指针"的概念也经常出现在链式数据结构中. 
 

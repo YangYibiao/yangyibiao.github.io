@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="创建结点">创建结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>构建链表 = 逐个创建结点, 再逐个挂上去。</p>
 <p>创建结点的步骤:</p>
 <ul>
@@ -199,12 +199,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <p><code>new_node = malloc(sizeof(struct node));</code></p>
 <p>现在 new_node 指向一块刚好能放下一个结点的内存:</p>
 <div class="top-2">
-  <img src="figs/16-6.png">
+  <img src="figs/16-6.png" width=300px>
 </div>
 <p>接着把数据存进新结点的 value 成员: <code>(*new_node).value = 10;</code></p>
 <p>赋值后:</p>
 <div class="top-2">
-  <img src="figs/16-7.png">
+  <img src="figs/16-7.png" width=300px>
 </div>
 <p><code>*new_node</code>周围的括号是强制要求的, 因为.运算符优先于*运算符.</p>
 </div>
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="链表的开头插入一个结点">链表的开头插入一个结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>链表的优点之一是可以在链表中的任何位置添加结点.</p>
 <p>但是, 链表的开头是最容易插入结点的地方.</p>
 <p>假设new_node指向要插入的结点, first指向链表中的第一个结点.</p>
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
  <span class="token keyword keyword-return">return</span> NULL<span class="token punctuation">;</span> 
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>虽然while循环也可以搜索链表, 但for语句通常是首选.</p>
 <p>访问链表中结点的循环, 使用指针变量p来跟踪"当前"结点:</p>
 <p>这种形式的循环可用于在链表中搜索整数n的函数.</p>
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
     prev <span class="token operator">=</span> cur<span class="token punctuation">,</span> cur <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">)</span>
   <span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 <p>链表的一大优势: 删除结点很方便。</p>
 <p>删除结点分三步:</p>
 <ul>
@@ -307,13 +307,25 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>假设list指向要搜索的链表, n是要删除的整数.</p>
 <p>实现第 1 步的循环:</p>
 <p>当循环终止时, cur指向要删除的结点, prev指向前一个结点.</p>
+<p>第 2、3 步的代码:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>prev <span class="token operator">==</span> NULL<span class="token punctuation">)</span>          <span class="token comment">/* 删的是头结点 */</span>
+  list <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+<span class="token keyword keyword-else">else</span>
+  prev<span class="token operator">-&gt;</span>next <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>  <span class="token comment">/* 绕过 cur */</span>
+<span class="token function">free</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token comment">/* 回收内存 */</span></code></pre>
+<ul>
+<li>
+<p>删除头结点要<mark>更新头指针</mark>; free 之后 cur 不能再解引用</p>
+
+</li>
+</ul>
 <p>假设链表如下并且n为20:</p>
 <div class="top-2">
-  <img src="figs/16-11-1.png">
+  <img src="figs/16-11-1.png" width=500px>
 </div>
 <p>执行完<code>cur = list, prev = NULL</code>后:</p>
 <div class="top-2">
-  <img src="figs/16-11-2.png">
+  <img src="figs/16-11-2.png" width=500px>
 </div>
 </div>
 </div>
@@ -327,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--维护零件数据库-改进版">程序: 维护零件数据库(改进版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.5;font-size:0.5em;">
+<div style="flex:1.5;font-size:0.7em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> part <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
   <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -335,8 +347,8 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token keyword keyword-struct">struct</span> part <span class="token operator">*</span>next<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;">
-<p><code>inventory2.c</code>程序是对第 16 章零件数据库程序的修改, 这次数据库存储在一个链表中.</p>
+<div style="flex:1;font-size:0.6em;">
+<p><code>inventory2.c</code> 是对上一节 13-1 零件数据库程序的改进, 这次数据库存储在一个链表中.</p>
 <p>使用链表的优点:</p>
 <ul>
 <li>
@@ -362,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <ol>
 <li>链表的一个"结点"至少包含哪两部分？
 </li>
-<li><code>struct node *next;</code> 中，为什么结构体里能出现指向自己的指针？
+<li><code>struct node *next;</code> 中，为什么必须写 <code>struct node *</code> 而不能只写 <code>node *</code>？
 </li>
 <li><code>p-&gt;value</code> 等价于什么（用 <code>*</code> 和 <code>.</code> 表示）？
 </li>
