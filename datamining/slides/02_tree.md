@@ -107,7 +107,7 @@ yangyibiao@nju.edu.cn
 > 不断提问,逐层判定。以流量检测为例:
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '14px' } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '12px' } } }%%
 flowchart LR
     A["📡 外连请求"]
     --> B{"端口 =443 ?"}
@@ -136,7 +136,9 @@ flowchart LR
     style J fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
 ```
 
-> **本质:** 自动寻找 "最有价值的问题",形成判定链条。
+<div style="margin-top:2px;padding:4px 14px;background:rgba(181,137,0,0.08);border-left:4px solid #b58900;border-radius:4px;">
+**本质:** 自动寻找 "最有价值的问题",形成判定链条。
+</div>
 
 ---
 
