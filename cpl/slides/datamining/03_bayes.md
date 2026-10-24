@@ -22,1510 +22,1004 @@ presentation:
 # @import "../../plugin/chalkboard/plugin.js"
 # @import "../../plugin/chalkboard/style.css"
 # @import "../../plugin/menu/menu.js"
-
 # @import "../../js/anychart/anychart-core.min.js"
 # @import "../../js/anychart/anychart-venn.min.js"
 # @import "../../js/anychart/pastel.min.js"
 # @import "../../js/anychart/venn-ml.js"
 
+<!-- slide -->
 
-<!-- slide data-notes="" -->
+# 朴素贝叶斯 · 从规则到概率
 
-<div class="bottom20"></div>
+<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
 
-# 经典数据挖掘算法
+<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
+当判定需要 "可信度" 而非 "是/否" 的时候
+</div>
 
-<hr class="width50 center">
+<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
+**网空关键词:** 钓鱼邮件识别 · 告警可信度评分 · 概率性研判
+</div>
 
-### 杨已彪
-### 南京大学计算机学院
-### 计算机软件新技术全国重点实验室
-
-#### yangyibiao@nju.edu.cn
-
-<i class="fa fa-database"></i> 数据挖掘专题课程
+<div style="margin-top:100px;text-align:center;line-height:2.2;">
+<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
+杨已彪
+</div>
+<div style="font-size:0.6em;color:var(--solarized-base00);">
+yangyibiao@nju.edu.cn
+</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
+南京大学计算机学院 · 计算机软件新技术全国重点实验室
+</div>
+<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+2026 年 10 月
+</div>
+</div>
 
 ---
 
 <!-- slide -->
 
-# 《经典数据挖掘算法》
+## 从决策树到朴素贝叶斯 · 一个自然的追问
 
-- 第一章：规则的建立 —— 决策树 (分类)
-- 第二章：距离的度量 —— K-Means (聚类)
-- **第三章：频率的发现 —— Apriori (关联)**
-- 第四章：概率的推断 —— 朴素贝叶斯 (分类)
-- 第五章：异类的隔离 —— 孤立森林 (异常检测)
+| 决策树帮我们解决了 | 但还有一个问题 |
+|-------------------|---------------|
+| 从数据中提取**可执行规则** | **不是所有判定都能用 "是/否" 回答** |
+| 输出:**是恶意/不是恶意** | **如何输出 "恶意" 的概率是多大?** |
+| 规则是确定的 | **战场需要概率 —— 不确定性的量化** |
 
-五种经典算法：从规则、距离、频率、概率到隔离
+> **核心转折:** 有些场景下,我们需要的不仅是一个结论,而是这个结论的**可信度**。
 
----
-
-<!-- slide -->
-
-# 学习目标
-
-本部分结束后，希望大家能够：
-
-- 理解概率分类的基本思想
-- 掌握贝叶斯定理的含义
-- 理解朴素贝叶斯中的“朴素”假设
-- 能够使用 Scikit-learn 实现分类
-- 能够手工计算简单贝叶斯后验概率
+**朴素贝叶斯**:解决 "在不确定性下做判断" 的问题 —— 输出不是 "是/否",而是**概率**。
 
 ---
 
 <!-- slide -->
 
-# 回顾：前面学了什么？
+## 一个网空场景:钓鱼邮件识别
 
-决策树：
+某部收到一批邮件,需要判定是否为钓鱼邮件。
 
-```text
-规则思维
-```
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:12px;font-size:0.55em;">
 
-K-Means：
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+**📋 已知情报**
 
-```text
-距离思维
-```
+| 情报 | 数据 |
+|------|------|
+| 历史钓鱼邮件比例 | **15%**(先验概率) |
+| 钓鱼邮件中含 "紧急" | **80%** |
+| 正常邮件中含 "紧急" | **10%** |
 
-Apriori：
+</div>
 
-```text
-频率思维
-```
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+**❓ 待求解的问题**
 
-本节进入：
+> 新邮件包含 **"紧急"** 字样
 
-```text
-概率思维
-```
+它是钓鱼邮件的概率 **有多大?**
 
----
+</div>
 
-<!-- slide -->
+</div>
 
-# 一个真实问题
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;font-size:0.5em;">
 
-假设：
+<div style="background:#1a2d1a;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+**🌳 决策树会怎么做?**
+"是否包含 '紧急' ?"
+→ 是 → **判定为钓鱼**
+输出:**是/否**
+</div>
 
-你收到一封邮件。
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+**📊 贝叶斯会怎么做?**
+用历史数据 + 贝叶斯公式
+→ 计算**后验概率**
+输出:**P(钓鱼 | 紧急) = ?**
+</div>
 
-内容如下：
+</div>
 
-```text
-免费
-中奖
-点击领取
-```
-
-问题：
-
-这是不是垃圾邮件？
-
----
-
-<!-- slide -->
-
-# 人类如何判断？
-
-通常会想：
-
-```text
-以前见过类似内容吗？
-```
-
-如果：
-
-- 垃圾邮件中经常出现
-- 正常邮件中很少出现
-
-那么：
-
-垃圾邮件概率更高。
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;">
+💡 **本部分目标:** 学会在不确定条件下,用**概率**而非**规则**来做判断。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 贝叶斯思想
+## 人类的直觉 vs 贝叶斯
 
-核心思想：
+人类在判断时,已经在**潜意识里使用贝叶斯思想**:
 
-> 根据证据不断修正认知。
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:14px;margin-top:6px;">
 
-例如：
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:6px;border:1px solid #268bd2;">
+<div style="font-weight:700;color:#268bd2;font-size:0.65em;">🧠 人类的直觉</div>
 
-最初认为：
+<div style="font-size:0.55em;line-height:1.8;margin-top:4px;">
+看到 **"紧急"** 这个词
+↓
+在脑中搜索:
+- 钓鱼邮件中,有多少包含 "紧急" ?
+- 正常邮件中,有多少包含 "紧急" ?
+↓
+综合判断 → 直觉上觉得 **"这封邮件有问题"**
+</div>
 
-```text
-垃圾邮件概率 = 10%
-```
+</div>
 
-看到：
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:6px;border:1px solid #f39c12;">
+<div style="font-weight:700;color:#f39c12;font-size:0.65em;">📐 贝叶斯定理</div>
 
-```text
-中奖
-免费
-```
+<div style="font-size:0.5em;line-height:1.6;margin-top:4px;">
+<div style="text-align:center;padding:4px 0;background:rgba(38,139,210,0.04);border-radius:4px;font-size:1.2em;">
+P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
+</div>
 
-之后：
+**符号对应直觉:**
 
-概率上升。
+- **P(钓鱼)** → 以前见过钓鱼邮件吗?
+- **P(紧急 | 钓鱼)** → 钓鱼邮件中 "紧急" 多吗?
+- **P(紧急)** → "紧急" 本身常见吗?
+
+</div>
+
+</div>
+
+</div>
+
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+💡 **贝叶斯做的,就是把人类的这种直觉 "数学化" —— 用概率代替 "感觉",用公式代替 "大概"**
+</div>
 
 ---
 
 <!-- slide -->
 
-# 贝叶斯定理
+## 决策树 vs 朴素贝叶斯 · 一个直观对比
 
-贝叶斯定理是概率推断的核心工具
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:0.55em;">
 
-$P(A|B)=\frac{P(B|A)P(A)}{P(B)}$
+<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #268bd2;">
+<div style="font-size:1.2em;font-weight:700;color:#268bd2;">🌳 决策树</div>
 
-直观理解：
+| 维度 | 说明 |
+|------|------|
+| 输出 | **是/否** |
+| 规则 | 如果 A 则 B |
+| 本质 | 确定性逻辑 |
+| 适用 | 有明确判据的场景 |
 
-```text
-先验认知
-+
-新证据
+<div style="margin-top:6px;padding:4px 10px;background:rgba(38,139,210,0.06);border-radius:4px;text-align:center;">
+> 像 **对答案**
+</div>
+
+</div>
+
+<div style="background:#0d1a2b;padding:14px 18px;border-radius:8px;border:1px solid #f39c12;">
+<div style="font-size:1.2em;font-weight:700;color:#f39c12;">🎲 朴素贝叶斯</div>
+
+| 维度 | 说明 |
+|------|------|
+| 输出 | **87% 是恶意** |
+| 规则 | 概率推理 |
+| 本质 | 不确定性量化 |
+| 适用 | 需要可信度的场景 |
+
+<div style="margin-top:6px;padding:4px 10px;background:rgba(243,156,18,0.06);border-radius:4px;text-align:center;">
+> 像 **打分**
+</div>
+
+</div>
+
+</div>
+
+<div style="margin-top:6px;padding:6px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.5em;text-align:center;">
+🎯 **网空启示:** 战场上,我们需要的往往不是 "是不是",而是 "有多大概率是" —— 后者更有决策价值。
+</div>
+
+---
+
+<!-- slide -->
+
+## 贝叶斯思想 · 根据证据修正认知
+
+> **先有一个初始判断(先验),看到新证据后更新判断(后验)。**
+
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;padding:8px 12px;background:#0d1a2b;border-radius:6px;border:1px solid #586e75;">
+<div style="text-align:center;flex:1;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">初始判断</div>
+<div style="font-size:0.7em;font-weight:700;color:#268bd2;">\( P(\text{钓鱼}) = 15\% \)</div>
+<div style="font-size:0.45em;color:var(--solarized-base00);">(看到证据之前)</div>
+</div>
+<div style="font-size:1.2em;color:var(--solarized-base00);">→</div>
+<div style="text-align:center;flex:1.2;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">看到证据</div>
+<div style="font-size:0.7em;font-weight:700;color:#f39c12;">"紧急" 字样</div>
+<div style="font-size:0.45em;color:var(--solarized-base00);">(获得了新信息)</div>
+</div>
+<div style="font-size:1.2em;color:var(--solarized-base00);">→</div>
+<div style="text-align:center;flex:1;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">更新后的判断</div>
+<div style="font-size:0.7em;font-weight:700;color:#27ae60;">\( P(\text{钓鱼} \mid \text{紧急}) = 92\% \)</div>
+<div style="font-size:0.45em;color:var(--solarized-base00);">(结合先验 + 证据)</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border-left:4px solid #268bd2;">
+<div style="font-weight:700;color:#268bd2;font-size:0.6em;">🔹 先验概率</div>
+<div style="font-size:0.7em;font-weight:600;color:#268bd2;">\( P(\text{钓鱼}) \)</div>
+<div style="font-size:0.5em;color:var(--solarized-base00);">看到证据之前的初始判断</div>
+</div>
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border-left:4px solid #f39c12;">
+<div style="font-weight:700;color:#f39c12;font-size:0.6em;">🔸 似然</div>
+<div style="font-size:0.7em;font-weight:600;color:#268bd2;">\( P(\text{紧急} \mid \text{钓鱼}) \)</div>
+<div style="font-size:0.5em;color:var(--solarized-base00);">证据在目标类别中的表现</div>
+</div>
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.6em;">🔹 后验概率</div>
+<div style="font-size:0.7em;font-weight:600;color:#27ae60;">\( P(\text{钓鱼} \mid \text{紧急}) \)</div>
+<div style="font-size:0.5em;color:var(--solarized-base00);">看到证据之后的更新判断</div>
+</div>
+
+</div>
+
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+💡 用新证据修正旧认知,让判断越来越接近真相。
+</div>
+
+---
+
+<!-- slide -->
+
+## 贝叶斯定理 · 数学表达
+
+\[
+P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
+\]
+
+| 符号 | 含义 | 网空场景对应 |
+|------|------|-------------|
+| \(P(A \mid B)\) | 后验概率:看到证据 B 后,事件 A 发生的概率 | 看到 "紧急" 字样后,是钓鱼邮件的概率 |
+| \(P(A)\) | 先验概率:看到证据前,事件 A 发生的概率 | 历史中钓鱼邮件的比例(15%) |
+| \(P(B \mid A)\) | 似然:在事件 A 发生的条件下,看到证据 B 的概率 | 钓鱼邮件中出现 "紧急" 的概率(80%) |
+| \(P(B)\) | 证据概率:看到证据 B 的总概率 | 所有邮件中出现 "紧急" 的总概率 |
+
+> 翻译成人话: 后验概率 = 先验 × 证据的 "说服力"
+
+---
+
+<!-- slide -->
+
+## 贝叶斯定理 · 一个直观类比
+
+> **贝叶斯定理就像 "破案" —— 用新证据逐步锁定真凶。**
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
+
+<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border-top:4px solid #268bd2;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">🔍 破案角色</div>
+<div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">案发前的怀疑程度</div>
+</div>
+
+<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border-top:4px solid #f39c12;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">🔍 破案角色</div>
+<div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">嫌疑人的作案特征</div>
+</div>
+
+<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border-top:4px solid #27ae60;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">🔍 破案角色</div>
+<div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">综合判断</div>
+</div>
+
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px;">
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">📐 数学对应</div>
+<div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">先验 \( P(A) \)</div>
+</div>
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">📐 数学对应</div>
+<div style="font-size:0.65em;font-weight:700;color:#f39c12;margin-top:2px;">似然 \( P(B \mid A) \)</div>
+</div>
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">📐 数学对应</div>
+<div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">后验 \( P(A \mid B) \)</div>
+</div>
+
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px;">
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">🎯 网空对应</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">历史钓鱼邮件比例</div>
+</div>
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">🎯 网空对应</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">"紧急" 在钓鱼邮件中的概率</div>
+</div>
+
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #586e75;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">🎯 网空对应</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">看到 "紧急" 后的钓鱼概率</div>
+</div>
+
+</div>
+
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+💡 贝叶斯就是用数学方式模拟人类 "根据新证据调整判断" 的思维方式。
+</div>
+
+---
+
+<!-- slide -->
+
+## 贝叶斯公式 · 推导
+
+**理解条件概率:** \( P(A|B) \) = 在 B 条件下 A 的概率(如:紧急邮件中钓鱼的比例)
+
+<div style="display:grid;grid-template-columns:1fr 0.2fr 1fr 0.2fr 1fr;gap:4px;align-items:center;font-size:0.5em;margin-top:6px;">
+
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #268bd2;">
+<div style="font-weight:700;color:#268bd2;font-size:0.9em;">1 条件概率定义</div>
+\[
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+\]
+"在 B 条件下 A 的概率"
+= A 和 B 同时发生 ÷ B 发生
+</div>
+
+<div style="text-align:center;font-size:1.2em;color:var(--solarized-base00);">→</div>
+
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #f39c12;">
+<div style="font-weight:700;color:#f39c12;font-size:0.9em;">2 联合概率对称</div>
+\[
+P(A \cap B) = P(B|A) \times P(A)
+\]
+"A 和 B 同时发生"
+= 在 A 条件下 B 的概率 × A 的概率
+</div>
+
+<div style="text-align:center;font-size:1.2em;color:var(--solarized-base00);">→</div>
+
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.9em;">3 代入 → 贝叶斯公式</div>
+\[
+P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
+\]
+\[
+\small
+= \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\bar{A})P(\bar{A})}
+\]
+</div>
+
+</div>
+
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.45em;text-align:center;">
+💡 每一步都源于条件概率的定义,贝叶斯公式本身没有引入任何额外假设。
+</div>
+
+---
+
+<!-- slide -->
+
+## 贝叶斯 vs 直接统计
+
+<div style="font-size:0.5em;">
+**背景:** 某机构历史上钓鱼邮件仅占 1%。当前情报: 0-day 攻击爆发,钓鱼占比已升至 **40%**。
+
+**历史观察数据(100 封邮件):**
+
+| 类别 | 邮件数 | 含 "点击链接" |
+|------|--------|-------------|
+| 钓鱼 | 1 | 1 (100%) |
+| 正常 | 99 | 5 (≈ 5%) |
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.38em;margin-top:4px;">
+
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;font-size:1.1em;">❌ 直接统计</div>
+
+含 "点击链接" 的邮件共 **6 封**(1 封钓鱼 + 5 封正常)
+
+\[
+P(\text{钓鱼}|\text{点击链接}) = \frac{1}{1+5} \approx 16.7\%
+\]
+
+**问题:** 被大量 "正常" 邮件稀释,严重低估真实风险。
+</div>
+
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:1.1em;">✅ 贝叶斯</div>
+
+**已知:**
+
+- 先验: \( P(\text{钓鱼}) = 40\% \),\( P(\text{正常}) = 60\% \)
+- 似然: \( P(\text{点击链接}|\text{钓鱼}) = 1/1 = 1 \)
+- 似然: \( P(\text{点击链接}|\text{正常}) = 5/99 \approx 0.05 \)
+
+**公式:**
+
+\[
+P(\text{钓鱼}|\text{点击链接}) =
+\frac{P(\text{点击链接}|\text{钓鱼}) \times P(\text{钓鱼})}
+{P(\text{点击链接}|\text{钓鱼}) \times P(\text{钓鱼}) +
+P(\text{点击链接}|\text{正常}) \times P(\text{正常})}
+\]
+
+**代入:**
+
+\[
+= \frac{1 \times 0.4}{1 \times 0.4 + 0.05 \times 0.6}
+= \frac{0.4}{0.43}
+\approx 93\%
+\]
+
+融合情报先验(40%),纠正了历史偏差。
+</div>
+
+</div>
+
+<div style="margin-top:4px;padding:2px 10px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.35em;text-align:center;">
+💡 直接统计 "向后看" (被历史数据淹没),贝叶斯 "向前看" (融合实时情报)
+</div>
+
+---
+
+<!-- slide -->
+
+## 朴素贝叶斯 · "朴素" 在哪里?
+
+> **核心假设:所有特征互相独立。**
+
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:14px;margin-top:6px;">
+
+<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #268bd2;">
+<div style="font-weight:700;color:#268bd2;font-size:0.65em;">📧 邮件特征</div>
+
+<div style="font-size:0.55em;line-height:1.6;margin-top:2px;">
+新邮件包含:
+
+- **紧急**
+- **中奖**
+- **链接**
+
+</div>
+
+</div>
+
+<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #f39c12;">
+<div style="font-weight:700;color:#f39c12;font-size:0.65em;">🧠 朴素假设</div>
+
+<div style="font-size:0.5em;line-height:1.5;margin-top:2px;">
+这些特征**互相独立**,互不影响:
+
+\[
+\small
+P(\text{紧急}, \text{中奖}, \text{链接} \mid \text{钓鱼})
 =
-更新后的认知
-```
+P(\text{紧急} \mid \text{钓鱼})
+\times
+P(\text{中奖} \mid \text{钓鱼})
+\times
+P(\text{链接} \mid \text{钓鱼})
+\]
+
+</div>
+
+</div>
+
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.45em;margin-top:4px;">
+
+<div style="background:#1a2d1a;padding:6px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.85em;">✅ 为什么有效?</div>
+
+- 计算量从**指数级**降为**线性级**
+- 高维数据也能快速处理
+- 文本分类中效果优异
+
+</div>
+
+<div style="background:#2d1b1b;padding:6px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.85em;">⚠ 现实中的局限</div>
+
+- 特征通常**相关**("紧急"+"中奖" 常同时出现)
+- 但朴素假设在实际应用中**效果依然很好**
+
+</div>
+
+</div>
+
+<div style="margin-top:4px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.4em;text-align:center;">
+💡 "朴素" 不是 "幼稚" —— 它是一种**工程上的简化**,用可接受的精度换取计算效率。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 贝叶斯定理中的四个量
+## 贝叶斯如何做决策?
 
-| 符号 | 含义 |
-|--------|--------|
-| P(A) | 先验概率 |
-| P(B|A) | 似然 |
-| P(B) | 证据概率 |
-| P(A|B) | 后验概率 |
+> **计算每个类别的后验概率,选择概率最大的那个。**
 
-最终关注：
+<div style="display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:10px;margin-top:8px;">
 
-```text
-P(A|B)
-```
+<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">📧 输入</div>
+<div style="font-size:0.65em;font-weight:700;color:#fff;margin-top:2px;">新邮件特征</div>
+<div style="font-size:0.5em;color:var(--solarized-base00);margin-top:4px;">
+紧急 · 中奖 · 链接
+</div>
+</div>
 
-即：
+<div style="font-size:1.2em;color:var(--solarized-base00);display:flex;align-items:center;justify-content:center;">→</div>
 
-看到证据后，
+<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">📊 计算</div>
+<div style="font-size:0.5em;color:#fff;margin-top:2px;line-height:1.6;">
+\( P(\text{钓鱼} \mid \text{特征}) = ? \)
+\( P(\text{正常} \mid \text{特征}) = ? \)
+</div>
+</div>
 
-事件发生的概率。
+<div style="font-size:1.2em;color:var(--solarized-base00);display:flex;align-items:center;justify-content:center;">→</div>
 
----
+<div style="background:#0d1a2b;padding:10px 12px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
+<div style="font-size:0.5em;color:var(--solarized-base00);">✅ 决策</div>
+<div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">选概率最大的</div>
+<div style="font-size:0.5em;color:var(--solarized-base00);margin-top:4px;">
+谁大 → 判给谁
+</div>
+</div>
 
-<!-- slide -->
+</div>
 
-# 一个医学例子
-
-某疾病：
-
-```text
-患病率 1%
-```
-
-检测准确率：
-
-```text
-99%
-```
-
-如果检测阳性：
-
-是否一定患病？
-
-很多人认为：
-
-```text
-99%
-```
-
-其实并不是。
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.45em;text-align:center;">
+💡 贝叶斯不做 "是/否" 判断,而是**计算每个类别的概率,选最大的那个** —— 决策过程与 "对答案" 截然不同,更像在 "打分比高低"。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 贝叶斯告诉我们什么？
+## 一个网空例子 · 逐步计算
 
-除了检测准确率：
+<div style="font-size:0.5em;">
+某机构历史邮件统计:
 
-还必须考虑：
+| 类别 | 先验概率 | 含 "紧急" | 含 "中奖" |
+|------|----------|----------|----------|
+| 钓鱼 | 15% | 80% | 60% |
+| 正常 | 85% | 10% | 5% |
 
-```text
-疾病本身是否常见
-```
+**新邮件同时包含 "紧急" 和 "中奖"**
 
-即：
+求: \( P(\text{钓鱼} \mid \text{紧急}, \text{中奖}) = ? \)
 
-先验概率。
+> 朴素贝叶斯假设: "紧急" 和 "中奖" 相互独立
+</div>
 
-这是贝叶斯思想最重要的地方。
-
----
-
-<!-- slide -->
-
-# 什么是朴素贝叶斯？
-
-Naive Bayes
-
-朴素：
-
-```text
-假设所有特征彼此独立
-```
-
-例如：
-
-```text
-免费
-中奖
-点击
-```
-
-认为：
-
-彼此没有关联。
-
-虽然不完全真实。
-
-但效果往往很好。
+<div style="margin-top:2px;padding:4px 10px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.4em;">
+💡 接下来:先算证据 \( P(\text{紧急}, \text{中奖}) \),再算后验概率
+</div>
 
 ---
 
 <!-- slide -->
 
-# 为什么叫“朴素”？
+## 第一步 · 计算 P(证据)
 
-现实世界：
+**📊 历史数据回顾:**
 
-特征通常相关。
+| 类别 | 先验 | 含 "紧急" | 含 "中奖" |
+|------|------|----------|----------|
+| 钓鱼 | **15%** | **80%** | **60%** |
+| 正常 | **85%** | **10%** | **5%** |
 
-例如：
+<div style="font-size:0.5em;margin-top:4px;">
+\[
+\begin{aligned}
+P(\text{紧急}, \text{中奖})
+&= P(\text{紧急},\text{中奖}|\text{钓鱼}) \times P(\text{钓鱼}) +
+  P(\text{紧急},\text{中奖}|\text{正常}) \times P(\text{正常}) \\
+&= (\textcolor{#e74c3c}{0.8} \times \textcolor{#f39c12}{0.6}) \times \textcolor{#268bd2}{0.15} +
+  (\textcolor{#e74c3c}{0.1} \times \textcolor{#f39c12}{0.05}) \times \textcolor{#268bd2}{0.85} \\
+&= 0.48 \times 0.15 + 0.005 \times 0.85 \\
+&= 0.072 + 0.00425 \\
+&= 0.07625
+\end{aligned}
+\]
+</div>
 
-```text
-中奖
-+
-领奖
-```
-
-显然相关。
-
-但朴素贝叶斯为了计算简单：
-
-直接假设独立。
-
-这是一种工程上的近似。
-
----
-
-<!-- slide -->
-
-# 分类过程
-
-给定：
-
-```text
-特征
-```
-
-例如：
-
-```text
-免费
-中奖
-领取
-```
-
-分别计算：
-
-```text
-P(垃圾邮件)
-
-P(正常邮件)
-```
-
-谁大选谁。
+> **P(证据) ≈ 7.6%** — 所有邮件中同时包含 "紧急" 和 "中奖" 的比例
 
 ---
 
 <!-- slide -->
 
-# 一个简单例子
+## 第二步 · 计算 P(钓鱼 | 证据)
 
-训练数据：
+**📊 历史数据回顾:**
 
-| 邮件 | 是否垃圾 |
-|--------|--------|
-| 免费中奖 | 是 |
-| 点击领奖 | 是 |
-| 项目通知 | 否 |
-| 会议安排 | 否 |
+| 类别 | 先验 | 含 "紧急" | 含 "中奖" |
+|------|------|----------|----------|
+| 钓鱼 | **15%** | **80%** | **60%** |
+| 正常 | **85%** | **10%** | **5%** |
 
-新邮件：
+<div style="font-size:0.5em;margin-top:4px;">
+**朴素贝叶斯假设:** "紧急" 和 "中奖" 相互独立
 
-```text
-免费领奖
-```
+\[
+\begin{aligned}
+P(\text{钓鱼}|\text{紧急},\text{中奖})
+&= \frac{P(\text{紧急}|\text{钓鱼}) \times P(\text{中奖}|\text{钓鱼}) \times P(\text{钓鱼})}{P(\text{紧急},\text{中奖})} \\[6pt]
+&= \frac{(\textcolor{#e74c3c}{0.8}) \times (\textcolor{#f39c12}{0.6}) \times \textcolor{#268bd2}{0.15}}{0.07625} \\[6pt]
+&= \frac{0.48 \times 0.15}{0.07625} \\[6pt]
+&= \frac{0.072}{0.07625} \\[6pt]
+&\approx 0.944
+\end{aligned}
+\]
+</div>
 
-如何判断？
-
-使用贝叶斯概率。
-
----
-
-<!-- slide -->
-
-# 朴素贝叶斯的优势
-
-因为：
-
-```text
-联合概率
-=
-多个概率相乘
-```
-
-计算量非常小。
-
-即使：
-
-```text
-10000个特征
-```
-
-也能快速处理。
+> **结论:约 94.4% 概率是钓鱼邮件!**
 
 ---
 
 <!-- slide -->
 
-# 常见类型
+## 计算结果解读
 
-Scikit-learn提供：
+<div style="display:grid;grid-template-columns:1fr 1.5fr 1.5fr;gap:8px;font-size:0.45em;margin-top:4px;">
 
-### GaussianNB
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">判断阶段</div>
+<div style="font-weight:700;margin-top:2px;">先验</div>
+<div style="font-weight:700;margin-top:2px;">看到 "紧急"</div>
+<div style="font-weight:700;margin-top:2px;">+"中奖"</div>
+</div>
 
-连续特征
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">概率</div>
+<div style="font-weight:700;color:#268bd2;margin-top:2px;">15%</div>
+<div style="font-weight:700;color:#f39c12;margin-top:2px;">≈ 58%</div>
+<div style="font-weight:700;color:#27ae60;margin-top:2px;font-size:1.1em;">94.4%</div>
+</div>
 
-### MultinomialNB
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #586e75;text-align:center;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">说明</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">仅凭历史数据</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:2px;">"紧急" 是一个强信号</div>
+<div style="font-size:0.55em;color:#27ae60;margin-top:2px;">两个证据叠加,信心大幅提升</div>
+</div>
 
-文本分类
+</div>
 
-### BernoulliNB
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;font-size:0.4em;">
 
-二值特征
+<div style="background:#1a2a3a;padding:6px 10px;border-radius:6px;border-left:4px solid #268bd2;">
+**📊 中间计算(看到 "紧急" 时):**
+
+\[
+P(\text{钓鱼}|\text{紧急}) =
+\frac{0.8 \times 0.15}{0.8 \times 0.15 + 0.1 \times 0.85}
+\approx 58.5\%
+\]
+
+</div>
+
+<div style="background:#1a2d1a;padding:6px 10px;border-radius:6px;border-left:4px solid #27ae60;">
+**🎯 最终判断(两个证据叠加):**
+
+\[
+P(\text{钓鱼}|\text{紧急},\text{中奖})
+= \frac{0.8 \times 0.6 \times 0.15}{0.07625}
+\approx 94.4\%
+\]
+
+</div>
+
+</div>
+
+<div style="margin-top:4px;padding:4px 12px;background:rgba(243,156,18,0.06);border-left:4px solid #f39c12;border-radius:4px;font-size:0.4em;text-align:center;">
+💡 **实战含义:** 单看 "紧急" 不可靠(58%),加上 "中奖" 后可信度显著上升(94%)。这就是贝叶斯 "**多证据综合研判**" 的价值 —— **不是孤立的证据,而是证据的叠加效应**。
+</div>
 
 ---
 
 <!-- slide -->
 
-# GaussianNB代码实践
+## 先验的重要性 · 两个维度
+
+### 同样的证据,不同的先验 → 不同的结论
+
+| 场景 | 先验 P(钓鱼) | 后验 \(P(\text{钓鱼} \mid \text{紧急}, \text{中奖})\) |
+|------|-------------|----------------------|
+| 某机构 A(钓鱼邮件常见) | 15% | **94.4%** |
+| 某机构 B(钓鱼邮件罕见) | 1% | **~49%** |
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;font-size:0.45em;">
+
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border-left:4px solid #268bd2;">
+**🌍 空间维度:不同机构基线不同**
+
+- 机构 A 经常被钓鱼攻击 → 先验 15%
+- 机构 B 防护严密 → 先验 1%
+- 同样的特征在不同环境下意义不同
+
+</div>
+
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border-left:4px solid #f39c12;">
+**⏰ 时间维度:同一机构态势变化**
+
+- 平时:先验 1%
+- 攻击爆发时:先验 40%
+- 先验需要随威胁态势**动态调整**
+
+</div>
+
+</div>
+
+<div style="margin-top:4px;padding:4px 10px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.4em;">
+⚠ **网空启示:** 先验不是拍脑袋决定的 —— 它应该反映**当前、本地**的威胁态势,既是空间维度上需要本地化的基线水平,也是时间维度上需要动态更新的实时情报。
+</div>
+
+---
+
+<!-- slide -->
+
+## Sklearn 实践 · 生成数据 + 训练模型
 
 ```python
 from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 
-X, y = make_classification(
-    n_samples=2000,
-    n_features=10,
-    n_informative=6,
-    random_state=42
-)
-
+# 生成模拟数据(10 维特征, 2000 样本)
+X, y = make_classification(n_samples=2000, n_features=10,
+                           n_informative=6, random_state=42)
+# 划分训练/测试集
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42)
+# 训练朴素贝叶斯
 model = GaussianNB()
-
-model.fit(X, y)
+model.fit(X_train, y_train)
+print(f"准确率: {model.score(X_test, y_test):.4f}")
 ```
+
+典型输出: 准确率: 0.8750
 
 ---
 
 <!-- slide -->
 
-# 模型预测
+## Sklearn 实践 · 预测与概率
 
 ```python
-pred = model.predict(
-    X[:10]
-)
+# 对新样本进行预测
+pred = model.predict(X_test[:10])
+print(pred)  # [1 0 1 1 0 ...]
 
-print(pred)
-```
-
-输出：
-
-```text
-[1 0 1 1 0 ...]
-```
-
----
-
-<!-- slide -->
-
-# 查看概率
-
-```python
-proba = model.predict_proba(
-    X[:5]
-)
-
+# 查看每个类别的概率
+proba = model.predict_proba(X_test[:5])
 print(proba)
 ```
 
-输出：
+概率输出示例:
 
 ```text
-[[0.1 0.9]
- [0.8 0.2]
+[[0.12 0.88]   → 第 1 个样本: 88% 属于类别 1
+ [0.91 0.09]   → 第 2 个样本: 91% 属于类别 0
+ [0.05 0.95]   → 第 3 个样本: 95% 属于类别 1
  ...]
 ```
 
-表示：
-
-属于每个类别的概率。
+这是决策树做不到的:不仅告诉你答案,还告诉你 "有多大把握"。
 
 ---
 
 <!-- slide -->
 
-# 模型评估
+## Sklearn 实践 · 三种朴素贝叶斯变体
 
 ```python
-from sklearn.model_selection import train_test_split
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.3,
-    random_state=42
-)
-
-model.fit(X_train, y_train)
-
-print(
-    model.score(X_test,y_test)
-)
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 ```
 
----
-
-<!-- slide -->
-
-# 朴素贝叶斯优点
-
-<i class="fa fa-thumbs-up"></i>
-
-- 简单
-- 高效
-- 可处理高维数据
-- 小样本表现好
-- 训练速度极快
-
----
-
-<!-- slide -->
-
-# 朴素贝叶斯缺点
-
-<i class="fa fa-warning"></i>
-
-- 独立性假设较强
-- 特征相关时性能下降
-- 表达能力有限
-
----
-
-<!-- slide -->
-
-# 典型应用场景
-
-广泛用于：
-
-- 垃圾邮件过滤
-- 新闻分类
-- 情感分析
-- 医疗诊断辅助
-- 风险识别
-
-
-
----
-
-<!-- slide -->
-
-# 手算推演开始
-
-现在不使用代码。
-
-亲手计算一次贝叶斯分类。
-
-
-
----
-
-<!-- slide -->
-
-# 已知条件
-
-100封邮件：
-
-```text
-垃圾邮件：40封
-
-正常邮件：60封
-```
-
-因此：
-
-```text
-P(垃圾)=0.4
-
-P(正常)=0.6
-```
-
-
-
----
-
-<!-- slide -->
-
-# 特征统计
-
-词语：
-
-```text
-中奖
-```
-
-出现情况：
-
-垃圾邮件：
-
-```text
-32/40
-```
-
-正常邮件：
-
-```text
-6/60
-```
-
-因此：
-
-```text
-P(中奖|垃圾)=0.8
-
-P(中奖|正常)=0.1
-```
-
-
----
-
-<!-- slide -->
-
-# 问题
-
-收到新邮件：
-
-```text
-包含“中奖”
-```
-
-求：
-
-```text
-P(垃圾|中奖)
-```
-
----
-
-<!-- slide -->
-
-# 第一步
-
-计算：
-
-```text
-P(中奖)
-```
-
-根据全概率公式：
-
-```text
-P(中奖)
-=
-0.8×0.4
-+
-0.1×0.6
-```
-
-结果：
-
-```text
-0.38
-```
-
----
-
-<!-- slide -->
-
-# 第二步
-
-代入贝叶斯公式：
-
-```text
-P(垃圾|中奖)
-
-=
-0.8×0.4
-/
-0.38
-```
-
----
-
-<!-- slide -->
-
-# 计算结果
-
-```text
-0.842
-```
-
-即：
-
-```text
-84.2%
-```
-
-因此：
-
-该邮件大概率是垃圾邮件。
-
----
-
-<!-- slide -->
-
-# 思考题
-
-如果：
-
-```text
-P(垃圾)=1%
-```
-
-其他条件不变。
-
-结果会发生什么？
-
----
-
-<!-- slide -->
-
-# 思考题参考答案
-
-后验概率会显著下降。
-
-原因：
-
-```text
-先验概率极低
-```
-
-即使证据很强：
-
-最终概率也未必高。
-
-这正是贝叶斯思想的精髓。
-
-
----
-
-<!-- slide -->
-
-# 本部分总结
-
-完成内容：
-
-✅ 贝叶斯思想
-
-✅ 贝叶斯定理
-
-✅ 朴素贝叶斯分类
-
-✅ Scikit-learn实践
-
-✅ 手工计算后验概率
-
-下一部分：
-
-# 孤立森林 + 异常检测 + 课程总结
-
----
-
-# 《经典数据挖掘算法》
-## Part 4：孤立森林 + 分组研讨 + 算法图谱 + 课程总结
-### 总时长：约40分钟
-
----
-
-<!-- slide -->
-
-# Part 4 学习目标
-
-本部分结束后，希望大家能够：
-
-- 理解异常检测问题
-- 掌握 Isolation Forest 核心思想
-- 学会使用 Scikit-learn 进行异常检测
-- 综合比较五种经典算法
-- 能够针对实际问题选择合适算法
-
----
-
-<!-- slide -->
-
-# 回顾：我们已经学习了什么？
-
-| 思维方式 | 算法 |
+| 变体 | 适用场景 | 数据要求 |
+|------|----------|----------|
+| GaussianNB | 连续特征(如流量大小、频率) | 特征服从正态分布 |
+| MultinomialNB | 文本分类、计数特征 | 非负频次数据 |
+| BernoulliNB | 二值特征(0/1) | 布尔值/二元特征 |
+
+**网空场景选择建议:**
+
+| 网空场景 | 推荐变体 |
 |----------|----------|
-| 规则 | 决策树 |
-| 距离 | K-Means |
-| 频率 | Apriori |
-| 概率 | 朴素贝叶斯 |
-
-今天最后一种思想：
-
-```text
-隔离（Isolation）
-```
+| 流量统计特征(连续值) | GaussianNB |
+| DNS 查询类型、协议标志(计数) | MultinomialNB |
+| 是否存在某特征(0/1) | BernoulliNB |
 
 ---
 
 <!-- slide -->
 
-# 一个现实问题
+## 朴素贝叶斯 · 优缺点(网空视角)
 
-某银行每天：
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.55em;">
 
-```text
-100万笔交易
-```
+<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
+✅ 核心优势
 
-其中：
+| 优势 | 网空价值 |
+|------|----------|
+| 极快 | 实时检测毫秒级响应 |
+| 无需大量数据 | 小样本也能工作 |
+| 概率输出 | 提供可信度而非简单结论 |
+| 高维友好 | 可处理数千维特征 |
+| 增量学习 | 支持在线更新模型 |
 
-```text
-99.9%正常
+</div>
 
-0.1%异常
-```
+<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #e74c3c;">
+⚠ 固有局限
 
-问题：
+| 局限 | 网空应对 |
+|------|----------|
+| 特征独立性假设 | 实际特征多相关 → 可做特征选择/降维 |
+| 对输入分布敏感 | 需根据数据分布选择合适的变体 |
+| 不能自动学习特征组合 | 可结合人工特征工程 |
 
-如何发现未知欺诈？
+</div>
 
----
+</div>
 
-<!-- slide -->
-
-# 为什么传统分类不够？
-
-传统分类需要：
-
-```text
-大量标签
-```
-
-但现实中：
-
-- 新型攻击
-- 新型欺诈
-- 新型故障
-
-往往：
-
-```text
-没有历史样本
-```
-
-怎么办？
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+💡 朴素贝叶斯 "朴素" 在假设独立,但它的速度和概率输出在网空场景中价值巨大
+</div>
 
 ---
 
 <!-- slide -->
 
-# 什么是异常检测？
+## 朴素贝叶斯在网空领域的典型应用
 
-目标：
-
-在大量正常数据中发现：
-
-```text
-少数特殊个体
-```
-
-例如：
-
-- 欺诈交易
-- 网络攻击
-- 设备故障
-- 数据错误
-
+| 场景 | 贝叶斯做什么 | 为什么选它 |
+|------|-------------|-----------|
+| 📧 **钓鱼邮件/URL 识别** | 计算恶意概率 | 概率输出便于分级处置 |
+| 🚨 **告警可信度评分** | 评估告警的真实性 | 帮助分析师优先处理高风险告警 |
+| 🌐 **DNS 隧道检测** | 域名请求异常概率 | 小样本也能快速适配新威胁 |
+| 📊 **流量分类** | 判断流量类型概率 | 实时处理,毫秒级响应 |
+| 🧠 **攻击阶段推断** | 计算当前处于攻击链哪一步 | 不确定性量化辅助决策 |
 
 ---
 
 <!-- slide -->
 
-# 第四部分：孤立森林
+## 随堂思考题
 
-<i class="fa fa-search"></i>
+某部内网部署了钓鱼邮件检测系统。
 
-Isolation Forest
+**方案 A:** 决策树模型(准确率 88%,输出:是/否)
 
-提出时间：
+**方案 B:** 朴素贝叶斯模型(准确率 86%,输出:85% 可能是钓鱼)
 
-```text
-2008
-```
-
-已经成为工业界经典异常检测算法。
+问题: 如果你是安全负责人,你会选择哪个方案?为什么?
 
 ---
 
 <!-- slide -->
 
-# 一个有趣的问题
+## 如何选择? —— 方案对比
 
-假设：
+**取决于使用场景:**
 
-房间里有100个人。
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.45em;">
 
-其中：
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #268bd2;">
+<div style="font-weight:700;color:#268bd2;">🤖 自动拦截</div>
+<div style="font-size:0.85em;color:var(--solarized-base00);">误拦成本低</div>
+→ **决策树(A)**
+需要明确规则,高准确率直接拦截
+</div>
 
-99个人站在一起。
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #f39c12;">
+<div style="font-weight:700;color:#f39c12;">🧠 辅助研判</div>
+<div style="font-size:0.85em;color:var(--solarized-base00);">误拦成本高</div>
+→ **朴素贝叶斯(B)**
+输出概率,分析师可结合上下文综合判断
+</div>
 
-1个人站在角落。
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;">⚡ 资源受限</div>
+<div style="font-size:0.85em;color:var(--solarized-base00);">边缘/端侧部署</div>
+→ **朴素贝叶斯(B)**
+更轻量,训练和推理更快,无需 GPU
+</div>
 
-问题：
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;">📋 需要审计</div>
+<div style="font-size:0.85em;color:var(--solarized-base00);">合规/溯源要求</div>
+→ **决策树(A)**
+规则透明,每条判据可追溯
+</div>
 
-谁最容易被发现？
+</div>
 
-答案：
+<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px;padding:6px 16px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.4em;">
+<div style="font-weight:700;color:#268bd2;">📊 朴素贝叶斯</div>
+<div style="color:var(--solarized-base00);">→ 初筛(可疑度评分)</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">↓</div>
+<div style="font-weight:700;color:#e74c3c;">🌳 决策树</div>
+<div style="color:var(--solarized-base00);">→ 明确拦截规则</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">↓</div>
+<div style="font-weight:700;color:#27ae60;">👤 分析师</div>
+<div style="color:var(--solarized-base00);">→ 人工确认</div>
+</div>
 
-```text
-角落那个人
-```
-
----
-
-<!-- slide -->
-
-# 孤立森林的核心思想
-
-核心观点：
-
-> 异常点更容易被孤立出来。
-
-正常点：
-
-```text
-聚集在一起
-```
-
-异常点：
-
-```text
-远离群体
-```
-
-因此：
-
-更容易被随机切分出来。
-
----
-
-<!-- slide -->
-
-# 随机切分示意
-
-```text
-正常点：
-
-●●●●●●●●●
-
-异常点：
-
-          ▲
-```
-
-随机切分：
-
-```text
-很快就能单独圈出▲
-```
+<div style="margin-top:4px;padding:4px 10px;background:rgba(231,76,60,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.35em;text-align:center;">
+🎯 **网空核心命题:** 我们需要的不是 "哪个更好",而是 **"哪个在什么情况下更适用"**。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 为什么叫“森林”？
+## 本部分总结 · 朴素贝叶斯
 
-因为：
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
 
-不是一棵树。
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+💡 核心思想
+根据证据不断修正认知 —— 先验 → 似然 → 后验
+</div>
 
-而是：
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+🔑 关键区别
+概率输出 — 不仅告诉结论,还告诉可信度
+</div>
 
-```text
-很多随机树
-```
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+⚡ 核心优势
+极快、小样本、高维友好、概率输出
+</div>
 
-每棵树：
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+🎯 网空定位
+从 "确定性规则" 到 "概率性研判" 的认知跃迁
+</div>
 
-随机选择：
+</div>
 
-- 特征
-- 切分点
-
-最终综合结果。
-
-
----
-
-<!-- slide -->
-
-# 孤立树构建过程
-
-```text
-随机选择特征
-       ↓
-随机选择切分点
-       ↓
-划分数据
-       ↓
-继续递归
-```
-
-直到：
-
-样本被隔离。
+<div style="margin-top:8px;padding:8px 14px;background:rgba(38,139,210,0.08);border-radius:6px;text-align:center;font-size:0.7em;border:1px solid rgba(38,139,210,0.15);">
+贝叶斯不做 "是/否" 判断,而是告诉你 "有多大把握" —— 概率让决策更有依据。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 路径长度
+## 下一部分预告
 
-关键指标：
-
-```text
-Path Length
-```
-
-含义：
-
-一个样本被隔离前：
-
-经过多少次切分。
-
-异常点：
-
-```text
-路径短
-```
-
-正常点：
-
-```text
-路径长
-```
+<div style="text-align:center;">
+🌲 孤立森林 · 异常的隔离
+当恶意样本极度稀少,连 "钓鱼" 的规律都难以总结
+—— 异常本身就是信号
+</div>
 
 ---
-
-<!-- slide -->
-
-# 异常得分
-
-最终输出：
-
-```text
-Anomaly Score
-```
-
-接近：
-
-```text
-1
-```
-
-异常可能性高。
-
-接近：
-
-```text
-0
-```
-
-异常可能性低。
-
----
-
-<!-- slide -->
-
-# Isolation Forest代码实践
-
-生成模拟数据：
-
-```python
-import numpy as np
-
-normal_data = np.random.randn(
-    1000,
-    2
-)
-
-outliers = np.random.uniform(
-    low=8,
-    high=10,
-    size=(20,2)
-)
-
-X = np.vstack(
-    [normal_data,outliers]
-)
-```
-
----
-
-<!-- slide -->
-
-# 训练模型
-
-```python
-from sklearn.ensemble import IsolationForest
-
-model = IsolationForest(
-    contamination=0.02,
-    random_state=42
-)
-
-model.fit(X)
-```
-
----
-
-<!-- slide -->
-
-# 预测异常
-
-```python
-pred = model.predict(X)
-
-print(
-    np.unique(pred,
-              return_counts=True)
-)
-```
-
-输出：
-
-```text
--1 异常
-
- 1 正常
-```
-
----
-
-<!-- slide -->
-
-# 查看异常得分
-
-```python
-scores = model.score_samples(X)
-
-print(
-    scores[:10]
-)
-```
-
-结果：
-
-```text
-值越小
-越异常
-```
-
-
----
-
-<!-- slide -->
-
-# 孤立森林优点
-
-<i class="fa fa-thumbs-up"></i>
-
-- 无需标签
-- 高效
-- 可扩展
-- 适合高维数据
-- 适合异常检测
-
-
----
-
-<!-- slide -->
-
-# 孤立森林缺点
-
-<i class="fa fa-warning"></i>
-
-- 结果解释性一般
-- 参数敏感
-- 无法提供异常原因
-
-
----
-
-<!-- slide -->
-
-# 典型应用场景
-
-广泛用于：
-
-- 欺诈检测
-- 网络攻击检测
-- 设备故障监测
-- 金融风控
-- 日志异常分析
-
-
----
-
-<!-- slide -->
-
-# 思考题
-
-为什么Isolation Forest适合发现未知欺诈？
-
-
----
-
-<!-- slide -->
-
-# 思考题参考答案
-
-因为：
-
-```text
-不依赖标签
-```
-
-关注：
-
-```text
-是否异常
-```
-
-而不是：
-
-```text
-属于哪个类别
-```
-
-因此：
-
-能发现新型问题。
-
-
----
-
-<!-- slide -->
-
-# 分组研讨
-
-<i class="fa fa-users"></i>
-
-课堂练习
-
-
----
-
-<!-- slide -->
-
-# 研讨题目
-
-某在线教育平台拥有：
-
-```text
-100万用户
-```
-
-数据包括：
-
-- 用户年龄
-- 学习时长
-- 登录频率
-- 课程购买记录
-- 评论内容
-
-任务：
-
-希望提升平台运营效果。
-
-请选择：
-
-今天学习的算法。
-
-说明理由。
-
-
----
-
-<!-- slide -->
-
-# 小组讨论要求
-
-每组完成：
-
-1. 选择算法
-2. 说明原因
-3. 预期输出结果
-4. 如何评估效果
-
-时间：
-
-```text
-10分钟讨论
-
-5分钟分享
-```
-
-
----
-
-<!-- slide -->
-
-# 参考答案示例
-
-用户分群：
-
-```text
-K-Means
-```
-
-购买组合分析：
-
-```text
-Apriori
-```
-
-用户分类：
-
-```text
-决策树
-```
-
-异常账号发现：
-
-```text
-Isolation Forest
-```
-
-评论分类：
-
-```text
-朴素贝叶斯
-```
-
----
-
-<!-- slide -->
-
-# 五种算法全景图
-
-```text
-规则
- ↓
-决策树
-
-距离
- ↓
-K-Means
-
-频率
- ↓
-Apriori
-
-概率
- ↓
-朴素贝叶斯
-
-隔离
- ↓
-孤立森林
-```
-
----
-
-<!-- slide -->
-
-# 算法对比图谱
-
-| 算法 | 类型 | 输入 | 输出 |
-|--------|--------|--------|--------|
-| 决策树 | 分类 | 特征+标签 | 类别 |
-| K-Means | 聚类 | 特征 | 簇 |
-| Apriori | 关联分析 | 事务数据 | 规则 |
-| 贝叶斯 | 分类 | 特征+标签 | 概率 |
-| 孤立森林 | 异常检测 | 特征 | 异常分数 |
-
-
----
-
-<!-- slide -->
-
-# 算法能力对比
-
-| 算法 | 可解释性 | 效率 | 标签需求 |
-|--------|--------|--------|--------|
-| 决策树 | ★★★★★ | ★★★★ | 需要 |
-| K-Means | ★★★ | ★★★★★ | 不需要 |
-| Apriori | ★★★★★ | ★★ | 不需要 |
-| 贝叶斯 | ★★★★ | ★★★★★ | 需要 |
-| 孤立森林 | ★★★ | ★★★★ | 不需要 |
-
-
----
-
-<!-- slide -->
-
-# 算法选择指南
-
-如果问题是：
-
-```text
-预测类别
-```
-
-选择：
-
-- 决策树
-- 贝叶斯
-
-如果问题是：
-
-```text
-自动分群
-```
-
-选择：
-
-- K-Means
-
-如果问题是：
-
-```text
-发现关联规律
-```
-
-选择：
-
-- Apriori
-
-如果问题是：
-
-```text
-发现异常
-```
-
-选择：
-
-- Isolation Forest
-
-
----
-
-<!-- slide -->
-
-# 课程总结
-
-今天学习了：
-
-✅ 决策树
-
-✅ K-Means
-
-✅ Apriori
-
-✅ 朴素贝叶斯
-
-✅ 孤立森林
-
-对应五种思想：
-
-```text
-规则
-距离
-频率
-概率
-隔离
-```
-
----
-
-<!-- slide -->
-
-# 后续学习路线
-
-第一阶段：
-
-- 熟练掌握 Scikit-learn
-
-第二阶段：
-
-- Random Forest
-- XGBoost
-- DBSCAN
-
-第三阶段：
-
-- 深度学习
-- 大语言模型
-
-记住：
-
-> 新技术层出不穷，但经典思想历久弥新。
-
----
-
-<!-- slide -->
-
-# 结束语
-
-<i class="fa fa-graduation-cap"></i>
-
-数据挖掘的价值：
-
-不是让机器替代思考。
-
-而是帮助我们：
-
-```text
-从海量数据中发现规律
-```
-
-谢谢大家！
-
-Q & A
-
