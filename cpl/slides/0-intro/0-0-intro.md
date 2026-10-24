@@ -92,7 +92,7 @@ presentation:
 
 - 授课: [杨已彪](http://cs.nju.edu.cn/yangyibiao), yangyibiao@nju.edu.cn
 
-- 理论: 64 学时，每周两次，每次 2 节，共 16 周
+- 理论: 60 学时，每周两次，每次 2 节，共 15 周
 
 - 实验: 在线测试 (OJ: Online Judge)
 

@@ -52,6 +52,8 @@ presentation:
 
 ---
 
+- 动态内存: malloc 与 free
+
 - 链表: 结点 + 指针串起来
 
 - 声明结点类型与创建结点
@@ -59,6 +61,32 @@ presentation:
 - 插入、搜索、删除
 
 - 案例: 零件数据库(改进版)
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 动态内存: malloc 与 free
+
+---
+
+链表结点是==运行时逐个创建==的——用 `malloc` 向系统借内存
+
+```C
+new_node = malloc(sizeof(struct node));   /* 借一块刚好放下一个结点的内存 */
+if (new_node == NULL) {                   /* 借不到要检查 */
+  printf("内存不足\n");
+  exit(1);
+}
+```
+
+- `malloc(n)`: 借 n 字节, ==不清零==; 返回通用指针 `void *`; 需要 `<stdlib.h>`
+
+- `free(p)`: 用完==归还==。忘记 free 就是"内存泄漏"——内存越用越多, 程序最终被系统杀掉
+
+- free 之后 p 就是==悬空指针==, 不能再解引用; 习惯上立刻把 p 置为 `NULL`
 
 ---
 
@@ -460,6 +488,14 @@ find_part和insert会更复杂, 因为将按零件编号对链表inventory中的
 #####
 
 ---
+
+<div class="bottom20"></div>
+
+# 下周见!
+
+<hr class="width50 center">
+
+## 未完待续
 
 ---
 

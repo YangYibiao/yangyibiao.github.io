@@ -47,7 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
-<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style></head><body for="html-export" data-presentation-mode="">
+<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style><script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+<script defer>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.mermaid) {
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { htmlLabels: true, useMaxWidth: true } });
+  }
+});
+</script>
+</head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -85,6 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
+<p>预处理与宏</p>
+
+</li>
+<li>
 <p>源文件与头文件</p>
 
 </li>
@@ -102,7 +114,60 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="源文件">源文件 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="预处理--编译前的文本加工">预处理: 编译前的文本加工 </h5>
+<hr>
+<p>编译前的<mark>预处理</mark>阶段: 处理以 <mark>#</mark> 开头的命令</p>
+<ul>
+<li>
+<p><code>#include</code>: 文件包含——把指定文件的内容<mark>原样复制</mark>进来</p>
+
+</li>
+<li>
+<p><code>#define</code>: 宏定义——文本替换</p>
+
+</li>
+<li>
+<p><code>#if</code> / <code>#ifdef</code> / <code>#ifndef</code>: 条件编译——按条件选择性地编译代码</p>
+
+</li>
+</ul>
+<p>宏 = <mark>纯文本替换</mark>。用 <code>gcc -E</code> 亲眼看看展开前后:</p>
+<div class="fullborder">
+<table>
+<thead>
+<tr>
+<th>你写的</th>
+<th>预处理后 (<code>gcc -E</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#define PI 3.14</code></td>
+<td>(定义行消失)</td>
+</tr>
+<tr>
+<td><code>area = PI * r * r;</code></td>
+<td><code>area = 3.14 * r * r;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>
+<p>现场演示: <code>gcc -E celsius.c | tail -20</code></p>
+
+</li>
+<li>
+<p>记住"就是文本替换", 后面宏的所有怪现象都能解释</p>
+
+</li>
+<li>
+<p>经典错误: <mark><code>#define N = 100</code></mark> (多了等号) 和 <mark><code>#define N 100;</code></mark> (多了分号)——文本替换会把它们原样带进代码; 宏行末<mark>没有分号</mark>, 宏名习惯<mark>全大写</mark></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="源文件">源文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -111,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="源文件--续">源文件 (续) </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="源文件--续">源文件 (续) </h5>
 <hr>
 <p>读取记号的函数可以与任何需要用到记号的函数一起放入一个源文件(例如<code>token.c</code>).</p>
 <p>与栈相关的函数, 如push, pop, make_empty, is_empty和is_full可以放入另一个文件<code>stack.c</code>中.</p>
@@ -133,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="头文件">头文件 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="头文件">头文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -162,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="include-指令">#include 指令 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="include-指令">#include 指令 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.5;font-size:0.5em;">
@@ -206,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="共享宏定义和类型定义">共享宏定义和类型定义 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="共享宏定义和类型定义">共享宏定义和类型定义 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -249,7 +314,29 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="共享函数原型">共享函数原型 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="宏定义--带参宏">宏定义: 带参宏 </h5>
+<hr>
+<p><mark>带参宏</mark>: 像函数一样使用, 但只是文本替换</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX(a, b) ((a) &gt; (b) ? (a) : (b))</span>
+
+x <span class="token operator">=</span> <span class="token function">MAX</span><span class="token punctuation">(</span>p <span class="token operator">+</span> q<span class="token punctuation">,</span> r <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* 展开为 x = ((p+q) &gt; (r+s) ? (p+q) : (r+s)); */</span></code></pre>
+<ul>
+<li>
+<p>宏 vs 函数: 宏是替换不求值, 参数无类型; 函数有类型检查</p>
+
+</li>
+<li>
+<p>经典坑: MAX(i++, j) 会把 i 自增两次——带参宏参数<mark>不要有副作用</mark></p>
+
+</li>
+<li>
+<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 宏名与左括号之间<mark>不能有空格</mark>: <code>#define MAX (a,b) ...</code> 会被当成"无参数的 MAX", 报错信息离现场很远</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="共享函数原型">共享函数原型 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -269,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="共享变量声明">共享变量声明 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="共享变量声明">共享变量声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -287,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="嵌套包含">嵌套包含 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="嵌套包含">嵌套包含 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -306,7 +393,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="保护头文件">保护头文件 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="保护头文件">保护头文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -340,7 +427,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="将程序划分为文件">将程序划分为文件 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="将程序划分为文件">将程序划分为文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -366,7 +453,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="构建多文件程序">构建多文件程序 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="构建多文件程序">构建多文件程序 </h5>
 <hr>
 <ul>
 <li>
@@ -387,7 +474,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="makefile">makefile </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="makefile">makefile </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -406,7 +493,7 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 	      gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o</code></pre>
 </div>
 <div style="flex:1;">
-<p>为了更容易构建大型程序, UNIX发明makefile的概念.</p>
+<p>为了更容易构建大型程序, UNIX发明makefile的概念.<br></p>
 <p>makefile不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系.</p>
 <p>假设文件foo.c包含文件bar.h.</p>
 <p>我们说foo.c"依赖于"bar.h, 因为修改bar.h之后需要重新编译foo.c.</p>
@@ -421,7 +508,7 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="链接期间的错误">链接期间的错误 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="链接期间的错误">链接期间的错误 </h5>
 <hr>
 <p>一些编译时检测不到的错误会在链接时发现.</p>
 <p>如果程序中缺少函数或变量的定义, 链接器将无法解析对其的外部引用</p>
@@ -443,7 +530,7 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 </ul>
 <p>在 UNIX 中, 当链接使用<math.h>的程序时, 可能需要指定-lm选项.</p>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>头文件里通常放什么？源文件 (.c) 里放什么？
@@ -456,7 +543,7 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0">
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0">
 </section>
       </div>
     </div>
