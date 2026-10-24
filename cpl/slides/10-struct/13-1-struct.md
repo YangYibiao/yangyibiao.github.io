@@ -60,6 +60,8 @@ presentation:
 
 - 结构体类型与 typedef
 
+- 枚举与 const
+
 - 结构体数组与案例: 零件数据库
 
 ---
@@ -500,6 +502,216 @@ Part的使用方式与内置类型相同:
 
 ---
 
+
+<!-- slide data-notes="" -->
+
+
+##### 枚举
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C
+int s;   /* s will store a suit */
+…
+s = 2;   /* 2 represents "hearts" */
+```
+
+```C{.line-numbers}
+#define SUIT     int
+#define CLUBS    0
+#define DIAMONDS 1
+#define HEARTS   2
+#define SPADES   3
+```
+
+```C
+SUIT s;
+…
+s = HEARTS;
+```
+
+</div>
+
+<div style="flex:1;">
+
+在许多程序中, 我们需要只有少量有意义的值的变量. 
+
+存扑克牌花色的变量只该有 4 种值: 梅花、方片、红心、黑桃。
+
+
+---
+
+可以把花色声明成整数, 用一组编码表示四种花色:
+
+这样做的问题: 
+- 读代码的人看不出 s 只有 4 种可能值。
+- 2的意义不明确.
+
+
+用宏给花色"类型"和四个名字——方向对了, 但还有更好的办法:
+
+上一个示例的改进版本:
+
+但宏的问题: 
+- 没有指出宏表示具有相同"类型"的值. 
+- 如果可能值的数量很多, 那么为每个值定义一个宏是很麻烦的. 
+- 预处理器会删除名称CLUBS、DIAMONDS、HEARTS和SPADES, 因此它们在调试期间将不可用.
+
+
+C 提供了一种特殊类型, 专为具有少量可能值的变量而设计. 
+
+**枚举类型**是其值由程序员列出("枚举")的类型. 
+
+每个值都必须有一个名称(枚举常量).
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 枚举标记和类型名称
+
+---
+
+与结构体和联合一样, 有两种命名枚举的方法: 声明标记或使用typedef创建真正的类型名称. 
+
+枚举标记类似于结构体和联合标记: 
+`enum suit {CLUBS, DIAMONDS, HEARTS, SPADES};`
+
+suit变量将以下列方式声明: 
+`enum suit s1, s2;`
+
+
+也可以使用typedef把Suit定义为类型名称: 
+```C
+typedef enum {CLUBS, DIAMONDS, HEARTS, SPADES} Suit;
+Suit s1, s2;
+```
+
+在 C89 中, 使用typedef命名枚举是创建布尔类型的极好方法: 
+`typedef enum {FALSE, TRUE} Bool;`
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 枚举作为整数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
+```C
+enum suit {CLUBS = 1, DIAMONDS = 2,
+          HEARTS = 3, SPADES = 4};
+```
+
+```C
+enum dept {RESEARCH = 20,
+          PRODUCTION = 10, SALES = 25};
+```
+
+```C
+enum EGA_colors {BLACK, LT_GRAY = 7,
+                DK_GRAY, WHITE = 15};
+```
+
+```C{.line-numbers}
+int i;
+enum {CLUBS, DIAMONDS, HEARTS, SPADES} s;
+
+i = DIAMONDS;   /* i is now 1            */
+s = 0;          /* s is now 0 (CLUBS)    */
+s++;            /* s is now 1 (DIAMONDS) */
+i = s + 2;      /* i is now 3            */
+```
+
+</div>
+
+<div style="flex:1;">
+
+在系统内部, C 将枚举变量和常量视为整数. 
+
+默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量. 
+
+在花色枚举中, CLUBS、DIAMONDS、HEARTS和SPADES分别代表 0、1、2和3.
+
+
+程序员可以为枚举常量选择不同的值:
+
+枚举常量的值可以是任意整数, 不用按特定顺序列出:
+
+两个或多个枚举常量具有相同的值甚至也是合法的.
+
+
+当没有为枚举常量指定值时, 它的值比前一个常量的值大1. 
+
+第一个枚举常量的值默认为0. 
+
+例子:
+
+BLACK的值为0, LT_GRAY为7, DK_GRAY为8, WHITE为15.
+
+
+枚举值可以与普通整数混合:
+
+s被视为整型变量. 
+
+CLUBS、DIAMONDS、HEARTS和SPADES是整数0、1、2和3的名称.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 类型限定符 (const 等)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+const int n = 10;
+const int tax_brackets[] =
+  {750, 2250, 3750, 5250, 7000};
+```
+
+```C
+const int n = 10;
+int [n]; /*** 错误的 ***/
+```
+
+</div>
+
+<div style="flex:1;">
+
+类型限定符: ==const== (只读) 与 ==volatile== (少见); C99 还有 ==restrict== (只用于指针). 例子:
+
+把对象声明成 const 的好处: 
+- const是文档格式. 
+- 允许编译器检查对象的值是否未更改. 
+- 提醒编译器对象可以存储在ROM(只读存储器)中.
+
+
+const 与 `#define` 不同: 宏只能给数字/字符/字符串命名, const 可创建==任何类型==的只读对象; const 遵守作用域规则、可在调试器中查看、可对其用 `&` (有地址), 但不能用于常量表达式.
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 

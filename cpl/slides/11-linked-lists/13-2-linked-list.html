@@ -47,7 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
-<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style></head><body for="html-export" data-presentation-mode="">
+<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style><script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+<script defer>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.mermaid) {
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { htmlLabels: true, useMaxWidth: true } });
+  }
+});
+</script>
+</head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -85,6 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
+<p>动态内存: malloc 与 free</p>
+
+</li>
+<li>
 <p>链表: 结点 + 指针串起来</p>
 
 </li>
@@ -102,7 +114,30 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="链表">链表 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="动态内存--malloc-与-free">动态内存: malloc 与 free </h5>
+<hr>
+<p>链表结点是<mark>运行时逐个创建</mark>的——用 <code>malloc</code> 向系统借内存</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>new_node <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 借一块刚好放下一个结点的内存 */</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>new_node <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>                   <span class="token comment">/* 借不到要检查 */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"内存不足\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p><code>malloc(n)</code>: 借 n 字节, <mark>不清零</mark>; 返回通用指针 <code>void *</code>; 需要 <code>&lt;stdlib.h&gt;</code></p>
+
+</li>
+<li>
+<p><code>free(p)</code>: 用完<mark>归还</mark>。忘记 free 就是"内存泄漏"——内存越用越多, 程序最终被系统杀掉</p>
+
+</li>
+<li>
+<p>free 之后 p 就是<mark>悬空指针</mark>, 不能再解引用; 习惯上立刻把 p 置为 <code>NULL</code></p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="链表">链表 </h5>
 <hr>
 <p>动态存储分配对于构建链表、树、图形和其他链接数据结构特别有用.</p>
 <p><strong>链表</strong>由一串<strong>结点</strong>组成, 每个结点都存着<mark>指向下一个结点的指针</mark>:</p>
@@ -124,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="声明结点类型">声明结点类型 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="声明结点类型">声明结点类型 </h5>
 <hr>
 <p>建链表, 先要有表示单个结点的结构体。</p>
 <p>结点结构体: 数据 (本例是整数) + 指向下一个结点的指针:</p>
@@ -137,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p><code>struct node *first = NULL;</code></p>
 <p>将first设置为NULL表示链表最初为空.</p>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="创建结点">创建结点 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="创建结点">创建结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -175,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="运算符"><code>-&gt;</code> 运算符 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="运算符"><code>-&gt;</code> 运算符 </h5>
 <hr>
 <p>为了便于使用指针访问结构体的成员, C提供了名为<strong>右箭头选择(->)</strong>的运算符.</p>
 <p>使用<code>-&gt;</code>运算符:</p>
@@ -187,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p><code>scanf("%d", &amp;new_node-&gt;value);</code></p>
 <p><code>&amp;</code>运算符仍然是必需的, 即使new_node是一个指针.</p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="链表的开头插入一个结点">链表的开头插入一个结点 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="链表的开头插入一个结点">链表的开头插入一个结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -205,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="搜索链表">搜索链表 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="搜索链表">搜索链表 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -240,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="从链表中删除结点">从链表中删除结点 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="从链表中删除结点">从链表中删除结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -283,13 +318,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="有序链表">有序链表 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="有序链表">有序链表 </h5>
 <hr>
 <p>当链表的结点是有序的——按结点中的数据排序——我们称该链表是<strong>有序链表</strong>.</p>
 <p>向有序链表中插入结点更加困难, 因为结点并不总是放在链表的开头.</p>
 <p>但是搜索会更快: 在到达期望结点应该出现的位置后, 就可以停止查找.</p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--维护零件数据库-改进版">程序: 维护零件数据库(改进版) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--维护零件数据库-改进版">程序: 维护零件数据库(改进版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.5;font-size:0.5em;">
@@ -322,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>链表的一个"结点"至少包含哪两部分？
@@ -335,7 +370,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0">
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="13" data-v="0"><hr>
+<div class="bottom20"></div>
+<h1 id="周三见">下周见! </h1>
+<hr class="width50 center">
+<h2 id="未完待续">未完待续 </h2>
 </section>
       </div>
     </div>

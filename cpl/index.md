@@ -47,10 +47,10 @@
 | 第5周   | [循环结构 (上)](slides/2-if-for-array/5-1-loops-i.html) | 循环结构 (上) |
 |   ^    | [循环结构 (下)](slides/2-if-for-array/5-2-loops-ii.html) | 循环结构 (下) |
 |   ^    | [循环习题课](slides/2-if-for-array/5-3-loops-practice.html) | 循环习题课 |
-| 第6周   | [一维数组](slides/2-if-for-array/8-1-arrays-i.html) | 一维数组（与循环配合） |
-|   ^    | [二维数组与矩阵运算](slides/2-if-for-array/9-1-arrays-2d.html) | 二维数组与矩阵运算 |
-| 第7周   | 待发布                            | 排序 |
-|   ^    | 待发布                            | 查找与课堂编码 |
+| 第6周   | [一维数组](slides/2-if-for-array/6-1-arrays-i.html) | 一维数组（与循环配合） |
+|   ^    | [二维数组与矩阵运算](slides/2-if-for-array/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
+| 第7周   | [排序](slides/2-if-for-array/7-1-sorting.html) | 排序 |
+|   ^    | [查找与课堂编码](slides/2-if-for-array/7-2-searching.html) | 查找与课堂编码 |
 | 第8周   | 待发布                            | 函数：定义与调用 |
 |   ^    | 待发布                            | 函数：声明与参数传递 |
 | 第9周   | 待发布                            | 函数进阶：数组作参数、函数栈与作用域 |

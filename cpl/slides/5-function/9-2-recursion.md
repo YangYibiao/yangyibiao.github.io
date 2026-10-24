@@ -57,6 +57,8 @@ presentation:
 
 - 递归与栈
 
+- 递归排序: 快速排序
+
 - 常见错误与课堂编码
 
 ---
@@ -317,6 +319,115 @@ fact和power都会在调用时小心地测试==终止条件==.
 <!-- slide data-notes="" -->
 
 
+##### 分治法
+
+---
+
+==分治法== (divide and conquer): 把大问题拆成几个==同类的小问题==, 分别解决, 再合并结果
+
+- 三步: ==分== (拆) → ==治== (解决小问题) → ==合== (拼起来)
+
+- 生活例子: 整理一摞试卷——分成两摞, 各自整理好, 再合并
+
+- 排序中的分治: 把数组分成两半, 各自排好, 再合并
+
+<span class="blue">:fa-lightbulb-o:</span> 递归常常是分治法的==自然结果==——下一页的快速排序正是如此
+
+
+<!-- slide data-notes="" -->
+
+
+##### 递归排序: 快速排序
+
+---
+
+用==递归==做排序: 选一个基准, 小的放左、大的放右, 再对左右递归
+
+```C{.line-numbers}
+void quicksort(int a[], int low, int high)
+{
+  int middle;
+
+  if (low >= high) return;            /* 基准情形: 只剩 0 或 1 个元素 */
+  middle = split(a, low, high);       /* 划分: 小的在左, 大的在右 */
+  quicksort(a, low, middle - 1);      /* 递归排左半 */
+  quicksort(a, middle + 1, high);     /* 递归排右半 */
+}
+```
+
+- 平均 O(n log n), 比第 7 周三种排序的 O(n^2) 快得多
+
+- `split` 是划分函数, 下一页展开
+
+
+<!-- slide data-notes="" -->
+
+
+##### 快速排序: 划分函数 split
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C{.line-numbers}
+int split(int a[], int low, int high)
+{
+  int part_element = a[low];
+
+  for (;;) {
+    while (low < high && part_element <= a[high])
+      high--;
+    if (low >= high) break;
+    a[low++] = a[high];
+
+    while (low < high && a[low] <= part_element)
+      low++;
+    if (low >= high) break;
+    a[high--] = a[low];
+  }
+
+  a[high] = part_element;
+  return high;
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+==split==: 以 `a[low]` 为基准, 把小元素换到左边、大的换到右边, 返回基准的最终下标
+
+完整可运行程序: [code/qsort-split.c](../2-if-for-array/code/qsort-split.c) (无指针版, 全部用数组下标)
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 一趟划分在做什么: "空位法"
+
+---
+
+以 `a = {4, 3, 9, 7}`, 基准 4 为例:
+
+1. 取出基准 4 → `a[0]` 成了==空位==
+2. ==从右往左==找比 4 小的: 3 → 填进左边空位, 右边留下空位
+3. ==从左往右==找比 4 大的: 9 → 填进右边空位, 左边又留空位
+4. 左右相遇 → 把基准 4 放进最后的空位
+
+结果: 4 左边都比它小、右边都比它大——==一趟划分完成==, 再对左右两半各自递归
+
+<div class="top-2">
+  <img src="../2-if-for-array/figs/9-1.png" width=460px>
+</div>
+
+
+<!-- slide data-notes="" -->
+
+
 ##### 常见错误
 
 ---
@@ -377,7 +488,7 @@ fact和power都会在调用时小心地测试==终止条件==.
 
 <div class="bottom20"></div>
 
-# 周三见!
+# 下周见!
 
 <hr class="width50 center">
 
