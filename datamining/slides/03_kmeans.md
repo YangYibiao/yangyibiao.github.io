@@ -9,14 +9,14 @@ presentation:
   math: false
 ---
 
-@import "../../css/theme/solarized.css"
-@import "../../css/logo.css"
-@import "../../css/font.css"
-@import "../../css/color.css"
-@import "../../css/margin.css"
-@import "../../css/table.css"
-@import "../../css/main.css"
-@import "../../css/datamining.css"
+@import "../css/theme/solarized.css"
+@import "../css/logo.css"
+@import "../css/font.css"
+@import "../css/color.css"
+@import "../css/margin.css"
+@import "../css/table.css"
+@import "../css/main.css"
+@import "../css/datamining.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
@@ -251,11 +251,11 @@ flowchart TD
 
 > **Means = 每个簇的 "中心点" (均值)**
 
-每个簇用它的**平均特征**来代表 —— 就像每个群体的 "典型画像"。
+每个簇用**平均特征**代表 —— 群体的 "典型画像"。
 
-<div class="twocol" style="margin-top:10px;font-size:0.85em;">
+<div class="twocol" style="margin-top:4px;font-size:0.8em;">
 
-<div style="background:rgba(133,153,0,0.08);padding:10px 12px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
+<div style="background:rgba(133,153,0,0.08);padding:6px 10px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
 
 ### 🟢 簇 A · 中心点
 
@@ -265,7 +265,7 @@ flowchart TD
 
 </div>
 
-<div style="background:rgba(133,153,0,0.08);padding:10px 12px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
+<div style="background:rgba(133,153,0,0.08);padding:6px 10px;border-radius:8px;border:1px solid #27ae60;text-align:center;flex:1;">
 
 ### 🟢 簇 B · 中心点
 
@@ -275,7 +275,7 @@ flowchart TD
 
 </div>
 
-<div style="background:rgba(220,50,47,0.08);padding:10px 12px;border-radius:8px;border:1px solid #e74c3c;text-align:center;flex:1;">
+<div style="background:rgba(220,50,47,0.08);padding:6px 10px;border-radius:8px;border:1px solid #e74c3c;text-align:center;flex:1;">
 
 ### 🔴 簇 C · 中心点
 
@@ -287,7 +287,7 @@ flowchart TD
 
 </div>
 
-<div style="margin-top:6px;padding:8px 16px;background:rgba(38,139,210,0.08);border-radius:6px;text-align:center;">
+<div style="margin-top:2px;padding:6px 16px;background:rgba(38,139,210,0.08);border-radius:6px;text-align:center;font-size:0.9em;">
 📌 每个中心点就是该簇所有点的 "平均画像" —— **Means 就是这些中心点的统称**
 </div>
 

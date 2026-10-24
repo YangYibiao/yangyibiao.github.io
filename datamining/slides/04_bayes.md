@@ -9,14 +9,14 @@ presentation:
   math: false
 ---
 
-@import "../../css/theme/solarized.css"
-@import "../../css/logo.css"
-@import "../../css/font.css"
-@import "../../css/color.css"
-@import "../../css/margin.css"
-@import "../../css/table.css"
-@import "../../css/main.css"
-@import "../../css/datamining.css"
+@import "../css/theme/solarized.css"
+@import "../css/logo.css"
+@import "../css/font.css"
+@import "../css/color.css"
+@import "../css/margin.css"
+@import "../css/table.css"
+@import "../css/main.css"
+@import "../css/datamining.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
@@ -661,7 +661,7 @@ P(\text{紧急}, \text{中奖})
 | 钓鱼 | **15%** | **80%** | **60%** |
 | 正常 | **85%** | **10%** | **5%** |
 
-<div style="font-size:0.45em;margin-top:0;">
+<div style="font-size:0.44em;margin-top:0;">
 **朴素贝叶斯假设:** "紧急" 和 "中奖" 相互独立
 
 \[
