@@ -22,723 +22,785 @@ presentation:
 # @import "../../plugin/chalkboard/plugin.js"
 # @import "../../plugin/chalkboard/style.css"
 # @import "../../plugin/menu/menu.js"
-
 # @import "../../js/anychart/anychart-core.min.js"
 # @import "../../js/anychart/anychart-venn.min.js"
 # @import "../../js/anychart/pastel.min.js"
 # @import "../../js/anychart/venn-ml.js"
 
-
-<!-- slide data-notes="" -->
-
-<div class="bottom20"></div>
+<!-- slide -->
 
 # 经典数据挖掘算法
 
-<hr class="width50 center">
+<div style="margin-top:0.2rem;text-align:center;font-size:0.8em;font-weight:300;color:var(--solarized-base00);">
+从规则发现到异常检测
+</div>
 
-### 杨已彪
-### 南京大学计算机学院
-### 计算机软件新技术全国重点实验室
+<hr class="width20 center" style="margin-top:0.8rem;margin-bottom:0.8rem;">
 
-#### yangyibiao@nju.edu.cn
-
-<i class="fa fa-database"></i> 数据挖掘专题课程
-
----
-
-<!-- slide -->
-
-# 《经典数据挖掘算法》
-
-- 第一章：规则的建立 —— 决策树 (分类)
-- 第二章：距离的度量 —— K-Means (聚类)
-- 第三章：频率的发现 —— Apriori (关联)
-- 第四章：概率的推断 —— 朴素贝叶斯 (分类)
-- 第五章：异类的隔离 —— 孤立森林 (异常检测)
-
-五种经典算法：从规则、距离、频率、概率到隔离
+<div style="margin-top:120px;text-align:center;line-height:2.2;">
+<div style="font-size:1.1em;font-weight:600;">
+杨已彪
+</div>
+<div style="text-align:center">
+yangyibiao@nju.edu.cn
+</div>
+<div style="font-size:0.7em;color:var(--solarized-base00);">
+南京大学计算机学院<br>
+计算机软件新技术全国重点实验室
+</div>
+<div style="margin-top:30px;font-size:0.6em;color:var(--solarized-base01);letter-spacing:3px;">
+2026 年 10 月
+</div>
+</div>
 
 ---
 
 <!-- slide -->
 
-# 课程目标
+## 一个真实的网空场景
 
-本课程结束后，希望大家能够：
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:20px;">
+<div style="background:#0d1a2b;padding:14px 16px;border-radius:6px;border:1px solid #268bd2;">
+### 📡 数据态势
 
-- 理解五种经典算法的核心思想
-- 理解决策树、聚类、关联分析、概率分类、异常检测之间的区别
-- 掌握 Scikit-learn 的基本使用方法
-- 能够针对实际问题选择合适算法
+- 某内网:数千个监测节点
+- 日产生日志:**千万级**
+- 告警类型:上百类
+- 状态变化:毫秒级高频
+
+</div>
+<div style="background:#0d1a2b;padding:14px 16px;border-radius:6px;border:1px solid #f39c12;">
+### 🚨 指挥员要回答
+
+- 哪些告警**最致命**,必须优先处置?
+- 哪些行为**从未见过**,可能是 0-day ?
+- 如何在**30 秒内**给出辅助判断?
+
+</div>
+</div>
+
+<div style="margin-top:16px;padding:12px 16px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.55em;">
+⚠ 数据规模已经远超人工处理能力 → **算法不是选择,是刚需**
+</div>
 
 ---
 
 <!-- slide -->
 
-# 为什么还要学习经典算法？
+## 人工分析 vs 算法分析
 
-> 大模型已经很强了，经典机器学习还有价值吗？
+假设:每天 **1000 万条日志**,查看一条需要 **1 秒**
+
+<div style="text-align:center; margin:20px 0;">
+### 人工需要: **115 天**
+
+而攻击者完成一次渗透,平均只需要 **< 24 小时**
+</div>
+
+<div style="background:#1a2a3a;padding:16px;border-left:4px solid #e74c3c;">
+**结论:** 人追不上数据,必须让算法先跑一遍,人来做 "最后 100 米" 的决策。
+</div>
+
+---
+
+<!-- slide -->
+
+## 四种思维 · 四把 "战术武器"
+
+| 思维方式 | 核心问题 | 对应算法 | 网空应用场景 |
+|----------|----------|----------|--------------|
+| 📜 **规则思维** | "如果...就..."如何自动判定? | 决策树 | 恶意流量特征判据提取 |
+| 📏 **距离思维** | 谁和谁 "长得像"? | K-Means | 僵尸网络主机群发现 |
+| 🎲 **概率思维** | 这件事发生的可能性多大? | 朴素贝叶斯 | 邮件/URL 先验概率筛查 |
+| 🚨 **异常思维** | 谁 "格格不入"? | 孤立森林 | 未知威胁/0-day 行为发现 |
+
+> **一句话记忆:** 规则找判据,距离找团伙,概率算风险,孤立抓异常。
+
+---
+
+<!-- slide -->
+
+## 从问题出发,而不是从算法出发
 
 <div class="twocol">
 
 <div>
 
-### 为什么仍然重要？
+### 👨‍🔬 人类专家怎么做?
 
-- 数据量有限
-- 模型需要可解释
-- 训练成本低
-- 部署成本低
-- 工业界广泛使用
+- 制定规则(经验)
+- 总结经验(归纳)
+- 发现规律(观察)
+- 识别异常(直觉)
 
 </div>
 
 <div>
 
-### 典型应用
+### 🤖 数据挖掘做什么?
 
-🏦 银行风控
-
-🏥 医疗诊断
-
-🎯 推荐系统
-
-👤 用户画像
-
-🛡️ 网络安全
+- **自动**生成规则
+- **自动**学习经验
+- **自动**发现规律
+- **自动**识别异常
 
 </div>
 
 </div>
 
----
+<br>
 
-<!-- slide -->
-
-# 数据挖掘与机器学习
-
-二者关系：
-
-人工智能<br>
-↓<br>
-机器学习<br>
-↓<br>
-数据挖掘
-
-机器学习：
-- 更关注预测
-
-数据挖掘：
-- 更关注发现规律
-
-例如：
-
-机器学习：
-
-> 明天会下雨吗？
-
-数据挖掘：
-
-> 哪些因素导致下雨？
+<div style="margin-top:20px;padding:16px;background:#1a2a3a;border-left:4px solid #f39c12;">
+算法 ≠ 替代专家,而是 **扩展专家能力的 "数字参谋"**
+</div>
 
 ---
 
 <!-- slide -->
 
-# 为什么选择这五种算法？
+## 大模型时代,为什么还学 "经典"?
 
-## 五种思想
+| 理由 | 为什么重要 | 网空战场含义 |
+|------|-----------|-------------|
+| **1 结构化数据仍是主流** | 日志、传感器、告警 —— 都是表格,不是自然语言 | 经典算法原生适配,无需微调 |
+| **2 可解释性是刚需** | 决策链路必须透明,不能给 "黑盒结论" | 指挥员要的是 "为什么",不是 "是什么" |
+| **3 响应速度决定胜负** | 推理以**毫秒**计,无需 GPU | 端侧/边缘节点直接部署 |
 
-| 思想 | 代表算法 |
-|--------|--------|
-| 规则 | 决策树 |
-| 距离 | K-Means |
-| 频率 | Apriori |
-| 概率 | 朴素贝叶斯 |
-| 隔离 | 孤立森林 |
-
-覆盖：
-
-- 分类
-- 聚类
-- 关联分析
-- 异常检测
-
-四大核心任务。
-
+> **一句话:** 深度学习解决 "看得准",经典算法解决 "说得清、跑得快"。战场需要的是 **确定性 > 准确率**。
 
 ---
 
 <!-- slide -->
 
-# 五种算法的世界版图
+## 大模型 ≠ 替代,而是 "站在经典肩膀上"
 
-| 算法 | 金融 | 电商 | 医疗 | 安全 |
-|--------|--------|--------|--------|--------|
-| 决策树 | 风控 | 用户分类 | 辅助诊断 | 入侵检测 |
-| K-Means | 客户分群 | 用户画像 | 病人分群 | 流量分析 |
-| Apriori | 欺诈关联 | 商品推荐 | 药物关联 | 攻击链分析 |
-| 贝叶斯 | 信贷审批 | 文本分类 | 疾病预测 | 垃圾邮件 |
-| 孤立森林 | 欺诈检测 | 异常订单 | 异常病例 | 异常流量 |
+<div class="twocol">
+
+<div>
+
+### 🔬 大模型的底层,仍是经典
+
+| 大模型组件 | 背后的经典原理 |
+|------------|---------------|
+| 梯度下降训练 | 1986 年提出的经典优化算法 |
+| 注意力机制 | 本质是**加权求和** + softmax |
+| 自回归生成 | 每一步本质是**重复做分类** |
+| Dropout | 集成学习的**投票思想** |
+| RLHF | 基于**强化学习**的奖励优化 |
+
+</div>
+
+<div>
+
+### 🎯 经典是地基,大模型是高楼
+
+- 数学基础没变:线性代数、概率论、微积分
+- 优化逻辑没变:梯度下降仍是最核心的训练方式
+- 评估方式没变:准确率、召回率、F1 仍在用
+
+</div>
+
+</div>
+
+<div class="important info">
+不了解经典,就无法理解大模型为什么有效、何时会失效 —— 更无法在需要时**创新**。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 数据挖掘的一般流程
+## 从 "专用工具" 到 "通用引擎"
 
-```text
-原始数据
-    ↓
-数据清洗
-    ↓
-特征工程
-    ↓
-模型训练
-    ↓
-结果分析
-    ↓
-业务决策
+<div class="twocol">
+
+<div>
+
+### 📐 经典算法范式
+
+- 为**每个任务**单独设计特征
+- 为**每个任务**单独选择模型
+- 需要**标注数据**训练
+- 输出**确定性规则**或**精确标签**
+- 代表:决策树、K-Means、朴素贝叶斯、孤立森林
+
+</div>
+
+<div>
+
+### 🧠 大模型范式
+
+- **一个模型**覆盖多种任务
+- **自监督预训练** + 少量微调
+- 自动学习**隐式特征表示**
+- 输出**概率性生成**内容
+- 代表:GPT、BERT、LLaMA
+
+</div>
+
+</div>
+
+<div class="important">
+**范式变了,但数学没变。** 大模型是对经典原理的**规模化复用**,而非**颠覆**。
+</div>
+
+---
+
+<!-- slide -->
+
+## 两者互补,而非替代
+
+<div class="twocol">
+
+<div>
+
+### 🎯 经典 · 精确制导武器
+
+| 优势 | 场景 |
+|------|------|
+| 推理**毫秒级** | 实时检测、端侧部署 |
+| **完全可解释** | 审计追溯、合规要求 |
+| 无需 GPU | 边缘节点、嵌入式设备 |
+| 规则透明 | 一线人员可直接执行 |
+
+</div>
+
+<div>
+
+### 🧠 大模型 · 战略研判系统
+
+| 优势 | 场景 |
+|------|------|
+| **语义理解**强 | 威胁情报分析、报告生成 |
+| **泛化能力**强 | 零样本/少样本任务 |
+| 处理**非结构化** | 文本、代码、对话 |
+| **创造性**输出 | 攻击路径推演、辅助决策 |
+
+</div>
+
+</div>
+
+<div style="margin-top:14px;padding:12px 16px;background:rgba(38,139,210,0.08);border:1px solid rgba(38,139,210,0.15);border-radius:6px;text-align:center;">
+**网空战场上,两者协同:** 大模型做 "宏观研判" → 经典算法做 "精确验证" → **人做最终决策**
+</div>
+
+---
+
+<!-- slide -->
+
+## 数据挖掘的 "五步作战流程"
+
+```mermaid
+flowchart LR
+    A["🎯 理解任务<br/>要打什么仗?"]
+    --> B["📥 数据采集<br/>有什么情报?"]
+    --> C["⚙ 数据处理<br/>清洗、对齐、降噪"]
+    --> D["🧠 模型分析<br/>选哪把武器?"]
+    --> E["📊 结果解释<br/>可信吗?为什么?"]
+    --> F["🚀 辅助决策<br/>怎么行动?"]
 ```
 
-经验规律：
-
-- 数据处理占80%
-- 建模占20%
-
----
-
-<!-- slide -->
-
-# 开场案例：信用卡欺诈检测
-
-假设：
-
-一家银行每天产生：
-
-- 500万笔交易
-- 50万客户
-- 欺诈比例低于0.1%
-
-问题：
-
-如何自动发现欺诈行为？
+<div style="margin-top:16px;padding:12px;background:#1a2a3a;border-left:4px solid #f39c12;">
+经验规律: 数据处理(C 步骤)通常占项目 **80%** 的时间。算法选型只占 **20%**。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 人工分析为什么不可行？
+## 今天课程路线图 · 2.5 小时火力分配
 
-假设：
+| 时段 | 内容 | 战术目标 |
+|------|------|----------|
+| 0-15' | 开场总览(当前页 → 结束) | 建立全局认知框架 |
+| 15'-40' | 📜 决策树 · 规则思维 | 能从日志中 "榨出" 可执行判据 |
+| 40'-65' | 📏 K-Means · 距离思维 | 能发现 "无形" 的主机群组 |
+| 65'-90' | 🎲 朴素贝叶斯 · 概率思维 | 能给出威胁的 "先验概率" |
+| 90'-115' | 🚨 孤立森林 · 异常思维 | 能找到 "从未见过" 的威胁 |
+| 115'-135' | 综合回顾 + 互动答疑 | 打通四把武器协同使用 |
+| 135'-150' | 总结收尾 | 从问题出发选择方法 |
 
-每条记录查看10秒。
+贯穿案例: 某部内网异常流量事件 —— 每讲完一个算法,回来 "拼一块拼图"。
 
-那么：
+---
 
-```text
-5000000 × 10秒
+<!-- slide -->
 
-≈ 50000000秒
+## 希望大家带走什么?
 
-≈ 579天
+❌ 不是背住数学公式
+
+❌ 不是记住 Python 代码
+
+✅ 理解 "问题-算法" 的匹配关系
+
+✅ 理解每种算法背后的 "思维原型"
+
+✅ 在真实场景中,能独立完成武器选型
+
+<div style="text-align:center; font-size:1.4em; font-weight:600; color:#f39c12;">
+从问题出发选择方法
+<span style="color:#888;font-weight:400;">而不是</span>
+从算法出发寻找问题
+</div>
+
+---
+
+<!-- slide -->
+
+# 决策树 · Decision Tree
+
+<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
+
+<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
+从 "专家经验" 到 "自动判据" 的桥梁
+</div>
+
+<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
+**网空关键词:** 恶意流量判据提取 · 告警规则自动生成 · 白盒可解释
+</div>
+
+<div style="margin-top:100px;text-align:center;line-height:2.2;">
+<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
+杨已彪
+</div>
+<div style="font-size:0.6em;color:var(--solarized-base00);">
+yangyibiao@nju.edu.cn
+</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
+南京大学计算机学院 · 计算机软件新技术全国重点实验室
+</div>
+<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+2026 年 10 月
+</div>
+</div>
+
+---
+
+<!-- slide -->
+
+## 一个网空场景
+
+<div style="margin-bottom:12px;">
+某部**物理隔离**内网,监测节点持续上报流量特征。
+**核心任务:** 判定某条外连请求是否为 **恶意 C2 通信**?
+</div>
+
+<div class="twocol">
+
+<div>
+
+### 🔓 入侵路径(已发生案例)
+
+- 通过 **U 盘摆渡** 植入(震网病毒)
+- 通过 **固件预置后门** 植入
+- 通过 **供应链攻击** 植入
+- 通过 **运维通道** 渗透
+
+</div>
+
+<div>
+
+### 🕵️‍♂️ 隐蔽方式
+
+- **伪装成合法协议**(HTTPS/DNS)
+- **利用正常软件更新**通道
+- **通过加密隧道**传输指令
+- **低频心跳**长期潜伏
+
+</div>
+
+</div>
+
+<div class="important" style="margin-top:10px;">
+物理隔离 ≠ 绝对安全。攻击者已多次证明:**物理边界可以被技术手段穿透**。算法检测成为最后一道防线。
+</div>
+
+---
+
+<!-- slide -->
+
+## 决策树的核心思想
+
+> 不断提问,逐层判定。以流量检测为例:
+
+```mermaid
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '12px' } } }%%
+flowchart LR
+    A["📡 外连请求"]
+    --> B{"端口 =443 ?"}
+
+    B -->|否| C{"频率 >10/min ?"}
+    B -->|是| D{"载荷 >1400B ?"}
+
+    C -->|是| E["🔴 恶意 C2"]
+    C -->|否| F["🟢 正常"]
+
+    D -->|是| G{"间隔 <5s ?"}
+    D -->|否| H["🟢 正常"]
+
+    G -->|是| I["🔴 恶意 C2"]
+    G -->|否| J["🟢 正常"]
+
+    style A fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
+    style B fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style C fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style D fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style G fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style E fill:#2d1b1b,stroke:#e74c3c,stroke-width:2px,color:#e74c3c
+    style I fill:#2d1b1b,stroke:#e74c3c,stroke-width:2px,color:#e74c3c
+    style F fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
+    style H fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
+    style J fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
 ```
 
-结论：
-
-人工无法完成。
-
-必须依赖算法。
+> **本质:** 自动寻找 "最有价值的问题",形成判定链条。
 
 ---
 
 <!-- slide -->
 
-# 如果你是算法工程师？
+## 什么是 "好特征"?
 
-你可能想到：
+**网空场景:** 某内网采集了 1000 条外连日志(500 正常 + 500 恶意)
 
-- 制定规则
-- 学习历史案例
-- 寻找相似用户
-- 发现异常行为
+| 特征 | 划分效果 | 评价 |
+|------|----------|------|
+| **目标端口是否为 443 ?** | 左:450 恶意 +50 正常<br>右:50 恶意 +450 正常 | ✅ **好特征** |
+| **协议是否为 TCP ?** | 左:250 恶意 +250 正常<br>右:250 恶意 +250 正常 | ❌ **差特征** |
 
-事实上：
-
-这正对应今天的五种算法。
+> **好特征 = 能把 "混杂" 快速降为 "纯净"**
 
 ---
 
 <!-- slide -->
 
-# 案例与算法对应关系
+## 熵 · 衡量 "混乱程度"
 
-| 问题 | 算法 |
-|--------|--------|
-| 是否欺诈？ | 决策树 |
-| 欺诈概率是多少？ | 贝叶斯 |
-| 用户自动分群？ | K-Means |
-| 哪些行为经常一起出现？ | Apriori |
-| 如何发现未知欺诈？ | 孤立森林 |
+<div class="twocol">
 
----
+<div>
 
-<!-- slide -->
-
-# 第一部分：决策树
-
-<i class="fa fa-tree"></i>
-
-Decision Tree
-
-关键词：
-
-- 分类
-- 规则
-- 可解释
-
----
-
-<!-- slide -->
-
-# 一个简单问题
-
-银行审批贷款时：
-
-关注：
-
-- 收入
-- 年龄
-- 信用评分
-
-最终输出：
-
-```text
-批准
-拒绝
-```
-
-人类通常怎么做？
-
-不断提问。
-
----
-
-<!-- slide -->
-
-# 决策树的核心思想
-
-不断提问。
-
-例如：
-
-```text
-收入 > 10万 ?
-      |
-     是
-      |
-信用评分 > 80 ?
-      |
-     是
-      |
-    批准
-```
-
-本质：
-
-> 自动寻找最有价值的问题。
-
----
-
-<!-- slide -->
-
-# 什么是好问题？
-
-假设：
-
-100人：
-
-- 50个好客户
-- 50个坏客户
-
-如果一个问题能变成：
-
-```text
-左边：45好 5坏
-
-右边：5好 45坏
-```
-
-那么：
-
-这个问题很有价值。
-
----
-
-<!-- slide -->
-
-# 信息熵（Entropy）
-
-用于衡量混乱程度。
-
-公式：
+📐 公式
 
 \[
 H=-\sum p_i \log_2 p_i
 \]
 
-无需记忆。
+</div>
 
-只需理解：
+<div>
 
-- 越混乱 → 熵越高
-- 越纯净 → 熵越低
+📊 直观理解
 
----
+| 数据状态 | 熵值 |
+|----------|------|
+| 全是正常流量 | 0(纯净) |
+| 正常/恶意各半 | 最大(混乱) |
+| 全是恶意流量 | 0(纯净) |
 
-<!-- slide -->
+</div>
 
-# 熵的直观理解
+</div>
 
-| 数据情况 | 熵 |
-|-----------|------|
-| 全是正类 | 0 |
-| 全是负类 | 0 |
-| 各占50% | 最大 |
-
-因此：
-
-好的划分：
-
-> 快速降低熵。
+<div class="important info" style="margin-top:8px;">
+网空含义: 熵越低,规则越精准,误报越少。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 信息增益
+## 信息增益 · 特征 "好" 的量化指标
 
-定义：
+定义:
 
 \[
-Gain = H(before)-H(after)
+Gain = H(划分前) - H(划分后)
 \]
 
-含义：
+| 划分效果 | 信息增益 |
+|----------|----------|
+| 划分后仍然混乱 | 小 |
+| 划分后非常纯净 | 大 |
 
-划分前的不确定性
-
-减去
-
-划分后的不确定性
-
-越大越好。
+> 翻译成人话: 划分前多乱,划分后多不乱 —— 差值越大,这个特征越值得用。
 
 ---
 
 <!-- slide -->
 
-# ID3算法
+## 决策树算法演进
 
-经典决策树算法。
+```mermaid
+flowchart LR
+    A["ID3<br/>1986"]
+    --> B["C4.5<br/>1993"]
+    --> C["CART<br/>1984"]
+    --> D["Random Forest<br/>2001"]
+    --> E["XGBoost<br/>2014"]
 
-步骤：
-
-1. 计算每个特征的信息增益
-2. 选择最大者
-3. 划分数据
-4. 递归构建子树
-
-直到：
-
-- 节点足够纯净
-- 达到停止条件
-
----
-
-<!-- slide -->
-
-# C4.5算法
-
-ID3升级版。
-
-改进：
-
-- 支持连续值
-- 支持缺失值
-- 使用增益率
-
-工业界使用更加广泛。
-
----
-
-<!-- slide -->
-
-# 决策树训练流程
-
-```text
-根节点
-   ↓
-选择最佳特征
-   ↓
-划分数据
-   ↓
-生成子节点
-   ↓
-继续划分
+    style A fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
+    style B fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style C fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
+    style D fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
+    style E fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
 ```
 
-直到生成完整树。
+| 算法 | 年份 | 核心逻辑 |
+|------|------|----------|
+| ID3 | 1986 | 选择信息增益最大的特征 |
+| C4.5 | 1993 | 使用 "增益率" |
+
+**本课程重点: ID3(理解原理) + C4.5(工业常用)**
 
 ---
 
 <!-- slide -->
 
-# Sklearn实践：生成数据
+## ID3 的问题:偏爱 "取值多" 的特征
+
+假设某内网采集了 **1000 条外连日志**,每条都有唯一的 **Log ID**
+
+| 特征 | 取值数量 | 信息增益 | 真实价值 |
+|------|----------|----------|----------|
+| **Log ID** | 1000 个 | 🔥 **最大** | ❌ 毫无价值 |
+| **目标端口** | 少量 | 中等 | ✅ 很有价值 |
+
+> ID3 会被 "Log ID" 这种无用特征欺骗 → 过拟合
+
+---
+
+<!-- slide -->
+
+## C4.5 的改进:增益率
+
+**增益率 = 信息增益 ÷ 固有值(惩罚项)**
+
+| 特征 | 信息增益 | 固有值 | 增益率 | 效果 |
+|------|----------|--------|--------|------|
+| Log ID | 最大 | 最大 | ⬇ 被压低 | 不再被误选 |
+| 目标端口 | 中等 | 小 | ⬆ 相对更高 | 公平竞争 |
+
+> **类比:** ID3 是第一代预警系统,容易被 "花哨" 特征欺骗; C4.5 是第二代,加了 "公平性检查",更可靠。
+
+---
+
+<!-- slide -->
+
+## ID3 与 C4.5
+
+| 算法 | 核心逻辑 | 特点 |
+|------|----------|------|
+| **ID3** | 选择信息增益最大的特征 | 奠基,但偏好取值多的特征 |
+| **C4.5** | 使用 "增益率" | 支持连续值/缺失值,工业更常用 |
+
+> **一句话:** ID3 是先驱, C4.5 是升级版。两者差异 ≈ "第一代预警系统" vs "具备抗干扰能力的第二代预警系统"。
+
+---
+
+<!-- slide -->
+
+## 决策树如何生成检测规则?
+
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-bottom:0.5rem;">
+从历史数据中自动提取判据的五个步骤
+</div>
+
+```mermaid
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '11px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+flowchart LR
+    A["📡 已标注数据"]
+    --> B["🔍 找最佳特征"]
+    --> C["⚙ 生成规则"]
+    --> D["🌿 构建完整树"]
+    --> E["✅ 输出判据链"]
+```
+
+<div style="margin-top:4px;font-size:0.5em;color:var(--solarized-base00);text-align:center;">
+步骤详解:历史流量日志(已标注) → 选择最佳判据特征(信息增益最大) → 按阈值切分生成规则节点 → 递归生成子规则构建完整树 → 输出白盒可追溯的判据链
+</div>
+
+<div style="margin-top:12px;padding:12px 16px;background:rgba(38,139,210,0.08);border-left:4px solid var(--solarized-blue);border-radius:4px;font-size:0.55em;">
+❓ **标注数据从哪来?**
+开源威胁情报: VirusTotal、AbuseIPDB 等已标注的 IP/域名黑名单 ·
+公开数据集: CIC-IDS、UNSW-NB15 等带有攻击标签的流量数据集 ·
+历史告警日志:安全分析师已确认的告警记录
+⚠ 标注数据是监督学习的前提。数据质量 > 算法选择。
+</div>
+
+---
+
+<!-- slide -->
+
+## Sklearn 实践 · 核心代码
 
 ```python
 from sklearn.datasets import make_classification
-
-X, y = make_classification(
-    n_samples=2000,
-    n_features=10,
-    n_informative=6,
-    random_state=42
-)
-
-print(X.shape)
-```
-
-输出：
-
-```text
-(2000, 10)
-```
-
----
-
-<!-- slide -->
-
-# Sklearn实践：划分训练集
-
-```python
 from sklearn.model_selection import train_test_split
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.3,
-    random_state=42
-)
-```
-
-训练集：
-
-70%
-
-测试集：
-
-30%
-
----
-
-<!-- slide -->
-
-# Sklearn实践：训练模型
-
-```python
 from sklearn.tree import DecisionTreeClassifier
 
-model = DecisionTreeClassifier(
-    max_depth=5,
-    random_state=42
-)
-
-model.fit(
-    X_train,
-    y_train
-)
+# 1. 生成模拟数据(10 维特征, 2000 样本)
+X, y = make_classification(n_samples=2000, n_features=10,
+                           n_informative=6, random_state=42)
+# 2. 划分训练/测试集
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42)
+# 3. 训练决策树(限制深度防过拟合)
+model = DecisionTreeClassifier(max_depth=5, random_state=42)
+model.fit(X_train, y_train)
+# 4. 评估
+print(f"Accuracy = {model.score(X_test, y_test):.4f}")
 ```
+
+典型输出: Accuracy = 0.8833
 
 ---
 
 <!-- slide -->
 
-# Sklearn实践：评估模型
-
-```python
-accuracy = model.score(
-    X_test,
-    y_test
-)
-
-print(
-    f"Accuracy={accuracy:.4f}"
-)
-```
-
-典型输出：
-
-```text
-Accuracy=0.88
-```
-
----
-
-<!-- slide -->
-
-# Sklearn实践：查看规则
+## 核心优势 · 可解释性
 
 ```python
 from sklearn.tree import export_text
-
-rules = export_text(model)
-
+rules = export_text(model, feature_names=[
+    'feature_0', 'feature_1', ..., 'feature_9'
+])
 print(rules)
 ```
 
-得到：
+输出:
 
 ```text
-feature_3 <= 0.75
-...
+|--- feature_3 <= 0.75
+|   |--- feature_7 <= -0.23
+|   |   |--- class: 0
+|   |--- feature_7 > -0.23
+|   |   |--- feature_1 <= 0.45
+|   |   |   |--- class: 1
+|   |   |--- feature_1 > 0.45
+|   |   |   |--- class: 0
+|--- feature_3 > 0.75
+|   |--- feature_5 <= 0.32
+|   |   |--- class: 1
+|   |--- feature_5 > 0.32
+|   |   |--- class: 0
 ```
 
-这正是决策树最大的优势：
-
-可解释。
+每条规则都可追溯: 为什么拦截这个 IP ? —— 因为满足规则链 A → B → C。
 
 ---
 
 <!-- slide -->
 
-# 决策树优点
+## 决策树 · 优缺点(网空视角)
 
-<i class="fa fa-thumbs-up"></i>
+<div class="twocol">
 
-- 易理解
-- 易解释
-- 训练快
-- 推理快
-- 支持非线性边界
+<div>
 
----
+✅ 优点
 
-<!-- slide -->
+| 优势 | 网空含义 |
+|------|----------|
+| 易理解 | 一线人员可直接执行 |
+| 可解释 | 指挥员知道 "为什么" |
+| 推理快 | 毫秒级,适合端侧部署 |
+| 无需 GPU | 边缘节点可直接运行 |
 
-# 决策树缺点
+</div>
 
-<i class="fa fa-warning"></i>
+<div>
 
-- 易过拟合
-- 对噪声敏感
-- 稳定性较差
+⚠ 缺点
 
-数据稍有变化：
+| 劣势 | 应对策略 |
+|------|----------|
+| 易过拟合 | 限制深度 + 剪枝 |
+| 对噪声敏感 | 集成方法平滑 |
+| 稳定性差 | 随机森林/XGBoost |
 
-树结构可能变化很大。
+</div>
 
----
+</div>
 
-<!-- slide -->
-
-# 如何防止过拟合？
-
-常见方法：
-
-- 限制树深度
-- 限制叶子节点
-- 剪枝
-- 随机森林
-- Boosting
-
-例如：
-
-- Random Forest
-- XGBoost
+<div class="important warning" style="margin-top:8px;">
+网空启示: 深度学习做 "看得准",决策树做 "说得清、跑得快"。战场需要的是 确定性 > 准确率。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 决策树应用场景
+## 决策树在网空领域的典型应用
 
-广泛用于：
-
-- 银行风控
-- 用户流失预测
-- 医疗诊断
-- 客户分类
-- 入侵检测
-
-原因：
-
-> 可解释。
+| 场景 | 决策树做什么 |
+|------|-------------|
+| 🚨 **入侵检测** | 从流量特征提取可执行判据 |
+| 🎯 **钓鱼 URL 识别** | 生成 "如果是 → 则拦截" 的规则链 |
+| 🧠 **告警降噪** | 判断哪些告警真正值得关注 |
+| 🔗 **攻击链还原** | 逐层判定每个环节的恶意概率 |
+| 📋 **合规审计** | 提供白盒可追溯的判定依据 |
 
 ---
 
 <!-- slide -->
 
-# 随堂思考题
+## 随堂思考题
 
-某银行审批贷款。
+某部内网部署流量检测系统。
 
-可用特征：
+**方案 A:** 深度学习模型(准确率 92%,黑盒)
 
-- 收入
-- 信用评分
-- 工作年限
+**方案 B:** 决策树模型(准确率 87%,白盒)
 
-问题：
-
-为什么决策树比神经网络更容易获得业务部门认可？
+作为技术负责人,你倾向哪个?为什么?
 
 ---
 
 <!-- slide -->
 
-# 思考题参考答案
+## 参考答案 · 决策树的价值在哪?
 
-原因：
+| 考量维度 | 深度学习 | 决策树 |
+|----------|----------|--------|
+| 准确率 | ✅ 略高 | ⚠ 略低 |
+| 可解释性 | ❌ 黑盒 | ✅ 完全透明 |
+| 审计追溯 | ❌ 无法追溯 | ✅ 每条规则可追溯 |
+| 一线执行 | ❌ 依赖专家解读 | ✅ 直接可操作 |
+| 部署门槛 | ❌ 需 GPU 集群 | ✅ 单机/边缘可跑 |
+| 合规要求 | ⚠ 难通过 | ✅ 天然满足 |
 
-- 规则透明
-- 容易解释
-- 满足审计要求
-- 便于监管部门检查
-
-很多行业：
-
-准确率不是唯一目标。
-
-可解释性同样重要。
+> **网空核心命题:** 我们要的是 "确定性的可执行规则",而非 "概率性的黑盒判断"。
 
 ---
 
 <!-- slide -->
 
-# 本部分总结
+## 本部分总结 · 决策树
 
-完成内容：
+✅ 核心思想:用 "最好的问题" 逐层切分数据
 
-✅ 数据挖掘概述
+✅ 灵魂指标:信息增益 = 混乱减少的程度
 
-✅ 五种经典算法全景图
+✅ 最大优势:规则透明,一线可直接执行
 
-✅ 信用卡欺诈案例
+✅ 网空定位:从 "专家经验" 到 "自动判据" 的桥梁
 
-✅ 决策树核心思想
-
-✅ 信息熵与信息增益
-
-✅ Scikit-learn实践
+<div style="text-align:center;font-size:1.2em;color:var(--solarized-blue);">
+规则 ≠ 替代专家 · 规则 = 固化专家经验
+</div>
 
 ---
 
 <!-- slide -->
 
-下一部分：
+## 下一部分预告
 
-# K-Means 聚类 + Apriori关联规则
+<div style="text-align:center;">
+📏 K-Means 聚类
+当你不确定恶意行为 "长什么样" 的时候
+—— 让数据自己 "抱团" 说话
+</div>
 
 ---

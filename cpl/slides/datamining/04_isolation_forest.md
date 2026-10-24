@@ -22,792 +22,695 @@ presentation:
 # @import "../../plugin/chalkboard/plugin.js"
 # @import "../../plugin/chalkboard/style.css"
 # @import "../../plugin/menu/menu.js"
-
 # @import "../../js/anychart/anychart-core.min.js"
 # @import "../../js/anychart/anychart-venn.min.js"
 # @import "../../js/anychart/pastel.min.js"
 # @import "../../js/anychart/venn-ml.js"
 
+<!-- slide -->
 
-<!-- slide data-notes="" -->
+# 孤立森林 · 异常即信号
 
-<div class="bottom20"></div>
+<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
 
-# 经典数据挖掘算法
+<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
+当恶意样本极度稀少,连 "规律" 都无从总结的时候
+</div>
 
-<hr class="width50 center">
+<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
+**网空关键词:** 0-day 发现 · 未知威胁检测 · 异常行为识别
+</div>
 
-### 杨已彪
-### 南京大学计算机学院
-### 计算机软件新技术全国重点实验室
-
-#### yangyibiao@nju.edu.cn
-
-<i class="fa fa-database"></i> 数据挖掘专题课程
+<div style="margin-top:100px;text-align:center;line-height:2.2;">
+<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
+杨已彪
+</div>
+<div style="font-size:0.6em;color:var(--solarized-base00);">
+yangyibiao@nju.edu.cn
+</div>
+<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
+南京大学计算机学院 · 计算机软件新技术全国重点实验室
+</div>
+<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+2026 年 10 月
+</div>
+</div>
 
 ---
 
 <!-- slide -->
 
-# 《经典数据挖掘算法》
+## 从朴素贝叶斯到孤立森林 · 一个自然的追问
 
-- 第一章：规则的建立 —— 决策树 (分类)
-- 第二章：距离的度量 —— K-Means (聚类)
-- 第三章：频率的发现 —— Apriori (关联)
-- 第四章：概率的推断 —— 朴素贝叶斯 (分类)
-- **第五章：异类的隔离 —— 孤立森林 (异常检测)**
+| 朴素贝叶斯帮我们解决了 | 但还有一个问题 |
+|-----------------------|---------------|
+| 在不确定性下做判断 → 输出概率 | **如果连 "正常/恶意" 的样本都没有呢?** |
+| 需要一定数量的历史标注数据 | **0-day 攻击根本没有历史样本** |
+| 能回答 "有多大概率是恶意" | **能发现 "从未见过" 的威胁吗?** |
 
-五种经典算法：从规则、距离、频率、概率到隔离
+> **核心转折:** 前面的算法都在 "学习规律"。但如果攻击者用的是**从未出现过的新手法**,规律根本不存在 —— 我们只能靠**"异常"**来发现它。
 
----
-
-<!-- slide -->
-
-# 学习目标
-
-本部分结束后，希望大家能够：
-
-- 理解异常检测问题
-- 掌握 Isolation Forest 核心思想
-- 学会使用 Scikit-learn 进行异常检测
-- 综合比较五种经典算法
-- 能够针对实际问题选择合适算法
+**孤立森林**:不需要标注、不需要历史样本,专门解决 "未知的未知" 问题。
 
 ---
 
 <!-- slide -->
 
-# 回顾：我们已经学习了什么？
+## 一个网空场景: 0-day 攻击的发现
 
-| 思维方式 | 算法 |
-|----------|----------|
-| 规则 | 决策树 |
-| 距离 | K-Means |
-| 频率 | Apriori |
-| 概率 | 朴素贝叶斯 |
+某部内网运行正常,每天产生海量流量日志。已部署基于规则的 IDS,但攻击者使用 **0-day 漏洞** 进入内网。
 
-今天最后一种思想：
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
-```text
-隔离（Isolation）
-```
+<div style="background:#0d1a2b;padding:14px 16px;border-radius:8px;border:1px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.65em;">❌ 传统方法失效</div>
 
----
+<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+- 规则库中没有该攻击的特征
+- 历史数据中没有标注样本
+- 决策树/贝叶斯**无法训练**
+</div>
 
-<!-- slide -->
+</div>
 
-# 一个现实问题
+<div style="background:#0d1a2b;padding:14px 16px;border-radius:8px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.65em;">✅ 孤立森林的思路</div>
 
-某银行每天：
+<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+- 不需要知道 "恶意" 长什么样
+- 只需要知道 **"正常" 长什么样**
+- 发现 **"不像正常"** 的行为 → 异常
+</div>
 
-```text
-100万笔交易
-```
+</div>
 
-其中：
+</div>
 
-```text
-99.9%正常
-
-0.1%异常
-```
-
-问题：
-
-如何发现未知欺诈？
+<div style="margin-top:8px;padding:6px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.45em;text-align:center;">
+🎯 **本部分目标:** 在没有任何标注样本的情况下,用 **"异常即信号"** 的思路发现未知威胁。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 为什么传统分类不够？
+## 什么是异常检测?
 
-传统分类需要：
+> **异常检测 = 在海量数据中发现 "少数派"**
 
-```text
-大量标签
-```
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
-但现实中：
+<div style="background:#1a2d1a;padding:12px 16px;border-radius:8px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.65em;">✅ 正常数据</div>
 
-- 新型攻击
-- 新型欺诈
-- 新型故障
+<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+- 大量出现(**99%**)
+- 彼此相似
+- 符合预期模式
+</div>
 
-往往：
+</div>
 
-```text
-没有历史样本
-```
+<div style="background:#2d1b1b;padding:12px 16px;border-radius:8px;border:1px solid #268bd2;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.65em;">🚨 异常数据</div>
 
-怎么办？
+<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+- 极少出现(**1%**)
+- 与主流不同
+- 偏离预期模式
+</div>
 
----
+</div>
 
-<!-- slide -->
+</div>
 
-# 什么是异常检测？
-
-目标：
-
-在大量正常数据中发现：
-
-```text
-少数特殊个体
-```
-
-例如：
-
-- 欺诈交易
-- 网络攻击
-- 设备故障
-- 数据错误
-
+<div style="margin-top:8px;padding:6px 14px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.45em;">
+💡 **网空含义:** 0-day 攻击、未知恶意软件、APT 渗透 —— 它们的行为模式一定与 "正常" 不同。找到这个 "不同",就找到了威胁线索。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 第四部分：孤立森林
+## 孤立森林的核心思想
 
-<i class="fa fa-search"></i>
+> **异常点更容易被 "隔离" 出来。**
 
-Isolation Forest
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px;margin-top:6px;">
 
-提出时间：
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
+<div style="font-weight:700;color:#f39c12;font-size:0.65em;">👥 直观类比</div>
 
-```text
-2008
-```
+<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+房间里有 **100 个人**:
 
-已经成为工业界经典异常检测算法。
+- 99 个人站在一起(**正常群体**)
+- 1 个人站在角落(**异常个体**)
 
----
+**问题:** 谁最容易被发现?
 
-<!-- slide -->
+**答案:** 角落里的那个人。
+</div>
 
-# 一个有趣的问题
+</div>
 
-假设：
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
+<div style="font-weight:700;color:#27ae60;font-size:0.65em;">🎯 算法映射</div>
 
-房间里有100个人。
+<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
 
-其中：
+| 直觉 | 算法 |
+|------|------|
+| 人群聚集 | **正常点**:在数据空间中密集分布 |
+| 角落孤立 | **异常点**:远离数据密集区域 |
+| 容易发现 | **路径短**:异常点容易被随机切分隔离 |
 
-99个人站在一起。
+</div>
 
-1个人站在角落。
+</div>
 
-问题：
+</div>
 
-谁最容易被发现？
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
-答案：
+<div style="background:#1a2d1a;padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.5em;">🟢 正常点</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
+**聚集在一起** → 需要多次切分才能分开
+</div>
+</div>
 
-```text
-角落那个人
-```
+<div style="background:#2d1b1b;padding:8px 12px;border-radius:6px;border-left:4px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.5em;">🔴 异常点</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
+**远离群体** → 几次切分就能单独隔离
+</div>
+</div>
 
----
+</div>
 
-<!-- slide -->
-
-# 孤立森林的核心思想
-
-核心观点：
-
-> 异常点更容易被孤立出来。
-
-正常点：
-
-```text
-聚集在一起
-```
-
-异常点：
-
-```text
-远离群体
-```
-
-因此：
-
-更容易被随机切分出来。
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.4em;text-align:center;">
+💡 **孤立森林就是把这个直觉变成了算法。** 无需标注、无需先验知识,通过随机切分寻找容易被隔离的点。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 随机切分示意
+## 孤立森林的核心思想 · 图解
 
-```text
-正常点：
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;">
 
-●●●●●●●●●
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #27ae60;text-align:center;">
+<div style="font-weight:700;color:#27ae60;font-size:0.65em;">🟢 正常点(聚集)</div>
 
-异常点：
+<div style="font-size:1.6em;line-height:1.8;letter-spacing:4px;margin-top:4px;font-weight:300;">
+⬤ ⬤ ⬤ ⬤ ⬤
+</div>
 
-          ▲
-```
+<div style="font-size:0.45em;color:var(--solarized-base00);margin-top:2px;">
+密集分布 · 相互靠近
+</div>
 
-随机切分：
+</div>
 
-```text
-很快就能单独圈出▲
-```
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #e74c3c;text-align:center;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.65em;">🔴 异常点(孤立)</div>
 
----
+<div style="font-size:1.6em;line-height:1.8;letter-spacing:8px;margin-top:4px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▲
+</div>
 
-<!-- slide -->
+<div style="font-size:0.45em;color:var(--solarized-base00);margin-top:2px;">
+远离群体 · 单独存在
+</div>
 
-# 为什么叫“森林”？
+</div>
 
-因为：
+</div>
 
-不是一棵树。
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
-而是：
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.5em;">✂ 正常点:需要很多刀</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
+密集区域 → 多次随机切分才能分开
+</div>
+<div style="font-size:0.8em;color:#27ae60;margin-top:2px;">
+⬤⬤⬤⬤⬤ → ⬤⬤ → ⬤ → ✅ 隔离
+</div>
+</div>
 
-```text
-很多随机树
-```
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.5em;">✂ 异常点:几刀就孤立</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
+远离群体 → 随机切分很快单独分离
+</div>
+<div style="font-size:0.8em;color:#e74c3c;margin-top:2px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▲ → ✂ → ✅ 隔离
+</div>
+</div>
 
-每棵树：
+</div>
 
-随机选择：
-
-- 特征
-- 切分点
-
-最终综合结果。
-
-
----
-
-<!-- slide -->
-
-# 孤立树构建过程
-
-```text
-随机选择特征
-       ↓
-随机选择切分点
-       ↓
-划分数据
-       ↓
-继续递归
-```
-
-直到：
-
-样本被隔离。
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.4em;text-align:center;">
+💡 **关键直觉:** 异常点远离群体 → 更容易被随机切分 "隔离" 出来 → 路径更短
+</div>
 
 ---
 
 <!-- slide -->
 
-# 路径长度
+## 为什么叫 "森林"?
 
-关键指标：
+> **孤立森林 = 多棵 "孤立树" 的集合**
 
-```text
-Path Length
-```
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
-含义：
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #268bd2;">
+<div style="font-weight:700;color:#268bd2;font-size:0.65em;">🌲 孤立树(单棵)</div>
 
-一个样本被隔离前：
+<div style="font-size:0.45em;line-height:1.8;margin-top:4px;">
+1. 随机选一个**特征**
+2. 随机选一个**切分点**
+3. 把数据分成**左右两份**
+4. **递归重复**,直到每个点都被隔离
+</div>
 
-经过多少次切分。
+</div>
 
-异常点：
+<div style="background:#0d1a2b;padding:12px 14px;border-radius:8px;border:1px solid #27ae60;">
+<div style="font-weight:700;color:#27ae60;font-size:0.65em;">🌳 孤立森林(多棵)</div>
 
-```text
-路径短
-```
+<div style="font-size:0.45em;line-height:1.8;margin-top:4px;">
+- 构建**很多棵**孤立树(默认 **100 棵**)
+- 每棵树用**不同的随机切分**
+- 综合所有树的结果 → **更稳定可靠**
+</div>
 
-正常点：
+</div>
 
-```text
-路径长
-```
+</div>
 
----
-
-<!-- slide -->
-
-# 异常得分
-
-最终输出：
-
-```text
-Anomaly Score
-```
-
-接近：
-
-```text
-1
-```
-
-异常可能性高。
-
-接近：
-
-```text
-0
-```
-
-异常可能性低。
+<div style="margin-top:6px;padding:6px 14px;background:rgba(243,156,18,0.06);border-left:4px solid #f39c12;border-radius:4px;font-size:0.4em;">
+💡 **类比:** 单棵树的判断可能有偏差,但多棵树综合判断就很可靠。这就是 **"集成学习"** 的思路 —— 集中多人的智慧,比依赖一个人更可靠。
+</div>
 
 ---
 
 <!-- slide -->
 
-# Isolation Forest代码实践
+## 孤立树构建过程
 
-生成模拟数据：
+```mermaid
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '11px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 12, 'rankSpacing': 18 } } }%%
+flowchart LR
+    A["📊 原始数据"]
+    --> B["🎲 随机选特征"]
+    --> C["✂ 随机选切分点"]
+    --> D["📦 切分为两组"]
+    --> E{"是否隔离?"}
+    E -->|否| B
+    E -->|是| F["✅ 记录路径长度"]
+
+    style A fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
+    style B fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style C fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
+    style D fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
+    style E fill:#1a2a3a,stroke:#e74c3c,stroke-width:2px,color:#fff
+    style F fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
+```
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;font-size:0.4em;">
+
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
+🔑 **关键步骤:**
+
+1. 随机选一个特征
+2. 随机选一个切分点
+3. 将数据分成左右两份
+</div>
+
+<div style="background:#0d1a2b;padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
+⏱ **终止条件:**
+
+样本被完全隔离 → 记录路径长度
+
+否则 → 递归重复上述过程
+</div>
+
+</div>
+
+---
+
+<!-- slide -->
+
+## 路径长度 · 核心指标
+
+> **路径长度 = 样本被完全隔离所需的切分次数。异常点路径短,正常点路径长。**
+
+**一个具体例子:外连频率**
+
+<div style="background:#0d1a2b;padding:4px 10px;border-radius:6px;border:1px solid #586e75;margin-top:4px;font-size:0.45em;">
+<div style="font-weight:700;color:#f39c12;font-size:0.85em;text-align:center;margin-bottom:2px;">✂ 随机切分过程对比</div>
+
+| 步骤 | 数据(外连频率,次/小时) | 说明 |
+|------|--------------------------|------|
+| 原始数据 | [2, 3, 3, 4, 5, 5, 6, 7, 8, **25**] | 9 台正常(2~8),1 台异常(25) |
+| 第 1 刀(随机) | 切在 **5** → [2,3,3,4,5,5] ｜ [6,7,8,**25**] | 异常点仍在右侧组 |
+| 第 2 刀(随机) | 切在 **7** → [6,7] ｜ [8,**25**] | 继续切分右侧组 |
+| 第 3 刀(随机) | 切在 **10** → [8] ｜ [**25**] | 异常点被单独分离 ✅ |
+
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:6px;margin-top:4px;font-size:0.35em;">
+
+<div style="background:#0d1a2b;padding:3px 8px;border-radius:4px;border-left:4px solid #27ae60;">
+**为什么正常点难切?**
+
+- 位于密集区域(2~8)
+- 周围全是邻居,随机切分很难单独切出一个
+
+👉 需要很多刀才能分开
+</div>
+
+<div style="background:#0d1a2b;padding:3px 8px;border-radius:4px;border-left:4px solid #e74c3c;">
+**为什么异常点容易切?**
+
+- 位于稀疏区域(25)
+- 远离所有邻居,随机切分很容易单独切出
+
+👉 少数几刀就能隔离
+</div>
+
+</div>
+
+<div style="margin-top:3px;padding:2px 8px;background:rgba(38,139,210,0.06);border-left:3px solid #268bd2;border-radius:4px;font-size:0.3em;text-align:center;">
+💡 异常点不是 "被识别" 出来的,而是 "更容易被随机切分孤立" 出来的。
+</div>
+
+---
+
+<!-- slide -->
+
+## 异常得分 · 最终输出
+
+将路径长度转换为 异常得分(0~1):
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;">
+
+<div style="background:#2d1b1b;padding:8px;border-radius:6px;border:1px solid #e74c3c;text-align:center;font-size:0.55em;">
+🔴 得分接近 **1**
+异常可能性高
+→ 值得深入排查
+</div>
+
+<div style="background:#1a2a3a;padding:8px;border-radius:6px;border:1px solid #f39c12;text-align:center;font-size:0.55em;">
+🟡 得分接近 **0.5**
+边界区域
+→ 可进一步研判
+</div>
+
+<div style="background:#1a2d1a;padding:8px;border-radius:6px;border:1px solid #27ae60;text-align:center;font-size:0.55em;">
+🟢 得分接近 **0**
+高度正常
+→ 无需关注
+</div>
+
+</div>
+
+<div style="background:#0d1a2b;padding:6px 12px;border-radius:6px;border-left:4px solid #268bd2;margin-top:4px;font-size:0.5em;">
+💡 **网空含义:** 异常得分不是 "是不是恶意",而是 "有多不像正常"。得分越高,越值得深入调查。
+</div>
+
+---
+
+<!-- slide -->
+
+## Sklearn 实践 · 生成数据 + 训练模型
 
 ```python
 import numpy as np
-
-normal_data = np.random.randn(
-    1000,
-    2
-)
-
-outliers = np.random.uniform(
-    low=8,
-    high=10,
-    size=(20,2)
-)
-
-X = np.vstack(
-    [normal_data,outliers]
-)
-```
-
----
-
-<!-- slide -->
-
-# 训练模型
-
-```python
 from sklearn.ensemble import IsolationForest
 
-model = IsolationForest(
-    contamination=0.02,
-    random_state=42
-)
-
+# 1. 生成正常数据(1000 个,集中在原点附近)
+normal = np.random.randn(1000, 2)
+# 2. 生成异常数据(20 个,远离正常区域)
+outliers = np.random.uniform(low=6, high=8, size=(20, 2))
+# 3. 合并数据
+X = np.vstack([normal, outliers])
+# 4. 训练孤立森林
+model = IsolationForest(contamination=0.02, random_state=42)
 model.fit(X)
 ```
 
+contamination 参数: 预期异常比例,这里设为 2% (20/1020 ≈ 2%)
+
 ---
 
 <!-- slide -->
 
-# 预测异常
+## Sklearn 实践 · 预测与得分
 
 ```python
+# 1. 预测异常(-1=异常, 1=正常)
 pred = model.predict(X)
+print(np.unique(pred, return_counts=True))
+# 输出: (array([-1,  1]), array([20, 1000]))
 
-print(
-    np.unique(pred,
-              return_counts=True)
-)
-```
-
-输出：
-
-```text
--1 异常
-
- 1 正常
-```
-
----
-
-<!-- slide -->
-
-# 查看异常得分
-
-```python
+# 2. 查看异常得分(值越小越异常)
 scores = model.score_samples(X)
+print(scores[:10])
 
-print(
-    scores[:10]
-)
+# 3. 查看 Top 5 异常点
+top5_idx = np.argsort(scores)[:5]
+print(f"Top 5 异常索引: {top5_idx}")
+print(f"Top 5 异常得分: {scores[top5_idx]}")
 ```
 
-结果：
-
-```text
-值越小
-越异常
-```
-
+关键理解: 孤立森林的得分是负值,越负越异常。实际使用时可以取负值或归一化到 0-1 区间。
 
 ---
 
 <!-- slide -->
 
-# 孤立森林优点
+## 孤立森林 · 优缺点(网空视角)
 
-<i class="fa fa-thumbs-up"></i>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.55em;">
 
-- 无需标签
-- 高效
-- 可扩展
-- 适合高维数据
-- 适合异常检测
+<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
+✅ 核心优势
 
+| 优势 | 网空价值 |
+|------|----------|
+| 无需标签 | 不需要标注正常/恶意样本 |
+| 发现未知威胁 | 能检测 0-day、新型攻击 |
+| 极快 | 海量日志分钟级完成异常筛选 |
+| 高维友好 | 可处理数千维特征 |
+| 无需先验知识 | 不需要提前知道 "恶意长什么样" |
 
----
+</div>
 
-<!-- slide -->
+<div style="background:#0d1a2b;padding:10px 14px;border-radius:6px;border:1px solid #e74c3c;">
+⚠ 固有局限
 
-# 孤立森林缺点
+| 局限 | 网空应对 |
+|------|----------|
+| 只能发现 "不像正常" | 需要人工研判确认是否为攻击 |
+| 无法区分攻击类型 | 只能提供 "可疑候选",不能替代深入分析 |
+| 对参数敏感 | 需要根据数据特点调参(contamination 等) |
 
-<i class="fa fa-warning"></i>
+</div>
 
-- 结果解释性一般
-- 参数敏感
-- 无法提供异常原因
+</div>
 
-
----
-
-<!-- slide -->
-
-# 典型应用场景
-
-广泛用于：
-
-- 欺诈检测
-- 网络攻击检测
-- 设备故障监测
-- 金融风控
-- 日志异常分析
-
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+💡 **定位:** 孤立森林不是 "判官",而是 "筛选器" —— 从海量数据中圈出少量可疑目标,让专家聚焦。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 思考题
+## 孤立森林在网空领域的典型应用
 
-为什么Isolation Forest适合发现未知欺诈？
-
-
----
-
-<!-- slide -->
-
-# 思考题参考答案
-
-因为：
-
-```text
-不依赖标签
-```
-
-关注：
-
-```text
-是否异常
-```
-
-而不是：
-
-```text
-属于哪个类别
-```
-
-因此：
-
-能发现新型问题。
-
+| 场景 | 孤立森林做什么 | 为什么选它 |
+|------|---------------|-----------|
+| 🚨 **0-day 攻击发现** | 从流量中标记行为异常的主机 | 不需要已知攻击样本 |
+| 🔗 **APT 检测** | 发现长时间潜伏的异常行为链 | 能发现 "慢速" 异常 |
+| 📊 **日志异常分析** | 从海量日志中筛选可疑条目 | 极快,适合大数据量 |
+| 🌐 **DNS 隧道检测** | 标记异常的 DNS 请求模式 | 高维特征处理能力强 |
+| 🧠 **未知恶意软件发现** | 从进程行为中圈出异常 | 不需要恶意软件签名 |
 
 ---
 
 <!-- slide -->
 
-# 分组研讨
+## 随堂思考题
 
-<i class="fa fa-users"></i>
+某部内网部署了异常检测系统。
 
-课堂练习
+数据: 1 万条流量日志(无任何标注)
 
+已知: 其中可能存在 0-day 攻击的痕迹,但不知道有多少
 
----
+**方案 A:** 用决策树训练(需要人工标注数据)
 
-<!-- slide -->
+**方案 B:** 用孤立森林检测(无需标注)
 
-# 研讨题目
-
-某在线教育平台拥有：
-
-```text
-100万用户
-```
-
-数据包括：
-
-- 用户年龄
-- 学习时长
-- 登录频率
-- 课程购买记录
-- 评论内容
-
-任务：
-
-希望提升平台运营效果。
-
-请选择：
-
-今天学习的算法。
-
-说明理由。
-
+问题: 你选择哪个方案?孤立森林发现异常后,下一步应该做什么?
 
 ---
 
 <!-- slide -->
 
-# 小组讨论要求
+## 如何选择? —— 方案对比
 
-每组完成：
+**选择:方案 B(孤立森林)**
 
-1. 选择算法
-2. 说明原因
-3. 预期输出结果
-4. 如何评估效果
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:6px;">
 
-时间：
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
+<div style="font-size:0.5em;font-weight:700;color:#268bd2;margin-top:2px;">无需标注</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">0-day 攻击无历史样本,监督模型无法训练</div>
+</div>
 
-```text
-10分钟讨论
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
+<div style="font-size:0.5em;font-weight:700;color:#27ae60;margin-top:2px;">快速筛选</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">从 1 万条中圈出可疑 TOP 10-20</div>
+</div>
 
-5分钟分享
-```
+<div style="background:#0d1a2b;padding:8px 10px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
+<div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
+<div style="font-size:0.5em;font-weight:700;color:#f39c12;margin-top:2px;">人机协同</div>
+<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">分析师聚焦少量候选,效率提升 100 倍</div>
+</div>
 
+</div>
 
----
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;padding:6px 14px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.35em;">
+<div style="font-weight:700;color:#268bd2;">🌲 孤立森林</div>
+<div style="color:var(--solarized-base00);">→ 初筛(10-20 条)</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">↓</div>
+<div style="font-weight:700;color:#f39c12;">👤 分析师</div>
+<div style="color:var(--solarized-base00);">→ 逐条研判</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">↓</div>
+<div style="font-weight:700;color:#27ae60;">✅ 确认攻击</div>
+<div style="color:var(--solarized-base00);">→ 提取特征 → 更新规则库</div>
+</div>
 
-<!-- slide -->
-
-# 参考答案示例
-
-用户分群：
-
-```text
-K-Means
-```
-
-购买组合分析：
-
-```text
-Apriori
-```
-
-用户分类：
-
-```text
-决策树
-```
-
-异常账号发现：
-
-```text
-Isolation Forest
-```
-
-评论分类：
-
-```text
-朴素贝叶斯
-```
+<div style="margin-top:4px;padding:3px 10px;background:rgba(231,76,60,0.06);border-left:3px solid #e74c3c;border-radius:4px;font-size:0.3em;text-align:center;">
+🎯 **核心价值:** 孤立森林做 "初筛",专家做 "终判"。从 1 万条聚焦到 10 条,让专家的工作从 "大海捞针" 变成 "精准打击"。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 五种算法全景图
+## 本部分总结 · 孤立森林
 
-```text
-规则
- ↓
-决策树
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
 
-距离
- ↓
-K-Means
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
+💡 核心思想
+异常点更容易被隔离 — 异常即信号
+</div>
 
-频率
- ↓
-Apriori
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
+🔑 关键区别
+无需标注 — 不需要任何正常/恶意样本
+</div>
 
-概率
- ↓
-朴素贝叶斯
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
+📊 核心指标
+路径长度:异常点路径短,正常点路径长
+</div>
 
-隔离
- ↓
-孤立森林
-```
+<div style="background:#0d1a2b;padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
+🎯 网空定位
+从 "已知威胁检测" 到 "未知威胁发现" 的认知跃迁
+</div>
 
----
+</div>
 
-<!-- slide -->
-
-# 算法对比图谱
-
-| 算法 | 类型 | 输入 | 输出 |
-|--------|--------|--------|--------|
-| 决策树 | 分类 | 特征+标签 | 类别 |
-| K-Means | 聚类 | 特征 | 簇 |
-| Apriori | 关联分析 | 事务数据 | 规则 |
-| 贝叶斯 | 分类 | 特征+标签 | 概率 |
-| 孤立森林 | 异常检测 | 特征 | 异常分数 |
-
+<div style="margin-top:8px;padding:8px 14px;background:rgba(38,139,210,0.08);border-radius:6px;text-align:center;font-size:0.7em;border:1px solid rgba(38,139,210,0.15);">
+孤立森林不是 "判官",而是 "筛选器" —— 从海量数据中圈出可疑目标,让专家聚焦。
+</div>
 
 ---
 
 <!-- slide -->
 
-# 算法能力对比
+## 综合回顾 · 四种思维 · 四把武器
 
-| 算法 | 可解释性 | 效率 | 标签需求 |
-|--------|--------|--------|--------|
-| 决策树 | ★★★★★ | ★★★★ | 需要 |
-| K-Means | ★★★ | ★★★★★ | 不需要 |
-| Apriori | ★★★★★ | ★★ | 不需要 |
-| 贝叶斯 | ★★★★ | ★★★★★ | 需要 |
-| 孤立森林 | ★★★ | ★★★★ | 不需要 |
+| 遇到的情况 | 选用武器 |
+|------------|----------|
+| 已知威胁,需要可执行的规则 | 📜 决策树 |
+| 未知威胁,没有标注,找异常群体 | 📏 K-Means |
+| 判断概率,辅助决策 | 🎲 朴素贝叶斯 |
+| 从未见过的 0-day | 🚨 孤立森林 |
 
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;padding:8px 16px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.45em;">
+<div style="font-weight:700;color:#268bd2;">📜 决策树</div>
+<div style="color:var(--solarized-base00);">规则 · 有标注</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">→</div>
+<div style="font-weight:700;color:#f39c12;">📏 K-Means</div>
+<div style="color:var(--solarized-base00);">距离 · 无标注</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">→</div>
+<div style="font-weight:700;color:#27ae60;">🎲 朴素贝叶斯</div>
+<div style="color:var(--solarized-base00);">概率 · 可信度</div>
+<div style="color:var(--solarized-base00);font-size:1.2em;">→</div>
+<div style="font-weight:700;color:#e74c3c;">🚨 孤立森林</div>
+<div style="color:var(--solarized-base00);">隔离 · 未知威胁</div>
+</div>
 
----
-
-<!-- slide -->
-
-# 算法选择指南
-
-如果问题是：
-
-```text
-预测类别
-```
-
-选择：
-
-- 决策树
-- 贝叶斯
-
-如果问题是：
-
-```text
-自动分群
-```
-
-选择：
-
-- K-Means
-
-如果问题是：
-
-```text
-发现关联规律
-```
-
-选择：
-
-- Apriori
-
-如果问题是：
-
-```text
-发现异常
-```
-
-选择：
-
-- Isolation Forest
-
+> **一句话记忆:** 规则找判据,距离找团伙,概率算风险,孤立抓异常。
 
 ---
 
 <!-- slide -->
 
-# 课程总结
+## 课程总结
 
-今天学习了：
+今天一起走过四种思维:
 
-✅ 决策树
+✅ 📜 决策树 —— 从 "专家经验" 到 "自动判据"
 
-✅ K-Means
+✅ 📏 K-Means —— 没有答案时,让数据自己 "抱团"
 
-✅ Apriori
+✅ 🎲 朴素贝叶斯 —— 用概率量化不确定性
 
-✅ 朴素贝叶斯
+✅ 🚨 孤立森林 —— 异常本身就是信号
 
-✅ 孤立森林
-
-对应五种思想：
-
-```text
-规则
-距离
-频率
-概率
-隔离
-```
+<div style="margin-top:10px;text-align:center;font-size:1.3em;font-weight:600;color:#f39c12;">
+从问题出发选择方法
+<span style="color:#888;font-weight:400;">而不是</span>
+从算法出发寻找问题
+</div>
 
 ---
 
 <!-- slide -->
 
-# 后续学习路线
+## 结束语
 
-第一阶段：
+<div style="text-align:center;margin-top:60px;">
+经典算法的价值,不是让机器替代思考,
+而是帮助我们从海量数据中发现规律、
+从确定到不确定、从已知到未知。
 
-- 熟练掌握 Scikit-learn
+**新技术层出不穷,但经典思想历久弥新。**
 
-第二阶段：
+<br>
+<br>
 
-- Random Forest
-- XGBoost
-- DBSCAN
+### 谢谢大家!
 
-第三阶段：
-
-- 深度学习
-- 大语言模型
-
-记住：
-
-> 新技术层出不穷，但经典思想历久弥新。
-
----
-
-<!-- slide -->
-
-# 结束语
-
-<i class="fa fa-graduation-cap"></i>
-
-数据挖掘的价值：
-
-不是让机器替代思考。
-
-而是帮助我们：
-
-```text
-从海量数据中发现规律
-```
-
-谢谢大家！
+<br>
 
 Q & A
+</div>
 
+---
