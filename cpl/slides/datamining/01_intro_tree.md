@@ -16,6 +16,7 @@ presentation:
 @import "../../css/margin.css"
 @import "../../css/table.css"
 @import "../../css/main.css"
+@import "../../css/datamining.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
@@ -29,28 +30,24 @@ presentation:
 
 <!-- slide -->
 
-# 经典数据挖掘算法
+<div class="bottom8"></div>
 
-<div style="margin-top:0.2rem;text-align:center;font-size:0.8em;font-weight:300;color:var(--solarized-base00);">
-从规则发现到异常检测
-</div>
+<h1 style="text-align:center;">经典数据挖掘算法</h1>
 
-<hr class="width20 center" style="margin-top:0.8rem;margin-bottom:0.8rem;">
+<hr class="width50 center">
 
-<div style="margin-top:120px;text-align:center;line-height:2.2;">
-<div style="font-size:1.1em;font-weight:600;">
-杨已彪
-</div>
-<div style="text-align:center">
-yangyibiao@nju.edu.cn
-</div>
-<div style="font-size:0.7em;color:var(--solarized-base00);">
-南京大学计算机学院<br>
-计算机软件新技术全国重点实验室
-</div>
-<div style="margin-top:30px;font-size:0.6em;color:var(--solarized-base01);letter-spacing:3px;">
+<h2 style="text-align:center;">从规则发现到异常检测</h2>
+
+<div class="bottom8"></div>
+
+<h3 style="text-align:center;">南京大学计算机学院 &nbsp;&nbsp; 杨已彪</h3>
+
+<h4 style="text-align:center;">计算机软件新技术全国重点实验室</h4>
+
+<h4 style="text-align:center;"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></h4>
+
+<div style="margin-top:26px;text-align:center;font-size:20pt;color:var(--solarized-base00);letter-spacing:3px;">
 2026 年 10 月
-</div>
 </div>
 
 ---
@@ -60,7 +57,7 @@ yangyibiao@nju.edu.cn
 ## 一个真实的网空场景
 
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:20px;">
-<div style="background:#0d1a2b;padding:14px 16px;border-radius:6px;border:1px solid #268bd2;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 16px;border-radius:6px;border:1px solid #268bd2;">
 ### 📡 数据态势
 
 - 某内网:数千个监测节点
@@ -69,7 +66,7 @@ yangyibiao@nju.edu.cn
 - 状态变化:毫秒级高频
 
 </div>
-<div style="background:#0d1a2b;padding:14px 16px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(38,139,210,0.06);padding:14px 16px;border-radius:6px;border:1px solid #f39c12;">
 ### 🚨 指挥员要回答
 
 - 哪些告警**最致命**,必须优先处置?
@@ -79,7 +76,7 @@ yangyibiao@nju.edu.cn
 </div>
 </div>
 
-<div style="margin-top:16px;padding:12px 16px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.55em;">
+<div style="margin-top:16px;padding:12px 16px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.75em;">
 ⚠ 数据规模已经远超人工处理能力 → **算法不是选择,是刚需**
 </div>
 
@@ -97,8 +94,46 @@ yangyibiao@nju.edu.cn
 而攻击者完成一次渗透,平均只需要 **< 24 小时**
 </div>
 
-<div style="background:#1a2a3a;padding:16px;border-left:4px solid #e74c3c;">
+<div style="background:rgba(38,139,210,0.10);padding:16px;border-left:4px solid #e74c3c;">
 **结论:** 人追不上数据,必须让算法先跑一遍,人来做 "最后 100 米" 的决策。
+</div>
+
+---
+
+<!-- slide -->
+
+## 从问题出发,而不是从算法出发
+
+**人类专家的经验是这样形成的:**
+
+<div class="twocol">
+
+<div>
+
+### 👨‍🔬 人类专家
+
+1. 发现规律 (观察)
+2. 总结经验 (归纳)
+3. 制定规则 (经验)
+4. 识别异常 (直觉)
+
+</div>
+
+<div>
+
+### 🤖 数据挖掘
+
+1. **自动**发现规律
+2. **自动**学习经验
+3. **自动**生成规则
+4. **自动**识别异常
+
+</div>
+
+</div>
+
+<div style="margin-top:6px;padding:14px 16px;background:rgba(38,139,210,0.10);border-left:4px solid #268bd2;">
+算法 ≠ 替代专家,而是 **扩展专家能力的 "数字参谋"**
 </div>
 
 ---
@@ -107,64 +142,101 @@ yangyibiao@nju.edu.cn
 
 ## 四种思维 · 四把 "战术武器"
 
+**数据挖掘的四大经典任务,各选一个代表性算法**
+
+<div style="font-size:1.05em;margin-top:16px;">
+
 | 思维方式 | 核心问题 | 对应算法 | 网空应用场景 |
 |----------|----------|----------|--------------|
-| 📜 **规则思维** | "如果...就..."如何自动判定? | 决策树 | 恶意流量特征判据提取 |
-| 📏 **距离思维** | 谁和谁 "长得像"? | K-Means | 僵尸网络主机群发现 |
-| 🎲 **概率思维** | 这件事发生的可能性多大? | 朴素贝叶斯 | 邮件/URL 先验概率筛查 |
-| 🚨 **异常思维** | 谁 "格格不入"? | 孤立森林 | 未知威胁/0-day 行为发现 |
+| 📜 **规则思维** | 如何自动判定? | 决策树 | 恶意流量判据提取 |
+| 📏 **距离思维** | 谁和谁 "像"? | K-Means | 僵尸网络主机群发现 |
+| 🎲 **概率思维** | 可能性多大? | 朴素贝叶斯 | 邮件/URL 先验筛查 |
+| 🚨 **异常思维** | 谁 "格格不入"? | 孤立森林 | 未知威胁/0-day 发现 |
 
+</div>
+
+<div style="font-size:1.15em;margin-top:20px;">
 > **一句话记忆:** 规则找判据,距离找团伙,概率算风险,孤立抓异常。
+</div>
 
 ---
 
 <!-- slide -->
 
-## 从问题出发,而不是从算法出发
+## 数据挖掘 vs 机器学习 · 区别
+
+**同一个数据,两种目标** —— 以 "用户会不会流失?" 为例
 
 <div class="twocol">
 
 <div>
 
-### 👨‍🔬 人类专家怎么做?
+### 🤖 机器学习 · 预测未来
 
-- 制定规则(经验)
-- 总结经验(归纳)
-- 发现规律(观察)
-- 识别异常(直觉)
+> 这个用户会流失吗?
+
+输出:会 / 不会
+
+关注:
+
+- 准确率
+- 泛化能力
 
 </div>
 
 <div>
 
-### 🤖 数据挖掘做什么?
+### 🔍 数据挖掘 · 发现规律
 
-- **自动**生成规则
-- **自动**学习经验
-- **自动**发现规律
-- **自动**识别异常
+> 哪些用户容易流失?为什么?
+
+输出:流失人群画像、流失因素
+
+关注:
+
+- 知识发现
+- 可解释性
 
 </div>
 
 </div>
 
-<br>
-
-<div style="margin-top:20px;padding:16px;background:#1a2a3a;border-left:4px solid #f39c12;">
-算法 ≠ 替代专家,而是 **扩展专家能力的 "数字参谋"**
-</div>
+> **一句话:** 机器学习关心 "预测得准不准",数据挖掘关心 "发现了什么规律"。
 
 ---
 
 <!-- slide -->
 
-## 大模型时代,为什么还学 "经典"?
+## 数据挖掘 vs 机器学习 · 联系
+
+**学科视角 —— 包含关系:**
+
+人工智能 ⊃ 机器学习 ⊃ 数据挖掘
+
+数据挖掘是机器学习的**应用领域**。
+
+**项目视角 —— 数据挖掘是完整过程:**
+
+机器学习算法(建模找模式) → 领域知识(解释定意义) → 可视化(呈现供研判) → 产出**知识**
+
+<div style="margin-top:10px;padding:10px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.65em;">
+**例:** 孤立森林(算法)圈出异常主机 → 安全经验(领域知识)判定 "C2 心跳" → 态势图(可视化)呈现 → 形成可行动的知识。
+</div>
+
+> **本课程定位:** 本课程要讲的经典算法,正是机器学习最核心的方法,也是数据挖掘 "发现规律" 的常用武器。
+
+---
+
+<!-- slide -->
+
+## 大模型时代,为什么还学 "经典数据挖掘"?
 
 | 理由 | 为什么重要 | 网空战场含义 |
 |------|-----------|-------------|
 | **1 结构化数据仍是主流** | 日志、传感器、告警 —— 都是表格,不是自然语言 | 经典算法原生适配,无需微调 |
 | **2 可解释性是刚需** | 决策链路必须透明,不能给 "黑盒结论" | 指挥员要的是 "为什么",不是 "是什么" |
 | **3 响应速度决定胜负** | 推理以**毫秒**计,无需 GPU | 端侧/边缘节点直接部署 |
+| **4 理解原理才能创新** | 不懂底层原理,只能在别人框架上调参 | 面对新型威胁,能自己设计检测方法 |
 
 > **一句话:** 深度学习解决 "看得准",经典算法解决 "说得清、跑得快"。战场需要的是 **确定性 > 准确率**。
 
@@ -212,7 +284,7 @@ yangyibiao@nju.edu.cn
 
 ## 从 "专用工具" 到 "通用引擎"
 
-<div class="twocol">
+<div class="twocol" style="font-size:0.85em;">
 
 <div>
 
@@ -300,7 +372,7 @@ flowchart LR
     --> F["🚀 辅助决策<br/>怎么行动?"]
 ```
 
-<div style="margin-top:16px;padding:12px;background:#1a2a3a;border-left:4px solid #f39c12;">
+<div style="margin-top:16px;padding:12px;background:rgba(38,139,210,0.10);border-left:4px solid #f39c12;">
 经验规律: 数据处理(C 步骤)通常占项目 **80%** 的时间。算法选型只占 **20%**。
 </div>
 
@@ -381,12 +453,12 @@ yangyibiao@nju.edu.cn
 
 ## 一个网空场景
 
-<div style="margin-bottom:12px;">
+<div style="margin-bottom:8px;">
 某部**物理隔离**内网,监测节点持续上报流量特征。
 **核心任务:** 判定某条外连请求是否为 **恶意 C2 通信**?
 </div>
 
-<div class="twocol">
+<div class="twocol" style="font-size:0.9em;">
 
 <div>
 
@@ -412,7 +484,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div class="important" style="margin-top:10px;">
+<div class="important" style="margin-top:4px;">
 物理隔离 ≠ 绝对安全。攻击者已多次证明:**物理边界可以被技术手段穿透**。算法检测成为最后一道防线。
 </div>
 
@@ -425,7 +497,7 @@ yangyibiao@nju.edu.cn
 > 不断提问,逐层判定。以流量检测为例:
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '12px' } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '14px' } } }%%
 flowchart LR
     A["📡 外连请求"]
     --> B{"端口 =443 ?"}
@@ -534,15 +606,15 @@ Gain = H(划分前) - H(划分后)
 
 ```mermaid
 flowchart LR
-    A["ID3<br/>1986"]
-    --> B["C4.5<br/>1993"]
-    --> C["CART<br/>1984"]
+    A["CART<br/>1984"]
+    --> B["ID3<br/>1986"]
+    --> C["C4.5<br/>1993"]
     --> D["Random Forest<br/>2001"]
     --> E["XGBoost<br/>2014"]
 
-    style A fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
-    style B fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
-    style C fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
+    style A fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
+    style B fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
+    style C fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
     style D fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
     style E fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
 ```
@@ -608,7 +680,7 @@ flowchart LR
 </div>
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '11px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
 flowchart LR
     A["📡 已标注数据"]
     --> B["🔍 找最佳特征"]
