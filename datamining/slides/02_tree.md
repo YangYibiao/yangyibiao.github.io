@@ -30,31 +30,28 @@ presentation:
 
 <!-- slide -->
 
-# 决策树 · Decision Tree
+<div class="bottom8"></div>
 
-<hr class="width30 center" style="margin-top:0.2rem;margin-bottom:0.2rem;">
+<h1 style="text-align:center;">决策树 · Decision Tree</h1>
 
-<div style="text-align:center;font-size:0.75em;color:var(--solarized-base00);letter-spacing:2px;">
-从 "专家经验" 到 "自动判据" 的桥梁
+<hr class="width50 center">
+
+<h2 style="text-align:center;">从 "专家经验" 到 "自动判据" 的桥梁</h2>
+
+<div style="margin-top:8px;text-align:center;font-size:0.6em;color:var(--solarized-base00);letter-spacing:1px;">
+网空关键词:恶意流量判据提取 · 告警规则自动生成 · 白盒可解释
 </div>
 
-<div style="margin-top:30px;text-align:center;font-size:0.65em;color:var(--solarized-base00);">
-**网空关键词:** 恶意流量判据提取 · 告警规则自动生成 · 白盒可解释
-</div>
+<div class="bottom8"></div>
 
-<div style="margin-top:100px;text-align:center;line-height:2.2;">
-<div style="font-size:1.05em;font-weight:600;letter-spacing:1px;">
-杨已彪
-</div>
-<div style="font-size:0.6em;color:var(--solarized-base00);">
-yangyibiao@nju.edu.cn
-</div>
-<div style="font-size:0.55em;color:var(--solarized-base00);margin-top:4px;">
-南京大学计算机学院 · 计算机软件新技术全国重点实验室
-</div>
-<div style="margin-top:20px;font-size:0.5em;color:var(--solarized-base01);letter-spacing:3px;">
+<h3 style="text-align:center;">南京大学计算机学院 &nbsp;&nbsp; 杨已彪</h3>
+
+<h4 style="text-align:center;">计算机软件新技术全国重点实验室</h4>
+
+<h4 style="text-align:center;"><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></h4>
+
+<div style="margin-top:26px;text-align:center;font-size:20pt;color:var(--solarized-base00);letter-spacing:3px;">
 2026 年 10 月
-</div>
 </div>
 
 ---
@@ -63,14 +60,33 @@ yangyibiao@nju.edu.cn
 
 ## 一个网空场景
 
-<div style="margin-bottom:8px;">
-某部**物理隔离**内网,监测节点持续上报流量特征。
-**核心任务:** 判定某条外连请求是否为 **恶意 C2 通信**?
+<div style="margin-top:6px;padding:14px 18px;background:rgba(38,139,210,0.06);border-radius:8px;border:1px solid rgba(38,139,210,0.25);text-align:center;font-size:0.95em;">
+某部**物理隔离**内网,监测节点持续上报**流量特征**
 </div>
 
-<div class="twocol" style="font-size:0.9em;">
+<div style="margin-top:16px;padding:20px 18px;background:rgba(220,50,47,0.08);border-radius:8px;border:2px solid rgba(220,50,47,0.35);text-align:center;">
+<div style="font-size:1.3em;font-weight:700;color:#dc322f;">
+判定某条外连请求是否为 **恶意 C2 通信**?
+</div>
+</div>
 
-<div>
+<div style="margin-top:14px;padding:10px 16px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.8em;">
+🎯 **检测重点不是 "谁连进来",而是 "谁在频繁向外发可疑信号"。**
+</div>
+
+<div style="margin-top:6px;font-size:0.7em;color:var(--solarized-base00);text-align:center;">
+(物理隔离 ≠ 零外联: 补丁分发、DNS 解析等少数受控通道仍在, 木马借道主动外连)
+</div>
+
+---
+
+<!-- slide -->
+
+## 攻击者如何进来? 如何藏?
+
+<div class="twocol" style="font-size:0.95em;">
+
+<div style="background:rgba(220,50,47,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(220,50,47,0.25);">
 
 ### 🔓 入侵路径(已发生案例)
 
@@ -81,7 +97,7 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div>
+<div style="background:rgba(203,75,22,0.08);padding:12px 16px;border-radius:8px;border:1px solid rgba(203,75,22,0.3);">
 
 ### 🕵️‍♂️ 隐蔽方式
 
@@ -94,8 +110,8 @@ yangyibiao@nju.edu.cn
 
 </div>
 
-<div class="important" style="margin-top:4px;">
-物理隔离 ≠ 绝对安全。攻击者已多次证明:**物理边界可以被技术手段穿透**。算法检测成为最后一道防线。
+<div style="margin-top:8px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
+💡 物理隔离 ≠ 绝对安全。攻击者已多次证明:**物理边界可以被技术手段穿透**。算法检测成为最后一道防线。
 </div>
 
 ---
@@ -107,33 +123,33 @@ yangyibiao@nju.edu.cn
 > 不断提问,逐层判定。以流量检测为例:
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '12px' } } }%%
+%%{init: { 'themeVariables': { 'fontSize': '13px' }, 'flowchart': { 'nodeSpacing': 30, 'rankSpacing': 90 } } }%%
 flowchart LR
-    A["📡 外连请求"]
-    --> B{"端口 =443 ?"}
+    A["　📡 外连请求　"]
+    --> B{"　端口 = 443 ?　"}
 
-    B -->|否| C{"频率 >10/min ?"}
-    B -->|是| D{"载荷 >1400B ?"}
+    B -->|否| C{"　频率 > 10/min ?　"}
+    B -->|是| D{"　载荷 > 1400B ?　"}
 
     C -->|是| E["🔴 恶意 C2"]
     C -->|否| F["🟢 正常"]
 
-    D -->|是| G{"间隔 <5s ?"}
+    D -->|是| G{"　间隔 < 5s ?　"}
     D -->|否| H["🟢 正常"]
 
     G -->|是| I["🔴 恶意 C2"]
     G -->|否| J["🟢 正常"]
 
-    style A fill:#1a2a3a,stroke:#268bd2,stroke-width:2px,color:#fff
-    style B fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
-    style C fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
-    style D fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
-    style G fill:#1a2a3a,stroke:#f39c12,stroke-width:2px,color:#fff
-    style E fill:#2d1b1b,stroke:#e74c3c,stroke-width:2px,color:#e74c3c
-    style I fill:#2d1b1b,stroke:#e74c3c,stroke-width:2px,color:#e74c3c
-    style F fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
-    style H fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
-    style J fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
+    style A fill:#dceaf5,stroke:#268bd2,stroke-width:2px,color:#073642
+    style B fill:#f7e5d4,stroke:#cb4b16,stroke-width:2px,color:#073642
+    style C fill:#f7e5d4,stroke:#cb4b16,stroke-width:2px,color:#073642
+    style D fill:#f7e5d4,stroke:#cb4b16,stroke-width:2px,color:#073642
+    style G fill:#f7e5d4,stroke:#cb4b16,stroke-width:2px,color:#073642
+    style E fill:#f7dcdc,stroke:#dc322f,stroke-width:2px,color:#dc322f
+    style I fill:#f7dcdc,stroke:#dc322f,stroke-width:2px,color:#dc322f
+    style F fill:#e3eed4,stroke:#859900,stroke-width:2px,color:#859900
+    style H fill:#e3eed4,stroke:#859900,stroke-width:2px,color:#859900
+    style J fill:#e3eed4,stroke:#859900,stroke-width:2px,color:#859900
 ```
 
 <div style="margin-top:2px;padding:4px 14px;background:rgba(181,137,0,0.08);border-left:4px solid #b58900;border-radius:4px;">
@@ -146,14 +162,43 @@ flowchart LR
 
 ## 什么是 "好特征"?
 
-**网空场景:** 某内网采集了 1000 条外连日志(500 正常 + 500 恶意)
+**网空场景:** 某内网采集了 1000 条外连(出站连接)日志(500 正常 + 500 恶意)
 
-| 特征 | 划分效果 | 评价 |
-|------|----------|------|
-| **目标端口是否为 443 ?** | 左:450 恶意 +50 正常<br>右:50 恶意 +450 正常 | ✅ **好特征** |
-| **协议是否为 TCP ?** | 左:250 恶意 +250 正常<br>右:250 恶意 +250 正常 | ❌ **差特征** |
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-top:4px;">
+(注: 1:1 仅为便于对比好坏特征;真实外连日志中恶意占比通常 &lt;1% ——"恶意样本极度稀少"正是第五部分孤立森林要解决的问题)
+</div>
+
+<div class="twocol" style="font-size:0.9em;">
+
+<div style="background:rgba(133,153,0,0.08);padding:14px 16px;border-radius:8px;border:1px solid rgba(133,153,0,0.3);">
+<div style="font-weight:700;color:#859900;">✅ 好特征: 目标端口是否为 443 ?</div>
+
+<div style="margin-top:8px;line-height:1.7;">
+左: **450 恶意** + 50 正常
+右: 50 恶意 + **450 正常**
+</div>
+
+→ 一刀下去,恶意与正常基本分开
+</div>
+
+<div style="background:rgba(220,50,47,0.06);padding:14px 16px;border-radius:8px;border:1px solid rgba(220,50,47,0.25);">
+<div style="font-weight:700;color:#dc322f;">❌ 差特征: 协议是否为 TCP ?</div>
+
+<div style="margin-top:8px;line-height:1.7;">
+左: 250 恶意 + 250 正常
+右: 250 恶意 + 250 正常
+</div>
+
+→ 两边一样混杂,等于没分
+</div>
+
+</div>
 
 > **好特征 = 能把 "混杂" 快速降为 "纯净"**
+
+<div style="margin-top:6px;padding:8px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.8em;">
+💡 单个特征很少能一锤定音 —— 决策树的价值,在于把多个好特征**串成判定链**(如上页: 端口 → 载荷 → 间隔)。
+</div>
 
 ---
 
@@ -214,10 +259,15 @@ Gain = H(划分前) - H(划分后)
 
 <!-- slide -->
 
-## 决策树算法演进
+## 决策树家族 · 时间线
+
+<div class="twocol" style="align-items:center;">
+
+<div style="background:rgba(38,139,210,0.05);padding:10px 6px;border-radius:8px;border:1px solid rgba(38,139,210,0.2);">
 
 ```mermaid
-flowchart LR
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '20px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 30, 'rankSpacing': 35 } } }%%
+flowchart TB
     A["CART<br/>1984"]
     --> B["ID3<br/>1986"]
     --> C["C4.5<br/>1993"]
@@ -231,12 +281,22 @@ flowchart LR
     style E fill:#1a2a3a,stroke:#586e75,stroke-width:2px,color:#839496
 ```
 
+</div>
+
+<div>
+
 | 算法 | 年份 | 核心逻辑 |
 |------|------|----------|
 | ID3 | 1986 | 选择信息增益最大的特征 |
 | C4.5 | 1993 | 使用 "增益率" |
 
-**本课程重点: ID3(理解原理) + C4.5(工业常用)**
+<div style="margin-top:16px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
+🎯 **本课程重点:** ID3(理解原理)+ C4.5(工业常用)
+</div>
+
+</div>
+
+</div>
 
 ---
 
@@ -244,14 +304,45 @@ flowchart LR
 
 ## ID3 的问题:偏爱 "取值多" 的特征
 
-假设某内网采集了 **1000 条外连日志**,每条都有唯一的 **Log ID**
+场景接上文: 1000 条外连日志,每条 **Log ID** 唯一。若交给 ID3 选划分特征,它会选中谁?
 
-| 特征 | 取值数量 | 信息增益 | 真实价值 |
-|------|----------|----------|----------|
-| **Log ID** | 1000 个 | 🔥 **最大** | ❌ 毫无价值 |
-| **目标端口** | 少量 | 中等 | ✅ 很有价值 |
+<div class="twocol" style="font-size:0.9em;">
 
-> ID3 会被 "Log ID" 这种无用特征欺骗 → 过拟合
+<div style="background:rgba(220,50,47,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(220,50,47,0.25);">
+
+<div style="font-weight:700;color:#dc322f;">❌ Log ID · 1000 个取值</div>
+
+<div style="margin-top:8px;line-height:1.7;">
+**1000 个分支,每支恰好 1 条** → 每支都纯净(熵 = 0)<br>
+信息增益 **最大**,ID3 一定选它
+</div>
+
+<div style="margin-top:8px;color:#dc322f;font-weight:700;">
+但新日志的 ID 从未见过 → 无法归类,"背答案" 而已
+</div>
+
+</div>
+
+<div style="background:rgba(133,153,0,0.08);padding:12px 16px;border-radius:8px;border:1px solid rgba(133,153,0,0.3);">
+
+<div style="font-weight:700;color:#859900;">✅ 目标端口 · 少量取值</div>
+
+<div style="margin-top:8px;line-height:1.7;">
+**几个分支,每支仍有混杂**(熵 &gt; 0)<br>
+信息增益 **中等**,ID3 看不上它
+</div>
+
+<div style="margin-top:8px;color:#859900;font-weight:700;">
+但新流量按端口照样判定 → 真正 "学会"
+</div>
+
+</div>
+
+</div>
+
+<div style="margin-top:12px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
+🎯 **根源: 信息增益只奖励 "切得纯",不奖励 "切得有用"。** 取值越多越容易切纯 → ID3 偏爱取值多的特征 → 过拟合
+</div>
 
 ---
 
@@ -279,7 +370,7 @@ flowchart LR
 | **ID3** | 选择信息增益最大的特征 | 奠基,但偏好取值多的特征 |
 | **C4.5** | 使用 "增益率" | 支持连续值/缺失值,工业更常用 |
 
-> **一句话:** ID3 是先驱, C4.5 是升级版。两者差异 ≈ "第一代预警系统" vs "具备抗干扰能力的第二代预警系统"。
+> **网空落地:** 流量特征多为连续值(频率、包长),日志常有缺失字段 —— C4.5 的这两项能力,正是它比 ID3 更适合实战的原因。
 
 ---
 
@@ -292,7 +383,7 @@ flowchart LR
 </div>
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
 flowchart LR
     A["📡 已标注数据"]
     --> B["🔍 找最佳特征"]
@@ -301,16 +392,16 @@ flowchart LR
     --> E["✅ 输出判据链"]
 ```
 
-<div style="margin-top:4px;font-size:0.5em;color:var(--solarized-base00);text-align:center;">
+<div style="margin-top:4px;font-size:0.6em;color:var(--solarized-base00);text-align:center;">
 步骤详解:历史流量日志(已标注) → 选择最佳判据特征(信息增益最大) → 按阈值切分生成规则节点 → 递归生成子规则构建完整树 → 输出白盒可追溯的判据链
 </div>
 
-<div style="margin-top:12px;padding:12px 16px;background:rgba(38,139,210,0.08);border-left:4px solid var(--solarized-blue);border-radius:4px;font-size:0.55em;">
+<div style="margin-top:12px;padding:12px 16px;background:rgba(38,139,210,0.08);border-left:4px solid var(--solarized-blue);border-radius:4px;font-size:0.65em;">
 ❓ **标注数据从哪来?**
 开源威胁情报: VirusTotal、AbuseIPDB 等已标注的 IP/域名黑名单 ·
 公开数据集: CIC-IDS、UNSW-NB15 等带有攻击标签的流量数据集 ·
 历史告警日志:安全分析师已确认的告警记录
-⚠ 标注数据是监督学习的前提。数据质量 > 算法选择。
+<span style="color:#b58900;font-weight:700;">⚠ 标注数据是监督学习的前提。数据质量 &gt; 算法选择。</span>
 </div>
 
 ---
@@ -337,7 +428,7 @@ model.fit(X_train, y_train)
 print(f"Accuracy = {model.score(X_test, y_test):.4f}")
 ```
 
-典型输出: Accuracy = 0.8833
+<div style="margin:4px 0;padding:2px 10px;font-size:0.8em;color:#073642;">典型输出:<b>Accuracy = 0.8833</b></div>
 
 ---
 
@@ -348,7 +439,7 @@ print(f"Accuracy = {model.score(X_test, y_test):.4f}")
 ```python
 from sklearn.tree import export_text
 rules = export_text(model, feature_names=[
-    'feature_0', 'feature_1', ..., 'feature_9'
+    f'feature_{i}' for i in range(10)
 ])
 print(rules)
 ```
@@ -371,7 +462,7 @@ print(rules)
 |   |   |--- class: 0
 ```
 
-每条规则都可追溯: 为什么拦截这个 IP ? —— 因为满足规则链 A → B → C。
+<span style="color:#b58900;font-weight:700;">每条规则都可追溯:</span> 为什么拦截这个 IP ? —— 因为满足规则链 A → B → C。
 
 ---
 
@@ -463,14 +554,31 @@ print(rules)
 
 ## 本部分总结 · 决策树
 
-<div style="color:#859900;">
-✅ 核心思想:用 "最好的问题" 逐层切分数据
-✅ 灵魂指标:信息增益 = 混乱减少的程度
-✅ 最大优势:规则透明,一线可直接执行
-✅ 网空定位:从 "专家经验" 到 "自动判据" 的桥梁
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.7em;">
+
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.4);">
+**💡 核心思想**<br>
+用 "最好的问题" 逐层切分数据
 </div>
 
-<div style="margin-top:10px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #268bd2;border-radius:4px;text-align:center;font-size:1.1em;">
+<div style="background:rgba(181,137,0,0.08);padding:10px 14px;border-radius:8px;border:1px solid rgba(181,137,0,0.5);">
+**🔑 灵魂指标**<br>
+信息增益 = 混乱减少的程度
+</div>
+
+<div style="background:rgba(133,153,0,0.08);padding:10px 14px;border-radius:8px;border:1px solid rgba(133,153,0,0.4);">
+**⚖️ ID3 → C4.5**<br>
+增益率压住 "取值多" 的偏爱,工业更常用
+</div>
+
+<div style="background:rgba(220,50,47,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(220,50,47,0.35);">
+**✅ 网空定位**<br>
+规则透明可执行 —— 从 "专家经验" 到 "自动判据" 的桥梁
+</div>
+
+</div>
+
+<div style="margin-top:10px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;text-align:center;font-size:1.1em;">
 💡 规则 ≠ 替代专家 · 规则 = 固化专家经验
 </div>
 
@@ -480,10 +588,9 @@ print(rules)
 
 ## 下一部分预告
 
-<div style="text-align:center;">
-📏 K-Means 聚类
-当你不确定恶意行为 "长什么样" 的时候
-—— 让数据自己 "抱团" 说话
+<div style="text-align:center;margin-top:60px;">
+<div style="font-size:1.6em;font-weight:700;">📏 K-Means · 让数据自己 "抱团"</div>
+<div style="margin-top:10px;font-size:0.9em;color:var(--solarized-base00);">当你不确定恶意行为 "长什么样" 的时候</div>
 </div>
 
 ---

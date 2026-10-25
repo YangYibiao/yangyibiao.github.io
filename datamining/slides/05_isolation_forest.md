@@ -64,7 +64,7 @@ presentation:
 
 > **核心转折:** 前面的算法都在 "学习规律"。但如果攻击者用的是**从未出现过的新手法**,规律根本不存在 —— 我们只能靠**"异常"**来发现它。
 
-**孤立森林**:不需要标注、不需要历史样本,专门解决 "未知的未知" 问题。
+**孤立森林**:不需要标注、不需要已标注的历史样本 —— 它给**每个样本单独打异常分**,哪怕只有一个孤点也能抓。这与 K-Means 形成分工:K-Means 找 "**成团的**未知",孤立森林抓 "**孤立的**未知"。
 
 ---
 
@@ -72,14 +72,15 @@ presentation:
 
 ## 一个网空场景: 0-day 攻击的发现
 
-某部内网运行正常,每天产生海量流量日志。已部署基于规则的 IDS,但攻击者使用 **0-day 漏洞** 进入内网。
+某部内网运行正常,每天产生海量流量日志。<br>
+已部署基于规则的 IDS,但攻击者使用 **0-day 漏洞** 进入内网。
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:14px 16px;border-radius:8px;border:1px solid #e74c3c;">
-<div style="font-weight:700;color:#e74c3c;font-size:0.65em;">❌ 传统方法失效</div>
+<div style="font-weight:700;color:#e74c3c;font-size:0.8em;">❌ 传统方法失效</div>
 
-<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 - 规则库中没有该攻击的特征
 - 历史数据中没有标注样本
 - 决策树/贝叶斯**无法训练**
@@ -88,9 +89,9 @@ presentation:
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:14px 16px;border-radius:8px;border:1px solid #27ae60;">
-<div style="font-weight:700;color:#27ae60;font-size:0.65em;">✅ 孤立森林的思路</div>
+<div style="font-weight:700;color:#27ae60;font-size:0.8em;">✅ 孤立森林的思路</div>
 
-<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 - 不需要知道 "恶意" 长什么样
 - 只需要知道 **"正常" 长什么样**
 - 发现 **"不像正常"** 的行为 → 异常
@@ -100,7 +101,7 @@ presentation:
 
 </div>
 
-<div style="margin-top:8px;padding:6px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.45em;text-align:center;">
+<div style="margin-top:8px;padding:6px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.7em;text-align:center;">
 🎯 **本部分目标:** 在没有任何标注样本的情况下,用 **"异常即信号"** 的思路发现未知威胁。
 </div>
 
@@ -115,9 +116,9 @@ presentation:
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
 <div style="background:rgba(133,153,0,0.08);padding:12px 16px;border-radius:8px;border:1px solid #27ae60;">
-<div style="font-weight:700;color:#27ae60;font-size:0.65em;">✅ 正常数据</div>
+<div style="font-weight:700;color:#27ae60;font-size:0.8em;">✅ 正常数据</div>
 
-<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 - 大量出现(**99%**)
 - 彼此相似
 - 符合预期模式
@@ -125,10 +126,10 @@ presentation:
 
 </div>
 
-<div style="background:rgba(220,50,47,0.08);padding:12px 16px;border-radius:8px;border:1px solid #268bd2;">
-<div style="font-weight:700;color:#e74c3c;font-size:0.65em;">🚨 异常数据</div>
+<div style="background:rgba(220,50,47,0.08);padding:12px 16px;border-radius:8px;border:1px solid #e74c3c;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.8em;">🚨 异常数据</div>
 
-<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 - 极少出现(**1%**)
 - 与主流不同
 - 偏离预期模式
@@ -138,7 +139,7 @@ presentation:
 
 </div>
 
-<div style="margin-top:8px;padding:6px 14px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.45em;">
+<div style="margin-top:8px;padding:6px 14px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.7em;">
 💡 **网空含义:** 0-day 攻击、未知恶意软件、APT 渗透 —— 它们的行为模式一定与 "正常" 不同。找到这个 "不同",就找到了威胁线索。
 </div>
 
@@ -153,9 +154,9 @@ presentation:
 <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px;margin-top:6px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
-<div style="font-weight:700;color:#f39c12;font-size:0.65em;">👥 直观类比</div>
+<div style="font-weight:700;color:#f39c12;font-size:0.8em;">👥 直观类比</div>
 
-<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 房间里有 **100 个人**:
 
 - 99 个人站在一起(**正常群体**)
@@ -169,9 +170,9 @@ presentation:
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
-<div style="font-weight:700;color:#27ae60;font-size:0.65em;">🎯 算法映射</div>
+<div style="font-weight:700;color:#27ae60;font-size:0.8em;">🎯 算法映射</div>
 
-<div style="font-size:0.5em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 
 | 直觉 | 算法 |
 |------|------|
@@ -185,25 +186,7 @@ presentation:
 
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
-
-<div style="background:rgba(133,153,0,0.08);padding:8px 12px;border-radius:6px;border-left:4px solid #27ae60;">
-<div style="font-weight:700;color:#27ae60;font-size:0.5em;">🟢 正常点</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
-**聚集在一起** → 需要多次切分才能分开
-</div>
-</div>
-
-<div style="background:rgba(220,50,47,0.08);padding:8px 12px;border-radius:6px;border-left:4px solid #e74c3c;">
-<div style="font-weight:700;color:#e74c3c;font-size:0.5em;">🔴 异常点</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
-**远离群体** → 几次切分就能单独隔离
-</div>
-</div>
-
-</div>
-
-<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.4em;text-align:center;">
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.65em;text-align:center;">
 💡 **孤立森林就是把这个直觉变成了算法。** 无需标注、无需先验知识,通过随机切分寻找容易被隔离的点。
 </div>
 
@@ -216,26 +199,26 @@ presentation:
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #27ae60;text-align:center;">
-<div style="font-weight:700;color:#27ae60;font-size:0.65em;">🟢 正常点(聚集)</div>
+<div style="font-weight:700;color:#27ae60;font-size:0.8em;">🟢 正常点(聚集)</div>
 
 <div style="font-size:1.6em;line-height:1.8;letter-spacing:4px;margin-top:4px;font-weight:300;">
 ⬤ ⬤ ⬤ ⬤ ⬤
 </div>
 
-<div style="font-size:0.45em;color:var(--solarized-base00);margin-top:2px;">
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
 密集分布 · 相互靠近
 </div>
 
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #e74c3c;text-align:center;">
-<div style="font-weight:700;color:#e74c3c;font-size:0.65em;">🔴 异常点(孤立)</div>
+<div style="font-weight:700;color:#e74c3c;font-size:0.8em;">🔴 异常点(孤立)</div>
 
 <div style="font-size:1.6em;line-height:1.8;letter-spacing:8px;margin-top:4px;">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▲
 </div>
 
-<div style="font-size:0.45em;color:var(--solarized-base00);margin-top:2px;">
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
 远离群体 · 单独存在
 </div>
 
@@ -246,8 +229,8 @@ presentation:
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
-<div style="font-weight:700;color:#27ae60;font-size:0.5em;">✂ 正常点:需要很多刀</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
+<div style="font-weight:700;color:#27ae60;font-size:0.6em;">✂ 正常点:需要很多刀</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);margin-top:2px;">
 密集区域 → 多次随机切分才能分开
 </div>
 <div style="font-size:0.8em;color:#27ae60;margin-top:2px;">
@@ -256,8 +239,8 @@ presentation:
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
-<div style="font-weight:700;color:#e74c3c;font-size:0.5em;">✂ 异常点:几刀就孤立</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">
+<div style="font-weight:700;color:#e74c3c;font-size:0.6em;">✂ 异常点:几刀就孤立</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);margin-top:2px;">
 远离群体 → 随机切分很快单独分离
 </div>
 <div style="font-size:0.8em;color:#e74c3c;margin-top:2px;">
@@ -267,7 +250,7 @@ presentation:
 
 </div>
 
-<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.4em;text-align:center;">
+<div style="margin-top:6px;padding:6px 12px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.7em;text-align:center;">
 💡 **关键直觉:** 异常点远离群体 → 更容易被随机切分 "隔离" 出来 → 路径更短
 </div>
 
@@ -282,21 +265,20 @@ presentation:
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #268bd2;">
-<div style="font-weight:700;color:#268bd2;font-size:0.65em;">🌲 孤立树(单棵)</div>
+<div style="font-weight:700;color:#268bd2;font-size:0.8em;">🌲 孤立树(单棵)</div>
 
-<div style="font-size:0.45em;line-height:1.8;margin-top:4px;">
-1. 随机选一个**特征**
-2. 随机选一个**切分点**
-3. 把数据分成**左右两份**
-4. **递归重复**,直到每个点都被隔离
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
+- 用**随机特征 + 随机切分点**不断二分
+- 每个叶子节点 = 一个被隔离的样本
+- 本质:一棵 "随机切分树",不需要任何标签
 </div>
 
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #27ae60;">
-<div style="font-weight:700;color:#27ae60;font-size:0.65em;">🌳 孤立森林(多棵)</div>
+<div style="font-weight:700;color:#27ae60;font-size:0.8em;">🌳 孤立森林(多棵)</div>
 
-<div style="font-size:0.45em;line-height:1.8;margin-top:4px;">
+<div style="font-size:1em;line-height:1.6;margin-top:4px;">
 - 构建**很多棵**孤立树(默认 **100 棵**)
 - 每棵树用**不同的随机切分**
 - 综合所有树的结果 → **更稳定可靠**
@@ -306,7 +288,7 @@ presentation:
 
 </div>
 
-<div style="margin-top:6px;padding:6px 14px;background:rgba(243,156,18,0.06);border-left:4px solid #f39c12;border-radius:4px;font-size:0.4em;">
+<div style="margin-top:6px;padding:6px 14px;background:rgba(243,156,18,0.06);border-left:4px solid #f39c12;border-radius:4px;font-size:0.65em;">
 💡 **类比:** 单棵树的判断可能有偏差,但多棵树综合判断就很可靠。这就是 **"集成学习"** 的思路 —— 集中多人的智慧,比依赖一个人更可靠。
 </div>
 
@@ -317,7 +299,7 @@ presentation:
 ## 孤立树构建过程
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '15px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 12, 'rankSpacing': 18 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 12, 'rankSpacing': 18 } } }%%
 flowchart LR
     A["📊 原始数据"]
     --> B["🎲 随机选特征"]
@@ -335,17 +317,16 @@ flowchart LR
     style F fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
 ```
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;font-size:0.4em;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;font-size:0.7em;color:#073642;line-height:1.5;">
 
-<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
-🔑 **关键步骤:**
-
-1. 随机选一个特征
-2. 随机选一个切分点
-3. 将数据分成左右两份
+<div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #586e75;">
+🔑 **关键步骤:**<br>
+**1.** 随机选一个特征<br>
+**2.** 随机选一个切分点<br>
+**3.** 将数据分成左右两份
 </div>
 
-<div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #586e75;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #586e75;">
 ⏱ **终止条件:**
 
 样本被完全隔离 → 记录路径长度
@@ -363,7 +344,7 @@ flowchart LR
 
 **一个具体例子:外连频率**
 
-<div style="background:rgba(38,139,210,0.06);padding:4px 10px;border-radius:6px;border:1px solid #586e75;margin-top:4px;font-size:0.45em;">
+<div style="background:rgba(38,139,210,0.06);padding:4px 10px;border-radius:6px;border:1px solid #586e75;margin-top:4px;font-size:0.65em;">
 <div style="font-weight:700;color:#f39c12;font-size:0.85em;text-align:center;margin-bottom:2px;">✂ 随机切分过程对比</div>
 
 | 步骤 | 数据(外连频率,次/小时) | 说明 |
@@ -375,7 +356,7 @@ flowchart LR
 
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:6px;margin-top:4px;font-size:0.35em;">
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:6px;margin-top:6px;font-size:0.7em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:3px 8px;border-radius:4px;border-left:4px solid #27ae60;">
 **为什么正常点难切?**
@@ -397,7 +378,7 @@ flowchart LR
 
 </div>
 
-<div style="margin-top:3px;padding:2px 8px;background:rgba(38,139,210,0.06);border-left:3px solid #268bd2;border-radius:4px;font-size:0.45em;text-align:center;">
+<div style="margin-top:3px;padding:3px 10px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.7em;text-align:center;">
 💡 异常点不是 "被识别" 出来的,而是 "更容易被随机切分孤立" 出来的。
 </div>
 
@@ -411,19 +392,19 @@ flowchart LR
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;">
 
-<div style="background:rgba(220,50,47,0.08);padding:8px;border-radius:6px;border:1px solid #e74c3c;text-align:center;font-size:0.55em;">
+<div style="background:rgba(220,50,47,0.08);padding:8px;border-radius:6px;border:1px solid #e74c3c;text-align:center;font-size:0.65em;">
 🔴 得分接近 **1**
 异常可能性高
 → 值得深入排查
 </div>
 
-<div style="background:rgba(38,139,210,0.10);padding:8px;border-radius:6px;border:1px solid #f39c12;text-align:center;font-size:0.55em;">
+<div style="background:rgba(38,139,210,0.10);padding:8px;border-radius:6px;border:1px solid #f39c12;text-align:center;font-size:0.65em;">
 🟡 得分接近 **0.5**
 边界区域
 → 可进一步研判
 </div>
 
-<div style="background:rgba(133,153,0,0.08);padding:8px;border-radius:6px;border:1px solid #27ae60;text-align:center;font-size:0.55em;">
+<div style="background:rgba(133,153,0,0.08);padding:8px;border-radius:6px;border:1px solid #27ae60;text-align:center;font-size:0.65em;">
 🟢 得分接近 **0**
 高度正常
 → 无需关注
@@ -431,7 +412,7 @@ flowchart LR
 
 </div>
 
-<div style="background:rgba(38,139,210,0.06);padding:6px 12px;border-radius:6px;border-left:4px solid #268bd2;margin-top:4px;font-size:0.5em;">
+<div style="background:rgba(38,139,210,0.06);padding:6px 12px;border-radius:6px;border-left:4px solid #268bd2;margin-top:4px;font-size:0.6em;">
 💡 **网空含义:** 异常得分不是 "是不是恶意",而是 "有多不像正常"。得分越高,越值得深入调查。
 </div>
 
@@ -480,7 +461,7 @@ print(f"Top 5 异常索引: {top5_idx}")
 print(f"Top 5 异常得分: {scores[top5_idx]}")
 ```
 
-关键理解: 孤立森林的得分是负值,越负越异常。实际使用时可以取负值或归一化到 0-1 区间。
+关键理解: sklearn 的 score_samples 输出**负的异常分**,越负越异常;取相反数或归一化后,就对应上一页 0~1 的异常得分(越接近 1 越异常)。
 
 ---
 
@@ -488,7 +469,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 ## 孤立森林 · 优缺点(网空视角)
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.55em;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.65em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #27ae60;">
 ✅ 核心优势
@@ -516,7 +497,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 </div>
 
-<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.6em;text-align:center;">
 💡 **定位:** 孤立森林不是 "判官",而是 "筛选器" —— 从海量数据中圈出少量可疑目标,让专家聚焦。
 </div>
 
@@ -563,26 +544,26 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:6px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #268bd2;text-align:center;">
-<div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
-<div style="font-size:0.5em;font-weight:700;color:#268bd2;margin-top:2px;">无需标注</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">0-day 攻击无历史样本,监督模型无法训练</div>
+<div style="font-size:0.7em;color:var(--solarized-base00);">📌 优势</div>
+<div style="font-size:0.65em;font-weight:700;color:#268bd2;margin-top:2px;">无需标注</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);margin-top:2px;">0-day 攻击无历史样本,监督模型无法训练</div>
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #27ae60;text-align:center;">
-<div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
-<div style="font-size:0.5em;font-weight:700;color:#27ae60;margin-top:2px;">快速筛选</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">从 1 万条中圈出可疑 TOP 10-20</div>
+<div style="font-size:0.7em;color:var(--solarized-base00);">📌 优势</div>
+<div style="font-size:0.65em;font-weight:700;color:#27ae60;margin-top:2px;">快速筛选</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);margin-top:2px;">从 1 万条中圈出可疑 TOP 10-20</div>
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #f39c12;text-align:center;">
-<div style="font-size:0.55em;color:var(--solarized-base00);">📌 优势</div>
-<div style="font-size:0.5em;font-weight:700;color:#f39c12;margin-top:2px;">人机协同</div>
-<div style="font-size:0.4em;color:var(--solarized-base00);margin-top:2px;">分析师聚焦少量候选,效率提升 100 倍</div>
+<div style="font-size:0.7em;color:var(--solarized-base00);">📌 优势</div>
+<div style="font-size:0.65em;font-weight:700;color:#f39c12;margin-top:2px;">人机协同</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);margin-top:2px;">分析师聚焦少量候选,效率提升 100 倍</div>
 </div>
 
 </div>
 
-<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;padding:6px 14px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.5em;">
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;padding:6px 14px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.7em;">
 <div style="font-weight:700;color:#268bd2;">🌲 孤立森林</div>
 <div style="color:var(--solarized-base00);">→ 初筛(10-20 条)</div>
 <div style="color:var(--solarized-base00);font-size:1.2em;">↓</div>
@@ -593,7 +574,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 <div style="color:var(--solarized-base00);">→ 提取特征 → 更新规则库</div>
 </div>
 
-<div style="margin-top:4px;padding:3px 10px;background:rgba(231,76,60,0.06);border-left:3px solid #e74c3c;border-radius:4px;font-size:0.45em;text-align:center;">
+<div style="margin-top:4px;padding:3px 10px;background:rgba(231,76,60,0.06);border-left:3px solid #e74c3c;border-radius:4px;font-size:0.7em;text-align:center;">
 🎯 **核心价值:** 孤立森林做 "初筛",专家做 "终判"。从 1 万条聚焦到 10 条,让专家的工作从 "大海捞针" 变成 "精准打击"。
 </div>
 
@@ -603,7 +584,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 ## 本部分总结 · 孤立森林
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.7em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 💡 核心思想
@@ -612,7 +593,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
 🔑 关键区别
-无需标注 — 不需要任何正常/恶意样本
+无需标注 — 只需一批 "基本正常" 的数据,不需要任何标签
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #27ae60;">
@@ -622,7 +603,7 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #e74c3c;">
 🎯 网空定位
-从 "已知威胁检测" 到 "未知威胁发现" 的认知跃迁
+从 "异常群体" 到 "孤立个体" —— 补上未知威胁的最后一公里
 </div>
 
 </div>
@@ -644,17 +625,17 @@ print(f"Top 5 异常得分: {scores[top5_idx]}")
 | 判断概率,辅助决策 | 概率分类 | 🎲 朴素贝叶斯 |
 | 从未见过的 0-day | 异常检测 | 🚨 孤立森林 |
 
-<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;padding:8px 16px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.45em;">
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;padding:8px 16px;background:rgba(38,139,210,0.06);border-radius:6px;border:1px solid rgba(38,139,210,0.1);font-size:0.55em;">
 <div style="font-weight:700;color:#268bd2;">📜 决策树</div>
 <div style="color:var(--solarized-base00);">规则 · 有标注</div>
 <div style="color:var(--solarized-base00);font-size:1.2em;">→</div>
-<div style="font-weight:700;color:#f39c12;">📏 K-Means</div>
+<div style="font-weight:700;color:#cb4b16;">📏 K-Means</div>
 <div style="color:var(--solarized-base00);">距离 · 无标注</div>
 <div style="color:var(--solarized-base00);font-size:1.2em;">→</div>
-<div style="font-weight:700;color:#27ae60;">🎲 朴素贝叶斯</div>
+<div style="font-weight:700;color:#d33682;">🎲 朴素贝叶斯</div>
 <div style="color:var(--solarized-base00);">概率 · 可信度</div>
 <div style="color:var(--solarized-base00);font-size:1.2em;">→</div>
-<div style="font-weight:700;color:#e74c3c;">🚨 孤立森林</div>
+<div style="font-weight:700;color:#dc322f;">🚨 孤立森林</div>
 <div style="color:var(--solarized-base00);">隔离 · 未知威胁</div>
 </div>
 

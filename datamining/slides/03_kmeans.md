@@ -64,7 +64,9 @@ presentation:
 
 > **核心转折:** 决策树需要 "有答案" 的数据。但网空场景中,大量数据是**没有标签**的。
 
-**K-Means 就是解决这类问题的算法 —— 它属于 "聚类"(Clustering)家族。** 聚类是一类**无监督学习**方法,核心思想是:让数据自己 "抱团",而不是由人告诉它 "正确答案"。
+<div style="margin-top:10px;padding:12px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
+🎯 **K-Means 就是解决这类问题的算法 —— 聚类(Clustering)· 无监督学习: 让数据自己 "抱团",而不是由人告诉它 "正确答案"。**
+</div>
 
 ---
 
@@ -128,21 +130,21 @@ presentation:
 
 <div style="background:rgba(38,139,210,0.10);padding:12px;border-radius:6px;border:1px solid #268bd2;">
 
-### 🌳 决策树
+### 🌍 生活中的聚类
 
-- 有答案
-- 找规则
-- 像 "对答案"
+- 超市按消费行为给会员分群
+- 城市按出行模式划分功能区
+- 新闻网站按主题聚合文章
 
 </div>
 
 <div style="background:rgba(38,139,210,0.10);padding:12px;border-radius:6px;border:1px solid #268bd2;">
 
-### 📊 K-Means
+### 🎯 共同点
 
-- 没答案
-- 找结构
-- 像 "找朋友"
+- 事先不知道分几组、每组叫什么
+- 先分组,**再命名**
+- 这正是 "无监督" 的含义
 
 </div>
 
@@ -205,8 +207,8 @@ presentation:
 > **一句话:让相似的数据聚在一起,形成 "团伙"。**
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '13px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 8, 'rankSpacing': 12 } } }%%
-flowchart TD
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 20, 'rankSpacing': 25 } } }%%
+flowchart LR
     A["📡 内网主机行为数据 <br/> (无标签)"]
     --> B["🔍 K-Means 自动聚类"]
     --> C["📊 发现 3 个行为群体"]
@@ -241,7 +243,7 @@ flowchart TD
 | K=2 | 正常 / 异常 | 初步筛查 |
 | K=3 | 正常 / 可疑 / 异常 | 分层研判 |
 
-关键问题: K 应该选多少? —— 后面会讲。
+关键问题: K 应该选多少?
 
 ---
 
@@ -298,7 +300,7 @@ flowchart TD
 ## K-Means 工作流程 · 网空版
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '15px' }, 'flowchart': { 'htmlLabels': true, 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
 flowchart LR
     A["📡 无标注数据"]
     --> B["🎯 随机选 K 个<br/>初始中心"]
@@ -310,7 +312,7 @@ flowchart LR
     F -->|是| G["✅ 输出 K 个群体<br/>(供研判)"]
 ```
 
-<div style="margin-top:4px;font-size:0.5em;color:var(--solarized-base00);text-align:center;line-height:1.8;">
+<div style="margin-top:4px;font-size:0.6em;color:var(--solarized-base00);text-align:center;line-height:1.8;">
 **核心逻辑:** 分配 → 更新 → 再分配 → 再更新 ... 直到中心点不再移动。
 **收敛条件:** 所有 K 个中心点移动距离的**最大值** < 预设阈值(如 0.0001)
 即最 "活跃" 的中心点也几乎不动了 → 算法停止
@@ -355,7 +357,7 @@ flowchart LR
 | ✦ 中心 2 | (15, 180) | 频率中 · 流量高 |
 | ✦ 中心 3 | (12, 10) | 频率中 · 流量低 |
 
-<div style="margin-top:8px;padding:6px 10px;background:rgba(241,196,15,0.08);border-left:3px solid #f39c12;font-size:0.55em;">
+<div style="margin-top:8px;padding:6px 10px;background:rgba(241,196,15,0.08);border-left:3px solid #f39c12;font-size:0.65em;">
 ⚡ 初始位置是**完全随机**的猜测,算法会逐步迭代优化
 </div>
 
@@ -369,9 +371,9 @@ flowchart LR
 
 ## 第二步:分配每个点到最近的簇
 
-计算每个点到 3 个中心的距离,加入最近的那个:
+计算每个点到 3 个中心的距离(欧氏距离,后文详解),加入最近的那个:
 
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:0.6em;">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:0.7em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:6px 8px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-size:0.85em;font-weight:700;color:#27ae60;">🟢 簇 A · 中心 (2,80)</div>
@@ -379,7 +381,7 @@ flowchart LR
 | 主机 | 坐标 | 距离 |
 |------|------|------|
 | H1 | (2,50) | 30.0 |
-| H2 | (3,45) | 35.1 |
+| H2 | (3,45) | 35.0 |
 | H3 | (2,55) | 25.0 |
 
 </div>
@@ -409,7 +411,7 @@ flowchart LR
 
 </div>
 
-<div style="margin-top:4px;padding:4px 10px;background:rgba(38,139,210,0.06);border-radius:4px;font-size:0.5em;color:var(--solarized-base00);text-align:center;">
+<div style="margin-top:4px;padding:4px 10px;background:rgba(38,139,210,0.06);border-radius:4px;font-size:0.6em;color:var(--solarized-base00);text-align:center;">
 📌 初步形成 3 个群体,但中心位置仍不准确(中心点尚未稳定)
 </div>
 
@@ -421,7 +423,7 @@ flowchart LR
 
 每个簇重新计算中心 = 该簇所有点的**平均值**:
 
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.55em;">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.65em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-size:0.85em;font-weight:700;color:#27ae60;">🟢 簇 A</div>
@@ -444,12 +446,12 @@ H4 (8,150) + H5 (9,140) + H6 (7,160)
 H7 (20,30) + H8 (22,25) + H9 (18,35) + H10 (25,20)
 **旧中心:** (12, 10)
 **新中心:** (21.3, 27.5)
-⬆ 向右 9.3 · 向上 17.5
+↗ 向右 9.3 · 向上 17.5
 </div>
 
 </div>
 
-<div style="margin-top:4px;padding:4px 10px;background:rgba(38,139,210,0.06);border-radius:4px;font-size:0.5em;color:var(--solarized-base00);text-align:center;">
+<div style="margin-top:4px;padding:4px 10px;background:rgba(38,139,210,0.06);border-radius:4px;font-size:0.6em;color:var(--solarized-base00);text-align:center;">
 🔄 三个中心都向数据密集区域移动了 → 重复 "分配 → 更新" 直到收敛
 </div>
 
@@ -461,7 +463,7 @@ H7 (20,30) + H8 (22,25) + H9 (18,35) + H10 (25,20)
 
 经过 2 轮迭代,中心点不再移动:
 
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.5em;">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.6em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #27ae60;">
 <div style="font-size:0.9em;font-weight:700;color:#27ae60;">🟢 簇 A</div>
@@ -504,7 +506,7 @@ H10 (25,20)
 | 第 1 轮 | (2.3, 50) | (8, 150) | (21.3, 27.5) | 更新 |
 | 第 2 轮 | (2.3, 50) | (8, 150) | (21.3, 27.5) | ✓ 收敛 |
 
-<div style="margin-top:2px;padding:4px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;font-size:0.55em;">
+<div style="margin-top:2px;padding:4px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;font-size:0.65em;">
 🎯 **网空发现:** 簇 B 和簇 C 行为异常,建议立即深入排查!
 </div>
 
@@ -564,7 +566,7 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 
 ## 实际做法:多次运行,选最优
 
-<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:0.6em;background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;margin:6px 0;">
+<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:0.7em;background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;margin:6px 0;">
 <div style="font-weight:700;color:var(--solarized-base00);">第 1 次</div>
 <div>随机 → 收敛 → 目标值 1500 <span style="color:#27ae60;">✓ 最优</span></div>
 <div style="font-weight:700;color:var(--solarized-base00);">第 2 次</div>
@@ -577,7 +579,7 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 <div>随机 → 收敛 → 目标值 1600 <span style="color:#27ae60;">✓ 次优</span></div>
 </div>
 
-<div style="padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;">
+<div style="padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.6em;">
 💡 Sklearn 中 `n_init=10` 默认运行 10 次,返回目标函数最低的结果
 </div>
 
@@ -590,7 +592,7 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 算法不断重复两步:
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '15px' } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' } } }%%
 flowchart LR
     A["📦 分配<br/>每个点到最近簇"]
     --> B["📊 更新<br/>重新计算中心"]
@@ -602,19 +604,19 @@ flowchart LR
     style C fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60
 ```
 
-<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px;margin-top:8px;">
-<div>
-数学保证:
-每一步都会使目标函数 下降或不变
-</div>
-<div>
-收敛性质:
-✅ 保证收敛到局部最优解
-⚠ 不能保证全局最优解
-</div>
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:12px;margin-top:8px;font-size:0.7em;">
+
+<div style="background:rgba(38,139,210,0.06);padding:6px 12px;border-radius:6px;border-left:4px solid #268bd2;">
+**数学保证:** 每一步都会使目标函数下降或不变
 </div>
 
-<div style="margin-top:8px;padding:8px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.55em;">
+<div style="background:rgba(181,137,0,0.10);padding:6px 12px;border-radius:6px;border-left:4px solid #b58900;">
+**收敛性质:** ✅ 保证收敛到局部最优解 ｜ ⚠ 不能保证全局最优解
+</div>
+
+</div>
+
+<div style="margin-top:8px;padding:8px 14px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.65em;">
 💡 这就是为什么需要 多次运行(n_init) 或使用 k-means++ 来获得更好的初始中心
 </div>
 
@@ -638,9 +640,11 @@ flowchart LR
 
 随着 K 增加,误差持续下降。
 
-出现明显拐点 → 即较优 K 值。
+<span style="color:#b58900;font-weight:700;">出现明显拐点 → 即较优 K 值。</span>
 
 拐点之前,增加 K 收益大;拐点之后,收益递减。
+
+> 肘部法回答 "选几个 K";下一个问题:分出来的簇,质量到底好不好?
 
 ---
 
@@ -648,29 +652,35 @@ flowchart LR
 
 ## 如何衡量聚类质量?
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.6em;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;font-size:0.7em;">
 
-<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
-**簇内紧密度( a )**
+<div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #268bd2;">
+
+**簇内紧密度 (a)**<br>
+
 同一个簇内的点彼此距离有多近
 
-\( a = \frac{1}{n}\sum_{x \in C} \|x - \mu\|^2 \)
+\[ a = \frac{1}{n}\sum_{x \in C} \|x - \mu\|^2 \]
 
 理想状态:**越小越好**(紧凑)
+
 </div>
 
-<div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
-**簇间分离度( b )**
+<div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #268bd2;">
+
+**簇间分离度 (b)**<br>
+
 不同簇之间的距离有多远
 
-\( b = \min_{j \neq k} \frac{1}{n_j}\sum_{x \in C_j} \|x - \mu_k\|^2 \)
+\[ b = \min_{j \neq k} \|\mu_k - \mu_j\|^2 \]
 
 理想状态:**越大越好**(分离)
-</div>
 
 </div>
 
-<div style="margin-top:4px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;">
+</div>
+
+<div style="margin-top:8px;padding:8px 14px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.7em;">
 💡 **好的聚类 = 监狱管理**:牢房内囚犯行为相似(簇内紧密),牢房之间界限分明(簇间分离)
 </div>
 
@@ -795,7 +805,7 @@ plt.show()
 
 </div>
 
-<div style="margin-top:8px;padding:6px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.5em;text-align:center;">
+<div style="margin-top:8px;padding:6px 12px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.65em;text-align:center;">
 💡 通用优点让 K-Means **"好用"**,网空价值让它 **"有用"**
 </div>
 
@@ -833,7 +843,7 @@ plt.show()
 
 </div>
 
-<div style="margin-top:8px;padding:6px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.5em;text-align:center;">
+<div style="margin-top:8px;padding:6px 12px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.6em;text-align:center;">
 💡 了解局限是为了**在实战中规避它们** —— 没有完美的算法,只有合适的用法
 </div>
 
@@ -874,14 +884,14 @@ K-Means 聚类后发现一个簇:
 
 ## 参考答案:疑似 C2 受控主机
 
-<div style="padding:6px 12px;background:rgba(231,76,60,0.08);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.6em;display:flex;align-items:center;gap:8px;">
+<div style="padding:6px 12px;background:rgba(231,76,60,0.08);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.7em;display:flex;align-items:center;gap:8px;">
 🚨 <strong>综合研判:</strong>高度疑似 <strong>C2 受控主机</strong>(被攻击者远程控制的 "肉鸡")
 </div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
-<div style="font-weight:700;color:#268bd2;font-size:0.65em;">📊 行为解读</div>
+<div style="font-weight:700;color:#268bd2;font-size:0.75em;">📊 行为解读</div>
 
 | 行为模式 | 可能的含义 |
 |----------|-----------|
@@ -893,9 +903,9 @@ K-Means 聚类后发现一个簇:
 </div>
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #f39c12;">
-<div style="font-weight:700;color:#268bd2;font-size:0.65em;">🚨 处置流程</div>
+<div style="font-weight:700;color:#268bd2;font-size:0.75em;">🚨 处置流程</div>
 
-<div style="display:flex;flex-direction:column;gap:2px;font-size:0.55em;margin-top:2px;">
+<div style="display:flex;flex-direction:column;gap:2px;font-size:0.65em;margin-top:2px;">
 <div>🔍 <strong>深入排查</strong> — 提取进程日志</div>
 <div>⬇</div>
 <div>📡 <strong>溯源分析</strong> — IP 归属 + 威胁情报</div>
@@ -909,7 +919,7 @@ K-Means 聚类后发现一个簇:
 
 </div>
 
-<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-radius:4px;font-size:0.5em;text-align:center;">
+<div style="margin-top:6px;padding:6px 12px;background:rgba(38,139,210,0.06);border-radius:4px;font-size:0.6em;text-align:center;">
 🎯 K-Means 的价值:从海量主机中**缩小目标范围** — 让安全专家从 1000 台聚焦到 10 台
 </div>
 
@@ -919,7 +929,7 @@ K-Means 聚类后发现一个簇:
 
 ## 本部分总结 · K-Means
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.6em;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.7em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 12px;border-radius:6px;border:1px solid #268bd2;">
 **💡 核心思想**  

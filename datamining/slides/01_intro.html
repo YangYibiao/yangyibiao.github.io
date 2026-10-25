@@ -55,7 +55,38 @@ document.addEventListener("DOMContentLoaded", function () {
 <script defer>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.mermaid) {
-    mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { htmlLabels: true, useMaxWidth: true } });
+    // 懒渲染: 只渲染"当前可见页"的图, 翻页时再渲染新页的图。
+    // 一次性渲染所有图时, 隐藏页里的图会在零尺寸状态下被测量, 导致节点框极小、标签折成竖排。
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', fontFamily: 'LXGWWenKai, "Noto Sans SC", sans-serif', flowchart: { htmlLabels: false, useMaxWidth: true } });
+    function renderSlide(slide) {
+      if (!slide) return;
+      var els = slide.querySelectorAll('.mermaid');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.getAttribute('data-processed')) continue;
+        try { mermaid.run({ nodes: [el] }); } catch (e) {}
+      }
+    }
+    function currentSlide() {
+      return document.querySelector('.reveal .slides section.present') ||
+             document.querySelector('.reveal .slides section');
+    }
+    function renderWhenReady() {
+      renderSlide(currentSlide());
+      if (window.Reveal && Reveal.on) {
+        // 过渡结束后渲染 (slidechanged 在过渡开始时触发, 此时页面在旋转缩放, 测量宽度会失真);
+        // 900ms 定时器兜底 transition:none 等不触发 slidetransitionend 的情况
+        Reveal.on('slidechanged', function (e) {
+          setTimeout(function () { renderSlide(e.currentSlide); }, 900);
+        });
+        Reveal.on('slidetransitionend', function (e) { renderSlide(e.currentSlide); });
+      }
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(renderWhenReady);
+    } else {
+      renderWhenReady();
+    }
   }
 });
 </script>
@@ -59418,8 +59449,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* 列表文字改为深色 (主题默认黄色在浅底上对比度低, 显得发虚) */
 .reveal ul > li,
-.reveal ol > li {
-    color: #073642;
+.reveal ol > li,
+.reveal ul > li p,
+.reveal ol > li p {
+    color: #073642 !important;
 }
 
 /* 表格: 基础字号与行高收敛, 避免 4 列表格单元文字换行导致行高过大 */
@@ -59457,10 +59490,70 @@ html:not(.print-pdf) .reveal pre code {
     text-align: center;
 }
 
+/* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
+.reveal .mermaid {
+    width: 100%;
+}
+
 /* Mermaid 图表高度上限放宽一档 (标签字号调大后仍可完整显示) */
 .reveal .slides section .mermaid svg {
-    max-height: 55vh !important;
+    max-height: 50vh !important;
 }
+
+/* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
+.reveal .mermaid {
+    width: 100%;
+}
+
+/* Mermaid 节点标签修复:
+   mermaid 为 foreignObject 计算的宽度偏窄, 且 .reveal p 的 2rem 左右边距
+   会挤占标签内文字, 导致节点文字被压成竖排/截断 (如 "外连请求" 只剩 "外连请")。
+   这里去掉标签段落边距, 让标签按内容宽度排版并允许溢出显示, 文字即完整可读。 */
+.reveal .slides section .mermaid foreignObject {
+    overflow: visible !important;
+}
+.reveal .slides section .mermaid foreignObject p {
+    margin: 0 !important;
+    text-align: center !important;
+    white-space: normal !important;
+}
+/* 标签宽度交给重渲染后的 mermaid 测量, 不再强制 nowrap/max-content */
+
+/* =========================================================
+   设计基准固化
+   生成的 HTML 里 ../css/theme/solarized.css、font.css、main.css、
+   table.css 在本文件之后再次以 <link> 方式加载, 同权重规则会覆盖上面
+   的设定 (实测 h2 被放大到 64px、表格单元被锁成 22.4px、blockquote
+   变成斜体白框)。这里用 !important 把本课件 1280x720 的版式基准锁定。
+   ========================================================= */
+
+/* 标题层级: h2 44px(1.1em) / h3 38px(0.95em), 与正文 32px 形成约 1.4 倍层级 */
+.reveal h2 { font-size: 1.1em !important; }
+.reveal h3 { font-size: 0.95em !important; }
+
+/* 引用块: 统一为与手写 callout 一致的琥珀色强调框 (原样式为斜体半透明白框) */
+.reveal blockquote {
+    width: auto !important;
+    margin: 2px 0 !important;
+    padding: 6px 14px !important;
+    font-style: normal !important;
+    background: rgba(181, 137, 0, 0.08) !important;
+    border-left: 4px solid #b58900;
+    border-radius: 0 4px 4px 0;
+}
+
+/* 表格: 正文语境下单元文字 30px(0.75em); 卡片内被缩小到 22px 时不再继续压缩,
+   保证密集页仍可读 (font.css 把 td 固定为 22.4px, 这里改为跟随表格字号) */
+.reveal table { font-size: max(0.75em, 22px) !important; }
+.reveal table th,
+.reveal table td { font-size: inherit !important; }
+
+/* 表格上下留白: main.css 把表格外边距放大到 2rem(32px), 与标题/正文脱节,
+   且让多行表格页挤占底部安全区; 收回本文件原定的 0.6rem(约 10px) */
+.reveal table { margin-top: 0.6rem !important; margin-bottom: 0.6rem !important; }
+
+/* 代码行高略微收紧, 让 16pt 代码页在 720 高内留出底部安全区 */
+.reveal pre code { line-height: 1.2; }
 </style></head>
     <body for="html-export" data-presentation-mode="">
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -59521,7 +59614,7 @@ html:not(.print-pdf) .reveal pre code {
 </li>
 </ul>
 </div>
-<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(203,75,22,0.08);padding:10px 14px;border-radius:6px;border:1px solid rgba(203,75,22,0.45);">
 <h3 id="指挥员要回答">🚨 指挥员要回答 </h3>
 <ul>
 <li>
@@ -59539,25 +59632,28 @@ html:not(.print-pdf) .reveal pre code {
 </ul>
 </div>
 </div>
-<div style="margin-top:10px;padding:12px 16px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.9em;">
-<p>⚠ 数据规模已经远超人工处理能力 → <strong>算法不是选择,是刚需</strong></p>
+<div style="margin-top:10px;padding:12px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.9em;">
+<p>🎯 数据规模已经远超人工处理能力 → <strong>算法不是选择,是刚需</strong></p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="2" data-v="0"><h2 id="人工分析vs算法分析">人工分析 vs 算法分析 </h2>
 <p>假设:每天 <strong>1000 万条日志</strong>,查看一条需要 <strong>1 秒</strong></p>
-<div style="text-align:center; margin:16px 0;">
-<h3 id="人工需要115天">人工需要: **115 天** </h3>
-<div style="font-size:0.75em;color:var(--solarized-base00);">
-<p>1000 万条 × 1 秒/条 = 1000 万秒 ÷ 86,400 秒/天 ≈ 115.7 天</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;">
+<div style="background:rgba(203,75,22,0.08);padding:10px 16px;border-radius:8px;border-left:4px solid #cb4b16;text-align:center;">
+<div style="font-size:0.7em;color:var(--solarized-base00);">人工查看 1000 万条日志</div>
+<div style="font-size:1.6em;font-weight:700;color:#cb4b16;line-height:1.35;">115 天</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);">1000 万条 × 1 秒/条 ÷ 86,400 秒/天 ≈ 115.7 天</div>
+</div>
+<div style="background:rgba(220,50,47,0.08);padding:10px 16px;border-radius:8px;border-left:4px solid #dc322f;text-align:center;">
+<div style="font-size:0.7em;color:var(--solarized-base00);">攻击者完成一次渗透</div>
+<div style="font-size:1.6em;font-weight:700;color:#dc322f;line-height:1.35;">&lt; 24 小时</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);">从入侵到得手,平均不到一天</div>
 </div>
 </div>
-<div style="text-align:center; margin:16px 0;">
-<p>而攻击者完成一次渗透,平均只需要 <strong>< 24 小时</strong></p>
-</div>
-<div style="background:rgba(38,139,210,0.10);padding:16px;border-left:4px solid #e74c3c;">
+<div style="margin-top:10px;padding:12px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
 <p><strong>结论:</strong> 人追不上数据,必须让算法先跑一遍,人来做 "最后 100 米" 的决策。</p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="3" data-v="0"><h2 id="从问题出发而不是从算法出发">从问题出发,而不是从算法出发 </h2>
-<p><strong>人类专家的经验是这样形成的:</strong></p>
+<p><strong>既然必须用算法,选哪一种?</strong> 先看人类专家做的四件事:</p>
 <div style="margin-top:12px;font-size:0.95em;">
 <div style="background:rgba(38,139,210,0.06);padding:7px 16px;border-radius:8px;margin-bottom:8px;">
 <p>👨‍🔬 发现规律 (观察) &nbsp;&nbsp;<span style="color:#b58900;font-weight:700;">⟶</span>&nbsp;&nbsp; 🤖 <strong>自动</strong>发现规律</p>
@@ -59576,7 +59672,7 @@ html:not(.print-pdf) .reveal pre code {
 <p>🎯 算法 ≠ 替代专家,而是 <strong>扩展专家能力的 "数字参谋"</strong></p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="4" data-v="0"><h2 id="四种思维四把战术武器">四种思维 · 四把 "战术武器" </h2>
-<p><strong>数据挖掘的四大经典任务,各选一个代表性算法</strong></p>
+<p><strong>数据挖掘的四类经典问题,各选一个代表性算法</strong></p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;font-size:0.8em;">
 <div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border-left:4px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;">📜 规则思维</div>
@@ -59599,7 +59695,7 @@ html:not(.print-pdf) .reveal pre code {
 <p>💡 <strong>一句话记忆:</strong> 规则找判据,距离找团伙,概率算风险,孤立抓异常。</p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="5" data-v="0"><h2 id="数据挖掘vs机器学习区别">数据挖掘 vs 机器学习 · 区别 </h2>
-<p><strong>同一个数据,两种目标</strong> —— 以 "用户会不会流失?" 为例</p>
+<p><strong>四把武器都来自数据挖掘。它和常听到的 "机器学习" 是什么关系?</strong> 同一个数据,两种目标 —— 以 "用户会不会流失?" 为例</p>
 <div class="twocol" style="font-size:0.9em;">
 <div style="background:rgba(38,139,210,0.06);padding:14px 18px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
 <h3 id="机器学习预测未来">🤖 机器学习 · 预测未来 </h3>
@@ -59690,7 +59786,7 @@ html:not(.print-pdf) .reveal pre code {
 <div style="background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
 <h3 id="大模型的底层仍是经典">🔬 大模型的底层,仍是经典 </h3>
 <div style="margin-top:8px;line-height:1.6;">
-<span style="font-weight:700;color:#268bd2;">梯度下降</span> <span style="color:#b58900;font-weight:700;">⟶</span> 经典优化算法(1986)
+<span style="font-weight:700;color:#268bd2;">反向传播</span> <span style="color:#b58900;font-weight:700;">⟶</span> 梯度下降 + 链式法则(1986)
 <br>
 <span style="font-weight:700;color:#268bd2;">注意力机制</span> <span style="color:#b58900;font-weight:700;">⟶</span> 加权求和 + softmax
 <br>
@@ -59842,16 +59938,18 @@ html:not(.print-pdf) .reveal pre code {
 <div style="margin-top:10px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;text-align:center;">
 <p>🎯 <strong>网空战场上,两者协同:</strong> 大模型做 "宏观研判" → 经典算法做 "精确验证" → <strong>人做最终决策</strong></p>
 </div>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="11" data-v="0"><h2 id="数据挖掘的五步作战流程">数据挖掘的 "五步作战流程" </h2>
-<pre class="mermaid" style="background:transparent;box-shadow:none;">flowchart LR
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="11" data-v="0"><h2 id="数据挖掘的六步作战流程">数据挖掘的 "六步作战流程" </h2>
+<div style="font-size:0.72em;color:var(--solarized-base00);margin-bottom:2px;">武器选好了,一仗具体怎么打?</div>
+<pre class="mermaid" style="background:transparent;box-shadow:none;">%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 12, 'rankSpacing': 24 } } }%%
+flowchart LR
     A["🎯 理解任务&lt;br/&gt;要打什么仗?"]
     --&gt; B["📥 数据采集&lt;br/&gt;有什么情报?"]
     --&gt; C["⚙ 数据处理&lt;br/&gt;清洗、对齐、降噪"]
     --&gt; D["🧠 模型分析&lt;br/&gt;选哪把武器?"]
     --&gt; E["📊 结果解释&lt;br/&gt;可信吗?为什么?"]
     --&gt; F["🚀 辅助决策&lt;br/&gt;怎么行动?"]</pre>
-<div style="margin-top:16px;padding:12px;background:rgba(38,139,210,0.10);border-left:4px solid #f39c12;">
-<p>经验规律: 数据处理(C 步骤)通常占项目 <strong>80%</strong> 的时间。算法选型只占 <strong>20%</strong>。</p>
+<div style="margin-top:16px;padding:12px 16px;background:rgba(203,75,22,0.08);border-left:4px solid #cb4b16;border-radius:4px;">
+<p>⚠ 经验规律: 数据处理(C 步骤)通常占项目 <strong>80%</strong> 的时间。算法选型只占 <strong>20%</strong>。</p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><h2 id="今天课程路线图25小时火力分配">今天课程路线图 · 2.5 小时火力分配 </h2>
 <table>
@@ -59900,7 +59998,9 @@ html:not(.print-pdf) .reveal pre code {
 </tr>
 </tbody>
 </table>
-<p>贯穿案例: 某部内网异常流量事件 —— 每讲完一个算法,回来 "拼一块拼图"。</p>
+<div style="margin-top:10px;padding:8px 16px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.7em;">
+<p>🎯 <strong>贯穿案例:</strong> 某部内网异常流量事件 —— 每讲完一个算法,回来 "拼一块拼图"。</p>
+</div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="13" data-v="0"><h2 id="希望大家带走什么">希望大家带走什么? </h2>
 <div class="twocol" style="font-size:0.9em;">
 <div style="background:rgba(220,50,47,0.06);padding:12px 18px;border-radius:8px;border:1px solid rgba(220,50,47,0.25);">
@@ -59938,6 +60038,9 @@ html:not(.print-pdf) .reveal pre code {
 <p>从问题出发选择方法</p>
 <p><span style="color:#888;font-weight:400;">而不是</span></p>
 <p>从算法出发寻找问题</p>
+</div>
+<div style="margin-top:10px;text-align:center;font-size:0.7em;color:var(--solarized-base00);">
+<p>下一部分:第一把武器 —— 📜 决策树</p>
 </div>
 </section>
       </div>
