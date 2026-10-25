@@ -66,7 +66,7 @@ presentation:
 - 状态变化:毫秒级高频
 
 </div>
-<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:6px;border:1px solid #f39c12;">
+<div style="background:rgba(203,75,22,0.08);padding:10px 14px;border-radius:6px;border:1px solid rgba(203,75,22,0.45);">
 ### 🚨 指挥员要回答
 
 - 哪些告警**最致命**,必须优先处置?
@@ -76,8 +76,8 @@ presentation:
 </div>
 </div>
 
-<div style="margin-top:10px;padding:12px 16px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.9em;">
-⚠ 数据规模已经远超人工处理能力 → **算法不是选择,是刚需**
+<div style="margin-top:10px;padding:12px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.9em;">
+🎯 数据规模已经远超人工处理能力 → **算法不是选择,是刚需**
 </div>
 
 ---
@@ -88,19 +88,23 @@ presentation:
 
 假设:每天 **1000 万条日志**,查看一条需要 **1 秒**
 
-<div style="text-align:center; margin:16px 0;">
-### 人工需要: **115 天**
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;">
 
-<div style="font-size:0.75em;color:var(--solarized-base00);">
-1000 万条 × 1 秒/条 = 1000 万秒 ÷ 86,400 秒/天 ≈ 115.7 天
-</div>
-</div>
-
-<div style="text-align:center; margin:16px 0;">
-而攻击者完成一次渗透,平均只需要 **< 24 小时**
+<div style="background:rgba(203,75,22,0.08);padding:10px 16px;border-radius:8px;border-left:4px solid #cb4b16;text-align:center;">
+<div style="font-size:0.7em;color:var(--solarized-base00);">人工查看 1000 万条日志</div>
+<div style="font-size:1.6em;font-weight:700;color:#cb4b16;line-height:1.35;">115 天</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);">1000 万条 × 1 秒/条 ÷ 86,400 秒/天 ≈ 115.7 天</div>
 </div>
 
-<div style="background:rgba(38,139,210,0.10);padding:16px;border-left:4px solid #e74c3c;">
+<div style="background:rgba(220,50,47,0.08);padding:10px 16px;border-radius:8px;border-left:4px solid #dc322f;text-align:center;">
+<div style="font-size:0.7em;color:var(--solarized-base00);">攻击者完成一次渗透</div>
+<div style="font-size:1.6em;font-weight:700;color:#dc322f;line-height:1.35;">&lt; 24 小时</div>
+<div style="font-size:0.65em;color:var(--solarized-base00);">从入侵到得手,平均不到一天</div>
+</div>
+
+</div>
+
+<div style="margin-top:10px;padding:12px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
 **结论:** 人追不上数据,必须让算法先跑一遍,人来做 "最后 100 米" 的决策。
 </div>
 
@@ -110,7 +114,7 @@ presentation:
 
 ## 从问题出发,而不是从算法出发
 
-**人类专家的经验是这样形成的:**
+**既然必须用算法,选哪一种?** 先看人类专家做的四件事:
 
 <div style="margin-top:12px;font-size:0.95em;">
 
@@ -142,7 +146,7 @@ presentation:
 
 ## 四种思维 · 四把 "战术武器"
 
-**数据挖掘的四大经典任务,各选一个代表性算法**
+**数据挖掘的四类经典问题,各选一个代表性算法**
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;font-size:0.8em;">
 
@@ -182,7 +186,7 @@ presentation:
 
 ## 数据挖掘 vs 机器学习 · 区别
 
-**同一个数据,两种目标** —— 以 "用户会不会流失?" 为例
+**四把武器都来自数据挖掘。它和常听到的 "机器学习" 是什么关系?** 同一个数据,两种目标 —— 以 "用户会不会流失?" 为例
 
 <div class="twocol" style="font-size:0.9em;">
 
@@ -315,7 +319,7 @@ presentation:
 ### 🔬 大模型的底层,仍是经典
 
 <div style="margin-top:8px;line-height:1.6;">
-<span style="font-weight:700;color:#268bd2;">梯度下降</span> <span style="color:#b58900;font-weight:700;">⟶</span> 经典优化算法(1986)
+<span style="font-weight:700;color:#268bd2;">反向传播</span> <span style="color:#b58900;font-weight:700;">⟶</span> 梯度下降 + 链式法则(1986)
 <br>
 <span style="font-weight:700;color:#268bd2;">注意力机制</span> <span style="color:#b58900;font-weight:700;">⟶</span> 加权求和 + softmax
 <br>
@@ -426,9 +430,12 @@ presentation:
 
 <!-- slide -->
 
-## 数据挖掘的 "五步作战流程"
+## 数据挖掘的 "六步作战流程"
+
+<div style="font-size:0.72em;color:var(--solarized-base00);margin-bottom:2px;">武器选好了,一仗具体怎么打?</div>
 
 ```mermaid
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 12, 'rankSpacing': 24 } } }%%
 flowchart LR
     A["🎯 理解任务<br/>要打什么仗?"]
     --> B["📥 数据采集<br/>有什么情报?"]
@@ -438,8 +445,8 @@ flowchart LR
     --> F["🚀 辅助决策<br/>怎么行动?"]
 ```
 
-<div style="margin-top:16px;padding:12px;background:rgba(38,139,210,0.10);border-left:4px solid #f39c12;">
-经验规律: 数据处理(C 步骤)通常占项目 **80%** 的时间。算法选型只占 **20%**。
+<div style="margin-top:16px;padding:12px 16px;background:rgba(203,75,22,0.08);border-left:4px solid #cb4b16;border-radius:4px;">
+⚠ 经验规律: 数据处理(C 步骤)通常占项目 **80%** 的时间。算法选型只占 **20%**。
 </div>
 
 ---
@@ -458,7 +465,9 @@ flowchart LR
 | 115'-135' | 综合回顾 + 互动答疑 | 打通四把武器协同使用 |
 | 135'-150' | 总结收尾 | 从问题出发选择方法 |
 
-贯穿案例: 某部内网异常流量事件 —— 每讲完一个算法,回来 "拼一块拼图"。
+<div style="margin-top:10px;padding:8px 16px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.7em;">
+🎯 **贯穿案例:** 某部内网异常流量事件 —— 每讲完一个算法,回来 "拼一块拼图"。
+</div>
 
 ---
 
@@ -491,6 +500,10 @@ flowchart LR
 从问题出发选择方法
 <span style="color:#888;font-weight:400;">而不是</span>
 从算法出发寻找问题
+</div>
+
+<div style="margin-top:10px;text-align:center;font-size:0.7em;color:var(--solarized-base00);">
+下一部分:第一把武器 —— 📜 决策树
 </div>
 
 ---
