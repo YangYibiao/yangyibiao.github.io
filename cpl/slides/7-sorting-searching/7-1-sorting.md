@@ -359,6 +359,10 @@ for (int i = 1; i < n; i++) {
 
 ---
 
+<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
+
+<div>
+
 ```C
 /* 二分查找: a 必须已从小到大排好序 */
 int low = 0, high = n - 1;
@@ -382,6 +386,14 @@ if (low > high) {
 - n 个元素最多比较 log2(n)+1 次——100 万个数也只要约 20 次!
 
 - 如果数据没排序, 只能顺序查找: 从头到尾逐个比, 平均比较 n/2 次
+
+</div>
+
+<div style="text-align:center;">
+  <img src="figs/binary-search-steps.png" style="max-width:100%;">
+</div>
+
+</div>
 
 ---
 
