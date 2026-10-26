@@ -31,8 +31,10 @@
 
 /* 列表文字改为深色 (主题默认黄色在浅底上对比度低, 显得发虚) */
 .reveal ul > li,
-.reveal ol > li {
-    color: #073642;
+.reveal ol > li,
+.reveal ul > li p,
+.reveal ol > li p {
+    color: #073642 !important;
 }
 
 /* 表格: 基础字号与行高收敛, 避免 4 列表格单元文字换行导致行高过大 */
@@ -70,7 +72,67 @@ html:not(.print-pdf) .reveal pre code {
     text-align: center;
 }
 
+/* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
+.reveal .mermaid {
+    width: 100%;
+}
+
 /* Mermaid 图表高度上限放宽一档 (标签字号调大后仍可完整显示) */
 .reveal .slides section .mermaid svg {
-    max-height: 55vh !important;
+    max-height: 50vh !important;
 }
+
+/* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
+.reveal .mermaid {
+    width: 100%;
+}
+
+/* Mermaid 节点标签修复:
+   mermaid 为 foreignObject 计算的宽度偏窄, 且 .reveal p 的 2rem 左右边距
+   会挤占标签内文字, 导致节点文字被压成竖排/截断 (如 "外连请求" 只剩 "外连请")。
+   这里去掉标签段落边距, 让标签按内容宽度排版并允许溢出显示, 文字即完整可读。 */
+.reveal .slides section .mermaid foreignObject {
+    overflow: visible !important;
+}
+.reveal .slides section .mermaid foreignObject p {
+    margin: 0 !important;
+    text-align: center !important;
+    white-space: normal !important;
+}
+/* 标签宽度交给重渲染后的 mermaid 测量, 不再强制 nowrap/max-content */
+
+/* =========================================================
+   设计基准固化
+   生成的 HTML 里 ../css/theme/solarized.css、font.css、main.css、
+   table.css 在本文件之后再次以 <link> 方式加载, 同权重规则会覆盖上面
+   的设定 (实测 h2 被放大到 64px、表格单元被锁成 22.4px、blockquote
+   变成斜体白框)。这里用 !important 把本课件 1280x720 的版式基准锁定。
+   ========================================================= */
+
+/* 标题层级: h2 44px(1.1em) / h3 38px(0.95em), 与正文 32px 形成约 1.4 倍层级 */
+.reveal h2 { font-size: 1.1em !important; }
+.reveal h3 { font-size: 0.95em !important; }
+
+/* 引用块: 统一为与手写 callout 一致的琥珀色强调框 (原样式为斜体半透明白框) */
+.reveal blockquote {
+    width: auto !important;
+    margin: 2px 0 !important;
+    padding: 6px 14px !important;
+    font-style: normal !important;
+    background: rgba(181, 137, 0, 0.08) !important;
+    border-left: 4px solid #b58900;
+    border-radius: 0 4px 4px 0;
+}
+
+/* 表格: 正文语境下单元文字 30px(0.75em); 卡片内被缩小到 22px 时不再继续压缩,
+   保证密集页仍可读 (font.css 把 td 固定为 22.4px, 这里改为跟随表格字号) */
+.reveal table { font-size: max(0.75em, 22px) !important; }
+.reveal table th,
+.reveal table td { font-size: inherit !important; }
+
+/* 表格上下留白: main.css 把表格外边距放大到 2rem(32px), 与标题/正文脱节,
+   且让多行表格页挤占底部安全区; 收回本文件原定的 0.6rem(约 10px) */
+.reveal table { margin-top: 0.6rem !important; margin-bottom: 0.6rem !important; }
+
+/* 代码行高略微收紧, 让 16pt 代码页在 720 高内留出底部安全区 */
+.reveal pre code { line-height: 1.2; }
