@@ -92,14 +92,22 @@ presentation:
 
 ---
 
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;">
+
+<div>
+
 每一轮从剩余元素中==选出最小==的, 放到前面 —— 共 n-1 轮, 第 i 轮结束时 a[0..i] 已经有序
 
-<div style="text-align:center;">
-  <img src="figs/selection-sort.png" height=470px>
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-top:6px;">
+每一轮: 在未排序部分挑出最小的, 与未排序部分的第一个交换
 </div>
 
-<div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
-每一轮: 在未排序部分挑出最小的, 与未排序部分的第一个交换
+</div>
+
+<div style="text-align:center;">
+  <img src="figs/selection-sort.png" height=530px>
+</div>
+
 </div>
 
 ---
