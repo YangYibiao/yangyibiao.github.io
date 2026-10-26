@@ -55,7 +55,7 @@ presentation:
 
 - 为什么排序
 
-- 三种排序: 选择、冒泡、插入
+- 三种排序: 选择、冒泡、插入 (思想 → 图形 → 代码)
 
 - 课堂编码
 
@@ -88,19 +88,45 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### 选择排序
+##### 选择排序 · 思想
 
 ---
 
 每一轮从剩余元素中==选出最小==的, 放到前面
 
-<div style="display:grid;grid-template-columns:0.85fr 1.3fr;gap:12px;align-items:center;">
+- 第 0 轮: 从 a[0..n-1] 里找最小, 换到 a[0]
 
-<div>
-  <img src="figs/selection-sort.png" height=460px>
+- 第 1 轮: 从 a[1..n-1] 里找最小, 换到 a[1]
+
+- 依此类推, 共 n-1 轮; 第 i 轮结束时 a[0..i] 已经有序
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 选择排序 · 图形
+
+---
+
+<div style="text-align:center;">
+  <img src="figs/selection-sort.png" height=520px>
 </div>
 
-<div>
+<div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
+每一轮: 在未排序部分挑出最小的, 与未排序部分的第一个交换
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 选择排序 · 代码
+
+---
 
 ```C
 /* 选择排序 (约定: a[0..n-1] 已读入 n 个元素) */
@@ -114,10 +140,6 @@ for (int i = 0; i < n - 1; i++) {
 
 - 一共 n-1 轮, 第 i 轮结束后 a[0..i] 已经有序
 
-</div>
-
-</div>
-
 <span class="blue">:fa-lightbulb-o:</span> 第 9 周学了函数, 就能把这整段封装成 `sort(a, n)` 随时调用
 
 ---
@@ -126,11 +148,114 @@ for (int i = 0; i < n - 1; i++) {
 <!-- slide data-notes="" -->
 
 
-##### 冒泡排序
+##### 冒泡排序 · 思想
 
 ---
 
-相邻元素两两比较, 顺序不对就交换, 一轮后最大的元素"沉"到最后
+相邻元素两两比较, 顺序不对就交换
+
+- 第 1 轮: 从头比到尾, 最大的元素一路"沉"到 a[n-1]
+
+- 第 2 轮: 再比一遍, 次大的沉到 a[n-2] (末尾已就位, 少比一个)
+
+- 共 n-1 轮; 每一轮结束, 本轮最大的元素"沉底"
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 冒泡排序 · 图形
+
+---
+
+<div style="text-align:center;">
+
+<svg viewBox="0 0 840 330" style="max-width:100%;height:auto;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="65">5</text>
+<rect x="190" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3"/>
+<text x="245" y="65">8</text>
+<rect x="320" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="375" y="65">3</text>
+<rect x="450" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="505" y="65">1</text>
+<rect x="580" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="635" y="65">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="131">5</text>
+<rect x="190" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="245" y="131">3</text>
+<rect x="320" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3"/>
+<text x="375" y="131">8</text>
+<rect x="450" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="505" y="131">1</text>
+<rect x="580" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="635" y="131">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="197">5</text>
+<rect x="190" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="245" y="197">3</text>
+<rect x="320" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="375" y="197">1</text>
+<rect x="450" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3"/>
+<text x="505" y="197">8</text>
+<rect x="580" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="635" y="197">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="263">5</text>
+<rect x="190" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="245" y="263">3</text>
+<rect x="320" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="375" y="263">1</text>
+<rect x="450" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="505" y="263">2</text>
+<rect x="580" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="635" y="263">8</text>
+<text x="700" y="263" font-size="18" fill="#859900" text-anchor="start">沉底 ✓</text>
+</g>
+<g stroke="#586e75" stroke-width="2" fill="none">
+<path d="M 255 84 Q 340 90 365 96" marker-end="url(#arr)"/>
+<path d="M 385 150 Q 470 156 495 162" marker-end="url(#arr)"/>
+<path d="M 515 216 Q 600 222 625 228" marker-end="url(#arr)"/>
+</g>
+<defs>
+<marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
+</marker>
+</defs>
+<g font-size="18" fill="#586e75" text-anchor="middle">
+<text x="330" y="80">8 &gt; 3, 交换</text>
+<text x="460" y="146">8 &gt; 1, 交换</text>
+<text x="590" y="212">8 &gt; 2, 交换</text>
+</g>
+</g>
+</svg>
+
+</div>
+
+<div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
+第 1 轮: 相邻比较, 8 一路"沉"到最后; 后面每轮少比一个
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 冒泡排序 · 代码
+
+---
 
 ```C
 /* 冒泡排序: 把 a[0..n-1] 从小到大排好 */
@@ -145,7 +270,7 @@ for (int i = 0; i < n - 1; i++)           /* 共 n-1 轮 */
 
 - 每一轮结束, 本轮==未排序部分的最大元素"沉"到最后==
 
-- 三种排序里最直观的一种——现在每个细节都能读懂了
+- 三种排序里过程最形象的一种——相邻比较、逐轮沉底
 
 ---
 
@@ -153,11 +278,99 @@ for (int i = 0; i < n - 1; i++)           /* 共 n-1 轮 */
 <!-- slide data-notes="" -->
 
 
-##### 插入排序
+##### 插入排序 · 思想
 
 ---
 
 像打牌理手牌: 每次拿起一张, 插到已排序部分的正确位置
+
+- 左手: 已排序的牌, 起初只有 a[0]
+
+- 右手: 每次拿起下一张 key = a[i]
+
+- 从右往左比: 比 key 大的往后挪一格, 找到位置把 key 放进去
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 插入排序 · 图形
+
+---
+
+<div style="text-align:center;">
+
+<svg viewBox="0 0 900 370" style="max-width:100%;height:auto;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="40" y="20" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="95" y="55">5</text>
+<rect x="170" y="20" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3" stroke-dasharray="7 4"/>
+<text x="225" y="55">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="40" y="92" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2" stroke-dasharray="7 4"/>
+<rect x="170" y="92" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="225" y="127">5</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="40" y="164" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="95" y="199">2</text>
+<rect x="170" y="164" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="225" y="199">5</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="40" y="236" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="95" y="271">2</text>
+<rect x="170" y="236" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="225" y="271">5</text>
+<rect x="300" y="236" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3" stroke-dasharray="7 4"/>
+<text x="355" y="271">4</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="40" y="308" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="95" y="343">2</text>
+<rect x="170" y="308" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="225" y="343">4</text>
+<rect x="300" y="308" width="110" height="52" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="355" y="343">5</text>
+</g>
+<g font-size="20" fill="#586e75" text-anchor="start">
+<text x="470" y="54">① 拿起 key = 2</text>
+<text x="470" y="126">② 2 &lt; 5, 5 右移一格</text>
+<text x="470" y="198">③ 2 放进去</text>
+<text x="470" y="270">④ 拿起 key = 4</text>
+<text x="470" y="342">⑤ 4 放进去 (5 再右移)</text>
+</g>
+<g stroke="#586e75" stroke-width="2" fill="none">
+<path d="M 225 72 L 225 92" marker-end="url(#arr2)"/>
+<path d="M 225 216 L 225 236" marker-end="url(#arr2)"/>
+</g>
+<defs>
+<marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
+</marker>
+</defs>
+</g>
+</svg>
+
+</div>
+
+<div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
+绿框 = 已排序的"左手牌"; 橙虚框 = 新拿起的 key; 比 key 大的依次右移, 再把 key 放进去
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 插入排序 · 代码
+
+---
 
 ```C
 /* 插入排序: 把 a[0..n-1] 从小到大排好 */
