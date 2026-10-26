@@ -33,24 +33,24 @@
 
 |        |              讲义                | 内容                           |
 | :----: | :--                             | :--                            |
-| 第1周   | [课程介绍](slides/0-intro/0-0-intro.html)           |     课程介绍   |
-|   ^    | [入门](slides/0-intro/0-1-programming-and-c.html)        | 程序设计与C语言入门                    |
-|   ^    | [初识C程序](slides/0-intro/0-2-first-c-program.html)        | 初识C程序：Hello World 与 C 程序结构                    |
-|   ^    | [C 语言历史与 AI](slides/0-intro/0-3-c-and-ai.html)        | C 语言历史与人工智能                    |
-|   ^    | [变量与基本数据类型](slides/0-intro/0-4-variable-and-assignment.html)        | 变量与基本数据类型                    |
-| 第2周   | [数据类型深化](slides/1-types-io/2-1-types-deep-dive.html)   | 数据类型深化                    |
-|   ^    | [格式化输入输出](slides/1-types-io/2-2-formatted-io.html)    | 格式化输入输出                    |
-| 第3周   | [运算符和表达式](slides/1-types-io/3-1-operators-expressions.html) | 运算符和表达式                |
-|   ^    | [类型转换与未定义行为](slides/1-types-io/3-2-conversion.html) | 类型转换与未定义行为                |
-| 第4周   | [选择结构 (上)](slides/2-if-for-array/4-1-selection-i.html) | 选择结构 (上) |
-|   ^    | [选择结构 (下)](slides/2-if-for-array/4-2-selection-ii.html) | 选择结构 (下) |
-| 第5周   | [循环结构 (上)](slides/2-if-for-array/5-1-loops-i.html) | 循环结构 (上) |
-|   ^    | [循环结构 (下)](slides/2-if-for-array/5-2-loops-ii.html) | 循环结构 (下) |
-|   ^    | [循环习题课](slides/2-if-for-array/5-3-loops-practice.html) | 循环习题课 |
-| 第6周   | [一维数组](slides/2-if-for-array/6-1-arrays-i.html) | 一维数组（与循环配合） |
-|   ^    | [二维数组与矩阵运算](slides/2-if-for-array/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
-| 第7周   | [排序](slides/2-if-for-array/7-1-sorting.html) | 排序 |
-|   ^    | [查找与课堂编码](slides/2-if-for-array/7-2-searching.html) | 查找与课堂编码 |
+| 第1周   | [课程介绍](slides/1-intro/0-0-intro.html)           |     课程介绍   |
+|   ^    | [入门](slides/1-intro/0-1-programming-and-c.html)        | 程序设计与C语言入门                    |
+|   ^    | [初识C程序](slides/1-intro/0-2-first-c-program.html)        | 初识C程序：Hello World 与 C 程序结构                    |
+|   ^    | [C 语言历史与 AI](slides/1-intro/0-3-c-and-ai.html)        | C 语言历史与人工智能                    |
+|   ^    | [变量与基本数据类型](slides/1-intro/0-4-variable-and-assignment.html)        | 变量与基本数据类型                    |
+| 第2周   | [数据类型深化](slides/2-types-io/2-1-types-deep-dive.html)   | 数据类型深化                    |
+|   ^    | [格式化输入输出](slides/2-types-io/2-2-formatted-io.html)    | 格式化输入输出                    |
+| 第3周   | [运算符和表达式](slides/3-types-io/3-1-operators-expressions.html) | 运算符和表达式                |
+|   ^    | [类型转换与未定义行为](slides/3-types-io/3-2-conversion.html) | 类型转换与未定义行为                |
+| 第4周   | [选择结构 (上)](slides/4-if-for-array/4-1-selection-i.html) | 选择结构 (上) |
+|   ^    | [选择结构 (下)](slides/4-if-for-array/4-2-selection-ii.html) | 选择结构 (下) |
+| 第5周   | [循环结构 (上)](slides/5-if-for-array/5-1-loops-i.html) | 循环结构 (上) |
+|   ^    | [循环结构 (下)](slides/5-if-for-array/5-2-loops-ii.html) | 循环结构 (下) |
+|   ^    | [循环习题课](slides/5-if-for-array/5-3-loops-practice.html) | 循环习题课 |
+| 第6周   | [一维数组](slides/6-arrays/6-1-arrays-i.html) | 一维数组（与循环配合） |
+|   ^    | [二维数组与矩阵运算](slides/6-arrays/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
+| 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
+|   ^    | [查找与课堂编码](slides/7-sorting-searching/7-2-searching.html) | 查找与课堂编码 |
 | 第8周   | 待发布                            | 函数：定义、调用、声明与参数传递 |
 |   ^    | 待发布                            | 函数：函数化改造与函数栈 |
 | 第9周   | 待发布                            | 函数进阶：数组作参数与作用域 |
