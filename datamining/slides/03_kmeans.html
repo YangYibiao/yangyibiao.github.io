@@ -59441,10 +59441,10 @@ document.addEventListener("DOMContentLoaded", function () {
     margin: 0.3rem 0;
 }
 
-/* 底部安全区: 投屏/投影仪常有边缘裁切, 内容不贴满 720 高 */
+/* 上下安全区: 投屏/投影仪常有边缘裁切, 内容不贴满 720 高 */
 .reveal .slides section {
     box-sizing: border-box;
-    padding: 0 16px 30px;
+    padding: 20px 16px 30px;
 }
 
 /* 列表文字改为深色 (主题默认黄色在浅底上对比度低, 显得发虚) */
@@ -59495,9 +59495,11 @@ html:not(.print-pdf) .reveal pre code {
     width: 100%;
 }
 
-/* Mermaid 图表高度上限放宽一档 (标签字号调大后仍可完整显示) */
+/* Mermaid 图表高度上限: 用画布 px 而不是 vh —— reveal 会把 1280x720 画布整体缩放,
+   vh 上限会随窗口高度漂移, 导致图稍大就被整幅缩小、字号又被打回原形。
+   430px ≈ 720 画布去掉标题/说明/安全区后留给图的可用高度 */
 .reveal .slides section .mermaid svg {
-    max-height: 50vh !important;
+    max-height: 430px !important;
 }
 
 /* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
@@ -59768,8 +59770,8 @@ html:not(.print-pdf) .reveal pre code {
 <blockquote>
 <p><strong>一句话:让相似的数据聚在一起,形成 "团伙"。</strong></p>
 </blockquote>
-<pre class="mermaid" style="background:transparent;box-shadow:none;">%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 20, 'rankSpacing': 25 } } }%%
-flowchart LR
+<pre class="mermaid" style="background:transparent;box-shadow:none;">%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '20px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 20 } } }%%
+flowchart TB
     A["📡 内网主机行为数据 &lt;br/&gt; (无标签)"]
     --&gt; B["🔍 K-Means 自动聚类"]
     --&gt; C["📊 发现 3 个行为群体"]
@@ -59807,7 +59809,9 @@ flowchart LR
 </tr>
 </tbody>
 </table>
-<p>关键问题: K 应该选多少?</p>
+<div style="margin-top:10px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
+<p>❓ <strong>K 怎么定?</strong> 两条路:① <strong>业务经验</strong> —— 安全场景常用 K=2(正常/异常)或 K=3(分层研判);② <strong>数据驱动</strong> —— 肘部法(后文细讲)。</p>
+</div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="7" data-v="0"><h2 id="kmeans的means是什么">K-Means 的 "Means" 是什么? </h2>
 <blockquote>
 <p><strong>Means = 每个簇的 "中心点" (均值)</strong></p>
@@ -59831,13 +59835,13 @@ flowchart LR
 <p>📌 每个中心点就是该簇所有点的 "平均画像" —— <strong>Means 就是这些中心点的统称</strong></p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="8" data-v="0"><h2 id="kmeans工作流程网空版">K-Means 工作流程 · 网空版 </h2>
-<pre class="mermaid" style="background:transparent;box-shadow:none;">%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+<pre class="mermaid" style="background:transparent;box-shadow:none;">%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '18px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 24 } } }%%
 flowchart LR
     A["📡 无标注数据"]
     --&gt; B["🎯 随机选 K 个&lt;br/&gt;初始中心"]
     --&gt; C["📏 计算每个点&lt;br/&gt;到各中心距离"]
     --&gt; D["📦 分配到&lt;br/&gt;最近簇"]
-    --&gt; E["🔄 更新中心&lt;br/&gt;(重新计算均值)"]
+    --&gt; E["🔄 更新中心&lt;br/&gt;(重算均值)"]
     --&gt; F{"收敛?"}
     F --&gt;|否| C
     F --&gt;|是| G["✅ 输出 K 个群体&lt;br/&gt;(供研判)"]</pre>
@@ -60067,15 +60071,15 @@ flowchart LR
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:0.6em;">
 <div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #27ae60;">
 <div style="font-size:0.9em;font-weight:700;color:#27ae60;">🟢 簇 A</div>
-<p>H1 (2,50)<br> H2 (3,45)<br> H3 (2,55) <strong>中心:</strong> (2.3, 50) ✅ 低频率 · 低流量 → 正常业务</p>
+<p>H1 (2,50)<br> H2 (3,45)<br> H3 (2,55)<br> <strong>中心:</strong> (2.3, 50)<br> ✅ 低频率 · 低流量<br> → 正常业务</p>
 </div>
 <div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #f39c12;">
 <div style="font-size:0.9em;font-weight:700;color:#f39c12;">🟡 簇 B</div>
-<p>H4 (8,150)<br> H5 (9,140)<br> H6 (7,160) <strong>中心:</strong> (8, 150) ⚠ 中频率 · 高流量 → 疑似数据外泄</p>
+<p>H4 (8,150)<br> H5 (9,140)<br> H6 (7,160)<br> <strong>中心:</strong> (8, 150)<br> ⚠ 中频率 · 高流量<br> → 疑似数据外泄</p>
 </div>
 <div style="background:rgba(38,139,210,0.06);padding:6px 10px;border-radius:6px;border:2px solid #e74c3c;">
 <div style="font-size:0.9em;font-weight:700;color:#e74c3c;">🔴 簇 C</div>
-<p>H7 (20,30)<br> H8 (22,25)<br> H9 (18,35)<br> H10 (25,20) <strong>中心:</strong> (21.3, 27.5) ⚠ 高频率 · 低流量 → 疑似 C2 心跳</p>
+<p>H7 (20,30)<br> H8 (22,25)<br> H9 (18,35)<br> H10 (25,20)<br> <strong>中心:</strong> (21.3, 27.5)<br> ⚠ 高频率 · 低流量<br> → 疑似 C2 心跳</p>
 </div>
 </div>
 <p><strong>迭代过程追踪:</strong></p>
@@ -60149,6 +60153,9 @@ flowchart LR
 <p>距离越大 → 两台主机行为差异越大</p>
 </blockquote>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><h2 id="kmeans的优化目标">K-Means 的优化目标 </h2>
+<div style="font-size:0.75em;color:var(--solarized-base00);line-height:1.6;">
+<p>⚠ 初始中心是<strong>随机</strong>选的 → 每次运行可能收敛到<strong>不同的结果</strong>(局部最优)。目标函数就是一把 "尺子": 用来判断该不该停、哪种结果更好。</p>
+</div>
 <h3 id="为什么需要优化目标">为什么需要优化目标? </h3>
 <table>
 <thead>
@@ -60169,8 +60176,8 @@ flowchart LR
 </tbody>
 </table>
 <h3 id="目标函数">目标函数 </h3>
-<div style="font-size:0.75em;">
-<p>\[ \sum_{k=1}^{K}\sum_{x \in C_k} \|x - \mu_k\|^2 \]</p>
+<div style="font-size:0.8em;">
+<p>\[ \min_{\mu_1,\dots,\mu_K} \sum_{k=1}^{K}\sum_{x \in C_k} \|x - \mu_k\|^2 \]</p>
 </div>
 <blockquote>
 <p><strong>人话:</strong> 让每个点都离自己的中心点尽可能近。</p>
@@ -60215,13 +60222,44 @@ flowchart LR
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><h2 id="如何选择k肘部法">如何选择 K ? —— 肘部法 </h2>
 <p>绘制: K 值 → 误差平方和(簇内距离平方和)</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>误差平方和
-    ↑
-    <span class="token operator">|</span> ╲
-    <span class="token operator">|</span>  ╲___
-    <span class="token operator">|</span>     ╲___ ← 拐点<span class="token punctuation">(</span><span class="token string">"肘部"</span><span class="token punctuation">)</span>
-    <span class="token operator">|</span>        ╲___
-    <span class="token operator">+</span>──────────────→ K</code></pre>
+<div style="text-align:center;">
+<svg viewBox="0 0 960 320" style="max-width:100%;height:auto;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<g stroke="#93a1a1" stroke-width="1.5">
+<line x1="90" y1="20" x2="90" y2="252"/>
+<line x1="70" y1="252" x2="895" y2="252"/>
+</g>
+<path d="M 90 20 l -5 10 l 10 0 z" fill="#93a1a1"/>
+<path d="M 895 252 l -10 -5 l 0 10 z" fill="#93a1a1"/>
+<text x="34" y="152" transform="rotate(-90 34 152)" fill="#586e75" font-size="16" text-anchor="middle">误差平方和</text>
+<text x="898" y="288" fill="#586e75" font-size="18">K</text>
+<g fill="#586e75" font-size="16" text-anchor="middle">
+<text x="90" y="276">1</text>
+<text x="248" y="276">2</text>
+<text x="406" y="276">3</text>
+<text x="564" y="276">4</text>
+<text x="722" y="276">5</text>
+<text x="880" y="276">6</text>
+</g>
+<polyline points="90,20 248,145 406,193 564,214 722,224 880,229" fill="none" stroke="#268bd2" stroke-width="3"/>
+<g fill="#268bd2">
+<circle cx="90" cy="20" r="5"/>
+<circle cx="248" cy="145" r="5"/>
+<circle cx="406" cy="193" r="5"/>
+<circle cx="564" cy="214" r="5"/>
+<circle cx="722" cy="224" r="5"/>
+<circle cx="880" cy="229" r="5"/>
+</g>
+<circle cx="406" cy="193" r="9" fill="#b58900"/>
+<line x1="406" y1="193" x2="406" y2="252" stroke="#b58900" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="90" y1="193" x2="406" y2="193" stroke="#b58900" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="406" y1="193" x2="472" y2="112" stroke="#b58900" stroke-width="1.5"/>
+<text x="480" y="108" fill="#b58900" font-size="18">拐点("肘部"): K=3</text>
+<text x="150" y="98" fill="#586e75" font-size="16">下降快 · 加簇划算</text>
+<text x="636" y="258" fill="#586e75" font-size="16">下降慢 · 加簇不划算</text>
+</g>
+</svg>
+</div>
 <p>随着 K 增加,误差持续下降。</p>
 <p><span style="color:#b58900;font-weight:700;">出现明显拐点 → 即较优 K 值。</span></p>
 <p>拐点之前,增加 K 收益大;拐点之后,收益递减。</p>
@@ -60231,17 +60269,29 @@ flowchart LR
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="18" data-v="0"><h2 id="如何衡量聚类质量">如何衡量聚类质量? </h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;font-size:0.7em;">
 <div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #268bd2;">
-<p><strong>簇内紧密度 (a)</strong><br><br> 同一个簇内的点彼此距离有多近 \[ a = \frac{1}{n}\sum_{x \in C} \|x - \mu\|^2 \] 理想状态:<strong>越小越好</strong>(紧凑)</p>
+<p><strong>簇内紧密度 (a)</strong><br><br> 同一个簇内的点彼此距离有多近</p>
+<div style="font-size:1.2em;text-align:center;">
+<p>\[ a = \frac{1}{n}\sum_{x \in C} \|x - \mu\|^2 \]</p>
+</div>
+<p>理想状态:<strong>越小越好</strong>(紧凑)</p>
 </div>
 <div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #268bd2;">
-<p><strong>簇间分离度 (b)</strong><br><br> 不同簇之间的距离有多远 \[ b = \min_{j \neq k} \|\mu_k - \mu_j\|^2 \] 理想状态:<strong>越大越好</strong>(分离)</p>
+<p><strong>簇间分离度 (b)</strong><br><br> 不同簇之间的距离有多远</p>
+<div style="font-size:1.2em;text-align:center;">
+<p>\[ b = \min_{j \neq k} \|\mu_k - \mu_j\|^2 \]</p>
+</div>
+<p>理想状态:<strong>越大越好</strong>(分离)</p>
 </div>
 </div>
 <div style="margin-top:8px;padding:8px 14px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;font-size:0.7em;">
 <p>💡 <strong>好的聚类 = 监狱管理</strong>:牢房内囚犯行为相似(簇内紧密),牢房之间界限分明(簇间分离)</p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><h2 id="轮廓系数综合评分">轮廓系数 · 综合评分 </h2>
-<p>将 "紧密度(a)" 和 "分离度(b)" 合并为 <strong>一个数值</strong>: \( s = \dfrac{b - a}{\max(a, b)} \) 取值范围: [-1, 1]</p>
+<p>将 "紧密度(a)" 和 "分离度(b)" 合并为 <strong>一个数值</strong>: \[ s = \frac{b - a}{\max(a, b)} \]</p>
+<div style="margin-top:2px;font-size:0.75em;color:#073642;line-height:1.6;">
+<p>🧭 <strong>直觉:</strong> 每个点问自己 —— "我在自己簇里挨得紧吗(a 小)? 我离最近的隔壁簇够远吗(b 大)?" \(s\) 把答案合并成一个 [-1, 1] 的分数。</p>
+</div>
+<p>取值范围: [-1, 1]</p>
 <table>
 <thead>
 <tr>

@@ -56,15 +56,36 @@ presentation:
 
 ## 从朴素贝叶斯到孤立森林 · 一个自然的追问
 
-| 朴素贝叶斯帮我们解决了 | 但还有一个问题 |
-|-----------------------|---------------|
-| 在不确定性下做判断 → 输出概率 | **如果连 "正常/恶意" 的样本都没有呢?** |
-| 需要一定数量的历史标注数据 | **0-day 攻击根本没有历史样本** |
-| 能回答 "有多大概率是恶意" | **能发现 "从未见过" 的威胁吗?** |
+<div class="twocol" style="font-size:0.9em;">
 
-> **核心转折:** 前面的算法都在 "学习规律"。但如果攻击者用的是**从未出现过的新手法**,规律根本不存在 —— 我们只能靠**"异常"**来发现它。
+<div style="background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">📗 朴素贝叶斯帮我们解决了</div>
 
-**孤立森林**:不需要标注、不需要已标注的历史样本 —— 它给**每个样本单独打异常分**,哪怕只有一个孤点也能抓。这与 K-Means 形成分工:K-Means 找 "**成团的**未知",孤立森林抓 "**孤立的**未知"。
+- 在不确定性下做判断 → 输出**概率**
+- 需要一定数量的**历史标注数据**
+- 能回答 "有**多大概率**是恶意"
+
+</div>
+
+<div style="background:rgba(203,75,22,0.08);padding:12px 16px;border-radius:8px;border:1px solid rgba(203,75,22,0.35);">
+<div style="font-weight:700;color:#cb4b16;">❓ 但还有一个问题</div>
+
+- **如果连 "正常/恶意" 的样本都没有呢?**
+- **0-day 攻击根本没有历史样本**
+- **能发现 "从未见过" 的威胁吗?**
+
+</div>
+
+</div>
+
+<div style="margin-top:10px;padding:12px 16px;background:rgba(220,50,47,0.08);border-left:4px solid #dc322f;border-radius:4px;font-size:0.9em;">
+🚨 **核心转折:** 前面的算法都在 "学习规律"。但如果攻击者用的是**从未出现过的新手法**,规律根本不存在 —— 我们只能靠 **"异常"** 来发现它。
+</div>
+
+<div style="margin-top:8px;padding:10px 16px;background:rgba(133,153,0,0.08);border-left:4px solid #859900;border-radius:4px;">
+🎯 **孤立森林:** 不需要标注、不需要已标注的历史样本 —— 它给**每个样本单独打异常分**,哪怕只有一个孤点也能抓。<br>
+**分工:** K-Means 找 "**成团的**未知",孤立森林抓 "**孤立的**未知"。
+</div>
 
 ---
 
@@ -143,6 +164,18 @@ presentation:
 💡 **网空含义:** 0-day 攻击、未知恶意软件、APT 渗透 —— 它们的行为模式一定与 "正常" 不同。找到这个 "不同",就找到了威胁线索。
 </div>
 
+<div class="twocol" style="font-size:0.75em;margin-top:6px;">
+
+<div style="background:rgba(203,75,22,0.08);padding:8px 14px;border-radius:8px;border:1px solid rgba(203,75,22,0.35);">
+🔓 **0-day 攻击** —— 利用 "刚被发现、厂商还没来得及出补丁" 的漏洞发起的攻击。规则库没有它的特征,也没有历史样本 → 基于已知特征的检测全部失效。
+</div>
+
+<div style="background:rgba(220,50,47,0.08);padding:8px 14px;border-radius:8px;border:1px solid rgba(220,50,47,0.35);">
+🕵️ **APT 渗透** —— Advanced Persistent Threat,高级持续性威胁:攻击者长期潜伏、低频慢速行动,每一步都伪装得 "像正常" → 单条规则抓不住,需要发现 "慢速" 异常。
+</div>
+
+</div>
+
 ---
 
 <!-- slide -->
@@ -162,9 +195,9 @@ presentation:
 - 99 个人站在一起(**正常群体**)
 - 1 个人站在角落(**异常个体**)
 
-**问题:** 谁最容易被发现?
+<div style="margin-top:4px;"><strong>问题:</strong> 谁最容易被发现?</div>
 
-**答案:** 角落里的那个人。
+<div style="margin-top:4px;"><strong>答案:</strong> 角落里的那个人。</div>
 </div>
 
 </div>
@@ -268,9 +301,9 @@ presentation:
 <div style="font-weight:700;color:#268bd2;font-size:0.8em;">🌲 孤立树(单棵)</div>
 
 <div style="font-size:1em;line-height:1.6;margin-top:4px;">
-- 用**随机特征 + 随机切分点**不断二分
+- 每个节点:随机选**一个**特征,在该特征的取值范围内随机切**一刀**(二分)
 - 每个叶子节点 = 一个被隔离的样本
-- 本质:一棵 "随机切分树",不需要任何标签
+- 本质:一棵 "随机二分树",不需要任何标签
 </div>
 
 </div>
@@ -321,8 +354,8 @@ flowchart LR
 
 <div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #586e75;">
 🔑 **关键步骤:**<br>
-**1.** 随机选一个特征<br>
-**2.** 随机选一个切分点<br>
+**1.** 随机选**一个**特征(每个节点只选一个,不是把每个特征都切一遍)<br>
+**2.** 在该特征的取值范围内随机选一个切分点<br>
 **3.** 将数据分成左右两份
 </div>
 
@@ -334,6 +367,10 @@ flowchart LR
 否则 → 递归重复上述过程
 </div>
 
+</div>
+
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.65em;text-align:center;">
+🌲 上图是**一棵**孤立树的构建过程 —— 孤立森林 = 重复建 100 棵,每棵树的随机选择都不同;多棵树合起来,所有特征都会被轮到。
 </div>
 
 ---

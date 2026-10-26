@@ -56,16 +56,34 @@ presentation:
 
 ## 从 K-Means 到朴素贝叶斯 · 一个自然的追问
 
-| K-Means 帮我们解决了 | 但还有一个问题 |
-|-------------------|---------------|
-| 无标注也能发现群体 → 让数据自己 "抱团" | **只能回答 "谁和谁像",不能回答 "这一台有多可疑"** |
-| 输出:簇与中心点 | **簇里的人是谁? 正常还是恶意? 还要靠人命名** |
-| 能圈出异常群体 | **研判要的是 "带可信度的结论",不是 "分组"** |
+<div class="twocol" style="font-size:0.9em;">
 
-> **核心转折:** 决策树给了 "规则",K-Means 给了 "分组" —— 但都不是 "有多大可能"。网空研判要的,是每一台主机**有多大可能是威胁**。
+<div style="background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">📗 K-Means 帮我们解决了</div>
 
-<div style="margin-top:10px;padding:12px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
-🎯 **朴素贝叶斯就是解决这类问题的算法 —— 在不确定性下做判断: 输出不是 "是/否",而是概率。**
+- 无标注也能发现群体 → 让数据自己 "抱团"
+- 输出:簇与中心点
+- 能圈出异常群体
+
+</div>
+
+<div style="background:rgba(203,75,22,0.08);padding:12px 16px;border-radius:8px;border:1px solid rgba(203,75,22,0.35);">
+<div style="font-weight:700;color:#cb4b16;">❓ 但还有一个问题</div>
+
+- **只能回答 "谁和谁像",不能回答 "这一台有多可疑"**
+- **簇里的人是谁? 正常还是恶意? 还要靠人命名**
+- **研判要的是 "带可信度的结论",不是 "分组"**
+
+</div>
+
+</div>
+
+<div style="margin-top:10px;padding:12px 16px;background:rgba(220,50,47,0.08);border-left:4px solid #dc322f;border-radius:4px;font-size:0.9em;">
+🚨 **核心转折:** 决策树给了 "规则",K-Means 给了 "分组" —— 但都不是 "有多大可能"。网空研判要的,是每一台主机**有多大可能是威胁**。
+</div>
+
+<div style="margin-top:8px;padding:10px 16px;background:rgba(133,153,0,0.08);border-left:4px solid #859900;border-radius:4px;">
+🎯 **朴素贝叶斯:** 在不确定性下做判断 —— 输出不是 "是/否",而是**概率**。
 </div>
 
 ---
@@ -113,7 +131,7 @@ presentation:
 **📊 贝叶斯会怎么做?**
 用历史数据 + 贝叶斯公式
 → 计算**后验概率**
-输出:**P(钓鱼 | 紧急) = ?**
+输出:**\(P(\text{钓鱼} \mid \text{紧急}) = ?\)**
 </div>
 
 </div>
@@ -152,14 +170,14 @@ presentation:
 
 <div style="font-size:0.6em;line-height:1.6;margin-top:4px;">
 <div style="text-align:center;padding:4px 0;background:rgba(38,139,210,0.04);border-radius:4px;font-size:1.2em;">
-P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
+\(P(\text{钓鱼} \mid \text{紧急}) = \dfrac{P(\text{紧急} \mid \text{钓鱼}) \times P(\text{钓鱼})}{P(\text{紧急})}\)
 </div>
 
 **符号对应直觉:**
 
-- **P(钓鱼)** → 以前见过钓鱼邮件吗?
-- **P(紧急 | 钓鱼)** → 钓鱼邮件中 "紧急" 多吗?
-- **P(紧急)** → "紧急" 本身常见吗?
+- **\(P(\text{钓鱼})\)** → 以前见过钓鱼邮件吗?
+- **\(P(\text{紧急} \mid \text{钓鱼})\)** → 钓鱼邮件中 "紧急" 多吗?
+- **\(P(\text{紧急})\)** → "紧急" 本身常见吗?
 
 </div>
 
@@ -278,8 +296,7 @@ P(钓鱼 | 紧急) = P(紧急 | 钓鱼) × P(钓鱼) / P(紧急)
 ## 贝叶斯定理 · 数学表达
 
 \[
-\small
-P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
+P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
 \]
 
 <div style="font-size:0.85em;">
@@ -370,14 +387,14 @@ P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
 
 ## 贝叶斯公式 · 推导
 
-**理解条件概率:** \( P(A|B) \) = 在 B 条件下 A 的概率(如:紧急邮件中钓鱼的比例)
+**理解条件概率:** \( P(A \mid B) \) = 在 B 条件下 A 的概率(如:紧急邮件中钓鱼的比例)
 
 <div style="display:grid;grid-template-columns:1fr 0.2fr 1fr 0.2fr 1fr;gap:4px;align-items:center;font-size:0.6em;margin-top:6px;">
 
 <div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #268bd2;">
 <div style="font-weight:700;color:#268bd2;font-size:0.9em;">1 条件概率定义</div>
 \[
-P(A|B) = \frac{P(A \cap B)}{P(B)}
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}
 \]
 "在 B 条件下 A 的概率"
 = A 和 B 同时发生 ÷ B 发生
@@ -388,7 +405,7 @@ P(A|B) = \frac{P(A \cap B)}{P(B)}
 <div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #f39c12;">
 <div style="font-weight:700;color:#f39c12;font-size:0.9em;">2 联合概率对称</div>
 \[
-P(A \cap B) = P(B|A) \times P(A)
+P(A \cap B) = P(B \mid A) \times P(A)
 \]
 "A 和 B 同时发生"
 = 在 A 条件下 B 的概率 × A 的概率
@@ -399,11 +416,10 @@ P(A \cap B) = P(B|A) \times P(A)
 <div style="background:rgba(38,139,210,0.06);padding:8px 10px;border-radius:6px;border:1px solid #27ae60;">
 <div style="font-weight:700;color:#27ae60;font-size:0.9em;">3 代入 → 贝叶斯公式</div>
 \[
-P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}
+P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
 \]
 \[
-\small
-= \frac{P(B|A)P(A)}{P(B|A)P(A) + P(B|\bar{A})P(\bar{A})}
+= \frac{P(B \mid A)P(A)}{P(B \mid A)P(A) + P(B \mid \bar{A})P(\bar{A})}
 \]
 </div>
 
