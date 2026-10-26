@@ -77,13 +77,16 @@ presentation:
 ```C
 /* 顺序查找: 在 a[0..n-1] 中找 key (约定: 数组已读入 n 个元素) */
 int i;
-for (i = 0; i < n; i++)
-  if (a[i] == key)
+for (i = 0; i < n; i++) {
+  if (a[i] == key) {
     break;                    /* 找到, 提前退出 */
-if (i < n)
+  }
+}
+if (i < n) {
   printf("找到, 下标 %d\n", i);
-else
+} else {
   printf("没找到\n");
+}
 ```
 
 - `i < n` 说明是==提前退出==(找到); `i == n` 说明是==正常结束==(没找到)——第 5 周素数判断用过同样的写法
@@ -111,11 +114,19 @@ else
 int low = 0, high = n - 1;
 while (low <= high) {
   int mid = (low + high) / 2;
-  if (a[mid] == key) { printf("找到, 下标 %d\n", mid); break; }
-  if (a[mid] < key) low = mid + 1;
-  else high = mid - 1;
+  if (a[mid] == key) {
+    printf("找到, 下标 %d\n", mid);
+    break;
+  }
+  if (a[mid] < key) {
+    low = mid + 1;
+  } else {
+    high = mid - 1;
+  }
 }
-if (low > high) printf("没找到\n");
+if (low > high) {
+  printf("没找到\n");
+}
 ```
 
 - n 个元素最多比较 log2(n)+1 次——100 万个数也只要约 20 次!

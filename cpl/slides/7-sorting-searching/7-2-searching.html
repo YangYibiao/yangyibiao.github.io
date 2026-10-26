@@ -59590,13 +59590,16 @@ div.boardhandle > ul > li {
 <p>从第一个元素开始<mark>逐个比较</mark>, 找到即停</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 顺序查找: 在 a[0..n-1] 中找 key (约定: 数组已读入 n 个元素) */</span>
 <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>                    <span class="token comment">/* 找到, 提前退出 */</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"找到, 下标 %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"没找到\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"没找到\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
 <p><code>i &lt; n</code> 说明是<mark>提前退出</mark>(找到); <code>i == n</code> 说明是<mark>正常结束</mark>(没找到)——第 5 周素数判断用过同样的写法</p>
@@ -59618,11 +59621,19 @@ div.boardhandle > ul > li {
 <span class="token keyword keyword-int">int</span> low <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> high <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator">&lt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>low <span class="token operator">+</span> high<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"找到, 下标 %d\n"</span><span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator"><</span> key<span class="token punctuation">)</span> low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span> high <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"找到, 下标 %d\n"</span><span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator"><</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    high <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">></span> high<span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"没找到\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">></span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"没找到\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
 <p>n 个元素最多比较 log2(n)+1 次——100 万个数也只要约 20 次!</p>
