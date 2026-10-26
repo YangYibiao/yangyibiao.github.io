@@ -173,12 +173,28 @@ for (int i = 0; i < n - 1; i++) {
 
 ---
 
-相邻元素两两比较, 顺序不对就交换 —— 一轮结束最大的元素"沉"到最后, 每轮少比一个, 共 n-1 轮
+<div style="display:grid;grid-template-columns:1fr 1.3fr;gap:16px;align-items:center;">
+
+<div>
+
+相邻元素两两比较, 顺序不对就交换
+
+- 第 1 轮: 从头比到尾, 最大的元素一路"沉"到 a[n-1]
+
+- 第 2 轮: 再比一遍, 次大的沉到 a[n-2] (末尾已就位, 少比一个)
+
+- 共 n-1 轮; 每一轮结束, 本轮最大的元素"沉底"
+
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-top:6px;">
+相邻比较、逐个交换, 最大的逐步"沉"到末尾
+</div>
+
+</div>
 
 <div style="text-align:center;">
-  <img src="figs/bubble-sort-steps.png" width=700px>
-</div><div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
-相邻比较、逐个交换, 最大的逐步"沉"到末尾
+  <img src="figs/bubble-sort-steps.png" style="max-width:100%;">
+</div>
+
 </div>
 
 ---
