@@ -107,13 +107,13 @@ presentation:
 - 依此类推, 共 n-1 轮; 第 i 轮结束时 a[0..i] 已经有序
 
 <div style="font-size:0.7em;color:var(--solarized-base00);margin-top:6px;">
-每一轮: 在未排序部分挑出最小的, 与未排序部分的第一个交换 (动图)
+每一轮: 在未排序部分挑出最小的, 与未排序部分的第一个交换
 </div>
 
 </div>
 
 <div style="text-align:center;">
-  <img src="figs/selection-sort-anim.gif" height=500px>
+  <img src="figs/selection-sort.png" height=530px>
 </div>
 
 </div>
@@ -128,6 +128,10 @@ presentation:
 
 ---
 
+<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
+
+<div>
+
 ```C
 /* 选择排序 (约定: a[0..n-1] 已读入 n 个元素) */
 for (int i = 0; i < n - 1; i++) {
@@ -141,6 +145,14 @@ for (int i = 0; i < n - 1; i++) {
 ```
 
 - 一共 n-1 轮, 第 i 轮结束后 a[0..i] 已经有序
+
+</div>
+
+<div style="text-align:center;">
+  <img src="figs/selection-sort-anim.gif" width=400px>
+</div>
+
+</div>
 
 <span class="blue">:fa-lightbulb-o:</span> 后面学了函数, 就能把这整段封装成 `sort(a, n)` 随时调用
 
@@ -157,11 +169,78 @@ for (int i = 0; i < n - 1; i++) {
 相邻元素两两比较, 顺序不对就交换 —— 一轮结束最大的元素"沉"到最后, 每轮少比一个, 共 n-1 轮
 
 <div style="text-align:center;">
-  <img src="figs/bubble-sort.gif" width=640px>
-</div>
 
-<div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
-相邻比较、逐个交换, 最大的元素逐步"沉"到末尾 (动图)
+<svg viewBox="0 0 840 330" style="max-width:100%;height:auto;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="65">5</text>
+<rect x="190" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3"/>
+<text x="245" y="65">8</text>
+<rect x="320" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="375" y="65">3</text>
+<rect x="450" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="505" y="65">1</text>
+<rect x="580" y="30" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="635" y="65">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="131">5</text>
+<rect x="190" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="245" y="131">3</text>
+<rect x="320" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3"/>
+<text x="375" y="131">8</text>
+<rect x="450" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="505" y="131">1</text>
+<rect x="580" y="96" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="635" y="131">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="197">5</text>
+<rect x="190" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="245" y="197">3</text>
+<rect x="320" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="375" y="197">1</text>
+<rect x="450" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#cb4b16" stroke-width="3"/>
+<text x="505" y="197">8</text>
+<rect x="580" y="162" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="635" y="197">2</text>
+</g>
+<g font-size="26" text-anchor="middle" fill="#073642">
+<rect x="60" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="115" y="263">5</text>
+<rect x="190" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="245" y="263">3</text>
+<rect x="320" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="375" y="263">1</text>
+<rect x="450" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="505" y="263">2</text>
+<rect x="580" y="228" width="110" height="54" rx="8" fill="#fdf6e3" stroke="#859900" stroke-width="3"/>
+<text x="635" y="263">8</text>
+<text x="700" y="263" font-size="18" fill="#859900" text-anchor="start">沉底 ✓</text>
+</g>
+<g stroke="#586e75" stroke-width="2" fill="none">
+<path d="M 255 84 Q 340 90 365 96" marker-end="url(#arr)"/>
+<path d="M 385 150 Q 470 156 495 162" marker-end="url(#arr)"/>
+<path d="M 515 216 Q 600 222 625 228" marker-end="url(#arr)"/>
+</g>
+<defs>
+<marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
+</marker>
+</defs>
+<g font-size="18" fill="#586e75" text-anchor="middle">
+<text x="330" y="80">8 &gt; 3, 交换</text>
+<text x="460" y="146">8 &gt; 1, 交换</text>
+<text x="590" y="212">8 &gt; 2, 交换</text>
+</g>
+</g>
+</svg>
+
+</div><div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
+第 1 轮: 相邻比较, 8 一路"沉"到最后; 后面每轮少比一个
 </div>
 
 ---
@@ -173,6 +252,10 @@ for (int i = 0; i < n - 1; i++) {
 ##### 冒泡排序 · 代码
 
 ---
+
+<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
+
+<div>
 
 ```C
 /* 冒泡排序: 把 a[0..n-1] 从小到大排好 */
@@ -190,6 +273,14 @@ for (int i = 0; i < n - 1; i++) {         /* 共 n-1 轮 */
 - 每一轮结束, 本轮==未排序部分的最大元素"沉"到最后==
 
 - 三种排序里过程最形象的一种——相邻比较、逐轮沉底
+
+</div>
+
+<div style="text-align:center;">
+  <img src="figs/bubble-sort.gif" width=420px>
+</div>
+
+</div>
 
 ---
 
@@ -275,6 +366,10 @@ for (int i = 0; i < n - 1; i++) {         /* 共 n-1 轮 */
 
 ---
 
+<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
+
+<div>
+
 ```C
 /* 插入排序: 把 a[0..n-1] 从小到大排好 */
 for (int i = 1; i < n; i++) {
@@ -289,6 +384,14 @@ for (int i = 1; i < n; i++) {
 ```
 
 - 三种排序都是 ==O(n²)==——数据量不大时完全够用
+
+</div>
+
+<div style="text-align:center;">
+  <img src="figs/insertion-sort.gif" width=420px>
+</div>
+
+</div>
 
 ---
 
