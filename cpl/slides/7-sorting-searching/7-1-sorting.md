@@ -230,14 +230,28 @@ for (int i = 0; i < n - 1; i++) {         /* 共 n-1 轮 */
 
 ---
 
-像打牌理手牌: 每次拿起一张, 插到已排序部分的正确位置 —— 比 key 大的往后挪一格, 找到位置把 key 放进去
+<div style="display:grid;grid-template-columns:1fr 1.3fr;gap:16px;align-items:center;">
 
-<div style="text-align:center;">
-  <img src="figs/insertion-sort-steps.png" width=700px>
+<div>
+
+像打牌理手牌: 每次拿起一张, 插到已排序部分的正确位置
+
+- 左手: 已排序的牌, 起初只有 a[0]
+
+- 右手: 每次拿起下一张 key = a[i]
+
+- 从右往左比: 比 key 大的往后挪一格, 找到位置把 key 放进去
+
+<div style="font-size:0.7em;color:var(--solarized-base00);margin-top:6px;">
+已排序部分逐步变长, 每个 key 与前面的元素比较、右移, 再插到正确位置
 </div>
 
-<div style="text-align:center;font-size:0.7em;color:var(--solarized-base00);margin-top:2px;">
-已排序部分逐步变长, 每个 key 与前面的元素比较、右移, 再插到正确位置
+</div>
+
+<div style="text-align:center;">
+  <img src="figs/insertion-sort-steps.png" style="max-width:100%;">
+</div>
+
 </div>
 
 ---
