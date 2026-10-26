@@ -59441,10 +59441,10 @@ document.addEventListener("DOMContentLoaded", function () {
     margin: 0.3rem 0;
 }
 
-/* 底部安全区: 投屏/投影仪常有边缘裁切, 内容不贴满 720 高 */
+/* 上下安全区: 投屏/投影仪常有边缘裁切, 内容不贴满 720 高 */
 .reveal .slides section {
     box-sizing: border-box;
-    padding: 0 16px 30px;
+    padding: 20px 16px 30px;
 }
 
 /* 列表文字改为深色 (主题默认黄色在浅底上对比度低, 显得发虚) */
@@ -59495,9 +59495,11 @@ html:not(.print-pdf) .reveal pre code {
     width: 100%;
 }
 
-/* Mermaid 图表高度上限放宽一档 (标签字号调大后仍可完整显示) */
+/* Mermaid 图表高度上限: 用画布 px 而不是 vh —— reveal 会把 1280x720 画布整体缩放,
+   vh 上限会随窗口高度漂移, 导致图稍大就被整幅缩小、字号又被打回原形。
+   430px ≈ 720 画布去掉标题/说明/安全区后留给图的可用高度 */
 .reveal .slides section .mermaid svg {
-    max-height: 50vh !important;
+    max-height: 430px !important;
 }
 
 /* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
@@ -59592,32 +59594,48 @@ html:not(.print-pdf) .reveal pre code {
 <p>2026 年 10 月</p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="1" data-v="0"><h2 id="从朴素贝叶斯到孤立森林一个自然的追问">从朴素贝叶斯到孤立森林 · 一个自然的追问 </h2>
-<table>
-<thead>
-<tr>
-<th>朴素贝叶斯帮我们解决了</th>
-<th>但还有一个问题</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>在不确定性下做判断 → 输出概率</td>
-<td><strong>如果连 "正常/恶意" 的样本都没有呢?</strong></td>
-</tr>
-<tr>
-<td>需要一定数量的历史标注数据</td>
-<td><strong>0-day 攻击根本没有历史样本</strong></td>
-</tr>
-<tr>
-<td>能回答 "有多大概率是恶意"</td>
-<td><strong>能发现 "从未见过" 的威胁吗?</strong></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>核心转折:</strong> 前面的算法都在 "学习规律"。但如果攻击者用的是<strong>从未出现过的新手法</strong>,规律根本不存在 —— 我们只能靠<strong>"异常"</strong>来发现它。</p>
-</blockquote>
-<p><strong>孤立森林</strong>:不需要标注、不需要已标注的历史样本 —— 它给<strong>每个样本单独打异常分</strong>,哪怕只有一个孤点也能抓。这与 K-Means 形成分工:K-Means 找 "<strong>成团的</strong>未知",孤立森林抓 "<strong>孤立的</strong>未知"。</p>
+<div class="twocol" style="font-size:0.9em;">
+<div style="background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">📗 朴素贝叶斯帮我们解决了</div>
+<ul>
+<li>
+<p>在不确定性下做判断 → 输出<strong>概率</strong></p>
+
+</li>
+<li>
+<p>需要一定数量的<strong>历史标注数据</strong></p>
+
+</li>
+<li>
+<p>能回答 "有<strong>多大概率</strong>是恶意"</p>
+
+</li>
+</ul>
+</div>
+<div style="background:rgba(203,75,22,0.08);padding:12px 16px;border-radius:8px;border:1px solid rgba(203,75,22,0.35);">
+<div style="font-weight:700;color:#cb4b16;">❓ 但还有一个问题</div>
+<ul>
+<li>
+<p><strong>如果连 "正常/恶意" 的样本都没有呢?</strong></p>
+
+</li>
+<li>
+<p><strong>0-day 攻击根本没有历史样本</strong></p>
+
+</li>
+<li>
+<p><strong>能发现 "从未见过" 的威胁吗?</strong></p>
+
+</li>
+</ul>
+</div>
+</div>
+<div style="margin-top:10px;padding:12px 16px;background:rgba(220,50,47,0.08);border-left:4px solid #dc322f;border-radius:4px;font-size:0.9em;">
+<p>🚨 <strong>核心转折:</strong> 前面的算法都在 "学习规律"。但如果攻击者用的是<strong>从未出现过的新手法</strong>,规律根本不存在 —— 我们只能靠 <strong>"异常"</strong> 来发现它。</p>
+</div>
+<div style="margin-top:8px;padding:10px 16px;background:rgba(133,153,0,0.08);border-left:4px solid #859900;border-radius:4px;">
+<p>🎯 <strong>孤立森林:</strong> 不需要标注、不需要已标注的历史样本 —— 它给<strong>每个样本单独打异常分</strong>,哪怕只有一个孤点也能抓。<br><br> <strong>分工:</strong> K-Means 找 "<strong>成团的</strong>未知",孤立森林抓 "<strong>孤立的</strong>未知"。</p>
+</div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="2" data-v="0"><h2 id="一个网空场景0day攻击的发现">一个网空场景: 0-day 攻击的发现 </h2>
 <p>某部内网运行正常,每天产生海量流量日志。<br><br> 已部署基于规则的 IDS,但攻击者使用 <strong>0-day 漏洞</strong> 进入内网。</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;">
@@ -59710,6 +59728,14 @@ html:not(.print-pdf) .reveal pre code {
 <div style="margin-top:8px;padding:6px 14px;background:rgba(231,76,60,0.06);border-left:4px solid #e74c3c;border-radius:4px;font-size:0.7em;">
 <p>💡 <strong>网空含义:</strong> 0-day 攻击、未知恶意软件、APT 渗透 —— 它们的行为模式一定与 "正常" 不同。找到这个 "不同",就找到了威胁线索。</p>
 </div>
+<div class="twocol" style="font-size:0.75em;margin-top:6px;">
+<div style="background:rgba(203,75,22,0.08);padding:8px 14px;border-radius:8px;border:1px solid rgba(203,75,22,0.35);">
+<p>🔓 <strong>0-day 攻击</strong> —— 利用 "刚被发现、厂商还没来得及出补丁" 的漏洞发起的攻击。规则库没有它的特征,也没有历史样本 → 基于已知特征的检测全部失效。</p>
+</div>
+<div style="background:rgba(220,50,47,0.08);padding:8px 14px;border-radius:8px;border:1px solid rgba(220,50,47,0.35);">
+<p>🕵️ <strong>APT 渗透</strong> —— Advanced Persistent Threat,高级持续性威胁:攻击者长期潜伏、低频慢速行动,每一步都伪装得 "像正常" → 单条规则抓不住,需要发现 "慢速" 异常。</p>
+</div>
+</div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="4" data-v="0"><h2 id="孤立森林的核心思想">孤立森林的核心思想 </h2>
 <blockquote>
 <p><strong>异常点更容易被 "隔离" 出来。</strong></p>
@@ -59725,10 +59751,12 @@ html:not(.print-pdf) .reveal pre code {
 
 </li>
 <li>
-<p>1 个人站在角落(<strong>异常个体</strong>) <strong>问题:</strong> 谁最容易被发现? <strong>答案:</strong> 角落里的那个人。</p>
+<p>1 个人站在角落(<strong>异常个体</strong>)</p>
 
 </li>
 </ul>
+<div style="margin-top:4px;"><strong>问题:</strong> 谁最容易被发现?</div>
+<div style="margin-top:4px;"><strong>答案:</strong> 角落里的那个人。</div>
 </div>
 </div>
 <div style="background:rgba(38,139,210,0.06);padding:12px 14px;border-radius:8px;border:1px solid #586e75;">
@@ -59816,7 +59844,7 @@ html:not(.print-pdf) .reveal pre code {
 <div style="font-size:1em;line-height:1.6;margin-top:4px;">
 <ul>
 <li>
-<p>用<strong>随机特征 + 随机切分点</strong>不断二分</p>
+<p>每个节点:随机选<strong>一个</strong>特征,在该特征的取值范围内随机切<strong>一刀</strong>(二分)</p>
 
 </li>
 <li>
@@ -59824,7 +59852,7 @@ html:not(.print-pdf) .reveal pre code {
 
 </li>
 <li>
-<p>本质:一棵 "随机切分树",不需要任何标签</p>
+<p>本质:一棵 "随机二分树",不需要任何标签</p>
 
 </li>
 </ul>
@@ -59871,11 +59899,14 @@ flowchart LR
     style F fill:#1a2d1a,stroke:#27ae60,stroke-width:2px,color:#27ae60</pre>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;font-size:0.7em;color:#073642;line-height:1.5;">
 <div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #586e75;">
-<p>🔑 <strong>关键步骤:</strong><br><br> <strong>1.</strong> 随机选一个特征<br><br> <strong>2.</strong> 随机选一个切分点<br><br> <strong>3.</strong> 将数据分成左右两份</p>
+<p>🔑 <strong>关键步骤:</strong><br><br> <strong>1.</strong> 随机选<strong>一个</strong>特征(每个节点只选一个,不是把每个特征都切一遍)<br><br> <strong>2.</strong> 在该特征的取值范围内随机选一个切分点<br><br> <strong>3.</strong> 将数据分成左右两份</p>
 </div>
 <div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:6px;border:1px solid #586e75;">
 <p>⏱ <strong>终止条件:</strong> 样本被完全隔离 → 记录路径长度 否则 → 递归重复上述过程</p>
 </div>
+</div>
+<div style="margin-top:6px;padding:4px 12px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.65em;text-align:center;">
+<p>🌲 上图是<strong>一棵</strong>孤立树的构建过程 —— 孤立森林 = 重复建 100 棵,每棵树的随机选择都不同;多棵树合起来,所有特征都会被轮到。</p>
 </div>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="8" data-v="0"><h2 id="路径长度核心指标">路径长度 · 核心指标 </h2>
 <p><strong>一个具体例子:外连频率</strong></p>

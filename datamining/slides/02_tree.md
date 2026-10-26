@@ -68,6 +68,9 @@ presentation:
 <div style="font-size:1.3em;font-weight:700;color:#dc322f;">
 判定某条外连请求是否为 **恶意 C2 通信**?
 </div>
+<div style="margin-top:8px;font-size:0.6em;color:#073642;font-weight:400;line-height:1.5;">
+(C2 = Command &amp; Control, 指挥与控制: 木马与攻击者之间的远程指令通道。发现 C2 通信,就是发现被控主机。)
+</div>
 </div>
 
 <div style="margin-top:14px;padding:10px 16px;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;font-size:0.8em;">
@@ -84,6 +87,10 @@ presentation:
 
 ## 攻击者如何进来? 如何藏?
 
+<div style="font-size:0.8em;color:var(--solarized-base00);margin-bottom:4px;">
+要抓住 C2 通信,先看清这条链路的起点:攻击者如何**进来**、如何**藏身**。
+</div>
+
 <div class="twocol" style="font-size:0.95em;">
 
 <div style="background:rgba(220,50,47,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(220,50,47,0.25);">
@@ -99,19 +106,19 @@ presentation:
 
 <div style="background:rgba(203,75,22,0.08);padding:12px 16px;border-radius:8px;border:1px solid rgba(203,75,22,0.3);">
 
-### 🕵️‍♂️ 隐蔽方式
+### 🕵️‍♂️ 藏身与通联(C2)
 
-- **伪装成合法协议**(HTTPS/DNS)
-- **利用正常软件更新**通道
-- **通过加密隧道**传输指令
-- **低频心跳**长期潜伏
+- 藏身: **伪装成合法协议**(HTTPS/DNS)
+- 藏身: **利用正常软件更新**通道
+- 通联: **通过加密隧道**传输指令
+- 通联: **低频心跳**长期潜伏
 
 </div>
 
 </div>
 
 <div style="margin-top:8px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
-💡 物理隔离 ≠ 绝对安全。攻击者已多次证明:**物理边界可以被技术手段穿透**。算法检测成为最后一道防线。
+💡 藏得再深,也必须**向外通联** —— 而外联必然留下**流量特征**。下一节:用决策树把这些蛛丝马迹变成**判定规则**。
 </div>
 
 ---
@@ -123,22 +130,18 @@ presentation:
 > 不断提问,逐层判定。以流量检测为例:
 
 ```mermaid
-%%{init: { 'themeVariables': { 'fontSize': '13px' }, 'flowchart': { 'nodeSpacing': 30, 'rankSpacing': 90 } } }%%
-flowchart LR
-    A["　📡 外连请求　"]
-    --> B{"　端口 = 443 ?　"}
-
-    B -->|否| C{"　频率 > 10/min ?　"}
-    B -->|是| D{"　载荷 > 1400B ?　"}
-
-    C -->|是| E["🔴 恶意 C2"]
-    C -->|否| F["🟢 正常"]
-
-    D -->|是| G{"　间隔 < 5s ?　"}
-    D -->|否| H["🟢 正常"]
-
-    G -->|是| I["🔴 恶意 C2"]
-    G -->|否| J["🟢 正常"]
+%%{init: { 'themeVariables': { 'fontSize': '18px' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 24 } } }%%
+flowchart TD
+    A["📡 外连请求 · 20 条<br/>(10 正常 / 10 恶意)"]
+    --> B["❓ 端口 = 443 ?<br/>(10 正常 / 10 恶意)"]
+    B -->|否| C["❓ 频率 > 10/min ?<br/>(2 正常 / 6 恶意)"]
+    B -->|是| D["❓ 载荷 > 1400B ?<br/>(8 正常 / 4 恶意)"]
+    C -->|是| E["🔴 恶意 C2<br/>(0 正常 / 6 恶意)"]
+    C -->|否| F["🟢 正常<br/>(2 正常 / 0 恶意)"]
+    D -->|是| G["❓ 间隔 < 5s ?<br/>(2 正常 / 4 恶意)"]
+    D -->|否| H["🟢 正常<br/>(6 正常 / 0 恶意)"]
+    G -->|是| I["🔴 恶意 C2<br/>(0 正常 / 4 恶意)"]
+    G -->|否| J["🟢 正常<br/>(2 正常 / 0 恶意)"]
 
     style A fill:#dceaf5,stroke:#268bd2,stroke-width:2px,color:#073642
     style B fill:#f7e5d4,stroke:#cb4b16,stroke-width:2px,color:#073642
@@ -151,6 +154,10 @@ flowchart LR
     style H fill:#e3eed4,stroke:#859900,stroke-width:2px,color:#859900
     style J fill:#e3eed4,stroke:#859900,stroke-width:2px,color:#859900
 ```
+
+<div style="margin-top:2px;font-size:0.6em;color:var(--solarized-base00);text-align:center;">
+节点括号内 = (正常 / 恶意) 条数 —— 沿 "是/否" 一路走到叶子,占比就是判定的把握
+</div>
 
 <div style="margin-top:2px;padding:4px 14px;background:rgba(181,137,0,0.08);border-left:4px solid #b58900;border-radius:4px;">
 **本质:** 自动寻找 "最有价值的问题",形成判定链条。
@@ -210,11 +217,21 @@ flowchart LR
 
 <div style="background:rgba(38,139,210,0.06);padding:10px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
 
-<div style="font-weight:700;color:#268bd2;">📐 公式</div>
+<div style="font-weight:700;color:#268bd2;">📐 公式 + 小例子</div>
 
 \[
 H=-\sum p_i \log_2 p_i
 \]
+
+<div style="margin-top:8px;font-size:0.8em;color:#073642;line-height:1.7;">
+例: 10 条流量中 **7 条正常、3 条恶意**
+\[
+H=-(0.7\log_2 0.7+0.3\log_2 0.3)
+\]
+\[
+=0.36+0.52\approx 0.88
+\]
+</div>
 
 </div>
 
@@ -226,6 +243,7 @@ H=-\sum p_i \log_2 p_i
 |----------|------|
 | 全是正常流量 | 0(纯净) |
 | 正常/恶意各半 | 最大(混乱) |
+| 7 正常 / 3 恶意 | ≈ 0.88(中间) |
 | 全是恶意流量 | 0(纯净) |
 
 </div>
@@ -245,8 +263,12 @@ H=-\sum p_i \log_2 p_i
 定义:
 
 \[
-Gain = H(划分前) - H(划分后)
+Gain(D, A) = H(D) - \sum_{v} \frac{|D_v|}{|D|}\, H(D_v)
 \]
+
+<div style="font-size:0.7em;color:var(--solarized-base00);text-align:center;margin-top:2px;">
+(\(A\) = 待选特征; \(D_v\) = 按 \(A\) 取值 \(v\) 分出的分支 —— 划分后的熵按各分支大小加权平均)
+</div>
 
 | 划分效果 | 信息增益 |
 |----------|----------|
@@ -350,10 +372,18 @@ flowchart TB
 
 ## C4.5 的改进:增益率
 
-**增益率 = 信息增益 ÷ 固有值(惩罚项)**
+**增益率 = 信息增益 ÷ 惩罚项 IV**
 
-| 特征 | 信息增益 | 固有值 | 增益率 | 效果 |
-|------|----------|--------|--------|------|
+\[
+GainRatio(A) = \frac{Gain(D, A)}{IV(A)},\qquad IV(A) = -\sum_{v} \frac{|D_v|}{|D|} \log_2 \frac{|D_v|}{|D|}
+\]
+
+<div style="font-size:0.7em;color:var(--solarized-base00);text-align:center;margin-top:2px;">
+(IV = 特征自身取值的 "分散程度",就是特征取值分布的熵:取值越多 → IV 越大 → 惩罚越重)
+</div>
+
+| 特征 | 信息增益 | IV(惩罚) | 增益率 | 效果 |
+|------|----------|----------|--------|------|
 | Log ID | 最大 | 最大 | ⬇ 被压低 | 不再被误选 |
 | 目标端口 | 中等 | 小 | ⬆ 相对更高 | 公平竞争 |
 
@@ -383,7 +413,7 @@ flowchart TB
 </div>
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '20px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 24 } } }%%
 flowchart LR
     A["📡 已标注数据"]
     --> B["🔍 找最佳特征"]

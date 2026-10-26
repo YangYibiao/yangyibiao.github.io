@@ -207,8 +207,8 @@ presentation:
 > **一句话:让相似的数据聚在一起,形成 "团伙"。**
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 20, 'rankSpacing': 25 } } }%%
-flowchart LR
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '20px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 20 } } }%%
+flowchart TB
     A["📡 内网主机行为数据 <br/> (无标签)"]
     --> B["🔍 K-Means 自动聚类"]
     --> C["📊 发现 3 个行为群体"]
@@ -243,7 +243,9 @@ flowchart LR
 | K=2 | 正常 / 异常 | 初步筛查 |
 | K=3 | 正常 / 可疑 / 异常 | 分层研判 |
 
-关键问题: K 应该选多少?
+<div style="margin-top:10px;padding:10px 16px;background:rgba(181,137,0,0.10);border-left:4px solid #b58900;border-radius:4px;">
+❓ **K 怎么定?** 两条路:① **业务经验** —— 安全场景常用 K=2(正常/异常)或 K=3(分层研判);② **数据驱动** —— 肘部法(后文细讲)。
+</div>
 
 ---
 
@@ -300,13 +302,13 @@ flowchart LR
 ## K-Means 工作流程 · 网空版
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '17px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 15, 'rankSpacing': 20 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '18px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 24 } } }%%
 flowchart LR
     A["📡 无标注数据"]
     --> B["🎯 随机选 K 个<br/>初始中心"]
     --> C["📏 计算每个点<br/>到各中心距离"]
     --> D["📦 分配到<br/>最近簇"]
-    --> E["🔄 更新中心<br/>(重新计算均值)"]
+    --> E["🔄 更新中心<br/>(重算均值)"]
     --> F{"收敛?"}
     F -->|否| C
     F -->|是| G["✅ 输出 K 个群体<br/>(供研判)"]
@@ -469,9 +471,9 @@ H7 (20,30) + H8 (22,25) + H9 (18,35) + H10 (25,20)
 <div style="font-size:0.9em;font-weight:700;color:#27ae60;">🟢 簇 A</div>
 H1 (2,50)  
 H2 (3,45)  
-H3 (2,55)
-**中心:** (2.3, 50)
-✅ 低频率 · 低流量
+H3 (2,55)  
+**中心:** (2.3, 50)  
+✅ 低频率 · 低流量  
 → 正常业务
 </div>
 
@@ -479,9 +481,9 @@ H3 (2,55)
 <div style="font-size:0.9em;font-weight:700;color:#f39c12;">🟡 簇 B</div>
 H4 (8,150)  
 H5 (9,140)  
-H6 (7,160)
-**中心:** (8, 150)
-⚠ 中频率 · 高流量
+H6 (7,160)  
+**中心:** (8, 150)  
+⚠ 中频率 · 高流量  
 → 疑似数据外泄
 </div>
 
@@ -490,9 +492,9 @@ H6 (7,160)
 H7 (20,30)  
 H8 (22,25)  
 H9 (18,35)  
-H10 (25,20)
-**中心:** (21.3, 27.5)
-⚠ 高频率 · 低流量
+H10 (25,20)  
+**中心:** (21.3, 27.5)  
+⚠ 高频率 · 低流量  
 → 疑似 C2 心跳
 </div>
 
@@ -543,6 +545,10 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 
 ## K-Means 的优化目标
 
+<div style="font-size:0.75em;color:var(--solarized-base00);line-height:1.6;">
+⚠ 初始中心是**随机**选的 → 每次运行可能收敛到**不同的结果**(局部最优)。目标函数就是一把 "尺子": 用来判断该不该停、哪种结果更好。
+</div>
+
 ### 为什么需要优化目标?
 
 | 作用 | 说明 |
@@ -552,9 +558,9 @@ d(H1, H4) = \sqrt{(2-8)^2 + (50-150)^2} = \sqrt{36 + 10000} \approx 100.2
 
 ### 目标函数
 
-<div style="font-size:0.75em;">
+<div style="font-size:0.8em;">
 \[
-\sum_{k=1}^{K}\sum_{x \in C_k} \|x - \mu_k\|^2
+\min_{\mu_1,\dots,\mu_K} \sum_{k=1}^{K}\sum_{x \in C_k} \|x - \mu_k\|^2
 \]
 </div>
 
@@ -628,15 +634,46 @@ flowchart LR
 
 绘制: K 值 → 误差平方和(簇内距离平方和)
 
-```text
-误差平方和
-    ↑
-    | ╲
-    |  ╲___
-    |     ╲___ ← 拐点("肘部")
-    |        ╲___
-    +──────────────→ K
-```
+<div style="text-align:center;">
+
+<svg viewBox="0 0 960 320" style="max-width:100%;height:auto;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<g stroke="#93a1a1" stroke-width="1.5">
+<line x1="90" y1="20" x2="90" y2="252"/>
+<line x1="70" y1="252" x2="895" y2="252"/>
+</g>
+<path d="M 90 20 l -5 10 l 10 0 z" fill="#93a1a1"/>
+<path d="M 895 252 l -10 -5 l 0 10 z" fill="#93a1a1"/>
+<text x="34" y="152" transform="rotate(-90 34 152)" fill="#586e75" font-size="16" text-anchor="middle">误差平方和</text>
+<text x="898" y="288" fill="#586e75" font-size="18">K</text>
+<g fill="#586e75" font-size="16" text-anchor="middle">
+<text x="90" y="276">1</text>
+<text x="248" y="276">2</text>
+<text x="406" y="276">3</text>
+<text x="564" y="276">4</text>
+<text x="722" y="276">5</text>
+<text x="880" y="276">6</text>
+</g>
+<polyline points="90,20 248,145 406,193 564,214 722,224 880,229" fill="none" stroke="#268bd2" stroke-width="3"/>
+<g fill="#268bd2">
+<circle cx="90" cy="20" r="5"/>
+<circle cx="248" cy="145" r="5"/>
+<circle cx="406" cy="193" r="5"/>
+<circle cx="564" cy="214" r="5"/>
+<circle cx="722" cy="224" r="5"/>
+<circle cx="880" cy="229" r="5"/>
+</g>
+<circle cx="406" cy="193" r="9" fill="#b58900"/>
+<line x1="406" y1="193" x2="406" y2="252" stroke="#b58900" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="90" y1="193" x2="406" y2="193" stroke="#b58900" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="406" y1="193" x2="472" y2="112" stroke="#b58900" stroke-width="1.5"/>
+<text x="480" y="108" fill="#b58900" font-size="18">拐点("肘部"): K=3</text>
+<text x="150" y="98" fill="#586e75" font-size="16">下降快 · 加簇划算</text>
+<text x="636" y="258" fill="#586e75" font-size="16">下降慢 · 加簇不划算</text>
+</g>
+</svg>
+
+</div>
 
 随着 K 增加,误差持续下降。
 
@@ -660,7 +697,9 @@ flowchart LR
 
 同一个簇内的点彼此距离有多近
 
+<div style="font-size:1.2em;text-align:center;">
 \[ a = \frac{1}{n}\sum_{x \in C} \|x - \mu\|^2 \]
+</div>
 
 理想状态:**越小越好**(紧凑)
 
@@ -672,7 +711,9 @@ flowchart LR
 
 不同簇之间的距离有多远
 
+<div style="font-size:1.2em;text-align:center;">
 \[ b = \min_{j \neq k} \|\mu_k - \mu_j\|^2 \]
+</div>
 
 理想状态:**越大越好**(分离)
 
@@ -692,7 +733,13 @@ flowchart LR
 
 将 "紧密度(a)" 和 "分离度(b)" 合并为 **一个数值**:
 
-\( s = \dfrac{b - a}{\max(a, b)} \)
+\[
+s = \frac{b - a}{\max(a, b)}
+\]
+
+<div style="margin-top:2px;font-size:0.75em;color:#073642;line-height:1.6;">
+🧭 **直觉:** 每个点问自己 —— "我在自己簇里挨得紧吗(a 小)? 我离最近的隔壁簇够远吗(b 大)?" \(s\) 把答案合并成一个 [-1, 1] 的分数。
+</div>
 
 取值范围: [-1, 1]
 

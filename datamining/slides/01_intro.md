@@ -312,7 +312,7 @@ presentation:
 
 ## 大模型 ≠ 替代,而是 "站在经典肩膀上"
 
-<div class="twocol" style="font-size:0.85em;">
+<div class="twocol" style="font-size:0.95em;">
 
 <div style="background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
 
@@ -435,7 +435,7 @@ presentation:
 <div style="font-size:0.72em;color:var(--solarized-base00);margin-bottom:2px;">武器选好了,一仗具体怎么打?</div>
 
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 12, 'rankSpacing': 24 } } }%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '20px', 'fontFamily': 'LXGWWenKai, \"Noto Sans SC\", sans-serif' }, 'flowchart': { 'nodeSpacing': 16, 'rankSpacing': 30 } } }%%
 flowchart LR
     A["🎯 理解任务<br/>要打什么仗?"]
     --> B["📥 数据采集<br/>有什么情报?"]
@@ -475,7 +475,7 @@ flowchart LR
 
 ## 希望大家带走什么?
 
-<div class="twocol" style="font-size:0.9em;">
+<div class="twocol" style="font-size:1em;">
 
 <div style="background:rgba(220,50,47,0.06);padding:12px 18px;border-radius:8px;border:1px solid rgba(220,50,47,0.25);">
 <div style="font-weight:700;color:#dc322f;">❌ 不带走的</div>
@@ -500,10 +500,6 @@ flowchart LR
 从问题出发选择方法
 <span style="color:#888;font-weight:400;">而不是</span>
 从算法出发寻找问题
-</div>
-
-<div style="margin-top:10px;text-align:center;font-size:0.7em;color:var(--solarized-base00);">
-下一部分:第一把武器 —— 📜 决策树
 </div>
 
 ---

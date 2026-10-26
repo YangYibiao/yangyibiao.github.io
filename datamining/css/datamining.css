@@ -23,10 +23,10 @@
     margin: 0.3rem 0;
 }
 
-/* 底部安全区: 投屏/投影仪常有边缘裁切, 内容不贴满 720 高 */
+/* 上下安全区: 投屏/投影仪常有边缘裁切, 内容不贴满 720 高 */
 .reveal .slides section {
     box-sizing: border-box;
-    padding: 0 16px 30px;
+    padding: 20px 16px 30px;
 }
 
 /* 列表文字改为深色 (主题默认黄色在浅底上对比度低, 显得发虚) */
@@ -77,9 +77,11 @@ html:not(.print-pdf) .reveal pre code {
     width: 100%;
 }
 
-/* Mermaid 图表高度上限放宽一档 (标签字号调大后仍可完整显示) */
+/* Mermaid 图表高度上限: 用画布 px 而不是 vh —— reveal 会把 1280x720 画布整体缩放,
+   vh 上限会随窗口高度漂移, 导致图稍大就被整幅缩小、字号又被打回原形。
+   430px ≈ 720 画布去掉标题/说明/安全区后留给图的可用高度 */
 .reveal .slides section .mermaid svg {
-    max-height: 50vh !important;
+    max-height: 430px !important;
 }
 
 /* Mermaid 容器铺满可用宽度 (原 main.css 为 90%) */
