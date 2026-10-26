@@ -125,7 +125,9 @@ presentation:
 for (int i = 0; i < n - 1; i++) {
   int min = i;                       /* 先假设 a[i] 最小 */
   for (int j = i + 1; j < n; j++)    /* 往后找更小的 */
-    if (a[j] < a[min]) min = j;
+    if (a[j] < a[min]) {
+      min = j;
+    }
   int t = a[i]; a[i] = a[min]; a[min] = t;  /* 交换 */
 }
 ```
