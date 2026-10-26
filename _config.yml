@@ -1,5 +1,9 @@
 # GitHub Pages / Jekyll 配置
-# 课件 md 里可能出现 Liquid 的保留语法 (如 C 数组嵌套初始化式 "{{1,2}"),
-# 把 Liquid 报错降级为警告, 避免一处语法把整站构建带崩
+# 课件 md 里可能出现 Liquid 保留语法 (如 C 数组嵌套初始化式 "{{1,2,3,4}"),
+# error_mode:warn 只在 Jekyll 4 生效, GitHub Pages 的 Jekyll 3.10 不认这个键, 会构建失败。
+# 真正的防线: 课件 md 只是 genhtml.py 的源文件, 全部 exclude, 不让 Jekyll 渲染
+# (顺带避免 Jekyll 把 md 渲染成页面、覆盖同名 html 课件)
 liquid:
   error_mode: warn
+exclude:
+  - "**/*.md"
