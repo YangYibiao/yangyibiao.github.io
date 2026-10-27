@@ -735,8 +735,6 @@ if (d == 0);          /* BUG: if 的体是空语句 → 条件成立时什么都
 
 <div class="bottom20"></div>
 
-# 周三见!
-
 <hr class="width50 center">
 
 ## 未完待续

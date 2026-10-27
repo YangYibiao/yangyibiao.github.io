@@ -152,8 +152,6 @@ presentation:
 
 <div class="bottom20"></div>
 
-# 周三见!
-
 <hr class="width50 center">
 
 ## 最后一课: 总复习

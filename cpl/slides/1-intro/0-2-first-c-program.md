@@ -463,8 +463,6 @@ int main(void) {
 
 <div class="bottom20"></div>
 
-# 周三见!
-
 <hr class="width50 center">
 
 ## 未完待续

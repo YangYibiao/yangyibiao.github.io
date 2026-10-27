@@ -51,7 +51,38 @@ document.addEventListener("DOMContentLoaded", function () {
 <script defer>
 document.addEventListener("DOMContentLoaded", function () {
   if (window.mermaid) {
-    mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { htmlLabels: true, useMaxWidth: true } });
+    // 懒渲染: 只渲染"当前可见页"的图, 翻页时再渲染新页的图。
+    // 一次性渲染所有图时, 隐藏页里的图会在零尺寸状态下被测量, 导致节点框极小、标签折成竖排。
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', fontFamily: 'LXGWWenKai, "Noto Sans SC", sans-serif', flowchart: { htmlLabels: false, useMaxWidth: true } });
+    function renderSlide(slide) {
+      if (!slide) return;
+      var els = slide.querySelectorAll('.mermaid');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.getAttribute('data-processed')) continue;
+        try { mermaid.run({ nodes: [el] }); } catch (e) {}
+      }
+    }
+    function currentSlide() {
+      return document.querySelector('.reveal .slides section.present') ||
+             document.querySelector('.reveal .slides section');
+    }
+    function renderWhenReady() {
+      renderSlide(currentSlide());
+      if (window.Reveal && Reveal.on) {
+        // 过渡结束后渲染 (slidechanged 在过渡开始时触发, 此时页面在旋转缩放, 测量宽度会失真);
+        // 900ms 定时器兜底 transition:none 等不触发 slidetransitionend 的情况
+        Reveal.on('slidechanged', function (e) {
+          setTimeout(function () { renderSlide(e.currentSlide); }, 900);
+        });
+        Reveal.on('slidetransitionend', function (e) { renderSlide(e.currentSlide); });
+      }
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(renderWhenReady);
+    } else {
+      renderWhenReady();
+    }
   }
 });
 </script>
@@ -59791,7 +59822,6 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <hr>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
 <div class="bottom20"></div>
-<h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
 </section>
