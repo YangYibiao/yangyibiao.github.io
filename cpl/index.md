@@ -49,7 +49,7 @@
 | 第6周   | [一维数组](slides/6-arrays/6-1-arrays-i.html) | 一维数组（与循环配合） |
 |   ^    | [二维数组与矩阵运算](slides/6-arrays/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
 | 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
-|   ^    | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 查找与课堂编码 |
+|   ^    | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
 | 第8周   | 待发布                            | 函数：定义、调用、声明与参数传递 |
 |   ^    | 待发布                            | 函数：函数化改造与函数栈 |
 | 第9周   | 待发布                            | 函数进阶：数组作参数与作用域 |
