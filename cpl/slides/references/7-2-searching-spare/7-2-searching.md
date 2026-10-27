@@ -55,9 +55,7 @@ presentation:
 
 - 顺序查找
 
-- 二分查找
-
-- 课堂编码
+- 课堂编码 (排序/二分复习 + 挑战)
 
 - 课堂小测
 </div>
@@ -99,57 +97,19 @@ if (i < n) {
 <!-- slide data-notes="" -->
 
 
-##### 二分查找
-
----
-
-数据==排好序==后, 可以每次砍掉一半: 和中间元素比较, 决定去左半边还是右半边
-
-<div class="top-2">
-  <img src="figs/binary-search-mario.png" width=520px>
-</div>
-
-```C
-/* 二分查找: a 必须已从小到大排好序 */
-int low = 0, high = n - 1;
-while (low <= high) {
-  int mid = (low + high) / 2;
-  if (a[mid] == key) {
-    printf("找到, 下标 %d\n", mid);
-    break;
-  }
-  if (a[mid] < key) {
-    low = mid + 1;
-  } else {
-    high = mid - 1;
-  }
-}
-if (low > high) {
-  printf("没找到\n");
-}
-```
-
-- n 个元素最多比较 log2(n)+1 次——100 万个数也只要约 20 次!
-
----
-
-
-<!-- slide data-notes="" -->
-
-
 ##### 课堂编码
 
 ---
 
 ==现场演示==
 
-1. 输入 10 个数, 用选择排序从小到大排好并输出
+1. 复习: 输入 10 个数, 用选择排序从小到大排好并输出
 
-2. 在上一题的有序数组上, 输入一个数, 用二分查找输出下标; 找不到输出 `not found`
+2. 复习: 在有序数组上, 输入一个数, 用二分查找输出下标; 找不到输出 `not found` (周二讲过)
 
 3. 挑战: 统计该数在有序数组中出现了几次
 
-<span class="blue">:fa-lightbulb-o:</span> 今天的代码都写在 main 里——第 9 周把它们函数化
+<span class="blue">:fa-lightbulb-o:</span> 今天的代码都写在 main 里——后面学了函数把它们函数化
 
 ---
 
@@ -162,11 +122,9 @@ if (low > high) {
 
 1. 顺序查找最坏情况下要比较多少次？平均呢？
 
-2. 二分查找的前提条件是什么？
+2. 100 万个有序元素里二分查找最多比较约几次？
 
-3. 100 万个有序元素里二分查找最多比较约几次？
-
-4. 纠错: 二分查找里写 `int mid = low + high / 2;` 有什么问题？
+3. 纠错: 二分查找里写 `int mid = low + high / 2;` 有什么问题？
 
 ---
 
