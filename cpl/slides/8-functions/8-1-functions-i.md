@@ -1414,7 +1414,7 @@ return和exit的区别在于:
 
 <div class="bottom20"></div>
 
-# 周三见!
+# 下周见!
 
 <hr class="width50 center">
 
