@@ -47,7 +47,46 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
-<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style></head><body for="html-export" data-presentation-mode="">
+<style>pre[class*=language-]{overflow:hidden!important;scrollbar-width:none}pre[class*=language-]::-webkit-scrollbar{display:none}</style><script defer src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+<script defer>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.mermaid) {
+    // 懒渲染: 只渲染"当前可见页"的图, 翻页时再渲染新页的图。
+    // 一次性渲染所有图时, 隐藏页里的图会在零尺寸状态下被测量, 导致节点框极小、标签折成竖排。
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', fontFamily: 'LXGWWenKai, "Noto Sans SC", sans-serif', flowchart: { htmlLabels: false, useMaxWidth: true } });
+    function renderSlide(slide) {
+      if (!slide) return;
+      var els = slide.querySelectorAll('.mermaid');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.getAttribute('data-processed')) continue;
+        try { mermaid.run({ nodes: [el] }); } catch (e) {}
+      }
+    }
+    function currentSlide() {
+      return document.querySelector('.reveal .slides section.present') ||
+             document.querySelector('.reveal .slides section');
+    }
+    function renderWhenReady() {
+      renderSlide(currentSlide());
+      if (window.Reveal && Reveal.on) {
+        // 过渡结束后渲染 (slidechanged 在过渡开始时触发, 此时页面在旋转缩放, 测量宽度会失真);
+        // 900ms 定时器兜底 transition:none 等不触发 slidetransitionend 的情况
+        Reveal.on('slidechanged', function (e) {
+          setTimeout(function () { renderSlide(e.currentSlide); }, 900);
+        });
+        Reveal.on('slidetransitionend', function (e) { renderSlide(e.currentSlide); });
+      }
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(renderWhenReady);
+    } else {
+      renderWhenReady();
+    }
+  }
+});
+</script>
+</head><body for="html-export" data-presentation-mode="">
     
     
       <div class="crossnote markdown-preview  " data-presentation-mode="">
@@ -116,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>访问流是通过<strong>文件指针</strong>完成的, 该指针具有FILE *类型.</p>
 <p>FILE类型在<stdio.h>中声明.</p>
 <p>某些流由具有标准名称的文件指针表示.</p>
-<p>需要时可以声明更多文件指针: <code>FILE *fp1, *fp2;</code></p>
+<p>需要时可以声明更多文件指针:<br> <code>FILE *fp1, *fp2;</code></p>
 </div>
 </div>
 <hr>
@@ -154,10 +193,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>这些流可以直接使用——我们不需要声明它们, 也不打开或关闭它们.</p>
 <p>前面章节中讨论的 I/O 函数从stdin获取输入并将输出发送到stdout.</p>
 <p>许多操作系统允许通过称为<strong>重定向</strong>的机制更改这些默认含义.</p>
-<p>让程序从文件而不是键盘读入的常用方法: <code>demo &lt;in.dat</code> 这种方法称为<strong>输入重定向</strong>.</p>
-<p><strong>输出重定向</strong>类似: <code>demo &gt;out.dat</code> 所有写入stdout的数据现在都将进入out.dat文件, 而不是出现在屏幕上.</p>
-<p>输入、输出重定向可以一起用: <code>demo &lt;in.dat &gt;out.dat</code></p>
-<p><code>&lt;</code>、<code>&gt;</code> 和文件名之间有没有空格都行, 多个重定向文件的顺序也无所谓: <code>demo &lt;in.dat&gt; out.dat</code> 等价于: <code>demo &gt;out.dat &lt;in.dat</code></p>
+<p>让程序从文件而不是键盘读入的常用方法:<br> <code>demo &lt;in.dat</code><br> 这种方法称为<strong>输入重定向</strong>.</p>
+<p><strong>输出重定向</strong>类似:<br> <code>demo &gt;out.dat</code><br> 所有写入stdout的数据现在都将进入out.dat文件, 而不是出现在屏幕上.</p>
+<p>输入、输出重定向可以一起用:<br> <code>demo &lt;in.dat &gt;out.dat</code></p>
+<p><code>&lt;</code>、<code>&gt;</code> 和文件名之间有没有空格都行, 多个重定向文件的顺序也无所谓:<br> <code>demo &lt;in.dat&gt; out.dat</code><br> 等价于:<br> <code>demo &gt;out.dat &lt;in.dat</code></p>
 <p>输出重定向要注意: 所有写到 stdout 的内容都会进同一个文件。</p>
 <p>将错误消息写入stderr而不是stdout可以保证即使stdout已被重定向, 错误信息也会出现在屏幕上.</p>
 </div>
@@ -292,9 +331,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>fopen的 C89 原型不包含restrict, 但也有这样的要求.</p>
 <p>restrict对fopen的行为没有影响, 因此通常可以忽略它.</p>
 <p>fopen调用中的文件名包含<code>\</code>字符时要小心.</p>
-<p>调用 <code>fopen("c:\project\test1.dat", "r")</code> 将失败, 因为<code>\t</code>被视为转义字符.</p>
-<p>避开这个问题的一种写法: 用 <code>\\</code> 代替 <code>\</code>: <code>fopen("c:\\project\\test1.dat", "r")</code></p>
-<p>另一种写法: 用 <code>/</code> 代替 <code>\</code>: <code>fopen("c:/project/test1.dat", "r")</code></p>
+<p>调用<br> <code>fopen("c:\project\test1.dat", "r")</code><br> 将失败, 因为<code>\t</code>被视为转义字符.</p>
+<p>避开这个问题的一种写法: 用 <code>\\</code> 代替 <code>\</code>:<br> <code>fopen("c:\\project\\test1.dat", "r")</code></p>
+<p>另一种写法: 用 <code>/</code> 代替 <code>\</code>:<br> <code>fopen("c:/project/test1.dat", "r")</code></p>
 <p>fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中:</p>
 <p>无法打开文件时, fopen返回一个空指针.</p>
 </div>
@@ -454,8 +493,8 @@ FILE <span class="token operator">*</span>fp <span class="token operator">=</spa
 <p>如果文件成功关闭, fclose返回零.</p>
 <p>否则, 它返回错误代码EOF(在<stdio.h>中定义的宏).</p>
 <p>打开文件进行读取的程序框架:</p>
-<p>可以把fopen的调用与fp的声明相结合: <code>FILE *fp = fopen(FILE_NAME, "r");</code></p>
-<p>还可以与NULL的判断相结合: <code>if((fp = fopen(FILE_NAME, "r")) == NULL) …</code></p>
+<p>可以把fopen的调用与fp的声明相结合:<br> <code>FILE *fp = fopen(FILE_NAME, "r");</code></p>
+<p>还可以与NULL的判断相结合:<br> <code>if((fp = fopen(FILE_NAME, "r")) == NULL) …</code></p>
 </div>
 </div>
 <hr>
@@ -484,7 +523,7 @@ FILE <span class="token operator">*</span>fp <span class="token operator">=</spa
 
 </li>
 </ul>
-<p>为demo程序提供两个文件名的示例: <code>demo names.dat dates.dat</code></p>
+<p>为demo程序提供两个文件名的示例:<br> <code>demo names.dat dates.dat</code></p>
 <p>将main定义为具有两个参数的函数来访问命令行参数:</p>
 <p>argc是命令行参数的数量.</p>
 <p>argv是指向参数字符串的指针数组.</p>
@@ -576,7 +615,7 @@ $ <span class="token punctuation">.</span><span class="token operator">/</span>c
 
 </li>
 </ul>
-<p>每个流都有两个与之关联的指示器: <strong>错误指示器</strong>和<strong>文件末尾指示器</strong>.</p>
+<p>每个流都有两个与之关联的指示器: <strong>错误指示器</strong>和<strong>文件末尾指示器</strong>.<br></p>
 <p>打开流时, 这些指示器会被清除.</p>
 <p>遇到文件末尾就设置文件末尾指示器, 读取错误就设置错误指示器.</p>
 <ul>
@@ -586,7 +625,7 @@ $ <span class="token punctuation">.</span><span class="token operator">/</span>c
 </li>
 </ul>
 <p>匹配失败不会改变任意一个指示器.</p>
-<p>一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用clearerr函数. clearerr清除文件末尾和错误指示器:</p>
+<p>一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用clearerr函数.<br> clearerr清除文件末尾和错误指示器:</p>
 <p>并不需要经常使用clearerr, 因为其他一些库函数的副作用可以清楚指示器.</p>
 <p>feof和ferror函数可用于测试流的指示器以确定先前对流的操作失败的原因.</p>
 <p>如果为与fp关联的流设置了文件末尾指示器, 则调用feof(fp)将返回一个非零值.</p>
@@ -615,7 +654,7 @@ $ <span class="token punctuation">.</span><span class="token operator">/</span>c
 </ul>
 <p>scanf的返回值表示在问题发生之前读取了多少数据项.</p>
 <p>find_int函数是一个示例, 它显示了如何使用feof和ferror.</p>
-<p>find_int在文件中搜索以整数开头的行: <code>n = find_int("foo");</code></p>
+<p>find_int在文件中搜索以整数开头的行:<br> <code>n = find_int("foo");</code></p>
 <p>find_int返回它找到的整数的值或错误代码:</p>
 <ul>
 <li>
@@ -646,15 +685,15 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <div style="flex:1;">
 <p>下一组库函数读写单个字符, 文本流与二进制流通用; 字符被当作 <code>int</code> 而非 <code>char</code>——输入函数用返回 <mark>EOF</mark> (负整数常量) 指示文件结束或错误.</p>
 <hr>
-<p>putchar将一个字符写入标准输出流: <code>putchar(ch); /* 将 ch 写入标准输出流 */</code></p>
+<p>putchar将一个字符写入标准输出流:<br> <code>putchar(ch); /* 将 ch 写入标准输出流 */</code></p>
 <p>fputc和putc将一个字符写入任意流:</p>
 <p>putc通常实现为宏(以及函数), 而fputc仅实现为函数.</p>
-<p>putchar本身通常也定义为宏: <code>#define putchar(c) putc((c), stdout)</code></p>
+<p>putchar本身通常也定义为宏:<br> <code>#define putchar(c) putc((c), stdout)</code></p>
 <p>C标准允许putc宏对stream参数多次求值, 而fputc不可以.</p>
 <p>程序员通常更喜欢putc, 因为它速度更快.</p>
 <p>如果发生写入错误, 上述这3个函数都会为流设置错误指示器并返回EOF.</p>
 <p>否则, 它们返回写入的字符.</p>
-<p>getchar从stdin读取一个字符: <code>ch = getchar();</code></p>
+<p>getchar从stdin读取一个字符:<br> <code>ch = getchar();</code></p>
 <p>fgetc和getc从任意流中读取一个字符:</p>
 <p>这三个函数都将字符视为unsigned char类型的值(返回之前转换为int类型).</p>
 <p>因此, 它们不会返回EOF以外的负值.</p>
@@ -732,13 +771,13 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <p>下一组中的库函数能够读取和写入行.</p>
 <p>这些函数主要用于文本流, 尽管将它们也能用于二进制流.</p>
 <hr>
-<p>puts函数将字符串写入stdout: <code>puts("Hi, there!");  /* writes to stdout */</code></p>
+<p>puts函数将字符串写入stdout:<br> <code>puts("Hi, there!");  /* writes to stdout */</code></p>
 <p>在写入字符串中的字符后, puts总是添加一个换行符.</p>
 <p>fputs是puts的更通用版本.</p>
-<p>它的第二个参数指示输出应写入的流: <code>fputs("Hi, there!", fp);  /* writes to fp */</code></p>
+<p>它的第二个参数指示输出应写入的流:<br> <code>fputs("Hi, there!", fp);  /* writes to fp */</code></p>
 <p>与puts不同, fputs函数不会写入换行符, 除非字符串中本身存在换行符.</p>
 <p>如果发生写入错误, 这两个函数都返回EOF; 否则, 它们返回一个非负数.</p>
-<p>gets函数从stdin读取一行输入: <code>gets(str); /* reads a line from stdin */</code></p>
+<p>gets函数从stdin读取一行输入:<br> <code>gets(str); /* reads a line from stdin */</code></p>
 <p>get逐个读取字符, 将它们存储在str指向的数组中, 直到它读取一个换行符(丢弃换行符).</p>
 <p>fgets是更通用的get版本, 可以从任意流中读取.</p>
 <p>fgets也比gets更安全, 因为它限制了它将存储的字符数.</p>
@@ -795,9 +834,9 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 </li>
 </ul>
 <p>第二个参数, 类型为long int, 是一个(可能是负数)字节计数.</p>
-<p>使用fseek移动到文件的开头: <code>fseek(fp, 0L, SEEK_SET);</code></p>
-<p>使用fseek移动到文件末尾: <code>fseek(fp, 0L, SEEK_END);</code></p>
-<p>使用fseek往回移动10个字节: <code>fseek(fp, -10L, SEEK_CUR);</code></p>
+<p>使用fseek移动到文件的开头:<br> <code>fseek(fp, 0L, SEEK_SET);</code></p>
+<p>使用fseek移动到文件末尾:<br> <code>fseek(fp, 0L, SEEK_END);</code></p>
+<p>使用fseek往回移动10个字节:<br> <code>fseek(fp, -10L, SEEK_CUR);</code></p>
 <p>出错时 (比如请求的位置不存在), fseek 返回非零值。</p>
 </div>
 </div>
@@ -875,7 +914,6 @@ ch <span class="token operator">=</span> <span class="token function">getc</span
 <hr>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="24" data-v="0"><hr>
 <div class="bottom20"></div>
-<h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
 </section>

@@ -811,8 +811,6 @@ if (!leap) …     /* 测试是否为假 */
 
 <div class="bottom20"></div>
 
-# 下周见!
-
 <hr class="width50 center">
 
 ## 未完待续

@@ -554,8 +554,6 @@ printf("%d %d\n", best, best_cnt);
 
 <div class="bottom20"></div>
 
-# 周三见!
-
 <hr class="width50 center">
 
 ## 未完待续

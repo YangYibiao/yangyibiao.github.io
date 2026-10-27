@@ -717,8 +717,6 @@ makefile不仅列出了作为程序一部分的文件, 而且还描述了文件�
 
 <div class="bottom20"></div>
 
-# 下周见!
-
 <hr class="width50 center">
 
 ## 未完待续

@@ -413,8 +413,6 @@ int main() {
 
 <div class="bottom20"></div>
 
-# 下周见!
-
 <hr class="width50 center">
 
 ## 未完待续
