@@ -59575,7 +59575,11 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>二分查找: 排好序, 每次砍掉一半</p>
+<p>顺序查找: 逐个比; 二分查找: 排好序, 每次砍掉一半</p>
+
+</li>
+<li>
+<p>案例: 众数统计 (排序 + 扫描)</p>
 
 </li>
 <li>
@@ -59815,9 +59819,35 @@ div.boardhandle > ul > li {
 
 </li>
 </ul>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 接下来就用排序的成果, 学二分查找</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 接下来就用排序的成果, 先看顺序查找, 再学二分查找</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="二分查找">二分查找 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="顺序查找">顺序查找 </h5>
+<hr>
+<p>从第一个元素开始<mark>逐个比较</mark>, 找到即停</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 顺序查找: 在 a[0..n-1] 中找 key (约定: 数组已读入 n 个元素) */</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>                    <span class="token comment">/* 找到, 提前退出 */</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"找到, 下标 %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"没找到\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p><code>i &lt; n</code> 说明是<mark>提前退出</mark>(找到); <code>i == n</code> 说明是<mark>正常结束</mark>(没找到)——第 5 周素数判断用过同样的写法</p>
+
+</li>
+<li>
+<p>适合无序数据; 平均比较 n/2 次, 最坏 n 次</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="二分查找">二分查找 </h5>
 <hr>
 <p>数据<mark>排好序</mark>后, 可以每次砍掉一半: 和中间元素比较, 决定去左半边还是右半边</p>
 <div style="text-align:center;">
@@ -59827,7 +59857,7 @@ div.boardhandle > ul > li {
 <p>每次和中间元素比较, 砍掉不可能的一半</p>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="二分查找---代码">二分查找 · 代码 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="二分查找---代码">二分查找 · 代码 </h5>
 <hr>
 <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
 <div>
@@ -59853,10 +59883,6 @@ div.boardhandle > ul > li {
 <p>n 个元素最多比较 log2(n)+1 次——100 万个数也只要约 20 次!</p>
 
 </li>
-<li>
-<p>如果数据没排序, 只能顺序查找: 从头到尾逐个比, 平均比较 n/2 次</p>
-
-</li>
 </ul>
 </div>
 <div style="text-align:center;">
@@ -59864,7 +59890,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
@@ -59876,7 +59902,59 @@ div.boardhandle > ul > li {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="众数统计---问题">众数统计 · 问题 </h5>
+<hr>
+<p>输入 n 个<mark>无序</mark>的数 (1 ≤ n ≤ 100), 输出出现次数最多的数(众数)及其出现次数; 若多个数并列, 输出<mark>最小</mark>的那个</p>
+<div style="margin-top:8px;font-size:0.8em;line-height:1.8;">
+<p>样例输入: <code>7</code> 与 <code>1 2 2 3 2 5 7</code></p>
+<p>样例输出: <code>2 3</code></p>
+</div>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先<mark>排序</mark>, 再观察有序数组里 "相同的数" 有什么特点</p>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="众数统计---现场编码">众数统计 · 现场编码 </h5>
+<hr>
+<p><mark>现场演示</mark></p>
+<ol>
+<li>思路: 先排序 (任选一种, 正好复习) → 相同的数相邻 → 一遍扫描统计每段长度 → 找最长段
+</li>
+<li>学生先写 10 分钟, 再一起看参考代码
+</li>
+<li>引导提问: 最后一段什么时候 "结算"? 并列时怎么保证输出最小的?
+</li>
+</ol>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="众数统计---代码">众数统计 · 代码 </h5>
+<hr>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 众数统计 (约定: a[0..n-1] 已读入 n 个数, 且已从小到大排好序) */</span>
+<span class="token keyword keyword-int">int</span> best <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> best_cnt <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>    <span class="token comment">/* 众数与出现次数 */</span>
+<span class="token keyword keyword-int">int</span> cur <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> cur_cnt <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>      <span class="token comment">/* 当前这一段 */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> cur<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    cur_cnt<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>                        <span class="token comment">/* 这一段结束了 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cur_cnt <span class="token operator">></span> best_cnt<span class="token punctuation">)</span> <span class="token punctuation">{</span>     <span class="token comment">/* 只更新更大的, 并列保留最小的 */</span>
+      best <span class="token operator">=</span> cur<span class="token punctuation">;</span>
+      best_cnt <span class="token operator">=</span> cur_cnt<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      cur <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      cur_cnt <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> best<span class="token punctuation">,</span> best_cnt<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li>
+<p>循环条件 <code>i &lt;= n</code>: i <mark> n 时也要</mark>结算最后一段==</p>
+
+</li>
+<li>
+<p>用 <code>&gt;</code> 而不是 <code>&gt;=</code>: 升序下从左往右扫, 并列时自然保留<mark>最小</mark>的众数</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>选择排序每一轮做什么？总共需要几轮？
@@ -59893,7 +59971,7 @@ div.boardhandle > ul > li {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">周三见! </h1>
 <hr class="width50 center">
