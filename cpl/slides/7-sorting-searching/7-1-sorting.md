@@ -288,16 +288,20 @@ for (int i = 0; i < n - 1; i++) {         /* 共 n-1 轮 */
 /* 插入排序: 把 a[0..n-1] 从小到大排好 */
 for (int i = 1; i < n; i++) {
   int key = a[i];                          /* 拿起的"牌" */
-  int j = i - 1;
-  while (j >= 0 && a[j] > key) {           /* 比 key 大的往后挪 */
+  int j;                                   /* 循环后还要用 j */
+  for (j = i - 1; j >= 0 && a[j] > key; j--) {  /* 比 key 大的往后挪 */
     a[j + 1] = a[j];
-    j--;
   }
   a[j + 1] = key;                          /* 放进去 */
 }
 ```
 
 - 三种排序都是 ==O(n²)==——数据量不大时完全够用
+
+<div style="margin-top:6px;font-size:0.7em;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;padding:4px 10px;line-height:1.6;">
+内层 for 退出时: j 停在第一个 ==≤ key== 的元素 (或 -1), 位置 a[j+1] 已空出, key 正好放进去。<br>
+例: [2, 5] 插 key=4 —— j 从 1 开始: a[1]=5 &gt; 4 → 右移, j 变 0; a[0]=2 ≤ 4 → 停, 退出时 j = 0, 放入 a[1] → [2, 4, 5]
+</div>
 
 </div>
 

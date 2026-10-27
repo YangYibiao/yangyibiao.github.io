@@ -59760,10 +59760,9 @@ div.boardhandle > ul > li {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 插入排序: 把 a[0..n-1] 从小到大排好 */</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> key <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>                          <span class="token comment">/* 拿起的"牌" */</span>
-  <span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>j <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>           <span class="token comment">/* 比 key 大的往后挪 */</span>
+  <span class="token keyword keyword-int">int</span> j<span class="token punctuation">;</span>                                   <span class="token comment">/* 循环后还要用 j */</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> key<span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">/* 比 key 大的往后挪 */</span>
     a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    j<span class="token operator">--</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   a<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> key<span class="token punctuation">;</span>                          <span class="token comment">/* 放进去 */</span>
 <span class="token punctuation">}</span></code></pre>
@@ -59773,6 +59772,9 @@ div.boardhandle > ul > li {
 
 </li>
 </ul>
+<div style="margin-top:6px;font-size:0.7em;background:rgba(38,139,210,0.06);border-left:4px solid #268bd2;border-radius:4px;padding:4px 10px;line-height:1.6;">
+<p>内层 for 退出时: j 停在第一个 <mark>≤ key</mark> 的元素 (或 -1), 位置 a[j+1] 已空出, key 正好放进去。<br><br> 例: [2, 5] 插 key=4 —— j 从 1 开始: a[1]=5 &gt; 4 → 右移, j 变 0; a[0]=2 ≤ 4 → 停, 退出时 j = 0, 放入 a[1] → [2, 4, 5]</p>
+</div>
 </div>
 <div style="text-align:center;">
   <img src="figs/insertion-sort.gif" width=420px>
