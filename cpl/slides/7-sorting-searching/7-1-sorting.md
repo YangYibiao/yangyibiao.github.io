@@ -53,7 +53,7 @@ presentation:
 
 <div style="font-size:1.3em;text-align:left;margin-left:2rem;">
 
-- 为什么排序
+- 什么是排序、为什么需要排序
 
 - 三种排序: 选择、冒泡、插入 (原理与图示 → 代码)
 
@@ -70,15 +70,33 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### 为什么排序
+##### 什么是排序
 
 ---
 
-==排序==: 把一组数据按某种规则整理成有序 —— 数值可以从大到小(降序)或从小到大(升序), 字符串可以按字典序
+==排序==: 把一组数据按某种规则整理成有序
+
+- 数值: 从小到大(升序)或从大到小(降序)
+
+- 字符串: 按字典序
 
 <div style="font-size:0.7em;color:var(--solarized-base00);margin-top:4px;">
 字典序 = 像查字典那样逐字符比较: 先比第一个字符, 相同再比下一个 —— 如 "apple" 排在 "banana" 前, "zhang" 排在 "zhao" 前
 </div>
+
+<div style="margin-top:8px;font-size:0.85em;">
+例: [8, 3, 5] 升序 → [3, 5, 8]; 降序 → [8, 5, 3]
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 为什么需要排序
+
+---
 
 成绩排名、字典、电话簿……==有序==的数据才好用
 
