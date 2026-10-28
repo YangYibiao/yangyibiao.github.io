@@ -449,7 +449,9 @@ void sort(int a[], int n)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.3;font-size:0.62em;">
+
+开场案例里的 `is_prime`——现在逐行拆解它的定义。第 5 周用循环写过素数判断, 今天把它==函数化==.
 
 ```C{.line-numbers}
 int is_prime(int n)
@@ -465,19 +467,21 @@ int is_prime(int n)
 }
 ```
 
-</div>
-
-<div style="flex:1;">
-
-开场案例里的 `is_prime`——现在逐行拆解它的定义。第 5 周用循环写过素数判断, 今天把它==函数化==: 需要判断素数时调用 `is_prime` 即可.
-
 - 开头的 `int` 是返回类型: 是素数返回 1, 不是返回 0
 
 - `n` 是形式参数, 表示待判断的数; 调用时复制实际参数的值
 
-- ==函数体==由大括号包围, 里面有声明 `int d`、循环和==两条 return==——注意: 函数可以有多条 `return`, 执行到哪条就从哪条返回
+</div>
 
-- 调用需要函数名和实际参数: `is_prime(97)`、`is_prime(m)` 都是合法的调用, 实际参数可以是任意同类型的表达式
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- ==函数体==由大括号包围, 里面是声明 `int d` 和循环
+
+- 函数可以有==多条 return==: 执行到哪条, 就从哪条返回
+
+- 调用需要函数名和实际参数: `is_prime(97)`、`is_prime(m)` 都是合法调用
+
+- 实际参数可以是任意同类型的表达式, 不一定是变量
 
 </div>
 
