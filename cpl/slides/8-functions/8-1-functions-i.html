@@ -59566,7 +59566,7 @@ div.boardhandle > ul > li {
 <hr>
 <ul>
 <li>
-<p>为什么需要函数: 排列组合案例与设计原则</p>
+<p>为什么需要函数: 回文素数案例与设计原则</p>
 
 </li>
 <li>
@@ -59591,124 +59591,171 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="案例--排列组合计算器">案例: 排列组合计算器 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="案例--回文素数">案例: 回文素数 </h5>
 <hr>
-<p>输入 \(m\)、\(n\) (\(m \ge n\)), 输出排列数和组合数:</p>
-<p>\[P(m,n)=\frac{m!}{(m-n)!},\qquad C(m,n)=\frac{m!}{n!\,(m-n)!}\]</p>
+<p>输入 \(m\)、\(n\) (\(m \le n\)), 完成<mark>三个任务</mark>:</p>
+<ol>
+<li>输出 \([m, n]\) 里全部的<mark>回文素数</mark> (既是素数、又是回文数)
+</li>
+<li>统计 \([m, n]\) 里素数有多少个
+</li>
+<li>判断 \(n\) 是不是回文数
+</li>
+</ol>
+<p>样例: 输入 <code>100 200</code> → 回文素数 <code>101 131 151 181 191</code>, 素数个数 <code>21</code>, <code>200 不是回文数</code></p>
 <p><mark>现场演示</mark>: 只用第 5 周学的循环, <mark>不用函数</mark>, 把这个程序写出来</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 先想想: 一共要算几个阶乘? 每个阶乘怎么写?</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 先想想: 三个任务里, 哪道检查会被<mark>反复使用</mark>? 第 5 周是不是写过其中一道?</p>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="不用函数--三段几乎一样的循环">不用函数: 三段几乎一样的循环 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="不用函数--检查写了四遍">不用函数: 检查写了四遍 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 排列组合计算器: 不用函数 */</span>
+<div style="flex:1.3;font-size:0.48em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 三个任务: 不用函数 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-long">long</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> i<span class="token punctuation">;</span>
-  <span class="token keyword keyword-long">long</span> fact_m <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> fact_n <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> fact_mn <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> i<span class="token punctuation">,</span> d<span class="token punctuation">,</span> rev<span class="token punctuation">,</span> t<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 m n (m&gt;=n): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld%ld"</span><span class="token punctuation">,</span> <span class="token operator">&</span>m<span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 m n (m&lt;=n): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>m<span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>      <span class="token comment">/* 第一段: 计算 m! */</span>
-    fact_m <span class="token operator">=</span> fact_m <span class="token operator">*</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> m<span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* 任务 1: 输出回文素数 */</span>
+    <span class="token comment">/*   素数检查 (第一次) */</span>
+    <span class="token keyword keyword-int">int</span> is_prime <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator">*</span> d <span class="token operator">&lt;=</span> i<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> is_prime <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token comment">/*   回文检查 (第一次) */</span>
+    t <span class="token operator">=</span> i<span class="token punctuation">;</span> rev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>t <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> rev <span class="token operator">=</span> rev <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> t <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span> t <span class="token operator">=</span> t <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>is_prime <span class="token operator">&amp;&amp;</span> rev <span class="token operator">==</span> i<span class="token punctuation">)</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>      <span class="token comment">/* 第二段: 计算 n! */</span>
-    fact_n <span class="token operator">=</span> fact_n <span class="token operator">*</span> i<span class="token punctuation">;</span>
+    <span class="token comment">/* 任务 2: 统计素数个数 */</span>
+    <span class="token comment">/*   素数检查 (第二次, 一字不差) */</span>
+    is_prime <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator">*</span> d <span class="token operator">&lt;=</span> i<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> is_prime <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>is_prime<span class="token punctuation">)</span> count<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n素数个数: %d\n"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m <span class="token operator">-</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>  <span class="token comment">/* 第三段: 计算 (m-n)! */</span>
-    fact_mn <span class="token operator">=</span> fact_mn <span class="token operator">*</span> i<span class="token punctuation">;</span>
-
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"P(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> fact_m <span class="token operator">/</span> fact_mn<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"C(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span>
-         fact_m <span class="token operator">/</span> <span class="token punctuation">(</span>fact_n <span class="token operator">*</span> fact_mn<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">/* 任务 3: 判断 n 是不是回文数 */</span>
+  <span class="token comment">/*   回文检查 (第二次, 一字不差) */</span>
+  t <span class="token operator">=</span> n<span class="token punctuation">;</span> rev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>t <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> rev <span class="token operator">=</span> rev <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> t <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span> t <span class="token operator">=</span> t <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>rev <span class="token operator">==</span> n<span class="token punctuation">)</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是回文数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-else">else</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 不是回文数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
 <ul>
 <li>
-<p>同样一句 <code>fact = fact * i</code> 写了<mark>三遍</mark>——只有循环上界不同</p>
+<p>素数检查出现<mark>两次</mark>、回文检查出现<mark>两次</mark>——一模一样的代码, 纯复制粘贴</p>
 
 </li>
 <li>
-<p>想再算 \(C(m-1,n)\)、\(P(m,2)\)? 每多一个, 就再复制一段循环</p>
+<p>三个任务里混着四段检查, <code>main</code> 已经 40 多行, 想看清"程序在干什么"都难</p>
 
 </li>
 <li>
-<p>循环写错了 (比如上界少个 1), 必须<mark>每段都改</mark>; 漏改一段, 程序错得莫名其妙</p>
-
-</li>
-<li>
-<p>程序才 20 几行, <code>main</code> 已经堆满了细节</p>
+<p>素数检查要改 (比如 <code>d * d &lt;= i</code> 优化成 <code>d &lt;= i / d</code>), <mark>两处都要改</mark>; 漏改一处, 统计和输出对不上, 错得莫名其妙</p>
 
 </li>
 </ul>
-<a href="code/permutation.c" target="_blank">permutation.c</a>
+<a href="code/palindrome-prime.c" target="_blank">palindrome-prime.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="用函数--写一次--处处用">用函数: 写一次, 处处用 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="用函数--检查各写一遍">用函数: 检查各写一遍 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 排列组合计算器: 用函数 */</span>
+<div style="flex:1.3;font-size:0.52em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 三个任务: 用函数 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-<span class="token keyword keyword-long">long</span> <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>      <span class="token comment">/* 写一次 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>          <span class="token comment">/* 素数检查: 写一次 */</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-long">long</span> f <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> d<span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    f <span class="token operator">=</span> f <span class="token operator">*</span> i<span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> f<span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator">*</span> d <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">is_palindrome</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>     <span class="token comment">/* 回文检查: 写一次 */</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> rev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> t <span class="token operator">=</span> n<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>t <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    rev <span class="token operator">=</span> rev <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> t <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    t <span class="token operator">=</span> t <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> rev <span class="token operator">==</span> n<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-long">long</span> m<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> i<span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 m n (m&gt;=n): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld%ld"</span><span class="token punctuation">,</span> <span class="token operator">&</span>m<span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 m n (m&lt;=n): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>m<span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token comment">/* 处处用: 需要阶乘就调用 */</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"P(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span>
-         <span class="token function">factorial</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">factorial</span><span class="token punctuation">(</span>m <span class="token operator">-</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"C(%ld,%ld) = %ld\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span>
-         <span class="token function">factorial</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token function">factorial</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">factorial</span><span class="token punctuation">(</span>m <span class="token operator">-</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> m<span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* 任务 1: 输出回文素数 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_prime</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">is_palindrome</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">/* 任务 2: 统计素数个数 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_prime</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      count<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n素数个数: %d\n"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/* 任务 3: 判断 n 是不是回文数 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_palindrome</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是回文数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 不是回文数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
 <ul>
 <li>
-<p>阶乘逻辑只写<mark>一遍</mark>, 需要时调用 <code>factorial</code> 即可</p>
+<p>两道检查各写<mark>一遍</mark>; <code>is_prime</code> 被调用了 2×(n-m+1) 次, <code>is_palindrome</code> (n-m+1)+1 次——<mark>零复制</mark></p>
 
 </li>
 <li>
-<p><code>main</code> 里只剩流程: 读入 → 计算 → 输出, 一眼看清</p>
+<p><code>main</code> 只剩三个任务的一行行调用, 程序在干什么<mark>一眼看清</mark></p>
 
 </li>
 <li>
-<p>想再算别的组合? 加一行调用, <mark>不用复制任何循环</mark></p>
+<p>检查要改? 只改<mark>一处</mark></p>
 
 </li>
 <li>
-<p>阶乘增长极快: 13! 就溢出 <code>int</code>, 所以返回 <code>long</code> (21! 连 <code>long</code> 也溢出, 课堂数字别太大)</p>
+<p><code>if (is_prime(i) &amp;&amp; is_palindrome(i))</code>: 函数的返回值可以直接当条件用——这是今天要学的核心玩法</p>
 
 </li>
 </ul>
-<a href="code/permutation-re.c" target="_blank">permutation-re.c</a>
+<a href="code/palindrome-prime-re.c" target="_blank">palindrome-prime-re.c</a>
 </div>
 </div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="软件设计原则">软件设计原则 </h5>
 <hr>
-<p>同样一段代码要写三遍, 改 bug 就要改三处——函数给代码起名字, 一次写好、处处使用</p>
+<p>同样一段检查要抄很多遍, 改 bug 就要改很多处——函数给代码起名字, 一次写好、处处使用</p>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;font-size:0.8em;">
 <div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
 <div style="font-weight:700;color:#268bd2;">🔁 复用</div>
@@ -59723,7 +59770,7 @@ div.boardhandle > ul > li {
 <p>隐藏实现细节, 只暴露有限、必要的<mark>接口</mark></p>
 </div>
 </div>
-<p>刚才的 <code>factorial</code> 就是例证: 写一遍、调用三遍——复用、模块化、封装, 一个例子全用上</p>
+<p>刚才的 <code>is_prime</code> 和 <code>is_palindrome</code> 就是例证: 各写一遍、反复调用——复用、模块化、封装, 一个案例全用上</p>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数">函数 </h5>
 <hr>
@@ -59851,7 +59898,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>第 5 周用循环写过素数判断——今天把它<mark>函数化</mark>: 需要判断素数时调用 <code>is_prime</code> 即可.</p>
+<p>开场案例里的 <code>is_prime</code>——现在逐行拆解它的定义。第 5 周用循环写过素数判断, 今天把它<mark>函数化</mark>: 需要判断素数时调用 <code>is_prime</code> 即可.</p>
 <ul>
 <li>
 <p>开头的 <code>int</code> 是返回类型: 是素数返回 1, 不是返回 0</p>

@@ -50,7 +50,7 @@ presentation:
 
 ---
 
-- 为什么需要函数: 排列组合案例与设计原则
+- 为什么需要函数: 回文素数案例与设计原则
 
 - 函数定义与调用 (案例: 素数判断)
 
@@ -68,53 +68,75 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### 案例: 排列组合计算器
+##### 案例: 回文素数
 
 ---
 
-输入 $m$、$n$ ($m \ge n$), 输出排列数和组合数:
+输入 $m$、$n$ ($m \le n$), 完成==三个任务==:
 
-$$P(m,n)=\frac{m!}{(m-n)!},\qquad C(m,n)=\frac{m!}{n!\,(m-n)!}$$
+1. 输出 $[m, n]$ 里全部的==回文素数== (既是素数、又是回文数)
+
+2. 统计 $[m, n]$ 里素数有多少个
+
+3. 判断 $n$ 是不是回文数
+
+样例: 输入 `100 200` → 回文素数 `101 131 151 181 191`, 素数个数 `21`, `200 不是回文数`
 
 ==现场演示==: 只用第 5 周学的循环, ==不用函数==, 把这个程序写出来
 
-<span class="blue">:fa-lightbulb-o:</span> 先想想: 一共要算几个阶乘? 每个阶乘怎么写?
+<span class="blue">:fa-lightbulb-o:</span> 先想想: 三个任务里, 哪道检查会被==反复使用==? 第 5 周是不是写过其中一道?
 
 ---
 
-
-<!-- slide data-notes="" -->##### 不用函数: 三段几乎一样的循环
+<!-- slide data-notes="" -->##### 不用函数: 检查写了四遍
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.48em;">
 
 ```C{.line-numbers}
-/* 排列组合计算器: 不用函数 */
+/* 三个任务: 不用函数 */
 #include <stdio.h>
 
 int main(void)
 {
-  long m, n, i;
-  long fact_m = 1, fact_n = 1, fact_mn = 1;
+  int m, n, i, d, rev, t;
+  int count = 0;
 
-  printf("输入 m n (m>=n): ");
-  scanf("%ld%ld", &m, &n);
+  printf("输入 m n (m<=n): ");
+  scanf("%d%d", &m, &n);
 
-  for (i = 1; i <= m; i++)      /* 第一段: 计算 m! */
-    fact_m = fact_m * i;
+  for (i = m; i <= n; i++) {
+    /* 任务 1: 输出回文素数 */
+    /*   素数检查 (第一次) */
+    int is_prime = 1;
+    for (d = 2; d * d <= i; d++)
+      if (i % d == 0) { is_prime = 0; break; }
+    /*   回文检查 (第一次) */
+    t = i; rev = 0;
+    while (t > 0) { rev = rev * 10 + t % 10; t = t / 10; }
+    if (is_prime && rev == i)
+      printf("%d ", i);
 
-  for (i = 1; i <= n; i++)      /* 第二段: 计算 n! */
-    fact_n = fact_n * i;
+    /* 任务 2: 统计素数个数 */
+    /*   素数检查 (第二次, 一字不差) */
+    is_prime = 1;
+    for (d = 2; d * d <= i; d++)
+      if (i % d == 0) { is_prime = 0; break; }
+    if (is_prime) count++;
+  }
+  printf("\n素数个数: %d\n", count);
 
-  for (i = 1; i <= m - n; i++)  /* 第三段: 计算 (m-n)! */
-    fact_mn = fact_mn * i;
-
-  printf("P(%ld,%ld) = %ld\n", m, n, fact_m / fact_mn);
-  printf("C(%ld,%ld) = %ld\n", m, n,
-         fact_m / (fact_n * fact_mn));
+  /* 任务 3: 判断 n 是不是回文数 */
+  /*   回文检查 (第二次, 一字不差) */
+  t = n; rev = 0;
+  while (t > 0) { rev = rev * 10 + t % 10; t = t / 10; }
+  if (rev == n)
+    printf("%d 是回文数\n", n);
+  else
+    printf("%d 不是回文数\n", n);
   return 0;
 }
 ```
@@ -123,15 +145,13 @@ int main(void)
 
 <div style="flex:1;">
 
-- 同样一句 `fact = fact * i` 写了==三遍==——只有循环上界不同
+- 素数检查出现==两次==、回文检查出现==两次==——一模一样的代码, 纯复制粘贴
 
-- 想再算 $C(m-1,n)$、$P(m,2)$? 每多一个, 就再复制一段循环
+- 三个任务里混着四段检查, `main` 已经 40 多行, 想看清"程序在干什么"都难
 
-- 循环写错了 (比如上界少个 1), 必须==每段都改==; 漏改一段, 程序错得莫名其妙
+- 素数检查要改 (比如 `d * d <= i` 优化成 `d <= i / d`), ==两处都要改==; 漏改一处, 统计和输出对不上, 错得莫名其妙
 
-- 程序才 20 几行, `main` 已经堆满了细节
-
-<a href="code/permutation.c" target="_blank">permutation.c</a>
+<a href="code/palindrome-prime.c" target="_blank">palindrome-prime.c</a>
 
 </div>
 
@@ -139,40 +159,66 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 用函数: 写一次, 处处用
+<!-- slide data-notes="" -->##### 用函数: 检查各写一遍
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.3;font-size:0.52em;">
 
 ```C{.line-numbers}
-/* 排列组合计算器: 用函数 */
+/* 三个任务: 用函数 */
 #include <stdio.h>
 
-long factorial(int n)      /* 写一次 */
+int is_prime(int n)          /* 素数检查: 写一次 */
 {
-  long f = 1;
-  int i;
+  int d;
 
-  for (i = 1; i <= n; i++)
-    f = f * i;
-  return f;
+  for (d = 2; d * d <= n; d++) {
+    if (n % d == 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int is_palindrome(int n)     /* 回文检查: 写一次 */
+{
+  int rev = 0, t = n;
+
+  while (t > 0) {
+    rev = rev * 10 + t % 10;
+    t = t / 10;
+  }
+  return rev == n;
 }
 
 int main(void)
 {
-  long m, n;
+  int m, n, i, count = 0;
 
-  printf("输入 m n (m>=n): ");
-  scanf("%ld%ld", &m, &n);
+  printf("输入 m n (m<=n): ");
+  scanf("%d%d", &m, &n);
 
-  /* 处处用: 需要阶乘就调用 */
-  printf("P(%ld,%ld) = %ld\n", m, n,
-         factorial(m) / factorial(m - n));
-  printf("C(%ld,%ld) = %ld\n", m, n,
-         factorial(m) / (factorial(n) * factorial(m - n)));
+  for (i = m; i <= n; i++) {
+    /* 任务 1: 输出回文素数 */
+    if (is_prime(i) && is_palindrome(i)) {
+      printf("%d ", i);
+    }
+    /* 任务 2: 统计素数个数 */
+    if (is_prime(i)) {
+      count++;
+    }
+  }
+  printf("\n素数个数: %d\n", count);
+
+  /* 任务 3: 判断 n 是不是回文数 */
+  if (is_palindrome(n)) {
+    printf("%d 是回文数\n", n);
+  } else {
+    printf("%d 不是回文数\n", n);
+  }
   return 0;
 }
 ```
@@ -181,15 +227,15 @@ int main(void)
 
 <div style="flex:1;">
 
-- 阶乘逻辑只写==一遍==, 需要时调用 `factorial` 即可
+- 两道检查各写==一遍==; `is_prime` 被调用了 2×(n-m+1) 次, `is_palindrome` (n-m+1)+1 次——==零复制==
 
-- `main` 里只剩流程: 读入 → 计算 → 输出, 一眼看清
+- `main` 只剩三个任务的一行行调用, 程序在干什么==一眼看清==
 
-- 想再算别的组合? 加一行调用, ==不用复制任何循环==
+- 检查要改? 只改==一处==
 
-- 阶乘增长极快: 13! 就溢出 `int`, 所以返回 `long` (21! 连 `long` 也溢出, 课堂数字别太大)
+- `if (is_prime(i) && is_palindrome(i))`: 函数的返回值可以直接当条件用——这是今天要学的核心玩法
 
-<a href="code/permutation-re.c" target="_blank">permutation-re.c</a>
+<a href="code/palindrome-prime-re.c" target="_blank">palindrome-prime-re.c</a>
 
 </div>
 
@@ -204,7 +250,7 @@ int main(void)
 
 ---
 
-同样一段代码要写三遍, 改 bug 就要改三处——函数给代码起名字, 一次写好、处处使用
+同样一段检查要抄很多遍, 改 bug 就要改很多处——函数给代码起名字, 一次写好、处处使用
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;font-size:0.8em;">
 
@@ -225,7 +271,7 @@ int main(void)
 
 </div>
 
-刚才的 `factorial` 就是例证: 写一遍、调用三遍——复用、模块化、封装, 一个例子全用上
+刚才的 `is_prime` 和 `is_palindrome` 就是例证: 各写一遍、反复调用——复用、模块化、封装, 一个案例全用上
 <!-- slide data-notes="" -->
 
 
@@ -411,7 +457,7 @@ int is_prime(int n)
 
 <div style="flex:1;">
 
-第 5 周用循环写过素数判断——今天把它==函数化==: 需要判断素数时调用 `is_prime` 即可.
+开场案例里的 `is_prime`——现在逐行拆解它的定义。第 5 周用循环写过素数判断, 今天把它==函数化==: 需要判断素数时调用 `is_prime` 即可.
 
 - 开头的 `int` 是返回类型: 是素数返回 1, 不是返回 0
 
