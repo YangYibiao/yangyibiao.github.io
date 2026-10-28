@@ -112,20 +112,31 @@ int main(void)
     /* 任务 1: 输出回文素数 */
     /*   素数检查 (第一次) */
     int is_prime = 1;
-    for (d = 2; d * d <= i; d++)
-      if (i % d == 0) { is_prime = 0; break; }
+    for (d = 2; d * d <= i; d++) {
+      if (i % d == 0) {
+        is_prime = 0;
+        break;
+      }
+    }
     /*   回文检查 (第一次) */
     t = i; rev = 0;
     while (t > 0) { rev = rev * 10 + t % 10; t = t / 10; }
-    if (is_prime && rev == i)
+    if (is_prime && rev == i) {
       printf("%d ", i);
+    }
 
     /* 任务 2: 统计素数个数 */
     /*   素数检查 (第二次, 一字不差) */
     is_prime = 1;
-    for (d = 2; d * d <= i; d++)
-      if (i % d == 0) { is_prime = 0; break; }
-    if (is_prime) count++;
+    for (d = 2; d * d <= i; d++) {
+      if (i % d == 0) {
+        is_prime = 0;
+        break;
+      }
+    }
+    if (is_prime) {
+      count++;
+    }
   }
   printf("\n素数个数: %d\n", count);
 
@@ -133,10 +144,11 @@ int main(void)
   /*   回文检查 (第二次, 一字不差) */
   t = n; rev = 0;
   while (t > 0) { rev = rev * 10 + t % 10; t = t / 10; }
-  if (rev == n)
+  if (rev == n) {
     printf("%d 是回文数\n", n);
-  else
+  } else {
     printf("%d 不是回文数\n", n);
+  }
   return 0;
 }
 ```
@@ -612,8 +624,9 @@ int main(void)
 {
   int i;
 
-  for (i = 10; i > 0; --i)
+  for (i = 10; i > 0; --i) {
     print_count(i);
+  }
   printf("发射!\n");
 
   return 0;
@@ -914,8 +927,9 @@ int power(int x, int n)
 {
   int i, result = 1;
 
-  for (i = 1; i <= n; i++)
+  for (i = 1; i <= n; i++) {
     result = result * x;
+  }
 
   return result;
 }
@@ -961,8 +975,9 @@ int power(int x, int n)
 {
   int result = 1;
 
-  while (n-- > 0)
+  while (n-- > 0) {
     result = result * x;
+  }
 
   return result;
 }
