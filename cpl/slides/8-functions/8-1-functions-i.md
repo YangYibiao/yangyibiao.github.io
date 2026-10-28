@@ -258,8 +258,8 @@ int main(void)
 ==其实你早就在用函数了==——`printf` 和 `scanf` 就是标准库提供的函数, 它们的声明来自头文件:
 
 ```C
-int printf(const char*          format, ... );
-int scanf(const char          *format, ... );
+int printf(const char *format, ...);
+int scanf(const char *format, ...);
 ```
 
 ```C
