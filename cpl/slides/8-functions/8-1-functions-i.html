@@ -60241,12 +60241,32 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
 <hr>
-<p>C允许实际参数的类型与形式参数的类型不匹配的函数调用.</p>
-<p>实际参数如何转换取决于编译器在调用函数之前是否已经遇到函数的原型(或函数的完整定义).</p>
-<hr>
-<p>编译器在调用之前遇到了原型.</p>
-<p>每个参数的值都隐式转换为相应形式参数的类型, 类似赋值一样.</p>
-<p>示例: 如果将int型的实际参数传递给期望得到double型参数的函数, 则该实际参数将自动转换为double类型.</p>
+<p>C 允许实际参数的类型与形式参数的类型<mark>不匹配</mark>: 怎么转换, 取决于调用前编译器<mark>有没有见过原型</mark></p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%g\n"</span><span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* int 实参 */</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>见过原型</mark> (本页): 每个参数的值被<mark>隐式转换</mark>为形参的类型, 就像<mark>赋值</mark>一样</p>
+<ul>
+<li>
+<p><code>average(x, y)</code>: x、y 是 int, 传给 double 形参时自动转成 double——安全, 结果正确 (输出 4)</p>
+
+</li>
+</ul>
+<p><mark>没见过原型</mark> (下一页): 执行默认参数提升, <mark>危险</mark>——square 的例子</p>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
 <hr>
