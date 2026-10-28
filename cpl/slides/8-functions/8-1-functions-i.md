@@ -678,8 +678,9 @@ print_line();
 
 ```C
 avg = average(x, y);
-if (average(x, y) > 0)
+if (average(x, y) > 0) {
   printf("Average is positive\n");
+}
 printf("The average is %g\n", average(x, y));
 ```
 
@@ -1232,8 +1233,9 @@ return;  /* return in a void function */
 ```C{.line-numbers}
 void print_int(int i)
 {
-  if (i < 0)
+  if (i < 0) {
     return;
+  }
   printf("%d", i);
 }
 ```
