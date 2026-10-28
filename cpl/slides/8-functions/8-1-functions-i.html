@@ -59570,11 +59570,11 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>函数定义与调用 (案例: 平均值)</p>
+<p>函数定义与调用 (案例: 素数判断)</p>
 
 </li>
 <li>
-<p>返回类型 void 与无参函数 (案例: 倒计时、分隔线)</p>
+<p>返回类型 void 与无参函数 (案例: 倒计时、分隔线、sort 空壳)</p>
 
 </li>
 <li>
@@ -59709,10 +59709,20 @@ div.boardhandle > ul > li {
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="软件设计原则">软件设计原则 </h5>
 <hr>
 <p>同样一段代码要写三遍, 改 bug 就要改三处——函数给代码起名字, 一次写好、处处使用</p>
-<p><mark>复用</mark></p>
-<p>模块化：便于调试、代码理解</p>
-<p>封装：隐藏实现细节，仅暴漏有限、必要的接口</p>
-<hr>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;font-size:0.8em;">
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">🔁 复用</div>
+<p>同样的逻辑只写<mark>一遍</mark>, 需要时调用即可 —— 改 bug 只改一处</p>
+</div>
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">🧩 模块化</div>
+<p>程序拆成小块, <mark>更容易调试、理解</mark> —— 每块只做一件事</p>
+</div>
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">📦 封装</div>
+<p>隐藏实现细节, 只暴露有限、必要的<mark>接口</mark></p>
+</div>
+</div>
 <p>刚才的 <code>factorial</code> 就是例证: 写一遍、调用三遍——复用、模块化、封装, 一个例子全用上</p>
 <hr>
 </section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数">函数 </h5>
@@ -59737,6 +59747,7 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数的定义和调用">函数的定义和调用 </h5>
 <hr>
+<p><mark>其实你早就在用函数了</mark>——<code>printf</code> 和 <code>scanf</code> 就是标准库提供的函数, 它们的声明来自头文件:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span>          format<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span>          <span class="token operator">*</span>format<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span><span class="token number">1024</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -59746,7 +59757,7 @@ div.boardhandle > ul > li {
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a + b is : %d"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数定义">函数定义 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数定义---语法骨架">函数定义 · 语法骨架 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59772,14 +59783,14 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>返回类型很冗长时 (如 unsigned long int), 也有的习惯把它单独放一行——如左栏 average 的写法</p>
+<p>返回类型很冗长时 (如 <code>unsigned long int</code>), 也有的习惯把它单独放一行——左栏 <code>double</code> 就是这么放的</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="函数定义">函数定义 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="函数定义---参数列表与函数体">函数定义 · 参数列表与函数体 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -59802,10 +59813,10 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="函数定义">函数定义 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="函数定义---空函数体">函数定义 · 空函数体 </h5>
 <hr>
 <p>返回类型为 <code>void</code> 的函数, 函数体可以<mark>为空</mark>:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_pun</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
 <span class="token punctuation">}</span></code></pre>
 <ul>
@@ -59817,75 +59828,101 @@ div.boardhandle > ul > li {
 <p>之后再逐个填充实现 —— 像盖房子: 先立好框架, 再砌墙装修</p>
 
 </li>
+<li>
+<p>兑现上周的承诺: "后面学了函数, 就能把排序封装成 <code>sort(a, n)</code>"——壳先立起来, 排序实现第 9 周再填</p>
+
+</li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--计算平均值">程序: 计算平均值 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--素数判断">程序: 素数判断 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> d<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator">*</span> d <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>              <span class="token comment">/* 找到因子, 不是素数 */</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>                  <span class="token comment">/* 没找到因子, 是素数 */</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>定义一个 <code>average</code> 函数, 计算两个 <code>double</code> 数的平均值:</p>
-<p>开头的单词double是average函数的返回类型.</p>
-<p>标识符a和b(函数形式参数)表示调用average需提供的两个数.</p>
-<hr>
-<p>每个函数都有一个大括号括起来的执行部分, 称为 <mark>函数体</mark>.</p>
-<p>average函数的函数体由一条<code>return</code>语句构成.</p>
-<p>执行这条语句, 函数就"返回"到调用它的地方。</p>
-<p>表达式<code>(a + b) / 2</code>的值将作为函数的返回值.</p>
-<hr>
-<p>函数调用需要函数名和实际参数列表.</p>
-<p>average(x, y)是对average函数的调用.</p>
-<p>实际参数用于向函数提供信息.</p>
-<p>调用average(x, y)的效果是把变量x和y的值复制给形式参数a和b.</p>
-<p>实际参数不一定是变量, 任何正确类型的表达式都可以.</p>
-<p>average(5.1, 8.9)和average(x/2, y/3)都是合法的函数调用.</p>
+<p>第 5 周用循环写过素数判断——今天把它<mark>函数化</mark>: 需要判断素数时调用 <code>is_prime</code> 即可.</p>
+<ul>
+<li>
+<p>开头的 <code>int</code> 是返回类型: 是素数返回 1, 不是返回 0</p>
+
+</li>
+<li>
+<p><code>n</code> 是形式参数, 表示待判断的数; 调用时复制实际参数的值</p>
+
+</li>
+<li>
+<p><mark>函数体</mark>由大括号包围, 里面有声明 <code>int d</code>、循环和<mark>两条 return</mark>——注意: 函数可以有多条 <code>return</code>, 执行到哪条就从哪条返回</p>
+
+</li>
+<li>
+<p>调用需要函数名和实际参数: <code>is_prime(97)</code>、<code>is_prime(m)</code> 都是合法的调用, 实际参数可以是任意同类型的表达式</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--计算平均值--average-c">程序: 计算平均值 (average.c) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--素数判断--prime-c">程序: 素数判断 (prime.c) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average: %g\n"</span><span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>avg <span class="token operator">=</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* Computes pairwise averages of three numbers */</span>
- 
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* prime.c: 输出 2 ~ 100 的全部素数 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
-<span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> d<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator">*</span> d <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
- 
+
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
- 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter three numbers: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf%lf%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">,</span> <span class="token operator">&</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_prime</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<p>我们把average函数的调用放在需要使用其返回值的地方.</p>
-<p>计算并显示 x 和 y 平均值的语句:</p>
-<p>不保存average函数的返回值, 程序显示这个值然后丢弃它.</p>
-<p>返回值以后还要用, 就先存进变量:</p>
-<hr>
-<p><code>average.c</code>: 读 3 个数, 每两个一组, 用 <code>average</code> 计算平均值:</p>
-<p>Enter three numbers: <u>3.5 9.6 10.2</u> Average of 3.5 and 9.6: 6.55 Average of 9.6 and 10.2: 9.9 Average of 3.5 and 10.2: 6.85</p>
-<hr>
-<hr>
-<p><code>average.c</code></p>
+<ul>
+<li>
+<p>把 <code>is_prime</code> 的调用放在 <code>if</code> 里, 返回值直接当<mark>条件</mark>用——非 void 函数的调用就是一个值</p>
+
+</li>
+<li>
+<p>2 ~ 100 的素数:</p>
+
+</li>
+</ul>
+<p>2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97</p>
+<ul>
+<li>
+<p>对比第 5 周: 那时要判断一个数, 得把循环抄一遍; 现在写一次, 判断 99 次</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
@@ -59949,6 +59986,7 @@ div.boardhandle > ul > li {
 
 </li>
 </ul>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 练习: 用同样方式写 <code>gcd(a, b)</code>——辗转相除法 (大数除小数取余, 直到余数为 0), 比倒计时更有"算法味"</p>
 </div>
 </div>
 <hr>
@@ -59958,10 +59996,10 @@ div.boardhandle > ul > li {
 <div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
 <span class="token function">print_count</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-<span class="token function">print_pun</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>print_pun<span class="token punctuation">;</span>   <span class="token comment">/*** WRONG ***/</span></code></pre>
+<span class="token function">print_line</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>print_line<span class="token punctuation">;</span>   <span class="token comment">/*** WRONG ***/</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_count</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">print_pun</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token function">print_line</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>avg <span class="token operator">=</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average is positive\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -60193,7 +60231,7 @@ div.boardhandle > ul > li {
 <hr>
 <p>函数调用:</p>
 <p>可惜的是, i和d不会因为赋值给int_part和frac_part而受到影响.</p>
-<p>第 11 章展示了如何使decompose函数奏效.</p>
+<p>第 10 周学了指针, decompose 就能真正奏效 (swap 同理).</p>
 </div>
 </div>
 <hr>
@@ -60304,9 +60342,9 @@ div.boardhandle > ul > li {
     <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_pun</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_count</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"To C, or not to C: that is the question.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>   <span class="token comment">/* OK, but not needed */</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
@@ -60392,15 +60430,18 @@ div.boardhandle > ul > li {
 </section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>函数定义由哪两部分组成？<code>return</code> 的作用是什么？
+<li>概念: 函数定义由哪几部分组成？<code>return</code> 的作用是什么？
 </li>
-<li>函数调用之前必须有什么？函数声明的一般形式是什么？
+<li>概念: C 语言中参数按什么方式传递？实参和形参是什么关系？
 </li>
-<li>C 语言中参数按什么方式传递？实参和形参是什么关系？
+<li>代码阅读: 调用 <code>is_prime(9)</code> 和 <code>is_prime(11)</code> 各返回什么？<code>is_prime</code> 里的 <code>return 0</code> 执行后, 循环还会继续吗？
 </li>
-<li><code>void</code> 返回类型表示什么？<code>exit(0)</code> 与 <code>return 0</code> 有什么区别？
+<li>纠错: 下面的函数想交换两个变量的值, 调用后为什么 x、y 没变？该怎么改（先不剧透, 第 10 周解答）？
 </li>
 </ol>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span>  a <span class="token operator">=</span> b<span class="token punctuation">;</span>  b <span class="token operator">=</span> t<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <hr>
 </section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
 <div class="bottom20"></div>
