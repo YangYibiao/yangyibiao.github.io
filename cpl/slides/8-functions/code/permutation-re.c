@@ -1,7 +1,7 @@
-/* 排列组合计算器: 用函数 */
+/* Permutation & combination calculator: with functions */
 #include <stdio.h>
 
-long factorial(int n)      /* 写一次 */
+long factorial(int n)      /* write once */
 {
   long f = 1;
   int i;
@@ -15,10 +15,10 @@ int main(void)
 {
   long m, n;
 
-  printf("输入 m n (m>=n): ");
+  printf("Enter m n (m>=n): ");
   scanf("%ld%ld", &m, &n);
 
-  /* 处处用: 需要阶乘就调用 */
+  /* use everywhere: call factorial whenever needed */
   printf("P(%ld,%ld) = %ld\n", m, n,
          factorial(m) / factorial(m - n));
   printf("C(%ld,%ld) = %ld\n", m, n,
