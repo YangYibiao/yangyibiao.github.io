@@ -1007,18 +1007,39 @@ x = 3, y = 5
 
 ---
 
-C允许实际参数的类型与形式参数的类型不匹配的函数调用. 
+C 允许实际参数的类型与形式参数的类型==不匹配==: 怎么转换, 取决于调用前编译器==有没有见过原型==
 
-实际参数如何转换取决于编译器在调用函数之前是否已经遇到函数的原型(或函数的完整定义).
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
+<div style="flex:1.2;font-size:0.6em;">
 
----
+```C{.line-numbers}
+double average(double a, double b)
+{
+  return (a + b) / 2;
+}
 
-编译器在调用之前遇到了原型. 
+int main(void)
+{
+  int x = 3, y = 5;
+  printf("%g\n", average(x, y));   /* int 实参 */
+  return 0;
+}
+```
 
-每个参数的值都隐式转换为相应形式参数的类型, 类似赋值一样. 
+</div>
 
-示例: 如果将int型的实际参数传递给期望得到double型参数的函数, 则该实际参数将自动转换为double类型.
+<div style="flex:1;">
+
+==见过原型== (本页): 每个参数的值被==隐式转换==为形参的类型, 就像==赋值==一样
+
+- `average(x, y)`: x、y 是 int, 传给 double 形参时自动转成 double——安全, 结果正确 (输出 4)
+
+==没见过原型== (下一页): 执行默认参数提升, ==危险==——square 的例子
+
+</div>
+
+</div>
 
 ---
 
