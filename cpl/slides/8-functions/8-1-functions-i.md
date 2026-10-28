@@ -54,7 +54,7 @@ presentation:
 
 - 函数定义与调用 (案例: 素数判断)
 
-- 返回类型 void 与无参函数 (案例: 倒计时、sort 空壳)
+- 返回类型 void 与无参函数
 
 - 函数声明
 
@@ -537,6 +537,8 @@ int main(void)
 
 - 对比第 5 周: 那时要判断一个数, 得把循环抄一遍; 现在写一次, 判断 99 次
 
+<span class="blue">:fa-lightbulb-o:</span> 练习: 用同样方式写 `gcd(a, b)`——辗转相除法 (大数除小数取余, 直到余数为 0)
+
 </div>
 
 </div>
@@ -575,7 +577,7 @@ void print_line(void)
 
 `void` 是一种没有值的类型
 
-`print_count` 的调用必须自成一个语句: `print_count(i);`——`countdown.c` 在循环里调用了 10 次
+`print_count` 的调用必须自成一个语句: `print_count(i);`
 
 ---
 
@@ -585,76 +587,6 @@ void print_line(void)
 
 </div>
 
-<!-- slide data-notes="" -->##### 程序: 打印倒计时
-
----
-
-==现场演示==: 把火箭倒计时封装成函数——`print_count(n)` 打印一行数字, 主函数循环调用它完成 10 到 1 的倒计时
-
-样例输出:
-
-```
-10
-9
-...
-1
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 函数只负责"打印一行", 循环调用放在 main 里——第 5 周的知识和函数第一次配合
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 程序: 打印倒计时 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
-
-```C{.line-numbers}
-/* 火箭倒计时: 函数 + 循环 */
-#include <stdio.h>
-
-void print_count(int n)
-{
-  printf("%d\n", n);
-}
-
-int main(void)
-{
-  int i;
-
-  for (i = 10; i > 0; --i) {
-    print_count(i);
-  }
-  printf("发射!\n");
-
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- `print_count` 每次调用只打印一行——==一个函数只做一件事==
-
-- 循环在 main 里, 函数被调用了 10 次——函数和循环第一次配合
-
-- 输出: 10、9、…、1、发射!
-
-<span class="blue">:fa-lightbulb-o:</span> 练习: 用同样方式写 `gcd(a, b)`——辗转相除法 (大数除小数取余, 直到余数为 0), 比倒计时更有"算法味"
-
-</div>
-
-</div>
-
----
 <!-- slide data-notes="" -->
 
 
