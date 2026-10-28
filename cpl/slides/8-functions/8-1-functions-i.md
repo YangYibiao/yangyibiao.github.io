@@ -647,7 +647,7 @@ void函数的调用后边始终跟着分号, 使该调用成为语句:
 <!-- slide data-notes="" -->
 
 
-##### 函数调用
+##### 函数调用 · 丢弃返回值
 
 ---
 
@@ -673,28 +673,21 @@ printf("Hi, Mom!\n"); /* discards return value */
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-如果不需要非void函数返回的值, 总是可以将其丢弃:
+<div style="font-weight:700;color:#268bd2;">📌 丢弃返回值</div>
 
-此调用是表达式语句的示例: 计算出语句的值, 但不保存它.
+非 void 函数的返回值不需要时, 可以把它丢掉——`average(x, y);` 就是==表达式语句==: 算出值, 不保存
 
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 printf 也有返回值</div>
 
----
+`printf` 返回它打印的字符个数——`num_chars = printf("Hi, Mom!\n");` 之后 num_chars 为 9 (自己数一遍)
 
-丢掉average函数的返回值是奇怪的, 但有些情况下是有意义的. 
+通常我们直接丢弃 printf 的返回值
 
-printf返回它打印的字符个数. 
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 (void) 标注</div>
 
-在以下调用之后, num_chars的值为 9:
-
-我们通常会丢弃printf的返回值:
-
----
-
-返回值==故意不要==时, 可以在调用前加 `(void)` 表明:
-
-使用(void)可以让别人清楚编写者是故意丢弃了返回值, 而不是忘记了.
+返回值==故意不要==时, 调用前加 `(void)`——让别人知道是故意的, 而不是忘了
 
 </div>
 
@@ -935,25 +928,19 @@ decompose(3.14159, i, d);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-n是原始指数的副本, 函数可以安全修改它, 从而不再需要变量i:
+<div style="font-weight:700;color:#268bd2;">📌 传值的优点</div>
 
----
+`n` 是原始指数的==副本==, 函数里放心修改它 (`while (n-- > 0)`), 不再需要变量 i
 
-C对参数按值传递的要求使得编写某些类型的函数变得困难. 
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 传值的代价</div>
 
-假设需要一个将double型的值分解为整数和小数部分的函数. 
+想在函数里 "改外面" 的变量就做不到了——`decompose` 想分解出整数部分和小数部分: 函数不能返回两个数, 修改形参也==没用==
 
-函数不能返回两个数, 尝试将两个变量传递给函数并修改它们:
+`decompose(3.14159, i, d)` 之后, i、d 纹丝不动
 
----
-
-函数调用:
-
-可惜的是, i和d不会因为赋值给int_part和frac_part而受到影响. 
-
-第 10 周学了指针, decompose 就能真正奏效 (swap 同理).
+第 10 周学了指针, decompose 才能真正奏效 (swap 同理)
 
 </div>
 
@@ -1134,19 +1121,17 @@ return n >= 0 ? n : 0;
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-非void的函数必须使用return语句来指定它将返回的值. 
+- 非 void 函数==必须==用 `return` 指定返回值
 
-return语句的 <u>格式</u>:
+- 表达式通常是常量或变量, 也可以是更复杂的表达式 (`n >= 0 ? n : 0`)
 
-表达式通常只是常量或变量, 但也可以是更复杂的表达式:
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 类型转换</div>
 
----
+return 表达式的类型与返回类型不匹配时, 会被==隐式转换==为返回类型
 
-如果return语句中表达式的类型与函数的返回类型不匹配, 则表达式将被隐式转换为返回类型. 
-
-*如果声明函数返回int型值, 但return语句包含double类型表达式, 则表达式的值将被转换为int类型.*
+声明返回 `int` 却 `return` 了 double, 值被截断成 int
 
 </div>
 
@@ -1232,28 +1217,17 @@ main()
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-通常, main的返回类型是int:
+- 通常 main 的返回类型是 `int`
 
-以往的C常省略main的返回类型, 利用的是返回类型默认int的传统:
+- 老式 C 常省略返回类型 (默认 int)——C99 起==不合法==, 不要省略; 参数列表里的 `void` 省略合法, 但最好写上
 
----
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 状态码</div>
 
-省略函数的返回类型在C99中是不合法的, 因此最好不要这么做. 
+main 的返回值是==状态码==: 正常结束返回 0; 异常结束返回==非 0==
 
-在main的参数列表中省略void是合法的, 但最好包含它.
-
-
----
-
-main返回的值是一个状态码, 在程序终止时可以检测 ==状态码==. 
-
-如果程序正常终止, main应该返回0. 
-
-要表示==异常结束==, main 返回一个非 0 值。
-
-确保每个C程序都返回一个状态码是一种很好的做法.
+每个程序都返回状态码是好习惯
 
 </div>
 
@@ -1292,38 +1266,17 @@ exit(表达式);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-在 main 里执行 return 是结束程序的一种方式。
+- 结束程序的两种方式: main 里 `return`, 或调用 `<stdlib.h>` 的 `exit`——参数含义相同 (状态码)
 
-另一个是调用exit函数, 它属于`<stdlib.h>`头. 
+- 0 有点模糊, 所以 C 提供宏: `EXIT_SUCCESS` (正常) / `EXIT_FAILURE` (异常), 定义在 `<stdlib.h>`, 通常为 0 和 1
 
-传递给exit的实际参数与main的返回值具有相同的含义: 两者都表示程序在终止时的状态. 
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 return 与 exit 的区别</div>
 
-要表示==正常结束==, 返回 0:
+- `return` 只有由 ==main== 执行时才结束程序
 
----
-
-由于0有点模糊, 所以C允许用EXIT_SUCCESS来代替(效果一样):
-
-传递EXIT_FAILURE表示异常终止:
-
-`EXIT_SUCCESS`和`EXIT_FAILURE`是定义在`<stdlib.h>`中的宏. 
-
-- `EXIT_SUCCESS`和`EXIT_FAILURE`的值是由实现定义的, 通常为0和1.
-
-
----
-
-main中的语句
-
-等价于
-
-return和exit的区别在于: 
-
-- 无论哪个函数调用exit都会导致程序终止. 
-
-- return语句仅当由main函数调用时才会导致程序终止.
+- `exit` ==任何函数==里调用都会结束程序
 
 </div>
 
