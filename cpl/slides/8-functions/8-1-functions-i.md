@@ -547,6 +547,10 @@ int main(void)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
+
 函数==没有返回值==, 返回类型就写 ==void==: 
 
 ```C
@@ -555,18 +559,6 @@ void print_count(int n)
   printf("%d\n", n);
 }
 ```
-
-void是一种没有值的类型. 
-
-print_count的调用必须自成一个语句: 
-
-```C
-print_count(i);
-```
-
-`countdown.c` 在循环里调用了 10 次 print_count。
-
-<div style="margin-top:10px;"></div>
 
 ==没有参数==时, 括号里写 `void`, 调用时也必须写==空括号==:
 
@@ -577,12 +569,21 @@ void print_line(void)
 }
 ```
 
-调用: `print_line();` —— 括号不能省, 否则编译器把它当成变量
+</div>
 
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
 
+`void` 是一种没有值的类型
+
+`print_count` 的调用必须自成一个语句: `print_count(i);`——`countdown.c` 在循环里调用了 10 次
 
 ---
 
+`print_line` 的调用: `print_line();`——括号不能省, 否则编译器把它当成变量
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->##### 程序: 打印倒计时
 
