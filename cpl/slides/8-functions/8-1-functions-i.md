@@ -52,9 +52,9 @@ presentation:
 
 - 为什么需要函数: 排列组合案例与设计原则
 
-- 函数定义与调用 (案例: 平均值)
+- 函数定义与调用 (案例: 素数判断)
 
-- 返回类型 void 与无参函数 (案例: 倒计时、分隔线)
+- 返回类型 void 与无参函数 (案例: 倒计时、分隔线、sort 空壳)
 
 - 函数声明
 
@@ -206,21 +206,26 @@ int main(void)
 
 同样一段代码要写三遍, 改 bug 就要改三处——函数给代码起名字, 一次写好、处处使用
 
-==复用==
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;font-size:0.8em;">
 
-模块化：便于调试、代码理解
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">🔁 复用</div>
+同样的逻辑只写==一遍==, 需要时调用即可 —— 改 bug 只改一处
+</div>
 
-封装：隐藏实现细节，仅暴漏有限、必要的接口
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">🧩 模块化</div>
+程序拆成小块, ==更容易调试、理解== —— 每块只做一件事
+</div>
 
----
+<div style="background:rgba(38,139,210,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);">
+<div style="font-weight:700;color:#268bd2;">📦 封装</div>
+隐藏实现细节, 只暴露有限、必要的==接口==
+</div>
+
+</div>
 
 刚才的 `factorial` 就是例证: 写一遍、调用三遍——复用、模块化、封装, 一个例子全用上
-
----
-
----
-
-
 <!-- slide data-notes="" -->
 
 
@@ -242,8 +247,6 @@ int main(void)
 
 ---
 
----
-
 
 <!-- slide data-notes="" -->
 
@@ -251,6 +254,8 @@ int main(void)
 ##### 函数的定义和调用
 
 ---
+
+==其实你早就在用函数了==——`printf` 和 `scanf` 就是标准库提供的函数, 它们的声明来自头文件:
 
 ```C
 int printf(const char*          format, ... );
@@ -268,13 +273,11 @@ printf("a + b is : %d", a + b);
 
 ---
 
----
-
 
 <!-- slide data-notes="" -->
 
 
-##### 函数定义
+##### 函数定义 · 语法骨架
 
 ---
 
@@ -306,7 +309,7 @@ average(double a, double b)
 
 - 规则: 不能返回数组; ==void== 表示没有返回值; C89 省略默认 int; ==C99 不允许省略==
 
-- 返回类型很冗长时 (如 unsigned long int), 也有的习惯把它单独放一行——如左栏 average 的写法
+- 返回类型很冗长时 (如 `unsigned long int`), 也有的习惯把它单独放一行——左栏 `double` 就是这么放的
 
 </div>
 
@@ -315,7 +318,7 @@ average(double a, double b)
 <!-- slide data-notes="" -->
 
 
-##### 函数定义
+##### 函数定义 · 参数列表与函数体
 
 ---
 
@@ -358,14 +361,14 @@ C89: 声明必须写在语句之前; C99: 声明与语句可以混合 (使用前
 <!-- slide data-notes="" -->
 
 
-##### 函数定义
+##### 函数定义 · 空函数体
 
 ---
 
 返回类型为 `void` 的函数, 函数体可以==为空==: 
 
 ```C
-void print_pun(void)
+void sort(int a[], int n)
 {
 }
 ```
@@ -374,13 +377,15 @@ void print_pun(void)
 
 - 之后再逐个填充实现 —— 像盖房子: 先立好框架, 再砌墙装修
 
+- 兑现上周的承诺: "后面学了函数, 就能把排序封装成 `sort(a, n)`"——壳先立起来, 排序实现第 9 周再填
+
 ---
 
 
 <!-- slide data-notes="" -->
 
 
-##### 程序: 计算平均值
+##### 程序: 素数判断
 
 ---
 
@@ -388,10 +393,17 @@ void print_pun(void)
 
 <div style="flex:1.3;font-size:0.6em;">
 
-```C
-double average(double a, double b)
+```C{.line-numbers}
+int is_prime(int n)
 {
-  return (a + b) / 2;
+  int d;
+
+  for (d = 2; d * d <= n; d++) {
+    if (n % d == 0) {
+      return 0;              /* 找到因子, 不是素数 */
+    }
+  }
+  return 1;                  /* 没找到因子, 是素数 */
 }
 ```
 
@@ -399,43 +411,21 @@ double average(double a, double b)
 
 <div style="flex:1;">
 
-定义一个 `average` 函数, 计算两个 `double` 数的平均值:
+第 5 周用循环写过素数判断——今天把它==函数化==: 需要判断素数时调用 `is_prime` 即可.
 
-开头的单词double是average函数的返回类型. 
+- 开头的 `int` 是返回类型: 是素数返回 1, 不是返回 0
 
-标识符a和b(函数形式参数)表示调用average需提供的两个数.
+- `n` 是形式参数, 表示待判断的数; 调用时复制实际参数的值
 
+- ==函数体==由大括号包围, 里面有声明 `int d`、循环和==两条 return==——注意: 函数可以有多条 `return`, 执行到哪条就从哪条返回
 
----
-
-每个函数都有一个大括号括起来的执行部分, 称为 ==函数体==. 
-
-average函数的函数体由一条`return`语句构成. 
-
-执行这条语句, 函数就"返回"到调用它的地方。
-
-表达式`(a + b) / 2`的值将作为函数的返回值.
-
-
----
-
-函数调用需要函数名和实际参数列表. 
-
-average(x, y)是对average函数的调用. 
-
-实际参数用于向函数提供信息. 
-
-调用average(x, y)的效果是把变量x和y的值复制给形式参数a和b. 
-
-实际参数不一定是变量, 任何正确类型的表达式都可以. 
-
-average(5.1, 8.9)和average(x/2, y/3)都是合法的函数调用.
+- 调用需要函数名和实际参数: `is_prime(97)`、`is_prime(m)` 都是合法的调用, 实际参数可以是任意同类型的表达式
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->##### 程序: 计算平均值 (average.c)
+<!-- slide data-notes="" -->##### 程序: 素数判断 (prime.c)
 
 ---
 
@@ -443,34 +433,32 @@ average(5.1, 8.9)和average(x/2, y/3)都是合法的函数调用.
 
 <div style="flex:1.3;font-size:0.6em;">
 
-```C
-printf("Average: %g\n", average(x, y));
-```
-
-```C
-avg = average(x, y); 
-```
-
 ```C{.line-numbers}
-/* Computes pairwise averages of three numbers */
- 
+/* prime.c: 输出 2 ~ 100 的全部素数 */
 #include <stdio.h>
- 
-double average(double a, double b)
+
+int is_prime(int n)
 {
-  return (a + b) / 2;
+  int d;
+
+  for (d = 2; d * d <= n; d++) {
+    if (n % d == 0) {
+      return 0;
+    }
+  }
+  return 1;
 }
- 
+
 int main(void)
 {
-  double x, y, z;
- 
-  printf("Enter three numbers: ");
-  scanf("%lf%lf%lf", &x, &y, &z);
-  printf("Average of %g and %g: %g\n", x, y, average(x, y));
-  printf("Average of %g and %g: %g\n", y, z, average(y, z));
-  printf("Average of %g and %g: %g\n", x, z, average(x, z));
- 
+  int i;
+
+  for (i = 2; i <= 100; i++) {
+    if (is_prime(i)) {
+      printf("%d ", i);
+    }
+  }
+  printf("\n");
   return 0;
 }
 ```
@@ -479,29 +467,13 @@ int main(void)
 
 <div style="flex:1;">
 
-我们把average函数的调用放在需要使用其返回值的地方. 
+- 把 `is_prime` 的调用放在 `if` 里, 返回值直接当==条件==用——非 void 函数的调用就是一个值
 
-计算并显示 x 和 y 平均值的语句:
+- 2 ~ 100 的素数:
 
-不保存average函数的返回值, 程序显示这个值然后丢弃它. 
+2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
 
-返回值以后还要用, 就先存进变量:
-
----
-
-`average.c`: 读 3 个数, 每两个一组, 用 `average` 计算平均值: 
-
-Enter three numbers: <u>3.5 9.6 10.2</u>
-Average of 3.5 and 9.6: 6.55
-Average of 9.6 and 10.2: 9.9
-Average of 3.5 and 10.2: 6.85
-
----
-
-
----
-
-`average.c`
+- 对比第 5 周: 那时要判断一个数, 得把循环抄一遍; 现在写一次, 判断 99 次
 
 </div>
 
@@ -597,6 +569,8 @@ int main(void)
 
 - 输出: 10、9、…、1、发射!
 
+<span class="blue">:fa-lightbulb-o:</span> 练习: 用同样方式写 `gcd(a, b)`——辗转相除法 (大数除小数取余, 直到余数为 0), 比倒计时更有"算法味"
+
 </div>
 
 </div>
@@ -616,16 +590,16 @@ int main(void)
 ```C
 average(x, y)
 print_count(i)
-print_pun()
+print_line()
 ```
 
 ```C
-print_pun;   /*** WRONG ***/
+print_line;   /*** WRONG ***/
 ```
 
 ```C
 print_count(i);
-print_pun();
+print_line();
 ```
 
 ```C
@@ -1030,7 +1004,7 @@ C对参数按值传递的要求使得编写某些类型的函数变得困难.
 
 可惜的是, i和d不会因为赋值给int_part和frac_part而受到影响. 
 
-第 11 章展示了如何使decompose函数奏效.
+第 10 周学了指针, decompose 就能真正奏效 (swap 同理).
 
 </div>
 
@@ -1231,9 +1205,9 @@ void print_int(int i)
 ```
 
 ```C
-void print_pun(void)
+void print_count(int n)
 {
-  printf("To C, or not to C: that is the question.\n");
+  printf("%d\n", n);
   return;   /* OK, but not needed */
 }
 ```
@@ -1389,13 +1363,19 @@ return和exit的区别在于:
 
 ---
 
-1. 函数定义由哪两部分组成？`return` 的作用是什么？
+1. 概念: 函数定义由哪几部分组成？`return` 的作用是什么？
 
-2. 函数调用之前必须有什么？函数声明的一般形式是什么？
+2. 概念: C 语言中参数按什么方式传递？实参和形参是什么关系？
 
-3. C 语言中参数按什么方式传递？实参和形参是什么关系？
+3. 代码阅读: 调用 `is_prime(9)` 和 `is_prime(11)` 各返回什么？`is_prime` 里的 `return 0` 执行后, 循环还会继续吗？
 
-4. `void` 返回类型表示什么？`exit(0)` 与 `return 0` 有什么区别？
+4. 纠错: 下面的函数想交换两个变量的值, 调用后为什么 x、y 没变？该怎么改（先不剧透, 第 10 周解答）？
+
+```C
+void swap(int a, int b) {
+    int t = a;  a = b;  b = t;
+}
+```
 
 ---
 
