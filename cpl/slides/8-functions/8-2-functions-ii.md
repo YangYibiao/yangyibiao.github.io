@@ -56,6 +56,8 @@ presentation:
 
 - 课堂编码
 
+- 课堂小测
+
 ---
 
 
@@ -91,19 +93,21 @@ presentation:
 
 ```C{.line-numbers}
 /* 判断一个数是否为素数 */
-#include <stdbool.h>
 #include <stdio.h>
 
-bool is_prime(int n)
+int is_prime(int n)
 {
   int divisor;
 
-  if (n <= 1)
-    return false;
-  for (divisor = 2; divisor * divisor <= n; divisor++)
-    if (n % divisor == 0)
-      return false;
-  return true;
+  if (n <= 1) {
+    return 0;
+  }
+  for (divisor = 2; divisor * divisor <= n; divisor++) {
+    if (n % divisor == 0) {
+      return 0;
+    }
+  }
+  return 1;
 }
 
 int main(void)
@@ -112,10 +116,11 @@ int main(void)
 
   printf("输入一个数: ");
   scanf("%d", &n);
-  if (is_prime(n))
+  if (is_prime(n)) {
     printf("是素数\n");
-  else
+  } else {
     printf("不是素数\n");
+  }
   return 0;
 }
 ```
@@ -128,7 +133,7 @@ int main(void)
 
 - `divisor * divisor <= n` 就是检查到 $\sqrt{n}$ 的等价写法 (不用 math.h)
 
-- 返回 `bool` (true/false), 调用处 `if (is_prime(n))` 直接判
+- 返回 1/0, 调用处 `if (is_prime(n))` 直接当条件——与 8-1 的写法一致
 
 </div>
 
@@ -191,27 +196,28 @@ int is_leap_year(int n) {
 
 <div style="flex:1;">
 
-<a href="code/leap.c" target="_blank">leap.c</a>
+- 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出
 
----
+- 返回 1/0, `if (is_leap_year(year))` 直接当条件
 
-<a href="code/leap-re.c" target="_blank">leap-re.c</a>
+- 以后想再判断闰年, 调函数即可——不用重写条件
 
-
-
-</div>
+<a href="code/leap.c" target="_blank">leap.c</a> · <a href="code/leap-re.c" target="_blank">leap-re.c</a>
 
 </div>
 
-<!-- slide data-notes="" -->##### primes.c (原版)
+</div>
+
+<!-- slide data-notes="" -->##### primes.c: 原版 vs 函数版
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;font-size:0.5em;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div>
 
 ```C
+/* 原版: 判断逻辑埋在 main 里 */
 #include <stdio.h>
 
 int main() {
@@ -230,7 +236,6 @@ int main() {
     }
     if (prime == 1) {
       count++;
-//      printf("%d ", i);
     }
   }
   printf("\n素数个数: %d", count);
@@ -240,43 +245,28 @@ int main() {
 
 </div>
 
-<div style="flex:1;">
-
-<a href="code/primes.c" target="_blank">primes.c</a>
-
-原版: 主函数里逐个判断
-
-</div>
-
-</div>
-<!-- slide data-notes="" -->##### primes-re.c (函数版)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
+<div>
 
 ```C
+/* 函数版: is_prime 抽出来 */
 #include <stdio.h>
+
 int is_prime(int n) {
-  int prime = 1;
   for (int j = 2; j * j <= n; j++) {
     if (n % j == 0) {
-      prime = 0;
-      break;
+      return 0;
     }
   }
-  return prime;
+  return 1;
 }
+
 int main() {
   int max;
   scanf("%d", &max);
+
   int count = 0;
   for (int i = 2; i <= max; i++) {
-    // 判断 i 是否素数
-    int prime = is_prime(i);
-    if (prime == 1) {
+    if (is_prime(i) == 1) {
       count++;
     }
   }
@@ -287,15 +277,20 @@ int main() {
 
 </div>
 
-<div style="flex:1;">
+</div>
+
+<div style="margin-top:8px;">
+
+- 原版: 素数逻辑埋在 main 的两层循环里; 函数版: `is_prime(i)` 一行调用——和第 4 页是同一个函数
+
+- 函数化改造的套路: 把 "一块逻辑" 抽出来 → 起名字 → 参数进、返回值出
+
+<a href="code/primes.c" target="_blank">primes.c</a> · <a href="code/primes-re.c" target="_blank">primes-re.c</a>
+
+</div>
 
 ---
 
-<a href="code/primes-re.c" target="_blank">primes-re.c</a>
-
-</div>
-
-</div>
 <!-- slide data-notes="" -->
 
 
@@ -336,9 +331,13 @@ int main() {
 
 <div style="flex:1;">
 
+- 程序里 "打印一行 2*i+1 颗星" 的循环, 就是可以抽出来的函数 `print_stars(n)`
+
+- 留到课堂编码: 你来做这个改造
+
+- 提示: 打印空格的循环也可以抽成 `print_spaces(n)`——每个函数只做==一件事==
+
 <a href="code/stars.c" target="_blank">stars.c</a>
-
-
 
 </div>
 
@@ -393,13 +392,13 @@ int main() {
 
 ---
 
-1. 把"判定素数"的循环改写为函数 `is_prime(n)`，它返回什么类型？
+1. 概念: 函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
 
-2. leap.c 中的 `is_leap_year` 函数返回 1/0 表示什么含义？
+2. 概念: 函数化改造后, `main` 里应该剩下什么？`is_prime(n)` 返回什么类型？
 
-3. 函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
+3. 代码阅读: 阅读 leap.c 函数版, `is_leap_year(1900)` 返回什么？为什么？
 
-4. 课堂编码要把 stars.c 打印一行的循环抽成什么函数？
+4. 纠错: 闰年判断写成 `year % 4 == 0 || year % 400 == 0` (少了 `&& year % 100 != 0`) 会怎样？
 
 ---
 
