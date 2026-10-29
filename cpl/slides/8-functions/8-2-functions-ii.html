@@ -59577,6 +59577,10 @@ div.boardhandle > ul > li {
 <p>课堂编码</p>
 
 </li>
+<li>
+<p>课堂小测</p>
+
+</li>
 </ul>
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="程序--判定素数">程序: 判定素数 </h5>
@@ -59592,19 +59596,21 @@ div.boardhandle > ul > li {
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 判断一个数是否为素数 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdbool.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-bool <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> divisor<span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-return">return</span> false<span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>divisor <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> divisor <span class="token operator">*</span> divisor <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> divisor<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> divisor <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-      <span class="token keyword keyword-return">return</span> false<span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> true<span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>divisor <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> divisor <span class="token operator">*</span> divisor <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> divisor<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> divisor <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -59613,10 +59619,11 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_prime</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_prime</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"是素数\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"不是素数\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
@@ -59631,7 +59638,7 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
 
 </li>
 <li>
-<p>返回 <code>bool</code> (true/false), 调用处 <code>if (is_prime(n))</code> 直接判</p>
+<p>返回 1/0, 调用处 <code>if (is_prime(n))</code> 直接当条件——与 8-1 的写法一致</p>
 
 </li>
 </ul>
@@ -59678,17 +59685,30 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
-<a href="code/leap.c" target="_blank">leap.c</a>
-<hr>
-<a href="code/leap-re.c" target="_blank">leap-re.c</a>
+<ul>
+<li>
+<p>判断逻辑抽成 <code>is_leap_year(year)</code>, main 只剩输入输出</p>
+
+</li>
+<li>
+<p>返回 1/0, <code>if (is_leap_year(year))</code> 直接当条件</p>
+
+</li>
+<li>
+<p>以后想再判断闰年, 调函数即可——不用重写条件</p>
+
+</li>
+</ul>
+<a href="code/leap.c" target="_blank">leap.c</a> · <a href="code/leap-re.c" target="_blank">leap-re.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="primes-c--原版">primes.c (原版) </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="primes-c--原版-vs-函数版">primes.c: 原版 vs 函数版 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;font-size:0.5em;">
+<div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 原版: 判断逻辑埋在 main 里 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> max<span class="token punctuation">;</span>
@@ -59706,42 +59726,32 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
     <span class="token punctuation">}</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>prime <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       count<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token comment">//      printf("%d ", i);</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n素数个数: %d"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<a href="code/primes.c" target="_blank">primes.c</a>
-<p>原版: 主函数里逐个判断</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="primes-re-c--函数版">primes-re.c (函数版) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 函数版: is_prime 抽出来 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
 <span class="token keyword keyword-int">int</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> prime <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> j <span class="token operator">*</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> j <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      prime <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  <span class="token keyword keyword-return">return</span> prime<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
+
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> max<span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
   <span class="token keyword keyword-int">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> max<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// 判断 i 是否素数</span>
-    <span class="token keyword keyword-int">int</span> prime <span class="token operator">=</span> <span class="token function">is_prime</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>prime <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_prime</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       count<span class="token operator">++</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -59749,13 +59759,22 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<hr>
-<a href="code/primes-re.c" target="_blank">primes-re.c</a>
 </div>
+<div style="margin-top:8px;">
+<ul>
+<li>
+<p>原版: 素数逻辑埋在 main 的两层循环里; 函数版: <code>is_prime(i)</code> 一行调用——和第 4 页是同一个函数</p>
+
+</li>
+<li>
+<p>函数化改造的套路: 把 "一块逻辑" 抽出来 → 起名字 → 参数进、返回值出</p>
+
+</li>
+</ul>
+<a href="code/primes.c" target="_blank">primes.c</a> · <a href="code/primes-re.c" target="_blank">primes-re.c</a>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="stars-c">stars.c </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="stars-c">stars.c </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -59783,11 +59802,25 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<ul>
+<li>
+<p>程序里 "打印一行 2*i+1 颗星" 的循环, 就是可以抽出来的函数 <code>print_stars(n)</code></p>
+
+</li>
+<li>
+<p>留到课堂编码: 你来做这个改造</p>
+
+</li>
+<li>
+<p>提示: 打印空格的循环也可以抽成 <code>print_spaces(n)</code>——每个函数只做<mark>一件事</mark></p>
+
+</li>
+</ul>
 <a href="code/stars.c" target="_blank">stars.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数与栈">函数与栈 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数与栈">函数与栈 </h5>
 <hr>
 <p>每次函数调用, 系统都会在<mark>调用栈</mark>(call stack)上做两件事:</p>
 <ul>
@@ -59803,7 +59836,7 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
 <p>这就是局部变量"出了函数就没了"的原因, 也是递归能一层层返回的机制。</p>
 <p>动画演示: <a href="function-and-stack.html">function-and-stack.html</a></p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <p>把下面的程序改写成"主函数 + 若干函数"的结构:</p>
@@ -59817,20 +59850,20 @@ bool <span class="token function">is_prime</span><span class="token punctuation"
 </ol>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 设计原则回顾: 每个函数只做<mark>一件事</mark></p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>把"判定素数"的循环改写为函数 <code>is_prime(n)</code>，它返回什么类型？
+<li>概念: 函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
 </li>
-<li>leap.c 中的 <code>is_leap_year</code> 函数返回 1/0 表示什么含义？
+<li>概念: 函数化改造后, <code>main</code> 里应该剩下什么？<code>is_prime(n)</code> 返回什么类型？
 </li>
-<li>函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
+<li>代码阅读: 阅读 leap.c 函数版, <code>is_leap_year(1900)</code> 返回什么？为什么？
 </li>
-<li>课堂编码要把 stars.c 打印一行的循环抽成什么函数？
+<li>纠错: 闰年判断写成 <code>year % 4 == 0 || year % 400 == 0</code> (少了 <code>&amp;&amp; year % 100 != 0</code>) 会怎样？
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="11" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="10" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
