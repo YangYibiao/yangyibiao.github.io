@@ -179,10 +179,11 @@ i = 32764
 ```C{.line-numbers}
 int fact(int n)
 {
-  if (n <= 1)
+  if (n <= 1) {
     return 1;
-  else
+  } else {
     return n * fact(n - 1);
+  }
 }
 ```
 
@@ -204,9 +205,9 @@ i = fact(3);
 
 1. fact(3) 发现 $3 \le 1$ 不成立, 所以调用
 2. &emsp; fact(2), 发现 $2 \le 1$ 不成立, 所以调用
-3. &emsp; &emsp; fact(1), 发现 $1 \le 1$ 成立, 所以返回1, 导致
+3. &emsp; &emsp; fact(1), 发现 $1 \le 1$ 成立, 所以返回 1, 导致
 4. &emsp; fact(2) 返回 $2 × 1 = 2$, 导致
-2. fact(3) 返回 $3 × 2 = 6$.
+5. fact(3) 返回 $3 × 2 = 6$.
 
 </div>
 
@@ -244,8 +245,9 @@ n! = n × (n-1)!&emsp;(n > 1)
 ```C
 long f(long n)
 {
-  if (n == 0 || n == 1)    /* 基准情形 */
+  if (n == 0 || n == 1) {  /* 基准情形 */
     return 1;
+  }
   return n * f(n - 1);      /* 递归情形 */
 }
 ```
@@ -286,8 +288,12 @@ f(5) → 5×f(4) → 4×f(3) → 3×f(2) → 2×f(1) → 返回 1 → 2 → 6 �
 #include <stdio.h>
 long fib(long n)
 {
-  if (n == 0) return 0;
-  if (n == 1) return 1;
+  if (n == 0) {
+    return 0;
+  }
+  if (n == 1) {
+    return 1;
+  }
   return fib(n - 1) + fib(n - 2);
 }
 int main(void)
@@ -323,7 +329,9 @@ f(5) 会把 f(3)、f(2) 各算多遍——重复计算是朴素递归的代价
 ```C
 int gcd(int a, int b)
 {
-  if (b == 0) return a;      /* 基准情形 */
+  if (b == 0) {             /* 基准情形 */
+    return a;
+  }
   return gcd(b, a % b);     /* 递归情形 */
 }
 ```
@@ -347,8 +355,9 @@ int gcd(int a, int b)
 ```C
 void Hanoi(int n, char A, char B, char C)
 {
-  if (n == 1)
+  if (n == 1) {
     printf("%c -> %c\n", A, C);
+  }
   else {
     Hanoi(n - 1, A, C, B);
     printf("%c -> %c\n", A, C);
@@ -454,7 +463,9 @@ void quicksort(int a[], int low, int high)
 {
   int middle;
 
-  if (low >= high) return;            /* 基准情形: 只剩 0 或 1 个元素 */
+  if (low >= high) {          /* 基准情形: 只剩 0 或 1 个元素 */
+    return;
+  }
   middle = split(a, low, high);       /* 划分: 小的在左, 大的在右 */
   quicksort(a, low, middle - 1);      /* 递归排左半 */
   quicksort(a, middle + 1, high);     /* 递归排右半 */
@@ -483,14 +494,20 @@ int split(int a[], int low, int high)
   int part_element = a[low];
 
   for (;;) {
-    while (low < high && part_element <= a[high])
+    while (low < high && part_element <= a[high]) {
       high--;
-    if (low >= high) break;
+    }
+    if (low >= high) {
+      break;
+    }
     a[low++] = a[high];
 
-    while (low < high && a[low] <= part_element)
+    while (low < high && a[low] <= part_element) {
       low++;
-    if (low >= high) break;
+    }
+    if (low >= high) {
+      break;
+    }
     a[high--] = a[low];
   }
 
@@ -574,13 +591,13 @@ int split(int a[], int low, int high)
 
 ---
 
-1. 递归函数必须具备哪两个要素？
+1. 概念: 递归函数必须具备哪两个要素？
 
-2. f(5) 计算 5! 的过程中，栈上最多同时压了几层调用？
+2. 概念: f(5) 计算 5! 的过程中，栈上最多同时压了几层调用？
 
-3. fib(5) 中 fib(2) 被计算了几次？这说明了什么？
+3. 代码阅读: fib(5) 中 fib(2) 被计算了几次？这说明了什么？
 
-4. 递归和循环各适合什么场景？
+4. 纠错: 递归函数忘了写基准情形会怎样？
 
 ---
 

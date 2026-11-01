@@ -59685,10 +59685,11 @@ div.boardhandle > ul > li {
 <div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-return">return</span> n <span class="token operator">*</span> <span class="token function">fact</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
@@ -59702,7 +59703,7 @@ div.boardhandle > ul > li {
 </li>
 <li>&emsp; fact(2), 发现 \(2 \le 1\) 不成立, 所以调用
 </li>
-<li>&emsp; &emsp; fact(1), 发现 \(1 \le 1\) 成立, 所以返回1, 导致
+<li>&emsp; &emsp; fact(1), 发现 \(1 \le 1\) 成立, 所以返回 1, 导致
 </li>
 <li>&emsp; fact(2) 返回 \(2 × 1 = 2\), 导致
 </li>
@@ -59733,8 +59734,9 @@ div.boardhandle > ul > li {
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>    <span class="token comment">/* 基准情形 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">/* 基准情形 */</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> n <span class="token operator">*</span> <span class="token function">f</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 递归情形 */</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
@@ -59760,8 +59762,12 @@ div.boardhandle > ul > li {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-long">long</span> <span class="token function">fib</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token function">fib</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">fib</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -59783,7 +59789,9 @@ div.boardhandle > ul > li {
 <p>辗转相除法用递归表达: gcd(a, b) = gcd(b, a % b)</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> a<span class="token punctuation">;</span>      <span class="token comment">/* 基准情形 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>             <span class="token comment">/* 基准情形 */</span>
+    <span class="token keyword keyword-return">return</span> a<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> a <span class="token operator">%</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 递归情形 */</span>
 <span class="token punctuation">}</span></code></pre>
 <ul>
@@ -59799,8 +59807,9 @@ div.boardhandle > ul > li {
 <div style="flex:1.3;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">Hanoi</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> A<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> B<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> C<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c -&gt; %c\n"</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
     <span class="token function">Hanoi</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c -&gt; %c\n"</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -59880,7 +59889,9 @@ div.boardhandle > ul > li {
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> middle<span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>            <span class="token comment">/* 基准情形: 只剩 0 或 1 个元素 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>          <span class="token comment">/* 基准情形: 只剩 0 或 1 个元素 */</span>
+    <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   middle <span class="token operator">=</span> <span class="token function">split</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> low<span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 划分: 小的在左, 大的在右 */</span>
   <span class="token function">quicksort</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> low<span class="token punctuation">,</span> middle <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 递归排左半 */</span>
   <span class="token function">quicksort</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> middle <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 递归排右半 */</span>
@@ -59905,14 +59916,20 @@ div.boardhandle > ul > li {
   <span class="token keyword keyword-int">int</span> part_element <span class="token operator">=</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator"><</span> high <span class="token operator">&amp;&amp;</span> part_element <span class="token operator">&lt;=</span> a<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator"><</span> high <span class="token operator">&amp;&amp;</span> part_element <span class="token operator">&lt;=</span> a<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       high<span class="token operator">--</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     a<span class="token punctuation">[</span>low<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator"><</span> high <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> part_element<span class="token punctuation">)</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>low <span class="token operator"><</span> high <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> part_element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       low<span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>low <span class="token operator">&gt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     a<span class="token punctuation">[</span>high<span class="token operator">--</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>low<span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
@@ -59974,13 +59991,13 @@ div.boardhandle > ul > li {
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>递归函数必须具备哪两个要素？
+<li>概念: 递归函数必须具备哪两个要素？
 </li>
-<li>f(5) 计算 5! 的过程中，栈上最多同时压了几层调用？
+<li>概念: f(5) 计算 5! 的过程中，栈上最多同时压了几层调用？
 </li>
-<li>fib(5) 中 fib(2) 被计算了几次？这说明了什么？
+<li>代码阅读: fib(5) 中 fib(2) 被计算了几次？这说明了什么？
 </li>
-<li>递归和循环各适合什么场景？
+<li>纠错: 递归函数忘了写基准情形会怎样？
 </li>
 </ol>
 <hr>
