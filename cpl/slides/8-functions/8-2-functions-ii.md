@@ -146,15 +146,16 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### leap.c
+##### leap.c: 原版 vs 函数版
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;font-size:0.5em;">
 
-<div style="flex:1.3;font-size:0.46em;">
+<div>
 
 ```C
+/* 原版: 判断逻辑在 main 里 */
 #include <stdio.h>
 int main(void) {
   int year = 0;
@@ -172,7 +173,12 @@ int main(void) {
 }
 ```
 
+</div>
+
+<div>
+
 ```C
+/* 函数版: 判断逻辑抽成函数 */
 #include <stdio.h>
 int is_leap_year(int);
 int main(void) {
@@ -196,7 +202,9 @@ int is_leap_year(int n) {
 
 </div>
 
-<div style="flex:1;">
+</div>
+
+<div style="margin-top:8px;">
 
 - 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出
 
@@ -208,7 +216,7 @@ int is_leap_year(int n) {
 
 </div>
 
-</div>
+---
 
 <!-- slide data-notes="" -->##### primes.c: 原版 vs 函数版
 
