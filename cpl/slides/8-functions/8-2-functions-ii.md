@@ -50,6 +50,8 @@ presentation:
 
 ---
 
+- 回顾: 形式参数 vs 实际参数
+
 - 函数化改造: 素数、leap、primes、stars
 
 - 数组作参数: 一维、二维、排序封装、矩阵与成绩案例
@@ -62,6 +64,53 @@ presentation:
 
 ---
 
+
+<!-- slide data-notes="" -->##### 回顾: 形式参数 vs 实际参数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.65em;">
+
+```C{.line-numbers}
+int is_prime(int n)      /* n 是==形式参数==: 定义里的占位名 */
+{
+  int d;
+
+  for (d = 2; d <= n / d; d++) {
+    if (n % d == 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+```
+
+```C
+is_prime(97);     /* 97 是==实际参数==: 调用时传进去的值 */
+is_prime(m);      /* 变量也行: 把 m 的值复制给形参 n */
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- ==形式参数==: 函数定义里的占位名; 调用时拿到的是实参的==副本==
+
+- ==实际参数==: 调用时传进去的值——可以是常量、变量、任意同类型的表达式
+
+- 标量按值传: 改形参==不影响==实参 (swap 陷阱, 上周讲过)
+
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 今天的悬念</div>
+
+数组作参数时, 函数里改数组会==改到原数组==——和标量不一样, 为什么? 第 11 周揭晓
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->##### 程序: 判定素数
 
