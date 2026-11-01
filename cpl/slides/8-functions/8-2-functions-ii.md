@@ -617,10 +617,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 ---
 
 
-<!-- slide data-notes="" -->
-
-
-##### 函数与栈
+<!-- slide data-notes="" -->##### 函数调用栈 · 概念
 
 ---
 
@@ -640,7 +637,55 @@ f 返回:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main]
 
 - 栈是==后进先出==: 最后调用的函数最先返回——像一摞盘子, 只能从最上面拿
 
-<span class="blue">:fa-lightbulb-o:</span> 周三的递归: 函数一层层调用自己, 栈就一层层长高——这个机制是理解递归的地基
+---
+
+<!-- slide data-notes="" -->##### 函数调用栈 · 便签上放了什么
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+double average(double a, double b)
+{
+  double sum;              /* 局部变量 */
+  sum = (a + b) / 2;
+  return sum;
+}
+
+int main(void)
+{
+  double x = 3.0, y = 5.0;
+  printf("%g\n", average(x, y));
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.82em;line-height:1.9;background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);font-family:Operator, 'LXGWWenKai', monospace;">
+栈顶<br>
+┌────────────────────────┐<br>
+│ average 的便签&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+│&nbsp;&nbsp;a = 3.0, b = 5.0&nbsp;&nbsp;&nbsp;← 参数 (实参的副本)<br>
+│&nbsp;&nbsp;sum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← 局部变量<br>
+│&nbsp;&nbsp;返回地址: printf 之后&nbsp;← 回来该从哪继续<br>
+├────────────────────────┤<br>
+│ main 的便签&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+│&nbsp;&nbsp;x = 3.0, y = 5.0&nbsp;&nbsp;&nbsp;│<br>
+└────────────────────────┘<br>
+栈底
+</div>
+
+</div>
+
+- average 返回时, 栈顶的便签被==撕掉==: sum 随之消失, 控制权按 "返回地址" 回到 main
+
+- 下次再调用 average, 系统放一张==全新的便签==——所以每次的局部变量都是新的
+
+<span class="blue">:fa-lightbulb-o:</span> 周三的递归: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图
 
 ---
 
