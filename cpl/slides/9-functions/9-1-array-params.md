@@ -84,8 +84,11 @@ void sort(int a[], int n)          /* 把选择排序装进函数 */
 {
   for (int i = 0; i < n - 1; i++) {
     int min = i;
-    for (int j = i + 1; j < n; j++)
-      if (a[j] < a[min]) min = j;
+    for (int j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
     int t = a[i]; a[i] = a[min]; a[min] = t;
   }
 }
@@ -114,8 +117,9 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
 {
   int i, sum = 0;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; i++) {
     sum += a[i];
+  }
   return sum;
 }
 
@@ -142,9 +146,11 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
 {
   int i, j, sum = 0;
-  for (i = 0; i < rows; i++)
-    for (j = 0; j < 4; j++)
+  for (i = 0; i < rows; i++) {
+    for (j = 0; j < 4; j++) {
       sum += a[i][j];
+    }
+  }
   return sum;
 }
 ```
@@ -169,9 +175,11 @@ int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
 /* a: 3×4 的矩阵, b: 4×3 的转置结果 */
 void transpose(int a[][4], int b[][3], int rows)
 {
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < 4; j++)
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < 4; j++) {
       b[j][i] = a[i][j];
+    }
+  }
 }
 ```
 
@@ -202,8 +210,9 @@ void row_sums(int scores[][3], int n, int sums[])
 {
   for (int i = 0; i < n; i++) {
     sums[i] = 0;
-    for (int j = 0; j < 3; j++)
+    for (int j = 0; j < 3; j++) {
       sums[i] += scores[i][j];
+    }
   }
 }
 ```
@@ -356,13 +365,13 @@ i = 32764
 
 ---
 
-1. 一维数组作参数的写法有哪两个编号要点？为什么函数里改数组会改到原数组？
+1. 概念: 一维数组作参数的写法有哪两个要点？为什么函数里改数组会改到原数组？
 
-2. `void f(int a[][4])` 能接收 `int m[3][5]` 吗？
+2. 代码阅读: `void f(int a[][4])` 能接收 `int m[3][5]` 吗？`transpose` 里 b 的列数为什么写 3？
 
-3. 矩阵转置函数 `transpose(int a[][4], int b[][3], int rows)` 中，b 的列数为什么是 3？
+3. 概念: static 局部变量和普通局部变量有什么不同？
 
-4. static 局部变量和普通局部变量有什么不同？
+4. 纠错: 函数里写了 `int sum; sum = sum + a[i];` (没给 sum 初始化为 0)——会怎样？
 
 ---
 
