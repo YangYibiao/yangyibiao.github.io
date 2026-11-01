@@ -59566,6 +59566,10 @@ div.boardhandle > ul > li {
 <hr>
 <ul>
 <li>
+<p>作用域与生命期 (回顾)</p>
+
+</li>
+<li>
 <p>递归: 自己调用自己</p>
 
 </li>
@@ -59587,7 +59591,95 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="递归">递归 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="标识符的作用域">标识符的作用域 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.7em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>            <span class="token comment">/* 文件作用域 */</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>        <span class="token comment">/* 块作用域, 屏蔽全局 x */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 打印 1 */</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>作用域</mark>: 标识符可以被使用的那段代码范围</p>
+<ul>
+<li>
+<p><mark>块作用域</mark>: 函数体内 {} 覆盖的范围——局部变量、形式参数</p>
+
+</li>
+<li>
+<p><mark>文件作用域</mark>: 从定义位置到文件末尾——全局变量</p>
+
+</li>
+<li>
+<p>内层屏蔽外层: 内层同名变量会<mark>遮蔽</mark>外层的</p>
+
+</li>
+</ul>
+<p><mark>局部变量</mark>: 定义在函数内, 出了函数就不可见</p>
+<ul>
+<li>
+<p><mark>全局变量</mark>: 定义在函数外, 整个文件可见; 少用为妙 (谁都可能改它)</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="变量的生命期">变量的生命期 </h5>
+<hr>
+<ul>
+<li>
+<p><mark>动态变量</mark>(默认): 函数被调用时诞生, 函数返回时消亡</p>
+
+</li>
+<li>
+<p><mark>静态变量</mark>(static): 与程序同生共死, 函数返回后<mark>保留原值</mark></p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-int">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">/* 只初始化一次 */</span>
+  count<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"第 %d 次调用\n"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>
+<p>static 局部变量 = 带记忆的局部变量 (下次调用接着用上次的值)</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="演示--局部变量的-垃圾值">演示: 局部变量的"垃圾值" </h5>
+<hr>
+<div style="font-size:0.8em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>                    <span class="token comment">/* 没有初始化 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre>
+</div>
+<p>一次运行的结果 (每次可能不同!):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">32764</span></code></pre>
+<ul>
+<li>
+<p>动态局部变量诞生时<mark>不会自动清零</mark>——里面是内存里残留的"垃圾值"</p>
+
+</li>
+<li>
+<p>每次运行、每台机器都可能不同; 调试器里恰好是 <code>0</code> 只是假象</p>
+
+</li>
+<li>
+<p>教训: <mark>局部变量必须初始化后再使用</mark>; 编译加 <code>-Wall</code> 有时能提示 "used uninitialized"</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="递归">递归 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59620,7 +59712,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="递归的定义">递归的定义 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="递归的定义">递归的定义 </h5>
 <hr>
 <p>n! 的计算可以递归定义:</p>
 <p>n! = 1&emsp;(n = 0 或 n = 1)</p>
@@ -59637,7 +59729,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="阶乘的递归实现">阶乘的递归实现 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="阶乘的递归实现">阶乘的递归实现 </h5>
 <hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -59646,7 +59738,7 @@ div.boardhandle > ul > li {
   <span class="token keyword keyword-return">return</span> n <span class="token operator">*</span> <span class="token function">f</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 递归情形 */</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="递归执行过程">递归执行过程 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="递归执行过程">递归执行过程 </h5>
 <hr>
 <p>f(5) 的执行: 层层<mark>递推</mark>下去, 再层层<mark>回归</mark>上来</p>
 <p>f(5) → 5×f(4) → 4×f(3) → 3×f(2) → 2×f(1) → 返回 1 → 2 → 6 → 24 → 120</p>
@@ -59661,7 +59753,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="fibonacci-数列">Fibonacci 数列 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="fibonacci-数列">Fibonacci 数列 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59686,7 +59778,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="递归求最大公约数">递归求最大公约数 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="递归求最大公约数">递归求最大公约数 </h5>
 <hr>
 <p>辗转相除法用递归表达: gcd(a, b) = gcd(b, a % b)</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span>
@@ -59701,7 +59793,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="hanoi-塔">Hanoi 塔 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="hanoi-塔">Hanoi 塔 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59732,7 +59824,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="递归与栈">递归与栈 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="递归与栈">递归与栈 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59756,7 +59848,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="分治法">分治法 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="分治法">分治法 </h5>
 <hr>
 <p><mark>分治法</mark> (divide and conquer): 把大问题拆成几个<mark>同类的小问题</mark>, 分别解决, 再合并结果</p>
 <ul>
@@ -59779,7 +59871,7 @@ div.boardhandle > ul > li {
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 递归常常是分治法的<mark>自然结果</mark>——下一页的快速排序正是如此</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
 <hr>
 <p>用<mark>递归</mark>做排序: 选一个基准, 小的放左、大的放右, 再对左右递归</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
@@ -59802,7 +59894,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59832,7 +59924,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="一趟划分在做什么---空位法">一趟划分在做什么: "空位法" </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="一趟划分在做什么---空位法">一趟划分在做什么: "空位法" </h5>
 <hr>
 <p>以 <code>a = {4, 3, 9, 7}</code>, 基准 4 为例:</p>
 <ol>
@@ -59850,7 +59942,7 @@ div.boardhandle > ul > li {
   <img src="figs/9-1.png" width=460px>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="常见错误">常见错误 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="常见错误">常见错误 </h5>
 <hr>
 <ul>
 <li>
@@ -59864,7 +59956,7 @@ div.boardhandle > ul > li {
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 写递归的两步检查: ① 基准情形对吗? ② 每次调用规模在变小吗?</p>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
@@ -59877,7 +59969,7 @@ div.boardhandle > ul > li {
 </ol>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先想清楚<mark>递推关系</mark>和<mark>递归出口</mark>, 再动手写</p>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>递归函数必须具备哪两个要素？
@@ -59890,7 +59982,7 @@ div.boardhandle > ul > li {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="17" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="20" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

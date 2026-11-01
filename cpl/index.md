@@ -51,7 +51,7 @@
 | 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
 |   ^    | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
 | 第8周   | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：8-1 收尾 + 函数化改造与函数栈 |
-|   ^    | [函数进阶](slides/9-functions/9-1-array-params.html) | 函数进阶：数组作参数与作用域 |
+|   ^    | [递归](slides/9-functions/9-2-recursion.html) | 函数进阶：数组作参数与作用域 |
 | 第9周   | 待发布                            | 函数进阶：数组作参数与作用域 |
 |   ^    | 待发布                            | 递归函数 |
 | 第10周  | 待发布                            | 指针基础 |
