@@ -50,7 +50,7 @@ presentation:
 
 ---
 
-- 回顾: 形式参数 vs 实际参数
+- 回顾: 形式参数 vs 实际参数、如何理解按值传递
 
 - 函数化改造: 素数、leap、primes、stars
 
@@ -105,6 +105,49 @@ is_prime(m);      /* 变量也行: 把 m 的值复制给形参 n */
 <div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 今天的悬念</div>
 
 数组作参数时, 函数里改数组会==改到原数组==——和标量不一样, 为什么? 第 11 周揭晓
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 如何理解按值传递
+
+---
+
+==按值传递==: 调用时, 把实参的==值==复制一份赋给形参——之后两者各过各的
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.65em;">
+
+```C{.line-numbers}
+void f(int n)
+{
+  n = n + 1;              /* 改的是副本 */
+  printf("n = %d\n", n);
+}
+
+int main(void)
+{
+  int x = 10;
+  f(x);                   /* ≈ 函数开头先执行 n = x */
+  printf("x = %d\n", x); /* 10, 不是 11 */
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- 调用 `f(x)` 相当于函数开头先执行 ==`n = x`==——形参 n 拿到的是 x 的==值==, 不是 x 本身
+
+- 类比: 把文件==复印==一份交给函数——复印件随便涂改, 原件==纹丝不动==
+
+- 所以上周 swap 里交换 a、b 只是交换两份复印件——外面的 x、y 不变
+
+- 今天的悬念: 数组作参数时函数却能改到原数组——传的 "值" 不一样, 第 11 周揭晓
 
 </div>
 
