@@ -624,65 +624,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 先想一个问题: 函数返回之后, 它里面的局部变量==去哪儿了==? 下次再调用, 为什么又是全新的?
 
 <div style="text-align:center;">
-
-<svg viewBox="0 0 920 400" style="max-width:100%;height:auto;">
-<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<!-- 快照 1: main 调用 f 后 -->
-<g>
-<rect x="60" y="286" width="210" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-<text x="165" y="309" font-size="20" fill="#073642" text-anchor="middle">main · x, y</text>
-<text x="165" y="329" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<rect x="60" y="232" width="210" height="54" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
-<text x="165" y="255" font-size="20" fill="#073642" text-anchor="middle">f · 参数、局部变量</text>
-<text x="165" y="275" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<line x1="165" y1="232" x2="165" y2="212" stroke="#268bd2" stroke-width="2"/>
-<text x="165" y="205" font-size="15" fill="#268bd2" text-anchor="middle">栈顶</text>
-<text x="165" y="368" font-size="15" fill="#586e75" text-anchor="middle">调用 f 后 (压栈)</text>
-</g>
-<!-- 快照 2: f 调用 g 后 -->
-<g>
-<rect x="360" y="286" width="210" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-<text x="465" y="309" font-size="20" fill="#073642" text-anchor="middle">main · x, y</text>
-<text x="465" y="329" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<rect x="360" y="232" width="210" height="54" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
-<text x="465" y="255" font-size="20" fill="#073642" text-anchor="middle">f · 参数、局部变量</text>
-<text x="465" y="275" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<rect x="360" y="178" width="210" height="54" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
-<text x="465" y="201" font-size="20" fill="#073642" text-anchor="middle">g · 参数、局部变量</text>
-<text x="465" y="221" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<line x1="465" y1="178" x2="465" y2="158" stroke="#268bd2" stroke-width="2"/>
-<text x="465" y="151" font-size="15" fill="#268bd2" text-anchor="middle">栈顶</text>
-<text x="465" y="368" font-size="15" fill="#586e75" text-anchor="middle">f 调用 g 后 (再压一张)</text>
-</g>
-<!-- 快照 3: g 返回后 -->
-<g>
-<rect x="660" y="286" width="210" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-<text x="765" y="309" font-size="20" fill="#073642" text-anchor="middle">main · x, y</text>
-<text x="765" y="329" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<rect x="660" y="232" width="210" height="54" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
-<text x="765" y="255" font-size="20" fill="#073642" text-anchor="middle">f · 参数、局部变量</text>
-<text x="765" y="275" font-size="12" fill="#586e75" text-anchor="middle">返回地址</text>
-<line x1="765" y1="232" x2="765" y2="212" stroke="#268bd2" stroke-width="2"/>
-<text x="765" y="205" font-size="15" fill="#268bd2" text-anchor="middle">栈顶</text>
-<text x="765" y="368" font-size="15" fill="#586e75" text-anchor="middle">g 返回后 (弹栈)</text>
-</g>
-<!-- 快照间箭头 -->
-<g stroke="#586e75" stroke-width="2" fill="none">
-<path d="M 280 259 Q 315 259 350 259" marker-end="url(#arr3)"/>
-<path d="M 580 259 Q 615 259 650 259" marker-end="url(#arr3)"/>
-</g>
-<g font-size="13" fill="#586e75" text-anchor="middle">
-<text x="315" y="248">g 压栈</text>
-<text x="615" y="248">g 弹栈</text>
-</g>
-<defs>
-<marker id="arr3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-<path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
-</marker>
-</defs>
-</g>
-</svg>
-
+  <img src="figs/program-call-stack.svg" height=480px>
 </div>
 
 - 每次函数调用, 系统在==调用栈==(call stack) 上放一张 "便签": 记下==返回地址==、==参数==、==局部变量==
@@ -719,18 +661,33 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.82em;line-height:1.9;background:rgba(38,139,210,0.06);padding:12px 16px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);font-family:Operator, 'LXGWWenKai', monospace;">
-栈顶<br>
-┌────────────────────────┐<br>
-│ average 的便签&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;a = 3.0, b = 5.0&nbsp;&nbsp;&nbsp;← 参数 (实参的副本)<br>
-│&nbsp;&nbsp;sum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← 局部变量<br>
-│&nbsp;&nbsp;返回地址: printf 之后&nbsp;← 回来该从哪继续<br>
-├────────────────────────┤<br>
-│ main 的便签&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;x = 3.0, y = 5.0&nbsp;&nbsp;&nbsp;│<br>
-└────────────────────────┘<br>
-栈底
+<div style="flex:1;">
+
+<svg viewBox="0 0 460 400" style="max-width:100%;height:auto;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<rect x="30" y="286" width="180" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="120" y="309" font-size="18" fill="#073642" text-anchor="middle">main · x, y</text>
+<text x="120" y="329" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="232" width="180" height="54" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="120" y="255" font-size="18" fill="#073642" text-anchor="middle">average · a, b, sum</text>
+<text x="120" y="275" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="120" y1="232" x2="120" y2="212" stroke="#268bd2" stroke-width="2"/>
+<text x="120" y="205" font-size="14" fill="#268bd2" text-anchor="middle">栈顶</text>
+<rect x="250" y="286" width="180" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="340" y="309" font-size="18" fill="#073642" text-anchor="middle">main · x, y</text>
+<text x="340" y="329" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="340" y1="232" x2="340" y2="212" stroke="#268bd2" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="340" y="205" font-size="14" fill="#b58900" text-anchor="middle">已撕掉</text>
+<path d="M 220 259 Q 240 259 245 259" stroke="#586e75" stroke-width="2" fill="none" marker-end="url(#arr4)"/>
+<text x="232" y="248" font-size="12" fill="#586e75" text-anchor="middle">返回</text>
+<defs>
+<marker id="arr4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
+</marker>
+</defs>
+</g>
+</svg>
+
 </div>
 
 </div>
