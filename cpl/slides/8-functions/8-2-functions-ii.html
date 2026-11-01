@@ -59957,18 +59957,25 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="函数与栈">函数与栈 </h5>
 <hr>
-<p>每次函数调用, 系统都会在<mark>调用栈</mark>(call stack)上做两件事:</p>
+<p>先想一个问题: 函数返回之后, 它里面的局部变量<mark>去哪儿了</mark>? 下次再调用, 为什么又是全新的?</p>
+<div style="font-size:0.82em;line-height:2.1;background:rgba(38,139,210,0.06);padding:12px 18px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);font-family:Operator, 'LXGWWenKai', monospace;">
+<p>调用前:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main]<br><br> main 调用 f:&nbsp;&nbsp;&nbsp;[main][f]&nbsp;&nbsp;&nbsp;&nbsp;← 压栈: 放一张 "便签" (返回地址 + f 的参数和局部变量)<br><br> f 调用 g:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main][f][g]&nbsp;&nbsp;← 再压一张<br><br> g 返回:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main][f]&nbsp;&nbsp;&nbsp;&nbsp;← 弹栈: 揭掉最上面的便签, g 的局部变量随之消失<br><br> f 返回:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main]</p>
+</div>
 <ul>
 <li>
-<p><mark>压栈</mark>: 保存返回地址、局部变量、参数</p>
+<p>每次函数调用, 系统在<mark>调用栈</mark>(call stack) 上放一张 "便签": 记下<mark>返回地址</mark>、<mark>参数</mark>、<mark>局部变量</mark></p>
 
 </li>
 <li>
-<p><mark>弹栈</mark>: 函数返回后, 其局部变量随之消失</p>
+<p>函数返回时揭掉这张便签——局部变量 "出了函数就没了", 就是这个原因</p>
+
+</li>
+<li>
+<p>栈是<mark>后进先出</mark>: 最后调用的函数最先返回——像一摞盘子, 只能从最上面拿</p>
 
 </li>
 </ul>
-<p>这就是局部变量"出了函数就没了"的原因。</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 周三的递归: 函数一层层调用自己, 栈就一层层长高——这个机制是理解递归的地基</p>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>

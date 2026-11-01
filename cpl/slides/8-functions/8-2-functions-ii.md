@@ -532,16 +532,25 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ---
 
-每次函数调用, 系统都会在==调用栈==(call stack)上做两件事:
+先想一个问题: 函数返回之后, 它里面的局部变量==去哪儿了==? 下次再调用, 为什么又是全新的?
 
-- ==压栈==: 保存返回地址、局部变量、参数
+<div style="font-size:0.82em;line-height:2.1;background:rgba(38,139,210,0.06);padding:12px 18px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);font-family:Operator, 'LXGWWenKai', monospace;">
+调用前:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main]<br>
+main 调用 f:&nbsp;&nbsp;&nbsp;[main][f]&nbsp;&nbsp;&nbsp;&nbsp;← 压栈: 放一张 "便签" (返回地址 + f 的参数和局部变量)<br>
+f 调用 g:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main][f][g]&nbsp;&nbsp;← 再压一张<br>
+g 返回:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main][f]&nbsp;&nbsp;&nbsp;&nbsp;← 弹栈: 揭掉最上面的便签, g 的局部变量随之消失<br>
+f 返回:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[main]
+</div>
 
-- ==弹栈==: 函数返回后, 其局部变量随之消失
+- 每次函数调用, 系统在==调用栈==(call stack) 上放一张 "便签": 记下==返回地址==、==参数==、==局部变量==
 
-这就是局部变量"出了函数就没了"的原因。
+- 函数返回时揭掉这张便签——局部变量 "出了函数就没了", 就是这个原因
+
+- 栈是==后进先出==: 最后调用的函数最先返回——像一摞盘子, 只能从最上面拿
+
+<span class="blue">:fa-lightbulb-o:</span> 周三的递归: 函数一层层调用自己, 栈就一层层长高——这个机制是理解递归的地基
 
 ---
-
 
 <!-- slide data-notes="" -->
 
