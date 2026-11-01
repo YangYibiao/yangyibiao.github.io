@@ -387,10 +387,11 @@ void Hanoi(int n, char A, char B, char C)
 ```C{.line-numbers}
 int power(int x, int n)
 {
-  if (n == 0)
+  if (n == 0) {
     return 1;
-  else
+  } else {
     return x * power(x, n - 1);
+  }
 }
 ```
 
@@ -412,6 +413,8 @@ int power(int x, int n)
 fact和power都会在调用时小心地测试==终止条件==. 
 
 所有递归函数都需有终止条件以防止无限递归.
+
+动画演示: [function-and-stack.html](function-and-stack.html) —— 阶乘递归的层层压栈与返回
 
 </div>
 

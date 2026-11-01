@@ -538,9 +538,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 - ==弹栈==: 函数返回后, 其局部变量随之消失
 
-这就是局部变量"出了函数就没了"的原因, 也是递归能一层层返回的机制。
-
-动画演示: [function-and-stack.html](function-and-stack.html)
+这就是局部变量"出了函数就没了"的原因。
 
 ---
 
