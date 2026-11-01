@@ -5,7 +5,7 @@ int is_prime(int n)          /* write once */
 {
   int d;
 
-  for (d = 2; d * d <= n; d++) {
+  for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
     }

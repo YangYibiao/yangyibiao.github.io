@@ -102,7 +102,7 @@ int is_prime(int n)
   if (n <= 1) {
     return 0;
   }
-  for (divisor = 2; divisor * divisor <= n; divisor++) {
+  for (divisor = 2; divisor <= n / divisor; divisor++) {
     if (n % divisor == 0) {
       return 0;
     }
@@ -131,7 +131,7 @@ int main(void)
 
 - 判断逻辑封装进 `is_prime`——main 只剩输入输出, 一眼看清
 
-- `divisor * divisor <= n` 就是检查到 $\sqrt{n}$ 的等价写法 (不用 math.h)
+- `divisor <= n / divisor` 是检查到 $\sqrt{n}$ 的等价写法 (不用 math.h), 而且==不会溢出==: 写 `divisor * divisor <= n` 时, n 很大 (接近 int 上限) 乘积会超出 int 范围变成负数, 循环直接结束、素数被误判
 
 - 返回 1/0, 调用处 `if (is_prime(n))` 直接当条件——与 8-1 的写法一致
 
@@ -228,7 +228,7 @@ int main() {
   for (int i = 2; i <= max; i++) {
     // 判断 i 是否素数
     int prime = 1;
-    for (int j = 2; j * j <= i; j++) {
+    for (int j = 2; j <= i / j; j++) {
       if (i % j == 0) {
         prime = 0;
         break;
@@ -252,7 +252,7 @@ int main() {
 #include <stdio.h>
 
 int is_prime(int n) {
-  for (int j = 2; j * j <= n; j++) {
+  for (int j = 2; j <= n / j; j++) {
     if (n % j == 0) {
       return 0;
     }

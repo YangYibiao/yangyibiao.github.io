@@ -112,7 +112,7 @@ int main(void)
     /* 任务 1: 输出回文素数 */
     /*   素数检查 (第一次) */
     int is_prime = 1;
-    for (d = 2; d * d <= i; d++) {
+    for (d = 2; d <= i / d; d++) {
       if (i % d == 0) {
         is_prime = 0;
         break;
@@ -128,7 +128,7 @@ int main(void)
     /* 任务 2: 统计素数个数 */
     /*   素数检查 (第二次, 一字不差) */
     is_prime = 1;
-    for (d = 2; d * d <= i; d++) {
+    for (d = 2; d <= i / d; d++) {
       if (i % d == 0) {
         is_prime = 0;
         break;
@@ -187,7 +187,7 @@ int is_prime(int n)          /* 素数检查: 写一次 */
 {
   int d;
 
-  for (d = 2; d * d <= n; d++) {
+  for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
     }
@@ -458,7 +458,7 @@ int is_prime(int n)
 {
   int d;
 
-  for (d = 2; d * d <= n; d++) {
+  for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;              /* 找到因子, 不是素数 */
     }
@@ -503,7 +503,7 @@ int is_prime(int n)
 {
   int d;
 
-  for (d = 2; d * d <= n; d++) {
+  for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
     }

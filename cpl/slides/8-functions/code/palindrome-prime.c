@@ -13,7 +13,7 @@ int main(void)
     /* task 1: print palindromic primes */
     /*   prime check (1st time) */
     int is_prime = 1;
-    for (d = 2; d * d <= i; d++) {
+    for (d = 2; d <= i / d; d++) {
       if (i % d == 0) {
         is_prime = 0;
         break;
@@ -29,7 +29,7 @@ int main(void)
     /* task 2: count primes */
     /*   prime check (2nd time, identical) */
     is_prime = 1;
-    for (d = 2; d * d <= i; d++) {
+    for (d = 2; d <= i / d; d++) {
       if (i % d == 0) {
         is_prime = 0;
         break;
