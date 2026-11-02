@@ -197,171 +197,6 @@ x = 3, y = 5
 
 ---
 
-<!-- slide data-notes="" -->##### 一维数组作参数 · 原版
-
----
-
-求数组元素之和 (非函数版):
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C{.line-numbers}
-/* 求 b 的元素之和: 非函数版 */
-#include <stdio.h>
-
-int main(void)
-{
-  int b[5] = {3, 7, 1, 9, 4};
-  int sum = 0, i;
-
-  for (i = 0; i < 5; i++) {
-    sum += b[i];
-  }
-  printf("sum = %d\n", sum);
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-==任务==: 把求和逻辑抽成 `int sum_array(int a[], int n)`, main 只剩调用和输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-re.c</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 一维数组作参数
-
----
-
-函数要操作数组, 就把数组传给函数:
-
-```C
-int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
-{
-  int i, sum = 0;
-  for (i = 0; i < n; i++) {
-    sum += a[i];
-  }
-  return sum;
-}
-
-total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
-```
-
-- ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
-
-- 原因第 11 周指针与数组揭晓 (数组名传的是地址)
-
----
-
-
-<!-- slide data-notes="" -->##### 排序封装: 原版
-
----
-
-第 7 周的选择排序 (非函数版):
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C{.line-numbers}
-/* 选择排序: 非函数版 */
-#include <stdio.h>
-
-int main(void)
-{
-  int a[10], n = 10, i, j;
-
-  for (i = 0; i < n; i++) {
-    scanf("%d", &a[i]);
-  }
-
-  for (i = 0; i < n - 1; i++) {
-    int min = i;
-    for (j = i + 1; j < n; j++) {
-      if (a[j] < a[min]) {
-        min = j;
-      }
-    }
-    int t = a[i];
-    a[i] = a[min];
-    a[min] = t;
-  }
-
-  for (i = 0; i < n; i++) {
-    printf("%d ", a[i]);
-  }
-  printf("\n");
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-==任务==: 把排序逻辑抽成 `void sort(int a[], int n)`, main 里只剩读入、一行调用、输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 函数化改造: 把排序封装成函数
-
----
-
-第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再抄一遍
-
-```C
-void sort(int a[], int n)          /* 把选择排序装进函数 */
-{
-  for (int i = 0; i < n - 1; i++) {
-    int min = i;
-    for (int j = i + 1; j < n; j++) {
-      if (a[j] < a[min]) {
-        min = j;
-      }
-    }
-    int t = a[i]; a[i] = a[min]; a[min] = t;
-  }
-}
-```
-
-```C
-sort(a, 10);     /* 排 a 的前 10 个元素 */
-sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
-```
-
-- ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
-
-
----
-
-
 <!-- slide data-notes="" -->##### 程序: 判定素数
 
 ---
@@ -852,6 +687,171 @@ int main(void)
 </div>
 
 ---
+
+<!-- slide data-notes="" -->##### 一维数组作参数 · 原版
+
+---
+
+求数组元素之和 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 求 b 的元素之和: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int b[5] = {3, 7, 1, 9, 4};
+  int sum = 0, i;
+
+  for (i = 0; i < 5; i++) {
+    sum += b[i];
+  }
+  printf("sum = %d\n", sum);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把求和逻辑抽成 `int sum_array(int a[], int n)`, main 只剩调用和输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-re.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 一维数组作参数
+
+---
+
+函数要操作数组, 就把数组传给函数:
+
+```C
+int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
+{
+  int i, sum = 0;
+  for (i = 0; i < n; i++) {
+    sum += a[i];
+  }
+  return sum;
+}
+
+total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
+```
+
+- ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
+
+- 原因第 11 周指针与数组揭晓 (数组名传的是地址)
+
+---
+
+
+<!-- slide data-notes="" -->##### 排序封装: 原版
+
+---
+
+第 7 周的选择排序 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 选择排序: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int a[10], n = 10, i, j;
+
+  for (i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+  }
+
+  for (i = 0; i < n - 1; i++) {
+    int min = i;
+    for (j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[i];
+    a[i] = a[min];
+    a[min] = t;
+  }
+
+  for (i = 0; i < n; i++) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把排序逻辑抽成 `void sort(int a[], int n)`, main 里只剩读入、一行调用、输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 函数化改造: 把排序封装成函数
+
+---
+
+第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再抄一遍
+
+```C
+void sort(int a[], int n)          /* 把选择排序装进函数 */
+{
+  for (int i = 0; i < n - 1; i++) {
+    int min = i;
+    for (int j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[i]; a[i] = a[min]; a[min] = t;
+  }
+}
+```
+
+```C
+sort(a, 10);     /* 排 a 的前 10 个元素 */
+sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
+```
+
+- ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
+
+
+---
+
 
 <!-- slide data-notes="" -->##### 生命游戏 · 原版
 
