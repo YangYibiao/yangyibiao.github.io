@@ -970,6 +970,8 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
+核心就一句: `b[j][i] = a[i][j]`——下标 i、j ==互换==, a 的第 i 行第 j 列搬到 b 的第 j 行第 i 列, 相当于==沿对角线翻折==
+
 ==任务==: 把转置逻辑抽成 `void transpose(int a[][4], int b[][3], int rows)`, main 只剩调用和输出
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 形参要写清各自的列数——`a[][4]` 和 `b[][3]`
