@@ -1,8 +1,12 @@
+/* Count primes up to max: with functions */
 #include <stdio.h>
 
 int is_prime(int n) {
-  for (int i = 2; i * i <= n; i++) {
-    if (n % i == 0) {
+  if (n <= 1) {
+    return 0;
+  }
+  for (int j = 2; j <= n / j; j++) {
+    if (n % j == 0) {
       return 0;
     }
   }
@@ -12,14 +16,12 @@ int is_prime(int n) {
 int main() {
   int max;
   scanf("%d", &max);
-
   int count = 0;
   for (int i = 2; i <= max; i++) {
-    // determine if i is a prime
-    if (is_prime(i)) {
+    if (is_prime(i) == 1) {
       count++;
     }
   }
-  printf("\ntotal count: %d", count);
+  printf("count: %d\n", count);
   return 0;
 }

@@ -78,6 +78,9 @@ int is_prime(int n)      /* n 是==形式参数==: 定义里的占位名 */
 {
   int d;
 
+  if (n <= 1) {
+    return 0;
+  }
   for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
@@ -520,6 +523,9 @@ int main() {
 #include <stdio.h>
 
 int is_prime(int n) {
+  if (n <= 1) {
+    return 0;
+  }
   for (int j = 2; j <= n / j; j++) {
     if (n % j == 0) {
       return 0;
