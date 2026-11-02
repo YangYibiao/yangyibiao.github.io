@@ -867,9 +867,9 @@ int main(void)
 
 - 边界技巧: 棋盘四周加一圈 0, 数邻居时==不用判断边界==
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;font-size:0.55em;">
 
-<div style="flex:1.3;font-size:0.5em;">
+<div>
 
 ```C{.line-numbers}
 /* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */
@@ -892,6 +892,14 @@ int main(void)
       for (m = i - 1; m <= i + 1; m++) {
         for (n = j - 1; n <= j + 1; n++) {
           cnt += board[m][n];
+
+
+```
+</div>
+
+<div>
+
+```C
         }
       }
       if (board[i][j] == 1) {
@@ -905,11 +913,14 @@ int main(void)
   /* 打印新一代: 双重循环输出 * 和 . (略) */
   return 0;
 }
+
 ```
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+</div>
+
+<div style="margin-top:8px;font-size:1.0em;line-height:1.7;">
 
 ==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
@@ -919,9 +930,8 @@ int main(void)
 
 </div>
 
-</div>
-
 ---
+
 
 <!-- slide data-notes="" -->##### 生命游戏 · 函数版 (一): 数邻居与演化
 
