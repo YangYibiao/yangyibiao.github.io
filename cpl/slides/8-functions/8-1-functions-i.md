@@ -458,6 +458,9 @@ int is_prime(int n)
 {
   int d;
 
+  if (n <= 1) {            /* 1 和 0 不是素数 */
+    return 0;
+  }
   for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;              /* 找到因子, 不是素数 */
@@ -503,6 +506,9 @@ int is_prime(int n)
 {
   int d;
 
+  if (n <= 1) {            /* 1 和 0 不是素数 */
+    return 0;
+  }
   for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
