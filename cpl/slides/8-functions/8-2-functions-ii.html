@@ -59574,7 +59574,7 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>数组作参数: 一维、二维、排序封装、矩阵与成绩案例</p>
+<p>数组作参数: 一维、生命游戏、排序封装、矩阵与成绩案例</p>
 
 </li>
 <li>
@@ -60220,59 +60220,144 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="二维数组作参数---原版">二维数组作参数 · 原版 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="生命游戏---原版">生命游戏 · 原版 </h5>
 <hr>
-<p>求矩阵元素之和 (非函数版):</p>
+<p><mark>生命游戏</mark> (Conway's Game of Life): 一个方格棋盘, 每格要么活 (<code>1</code>) 要么死 (<code>0</code>), 每一代按三条规则演化:</p>
+<ul>
+<li>
+<p>活格子: 活邻居为 2 或 3 → 活, 否则死</p>
+
+</li>
+<li>
+<p>死格子: 活邻居恰好为 3 → 活</p>
+
+</li>
+<li>
+<p>边界技巧: 棋盘四周加一圈 0, 数邻居时<mark>不用判断边界</mark></p>
+
+</li>
+</ul>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 求 m 的元素之和: 非函数版 */</span>
+<div style="flex:1.3;font-size:0.5em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SIZE 8</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> board<span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> next<span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> cnt<span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> <span class="token number">4</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      sum <span class="token operator">+=</span> m<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token comment">/* 初始: 一个滑翔机 */</span>
+  board<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  board<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      cnt <span class="token operator">=</span> <span class="token operator">-</span>board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>m <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> m <span class="token operator">&lt;=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> m<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> n <span class="token operator">&lt;=</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          cnt <span class="token operator">+=</span> board<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        next<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>cnt <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">||</span> cnt <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+        next<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>cnt <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum = %d\n"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> next<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">?</span> <span class="token string">'*'</span> <span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
-<p><mark>任务</mark>: 把求和逻辑抽成 <code>int sum_matrix(int a[][4], int rows)</code>, main 只剩调用和输出</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 二维数组作参数时列数不能省——下一页解释为什么</p>
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-matrix-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-matrix-orig.c</a>
+<p><mark>任务</mark>: 把这段代码改写成三个函数——<code>count_neighbors</code>、<code>next_generation</code>、<code>print_board</code>, main 只剩初始化和调用</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 想演化 10 代? 非函数版只能把整段循环<mark>复制 10 遍</mark>——这就是改写的动机</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-orig.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="二维数组作参数">二维数组作参数 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="生命游戏---函数版">生命游戏 · 函数版 </h5>
 <hr>
-<p>二维数组作参数时, <mark>只能省略第一维</mark>的长度——列数必须写出来:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">sum_matrix</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> rows<span class="token punctuation">)</span>   <span class="token comment">/* 列数 4 不能省 */</span>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.5em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">count_neighbors</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> board<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> j<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> cnt <span class="token operator">=</span> <span class="token operator">-</span>board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> <span class="token number">4</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>m <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> m <span class="token operator">&lt;=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> m<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> n <span class="token operator">&lt;=</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      cnt <span class="token operator">+=</span> board<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  <span class="token keyword keyword-return">return</span> sum<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> cnt<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">next_generation</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> board<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> new_board<span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> cnt<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      cnt <span class="token operator">=</span> <span class="token function">count_neighbors</span><span class="token punctuation">(</span>board<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        new_board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>cnt <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">||</span> cnt <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+        new_board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>cnt <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">/* 写回 board */</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> new_board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> board<span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+
+  board<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  board<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">print_board</span><span class="token punctuation">(</span>board<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">next_generation</span><span class="token punctuation">(</span>board<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
 <ul>
 <li>
-<p>调用: <code>sum_matrix(m, 3)</code>——传数组名 + 行数 (m 是 <code>int[3][4]</code>)</p>
+<p>三个函数各管一件事: <mark>数邻居</mark>、<mark>演化一代</mark>、<mark>打印棋盘</mark>——main 只剩初始化和十代循环</p>
 
 </li>
 <li>
-<p>为什么列数不能省? 编译器要知道"<mark>一行有多长</mark>"才能算出 <code>a[i][j]</code> 的位置</p>
+<p>二维数组作参数: <code>int board[][SIZE + 2]</code>——列数<mark>必须写</mark> (编译器要算 <code>board[i][j]</code> 的位置), 这是二维数组作参数的核心规则</p>
+
+</li>
+<li>
+<p>函数之间<mark>互相调用</mark>: <code>next_generation</code> 调 <code>count_neighbors</code>——函数可以调用函数</p>
 
 </li>
 </ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
+</div>
+</div>
 <hr>
 </section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="案例--矩阵转置---原版">案例: 矩阵转置 · 原版 </h5>
 <hr>

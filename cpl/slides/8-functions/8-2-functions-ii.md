@@ -54,7 +54,7 @@ presentation:
 
 - 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
 
-- 数组作参数: 一维、二维、排序封装、矩阵与成绩案例
+- 数组作参数: 一维、生命游戏、排序封装、矩阵与成绩案例
 
 - 函数调用栈 (概念与例子)
 
@@ -855,31 +855,60 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 ---
 
 
-<!-- slide data-notes="" -->##### 二维数组作参数 · 原版
+<!-- slide data-notes="" -->##### 生命游戏 · 原版
 
 ---
 
-求矩阵元素之和 (非函数版):
+==生命游戏== (Conway's Game of Life): 一个方格棋盘, 每格要么活 (`1`) 要么死 (`0`), 每一代按三条规则演化:
+
+- 活格子: 活邻居为 2 或 3 → 活, 否则死
+
+- 死格子: 活邻居恰好为 3 → 活
+
+- 边界技巧: 棋盘四周加一圈 0, 数邻居时==不用判断边界==
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.5em;">
 
 ```C{.line-numbers}
-/* 求 m 的元素之和: 非函数版 */
+/* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */
 #include <stdio.h>
+
+#define SIZE 8
 
 int main(void)
 {
-  int m[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-  int sum = 0, i, j;
+  int board[SIZE + 2][SIZE + 2] = {{0}};
+  int next[SIZE + 2][SIZE + 2] = {{0}};
+  int i, j, m, n, cnt;
 
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 4; j++) {
-      sum += m[i][j];
+  /* 初始: 一个滑翔机 */
+  board[2][3] = 1;  board[3][4] = 1;
+  board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
+
+  for (i = 1; i <= SIZE; i++) {
+    for (j = 1; j <= SIZE; j++) {
+      cnt = -board[i][j];
+      for (m = i - 1; m <= i + 1; m++) {
+        for (n = j - 1; n <= j + 1; n++) {
+          cnt += board[m][n];
+        }
+      }
+      if (board[i][j] == 1) {
+        next[i][j] = (cnt == 2 || cnt == 3);
+      } else {
+        next[i][j] = (cnt == 3);
+      }
     }
   }
-  printf("sum = %d\n", sum);
+
+  for (i = 1; i <= SIZE; i++) {
+    for (j = 1; j <= SIZE; j++) {
+      printf("%c", next[i][j] ? '*' : '.');
+    }
+    printf("\n");
+  }
   return 0;
 }
 ```
@@ -888,11 +917,11 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把求和逻辑抽成 `int sum_matrix(int a[][4], int rows)`, main 只剩调用和输出
+==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 二维数组作参数时列数不能省——下一页解释为什么
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版只能把整段循环==复制 10 遍==——这就是改写的动机
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-matrix-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-matrix-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-orig.c</a>
 
 </div>
 
@@ -900,35 +929,83 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### 二维数组作参数
+<!-- slide data-notes="" -->##### 生命游戏 · 函数版
 
 ---
 
-二维数组作参数时, ==只能省略第一维==的长度——列数必须写出来:
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-```C
-int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
+<div style="flex:1.3;font-size:0.5em;">
+
+```C{.line-numbers}
+int count_neighbors(int board[][SIZE + 2], int i, int j)
 {
-  int sum = 0;
+  int cnt = -board[i][j], m, n;
 
-  for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < 4; j++) {
-      sum += a[i][j];
+  for (m = i - 1; m <= i + 1; m++) {
+    for (n = j - 1; n <= j + 1; n++) {
+      cnt += board[m][n];
     }
   }
-  return sum;
+  return cnt;
+}
+
+void next_generation(int board[][SIZE + 2])
+{
+  int new_board[SIZE + 2][SIZE + 2] = {{0}};
+  int i, j, cnt;
+
+  for (i = 1; i <= SIZE; i++) {
+    for (j = 1; j <= SIZE; j++) {
+      cnt = count_neighbors(board, i, j);
+      if (board[i][j] == 1) {
+        new_board[i][j] = (cnt == 2 || cnt == 3);
+      } else {
+        new_board[i][j] = (cnt == 3);
+      }
+    }
+  }
+  /* 写回 board */
+  for (i = 1; i <= SIZE; i++) {
+    for (j = 1; j <= SIZE; j++) {
+      board[i][j] = new_board[i][j];
+    }
+  }
+}
+
+int main(void)
+{
+  int board[SIZE + 2][SIZE + 2] = {{0}};
+  int i;
+
+  board[2][3] = 1;  board[3][4] = 1;
+  board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
+
+  for (i = 0; i < 10; i++) {
+    print_board(board);
+    next_generation(board);
+  }
+  return 0;
 }
 ```
 
-- 调用: `sum_matrix(m, 3)`——传数组名 + 行数 (m 是 `int[3][4]`)
+</div>
 
-- 为什么列数不能省? 编译器要知道"==一行有多长=="才能算出 `a[i][j]` 的位置
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- 三个函数各管一件事: ==数邻居==、==演化一代==、==打印棋盘==——main 只剩初始化和十代循环
+
+- 二维数组作参数: `int board[][SIZE + 2]`——列数==必须写== (编译器要算 `board[i][j]` 的位置), 这是二维数组作参数的核心规则
+
+- 函数之间==互相调用==: `next_generation` 调 `count_neighbors`——函数可以调用函数
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
+
+</div>
+
+</div>
 
 ---
-
 
 <!-- slide data-notes="" -->##### 案例: 矩阵转置 · 原版
 
