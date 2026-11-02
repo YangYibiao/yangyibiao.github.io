@@ -762,10 +762,9 @@ main 里调用 average 时编译器没有它的信息: 不报错, 而是假设�
 ---
 
 
-<!-- slide data-notes="" -->
+<!-- slide data-notes="" --><!-- slide data-notes="" -->
 
-
-##### 函数声明
+##### 函数声明 · 原型
 
 ---
 
@@ -779,7 +778,7 @@ main 里调用 average 时编译器没有它的信息: 不报错, 而是假设�
 
 ```C{.line-numbers}
 #include <stdio.h>
- 
+ 
 double average(double a, double b);   /* DECLARATION */
 
 int main(void)
@@ -788,13 +787,16 @@ int main(void)
 
   printf("Enter three numbers: ");
   scanf("%lf%lf%lf", &x, &y, &z);
-  printf("Average of %g and %g: %g\n", x, y, average(x, y));
-  printf("Average of %g and %g: %g\n", y, z, average(y, z));
-  printf("Average of %g and %g: %g\n", x, z, average(x, z));
+  printf("Average of %g and %g: %g
+", x, y, average(x, y));
+  printf("Average of %g and %g: %g
+", y, z, average(y, z));
+  printf("Average of %g and %g: %g
+", x, z, average(x, z));
 
   return 0;
 }
- 
+ 
 double average(double a, double b)    /* DEFINITION */
 {
   return (a + b) / 2;
@@ -802,43 +804,54 @@ double average(double a, double b)    /* DEFINITION */
 ```
 
 ```C
-double average(double, double);
+double average(double, double);    /* 形参名可省略 */
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-幸运的是, C提供了更好的解决方案: 在调用函数之前声明它. 
+- 更好的解决方案: 在调用函数之前==声明==它——声明给编译器一份 "简要介绍", 完整定义以后给出
 
-函数声明为编译器提供函数的简要介绍, 完整定义将在以后给出. 
+- ==声明必须与定义一致== (返回类型、参数个数与类型都对上)
 
-函数声明的<u>一般形式</u>:
-
-函数的声明必须与函数的定义一致. 
-
-这是为average函数添加了声明的`average.c`程序.
-
----
-
-我们正在讨论的这类函数声明称为函数原型. 
-
-C也有旧式的函数声明, 其中括号是空的. 
-
-函数原型不必指定函数形参的名字, 只要显示它们的类型即可:
-
-但最好不要省略形参的名字.
-
-
----
-
-C99遵循的规则: 在调用函数之前, 必须先对其进行声明或定义. 
-
-调用函数时, 如果此前编译器未见其声明或定义, 会导致出错.
+- 这类声明称为==函数原型==; 原型不必写形参名 (`double average(double, double);`), 但==最好写上== (便于阅读)
 
 </div>
 
 </div>
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 函数声明 · 旧式声明与 C99
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.65em;">
+
+```C
+double average();    /* 旧式声明: 括号为空, 不写参数 */
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 旧式声明是 C89 的遗留写法: 括号为空, 编译器==不检查参数==——尽量不用
+
+- ==C99 规则==: 调用函数之前, 必须先对其进行==声明或定义==
+
+- 调用时编译器没见过声明或定义 → ==出错== (上一页的隐式声明正是反面教材)
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
