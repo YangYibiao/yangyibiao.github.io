@@ -857,13 +857,15 @@ int main(void)
 
 ---
 
-==生命游戏== (Conway's Game of Life): 一个方格棋盘, 每格要么活 (`1`) 要么死 (`0`), 每一代按三条规则演化:
+<div style="font-size:0.9em;line-height:1.7;">==生命游戏== (Conway's Game of Life): 一个方格棋盘, 每格要么活 (`1`) 要么死 (`0`), 每一代按三条规则演化:
 
 - 活格子: 活邻居为 2 或 3 → 活, 否则死
 
 - 死格子: 活邻居恰好为 3 → 活
 
 - 边界技巧: 棋盘四周加一圈 0, 数邻居时==不用判断边界==
+
+</div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;font-size:0.55em;">
 
@@ -918,7 +920,7 @@ int main(void)
 
 </div>
 
-<div style="margin-top:8px;font-size:1.0em;line-height:1.7;">
+<div style="margin-top:8px;font-size:0.85em;line-height:1.6;">
 
 ==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
