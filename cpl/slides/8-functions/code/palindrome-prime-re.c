@@ -5,6 +5,9 @@ int is_prime(int n)          /* write once */
 {
   int d;
 
+  if (n <= 1) {            /* 0 and 1 are not primes */
+    return 0;
+  }
   for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
