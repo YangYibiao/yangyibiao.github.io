@@ -989,6 +989,10 @@ int main(void)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.58em;">
+
 把第 6 周的转置逻辑封装成函数:
 
 ```C{.line-numbers}
@@ -1008,11 +1012,25 @@ int a[3][4] = { ... }, b[4][3];
 transpose(a, b, 3);        /* b 得到 a 的转置 */
 ```
 
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
 - 形参里两个二维数组: `a[][4]` 和 `b[][3]`——各自写清自己的==列数==
+
+- 列数不同, 两个形参的写法也不同——每个数组单独交代"一行多长"
+
+- 调用的样子和标量没区别: 数组名 + 行数, 结果直接写进 b
+
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-re.c</a>
 
+</div>
+
+</div>
 
 ---
+
+
 
 
 <!-- slide data-notes="" -->##### 案例: 成绩统计 · 原版
