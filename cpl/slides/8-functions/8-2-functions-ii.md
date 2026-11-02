@@ -232,7 +232,7 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-re.c</a>
 
 </div>
 
@@ -319,7 +319,7 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
 
 </div>
 
@@ -357,7 +357,6 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 ```
 
 - ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
 
 
 ---
@@ -405,7 +404,7 @@ int main(void)
 ==现场演示==: 把左边的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑是 "一块完整的事"——这正是适合装进函数的东西
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
 
 
 </div>
@@ -517,7 +516,7 @@ int main(void) {
 ==任务==: 把判断逻辑改写成函数 `is_leap_year(year)`, main 只剩输入输出
 
 <span class="blue">:fa-lightbulb-o:</span> 判断条件那一行很长——它最适合被装进函数
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/leap-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 leap-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/leap-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 leap-re.c</a>
 
 
 </div>
@@ -667,7 +666,7 @@ int main() {
 ==任务==: 把 "判断 i 是否素数" 的逻辑改写成 `is_prime(i)`, main 里逐个调用
 
 <span class="blue">:fa-lightbulb-o:</span> 前面刚写的 `is_prime` 可以==原样复用==
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/primes-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 primes-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/primes-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 primes-re.c</a>
 
 
 </div>
@@ -780,7 +779,7 @@ int main() {
 - 留到课堂编码: 你来做这个改造
 
 - 提示: 打印空格的循环也可以抽成 `print_spaces(n)`——每个函数只做==一件事==
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-re.c</a>
 
 
 <a href="code/stars.c" target="_blank">stars.c</a>
@@ -847,7 +846,6 @@ int main(void)
 
 <a href="code/stars-re.c" target="_blank">stars-re.c</a>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-re.c</a>
 
 </div>
 
@@ -926,7 +924,7 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着==四层嵌套循环==, 改一条规则得在循环堆里找位置; 函数版只需在 main 里写一个十代循环
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
 
 </div>
 
@@ -1036,7 +1034,6 @@ int main(void)
 
 - 二维数组作参数的核心规则: `int board[][SIZE + 2]` 列数==必须写== (编译器要算 board[i][j] 的位置)
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
 
 </div>
 
@@ -1090,7 +1087,7 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 形参要写清各自的列数——`a[][4]` 和 `b[][3]`
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-re.c</a>
 
 </div>
 
@@ -1138,7 +1135,6 @@ transpose(a, b, 3);        /* b 得到 a 的转置 */
 
 - 调用的样子和标量没区别: 数组名 + 行数, 结果直接写进 b
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-re.c</a>
 
 </div>
 
@@ -1192,7 +1188,7 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 二维数组进 (`scores`)、一维数组出 (`sums`)——两个都是 "数组作参数"
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/row-sums-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 row-sums-orig.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/row-sums-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 row-sums-re.c</a>
 
 </div>
 
@@ -1239,7 +1235,6 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 二维数组进 (`scores`)、一维数组出 (`sums`)——都是"数组作参数"
 
 - 按列统计要单独写: `sums[j]` 的清零放在==行循环之外== (只清一次), 累加行改成 `sums[j] += scores[i][j]` (结果数组长度变成 3)
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/row-sums-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 row-sums-re.c</a>
 
 
 </div>

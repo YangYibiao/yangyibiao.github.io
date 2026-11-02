@@ -1,24 +1,20 @@
-/* Count primes up to max: with functions */
+/* Count primes up to max: no functions */
 #include <stdio.h>
-
-int is_prime(int n) {
-  if (n <= 1) {
-    return 0;
-  }
-  for (int j = 2; j <= n / j; j++) {
-    if (n % j == 0) {
-      return 0;
-    }
-  }
-  return 1;
-}
 
 int main() {
   int max;
   scanf("%d", &max);
+
   int count = 0;
   for (int i = 2; i <= max; i++) {
-    if (is_prime(i) == 1) {
+    int prime = 1;
+    for (int j = 2; j * j <= i; j++) {
+      if (i % j == 0) {
+        prime = 0;
+        break;
+      }
+    }
+    if (prime == 1) {
       count++;
     }
   }
