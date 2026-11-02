@@ -139,9 +139,9 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-- 调用 `f(x)` 相当于函数开头先执行 ==`n = x`==——形参 n 拿到的是 x 的==值==, 不是 x 本身
+- 调用 `f(x)` 相当于函数开头先执行 ==`n = x`==——x 是赋值表达式的==右值== (只读它的值); 形参 n 拿到的是 x 的==值==, 不是 x 本身
 
 - 类比: 把文件==复印==一份交给函数——复印件随便涂改, 原件==纹丝不动==
 
