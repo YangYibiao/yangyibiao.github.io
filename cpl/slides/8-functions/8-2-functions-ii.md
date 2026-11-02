@@ -953,15 +953,7 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 ---
 
-<div style="font-size:0.9em;line-height:1.7;">==生命游戏== (Conway's Game of Life): 一个方格棋盘, 每格要么活 (`1`) 要么死 (`0`), 每一代按三条规则演化:
 
-- 活格子: 活邻居为 2 或 3 → 活, 否则死
-
-- 死格子: 活邻居恰好为 3 → 活
-
-- 边界技巧: 棋盘四周加一圈 0, 数邻居时==不用判断边界==
-
-</div>
 
 <div style="display:flex;align-items:flex-start;gap:20px;">
 
@@ -1006,6 +998,8 @@ int main(void)
 </div>
 
 <div style="flex:1;font-size:0.85em;line-height:1.6;">
+
+==规则==: 活格子活邻居 2 或 3 → 活, 否则死; 死格子活邻居恰好 3 → 活; 边界技巧——四周加一圈 0, 数邻居不用判断边界
 
 ==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
