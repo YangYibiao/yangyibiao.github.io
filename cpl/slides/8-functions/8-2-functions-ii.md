@@ -52,9 +52,9 @@ presentation:
 
 - 回顾: 形式参数 vs 实际参数、如何理解按值传递、swap 为什么不生效
 
-- 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
+- 函数化改造: 排序封装、素数、leap、primes、stars (return 让代码更简洁)
 
-- 数组作参数: 一维、生命游戏、排序封装、矩阵与成绩案例
+- 数组作参数: 一维、生命游戏、矩阵与成绩案例
 
 - 函数调用栈 (概念与例子)
 
@@ -196,6 +196,100 @@ x = 3, y = 5
 </div>
 
 ---
+
+<!-- slide data-notes="" -->##### 排序封装: 原版
+
+---
+
+第 7 周的选择排序 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 选择排序: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int a[10], n = 10, i, j;
+
+  for (i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+  }
+
+  for (i = 0; i < n - 1; i++) {
+    int min = i;
+    for (j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[i];
+    a[i] = a[min];
+    a[min] = t;
+  }
+
+  for (i = 0; i < n; i++) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把排序逻辑抽成 `void sort(int a[], int n)`, main 里只剩读入、一行调用、输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-orig.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 函数化改造: 把排序封装成函数
+
+---
+
+第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再抄一遍
+
+```C
+void sort(int a[], int n)          /* 把选择排序装进函数 */
+{
+  for (int i = 0; i < n - 1; i++) {
+    int min = i;
+    for (int j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[i]; a[i] = a[min]; a[min] = t;
+  }
+}
+```
+
+```C
+sort(a, 10);     /* 排 a 的前 10 个元素 */
+sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
+```
+
+- ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
+
+
+---
+
 
 <!-- slide data-notes="" -->##### 程序: 判定素数
 
@@ -688,100 +782,6 @@ int main(void)
 </div>
 
 ---
-
-<!-- slide data-notes="" -->##### 排序封装: 原版
-
----
-
-第 7 周的选择排序 (非函数版):
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C{.line-numbers}
-/* 选择排序: 非函数版 */
-#include <stdio.h>
-
-int main(void)
-{
-  int a[10], n = 10, i, j;
-
-  for (i = 0; i < n; i++) {
-    scanf("%d", &a[i]);
-  }
-
-  for (i = 0; i < n - 1; i++) {
-    int min = i;
-    for (j = i + 1; j < n; j++) {
-      if (a[j] < a[min]) {
-        min = j;
-      }
-    }
-    int t = a[i];
-    a[i] = a[min];
-    a[min] = t;
-  }
-
-  for (i = 0; i < n; i++) {
-    printf("%d ", a[i]);
-  }
-  printf("\n");
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-==任务==: 把排序逻辑抽成 `void sort(int a[], int n)`, main 里只剩读入、一行调用、输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-orig.c</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 函数化改造: 把排序封装成函数
-
----
-
-第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再抄一遍
-
-```C
-void sort(int a[], int n)          /* 把选择排序装进函数 */
-{
-  for (int i = 0; i < n - 1; i++) {
-    int min = i;
-    for (int j = i + 1; j < n; j++) {
-      if (a[j] < a[min]) {
-        min = j;
-      }
-    }
-    int t = a[i]; a[i] = a[min]; a[min] = t;
-  }
-}
-```
-
-```C
-sort(a, 10);     /* 排 a 的前 10 个元素 */
-sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
-```
-
-- ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
-
-
----
-
 
 <!-- slide data-notes="" -->##### 一维数组作参数 · 原版
 
