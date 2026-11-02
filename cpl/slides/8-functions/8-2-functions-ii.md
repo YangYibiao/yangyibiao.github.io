@@ -723,7 +723,9 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把求和逻辑抽成 `int sum_array(int a[], int n)`, main 只剩调用和输出
+==任务==: 把求和逻辑抽成函数, main 只剩调用和输出
+
+<span style="font-size:0.9em;">动手前想清楚两件事: ==数组怎么传==? ==长度怎么传==?——下一页揭晓标准写法及原因</span>
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
 
