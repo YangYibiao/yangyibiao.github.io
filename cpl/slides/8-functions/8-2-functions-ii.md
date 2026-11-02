@@ -812,7 +812,9 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把排序逻辑抽成 `void sort(int a[], int n)`, main 里只剩读入、一行调用、输出
+==任务==: 把排序逻辑抽成函数, main 里只剩读入、一行调用、输出
+
+<span style="font-size:0.9em;">动手前想清楚: ==数组怎么传==? ==长度怎么传==?——和 sum_array 是同样的两个问题</span>
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
 
