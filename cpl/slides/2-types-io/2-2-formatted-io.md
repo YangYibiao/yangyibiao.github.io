@@ -543,7 +543,7 @@ printf("[%s]\n", line); /* [Hello World] */
 
 - 输出: `printf("%s", s)`; 单个字符用 `%c`
 
-<span class="blue">:fa-lightbulb-o:</span> 输入比数组长会==溢出==——为什么危险, 第 10 周讲指针时再说
+<span class="blue">:fa-lightbulb-o:</span> 输入比数组长会==溢出==——为什么危险, 后面的指针部分会分析
 
 </div>
 

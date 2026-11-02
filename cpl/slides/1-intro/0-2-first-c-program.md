@@ -384,7 +384,7 @@ int main(void) {
   scanf("%d", &guess);
 
   if (guess == answer)
-    printf("猜中啦!\n");
+    printf("猜中了!\n");
   else if (guess < answer)
     printf("太小了!\n");
   else

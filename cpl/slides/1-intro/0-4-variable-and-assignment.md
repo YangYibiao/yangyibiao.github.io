@@ -607,7 +607,7 @@ int main(void) {
 提示:
 
 - 变量: 需要什么类型? (`double`? `int`?)
-- 输入: `scanf("%lf", &c);` —— 别忘了 ==&==
+- 输入: `scanf("%lf", &c);` —— 不要遗漏 ==&==
 - 输出: `printf("%.1f\n", f);`
 
 <span class="blue">:fa-lightbulb-o:</span> 卡住了? 先看课件对应的演示页, 再问助教——==今天每个人的程序都要能跑起来==
