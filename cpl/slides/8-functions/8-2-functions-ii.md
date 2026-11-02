@@ -89,7 +89,7 @@ int is_prime(int n)      /* n 是==形式参数==: 定义里的占位名 */
 
 ```C
 int flag1 = is_prime(97);   /* 97 是==实际参数==: 返回值可保存 */
-is_prime(m);      /* 变量也行: 把 m 的值复制给形参 n */
+int flag2 = is_prime(m);   /* 变量也行: 把 m 的值复制给形参 n */
 ```
 
 </div>
