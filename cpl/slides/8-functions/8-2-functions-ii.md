@@ -1223,9 +1223,11 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.85em;line-height:1.6;">
 
-核心就一句: `b[j][i] = a[i][j]`——下标 i、j ==互换==, a 的第 i 行第 j 列搬到 b 的第 j 行第 i 列, 相当于==沿对角线翻折==
+<div style="font-weight:700;color:#268bd2;">📌 核心就一句</div>
+
+`b[j][i] = a[i][j]`——下标 i、j ==互换==: a 的第 i 行第 j 列搬到 b 的第 j 行第 i 列, 相当于==沿对角线翻折==
 
 ==任务==: 把转置逻辑抽成 `void transpose(int a[][4], int b[][3], int rows)`, main 只剩调用和输出
 
