@@ -783,6 +783,49 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 ---
 
 
+<!-- slide data-notes="" -->##### 一维数组作参数 · 原版
+
+---
+
+求数组元素之和 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 求 b 的元素之和: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int b[5] = {3, 7, 1, 9, 4};
+  int sum = 0, i;
+
+  for (i = 0; i < 5; i++) {
+    sum += b[i];
+  }
+  printf("sum = %d\n", sum);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把求和逻辑抽成 `int sum_array(int a[], int n)`, main 只剩调用和输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-orig.c</a>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
@@ -811,6 +854,51 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 
 ---
 
+
+<!-- slide data-notes="" -->##### 二维数组作参数 · 原版
+
+---
+
+求矩阵元素之和 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 求 m 的元素之和: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int m[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+  int sum = 0, i, j;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 4; j++) {
+      sum += m[i][j];
+    }
+  }
+  printf("sum = %d\n", sum);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把求和逻辑抽成 `int sum_matrix(int a[][4], int rows)`, main 只剩调用和输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 二维数组作参数时列数不能省——下一页解释为什么
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-matrix-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-matrix-orig.c</a>
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -841,6 +929,58 @@ int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
 
 ---
 
+
+<!-- slide data-notes="" -->##### 案例: 矩阵转置 · 原版
+
+---
+
+第 6 周写过矩阵转置 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 3x4 转置成 4x3: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int a[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+  int b[4][3];
+  int i, j;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 4; j++) {
+      b[j][i] = a[i][j];
+    }
+  }
+
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 3; j++) {
+      printf("%3d", b[i][j]);
+    }
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把转置逻辑抽成 `void transpose(int a[][4], int b[][3], int rows)`, main 只剩调用和输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 形参要写清各自的列数——`a[][4]` 和 `b[][3]`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-orig.c</a>
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -874,6 +1014,57 @@ transpose(a, b, 3);        /* b 得到 a 的转置 */
 
 ---
 
+
+<!-- slide data-notes="" -->##### 案例: 成绩统计 · 原版
+
+---
+
+求每个学生的总分 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 5 名学生 x 3 门课: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int scores[5][3] = {{80, 85, 90}, {70, 75, 80}, {90, 92, 88},
+                      {60, 65, 70}, {85, 80, 90}};
+  int sums[5];
+  int i, j;
+
+  for (i = 0; i < 5; i++) {
+    sums[i] = 0;
+    for (j = 0; j < 3; j++) {
+      sums[i] += scores[i][j];
+    }
+  }
+
+  for (i = 0; i < 5; i++) {
+    printf("student %d total: %d\n", i + 1, sums[i]);
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把每行求和抽成 `void row_sums(int scores[][3], int n, int sums[])`, main 只剩调用和输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 二维数组进 (`scores`)、一维数组出 (`sums`)——两个都是 "数组作参数"
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/row-sums-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 row-sums-orig.c</a>
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
