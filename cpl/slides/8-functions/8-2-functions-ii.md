@@ -623,9 +623,13 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 先想一个问题: 函数返回之后, 它里面的局部变量==去哪儿了==? 下次再调用, 为什么又是全新的?
 
+<div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:center;">
+
 <div style="text-align:center;">
-  <img src="figs/program-call-stack.svg" height=480px>
+  <img src="figs/program-call-stack.svg" height=520px>
 </div>
+
+<div style="font-size:0.9em;line-height:1.7;">
 
 - 每次函数调用, 系统在==调用栈==(call stack) 上放一张 "便签": 记下==返回地址==、==参数==、==局部变量==
 
@@ -633,7 +637,14 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 - 栈是==后进先出==: 最后调用的函数最先返回——像一摞盘子, 只能从最上面拿
 
+<span class="blue">:fa-lightbulb-o:</span> 周三的递归: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图
+
+</div>
+
+</div>
+
 ---
+
 
 <!-- slide data-notes="" -->##### 函数调用栈 · 便签上放了什么
 
