@@ -974,6 +974,14 @@ int main(void)
   board[2][3] = 1;  board[3][4] = 1;
   board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
 
+  for (i = 1; i <= SIZE; i++) {       /* 打印初始棋盘 */
+    for (j = 1; j <= SIZE; j++) {
+      printf("%c", board[i][j] ? '*' : '.');
+    }
+    printf("\n");
+  }
+  printf("\n");
+
   for (i = 1; i <= SIZE; i++) {
     for (j = 1; j <= SIZE; j++) {
       cnt = -board[i][j];

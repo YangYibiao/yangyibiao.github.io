@@ -17,6 +17,15 @@ int main(void)
   board[4][3] = 1;
   board[4][4] = 1;
 
+  /* print the initial board */
+  for (i = 1; i <= SIZE; i++) {
+    for (j = 1; j <= SIZE; j++) {
+      printf("%c", board[i][j] ? '*' : '.');
+    }
+    printf("\n");
+  }
+  printf("\n");
+
   /* count neighbors + apply rules, all inline */
   for (i = 1; i <= SIZE; i++) {
     for (j = 1; j <= SIZE; j++) {
