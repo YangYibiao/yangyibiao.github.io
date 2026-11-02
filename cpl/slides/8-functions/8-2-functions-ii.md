@@ -234,6 +234,8 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开代码工作区 (编辑器 + 右侧终端)</a>
+
 ==现场演示==: 把左边的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑是 "一块完整的事"——这正是适合装进函数的东西
