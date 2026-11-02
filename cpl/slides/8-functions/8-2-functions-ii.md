@@ -963,9 +963,9 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;font-size:0.55em;">
+<div style="display:flex;align-items:flex-start;gap:20px;">
 
-<div>
+<div style="flex:1.25;font-size:0.45em;">
 
 ```C{.line-numbers}
 /* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */
@@ -988,14 +988,6 @@ int main(void)
       for (m = i - 1; m <= i + 1; m++) {
         for (n = j - 1; n <= j + 1; n++) {
           cnt += board[m][n];
-
-
-```
-</div>
-
-<div>
-
-```C
         }
       }
       if (board[i][j] == 1) {
@@ -1009,20 +1001,21 @@ int main(void)
   /* 打印新一代: 双重循环输出 * 和 . (略) */
   return 0;
 }
-
 ```
 
 </div>
 
-</div>
+<div style="flex:1;font-size:0.85em;line-height:1.6;">
 
-<div style="margin-top:8px;font-size:0.85em;line-height:1.6;">
+==规则==: 活格子活邻居 2 或 3 → 活, 否则死; 死格子活邻居恰好 3 → 活; 边界技巧——四周加一圈 0, 数邻居不用判断边界
 
 ==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着==四层嵌套循环==, 改一条规则得在循环堆里找位置; 函数版只需在 main 里写一个十代循环
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着==四层嵌套循环==; 函数版只需在 main 里写一个十代循环
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
+
+</div>
 
 </div>
 
