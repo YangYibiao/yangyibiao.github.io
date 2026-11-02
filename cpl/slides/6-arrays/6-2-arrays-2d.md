@@ -134,8 +134,9 @@ m[2][3] = 42;          /* 第 2 行第 3 列 = 42 */
 printf("%d", m[2][3]); /* 像普通变量一样用 */
 
 /* ---- 配合循环, 扫过一整行 ---- */
-for (j = 0; j < 9; j++)
+for (j = 0; j < 9; j++) {
   printf("%d ", m[2][j]);
+}
 ```
 
 </div>
@@ -224,10 +225,11 @@ int row, col;
  
 for (row = 0; row < N; row++) {
   for (col = 0; col < N; col++) {
-    if (row == col)
+    if (row == col) {
       ident[row][col] = 1.0;
-    else
+    } else {
       ident[row][col] = 0.0;
+    }
   }
 }
 ```
@@ -482,8 +484,9 @@ int main(void)
   }
 
   for (i = 0; i < N; i++) {
-    for (j = 0; j < N; j++)
+    for (j = 0; j < N; j++) {
       printf("%3d", magic[i][j]);
+    }
     printf("\n");
   }
   return 0;
@@ -606,21 +609,25 @@ int main(void)
         for (dj = -1; dj <= 1; dj++) {
           int ni = i + di, nj = j + dj;
           if (ni >= 0 && ni < N && nj >= 0 && nj < N &&
-              !(di == 0 && dj == 0))
-            if (old_grid[ni][nj])
+              !(di == 0 && dj == 0)) {
+            if (old_grid[ni][nj]) {
               count++;
+            }
+          }
         }
       }
-      if (old_grid[i][j])
+      if (old_grid[i][j]) {
         new_grid[i][j] = (count == 2 || count == 3);
-      else
+      } else {
         new_grid[i][j] = (count == 3);
+      }
     }
   }
 
   for (i = 0; i < N; i++) {
-    for (j = 0; j < N; j++)
+    for (j = 0; j < N; j++) {
       printf("%c ", cell[new_grid[i][j]]);
+    }
     printf("\n");
   }
   return 0;
@@ -694,15 +701,18 @@ int main(void)
 
   for (i = 0; i < N; i++) {
     a[i][0] = 1;                  /* 每行开头是 1 */
-    for (j = 1; j <= i; j++)
+    for (j = 1; j <= i; j++) {
       a[i][j] = a[i-1][j-1] + a[i-1][j];
+    }
   }
 
   for (i = 0; i < N; i++) {
-    for (k = 0; k < N - 1 - i; k++)
+    for (k = 0; k < N - 1 - i; k++) {
       printf("  ");               /* 每行先缩进, 摆成等腰 */
-    for (j = 0; j <= i; j++)
+    }
+    for (j = 0; j <= i; j++) {
       printf("%4d", a[i][j]);
+    }
     printf("\n");
   }
   return 0;
@@ -778,14 +788,16 @@ int main(void)
   while (num <= N * N) {
     a[i][j] = num++;
     int ni = i + dx[d], nj = j + dy[d];
-    if (ni < 0 || ni >= N || nj < 0 || nj >= N || a[ni][nj] != 0)
+    if (ni < 0 || ni >= N || nj < 0 || nj >= N || a[ni][nj] != 0) {
       d = (d + 1) % 4;        /* 撞墙或已填: 转弯 */
+    }
     i += dx[d]; j += dy[d];
   }
 
   for (i = 0; i < N; i++) {
-    for (j = 0; j < N; j++)
+    for (j = 0; j < N; j++) {
       printf("%3d", a[i][j]);
+    }
     printf("\n");
   }
   return 0;
@@ -854,9 +866,11 @@ Wrong   (有重复)
 int main(void)
 {
   int board[N][N], i, j, k, ok = 1;
-  for (i = 0; i < N; i++)
-    for (j = 0; j < N; j++)
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++) {
       scanf("%d", &board[i][j]);
+    }
+  }
 
   for (i = 0; i < N && ok; i++) {          /* 每行查重 */
     int seen[10] = {0};
@@ -872,7 +886,7 @@ int main(void)
       seen[board[i][j]] = 1;
     }
   }
-  for (i = 0; i < N && ok; i += 3)         /* 九宫格查重 */
+  for (i = 0; i < N && ok; i += 3)         /* 九宫格查重 */ {
     for (j = 0; j < N && ok; j += 3) {
       int seen[10] = {0};
       for (k = 0; k < 9; k++) {
@@ -881,6 +895,7 @@ int main(void)
         seen[v] = 1;
       }
     }
+  }
   printf(ok ? "Right\n" : "Wrong\n");
   return 0;
 }

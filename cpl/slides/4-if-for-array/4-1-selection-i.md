@@ -122,8 +122,9 @@ presentation:
 
 ```C{.line-numbers}
 /* 第 1 周的猜数字游戏 */
-if (guess == reward)
+if (guess == reward) {
     printf("恭喜, 猜对了!\n");
+}
 ```
 
 </div>
@@ -143,15 +144,19 @@ if (guess == reward)
 <div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
-if (i > j)
+if (i > j) {
   max = i;
-else
+} else {
   max = j;
+}
 ```
 
 ```C{.line-numbers}
-if (i > j) max = i;
-else max = j;
+if (i > j) {
+  max = i;
+} else {
+  max = j;
+}
 ```
 
 </div>
@@ -326,10 +331,11 @@ else max = j;
 int main(void) {
     int x = 0;
     /* 本意是 x == 5, 少打了一个 = */
-    if (x = 5)
+    if (x = 5) {
         printf("x 等于 5\n");
-    else
+    } else {
         printf("x 不等于 5\n");
+    }
     printf("x = %d\n", x);
     return 0;
 }
@@ -463,14 +469,16 @@ x = 5
 `if` 常用于==范围判断==。判断 `i` 满足 $0 \leq i < n$:
 
 ```C
-if (0 <= i && i < n) …
+if (0 <= i && i < n) … {
 ```
+}
 
 判断相反条件 (`i` 超出范围): 
 
 ```C
-if (i < 0 || i >= n) …
+if (i < 0 || i >= n) … {
 ```
+}
 
 - 数学上的"连写" `0 <= i < n` 在 C 里==是错的== (连比较陷阱, 前面刚讲过)——必须用 `&&` 把两个条件连起来
 
@@ -565,16 +573,17 @@ if (a > b) {
 ==缩进对齐版== (不用大括号): 
 
 ```C{.line-numbers}
-if (i > j)
-  if (i > k)
+if (i > j) {
+  if (i > k) {
     max = i;
-  else 
+  } else {
     max = k;
-else
-  if (j > k)
-    max = j;
-  else 
-    max = k;
+  }
+} else if (j > k) {
+  max = j;
+} else {
+  max = k;
+}
 ```
 
 </div>
@@ -661,10 +670,11 @@ int main() {
     int b = 0;
     scanf("%d%d", &a, &b);
     int min = 0;
-    if (a < b)
+    if (a < b) {
         min = a;
-    else
+    } else {
         min = b;
+    }
 
     printf("min(%d, %d) = %d", a, b, min);
 }
@@ -784,8 +794,12 @@ int main(void) {
     int a = 0, b = 0, c = 0;
     scanf("%d%d%d", &a, &b, &c);
     int min = a;              /* 先假设 a 最小 */
-    if (b < min) min = b;     /* b 更小就换 */
-    if (c < min) min = c;     /* c 更小就换 */
+    if (b < min) {
+      min = b;
+    }
+    if (c < min) {
+      min = c;
+    }
     printf("min(%d, %d, %d) = %d", a, b, c, min);
     return 0;
 }
@@ -934,10 +948,11 @@ int main(void) {
 int main(void) {
     int a = 0, b = 0, c = 0;
     scanf("%d%d%d", &a, &b, &c);
-    if (a + b > c && a + c > b && b + c > a)
+    if (a + b > c && a + c > b && b + c > a) {
         printf("能构成三角形\n");
-    else
+    } else {
         printf("不能构成三角形\n");
+    }
     return 0;
 }
 ```
@@ -993,16 +1008,18 @@ int main(void) {
     int n = 0;
     scanf("%d", &n);
     /* 方法一: 取余 */
-    if (n % 2 == 0)
+    if (n % 2 == 0) {
         printf("%d 是偶数\n", n);
-    else
+    } else {
         printf("%d 是奇数\n", n);
+    }
 
     /* 方法二: 位运算 */
-    if ((n & 1) == 0)
+    if ((n & 1) == 0) {
         printf("%d 是偶数\n", n);
-    else
+    } else {
         printf("%d 是奇数\n", n);
+    }
     return 0;
 }
 ```

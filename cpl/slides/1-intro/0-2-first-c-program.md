@@ -383,12 +383,14 @@ int main(void) {
   printf("猜一个数字(1-100):");
   scanf("%d", &guess);
 
-  if (guess == answer)
+  if (guess == answer) {
     printf("猜中了!\n");
-  else if (guess < answer)
+  }
+  else if (guess < answer) {
     printf("太小了!\n");
-  else
+  } else {
     printf("太大了!\n");
+  }
 
   return 0;
 }
@@ -408,7 +410,7 @@ int main(void) {
 
 - `scanf` 读你的猜测 → `if/else` 比较 → 猜中/小了/大了
 
-- 想连续猜 7 次? 第 5 周学完==循环==自己改造!
+- 想连续猜 7 次? 后面学完==循环==自己改造!
 
 ---
 

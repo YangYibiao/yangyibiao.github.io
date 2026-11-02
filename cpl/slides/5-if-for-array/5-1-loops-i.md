@@ -152,8 +152,9 @@ int main(void) {
 
 ```C{.line-numbers}
 i = 1;
-while (i < n)
+while (i < n) {
   i = i * 2;
+}
 ```
 
 </div>
@@ -248,8 +249,9 @@ while 的几个注意点:
 - 倒计时还有更简洁的写法 (`i--` 直接在 printf 里用掉): 
 
 ```C{.line-numbers}
-while (i > 0)
+while (i > 0) {
   printf("%d\n", i--);
+}
 ```
 
 ---
@@ -266,8 +268,9 @@ while (i > 0)
 控制表达式恒为非零, 就是无限循环: 
 
 ```C
-while (1) …
+while (1) … {
 ```
+}
 
 这样的while语句将永远执行, 除非它的循环体中含有跳出循环控制的语句(break, goto, return)或调用导致程序终止的函数
 
@@ -470,8 +473,9 @@ int main(void) {
 ```C
 do
     printf("%d\n", i--);
-while (i > 0);
+while (i > 0); {
 ```
+}
 
 - 粗心的读者会把结尾的 `while` 当成新循环的开头 
 
@@ -561,14 +565,16 @@ int main(void)
 int main(void) {
     int n = 13, d = 2;
     while (d < n) {
-        if (n % d == 0)
+        if (n % d == 0) {
             break;
+        }
         d++;
     }
-    if (d < n)
+    if (d < n) {
         printf("%d 能被 %d 整除\n", n, d);
-    else
+    } else {
         printf("%d 是素数\n", n);
+    }
     return 0;
 }
 ```
@@ -607,8 +613,9 @@ int main(void) {
     while (1) {
         printf("输入一个数 (0 结束): ");
         scanf("%d", &n);
-        if (n == 0)
+        if (n == 0) {
             break;
+        }
         printf("%d 的立方是 %d\n", n, n * n * n);
     }
     return 0;
@@ -661,8 +668,9 @@ n = 0;
 sum = 0;
 while (n < 10) {
   scanf("%d", &i);
-  if (i == 0)
+  if (i == 0) {
     continue;      /* 跳过除零 */
+  }
   sum += 100 / i;
   n++;
 }

@@ -80,13 +80,13 @@ presentation:
 <div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
-if (n < 0)
+if (n < 0) {
   printf("n is less than 0\n");
-else
-  if (n == 0)
+} else if (n == 0) {
     printf("n is equal to 0\n");
-  else
+  } else {
     printf("n is greater than 0\n");
+  }
 ```
 
 </div>
@@ -117,12 +117,14 @@ else
 ==具体例子== (判断 n 与 0 的关系): 
 
 ```C{.line-numbers}
-if (n < 0)
+if (n < 0) {
   printf("n is less than 0\n");
-else if (n == 0)
+}
+else if (n == 0) {
   printf("n is equal to 0\n");
-else
+} else {
   printf("n is greater than 0\n"); 
+}
 ```
 
 </div>
@@ -139,8 +141,9 @@ else if (表达式)
 …
 else if (表达式)
   语句
-else
+else {
   语句
+}
 ```
 
 </div>
@@ -219,20 +222,26 @@ int main(void)
   float commission, value;
   printf("Enter value of trade: ");
   scanf("%f", &value);
-  if (value < 2500.00f)
+  if (value < 2500.00f) {
     commission = 30.00f + .017f * value;
-  else if (value < 6250.00f)
+  }
+  else if (value < 6250.00f) {
     commission = 56.00f + .0066f * value;
-  else if (value < 20000.00f)
+  }
+  else if (value < 20000.00f) {
     commission = 76.00f + .0034f * value;
-  else if (value < 50000.00f)
+  }
+  else if (value < 50000.00f) {
     commission = 100.00f + .0022f * value;
-  else if (value < 500000.00f)
+  }
+  else if (value < 500000.00f) {
     commission = 155.00f + .0011f * value;
-  else
+  } else {
     commission = 255.00f + .0009f * value;
-  if (commission < 39.00f)
+  }
+  if (commission < 39.00f) {
     commission = 39.00f;
+  }
   printf("Commission: $%.2f\n", commission);
   return 0;
 }
@@ -269,8 +278,8 @@ int main(void)
 if (y != 0)
   if (x != 0)
     result = x / y;
-else
-  printf("Error: y is equal to 0\n");
+  else
+    printf("Error: y is equal to 0\n");
 ```
 
 </div>
@@ -280,11 +289,13 @@ else
 ==C 的实际配对== (else 属于最近的 if): 
 
 ```C{.line-numbers}
-if (y != 0)
-  if (x != 0)
+if (y != 0) {
+  if (x != 0) {
     result = x / y;
-  else
+  } else {
     printf("Error: y is equal to 0\n");
+  }
+}
 ```
 
 </div>
@@ -308,8 +319,9 @@ if (y != 0)
 
 ```C
 if (y != 0) {
-  if (x != 0)
+  if (x != 0) {
     result = x / y;
+  }
 } else
   printf("Error: y is equal to 0\n");
 ```
@@ -411,18 +423,23 @@ printf 的实参也可以直接写条件表达式 (如左最后一行)
 ==级联 if 版==: 
 
 ```C{.line-numbers}
-if (grade == 4)
+if (grade == 4) {
   printf("Excellent");
-else if (grade == 3)
+}
+else if (grade == 3) {
   printf("Good");
-else if (grade == 2)
+}
+else if (grade == 2) {
   printf("Average");
-else if (grade == 1)
+}
+else if (grade == 1) {
   printf("Poor");
-else if (grade == 0)
+}
+else if (grade == 0) {
   printf("Failing");
-else
+} else {
   printf("Illegal grade"); 
+}
 ```
 
 </div>
@@ -779,8 +796,9 @@ bool leap = false;
 …
 leap = true;
 if (leap) …      /* 直接测试 */
-if (!leap) …     /* 测试是否为假 */
+if (!leap) …     /* 测试是否为假 */ {
 ```
+}
 
 - `bool` 变量只能存 `0` 或 `1`: `flag = 5;` 会变成 `1`
 

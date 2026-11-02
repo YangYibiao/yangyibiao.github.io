@@ -192,10 +192,11 @@ int main(void) {
             sum += i;         /* 累加因数 */
         }
     }
-    if (sum == n)
+    if (sum == n) {
         printf("%d 是完全数\n", n);
-    else
+    } else {
         printf("%d 不是完全数\n", n);
+    }
     return 0;
 }
 ```
@@ -332,8 +333,12 @@ int main(void) {
     for (i = 0; i < 8; i++) {
         scanf("%lf", &score);
         sum += score;
-        if (score > max) max = score;
-        if (score < min) min = score;
+        if (score > max) {
+          max = score;
+        }
+        if (score < min) {
+          min = score;
+        }
     }
     printf("最终得分: %.2f\n", (sum - max - min) / 6);
     return 0;
@@ -400,8 +405,9 @@ int main(void) {
         bai = n / 100;
         shi = n / 10 % 10;
         ge = n % 10;
-        if (bai * bai * bai + shi * shi * shi + ge * ge * ge == n)
+        if (bai * bai * bai + shi * shi * shi + ge * ge * ge == n) {
             printf("%d ", n);
+        }
     }
     printf("\n");
     return 0;
@@ -475,10 +481,11 @@ int main(void) {
         rev = rev * 10 + m % 10;   /* 末位接到 rev 后面 */
         m /= 10;
     }
-    if (rev == n)
+    if (rev == n) {
         printf("%d 是回文数\n", n);
-    else
+    } else {
         printf("%d 不是回文数\n", n);
+    }
     return 0;
 }
 ```
@@ -622,8 +629,9 @@ int main(void) {
     for (g = 0; g <= 20; g++) {        /* 公鸡最多 20 只 */
         for (h = 0; h <= 33; h++) {    /* 母鸡最多 33 只 */
             c = 100 - g - h;           /* 小鸡只数: 推出来 */
-            if (5 * g + 3 * h + c / 3 == 100 && c % 3 == 0)
+            if (5 * g + 3 * h + c / 3 == 100 && c % 3 == 0) {
                 printf("公鸡 %d  母鸡 %d  小鸡 %d\n", g, h, c);
+            }
         }
     }
     return 0;

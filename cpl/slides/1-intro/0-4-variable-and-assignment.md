@@ -418,7 +418,7 @@ scanf("%lf", &d);    /* double*  → %lf */
 
 - 表达式 `2026 - birth_year` 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==
 
-- 加一点判断就能算"生日过了没"——那是第 4 周的内容
+- 加一点判断就能算"生日过了没"——那是后面的内容
 
 <span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 age.c
 
@@ -467,7 +467,7 @@ int main(void) {
 
 - 输入: `scanf("%lf", &c)` 读取 double
 
-- `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 第 3 周细讲)
+- `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 后面细讲)
 
 <span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 temp.c
 

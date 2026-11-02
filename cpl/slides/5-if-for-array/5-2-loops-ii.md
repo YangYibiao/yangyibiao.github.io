@@ -390,8 +390,9 @@ int main(void) {
     for (;;) {
         printf("输入一个数 (0 结束): ");
         scanf("%d", &n);
-        if (n == 0)
+        if (n == 0) {
             break;      /* 靠 break 跳出 */
+        }
         printf("%d 的平方是 %d\n", n, n * n);
     }
     return 0;
@@ -818,14 +819,16 @@ int main(void) {
     scanf("%d", &n);
 
     for (d = 2; d < n; d++) {
-        if (n % d == 0)
+        if (n % d == 0) {
             break;        /* 找到约数, 提前退出 */
+        }
     }
 
-    if (d < n)
+    if (d < n) {
         printf("%d 不是素数\n", n);
-    else
+    } else {
         printf("%d 是素数\n", n);
+    }
     return 0;
 }
 ```
@@ -906,8 +909,9 @@ int main(void) {
 
     for (int i = 1; i <= n; i++) {
         int r = (int) sqrt(i);
-        if (r * r == i)
+        if (r * r == i) {
             continue;          /* 完全平方数, 跳过 */
+        }
         sum += i;
     }
     printf("非完全平方数之和 = %d\n", sum);
@@ -958,8 +962,9 @@ for (i = 0; i < n; i++) {
 ```C
 for (;;) {
     scanf("%d", &n);
-    if (n == 0)
+    if (n == 0) {
         break;
+    }
     printf("%d 的平方是 %d\n", n, n * n);
 }
 ```
@@ -1019,8 +1024,9 @@ for (;;) {
 
 ```C
 int sum = 0;
-for (i = 1; i <= n; i--)
+for (i = 1; i <= n; i--) {
     sum += i;
+}
 ```
 
 - 想想 `i` 的值怎么变化, 循环什么时候停?
@@ -1038,9 +1044,11 @@ for (i = 1; i <= n; i--)
 ==找错==: 想打印乘法口诀表, 下面代码哪里错了?
 
 ```C
-for (int i = 1; i <= 9; i++)
-    for (int j = 1; j <= i; j++)
+for (int i = 1; i <= 9; i++) {
+    for (int j = 1; j <= i; j++) {
         printf("%d×%d=%d\n", j, i, j * i);
+    }
+}
 ```
 
 - 运行一下会看到什么? 和真正的口诀表差在哪?
@@ -1077,9 +1085,11 @@ for (int i = 1; i <= 3; i++) {
 
 ```C
 int count = 0;
-for (int i = 1; i <= 3; i++)
-    for (int j = 1; j <= 2; j++)
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 2; j++) {
         count++;
+    }
+}
 printf("%d\n", count);
 ```
 

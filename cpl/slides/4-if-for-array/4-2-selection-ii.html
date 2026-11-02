@@ -59591,13 +59591,13 @@ div.boardhandle > ul > li {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is less than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
 <p>"级联" <code>if</code> 语句适合<mark>逐级判定</mark>: 一旦某个条件为真就停止, 后面的不再判断</p>
@@ -59610,12 +59610,14 @@ div.boardhandle > ul > li {
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.58em;">
 <p><mark>具体例子</mark> (判断 n 与 0 的关系):</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is less than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n is greater than 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:0.9;font-size:0.58em;">
 <p><mark>通用形式</mark>:</p>
@@ -59626,8 +59628,9 @@ div.boardhandle > ul > li {
 …
 <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>表达式<span class="token punctuation">)</span>
   语句
-<span class="token keyword keyword-else">else</span>
-  语句</code></pre>
+<span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  语句
+<span class="token punctuation">}</span></code></pre>
 </div>
 </div>
 <ul>
@@ -59721,20 +59724,26 @@ Commission<span class="token operator">:</span> $<span class="token number">166.
   <span class="token keyword keyword-float">float</span> commission<span class="token punctuation">,</span> value<span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter value of trade: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%f"</span><span class="token punctuation">,</span> <span class="token operator">&</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">2500.00</span>f<span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">2500.00</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">30.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">017</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">6250.00</span>f<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">6250.00</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">56.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0066</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">20000.00</span>f<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">20000.00</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">76.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0034</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">50000.00</span>f<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">50000.00</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">100.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0022</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">500000.00</span>f<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>value <span class="token operator"><</span> <span class="token number">500000.00</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">155.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0011</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">255.00</span>f <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">0009</span>f <span class="token operator">*</span> value<span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>commission <span class="token operator"><</span> <span class="token number">39.00</span>f<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>commission <span class="token operator"><</span> <span class="token number">39.00</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     commission <span class="token operator">=</span> <span class="token number">39.00</span>f<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Commission: $%.2f\n"</span><span class="token punctuation">,</span> commission<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
@@ -59765,16 +59774,18 @@ Commission<span class="token operator">:</span> $<span class="token number">166.
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>y <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
     result <span class="token operator">=</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+  <span class="token keyword keyword-else">else</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.55em;">
 <p><mark>C 的实际配对</mark> (else 属于最近的 if):</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>y <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>y <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     result <span class="token operator">=</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
 </div>
 <ul>
@@ -59796,8 +59807,9 @@ Commission<span class="token operator">:</span> $<span class="token number">166.
 <hr>
 <p>为了使<code>else</code>子句成为外部<code>if</code>语句的一部分, 可以将内部<code>if</code>语句用大括号括起来:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>y <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     result <span class="token operator">=</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error: y is equal to 0\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> <code>if</code>语句中使用大括号可以避免这一问题</p>
@@ -59860,18 +59872,23 @@ k <span class="token operator">=</span> <span class="token punctuation">(</span>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.55em;">
 <p><mark>级联 if 版</mark>:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Excellent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Good"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Poor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>grade <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Failing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Illegal grade"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.55em;">
 <p><mark>switch 版</mark>:</p>
@@ -60161,7 +60178,8 @@ bool leap <span class="token operator">=</span> false<span class="token punctuat
 …
 leap <span class="token operator">=</span> true<span class="token punctuation">;</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>leap<span class="token punctuation">)</span> …      <span class="token comment">/* 直接测试 */</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>leap<span class="token punctuation">)</span> …     <span class="token comment">/* 测试是否为假 */</span></code></pre>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>leap<span class="token punctuation">)</span> …     <span class="token comment">/* 测试是否为假 */</span> <span class="token punctuation">{</span></code></pre>
+<p>}</p>
 <ul>
 <li>
 <p><code>bool</code> 变量只能存 <code>0</code> 或 <code>1</code>: <code>flag = 5;</code> 会变成 <code>1</code></p>

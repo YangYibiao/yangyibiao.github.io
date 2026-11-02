@@ -59661,8 +59661,9 @@ div.boardhandle > ul > li {
 <div style="flex:1;">
 <p>用 <code>while</code> 找 ≥ <code>n</code> 的最小 2 的幂:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span>
-  i <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  i <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1.15;font-size:0.72em;">
 <p><code>n = 10</code> 时, while 的执行过程:</p>
@@ -59723,14 +59724,16 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 
 </li>
 </ul>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="无限循环">无限循环 </h5>
 <hr>
 <p>如果控制表达式的值始终非零, while语句将无法终止</p>
 <p>控制表达式恒为非零, 就是无限循环:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> …</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> … <span class="token punctuation">{</span></code></pre>
+<p>}</p>
 <p>这样的while语句将永远执行, 除非它的循环体中含有跳出循环控制的语句(break, goto, return)或调用导致程序终止的函数</p>
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="程序--打印平方表">程序: 打印平方表 </h5>
@@ -59876,7 +59879,8 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>建议给所有 do 语句都加大括号</mark>——没有大括号的 do 很容易被误读成 while:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-do">do</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">{</span></code></pre>
+<p>}</p>
 <ul>
 <li>
 <p>粗心的读者会把结尾的 <code>while</code> 当成新循环的开头</p>
@@ -59942,14 +59946,16 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">,</span> d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>d <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         d<span class="token operator">++</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>d <span class="token operator"><</span> n<span class="token punctuation">)</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>d <span class="token operator"><</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 能被 %d 整除\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-else">else</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是素数\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
@@ -59970,8 +59976,9 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
     <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个数 (0 结束): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 的立方是 %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> n <span class="token operator">*</span> n <span class="token operator">*</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -60002,8 +60009,9 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-continue">continue</span><span class="token punctuation">;</span>      <span class="token comment">/* 跳过除零 */</span>
+  <span class="token punctuation">}</span>
   sum <span class="token operator">+=</span> <span class="token number">100</span> <span class="token operator">/</span> i<span class="token punctuation">;</span>
   n<span class="token operator">++</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>

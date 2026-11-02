@@ -201,8 +201,9 @@ int a[N];
 ---
 
 ```C
-for (i = 1; i <= 10; i++)
+for (i = 1; i <= 10; i++) {
   a[i] = 0;        /*** WRONG: 越界, 还漏了 a[0] ***/
+}
 ```
 
 ==重点==: 长度 n 的数组没有 a[n]——上面的循环就是反面教材, 正确范围是 0 到 n-1
@@ -221,14 +222,17 @@ printf("%d\n", a[5]);
 ```
 
 ```C{.line-numbers}
-for (i = 0; i < N; i++)
+for (i = 0; i < N; i++) {
   a[i] = 0;             /* ① 清零 */
+}
 
-for (i = 0; i < N; i++)
+for (i = 0; i < N; i++) {
   scanf("%d", &a[i]);   /* ② 读入 */
+}
 
-for (i = 0; i < N; i++)
+for (i = 0; i < N; i++) {
   sum += a[i];          /* ③ 求和 */
+}
 ```
 
 </div>
@@ -290,15 +294,18 @@ a[n - 1 - i];       /* 倒数第 i 个 */
 
 ```C
 i = 0;
-while (i < N)
+while (i < N) {
   a[i++] = 0;      /* ① 下标顺带改了 i */
+}
 
 i = 0;
-while (i < N)
+while (i < N) {
   a[i] = b[i++];   /*** ② 危险! ***/
+}
 
-for (i = 0; i < N; i++)
+for (i = 0; i < N; i++) {
   a[i] = b[i];     /* ③ 安全写法 */
+}
 ```
 
 </div>
@@ -343,8 +350,9 @@ int main(void)
   int a[4] = {10, 20, 30, 40};
   int i;
 
-  for (i = 0; i < 6; i++)
+  for (i = 0; i < 6; i++) {
     printf("a[%d] = %d\n", i, a[i]);   /* 读越界! */
+  }
   return 0;
 }
 ```
@@ -395,8 +403,9 @@ int main(void)
 
   for (i = 0; i < 4; i++) {
     printf("第 %d 轮\n", i);
-    if (i == 2)
+    if (i == 2) {
       a[-2] = -100;      /* 越界往回写, 命中 i! */
+    }
   }
   return 0;
 }
@@ -482,8 +491,9 @@ scanf("%d", &n2);    /* 第 2 个 */
 int n[10];
 int i;
 
-for (i = 0; i < 10; i++)
+for (i = 0; i < 10; i++) {
   scanf("%d", &n[i]);
+}
 printf("%d", n[i]);  /* 想要第几个都行 */
 ```
 
@@ -546,12 +556,14 @@ int main(void)
   int a[N], i;
 
   printf("输入 %d 个数: ", N);
-  for (i = 0; i < N; i++)
+  for (i = 0; i < N; i++) {
     scanf("%d", &a[i]);
+  }
 
   printf("逆序输出:");
-  for (i = N - 1; i >= 0; i--)
+  for (i = N - 1; i >= 0; i--) {
     printf(" %d", a[i]);
+  }
   printf("\n");
 
   return 0;
@@ -694,9 +706,11 @@ int main(void)
   }
   avg = sum / (double) N;
 
-  for (i = 0; i < N; i++)     /* 第二遍: 回头比平均 */
-    if (score[i] > avg)
+  for (i = 0; i < N; i++)     /* 第二遍: 回头比平均 */ {
+    if (score[i] > avg) {
       count++;
+    }
+  }
 
   printf("平均分 %.1f, 高于平均 %d 人\n", avg, count);
   return 0;
@@ -766,15 +780,17 @@ int main(void)
   scanf("%ld", &n);
   while (n > 0) {
     digit = n % 10;
-    if (digit_seen[digit])
+    if (digit_seen[digit]) {
       break;
+    }
     digit_seen[digit] = 1;
     n /= 10;
   }
-  if (n > 0)
+  if (n > 0) {
     printf("有重复数字\n");
-  else
+  } else {
     printf("没有重复数字\n");
+  }
   return 0;
 }
 ```
@@ -841,9 +857,11 @@ int main(void)
   printf("输入一个单词: ");
   scanf("%s", s);              /* 遇空格就停, 自动补 '\0' */
 
-  for (i = 0; s[i] != '\0'; i++)
-    if (s[i] >= 'a' && s[i] <= 'z')
+  for (i = 0; s[i] != '\0'; i++) {
+    if (s[i] >= 'a' && s[i] <= 'z') {
       s[i] = s[i] - 'a' + 'A';  /* 'a' 比 'A' 大 32 */
+    }
+  }
 
   printf("%s\n", s);
   return 0;
@@ -1002,8 +1020,9 @@ int main(void)
     n /= base;
   } while (n > 0);
 
-  for (i = len - 1; i >= 0; i--)
+  for (i = len - 1; i >= 0; i--) {
     printf("%c", digit[digits[i]]);   /* 查表输出 */
+  }
   printf("\n");
   return 0;
 }
@@ -1104,11 +1123,12 @@ int main(void)
     m /= 10;
   } while (m > 0);
 
-  for (i = 0; i < len / 2; i++)      /* 只比到一半 */
+  for (i = 0; i < len / 2; i++)      /* 只比到一半 */ {
     if (digits[i] != digits[len - 1 - i]) {
       printf("%ld 不是回文数\n", n);
       return 0;
     }
+  }
   printf("%ld 是回文数\n", n);
   return 0;
 }
@@ -1157,8 +1177,9 @@ scanf("%d", &n);
 
 int a[n];        /* C99: 长度运行时才定 */
 
-for (i = 0; i < n; i++)
+for (i = 0; i < n; i++) {
   scanf("%d", &a[i]);
+}
 ```
 
 ```C
@@ -1234,14 +1255,17 @@ for (int r = 0; r < NUM_RATES; r++) {
 int a[N], i;
 
 /* ① 把数组 a 全部清零 */
-for (i = 1; i <= N; i++)
+for (i = 1; i <= N; i++) {
   a[i] = 0;
+}
 
 /* ② 求数组 a 的最大值 */
 int max = 0;
-for (i = 0; i < N; i++)
-  if (a[i] > max)
+for (i = 0; i < N; i++) {
+  if (a[i] > max) {
     max = a[i];
+  }
+}
 
 /* ③ 把数组全部初始化为 1 */
 int b[N] = {1};      /* 以为全是 1? */
