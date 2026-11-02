@@ -52,9 +52,9 @@ presentation:
 
 - 回顾: 形式参数 vs 实际参数、如何理解按值传递、swap 为什么不生效
 
-- 函数化改造: 排序封装、素数、leap、primes、stars (return 让代码更简洁)
+- 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
 
-- 数组作参数: 一维、生命游戏、矩阵与成绩案例
+- 数组作参数: 一维、排序封装、生命游戏、矩阵与成绩案例
 
 - 函数调用栈 (概念与例子)
 
@@ -196,6 +196,78 @@ x = 3, y = 5
 </div>
 
 ---
+
+<!-- slide data-notes="" -->##### 一维数组作参数 · 原版
+
+---
+
+求数组元素之和 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 求 b 的元素之和: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int b[5] = {3, 7, 1, 9, 4};
+  int sum = 0, i;
+
+  for (i = 0; i < 5; i++) {
+    sum += b[i];
+  }
+  printf("sum = %d\n", sum);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把求和逻辑抽成 `int sum_array(int a[], int n)`, main 只剩调用和输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-orig.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 一维数组作参数
+
+---
+
+函数要操作数组, 就把数组传给函数:
+
+```C
+int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
+{
+  int i, sum = 0;
+  for (i = 0; i < n; i++) {
+    sum += a[i];
+  }
+  return sum;
+}
+
+total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
+```
+
+- ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
+
+- 原因第 11 周指针与数组揭晓 (数组名传的是地址)
+
+---
+
 
 <!-- slide data-notes="" -->##### 排序封装: 原版
 
@@ -782,78 +854,6 @@ int main(void)
 </div>
 
 ---
-
-<!-- slide data-notes="" -->##### 一维数组作参数 · 原版
-
----
-
-求数组元素之和 (非函数版):
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C{.line-numbers}
-/* 求 b 的元素之和: 非函数版 */
-#include <stdio.h>
-
-int main(void)
-{
-  int b[5] = {3, 7, 1, 9, 4};
-  int sum = 0, i;
-
-  for (i = 0; i < 5; i++) {
-    sum += b[i];
-  }
-  printf("sum = %d\n", sum);
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-==任务==: 把求和逻辑抽成 `int sum_array(int a[], int n)`, main 只剩调用和输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-orig.c</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 一维数组作参数
-
----
-
-函数要操作数组, 就把数组传给函数:
-
-```C
-int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
-{
-  int i, sum = 0;
-  for (i = 0; i < n; i++) {
-    sum += a[i];
-  }
-  return sum;
-}
-
-total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
-```
-
-- ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
-
-- 原因第 11 周指针与数组揭晓 (数组名传的是地址)
-
----
-
 
 <!-- slide data-notes="" -->##### 生命游戏 · 原版
 
