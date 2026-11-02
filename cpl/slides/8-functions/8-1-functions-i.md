@@ -671,6 +671,10 @@ printf("Hi, Mom!\n"); /* discards return value */
 (void) printf("Hi, Mom!\n");
 ```
 
+<div style="font-weight:700;color:#268bd2;margin-top:6px;font-size:0.85em;">📌 (void) 标注</div>
+
+<div style="font-size:0.85em;line-height:1.5;">返回值==故意不要==时, 调用前加 `(void)`——让别人知道是故意的, 而不是忘了</div>
+
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
@@ -684,10 +688,6 @@ printf("Hi, Mom!\n"); /* discards return value */
 `printf` 返回它打印的字符个数——`num_chars = printf("Hi, Mom!\n");` 之后 num_chars 为 9 (自己数一遍)
 
 通常我们直接丢弃 printf 的返回值
-
-<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 (void) 标注</div>
-
-返回值==故意不要==时, 调用前加 `(void)`——让别人知道是故意的, 而不是忘了
 
 </div>
 
