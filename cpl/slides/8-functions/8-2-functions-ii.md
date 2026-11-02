@@ -198,7 +198,32 @@ x = 3, y = 5
 
 ---
 
-==现场演示==: 写一个函数 `is_prime(n)` 判断素数, 主函数读入并输出结果
+第 5 周我们用循环写过素数判断 (非函数版):
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int n, d, prime = 1;
+
+  scanf("%d", &n);
+  for (d = 2; d * d <= n; d++) {
+    if (n % d == 0) {
+      prime = 0;
+      break;
+    }
+  }
+  if (prime == 1) {
+    printf("是素数\n");
+  } else {
+    printf("不是素数\n");
+  }
+  return 0;
+}
+```
+
+==现场演示==: 把上面的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
 
 样例:
 
@@ -276,16 +301,13 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### leap.c: 原版 vs 函数版
+<!-- slide data-notes="" --><!-- slide data-notes="" -->##### leap.c: 原版
 
 ---
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;font-size:0.5em;">
+第 4 周写过的闰年判断 (非函数版):
 
-<div>
+<div style="font-size:0.55em;">
 
 ```C
 /* 原版: 判断逻辑在 main 里 */
@@ -308,7 +330,19 @@ int main(void) {
 
 </div>
 
-<div>
+==任务==: 把判断逻辑改写成函数 `is_leap_year(year)`, main 只剩输入输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 判断条件那一行很长——它最适合被装进函数
+
+---
+
+<!-- slide data-notes="" -->##### leap.c: 函数版
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 /* 函数版: 判断逻辑抽成函数 */
@@ -335,9 +369,7 @@ int is_leap_year(int n) {
 
 </div>
 
-</div>
-
-<div style="margin-top:8px;">
+<div style="flex:1;font-size:0.95em;line-height:1.7;">
 
 - 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出
 
@@ -349,15 +381,17 @@ int is_leap_year(int n) {
 
 </div>
 
----
-
-<!-- slide data-notes="" -->##### primes.c: 原版 vs 函数版
+</div>
 
 ---
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;font-size:0.5em;">
+<!-- slide data-notes="" --><!-- slide data-notes="" -->##### primes.c: 原版
 
-<div>
+---
+
+统计 2~max 的素数个数 (非函数版):
+
+<div style="font-size:0.55em;">
 
 ```C
 /* 原版: 判断逻辑埋在 main 里 */
@@ -388,7 +422,19 @@ int main() {
 
 </div>
 
-<div>
+==任务==: 把 "判断 i 是否素数" 的逻辑改写成 `is_prime(i)`, main 里逐个调用
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 前面刚写的 `is_prime` 可以==原样复用==
+
+---
+
+<!-- slide data-notes="" -->##### primes.c: 函数版
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 ```C
 /* 函数版: is_prime 抽出来 */
@@ -420,15 +466,17 @@ int main() {
 
 </div>
 
-</div>
+<div style="flex:1;font-size:0.95em;line-height:1.7;">
 
-<div style="margin-top:8px;">
+- 素数逻辑抽成 `is_prime`, main 只剩计数循环
 
-- 原版: 素数逻辑埋在 main 的两层循环里; 函数版: `is_prime(i)` 一行调用——和第 4 页是同一个函数
+- 与前面判定素数的函数是==同一个==——写一次, 处处用
 
 - 函数化改造的步骤: 把 "一块逻辑" 抽出来 → 起名字 → 参数进、返回值出
 
 <a href="code/primes.c" target="_blank">primes.c</a> · <a href="code/primes-re.c" target="_blank">primes-re.c</a>
+
+</div>
 
 </div>
 
