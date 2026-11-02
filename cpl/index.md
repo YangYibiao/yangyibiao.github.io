@@ -50,7 +50,7 @@
 |   ^    | [二维数组与矩阵运算](slides/6-arrays/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
 | 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
 |   ^    | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
-| 第8周   | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数 |
+| 第8周   | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数 + 函数调用栈 |
 |   ^    | [递归](slides/9-functions/9-2-recursion.html) | 递归：作用域与生命期 + 递归 |
 | 第9周   | 待发布                            | 指针（上）：概念、& 与 *、赋值 |
 |   ^    | 待发布                            | 指针（下）：传址调用、const 与返回值 |
