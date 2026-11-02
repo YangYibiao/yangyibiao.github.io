@@ -50,7 +50,9 @@ presentation:
 
 ---
 
-- 回顾: 形式参数 vs 实际参数、如何理解按值传递、swap 为什么不生效
+- 回顾: 形式参数 vs 实际参数
+
+- 回顾: 按值传递 (如何理解 + swap 为什么不生效)
 
 - 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
 
