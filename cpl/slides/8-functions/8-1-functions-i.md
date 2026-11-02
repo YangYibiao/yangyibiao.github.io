@@ -1060,7 +1060,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:0.85;font-size:0.55em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -1085,17 +1085,17 @@ printf("Square: %d\n", square((int) x));
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1.4;font-size:0.92em;line-height:1.6;">
 
-<div style="font-weight:700;color:#268bd2;">📌 没有原型时: 默认参数提升</div>
+<div style="font-weight:700;color:#268bd2;font-size:0.9em;">📌 没有原型时: 默认参数提升</div>
 
 - float 实参 → 转 double; char/short 实参 → 转 int (整数提升)
 
-<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 危险: square 的例子</div>
+<div style="font-weight:700;color:#268bd2;font-size:0.9em;margin-top:10px;">📌 危险: square 的例子</div>
 
 编译器不知道 `square` 要 int——x 是 double, 提升对它==无效==, 函数却按 int 解读传入的 double → 结果==无效==
 
-<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 两个修复</div>
+<div style="font-weight:700;color:#268bd2;font-size:0.9em;margin-top:10px;">📌 两个修复</div>
 
 - 调用前强制转换: `square((int) x)`
 
@@ -1191,7 +1191,7 @@ return语句可以出现在void函数的末尾:
 
 在C89中, 函数中return语句不是必需的. 
 
-非 `void` 函数==忘了写 return==, 再去用它的返回值, 行为是未定义的。
+非 `void` 函数==忘了写 return==, 再去用它的返回值——行为是==未定义==的: 可能拿到垃圾值、可能是 0、可能崩溃, 每次运行都可能不同, 编译器还不一定报错
 
 </div>
 
