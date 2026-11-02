@@ -874,7 +874,6 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 ```C{.line-numbers}
 /* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */
 #include <stdio.h>
-
 #define SIZE 8
 
 int main(void)
@@ -903,12 +902,7 @@ int main(void)
     }
   }
 
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
-      printf("%c", next[i][j] ? '*' : '.');
-    }
-    printf("\n");
-  }
+  /* 打印新一代: 双重循环输出 * 和 . (略) */
   return 0;
 }
 ```
@@ -919,7 +913,7 @@ int main(void)
 
 ==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版只能把整段循环==复制 10 遍==——这就是改写的动机
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着==四层嵌套循环==, 改一条规则得在循环堆里找位置; 函数版只需在 main 里写一个十代循环
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-orig.c</a>
 
@@ -929,7 +923,7 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 生命游戏 · 函数版
+<!-- slide data-notes="" -->##### 生命游戏 · 函数版 (一): 数邻居与演化
 
 ---
 
@@ -965,11 +959,44 @@ void next_generation(int board[][SIZE + 2])
       }
     }
   }
-  /* 写回 board */
+  /* 写回 board (略) */
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- `count_neighbors`: ==一个格子==数邻居——`cnt = -board[i][j]` 先把自己减掉, 因为自己也被数进去了
+
+- `next_generation`: 对==每个格子==调用 count_neighbors 并套三条规则, 结果写进 new_board 再==写回==
+
+- 函数之间==互相调用==: next_generation 调 count_neighbors——函数可以调用函数
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 生命游戏 · 函数版 (二): 打印与主函数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.5em;">
+
+```C{.line-numbers}
+void print_board(int board[][SIZE + 2])
+{
+  int i, j;
+
   for (i = 1; i <= SIZE; i++) {
     for (j = 1; j <= SIZE; j++) {
-      board[i][j] = new_board[i][j];
+      printf("%c", board[i][j] ? '*' : '.');
     }
+    printf("\n");
   }
 }
 
@@ -993,11 +1020,11 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-- 三个函数各管一件事: ==数邻居==、==演化一代==、==打印棋盘==——main 只剩初始化和十代循环
+- `print_board`: 打印棋盘——和演化逻辑==分开==, 想改输出格式只动这里
 
-- 二维数组作参数: `int board[][SIZE + 2]`——列数==必须写== (编译器要算 `board[i][j]` 的位置), 这是二维数组作参数的核心规则
+- main 只剩三件事: ==初始化==滑翔机 → 十代循环 {打印, 演化}——读起来像说明书
 
-- 函数之间==互相调用==: `next_generation` 调 `count_neighbors`——函数可以调用函数
+- 二维数组作参数的核心规则: `int board[][SIZE + 2]` 列数==必须写== (编译器要算 board[i][j] 的位置)
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
 

@@ -60241,7 +60241,6 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <div style="flex:1.3;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SIZE 8</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -60270,23 +60269,18 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> next<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">?</span> <span class="token string">'*'</span> <span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="token comment">/* 打印新一代: 双重循环输出 * 和 . (略) */</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 <p><mark>任务</mark>: 把这段代码改写成三个函数——<code>count_neighbors</code>、<code>next_generation</code>、<code>print_board</code>, main 只剩初始化和调用</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 想演化 10 代? 非函数版只能把整段循环<mark>复制 10 遍</mark>——这就是改写的动机</p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着<mark>四层嵌套循环</mark>, 改一条规则得在循环堆里找位置; 函数版只需在 main 里写一个十代循环</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-orig.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="生命游戏---函数版">生命游戏 · 函数版 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="生命游戏---函数版--一---数邻居与演化">生命游戏 · 函数版 (一): 数邻居与演化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.5em;">
@@ -60317,11 +60311,40 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  <span class="token comment">/* 写回 board */</span>
+  <span class="token comment">/* 写回 board (略) */</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<ul>
+<li>
+<p><code>count_neighbors</code>: <mark>一个格子</mark>数邻居——<code>cnt = -board[i][j]</code> 先把自己减掉, 因为自己也被数进去了</p>
+
+</li>
+<li>
+<p><code>next_generation</code>: 对<mark>每个格子</mark>调用 count_neighbors 并套三条规则, 结果写进 new_board 再<mark>写回</mark></p>
+
+</li>
+<li>
+<p>函数之间<mark>互相调用</mark>: next_generation 调 count_neighbors——函数可以调用函数</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="生命游戏---函数版--二---打印与主函数">生命游戏 · 函数版 (二): 打印与主函数 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.5em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_board</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> board<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>SIZE <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
+
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> SIZE<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> new_board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">?</span> <span class="token string">'*'</span> <span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
@@ -60343,15 +60366,15 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 <ul>
 <li>
-<p>三个函数各管一件事: <mark>数邻居</mark>、<mark>演化一代</mark>、<mark>打印棋盘</mark>——main 只剩初始化和十代循环</p>
+<p><code>print_board</code>: 打印棋盘——和演化逻辑<mark>分开</mark>, 想改输出格式只动这里</p>
 
 </li>
 <li>
-<p>二维数组作参数: <code>int board[][SIZE + 2]</code>——列数<mark>必须写</mark> (编译器要算 <code>board[i][j]</code> 的位置), 这是二维数组作参数的核心规则</p>
+<p>main 只剩三件事: <mark>初始化</mark>滑翔机 → 十代循环 {打印, 演化}——读起来像说明书</p>
 
 </li>
 <li>
-<p>函数之间<mark>互相调用</mark>: <code>next_generation</code> 调 <code>count_neighbors</code>——函数可以调用函数</p>
+<p>二维数组作参数的核心规则: <code>int board[][SIZE + 2]</code> 列数<mark>必须写</mark> (编译器要算 board[i][j] 的位置)</p>
 
 </li>
 </ul>
@@ -60359,7 +60382,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="案例--矩阵转置---原版">案例: 矩阵转置 · 原版 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="案例--矩阵转置---原版">案例: 矩阵转置 · 原版 </h5>
 <hr>
 <p>第 6 周写过矩阵转置 (非函数版):</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60396,7 +60419,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="案例--矩阵转置函数化">案例: 矩阵转置函数化 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="案例--矩阵转置函数化">案例: 矩阵转置函数化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.58em;">
@@ -60432,7 +60455,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="案例--成绩统计---原版">案例: 成绩统计 · 原版 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="案例--成绩统计---原版">案例: 成绩统计 · 原版 </h5>
 <hr>
 <p>求每个学生的总分 (非函数版):</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60467,7 +60490,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="案例--成绩统计函数化">案例: 成绩统计函数化 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="案例--成绩统计函数化">案例: 成绩统计函数化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -60498,7 +60521,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="函数调用栈---概念">函数调用栈 · 概念 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="函数调用栈---概念">函数调用栈 · 概念 </h5>
 <hr>
 <p>先想一个问题: 函数返回之后, 它里面的局部变量<mark>去哪儿了</mark>? 下次再调用, 为什么又是全新的?</p>
 <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:center;">
@@ -60524,7 +60547,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="函数调用栈---便签上放了什么">函数调用栈 · 便签上放了什么 </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="函数调用栈---便签上放了什么">函数调用栈 · 便签上放了什么 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.62em;">
@@ -60581,7 +60604,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 周三的递归: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图</p>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="课堂编码-1--平均值改写">课堂编码 1: 平均值改写 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="课堂编码-1--平均值改写">课堂编码 1: 平均值改写 </h5>
 <hr>
 <p>把下面的程序改写成 "主函数 + 函数" 的结构:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -60599,7 +60622,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: <code>(x + y) / 2</code> 出现三处——先想函数长什么样, 再动手
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/average-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 average-orig.c</a></p>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="课堂编码-2--星号塔改写">课堂编码 2: 星号塔改写 </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="课堂编码-2--星号塔改写">课堂编码 2: 星号塔改写 </h5>
 <hr>
 <p>把下面的程序改写成 "主函数 + 函数" 的结构:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -60625,7 +60648,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p>任务: 抽出 <code>void print_stars(int n)</code> (打印一行 n 颗星), 空格的循环也抽成 <code>void print_spaces(int n)</code></p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每个函数只做<mark>一件事</mark></p>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="课堂编码-3--阶乘改写--挑战">课堂编码 3: 阶乘改写 (挑战) </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="课堂编码-3--阶乘改写--挑战">课堂编码 3: 阶乘改写 (挑战) </h5>
 <hr>
 <p>把下面的程序改写成 "主函数 + 函数" 的结构:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -60648,7 +60671,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 阶乘函数明天还会在递归课上<mark>再次登场</mark> (n! = n × (n-1)!)
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-orig.c</a></p>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
@@ -60661,7 +60684,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="32" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
