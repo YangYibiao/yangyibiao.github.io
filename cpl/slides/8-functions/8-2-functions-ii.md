@@ -757,21 +757,101 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 课堂编码
+##### 课堂编码 1: 平均值改写
 
 ---
 
-==现场演示==
+把下面的程序改写成 "主函数 + 函数" 的结构:
 
-把下面的程序改写成"主函数 + 若干函数"的结构:
+```C{.line-numbers}
+#include <stdio.h>
 
-1. 计算平均值: `double average(double a, double b)`
+int main(void)
+{
+  double x = 3.5, y = 9.6, z = 10.2;
 
-2. 判定素数: `int is_prime(int n)`
+  printf("Average of %g and %g: %g\n", x, y, (x + y) / 2);
+  printf("Average of %g and %g: %g\n", y, z, (y + z) / 2);
+  printf("Average of %g and %g: %g\n", x, z, (x + z) / 2);
+  return 0;
+}
+```
 
-3. 打印一行星号: `void print_stars(int n)`
+任务: 抽出 `double average(double a, double b)`, main 里改为一调用
 
-<span class="blue">:fa-lightbulb-o:</span> 设计原则回顾: 每个函数只做==一件事==
+<span class="blue">:fa-lightbulb-o:</span> 提示: `(x + y) / 2` 出现三处——先想函数长什么样, 再动手
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 课堂编码 2: 星号塔改写
+
+---
+
+把下面的程序改写成 "主函数 + 函数" 的结构:
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int lines, i, j;
+
+  printf("输入行数: ");
+  scanf("%d", &lines);
+
+  for (i = 0; i < lines; i++) {
+    for (j = 0; j < lines - 1 - i; j++) {    /* 打印空格 */
+      printf(" ");
+    }
+    for (j = 0; j < 2 * i + 1; j++) {        /* 打印一行星号 */
+      printf("*");
+    }
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+任务: 抽出 `void print_stars(int n)` (打印一行 n 颗星), 空格的循环也抽成 `void print_spaces(int n)`
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 每个函数只做==一件事==
+
+---
+
+
+<!-- slide data-notes="" -->
+
+##### 课堂编码 3: 阶乘改写 (挑战)
+
+---
+
+把下面的程序改写成 "主函数 + 函数" 的结构:
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int n, i;
+  long f = 1;
+
+  printf("输入 n: ");
+  scanf("%d", &n);
+
+  for (i = 1; i <= n; i++) {    /* 计算 n! */
+    f = f * i;
+  }
+  printf("%d! = %ld\n", n, f);
+  return 0;
+}
+```
+
+任务: 抽出 `long factorial(int n)`, main 只剩输入、调用、输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 阶乘函数明天还会在递归课上==再次登场== (n! = n × (n-1)!)
 
 ---
 
