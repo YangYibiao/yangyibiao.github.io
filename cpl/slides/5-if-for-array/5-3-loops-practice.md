@@ -75,6 +75,8 @@ presentation:
 
 ==现场演示==: 输入一批学生成绩 (0~100), 直到 ==-1== 结束, 输出==最高分==以及==得最高分的人数==
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例:
 
 ```
@@ -149,6 +151,8 @@ int main(void) {
 <div style="flex:1;">
 
 ==现场演示==: 输入一个整数, 判断它是不是==完全数== (等于除自身外的所有因数之和, 如 6 = 1+2+3, 28 = 1+2+4+7+14)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 

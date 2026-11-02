@@ -637,6 +637,8 @@ if (i > j) {
 
 ==现场演示==: 输入两个整数, 输出其中较小的一个
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 ---
 
 
@@ -693,6 +695,8 @@ int main() {
 ---
 
 ==现场演示==: 输入三个整数, 输出其中最小的一个
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 ---
 
@@ -815,6 +819,8 @@ int main(void) {
 
 ==现场演示==: 输入年份, 判断是否为闰年
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 闰年规则: ==能被 4 整除且不能被 100 整除, 或能被 400 整除== (2024 是闰年, 1900 不是, 2000 是)
 
 <span class="yellow">:fa-weixin:</span> 对照流程图写代码
@@ -904,6 +910,8 @@ int main(void) {
 
 ==现场演示==: 输入三边 `a b c`, 判断能否构成三角形
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 规则: ==任意两边之和大于第三边==——三个条件要==同时==成立
 
 ---
@@ -959,6 +967,8 @@ int main(void) {
 ---
 
 ==现场演示==: 输入一个整数, 输出它是奇数还是偶数
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 <span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 第 3 周学的==位运算==也能判断——两种方法都想一想
 

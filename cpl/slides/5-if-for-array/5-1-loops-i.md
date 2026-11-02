@@ -282,6 +282,8 @@ while (1) …
 
 ==现场演示==: 打印平方表——用户指定行数, 每行输出"数字 + 它的平方"
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例 (输入 5):
 
 ```
@@ -352,6 +354,8 @@ int main(void)
 ---
 
 ==现场演示==: 对用户输入的整数数列求和——用户不断输入整数, 直到输入 ==`0`== 为止, 输出总和
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 
@@ -481,6 +485,8 @@ while (i > 0);
 ---
 
 ==现场演示==: 输入一个非负整数, 输出它是几位数
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 

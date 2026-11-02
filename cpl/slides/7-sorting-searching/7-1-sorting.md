@@ -480,6 +480,8 @@ if (low > high) {
 
 ==现场演示==
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/7-sorting-searching/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 1. 思路: 先排序 (任选一种, 正好复习) → 相同的数相邻 → 一遍扫描统计每段长度 → 找最长段
 
 2. 学生先写 10 分钟, 再一起看参考代码

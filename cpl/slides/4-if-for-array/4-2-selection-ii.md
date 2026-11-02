@@ -706,6 +706,8 @@ int main(void)
 
 ==现场演示==: 把上一课的闰年嵌套版化简成==一个布尔表达式==
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 要求: 输出与嵌套版完全一致 (is a leap year / is a common year)
 
 - 用 ==`&&`== 和 ==`||`== 把三条规则合并: 能被 4 整除且不能被 100 整除, 或能被 400 整除

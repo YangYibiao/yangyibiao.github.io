@@ -509,6 +509,8 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 
 ==现场演示==: 输入 10 个数, 逆序输出
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例:
 
 ```
@@ -649,6 +651,8 @@ int b[] = {[23] = 5};
 
 ==现场演示==: 输入 10 个成绩, 输出平均分和==高于平均分的人数==
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 第一节课找最高分, 一个变量流式处理即可; 现在要先算平均、再回头比每个人——还能不存吗?
 
 样例:
@@ -724,6 +728,8 @@ int main(void)
 
 ==现场演示==: 输入一个==长整数== (正数), 判断它的各位数字里有没有重复的 (如 28245 有重复的 2)
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例:
 
 ```
@@ -796,6 +802,8 @@ int main(void)
 ---
 
 ==现场演示==: 输入一个单词 (不含空格), 全部转成大写输出
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 
@@ -870,6 +878,8 @@ int main(void)
 ---
 
 ==现场演示==: 输入十进制数 n 和进制 base (2~16), 输出转换结果
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 
@@ -1020,6 +1030,8 @@ int main(void)
 ---
 
 ==现场演示==: 输入一个整数, 判断它是不是==回文数== (正着读倒着读一样, 如 1221、12321)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 

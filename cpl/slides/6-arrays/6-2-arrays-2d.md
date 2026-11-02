@@ -656,6 +656,8 @@ int main(void)
 
 ==现场演示==: 打印杨辉三角的前 6 行
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例:
 
 ```
@@ -733,6 +735,8 @@ int main(void)
 ---
 
 ==现场演示==: n×n 的格子, 从 1 开始==螺旋==往里填
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例 (n=5):
 
@@ -812,6 +816,8 @@ int main(void)
 ---
 
 ==现场演示==: 读入 9×9 数独, 判断是否违反规则 (OJ 1081 同款)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 输入: 9 行, 每行 9 个整数 (1~9)
 

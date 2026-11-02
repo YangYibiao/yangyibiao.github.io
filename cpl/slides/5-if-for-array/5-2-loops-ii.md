@@ -575,6 +575,8 @@ int main(void) {
 
 ==现场演示==: 用 `for` 重写上一课的平方表程序——输出一模一样
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例 (输入 5):
 
 ```
@@ -647,6 +649,8 @@ int main(void)
 <div style="flex:1;">
 
 ==现场演示==: 输入高度 n, 打印 n 行的==居中星号塔== (第 i 行: 前面补空格, 星号 2i-1 颗)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 每行 = ==空格 + 星号==——空格负责居中 (第 i 行 n-i 个), 星号第 i 行 2i-1 颗; 加上外层, 一共三层循环
 
@@ -767,6 +771,8 @@ for (int i = 1; i <= n; i++) {
 
 ==现场演示==: 输入一个整数, 判断它是不是素数 (只能被 1 和自己整除)
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
 样例:
 
 ```
@@ -848,6 +854,8 @@ int main(void) {
 <div style="flex:1;">
 
 ==现场演示==: 输入 n, 计算 1~n 中所有==非完全平方数==的和 (完全平方数: 1、4、9、16、…)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例 (n = 10):
 
