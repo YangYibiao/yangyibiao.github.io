@@ -990,7 +990,12 @@ int main(void)
     }
   }
 
-  /* 打印新一代: 双重循环输出 * 和 . (略) */
+  for (i = 1; i <= SIZE; i++) {       /* 打印新一代 */
+    for (j = 1; j <= SIZE; j++) {
+      printf("%c", next[i][j] ? '*' : '.');
+    }
+    printf("\n");
+  }
   return 0;
 }
 ```
