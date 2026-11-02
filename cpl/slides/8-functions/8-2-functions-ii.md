@@ -615,6 +615,72 @@ int main() {
 
 </div>
 
+<!-- slide data-notes="" -->##### stars.c: 函数版
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.58em;">
+
+```C{.line-numbers}
+/* 星号塔: 函数版 (每个函数只做一件事) */
+#include <stdio.h>
+
+void print_spaces(int n)
+{
+  int j;
+
+  for (j = 0; j < n; j++) {
+    printf(" ");
+  }
+}
+
+void print_stars(int n)
+{
+  int j;
+
+  for (j = 0; j < n; j++) {
+    printf("*");
+  }
+}
+
+int main(void)
+{
+  int lines, i;
+
+  printf("Enter lines: ");
+  scanf("%d", &lines);
+
+  for (i = 0; i < lines; i++) {
+    print_spaces(lines - 1 - i);
+    print_stars(2 * i + 1);
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- 两个循环各自成函数: `print_spaces` 和 `print_stars`——每个函数只做==一件事==
+
+- main 里的主体只剩一行行的==调用==, 星号塔的结构一目了然
+
+- 这就是改造的目标: 主函数读起来像 "说明书", 细节都藏进函数
+
+<a href="code/stars-re.c" target="_blank">stars-re.c</a>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-re.c</a>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
