@@ -114,6 +114,8 @@ fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 
 动画: [function-and-stack.html](function-and-stack.html) —— 阶乘递归的层层压栈与返回
 
+<a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (逐行看栈帧)</a>
+
 ---
 
 <!-- slide data-notes="" -->
