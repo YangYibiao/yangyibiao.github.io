@@ -1007,8 +1007,6 @@ int main(void)
 
 <div style="flex:1;font-size:0.85em;line-height:1.6;">
 
-==规则==: 活格子活邻居 2 或 3 → 活, 否则死; 死格子活邻居恰好 3 → 活; 边界技巧——四周加一圈 0, 数邻居不用判断边界
-
 ==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着==四层嵌套循环==; 函数版只需在 main 里写一个十代循环
