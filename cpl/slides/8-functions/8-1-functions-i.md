@@ -966,7 +966,9 @@ decompose(3.14159, i, d);
 
 ---
 
-<div style="font-size:0.8em;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C
 void swap(int a, int b) {
@@ -981,13 +983,15 @@ int main(void) {
 }
 ```
 
-</div>
-
-运行结果: 
+运行结果:
 
 ```
 x = 3, y = 5
 ```
+
+</div>
+
+<div style="flex:1;font-size:0.95em;line-height:1.7;">
 
 - 传值调用: `a`、`b` 只是 `x`、`y` 的==副本==, 函数内交换副本, 外面==纹丝不动==
 
@@ -996,6 +1000,10 @@ x = 3, y = 5
 - 这是新手最困惑的现象之一: 函数明明执行了, "为什么没效果?"
 
 - 记住这个悬念——==第 10 周学指针==后, 用 `swap(&x, &y)` 就能真正交换 (先记下来, 不剧透)
+
+</div>
+
+</div>
 
 ---
 
