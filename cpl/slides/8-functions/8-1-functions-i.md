@@ -1085,35 +1085,21 @@ printf("Square: %d\n", square((int) x));
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-编译器在调用之前没有遇到原型. 
+<div style="font-weight:700;color:#268bd2;">📌 没有原型时: 默认参数提升</div>
 
-编译器执行默认的实际参数提升: 
+- float 实参 → 转 double; char/short 实参 → 转 int (整数提升)
 
-float类型的实际参数转换为double类型. 
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 危险: square 的例子</div>
 
-执行整值提升, 把char和short类型的实际参数转换为int类型. (C99为整数提升)
+编译器不知道 `square` 要 int——x 是 double, 提升对它==无效==, 函数却按 int 解读传入的 double → 结果==无效==
 
+<div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 两个修复</div>
 
----
+- 调用前强制转换: `square((int) x)`
 
-依赖默认的实际参数提升是危险的, 例如:
-
-在调用square时, 编译器不知道它需要一个int类型的参数.
-
-
----
-
-编译器在$x$上执行默认的实际参数提升, 但没有任何效果. 
-
-函数期望int类型的实际参数, 却获得了double类型值, 所以调用square将产生无效的结果. 
-
-将square的实际参数强制转换为正确的类型可以解决该问题:
-
-更好的解决方案是在调用square之前提供该函数的原型. 
-
-C99中, 没有提供函数声明或定义时调用square函数是错误的.
+- 更好的办法: 调用前==提供原型== (C99 里没声明就调用直接是==错误==)
 
 </div>
 
