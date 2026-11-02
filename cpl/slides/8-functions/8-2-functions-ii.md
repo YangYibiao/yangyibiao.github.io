@@ -198,6 +198,10 @@ x = 3, y = 5
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
 第 5 周我们用循环写过素数判断 (非函数版):
 
 ```C{.line-numbers}
@@ -223,18 +227,21 @@ int main(void)
 }
 ```
 
-==现场演示==: 把上面的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
+</div>
 
-样例:
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-```
-输入一个数: 34
-不是素数
-```
+==现场演示==: 把左边的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑第 5 周写过 (break 版)——这次把它==做成函数==
+<span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑是 "一块完整的事"——这正是适合装进函数的东西
+
+</div>
+
+</div>
 
 ---
+
+
 
 
 
