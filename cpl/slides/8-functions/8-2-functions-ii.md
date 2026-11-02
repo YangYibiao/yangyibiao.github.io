@@ -165,7 +165,7 @@ int main(void)
 
 ```C
 void swap(int a, int b) {
-    int t = a;  a = b;  b = t;      /* 交换的是副本 */
+    int t = a;  a = b;  b = t;      /* 交换的是 a、b 的值 */
 }
 
 int main(void) {
@@ -186,7 +186,7 @@ x = 3, y = 5
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-- 按值传递的直接体现: `a`、`b` 只是 `x`、`y` 的==副本==——函数内交换副本, 外面的 x、y ==保持不变==
+- 按值传递的直接体现: `a`、`b` 拿到 `x`、`y` 的==值== (即副本)——函数内交换的是 a、b 的值, 与外面的 x、y ==没有关系==
 
 - 换个角度看: 调用 `swap(x + 6, y + 5)` 传进去的是表达式的==值==, 没人指望 x、y 被改; `swap(x, y)` 传的同样是值, 不是变量本身
 
