@@ -50,7 +50,7 @@ presentation:
 
 ---
 
-- 回顾: 形式参数 vs 实际参数、如何理解按值传递
+- 回顾: 形式参数 vs 实际参数、如何理解按值传递、swap 为什么不生效
 
 - 函数化改造: 素数、leap、primes、stars
 
@@ -148,6 +148,51 @@ int main(void)
 - 所以上周 swap 里交换 a、b 只是交换两份复印件——外面的 x、y 不变
 
 - 数组是==例外==: 数组作参数时函数却能改到原数组——为什么是例外, 后面==指针部分==会详细介绍和分析
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 回顾: swap 为什么不生效
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
+
+```C
+void swap(int a, int b) {
+    int t = a;  a = b;  b = t;      /* 交换的是副本 */
+}
+
+int main(void) {
+    int x = 3, y = 5;
+    swap(x, y);
+    printf("x = %d, y = %d\n", x, y);
+    return 0;
+}
+```
+
+运行结果:
+
+```
+x = 3, y = 5
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- 按值传递的直接体现: `a`、`b` 只是 `x`、`y` 的==副本==——函数内交换副本, 外面的 x、y ==保持不变==
+
+- 换个角度看: 调用 `swap(x + 6, y + 5)` 传进去的是表达式的==值==, 没人指望 x、y 被改; `swap(x, y)` 传的同样是值, 不是变量本身
+
+- 这是新手最困惑的现象之一: 函数明明执行了, 外界却看不到任何变化
+
+- 记住这个结论——后面==指针部分==会用 `swap(&x, &y)` 真正交换两个变量
 
 </div>
 
