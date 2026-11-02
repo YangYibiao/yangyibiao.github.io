@@ -315,7 +315,7 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" --><!-- slide data-notes="" -->##### leap.c: 原版
+<!-- slide data-notes="" -->##### leap.c: 原版
 
 ---
 
@@ -411,7 +411,7 @@ int is_leap_year(int n) {
 
 ---
 
-<!-- slide data-notes="" --><!-- slide data-notes="" -->##### 改造进阶: return 让代码更简洁
+<!-- slide data-notes="" -->##### 改造进阶: return 让代码更简洁
 
 ---
 
