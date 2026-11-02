@@ -27,44 +27,94 @@ presentation:
 @import "../../js/anychart/pastel.min.js"
 @import "../../js/anychart/venn-ml.js"
 
-<!-- slide data-notes="" -->
-
-<div class="bottom20"></div>
-
-# 智能程序设计（C语言）
-
-<hr class="width50 center">
-
-## 递归函数
-
-<div class="bottom8"></div>
-
-### 计算机学院 &nbsp;&nbsp; 杨已彪
-
-#### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
-
-
-
-<!-- slide data-notes="" -->
-
-##### 提纲
+<!-- slide data-notes="" -->##### 提纲
 
 ---
 
-- 作用域与生命期 (回顾)
+- 递归是什么 (两个要素、信任递归)
 
-- 递归: 自己调用自己
+- 递归执行过程 (层层递推与回归)
 
-- 经典案例: 阶乘、斐波那契、汉诺塔
+- 作用域与生命期
 
-- 递归与栈
-
-- 递归排序: 快速排序
+- 经典案例: Fibonacci、最大公约数、汉诺塔 (弹性)
 
 - 常见错误与课堂编码
 
+- 分治与快速排序 (弹性)
+
+- 课堂小测
+
+---
+<!-- slide data-notes="" -->
+
+##### 递归是什么
+
 ---
 
+==递归==: 函数直接或间接地==自己调用自己==——有些问题的定义本身就是递归的: 阶乘、汉诺塔、目录遍历……
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.62em;">
+
+```C{.line-numbers}
+/* 阶乘: n! = n × (n-1)! */
+long f(long n)
+{
+  if (n == 0 || n == 1) {  /* 基准情形: 直接给答案 */
+    return 1;
+  }
+  return n * f(n - 1);     /* 递归情形: 缩小后再调用 */
+}
+```
+
+```C
+/* 求幂: x^n = x × x^(n-1), 可以精简成一行 */
+int power(int x, int n) {
+    return n == 0 ? 1 : x * power(x, n - 1);
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- ==两个要素==: ==基准情形== (最简单、直接给答案) + ==递归情形== (把问题==缩小==后再调用自己)
+
+- ==信任递归==: 写第 n 层时只关心两层——假设 n-1 层的答案是对的, 用它构造 n 的答案, ==不要在脑中展开所有层==
+
+- ==递归三问==: 最小问题是什么? 怎么缩小? 怎么用缩小后的答案构造当前答案?
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+##### 递归执行过程
+
+---
+
+fact(3) 的跟踪——==递推==下去, 再==回归==上来:
+
+<div style="font-size:0.82em;line-height:2.0;background:rgba(38,139,210,0.06);padding:12px 18px;border-radius:8px;border:1px solid rgba(38,139,210,0.25);font-family:Operator, 'LXGWWenKai', monospace;">
+调用最深处:&nbsp;&nbsp;[fact(3)]&nbsp;[fact(2)]&nbsp;[fact(1)]&nbsp;← 栈顶: 1 ≤ 1, 返回 1<br>
+回归结算:&nbsp;&nbsp;&nbsp;&nbsp;[fact(3)]&nbsp;[fact(2)]&nbsp;→ 返回 2 × 1 = 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[fact(3)]&nbsp;→ 返回 3 × 2 = 6
+</div>
+
+- 每一层调用压一张==便签== (昨天的栈), 回归时逐层弹栈==结算==——递归就是便签一层层叠高、再一层层揭掉
+
+- 每层调用有==自己的一套局部变量和参数==, 各层互不干扰 (下一页: 生命期)
+
+- 递归深度 = 压栈层数; 递归过深 → ==栈溢出==
+
+动画: [function-and-stack.html](function-and-stack.html) —— 阶乘递归的层层压栈与返回
+
+---
 
 <!-- slide data-notes="" -->
 
@@ -161,114 +211,6 @@ i = 32764
 - 每次运行、每台机器都可能不同; 调试器里恰好是 `0` 只是假象
 
 - 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 递归
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
-
-```C{.line-numbers}
-int fact(int n)
-{
-  if (n <= 1) {
-    return 1;
-  } else {
-    return n * fact(n - 1);
-  }
-}
-```
-
-```C
-i = fact(3);
-```
-
-</div>
-
-<div style="flex:1;">
-
-有些问题的定义本身就是"自己调用自己": 阶乘、汉诺塔、目录遍历……
-
-函数==调用自己==, 就叫递归。
-
-下面的函数用公式 $n! = n × (n – 1)!$ 递归地算 $n!$:
-
-递归到底怎么跑? 跟踪一遍语句的执行过程
-
-1. fact(3) 发现 $3 \le 1$ 不成立, 所以调用
-2. &emsp; fact(2), 发现 $2 \le 1$ 不成立, 所以调用
-3. &emsp; &emsp; fact(1), 发现 $1 \le 1$ 成立, 所以返回 1, 导致
-4. &emsp; fact(2) 返回 $2 × 1 = 2$, 导致
-5. fact(3) 返回 $3 × 2 = 6$.
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-
-##### 递归的定义
-
----
-
-n! 的计算可以递归定义:
-
-n! = 1&emsp;(n = 0 或 n = 1)
-
-n! = n × (n-1)!&emsp;(n > 1)
-
-==递归==: 函数直接或间接地==自己调用自己==
-
-- 基准情形: 最简单、直接给出答案 (n=0 或 1)
-
-- ==递归情形==: 把问题缩小后再调用自己 (n! = n × (n-1)!)
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 阶乘的递归实现
-
----
-
-```C
-long f(long n)
-{
-  if (n == 0 || n == 1) {  /* 基准情形 */
-    return 1;
-  }
-  return n * f(n - 1);      /* 递归情形 */
-}
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 递归执行过程
-
----
-
-f(5) 的执行: 层层==递推==下去, 再层层==回归==上来
-
-f(5) → 5×f(4) → 4×f(3) → 3×f(2) → 2×f(1) → 返回 1 → 2 → 6 → 24 → 120
-
-- 每一层调用都==压栈==保存现场, 回归时逐层==弹栈==
-
-- 递归深度 = 压栈层数; 递归过深会栈溢出
 
 ---
 
@@ -385,49 +327,40 @@ void Hanoi(int n, char A, char B, char C)
 <!-- slide data-notes="" -->
 
 
-##### 递归与栈
+##### 常见错误
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+- ==缺少基准情形==: 递归永不终止 (如忘了 n==0 的判断)
 
-<div style="flex:1.3;font-size:0.6em;">
+- ==问题没有缩小==: 每次调用与上次规模相同 (如 f(n) 里调用 f(n))
 
-```C{.line-numbers}
-int power(int x, int n)
-{
-  if (n == 0) {
-    return 1;
-  } else {
-    return x * power(x, n - 1);
-  }
-}
-```
+<span class="blue">:fa-lightbulb-o:</span> 写递归的两步检查: ① 基准情形对吗? ② 每次调用规模在变小吗?
 
-```C
-int power(int x, int n)
-{
-    return n == 0 ? 1 : x * power(x, n - 1);
-}
-```
+---
 
-</div>
 
-<div style="flex:1;">
+<!-- slide data-notes="" -->
 
-以下递归函数使用公式$x^n = x × x ^{n –1}$计算$x^n$.
 
-把条件表达式放入return语句中可以精简power函数:
+##### 课堂编码
 
-fact和power都会在调用时小心地测试==终止条件==. 
+---
 
-所有递归函数都需有终止条件以防止无限递归.
+==现场演示==
 
-动画演示: [function-and-stack.html](function-and-stack.html) —— 阶乘递归的层层压栈与返回
+1. 递归求和: sum(n) = 1 + 2 + … + n
 
-</div>
+2. 递归求幂: power(x, n) = x 的 n 次方
 
-</div>
+3. 递归打印整数: 输入 1234, 按位逐个打印 (样例: `1234 → 1 2 3 4`)
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -527,62 +460,6 @@ int split(int a[], int low, int high)
 </div>
 
 </div>
-
-<!-- slide data-notes="" -->
-
-##### 一趟划分在做什么: "空位法"
-
----
-
-以 `a = {4, 3, 9, 7}`, 基准 4 为例:
-
-1. 取出基准 4 → `a[0]` 成了==空位==
-2. ==从右往左==找比 4 小的: 3 → 填进左边空位, 右边留下空位
-3. ==从左往右==找比 4 大的: 9 → 填进右边空位, 左边又留空位
-4. 左右相遇 → 把基准 4 放进最后的空位
-
-结果: 4 左边都比它小、右边都比它大——==一趟划分完成==, 再对左右两半各自递归
-
-<div class="top-2">
-  <img src="figs/9-1.png" width=460px>
-</div>
-
-
-<!-- slide data-notes="" -->
-
-
-##### 常见错误
-
----
-
-- ==缺少基准情形==: 递归永不终止 (如忘了 n==0 的判断)
-
-- ==问题没有缩小==: 每次调用与上次规模相同 (如 f(n) 里调用 f(n))
-
-<span class="blue">:fa-lightbulb-o:</span> 写递归的两步检查: ① 基准情形对吗? ② 每次调用规模在变小吗?
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂编码
-
----
-
-==现场演示==
-
-1. 递归求和: sum(n) = 1 + 2 + … + n
-
-2. 递归求幂: power(x, n) = x 的 n 次方
-
-3. 递归打印整数: 输入 1234, 按位逐个打印 (样例: `1234 → 1 2 3 4`)
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
-
----
-
 
 <!-- slide data-notes="" -->
 
