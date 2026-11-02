@@ -56,7 +56,7 @@ presentation:
 
 - 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
 
-- 数组作参数: 一维、排序封装、生命游戏、矩阵与成绩案例
+- 数组作参数: 一维、二维、排序封装、生命游戏、矩阵与成绩案例
 
 - 函数调用栈 (概念与例子)
 
@@ -860,6 +860,94 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 
 ---
 
+
+<!-- slide data-notes="" -->##### 二维数组作参数 · 原版
+
+---
+
+求矩阵元素之和 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 求 m 的元素之和: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int m[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+  int sum = 0, i, j;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 4; j++) {
+      sum += m[i][j];
+    }
+  }
+  printf("sum = %d\n", sum);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把求和逻辑抽成函数, main 只剩调用和输出
+
+<span style="font-size:0.9em;">动手前想清楚: 数组怎么传? 行数怎么传? ==列数怎么传==?——二维比一维多一个问题, 下一页揭晓</span>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-matrix-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-matrix-re.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 二维数组作参数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.58em;">
+
+```C{.line-numbers}
+int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
+{
+  int sum = 0;
+
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < 4; j++) {
+      sum += a[i][j];
+    }
+  }
+  return sum;
+}
+```
+
+```C
+int m[3][4] = { ... };
+sum_matrix(m, 3);       /* 数组名 + 行数 */
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- 二维数组作参数, ==只能省略第一维==——列数必须写出来
+
+- 为什么列数不能省? 编译器要知道 "一行有多长", 才能算出 `a[i][j]` 的位置
+
+- 调用: 传==数组名 + 行数==, 和标量没区别
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->##### 生命游戏 · 原版
 
