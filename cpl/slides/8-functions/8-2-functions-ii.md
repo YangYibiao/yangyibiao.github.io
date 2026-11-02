@@ -312,9 +312,11 @@ int main(void)
 
 ---
 
-第 4 周写过的闰年判断 (非函数版):
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="font-size:0.55em;">
+<div style="flex:1.3;font-size:0.55em;">
+
+第 4 周写过的闰年判断 (非函数版):
 
 ```C
 /* 原版: 判断逻辑在 main 里 */
@@ -337,11 +339,19 @@ int main(void) {
 
 </div>
 
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
 ==任务==: 把判断逻辑改写成函数 `is_leap_year(year)`, main 只剩输入输出
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 判断条件那一行很长——它最适合被装进函数
+<span class="blue">:fa-lightbulb-o:</span> 判断条件那一行很长——它最适合被装进函数
+
+</div>
+
+</div>
 
 ---
+
+
 
 <!-- slide data-notes="" -->##### leap.c: 函数版
 
@@ -396,9 +406,11 @@ int is_leap_year(int n) {
 
 ---
 
-统计 2~max 的素数个数 (非函数版):
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="font-size:0.55em;">
+<div style="flex:1.3;font-size:0.55em;">
+
+统计 2~max 的素数个数 (非函数版):
 
 ```C
 /* 原版: 判断逻辑埋在 main 里 */
@@ -429,11 +441,19 @@ int main() {
 
 </div>
 
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
 ==任务==: 把 "判断 i 是否素数" 的逻辑改写成 `is_prime(i)`, main 里逐个调用
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 前面刚写的 `is_prime` 可以==原样复用==
+<span class="blue">:fa-lightbulb-o:</span> 前面刚写的 `is_prime` 可以==原样复用==
+
+</div>
+
+</div>
 
 ---
+
+
 
 <!-- slide data-notes="" -->##### primes.c: 函数版
 
