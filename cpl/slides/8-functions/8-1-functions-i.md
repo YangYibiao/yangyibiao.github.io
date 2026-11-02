@@ -1179,19 +1179,15 @@ void print_count(int n)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.95em;line-height:1.7;">
 
-没有给出表达式, return语句可以出现在返回类型为void的函数中:
+- 不带表达式的 `return;` 只用于 ==void== 函数, 作用是==提前返回==——左栏 `print_int`: i &lt; 0 时直接走人, 后面的打印不执行
 
-如:
+- void 函数末尾的 `return;` 可以写, 但==没必要== (左栏 `print_count`), 函数自然结束
 
----
+- `main` 可以不写 return (默认返回 0); 其他非 void 函数==必须显式 return==
 
-return语句可以出现在void函数的末尾:
-
-在C89中, 函数中return语句不是必需的. 
-
-非 `void` 函数==忘了写 return==, 再去用它的返回值——行为是==未定义==的: 可能拿到垃圾值、可能是 0、可能崩溃, 每次运行都可能不同, 编译器还不一定报错
+- 非 `void` 函数==忘了写 return==, 再去用它的返回值——行为是==未定义==的: 可能拿到垃圾值、可能是 0、可能崩溃, 每次运行都可能不同, 编译器还不一定报错
 
 </div>
 
