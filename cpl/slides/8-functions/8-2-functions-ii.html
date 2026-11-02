@@ -59945,7 +59945,8 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
-<p><mark>任务</mark>: 把 "判断 i 是否素数" 的逻辑改写成 <code>is_prime(i)</code>, main 里逐个调用</p>
+<p><mark>任务</mark>: 把 "判断 i 是否素数" 的逻辑抽成 <code>is_prime(i)</code></p>
+<p><span style="font-size:0.9em;">进一步: 把统计循环也抽成 <code>count_primes(max)</code>——main → count_primes → is_prime <mark>两层调用链</mark></span></p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 前面刚写的 <code>is_prime</code> 可以<mark>原样复用</mark>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/primes-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 primes-re.c</a></p>
 </div>
@@ -60784,8 +60785,17 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <p>任务: 抽出 <code>long factorial(int n)</code>, main 只剩输入、调用、输出</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 阶乘函数明天还会在递归课上<mark>再次登场</mark> (n! = n × (n-1)!)
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-re.c</a></p>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 阶乘函数明天还会在递归课上<mark>再次登场</mark> (n! = n × (n-1)!)</p>
+<ol>
+<li><mark>进阶</mark>: 用刚写好的 <code>factorial</code>, 再写一层组合数——main → combination → factorial 两层调用链:
+</li>
+</ol>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> <span class="token function">combination</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> m<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-return">return</span> <span class="token function">factorial</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token function">factorial</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token function">factorial</span><span class="token punctuation">(</span>m <span class="token operator">-</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p><code>factorial</code> 被调用了三次、参数各不同——这就是 "用函数搭积木"</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-re.c</a>
 <hr>
 </section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
