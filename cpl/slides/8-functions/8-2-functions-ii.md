@@ -506,7 +506,7 @@ int main() {
 
 <span style="font-size:0.9em;">进一步: 把统计循环也抽成 `count_primes(max)`——main → count_primes → is_prime ==两层调用链==</span>
 
-<span class="blue">:fa-lightbulb-o:</span> 前面刚写的 `is_prime` 可以==原样复用==
+<span class="blue">:fa-lightbulb-o:</span> 复用前面刚写的 `is_prime`
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/primes-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 primes-re.c</a>
 
 
