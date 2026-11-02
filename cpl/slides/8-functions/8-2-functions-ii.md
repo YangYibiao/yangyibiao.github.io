@@ -1139,6 +1139,54 @@ int main(void)
 
 ---
 
+<!-- slide data-notes="" -->##### 生命游戏 · 动画版
+
+---
+
+三个函数与函数版完全相同, 只改 main 里的循环——加上 ==停顿== 和 ==清屏==, 就能看到滑翔机在屏幕上移动:
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.58em;">
+
+```C{.line-numbers}
+/* 三个函数与函数版一致 (略) */
+int main(void)
+{
+  int board[SIZE + 2][SIZE + 2] = {{0}};
+  int i;
+
+  board[2][3] = 1;  board[3][4] = 1;
+  board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
+
+  for (i = 0; i < 20; i++) {
+    print_board(board);
+    next_generation(board);
+    sleep(1);            /* 停 1 秒 */
+    system("clear");     /* 清屏重画 → 动画 */
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- `sleep(1)`: 每代之间停 1 秒 (`<unistd.h>`); `system("clear")`: 清屏后重画, 画面连起来就是动画
+
+- 经典效果: 滑翔机每 4 代平移一格, ==斜着飞过屏幕==
+
+- 函数化改造的回报: 加动画==只改 main==, 三个函数一行未动
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-anim.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-anim.c</a>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->##### 案例: 矩阵转置 · 原版
 
 ---
