@@ -756,9 +756,10 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 ```C
 int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
 {
-  int i, j, sum = 0;
-  for (i = 0; i < rows; i++) {
-    for (j = 0; j < 4; j++) {
+  int sum = 0;
+
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < 4; j++) {
       sum += a[i][j];
     }
   }
