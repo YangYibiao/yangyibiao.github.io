@@ -525,7 +525,7 @@ int main() {
 <div style="flex:1.3;font-size:0.55em;">
 
 ```C
-/* 函数版: is_prime 抽出来 */
+/* 函数版: is_prime + count_primes 两层 */
 #include <stdio.h>
 
 int is_prime(int n) {
@@ -540,17 +540,21 @@ int is_prime(int n) {
   return 1;
 }
 
-int main() {
-  int max;
-  scanf("%d", &max);
+int count_primes(int max) {        /* 统计也抽成函数 */
+  int count = 0, i;
 
-  int count = 0;
-  for (int i = 2; i <= max; i++) {
-    if (is_prime(i) == 1) {
+  for (i = 2; i <= max; i++) {
+    if (is_prime(i) == 1) {        /* 调用 is_prime */
       count++;
     }
   }
-  printf("\n素数个数: %d", count);
+  return count;
+}
+
+int main() {
+  int max;
+  scanf("%d", &max);
+  printf("\n素数个数: %d", count_primes(max));   /* 一行调用 */
   return 0;
 }
 ```
@@ -559,11 +563,11 @@ int main() {
 
 <div style="flex:1;font-size:0.95em;line-height:1.7;">
 
-- 素数逻辑抽成 `is_prime`, main 只剩计数循环
+- ==两层调用链==: main → `count_primes` → `is_prime`——函数不光能被 main 调用, 还能==调用别的函数==
 
-- 与前面判定素数的函数是==同一个==——写一次, 处处用
+- `is_prime` 被复用了 max-2 次, 与前面判定素数的函数是同一个——写一次, 处处用
 
-- 函数化改造的步骤: 把 "一块逻辑" 抽出来 → 起名字 → 参数进、返回值出
+- main 只剩读入和一行输出——"说明书" 目标更进一步
 
 <a href="code/primes.c" target="_blank">primes.c</a> · <a href="code/primes-re.c" target="_blank">primes-re.c</a>
 
