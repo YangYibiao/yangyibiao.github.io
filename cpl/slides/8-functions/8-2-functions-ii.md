@@ -816,8 +816,6 @@ int main(void)
 
 <span style="font-size:0.9em;">动手前想清楚: ==数组怎么传==? ==长度怎么传==?——和 sum_array 是同样的两个问题</span>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
 
 </div>
