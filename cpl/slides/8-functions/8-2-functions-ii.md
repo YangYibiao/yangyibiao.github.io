@@ -687,6 +687,64 @@ int main(void)
 
 ---
 
+<!-- slide data-notes="" -->##### 排序封装: 原版
+
+---
+
+第 7 周的选择排序 (非函数版):
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C{.line-numbers}
+/* 选择排序: 非函数版 */
+#include <stdio.h>
+
+int main(void)
+{
+  int a[10], n = 10, i, j;
+
+  for (i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+  }
+
+  for (i = 0; i < n - 1; i++) {
+    int min = i;
+    for (j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[i];
+    a[i] = a[min];
+    a[min] = t;
+  }
+
+  for (i = 0; i < n; i++) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 把排序逻辑抽成 `void sort(int a[], int n)`, main 里只剩读入、一行调用、输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 这是第 7 周埋下的钩子——"后面学了函数, 就能把排序封装成 sort(a, n)", 今天兑现
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-orig.c</a>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
@@ -717,6 +775,8 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 ```
 
 - ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sort-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sort-re.c</a>
+
 
 ---
 
@@ -807,6 +867,8 @@ transpose(a, b, 3);        /* b 得到 a 的转置 */
 ```
 
 - 形参里两个二维数组: `a[][4]` 和 `b[][3]`——各自写清自己的==列数==
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-re.c</a>
+
 
 ---
 
@@ -850,6 +912,8 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 二维数组进 (`scores`)、一维数组出 (`sums`)——都是"数组作参数"
 
 - 按列统计要单独写: `sums[j]` 的清零放在==行循环之外== (只清一次), 累加行改成 `sums[j] += scores[i][j]` (结果数组长度变成 3)
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/row-sums-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 row-sums-re.c</a>
+
 
 </div>
 
