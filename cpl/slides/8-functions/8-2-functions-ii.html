@@ -59570,7 +59570,7 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>函数化改造: 素数、leap、primes、stars</p>
+<p>函数化改造: 素数、leap、primes、stars (return 让代码更简洁)</p>
 
 </li>
 <li>
@@ -59866,7 +59866,43 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="primes-c--原版">primes.c: 原版 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="改造进阶--return-让代码更简洁">改造进阶: return 让代码更简洁 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 啰嗦版: 用 if 包装 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">is_leap_year</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">4</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> n <span class="token operator">%</span> <span class="token number">100</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">400</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 简洁版: 布尔表达式直接 return */</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">is_leap_year</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">4</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> n <span class="token operator">%</span> <span class="token number">100</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">400</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">is_even</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>          <span class="token comment">/* 偶数 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">is_digit</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> c <span class="token operator">&gt;=</span> <span class="token string">'0'</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">&lt;=</span> <span class="token string">'9'</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>  <span class="token comment">/* 数字 */</span></code></pre>
+</div>
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<ul>
+<li>
+<p>判断的结果本身就是 1 或 0——不需要 if 包装, <mark>直接 return 表达式</mark></p>
+
+</li>
+<li>
+<p>一类经典小函数都是 "一行函数": 偶数、数字、大小写字母……</p>
+
+</li>
+<li>
+<p><mark>提前 return</mark> 也让代码更简洁: 找到就返回, 不需要 flag 变量——前面的 <code>is_prime</code> 就是这么写的</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="primes-c--原版">primes.c: 原版 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -59903,7 +59939,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="primes-c--函数版">primes.c: 函数版 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="primes-c--函数版">primes.c: 函数版 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -59952,7 +59988,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="stars-c">stars.c </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="stars-c">stars.c </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -59999,7 +60035,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="函数化改造--把排序封装成函数">函数化改造: 把排序封装成函数 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="函数化改造--把排序封装成函数">函数化改造: 把排序封装成函数 </h5>
 <hr>
 <p>第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再抄一遍</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>          <span class="token comment">/* 把选择排序装进函数 */</span>
@@ -60023,7 +60059,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="一维数组作参数">一维数组作参数 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="一维数组作参数">一维数组作参数 </h5>
 <hr>
 <p>函数要操作数组, 就把数组传给函数:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">sum_array</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>    <span class="token comment">/* 1. 形参: int a[], 长度单独传 */</span>
@@ -60047,7 +60083,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="二维数组作参数">二维数组作参数 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="二维数组作参数">二维数组作参数 </h5>
 <hr>
 <p>二维数组作参数时, <mark>只能省略第一维</mark>的长度——列数必须写出来:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">sum_matrix</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> rows<span class="token punctuation">)</span>   <span class="token comment">/* 列数 4 不能省 */</span>
@@ -60071,7 +60107,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="案例--矩阵转置函数化">案例: 矩阵转置函数化 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="案例--矩阵转置函数化">案例: 矩阵转置函数化 </h5>
 <hr>
 <p>把第 6 周的转置逻辑封装成函数:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* a: 3×4 的矩阵, b: 4×3 的转置结果 */</span>
@@ -60092,7 +60128,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="案例--成绩统计函数化">案例: 成绩统计函数化 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="案例--成绩统计函数化">案例: 成绩统计函数化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -60122,7 +60158,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="函数调用栈---概念">函数调用栈 · 概念 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="函数调用栈---概念">函数调用栈 · 概念 </h5>
 <hr>
 <p>先想一个问题: 函数返回之后, 它里面的局部变量<mark>去哪儿了</mark>? 下次再调用, 为什么又是全新的?</p>
 <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:center;">
@@ -60148,7 +60184,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="函数调用栈---便签上放了什么">函数调用栈 · 便签上放了什么 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="函数调用栈---便签上放了什么">函数调用栈 · 便签上放了什么 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.62em;">
@@ -60205,7 +60241,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 周三的递归: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图</p>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂编码-1--平均值改写">课堂编码 1: 平均值改写 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂编码-1--平均值改写">课堂编码 1: 平均值改写 </h5>
 <hr>
 <p>把下面的程序改写成 "主函数 + 函数" 的结构:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -60223,7 +60259,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: <code>(x + y) / 2</code> 出现三处——先想函数长什么样, 再动手
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/average-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 average-orig.c</a></p>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂编码-2--星号塔改写">课堂编码 2: 星号塔改写 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂编码-2--星号塔改写">课堂编码 2: 星号塔改写 </h5>
 <hr>
 <p>把下面的程序改写成 "主函数 + 函数" 的结构:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -60249,7 +60285,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p>任务: 抽出 <code>void print_stars(int n)</code> (打印一行 n 颗星), 空格的循环也抽成 <code>void print_spaces(int n)</code></p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每个函数只做<mark>一件事</mark></p>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂编码-3--阶乘改写--挑战">课堂编码 3: 阶乘改写 (挑战) </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="课堂编码-3--阶乘改写--挑战">课堂编码 3: 阶乘改写 (挑战) </h5>
 <hr>
 <p>把下面的程序改写成 "主函数 + 函数" 的结构:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
@@ -60272,7 +60308,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 阶乘函数明天还会在递归课上<mark>再次登场</mark> (n! = n × (n-1)!)
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-orig.c</a></p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
@@ -60285,7 +60321,7 @@ total <span class="token operator">=</span> <span class="token function">sum_arr
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="25" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

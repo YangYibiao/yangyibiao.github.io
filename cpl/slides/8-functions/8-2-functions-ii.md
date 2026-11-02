@@ -52,7 +52,7 @@ presentation:
 
 - 回顾: 形式参数 vs 实际参数、如何理解按值传递、swap 为什么不生效
 
-- 函数化改造: 素数、leap、primes、stars
+- 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
 
 - 数组作参数: 一维、二维、排序封装、矩阵与成绩案例
 
@@ -406,7 +406,53 @@ int is_leap_year(int n) {
 
 ---
 
-<!-- slide data-notes="" --><!-- slide data-notes="" -->##### primes.c: 原版
+<!-- slide data-notes="" --><!-- slide data-notes="" -->##### 改造进阶: return 让代码更简洁
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
+
+```C
+/* 啰嗦版: 用 if 包装 */
+int is_leap_year(int n) {
+  if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
+    return 1;
+  }
+  return 0;
+}
+```
+
+```C
+/* 简洁版: 布尔表达式直接 return */
+int is_leap_year(int n) {
+  return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
+}
+```
+
+```C
+int is_even(int n) { return n % 2 == 0; }          /* 偶数 */
+int is_digit(char c) { return c >= '0' && c <= '9'; }  /* 数字 */
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+- 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==
+
+- 一类经典小函数都是 "一行函数": 偶数、数字、大小写字母……
+
+- ==提前 return== 也让代码更简洁: 找到就返回, 不需要 flag 变量——前面的 `is_prime` 就是这么写的
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### primes.c: 原版
 
 ---
 
