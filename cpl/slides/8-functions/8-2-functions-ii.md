@@ -234,6 +234,8 @@ int main(void)
 ==现场演示==: 把左边的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑是 "一块完整的事"——这正是适合装进函数的东西
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-orig.c</a>
+
 
 </div>
 
@@ -344,6 +346,8 @@ int main(void) {
 ==任务==: 把判断逻辑改写成函数 `is_leap_year(year)`, main 只剩输入输出
 
 <span class="blue">:fa-lightbulb-o:</span> 判断条件那一行很长——它最适合被装进函数
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/leap-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 leap-orig.c</a>
+
 
 </div>
 
@@ -446,6 +450,8 @@ int main() {
 ==任务==: 把 "判断 i 是否素数" 的逻辑改写成 `is_prime(i)`, main 里逐个调用
 
 <span class="blue">:fa-lightbulb-o:</span> 前面刚写的 `is_prime` 可以==原样复用==
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/primes-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 primes-orig.c</a>
+
 
 </div>
 
@@ -554,6 +560,8 @@ int main() {
 - 留到课堂编码: 你来做这个改造
 
 - 提示: 打印空格的循环也可以抽成 `print_spaces(n)`——每个函数只做==一件事==
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-orig.c</a>
+
 
 <a href="code/stars.c" target="_blank">stars.c</a>
 
@@ -851,6 +859,8 @@ int main(void)
 任务: 抽出 `double average(double a, double b)`, main 里改为一调用
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `(x + y) / 2` 出现三处——先想函数长什么样, 再动手
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/average-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 average-orig.c</a>
+
 
 ---
 
@@ -923,6 +933,8 @@ int main(void)
 任务: 抽出 `long factorial(int n)`, main 只剩输入、调用、输出
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 阶乘函数明天还会在递归课上==再次登场== (n! = n × (n-1)!)
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-orig.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-orig.c</a>
+
 
 ---
 
