@@ -404,7 +404,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.85em;line-height:1.5;">
 
 3 根柱 A、B、C, 把 n 个盘子从 A 移到 C (大盘不能压小盘, 可借 B):
 
