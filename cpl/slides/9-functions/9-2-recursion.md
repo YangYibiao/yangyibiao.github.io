@@ -104,6 +104,8 @@ int power(int x, int n) {
 
 - ==递归三问==: 最小问题是什么? 怎么缩小? 怎么用缩小后的答案构造当前答案?
 
+- ==为什么能自己调用自己==? 函数名只是代码的==入口==——每次调用都在栈上开一张==新便签==、配一套新参数, 两次执行互不干扰; 后面 fact(3) 的演示会看到这一点
+
 </div>
 
 </div>
@@ -176,7 +178,7 @@ int main(void)
 
 - 🌐 ==Python Tutor==: 把左栏代码粘进去, 逐行看栈帧——每调用一次 fact, 栈上多一张便签; 返回时逐层揭掉
 
-<a href="function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (function-and-stack.html)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (逐行看栈帧)</a>
+<a href="../8-functions/function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (function-and-stack.html)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (逐行看栈帧)</a>
 
 </div>
 
