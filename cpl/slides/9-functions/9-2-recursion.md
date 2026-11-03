@@ -414,15 +414,7 @@ int main(void)
 
 运行输出 (共 7 步):
 
-```
-A -> C
-A -> B
-C -> B
-A -> C
-B -> A
-B -> C
-A -> C
-```
+<span style="font-size:0.75em;font-family:Menlo,monospace;">A→C &nbsp; A→B &nbsp; C→B &nbsp; A→C &nbsp; B→A &nbsp; B→C &nbsp; A→C</span>
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 hanoi.c (直接编译运行)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘左栏代码, 逐层看调用栈)</a>
 
