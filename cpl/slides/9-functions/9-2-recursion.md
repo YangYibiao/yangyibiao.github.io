@@ -96,7 +96,7 @@ int power(int x, int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.5;">
+<div style="flex:1;font-size:0.95em;line-height:1.45;">
 
 - ==两个要素==: ==基准情形== (最简单、直接给答案) + ==递归情形== (把问题==缩小==后再调用自己)
 
