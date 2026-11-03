@@ -447,6 +447,51 @@ Hanoi(3, A, B, C)
 
 ---
 
+<!-- slide data-notes="" -->##### Hanoi 塔 · 盘子动画
+
+---
+
+<div style="display:flex;align-items:center;gap:20px;">
+
+<div style="flex:1.2;text-align:center;">
+<svg viewBox="0 0 600 300" style="max-width:100%;height:300px;display:block;margin:0 auto;">
+<rect x="60" y="270" width="480" height="8" rx="4" fill="#93a1a1"/>
+<rect x="147" y="100" width="6" height="170" fill="#586e75"/>
+<rect x="297" y="100" width="6" height="170" fill="#586e75"/>
+<rect x="447" y="100" width="6" height="170" fill="#586e75"/>
+<text x="150" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="300" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="450" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/></g>
+<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/></g>
+<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/></g>
+</svg>
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div id="hanoiMsg" style="font-weight:700;min-height:1.6em;">初始状态: 3 个盘都在 A</div>
+
+<div id="hanoiStep" style="color:#586e75;margin-bottom:8px;">0 / 7</div>
+
+<button onclick="hanoiNext()" style="display:block;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶ 下一步</button>
+
+<button onclick="hanoiAuto()" style="display:block;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶▶ 自动播放 (7 步)</button>
+
+<button onclick="hanoiReset()" style="display:block;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#b58900;color:#fff;border:none;border-radius:8px;cursor:pointer;">⟲ 重来</button>
+
+- 按 "下一步" 逐盘观察: 大盘==永远不压小盘==, 每步对应上一页调用树上的一次移动
+
+- 第 4 步恰好是==最大盘就位==——和调用树对照着看
+
+</div>
+
+</div>
+
+<script src="code/hanoi-anim.js"></script>
+
+---
+
 <!-- slide data-notes="" -->
 
 
