@@ -57,7 +57,7 @@ presentation:
 
 - 经典案例: Fibonacci、最大公约数、汉诺塔 (弹性)
 
-- 常见错误与课堂编码
+- 常见错误与课堂编码 (基础 + 经典题型)
 
 - 分治与快速排序 (弹性)
 
@@ -380,6 +380,34 @@ void Hanoi(int n, char A, char B, char C)
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 · 经典题型: 递归的更多影子
+
+---
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+1. ==递归求数组最大值==: `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)
+
+2. ==判断回文==: `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文
+
+3. ==二分查找==: `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)
+
+4. ==组合数==: `long comb(int m, int n)`——C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 算组合数: 递归定义有时比公式==更直接==
+
+5. ==爬楼梯==: `int climb(int n)`——每次走 1 或 2 级, 最后一步从 n-1 或 n-2 上来 (Fibonacci 的亲戚)
+
+</div>
+
+<span class="blue">:fa-lightbulb-o:</span> 每道题先回答==递归三问==: 最小问题是什么? 怎么缩小? 怎么用缩小后的答案构造当前答案?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+
+---
+
+⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 
