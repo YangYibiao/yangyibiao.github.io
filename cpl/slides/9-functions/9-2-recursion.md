@@ -497,25 +497,35 @@ Segmentation fault (core dumped)
 
 ---
 
-<!-- slide data-notes="" -->##### 课堂编码 · 经典题型: 递归的更多影子
+<!-- slide data-notes="" -->##### 课堂案例 · 递归编程任务 (一)
+
+---
+
+<div style="font-size:0.9em;line-height:1.55;">
+
+1. ==递归求最大值==: `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)。样例: `a = {3, 9, 1, 7, 5}` → `9`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin:4px 0 6px 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c (只写函数体)</a>
+
+2. ==判断回文==: `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")。样例: `"level"` → 1, `"hello"` → 0
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin:4px 0 6px 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (只写函数体)</a>
+
+3. ==二分查找==: `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)。样例: 在 `{2, 5, 8, 12, 19}` 中找 8 → 下标 2
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin:4px 0 6px 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (只写函数体)</a>
+
+</div>
+
+<span class="blue">:fa-lightbulb-o:</span> 每道题先回答==递归三问==: 最小问题是什么? 怎么缩小? 怎么用缩小后的答案构造当前答案?
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 · 递归编程任务 (二)
 
 ---
 
 <div style="font-size:0.9em;line-height:1.6;">
-
-1. ==课堂案例·递归求最大值==: `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)
-
-   样例: `a = {3, 9, 1, 7, 5}` → 输出 `9`; 框架已备好, 只写函数体:
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin:4px 0 0 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c</a>
-
-2. ==课堂案例·判断回文==: `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
-
-   样例: `"level"` → 1; `"hello"` → 0; 框架已备好, 只写函数体:
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin:4px 0 0 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c</a>
-
-3. ==二分查找==: `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)
 
 4. ==组合数==: `long comb(int m, int n)`——C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 算组合数: 递归定义有时比公式==更直接==
 
@@ -523,13 +533,7 @@ Segmentation fault (core dumped)
 
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 每道题先回答==递归三问==: 最小问题是什么? 怎么缩小? 怎么用缩小后的答案构造当前答案?
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
-
----
-
-⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 
