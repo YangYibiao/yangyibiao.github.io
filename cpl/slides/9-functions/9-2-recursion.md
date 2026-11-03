@@ -57,7 +57,7 @@ presentation:
 
 - 经典案例: Fibonacci、最大公约数、汉诺塔 (弹性)
 
-- 常见错误与课堂编码 (基础 + 五个经典案例)
+- 常见错误与课堂编码 (基础 + 三个经典案例)
 
 - 分治与快速排序 (弹性)
 
@@ -782,22 +782,7 @@ int climb(int n)
 ---
 
 
-<!-- slide data-notes="" -->##### 课堂案例 · 递归编程任务 (二)
-
----
-
-<div style="font-size:0.9em;line-height:1.6;">
-
-4. ==组合数==: `long comb(int m, int n)`——C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 算组合数: 递归定义有时比公式==更直接==
-
-5. ==爬楼梯==: `int climb(int n)`——每次走 1 或 2 级, 最后一步从 n-1 或 n-2 上来 (Fibonacci 的亲戚)
-
-</div>
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
-
----
-
+<!-- slide data-notes="" -->
 
 <!-- slide data-notes="" -->
 
