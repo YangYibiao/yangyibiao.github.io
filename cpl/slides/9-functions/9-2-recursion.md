@@ -57,7 +57,7 @@ presentation:
 
 - 经典案例: Fibonacci、最大公约数、汉诺塔 (弹性)
 
-- 常见错误与课堂编码 (基础 + 经典题型)
+- 常见错误与课堂编码 (基础 + 五个经典案例)
 
 - 分治与快速排序 (弹性)
 
@@ -497,29 +497,206 @@ Segmentation fault (core dumped)
 
 ---
 
-<!-- slide data-notes="" -->##### 课堂案例 · 递归编程任务 (一)
+<!-- slide data-notes="" -->##### 课堂案例 1: 递归求最大值
 
 ---
 
-<div style="font-size:0.9em;line-height:1.55;">
+<div style="font-size:0.9em;line-height:1.6;">
 
-1. ==递归求最大值==: `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)。样例: `a = {3, 9, 1, 7, 5}` → `9`
+==任务==: 实现 `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin:4px 0 6px 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c (只写函数体)</a>
-
-2. ==判断回文==: `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")。样例: `"level"` → 1, `"hello"` → 0
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin:4px 0 6px 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (只写函数体)</a>
-
-3. ==二分查找==: `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)。样例: 在 `{2, 5, 8, 12, 19}` 中找 8 → 下标 2
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin:4px 0 6px 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (只写函数体)</a>
+样例: `a = {3, 9, 1, 7, 5}` → 输出 `9`
 
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 每道题先回答==递归三问==: 最小问题是什么? 怎么缩小? 怎么用缩小后的答案构造当前答案?
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c (只写函数体)</a>
 
 ---
+
+<!-- slide data-notes="" -->##### 课堂案例 1: 递归求最大值 · 参考实现
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+int max_rec(int a[], int n)
+{
+  int rest;
+  if (n == 1) {                    /* 基准情形 */
+    return a[0];
+  }
+  rest = max_rec(a, n - 1);        /* 递归: 前 n-1 个的最大值 */
+  return a[n - 1] > rest ? a[n - 1] : rest;
+}
+```
+
+</div>
+
+- 递归情形里==先信任== `max_rec(a, n-1)` 是对的, 再拿 `a[n-1]` 和它比——这就是"信任递归"
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 2: 判断回文
+
+---
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+==任务==: 实现 `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
+
+样例: `"level"` → 1, `"hello"` → 0
+
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (只写函数体)</a>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 2: 判断回文 · 参考实现
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+int is_pal(char s[], int l, int r)
+{
+  if (l >= r) {                    /* 基准: 0 或 1 个字符 */
+    return 1;
+  }
+  return s[l] == s[r] && is_pal(s, l + 1, r - 1);
+}
+```
+
+</div>
+
+- ==定义即代码==: 把"首尾相等且中间是回文"逐字翻译出来, 就是函数体
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 3: 二分查找
+
+---
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+==任务==: 实现 `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)
+
+样例: 在 `{2, 5, 8, 12, 19}` 中找 8 → 下标 2; 找 7 → -1
+
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (只写函数体)</a>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 3: 二分查找 · 参考实现
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+int bin_search(int a[], int low, int high, int key)
+{
+  int mid;
+  if (low > high) {                /* 基准: 没找到 */
+    return -1;
+  }
+  mid = (low + high) / 2;
+  if (a[mid] == key) {
+    return mid;
+  }
+  if (a[mid] > key) {
+    return bin_search(a, low, mid - 1, key);
+  }
+  return bin_search(a, mid + 1, high, key);
+}
+```
+
+</div>
+
+- 每次调用区间==必然缩小==——这保证递归一定终止; 下一页分治法正是这个思想的放大版
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 4: 组合数
+
+---
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+==任务==: 实现 `long comb(int m, int n)`——C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 算组合数: 递归定义有时比公式==更直接==
+
+样例: `comb(5, 2)` → 10
+
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (只写函数体)</a>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 4: 组合数 · 参考实现
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+long comb(int m, int n)
+{
+  if (n == 0 || n == m) {          /* 基准情形 */
+    return 1;
+  }
+  return comb(m - 1, n - 1) + comb(m - 1, n);
+}
+```
+
+</div>
+
+- 同一行里两个递归调用——先展开一层看: "选中第 m 个"与"不选第 m 个"两类, 加起来
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 5: 爬楼梯
+
+---
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+==任务==: 实现 `int climb(int n)`——每次走 1 或 2 级, 最后一步从 n-1 或 n-2 上来 (Fibonacci 的亲戚)
+
+样例: `climb(4)` → 5
+
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (只写函数体)</a>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂案例 5: 爬楼梯 · 参考实现
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+int climb(int n)
+{
+  if (n <= 1) {                    /* 基准情形 */
+    return 1;
+  }
+  return climb(n - 1) + climb(n - 2);
+}
+```
+
+</div>
+
+- 生活问题→递归定义: 走到第 n 级的方法数 = 走到 n-1 的方法数 + 走到 n-2 的方法数
+
+---
+
 
 <!-- slide data-notes="" -->##### 课堂案例 · 递归编程任务 (二)
 
