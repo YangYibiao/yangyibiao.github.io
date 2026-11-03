@@ -367,20 +367,20 @@ int main(void)
 <div style="flex:1.3;font-size:0.6em;">
 
 ```C
+/* hanoi.c: 3 根柱, n 个盘从 A 移到 C (借 B) */
+#include <stdio.h>
+
 void Hanoi(int n, char A, char B, char C)
 {
   if (n == 1) {
     printf("%c -> %c\n", A, C);      /* 基准: 只剩一个盘 */
-  }
-  else {
+  } else {
     Hanoi(n - 1, A, C, B);            /* 上面 n-1 个: A -> B (借 C) */
     printf("%c -> %c\n", A, C);      /* 最大盘: A -> C */
     Hanoi(n - 1, B, A, C);            /* 上面 n-1 个: B -> C (借 A) */
   }
 }
-```
 
-```C
 int main(void)
 {
   Hanoi(3, 'A', 'B', 'C');     /* 3 个盘的完整移法 */
