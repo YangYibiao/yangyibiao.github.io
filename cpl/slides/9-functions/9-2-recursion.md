@@ -142,6 +142,48 @@ fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 
 ---
 
+<!-- slide data-notes="" -->##### 递归演示: 层层压栈与返回
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.85em;">
+
+```C
+#include <stdio.h>
+
+long fact(int n)
+{
+  if (n == 0 || n == 1) {
+    return 1;
+  }
+  return n * fact(n - 1);
+}
+
+int main(void)
+{
+  printf("%ld\n", fact(5));
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.95em;line-height:1.6;">
+
+- 🎬 ==动画==: 打开调用栈动画, 看阶乘递归的层层压栈与返回
+
+- 🌐 ==Python Tutor==: 把左栏代码粘进去, 逐行看栈帧——每调用一次 fact, 栈上多一张便签; 返回时逐层揭掉
+
+<a href="function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (function-and-stack.html)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (逐行看栈帧)</a>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
@@ -208,6 +250,8 @@ void f(void)
 
 - static 局部变量 = 带记忆的局部变量 (下次调用接着用上次的值)
 
+- ==与递归的关系==: 递归的每一层调用都是一次独立的函数调用——各层的参数和局部变量==随层生、随层亡==, 互不干扰 (上一页"每层一套自己变量"的底层原因就在这里)
+
 ---
 
 
@@ -241,6 +285,8 @@ i = 32764
 - 每次运行、每台机器都可能不同; 调试器里恰好是 `0` 只是假象
 
 - 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
+
+- 递归函数里的局部变量也不例外——忘初始化的话, ==每一层==读到的都是垃圾值
 
 ---
 
