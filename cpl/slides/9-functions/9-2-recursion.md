@@ -76,7 +76,7 @@ presentation:
 
 <div style="flex:1.3;font-size:0.62em;">
 
-```C{.line-numbers}
+```C
 /* 阶乘: n! = n × (n-1)! */
 long f(long n)
 {
