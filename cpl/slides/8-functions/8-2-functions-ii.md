@@ -82,12 +82,10 @@ presentation:
 ```C{.line-numbers}
 int is_prime(int n)      /* n 是==形式参数==: 定义里的占位名 */
 {
-  int d;
-
   if (n <= 1) {
     return 0;
   }
-  for (d = 2; d <= n / d; d++) {
+  for (int d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
     }
@@ -217,13 +215,22 @@ x = 3, y = 5
 
 ```C
 #include <stdio.h>
+
 int main(void) {
-  int n, d, prime = 1;
+  int n, prime = 1;
+
   scanf("%d", &n);
-  for (d = 2; d * d <= n; d++)
-    if (n % d == 0) { prime = 0; break; }
-  if (prime == 1) printf("是素数\n");
-  else printf("不是素数\n");
+  for (int d = 2; d * d <= n; d++) {
+    if (n % d == 0) {
+      prime = 0;
+      break;
+    }
+  }
+  if (prime == 1) {
+    printf("是素数\n");
+  } else {
+    printf("不是素数\n");
+  }
   return 0;
 }
 ```
@@ -263,9 +270,8 @@ int main(void) {
 ```C
 #include <stdio.h>
 int is_prime(int n) {
-  int d;
   if (n <= 1) return 0;
-  for (d = 2; d <= n / d; d++)
+  for (int d = 2; d <= n / d; d++)
     if (n % d == 0) return 0;
   return 1;
 }
@@ -416,6 +422,7 @@ int is_leap_year(int n) {
 ```C
 int is_even(int n) { return n % 2 == 0; }          /* 偶数 */
 int is_digit(char c) { return c >= '0' && c <= '9'; }  /* 数字 */
+double average(double a, double b) { return (a + b) / 2; }  /* 两个参数, 照样一行 */
 ```
 
 </div>
@@ -424,7 +431,7 @@ int is_digit(char c) { return c >= '0' && c <= '9'; }  /* 数字 */
 
 - 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==
 
-- 一类经典小函数都是 "一行函数": 偶数、数字、大小写字母……
+- 一类经典小函数都是 "一行函数": 偶数、数字、大小写字母……参数也可以有==多个==——`average(a, b)` 两个参数照样一行 return
 
 - ==提前 return== 也让代码更简洁: 找到就返回, 不需要 flag 变量——`is_prime` 就是这么写的
 
@@ -618,18 +625,14 @@ int main() {
 
 void print_spaces(int n)
 {
-  int j;
-
-  for (j = 0; j < n; j++) {
+  for (int j = 0; j < n; j++) {
     printf(" ");
   }
 }
 
 void print_stars(int n)
 {
-  int j;
-
-  for (j = 0; j < n; j++) {
+  for (int j = 0; j < n; j++) {
     printf("*");
   }
 }
@@ -637,10 +640,8 @@ void print_stars(int n)
 int main(void)
 {
   int lines, i;
-
   printf("Enter lines: ");
   scanf("%d", &lines);
-
   for (i = 0; i < lines; i++) {
     print_spaces(lines - 1 - i);
     print_stars(2 * i + 1);
@@ -652,13 +653,29 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.8em;line-height:1.45;">
 
 - 两个循环各自成函数: `print_spaces` 和 `print_stars`——每个函数只做==一件事==
 
-- main 里的主体只剩一行行的==调用==, 星号塔的结构一目了然
+- 更进一步: 两个函数只差打印的==字符==——把字符变成参数, 合并成一个==多参数==函数:
 
-- 这就是改造的目标: 主函数读起来像 "说明书", 细节都藏进函数
+<div style="font-size:0.6em;">
+
+```C
+void print_chars(int n, char ch)   /* 打印 n 个 ch */
+{
+  for (int i = 0; i < n; i++) {
+    printf("%c", ch);
+  }
+}
+
+print_chars(lines - 1 - i, ' ');   /* ch 可以是空格 */
+print_chars(2 * i + 1, '*');       /* 也可以是星号 */
+```
+
+</div>
+
+- 打印不产生值, 所以返回类型是 ==void==; 两个函数合成一个——这是函数抽象的==关键一步==; main 里也只剩一行行的==调用==, 结构一目了然
 
 <a href="code/stars-re.c" target="_blank">stars-re.c (改造前)</a> · <a href="code/stars-func.c" target="_blank">stars-func.c (函数版)</a>
 
@@ -685,13 +702,13 @@ int main(void)
 
 int main(void)
 {
-  int n, i;
+  int n;
   long f = 1;
 
   printf("输入 n: ");
   scanf("%d", &n);
 
-  for (i = 1; i <= n; i++) {    /* 计算 n! */
+  for (int i = 1; i <= n; i++) {    /* 计算 n! */
     f = f * i;
   }
   printf("%d! = %ld\n", n, f);
@@ -727,16 +744,23 @@ int main(void)
 <div style="flex:1.3;font-size:0.55em;">
 
 ```C{.line-numbers}
-/* 求 b 的元素之和: 非函数版 */
+/* 求两组数据的和: 非函数版 */
 #include <stdio.h>
 
 int main(void)
 {
   int b[5] = {3, 7, 1, 9, 4};
-  int sum = 0, i;
+  int c[3] = {10, 20, 30};
+  int sum = 0;
 
-  for (i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++) {    /* 第一组 */
     sum += b[i];
+  }
+  printf("sum = %d\n", sum);
+
+  sum = 0;
+  for (int i = 0; i < 3; i++) {    /* 第二组: 又抄了一遍 */
+    sum += c[i];
   }
   printf("sum = %d\n", sum);
   return 0;
@@ -745,13 +769,13 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-==2 分钟, 自己写==: 把求和逻辑抽成函数, main 只剩调用和输出
+==现场演示==: 把求和循环抽成函数, main 只剩调用和输出——数组的传法今天==第一次出现==, 跟着演示边改写边学
 
-<span style="font-size:0.9em;">动手前想清楚两件事: ==数组怎么传==? ==长度怎么传==?——下一页揭晓标准写法及原因</span>
+<span style="font-size:0.9em;">边改写边介绍: ==数组怎么传== (`int a[]`)? ==长度怎么传== (单独一个参数)? ——下一页是标准写法及原因</span>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再写一遍——今天要解决的就是这个
+<span class="blue">:fa-lightbulb-o:</span> 提示: 同一个求和循环==写了两遍==——如果要对十组数据求和呢? 今天要解决的就是这个
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-re.c</a>
 
@@ -768,29 +792,44 @@ int main(void)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;">
+
 <div style="font-size:0.8em;margin:0;">函数要操作数组, 就把数组传给函数:</div>
 
-<div style="font-size:0.95em;">
+<div style="font-size:0.9em;">
 
 ```C{.line-numbers}
+/* 求和: 函数版 */
+#include <stdio.h>
 int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
 {
-  int i, sum = 0;
-  for (i = 0; i < n; i++) {
+  int sum = 0;
+  for (int i = 0; i < n; i++) {
     sum += a[i];
   }
   return sum;
 }
-total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
+int main(void)
+{
+  int b[5] = {3, 7, 1, 9, 4};
+  int c[3] = {10, 20, 30};
+  printf("%d\n", sum_array(b, 5));   /* 2. 调用: 只写数组名 */
+  printf("%d\n", sum_array(c, 3));   /*    同一函数, 换一组数据 */
+  return 0;
+}
 ```
 
 </div>
 
-<div style="text-align:center;margin:2px 0;">
-<svg viewBox='0 0 640 120' style='max-width:100%;height:120px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr1d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='300' y='14' font-size='10' fill='#586e75' font-weight='700'>main: int b[5] = {3, 7, 1, 9, 4};</text><g font-size='13' fill='#073642' text-anchor='middle' font-weight='700'><rect x='300' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='322' y='42'>3</text><rect x='344' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='366' y='42'>7</text><rect x='388' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='410' y='42'>1</text><rect x='432' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='454' y='42'>9</text><rect x='476' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='498' y='42'>4</text></g><g font-size='8.5' fill='#586e75' text-anchor='middle' font-family='Menlo, monospace'><text x='322' y='66'>1000</text><text x='366' y='66'>1004</text><text x='410' y='66'>1008</text><text x='454' y='66'>1012</text><text x='498' y='66'>1016</text></g><rect x='18' y='20' width='240' height='84' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='28' y='36' font-size='9.5' fill='#268bd2' font-weight='700'>sum_array 的栈帧</text><g font-weight='700'><rect x='28' y='44' width='95' height='24' rx='5' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='75' y='60' font-size='11' fill='#073642' text-anchor='middle'>a = 1000</text><rect x='132' y='44' width='80' height='24' rx='5' fill='#fdf6e3' stroke='#586e75' stroke-width='1.5'/><text x='172' y='60' font-size='11' fill='#073642' text-anchor='middle'>n = 5</text></g><text x='28' y='90' font-size='8.5' fill='#859900'>函数里 a[i] = 改 b[i]</text><path d='M258 56 H296 V52' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr1d)'/><text x='262' y='84' font-size='9' fill='#268bd2'>只传开头地址</text><text x='18' y='114' font-size='9.5' fill='#586e75'>数组名传开头位置，不传长度 → 长度必须单独传 n</text></g></svg>
+<div style="text-align:center;margin:4px 0;">
+<svg viewBox='0 0 400 195' style='max-width:100%;height:158px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr1d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='15' font-size='9.5' fill='#586e75' font-weight='700'>main: int b[5] = {3, 7, 1, 9, 4};</text><g font-size='13' fill='#073642' text-anchor='middle' font-weight='700'><rect x='100' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='118' y='45'>3</text><rect x='136' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='154' y='45'>7</text><rect x='172' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='190' y='45'>1</text><rect x='208' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='226' y='45'>9</text><rect x='244' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='262' y='45'>4</text></g><g font-size='8.5' fill='#586e75' text-anchor='middle' font-family='Menlo, monospace'><text x='118' y='70'>1000</text><text x='154' y='70'>1004</text><text x='190' y='70'>1008</text><text x='226' y='70'>1012</text><text x='262' y='70'>1016</text></g><rect x='100' y='92' width='240' height='78' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='110' y='110' font-size='9.5' fill='#268bd2' font-weight='700'>sum_array 的栈帧</text><g font-weight='700'><rect x='112' y='118' width='105' height='26' rx='5' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='164' y='135' font-size='11' fill='#073642' text-anchor='middle'>a = 1000</text><rect x='230' y='118' width='98' height='26' rx='5' fill='#fdf6e3' stroke='#586e75' stroke-width='1.5'/><text x='279' y='135' font-size='11' fill='#073642' text-anchor='middle'>n = 5</text></g><text x='112' y='160' font-size='8.5' fill='#859900'>函数里 a[i] = 改 b[i]</text><path d='M112 131 H104 V58' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr1d)'/><text x='112' y='82' font-size='9' fill='#268bd2'>只传开头地址</text><text x='18' y='188' font-size='9.5' fill='#586e75'>数组名传开头位置，不传长度 → 长度必须单独传 n</text></g></svg>
 </div>
 
-<div style="font-size:0.75em;line-height:1.4;">
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
 - 形参 `int a[]` 只拿到数组的==开头位置==, 不携带长度信息——长度必须由调用者单独传
 
@@ -799,6 +838,8 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 - 为什么能改到原数组, 原因在后面的指针部分揭晓 (数组名传的是地址)
 
 <span style="font-size:0.9em;"><a href="code/sum-array-re.c" target="_blank">sum-array-re.c (改造前)</a> · <a href="code/sum-array-func.c" target="_blank">sum-array-func.c (函数版)</a></span>
+
+</div>
 
 </div>
 
@@ -821,15 +862,15 @@ total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 
 int main(void)
 {
-  int a[10], n = 10, i, j;
+  int a[10], n = 10;
 
-  for (i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     scanf("%d", &a[i]);
   }
 
-  for (i = 0; i < n - 1; i++) {
+  for (int i = 0; i < n - 1; i++) {
     int min = i;
-    for (j = i + 1; j < n; j++) {
+    for (int j = i + 1; j < n; j++) {
       if (a[j] < a[min]) {
         min = j;
       }
@@ -839,7 +880,7 @@ int main(void)
     a[min] = t;
   }
 
-  for (i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     printf("%d ", a[i]);
   }
   printf("\n");
@@ -925,10 +966,10 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 int main(void)
 {
   int m[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-  int sum = 0, i, j;
+  int sum = 0;
 
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 4; j++) {
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 4; j++) {
       sum += m[i][j];
     }
   }
@@ -980,9 +1021,6 @@ int m[3][4] = { ... };
 sum_matrix(m, 3);       /* 数组名 + 行数 */
 ```
 
-<div style="text-align:center;margin:4px 0 2px;">
-<svg viewBox='0 0 400 210' style='max-width:100%;height:175px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr2d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='15' font-size='10.5' fill='#073642' font-weight='700'>int a[3][4]：按行连续存放</text><g font-size='9' fill='#586e75' text-anchor='middle'><text x='55' y='24'>j=0</text><text x='89' y='24'>j=1</text><text x='123' y='24'>j=2</text><text x='157' y='24'>j=3</text></g><g font-size='9' fill='#586e75' text-anchor='end'><text x='32' y='43'>i=0</text><text x='32' y='67'>i=1</text><text x='32' y='91'>i=2</text></g><g font-size='11' fill='#073642' text-anchor='middle' font-weight='700'><g><rect x='38' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='72' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='106' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='140' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><text x='55' y='44'>1</text><text x='89' y='44'>2</text><text x='123' y='44'>3</text><text x='157' y='44'>4</text></g><g><rect x='38' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='72' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='106' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='140' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><text x='55' y='68'>5</text><text x='89' y='68'>6</text><text x='123' y='68'>7</text><text x='157' y='68'>8</text></g><g><rect x='38' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='72' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='106' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='140' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><text x='55' y='92'>9</text><text x='89' y='92'>10</text><text x='123' y='92'>11</text><text x='157' y='92'>12</text></g></g><g font-weight='700'><text x='195' y='40' font-size='10' fill='#586e75'>a[i][j] 的偏移 =</text><text x='195' y='57' font-size='12' fill='#268bd2'>i × 4 + j</text></g><text x='195' y='78' font-size='9.5' fill='#586e75'>列数 4 = 每行 4 个元素</text><text x='195' y='93' font-size='9.5' fill='#586e75'>= 行与行之间的步长</text><path d='M106 100 V132' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr2d)'/><text x='114' y='120' font-size='9' fill='#268bd2'>按行铺开</text><g font-size='10' fill='#073642' text-anchor='middle' font-weight='700'><rect x='18' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='33' y='151'>1</text><rect x='48' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='63' y='151'>2</text><rect x='78' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='93' y='151'>3</text><rect x='108' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='123' y='151'>4</text><rect x='138' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='153' y='151'>5</text><rect x='168' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='183' y='151'>6</text><rect x='198' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='213' y='151'>7</text><rect x='228' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='243' y='151'>8</text><rect x='258' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='273' y='151'>9</text><rect x='288' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='303' y='151'>10</text><rect x='318' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='333' y='151'>11</text><rect x='348' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='363' y='151'>12</text></g><g fill='none' stroke-width='2'><path d='M18 164 V170 H138 V164' stroke='#268bd2'/><path d='M138 164 V170 H258 V164' stroke='#b58900'/><path d='M258 164 V170 H378 V164' stroke='#859900'/></g><g font-size='9' text-anchor='middle' font-weight='700'><text x='78' y='182' fill='#268bd2'>第 0 行</text><text x='198' y='182' fill='#b58900'>第 1 行</text><text x='318' y='182' fill='#859900'>第 2 行</text></g><text x='18' y='202' font-size='9.5' fill='#586e75'>所以形参必须写 int a[][4]：编译器要用 4 计算 a[i][j] 的地址</text></g></svg>
-</div>
 
 </div>
 
@@ -990,11 +1028,42 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 - 二维数组作参数, ==只能省略第一维==——列数必须写出来
 
-- 为什么列数不能省? 二维数组在内存里==按行连续存放==; 要跳到第 i 行, 先要知道一行有多少个元素——列数就是这个步长, 所以 `a[][4]` 的 4 不能省
+- 为什么列数不能省? ==下一页==用内存图细讲——先记住 `a[][4]` 的 4 不能省
 
 - 调用: 传==数组名 + 行数==——写法朴素, 但数组传的是开头位置, 函数能改到原数组 (和标量不同)
 
 <div style="font-size:0.55em;line-height:1.3;margin-top:2px;"><a href="code/sum-matrix-re.c" target="_blank">sum-matrix-re.c (改造前)</a> · <a href="code/sum-matrix-func.c" target="_blank">sum-matrix-func.c (函数版)</a></div>
+
+</div>
+
+</div>
+
+
+---
+
+<!-- slide data-notes="" -->##### 二维数组在内存里: 行主序
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;text-align:center;">
+
+<div style="text-align:center;margin:4px 0 2px;">
+<svg viewBox='0 0 400 210' style='max-width:100%;height:230px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr2d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='15' font-size='10.5' fill='#073642' font-weight='700'>int a[3][4]：按行连续存放</text><g font-size='9' fill='#586e75' text-anchor='middle'><text x='55' y='24'>j=0</text><text x='89' y='24'>j=1</text><text x='123' y='24'>j=2</text><text x='157' y='24'>j=3</text></g><g font-size='9' fill='#586e75' text-anchor='end'><text x='32' y='43'>i=0</text><text x='32' y='67'>i=1</text><text x='32' y='91'>i=2</text></g><g font-size='11' fill='#073642' text-anchor='middle' font-weight='700'><g><rect x='38' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='72' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='106' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='140' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><text x='55' y='44'>1</text><text x='89' y='44'>2</text><text x='123' y='44'>3</text><text x='157' y='44'>4</text></g><g><rect x='38' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='72' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='106' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='140' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><text x='55' y='68'>5</text><text x='89' y='68'>6</text><text x='123' y='68'>7</text><text x='157' y='68'>8</text></g><g><rect x='38' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='72' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='106' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='140' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><text x='55' y='92'>9</text><text x='89' y='92'>10</text><text x='123' y='92'>11</text><text x='157' y='92'>12</text></g></g><g font-weight='700'><text x='195' y='40' font-size='10' fill='#586e75'>a[i][j] 的偏移 =</text><text x='195' y='57' font-size='12' fill='#268bd2'>i × 4 + j</text></g><text x='195' y='78' font-size='9.5' fill='#586e75'>列数 4 = 每行 4 个元素</text><text x='195' y='93' font-size='9.5' fill='#586e75'>= 行与行之间的步长</text><path d='M106 100 V132' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr2d)'/><text x='114' y='120' font-size='9' fill='#268bd2'>按行铺开</text><g font-size='10' fill='#073642' text-anchor='middle' font-weight='700'><rect x='18' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='33' y='151'>1</text><rect x='48' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='63' y='151'>2</text><rect x='78' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='93' y='151'>3</text><rect x='108' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='123' y='151'>4</text><rect x='138' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='153' y='151'>5</text><rect x='168' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='183' y='151'>6</text><rect x='198' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='213' y='151'>7</text><rect x='228' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='243' y='151'>8</text><rect x='258' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='273' y='151'>9</text><rect x='288' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='303' y='151'>10</text><rect x='318' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='333' y='151'>11</text><rect x='348' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='363' y='151'>12</text></g><g fill='none' stroke-width='2'><path d='M18 164 V170 H138 V164' stroke='#268bd2'/><path d='M138 164 V170 H258 V164' stroke='#b58900'/><path d='M258 164 V170 H378 V164' stroke='#859900'/></g><g font-size='9' text-anchor='middle' font-weight='700'><text x='78' y='182' fill='#268bd2'>第 0 行</text><text x='198' y='182' fill='#b58900'>第 1 行</text><text x='318' y='182' fill='#859900'>第 2 行</text></g><text x='18' y='202' font-size='9.5' fill='#586e75'>所以形参必须写 int a[][4]：编译器要用 4 计算 a[i][j] 的地址</text></g></svg>
+</div>
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- 二维数组在内存里==按行连续存放==: 第 0 行存完, 紧接着第 1 行、第 2 行……
+
+- 要定位 `a[i][j]`, 先==跳过 i 行==, 再走 j 个: 偏移 = ==i × 列数 + j==
+
+- "列数"就是行与行之间的==步长==——形参 `a[][4]` 的 4 不能省: 编译器要用它算 `a[i][j]` 的地址
+
+- 反过来: 行数不影响步长, 所以==第一维可以省略==
 
 </div>
 
@@ -1021,17 +1090,15 @@ int main(void)
 {
   int board[SIZE + 2][SIZE + 2] = {{0}};
   int next[SIZE + 2][SIZE + 2] = {{0}};
-  int i, j, m, n, cnt;
-
   /* 初始: 一个滑翔机 (初始画面见右栏) */
   board[2][3] = 1;  board[3][4] = 1;
   board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
 
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
-      cnt = -board[i][j];
-      for (m = i - 1; m <= i + 1; m++) {
-        for (n = j - 1; n <= j + 1; n++) {
+  for (int i = 1; i <= SIZE; i++) {
+    for (int j = 1; j <= SIZE; j++) {
+      int cnt = -board[i][j];
+      for (int m = i - 1; m <= i + 1; m++) {
+        for (int n = j - 1; n <= j + 1; n++) {
           cnt += board[m][n];
         }
       }
@@ -1043,8 +1110,8 @@ int main(void)
     }
   }
 
-  for (i = 1; i <= SIZE; i++) {       /* 打印新一代 */
-    for (j = 1; j <= SIZE; j++) {
+  for (int i = 1; i <= SIZE; i++) {    /* 打印新一代 */
+    for (int j = 1; j <= SIZE; j++) {
       printf("%c", next[i][j] ? '*' : '.');
     }
     printf("\n");
@@ -1097,10 +1164,10 @@ int main(void)
 ```C{.line-numbers}
 int count_neighbors(int board[][SIZE + 2], int i, int j)
 {
-  int cnt = -board[i][j], m, n;
+  int cnt = -board[i][j];
 
-  for (m = i - 1; m <= i + 1; m++) {
-    for (n = j - 1; n <= j + 1; n++) {
+  for (int m = i - 1; m <= i + 1; m++) {
+    for (int n = j - 1; n <= j + 1; n++) {
       cnt += board[m][n];
     }
   }
@@ -1110,11 +1177,10 @@ int count_neighbors(int board[][SIZE + 2], int i, int j)
 void next_generation(int board[][SIZE + 2])
 {
   int new_board[SIZE + 2][SIZE + 2] = {{0}};
-  int i, j, cnt;
 
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
-      cnt = count_neighbors(board, i, j);
+  for (int i = 1; i <= SIZE; i++) {
+    for (int j = 1; j <= SIZE; j++) {
+      int cnt = count_neighbors(board, i, j);
       if (board[i][j] == 1) {
         new_board[i][j] = (cnt == 2 || cnt == 3);
       } else {
@@ -1123,8 +1189,8 @@ void next_generation(int board[][SIZE + 2])
     }
   }
   /* 先算后写: 后面的格子还要读旧的邻居状态, 不能边算边写 */
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
+  for (int i = 1; i <= SIZE; i++) {
+    for (int j = 1; j <= SIZE; j++) {
       board[i][j] = new_board[i][j];
     }
   }
@@ -1160,10 +1226,8 @@ void next_generation(int board[][SIZE + 2])
 ```C{.line-numbers}
 void print_board(int board[][SIZE + 2])
 {
-  int i, j;
-
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
+  for (int i = 1; i <= SIZE; i++) {
+    for (int j = 1; j <= SIZE; j++) {
       printf("%c", board[i][j] ? '*' : '.');
     }
     printf("\n");
@@ -1173,12 +1237,11 @@ void print_board(int board[][SIZE + 2])
 int main(void)
 {
   int board[SIZE + 2][SIZE + 2] = {{0}};
-  int i;
 
   board[2][3] = 1;  board[3][4] = 1;
   board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
 
-  for (i = 0; i < 20; i++) {
+  for (int i = 0; i < 20; i++) {
     print_board(board);
     next_generation(board);
     sleep(1);            /* 停 1 秒 */
@@ -1231,16 +1294,15 @@ int main(void)
   int scores[5][3] = {{80, 85, 90}, {70, 75, 80}, {90, 92, 88},
                       {60, 65, 70}, {85, 80, 90}};
   int sums[5];
-  int i, j;
 
-  for (i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++) {
     sums[i] = 0;
-    for (j = 0; j < 3; j++) {
+    for (int j = 0; j < 3; j++) {
       sums[i] += scores[i][j];
     }
   }
 
-  for (i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++) {
     printf("student %d total: %d\n", i + 1, sums[i]);
   }
   return 0;
@@ -1410,17 +1472,16 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 #include <stdio.h>
 
 int is_prime(int n) {
-  int d;
   if (n <= 1) return 0;
-  for (d = 2; d <= n / d; d++) {
+  for (int d = 2; d <= n / d; d++) {
     if (n % d == 0) return 0;
   }
   return 1;
 }
 
 int count_primes(int max) {
-  int i, count = 0;
-  for (i = 2; i <= max; i++) {
+  int count = 0;
+  for (int i = 2; i <= max; i++) {
     if (is_prime(i)) count++;
   }
   return count;
