@@ -415,8 +415,60 @@ void Hanoi(int n, char A, char B, char C)
 
 <span class="blue">:fa-lightbulb-o:</span> 写递归的两步检查: ① 基准情形对吗? ② 每次调用规模在变小吗?
 
+→ ==下一页==: 现场演示"没有基准情形"的下场——调用栈爆掉
+
 ---
 
+
+<!-- slide data-notes="" -->##### 演示: 没有基准情形的栈溢出
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.85em;">
+
+```C
+/* 不规范: 少了基准情形 */
+long fact(int n)
+{
+  return n * fact(n - 1);
+}
+
+int main(void)
+{
+  printf("%ld\n", fact(5));
+  return 0;
+}
+```
+
+<div style="font-size:0.8em;color:#dc322f;">
+
+运行结果: 一阵呼啸之后——
+
+Segmentation fault (core dumped)
+
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/stack-overflow.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stack-overflow.c</a>
+
+</div>
+
+<div style="flex:1;font-size:0.95em;line-height:1.6;">
+
+- 每一层调用压一张便签; 没有基准情形, 便签就==无限叠高==——谁也不返回, 谁也腾不出空间
+
+- 栈的空间是==有限==的 (默认几 MB): 用尽即 ==栈溢出== (stack overflow), 程序直接崩溃
+
+- 即使有基准情形, ==极大的递归==也会爆: 递归深度以"层"计, 大输入要留意 (如对 10 万元素的链表递归打印)
+
+- 应对: 递归三问缺一不可; 有些递归能改写成==循环==——循环不占栈, 深了也不怕 (这是"尾递归优化"的朴素版理解)
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
