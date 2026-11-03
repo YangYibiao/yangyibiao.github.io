@@ -9,7 +9,7 @@
    ============================================================ */
 window.CHECKIN_CONFIG = {
   course: '智能程序设计（C语言）',
-  secret: 'cpl-2026-fall-default-secret-change-me',
+  secret: 'dc9119f8a55d7ede203e26b569482f07',
   zones: [
     { name: '教学楼', lat: 32.1080, lng: 118.9580, radiusM: 400 },  // ← 改成教室坐标
     { name: '机房',   lat: 32.1070, lng: 118.9590, radiusM: 200 },  // ← 改成机房坐标
