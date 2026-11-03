@@ -61,6 +61,7 @@ a { color:var(--brand); }
 </head>
 <body>
 <h1>课堂签到码 · 请全屏投影</h1>
+<div class="locbar"><span id="clock"></span></div>
 
 <div class="locbar">
   <span id="loc_state" class="bad">📍 尚未获取签到位置</span>
@@ -98,7 +99,7 @@ a { color:var(--brand); }
   </details>
 </div>
 
-<script src="config.js"></script>
+<script src="config.js?v=3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function () {
@@ -184,6 +185,10 @@ a { color:var(--brand); }
     }
   }
   tick(); setInterval(tick, 1000);
+  // 本机时间显示(排查时钟偏差用)
+  setInterval(function () {
+    document.getElementById('clock').textContent = '本机时间 ' + new Date().toLocaleString('zh-CN');
+  }, 1000);
 
   // 凭证核验: 学号 + 最近 ±3 分钟槽的 SHA 前 10 位
   document.getElementById('verify_btn').addEventListener('click', function () {

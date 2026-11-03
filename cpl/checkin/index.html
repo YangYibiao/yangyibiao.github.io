@@ -91,7 +91,7 @@ button:disabled { opacity: .55; cursor: default; }
   <p class="hint">定位仅用于判断是否在二维码所在位置附近, 不会上传或保存。</p>
 </div>
 
-<script src="config.js"></script>
+<script src="config.js?v=3"></script>
 <script>
 (function () {
   var C = window.CHECKIN_CONFIG;
@@ -170,12 +170,17 @@ button:disabled { opacity: .55; cursor: default; }
     var slot = qr ? qr.slot : slotOf(Date.now());
     var codeOk = Promise.resolve(false);
     if (qr) {
-      codeOk = Promise.all([codeFor(slot-1), codeFor(slot), codeFor(slot+1)]).then(function (codes) {
+      // 扫码模式: 码来自二维码, 容忍前后各 5 分钟(手机时钟/扫码延迟)
+      var slots = [];
+      for (var k = -5; k <= 5; k++) slots.push(codeFor(slot + k));
+      codeOk = Promise.all(slots).then(function (codes) {
         return code === qr.code && codes.indexOf(qr.code) >= 0;
       });
     } else {
       if (!/^\d{6}$/.test(code)) { setMsg('签到码是 6 位数字, 看看是不是输漏了', 'bad'); btn.disabled = false; return; }
-      codeOk = Promise.all([codeFor(slot-1), codeFor(slot), codeFor(slot+1)]).then(function (codes) {
+      var slots2 = [];
+      for (var k2 = -2; k2 <= 2; k2++) slots2.push(codeFor(slot + k2));
+      codeOk = Promise.all(slots2).then(function (codes) {
         return codes.indexOf(code) >= 0;
       });
     }
