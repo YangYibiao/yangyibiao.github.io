@@ -1,18 +1,16 @@
-/* Matrix sum: no functions */
+/* 求 m 的元素之和: 非函数版 */
 #include <stdio.h>
 
-int sum_tarray(int m[][4], int rows) {
-  int sum = 0;
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 4; j++) {
-      sum += m[i][j];
-    }
-  }
-  return sum;
-}
 int main(void)
 {
   int m[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-  printf("sum = %d\n", sum_tarray(m, 3));
+  int sum = 0, i, j;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < 4; j++) {
+      sum += m[i][j];
+    }
+  }
+  printf("sum = %d\n", sum);
   return 0;
 }

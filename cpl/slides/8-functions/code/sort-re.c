@@ -1,18 +1,5 @@
-/* Selection sort: no functions */
+/* 选择排序: 非函数版 */
 #include <stdio.h>
-
-void sorting(int arr[], int n)
-{
-  for (int i = 0; i < n - 1; i++) {
-    int min = i;
-    for (int j = i + 1; j < n; j++) {
-      if (arr[j] < arr[min]) {
-        min = j;
-      }
-    }
-    int t = arr[i]; arr[i] = arr[min]; arr[min] = t;
-  }
-}
 
 int main(void)
 {
@@ -22,7 +9,18 @@ int main(void)
     scanf("%d", &a[i]);
   }
 
-  sorting(a, 15);
+  for (i = 0; i < n - 1; i++) {
+    int min = i;
+    for (j = i + 1; j < n; j++) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[i];
+    a[i] = a[min];
+    a[min] = t;
+  }
+
   for (i = 0; i < n; i++) {
     printf("%d ", a[i]);
   }
