@@ -384,15 +384,37 @@ int gcd(int a, int b)
 void Hanoi(int n, char A, char B, char C)
 {
   if (n == 1) {
-    printf("%c -> %c\n", A, C);
+    printf("%c -> %c\n", A, C);      /* 基准: 只剩一个盘 */
   }
   else {
-    Hanoi(n - 1, A, C, B);
-    printf("%c -> %c\n", A, C);
-    Hanoi(n - 1, B, A, C);
+    Hanoi(n - 1, A, C, B);            /* 上面 n-1 个: A -> B (借 C) */
+    printf("%c -> %c\n", A, C);      /* 最大盘: A -> C */
+    Hanoi(n - 1, B, A, C);            /* 上面 n-1 个: B -> C (借 A) */
   }
 }
 ```
+
+```C
+int main(void)
+{
+  Hanoi(3, 'A', 'B', 'C');     /* 3 个盘的完整移法 */
+  return 0;
+}
+```
+
+运行输出 (共 7 步):
+
+```
+A -> C
+A -> B
+C -> B
+A -> C
+B -> A
+B -> C
+A -> C
+```
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 hanoi.c (直接编译运行)</a>
 
 </div>
 

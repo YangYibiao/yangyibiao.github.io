@@ -59852,14 +59852,28 @@ div.boardhandle > ul > li {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">Hanoi</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> A<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> B<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> C<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c -&gt; %c\n"</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c -&gt; %c\n"</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 基准: 只剩一个盘 */</span>
   <span class="token punctuation">}</span>
   <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
-    <span class="token function">Hanoi</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c -&gt; %c\n"</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">Hanoi</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> B<span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">Hanoi</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">/* 上面 n-1 个: A -&gt; B (借 C) */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c -&gt; %c\n"</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 最大盘: A -&gt; C */</span>
+    <span class="token function">Hanoi</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> B<span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">/* 上面 n-1 个: B -&gt; C (借 A) */</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">Hanoi</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 3 个盘的完整移法 */</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>运行输出 (共 7 步):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>A <span class="token operator">-&gt;</span> C
+A <span class="token operator">-&gt;</span> B
+C <span class="token operator">-&gt;</span> B
+A <span class="token operator">-&gt;</span> C
+B <span class="token operator">-&gt;</span> A
+B <span class="token operator">-&gt;</span> C
+A <span class="token operator">-&gt;</span> C</code></pre>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 hanoi.c (直接编译运行)</a>
 </div>
 <div style="flex:1;">
 <p>3 根柱 A、B、C, 把 n 个盘子从 A 移到 C (大盘不能压小盘, 可借 B):</p>
