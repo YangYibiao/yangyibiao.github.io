@@ -259,6 +259,22 @@ int height = 8;
 
 这里, 数值8是一个==初始化式==
 
+<svg viewBox="0 0 400 170" style="max-width:100%;height:170px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<text x="30" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height;</text>
+<rect x="30" y="32" width="150" height="76" rx="8" fill="#fdf6e3" stroke="#dc322f" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="105" y="80" font-size="34" fill="#dc322f" text-anchor="middle">?</text>
+<text x="105" y="98" font-size="11" fill="#dc322f" text-anchor="middle">残留的垃圾值</text>
+<text x="230" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height = 8;</text>
+<rect x="230" y="32" width="150" height="76" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
+<text x="305" y="80" font-size="34" fill="#859900" text-anchor="middle">8</text>
+<text x="305" y="98" font-size="11" fill="#586e75" text-anchor="middle">确定的值</text>
+<text x="30" y="132" font-size="11" fill="#586e75">分配了盒子, 但没放值</text>
+<text x="230" y="132" font-size="11" fill="#586e75">声明的同时放入 8</text>
+<text x="200" y="160" font-size="12" fill="#b58900" text-anchor="middle">读未初始化的盒子 → 结果不可预知</text>
+</g>
+</svg>
+
 ---
 
 
@@ -420,7 +436,7 @@ scanf("%lf", &d);    /* double*  → %lf */
 
 - 加一点判断就能算"生日过了没"——那是后面的内容
 
-<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 age.c
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/age.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 age.c</a>
 
 ---
 
@@ -469,7 +485,7 @@ int main(void) {
 
 - `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 后面细讲)
 
-<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 temp.c
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/temp.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 temp.c</a>
 
 ---
 
@@ -515,7 +531,7 @@ int main(void) {
 
 - 课后 OJ 有 `change.c` 同款题目, 自己动手写一遍
 
-<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 change.c
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/change.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 change.c</a>
 
 ---
 

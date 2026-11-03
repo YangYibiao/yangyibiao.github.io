@@ -191,12 +191,84 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 
 ==表格只是模型==: 内存里没有"行"——二维数组是==按行连续存放==的: 第 0 行存完, 紧跟着第 1 行, 依此类推
 
-<div class="fullborder">
+<div style="text-align:center;margin-top:4px;">
+<svg viewBox="0 0 400 200" style="max-width:100%;height:195px;">
+  <defs>
+    <marker id="ar62b" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="16" font-size="11.5" fill="#073642" text-anchor="middle">行主序示意 (3 行 4 列):一行存完,紧接着下一行</text>
 
-| m[0][0] | m[0][1] | … | m[0][8] | m[1][0] | … | m[1][8] | … | m[4][0] | … | m[4][8] |
-| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-| &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; | &zwnj; |
+    <text x="47" y="32" font-size="9.5" fill="#93a1a1" text-anchor="middle">0</text>
+    <text x="81" y="32" font-size="9.5" fill="#93a1a1" text-anchor="middle">1</text>
+    <text x="115" y="32" font-size="9.5" fill="#93a1a1" text-anchor="middle">2</text>
+    <text x="149" y="32" font-size="9.5" fill="#93a1a1" text-anchor="middle">3</text>
+    <text x="22" y="57" font-size="9.5" fill="#93a1a1" text-anchor="end">0</text>
+    <text x="22" y="91" font-size="9.5" fill="#93a1a1" text-anchor="end">1</text>
+    <text x="22" y="125" font-size="9.5" fill="#93a1a1" text-anchor="end">2</text>
 
+    <rect x="30" y="38" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="64" y="38" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="98" y="38" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="132" y="38" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="30" y="72" width="34" height="34" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="64" y="72" width="34" height="34" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="98" y="72" width="34" height="34" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="132" y="72" width="34" height="34" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="30" y="106" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="64" y="106" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="98" y="106" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="132" y="106" width="34" height="34" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+
+    <text x="47" y="57" font-size="9.5" fill="#073642" text-anchor="middle">0,0</text>
+    <text x="81" y="57" font-size="9.5" fill="#073642" text-anchor="middle">0,1</text>
+    <text x="115" y="57" font-size="9.5" fill="#073642" text-anchor="middle">0,2</text>
+    <text x="149" y="57" font-size="9.5" fill="#073642" text-anchor="middle">0,3</text>
+    <text x="47" y="91" font-size="9.5" fill="#073642" text-anchor="middle">1,0</text>
+    <text x="81" y="91" font-size="9.5" fill="#073642" text-anchor="middle">1,1</text>
+    <text x="115" y="91" font-size="9.5" fill="#073642" text-anchor="middle">1,2</text>
+    <text x="149" y="91" font-size="9.5" fill="#073642" text-anchor="middle">1,3</text>
+    <text x="47" y="125" font-size="9.5" fill="#073642" text-anchor="middle">2,0</text>
+    <text x="81" y="125" font-size="9.5" fill="#073642" text-anchor="middle">2,1</text>
+    <text x="115" y="125" font-size="9.5" fill="#073642" text-anchor="middle">2,2</text>
+    <text x="149" y="125" font-size="9.5" fill="#073642" text-anchor="middle">2,3</text>
+
+    <text x="182" y="62" font-size="10.5" fill="#268bd2" font-weight="700">第 1 行</text>
+    <text x="182" y="78" font-size="9.5" fill="#586e75">在内存中占连续的 4 格</text>
+    <text x="182" y="94" font-size="9.5" fill="#93a1a1">先排完一行,再排下一行</text>
+    <path d="M166 106 C 196 116, 196 150, 160 164" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#ar62b)"/>
+
+    <rect x="32" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="60" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="88" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="116" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="144" y="164" width="28" height="22" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="172" y="164" width="28" height="22" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="200" y="164" width="28" height="22" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="228" y="164" width="28" height="22" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <rect x="256" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="284" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="312" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="340" y="164" width="28" height="22" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+
+    <text x="46" y="179" font-size="8.5" fill="#073642" text-anchor="middle">0,0</text>
+    <text x="74" y="179" font-size="8.5" fill="#073642" text-anchor="middle">0,1</text>
+    <text x="102" y="179" font-size="8.5" fill="#073642" text-anchor="middle">0,2</text>
+    <text x="130" y="179" font-size="8.5" fill="#073642" text-anchor="middle">0,3</text>
+    <text x="158" y="179" font-size="8.5" fill="#073642" text-anchor="middle">1,0</text>
+    <text x="186" y="179" font-size="8.5" fill="#073642" text-anchor="middle">1,1</text>
+    <text x="214" y="179" font-size="8.5" fill="#073642" text-anchor="middle">1,2</text>
+    <text x="242" y="179" font-size="8.5" fill="#073642" text-anchor="middle">1,3</text>
+    <text x="270" y="179" font-size="8.5" fill="#073642" text-anchor="middle">2,0</text>
+    <text x="298" y="179" font-size="8.5" fill="#073642" text-anchor="middle">2,1</text>
+    <text x="326" y="179" font-size="8.5" fill="#073642" text-anchor="middle">2,2</text>
+    <text x="354" y="179" font-size="8.5" fill="#073642" text-anchor="middle">2,3</text>
+
+    <text x="200" y="197" font-size="10" fill="#586e75" text-anchor="middle">偏移 = (i × 列数 + j) × sizeof(int)</text>
+  </g>
+</svg>
 </div>
 
 ---

@@ -75,16 +75,28 @@ presentation:
 内存按==字节==划分, 每个字节存 8 位: 
 
 <div class="top-2">
-    <img src="figs/11-1.png" width=450px>
+    <img src="figs/11-1.png" width=400px>
 </div>
 
 每个字节都有==唯一的地址==。
 
 
+<div style="display:flex;align-items:center;gap:24px;">
+
+<div style="flex:1;">
+
 内存共 n 个字节, 地址就是从 $0$ 到 $n-1$ 的编号: 
+
+</div>
+
+<div style="flex:0 0 auto;">
 
 <div class="top-2">
     <img src="figs/11-2.png" width=140px>
+</div>
+
+</div>
+
 </div>
 
 ---
@@ -97,6 +109,10 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 程序中的每个变量都占用一个或多个字节的内存. 
 变量占的第一个字节的地址, 就是==变量的地址==。
 下图中变量 i 的地址是 2000: 
@@ -105,6 +121,9 @@ presentation:
     <img src="figs/11-3.png">
 </div>
 
+</div>
+
+<div style="flex:1;">
 
 地址可以存储在特殊的指针变量中. 
 把变量 i 的地址存进指针变量 p, 就说 p==指向==i。
@@ -112,6 +131,10 @@ presentation:
 
 <div class="top-2">
     <img src="figs/11-4.png">
+</div>
+
+</div>
+
 </div>
 
 ---
@@ -261,6 +284,27 @@ j = *&i; /* 等同于 j = i; */
 
 </div>
 
+<svg viewBox="0 0 400 160" width="480" height="192" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrDerefB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrDerefG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
+<text x="118" y="24" font-size="10" fill="#268bd2" text-anchor="middle">p 存的是地址</text>
+<text x="298" y="24" font-size="10" fill="#b58900" text-anchor="middle">内存中的 i</text>
+<text x="18" y="76" font-size="15" fill="#859900" text-anchor="middle">&amp;i</text>
+<line x1="34" y1="71" x2="66" y2="71" stroke="#859900" stroke-width="2" marker-end="url(#arrDerefG)"/>
+<text x="50" y="90" font-size="9" fill="#859900" text-anchor="middle">取地址</text>
+<rect x="70" y="42" width="96" height="58" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="82" y="60" font-size="12" fill="#268bd2">p</text>
+<text x="118" y="82" font-size="18" fill="#268bd2" text-anchor="middle">2000</text>
+<text x="118" y="95" font-size="9" fill="#93a1a1" text-anchor="middle">指针变量</text>
+<line x1="168" y1="71" x2="246" y2="71" stroke="#268bd2" stroke-width="2" marker-end="url(#arrDerefB)"/>
+<text x="207" y="90" font-size="9" fill="#268bd2" text-anchor="middle">*p 顺着地址找到 i</text>
+<rect x="250" y="42" width="96" height="58" rx="8" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+<text x="262" y="60" font-size="12" fill="#b58900">i</text>
+<text x="298" y="82" font-size="20" fill="#073642" text-anchor="middle">1</text>
+<text x="298" y="95" font-size="9" fill="#93a1a1" text-anchor="middle">int 变量</text>
+<text x="298" y="122" font-size="9.5" fill="#93a1a1" text-anchor="middle">地址 2000</text>
+<text x="200" y="148" font-size="11" fill="#073642" text-anchor="middle">p 指向 i：*p 与 i 是同一块内存</text>
+</svg>
+
 <!-- slide data-notes="" -->##### 间接寻址运算符 * (上)
 
 ---
@@ -335,6 +379,24 @@ int* p;
 </div>
 
 </div>
+
+<svg viewBox="0 0 400 160" width="480" height="192" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrUninitR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
+<rect x="55" y="42" width="100" height="58" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="67" y="60" font-size="12" fill="#268bd2">p</text>
+<text x="105" y="82" font-size="15" fill="#dc322f" text-anchor="middle">???</text>
+<text x="105" y="95" font-size="9" fill="#93a1a1" text-anchor="middle">未初始化的指针</text>
+<line x1="157" y1="71" x2="246" y2="71" stroke="#dc322f" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrUninitR)"/>
+<text x="201" y="60" font-size="9.5" fill="#dc322f" text-anchor="middle">指向哪里？</text>
+<rect x="250" y="42" width="100" height="58" rx="8" fill="none" stroke="#93a1a1" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="300" y="86" font-size="26" fill="#93a1a1" text-anchor="middle">?</text>
+<text x="300" y="118" font-size="9.5" fill="#93a1a1" text-anchor="middle">未知内存</text>
+<circle cx="348" cy="40" r="11" fill="#dc322f"/>
+<path d="M344,36 l8,8 M352,36 l-8,8" stroke="#fdf6e3" stroke-width="2" stroke-linecap="round"/>
+<text x="105" y="118" font-size="9.5" fill="#dc322f" text-anchor="middle">垃圾值，不是有效地址</text>
+<text x="200" y="144" font-size="11" fill="#073642" text-anchor="middle">解引用未初始化的指针：写到未知内存，未定义行为</text>
+</svg>
+
 <!-- slide data-notes="" -->
 
 
@@ -375,15 +437,15 @@ C 允许使用赋值运算符来复制相同类型的指针.
 
 指针赋值示例:
 
-指针赋值的另一个例子:
-
 q现在指向与p相同的位置: 
 <div class="top-2">
-    <img src="figs/11-9.png">
+    <img src="figs/11-9.png" width=300px>
 </div>
 
 
 如果p和q都指向i, 就可以通过为`*p`或`*q`赋一个新值来更改i:
+
+<div style="display:flex;align-items:flex-start;gap:16px;">
 
 <div class="top-2">
     <img src="figs/11-10.png" width=200px>
@@ -391,6 +453,8 @@ q现在指向与p相同的位置:
 
 <div class="top-2">
     <img src="figs/11-11.png" width=200px>
+</div>
+
 </div>
 
 任意数量的指针变量都可以指向同一个对象.
@@ -406,6 +470,10 @@ q现在指向与p相同的位置:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 注意不要混淆
 
 ```C
@@ -418,6 +486,9 @@ q = p;
 第一条语句是指针赋值, 但第二条不是. 
 下面的示例显示了第二个语句的效果.
 
+</div>
+
+<div style="flex:1;">
 
 ```C
 p = &i;
@@ -433,6 +504,10 @@ i = 1;
 ```
 <div class="top-2">
     <img src="figs/11-13.png" width=200px>
+</div>
+
+</div>
+
 </div>
 
 ---

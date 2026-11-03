@@ -77,9 +77,6 @@ presentation:
 
 ```C
 int a[10];
-```
-
-```C
 *a = 7;      /* 将 7存储在a[0]中 */
 *(a+1) = 12; /* 将12存储在a[1]中 */
 ```
@@ -88,7 +85,6 @@ int a[10];
 /* 原始版本 */
 for (p = &a[0]; p < &a[N]; p++)
     sum += *p;
-
 /* 简化版本 */
 for (p = a; p < a + N; p++)
     sum += *p;
@@ -109,9 +105,7 @@ while (*p != 0)
 
 <div style="flex:1;font-size:0.6em;">
 
-假设a声明如下:
-
-把数组名 a 当指针用的示例:
+假设a声明如下, 把数组名 a 当指针用的示例:
 
 一般情况, `a+i`与`&a[i]`相同, 都表示指向数组a中的元素i的指针. 
 
@@ -146,6 +140,8 @@ while (*p != 0)
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 两个循环——一个负责读入, 一个负责倒序输出; 全程不要出现 `a[i]`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 
@@ -230,16 +226,6 @@ int main(){
 ```
 
 ```C
-void store_zeros(int a[], int n)
-{
-    int i;
-
-    for (i = 0; i < n; i++)
-        a[i] = 0;
-}
-```
-
-```C
 int find_largest(const int a[], int n)
 {
     …
@@ -248,7 +234,7 @@ int find_largest(const int a[], int n)
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.56em;">
 
 数组名传递给函数时, 总是被视为指针. 例子:
 
@@ -257,6 +243,16 @@ int find_largest(const int a[], int n)
 - 结果1: 普通变量传给函数时, 其值被复制, 对相应参数的任何更改都不会影响变量. 相反, 用作参数的数组是可能被改变的. 
 
 比如下面这个函数, 把数组每个元素清零:
+
+```C
+void store_zeros(int a[], int n)
+{
+    int i;
+
+    for (i = 0; i < n; i++)
+        a[i] = 0;
+}
+```
 
 为了表明数组参数不会被修改, 我们可以在它的声明中包含单词const:
 
@@ -304,7 +300,30 @@ int *a; /* 编译器仅为指针变量分配空间 */
 
 - 用 `const` 声明表明不修改: 编译器会检查函数体没有对 a 中元素赋值
 
-- ==第 9 周的悬念在这里揭晓==: 数组作参数为什么能改原数组——传的本来就是地址
+- ==之前的悬念在这里揭晓==: 数组作参数为什么能改原数组——传的本来就是地址
+
+<svg viewBox="0 0 400 155" width="480" height="186" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<text x="200" y="16" font-size="11.5" fill="#073642" text-anchor="middle">作声明：两者分配的内存不同</text>
+<text x="20" y="36" font-size="11" fill="#073642">int a[10];</text>
+<text x="250" y="36" font-size="11" fill="#073642">int *a;</text>
+<rect x="20" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="38" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="56" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="74" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="92" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="110" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="128" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="146" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="164" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="182" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<text x="110" y="90" font-size="9.5" fill="#93a1a1" text-anchor="middle">10 个 int 的空间</text>
+<text x="223" y="68" font-size="24" fill="#dc322f" text-anchor="middle">≠</text>
+<rect x="250" y="44" width="70" height="30" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="285" y="64" font-size="12" fill="#268bd2" text-anchor="middle">指针</text>
+<text x="285" y="90" font-size="9.5" fill="#93a1a1" text-anchor="middle">1 个指针的空间</text>
+<text x="200" y="116" font-size="11" fill="#859900" text-anchor="middle">作形参：int a[] 与 int *a 完全等价</text>
+<text x="200" y="140" font-size="10.5" fill="#586e75" text-anchor="middle">数组名传参只传首元素地址，不复制整个数组</text>
+</svg>
 
 </div>
 </div>
@@ -328,6 +347,10 @@ int *a;
 
 - 结果4: 可以给形式参数为数组的函数传递==数组的片段==——连续的数组元素组成的序列. 
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;">
+
 对 b[5] ~ b[14] 调用 find_largest 的示例: 
 
 ```C
@@ -335,6 +358,49 @@ int b[20] = {0};
 ...
 largest = find_largest(&b[5], 10);
 ```
+
+</div>
+
+<div style="flex:0.85;">
+
+<svg viewBox="0 0 400 180" width="440" height="198" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrSliceB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker></defs>
+<text x="40" y="18" font-size="12" fill="#073642">int b[20]</text>
+<rect x="40" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="56" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="72" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="88" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="104" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="120" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="136" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="152" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="168" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="184" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="200" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="216" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="232" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="248" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="264" y="30" width="16" height="32" fill="#859900" fill-opacity="0.16" stroke="#859900" stroke-width="1.4"/>
+<rect x="280" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="296" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="312" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="328" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="344" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
+<rect x="120" y="26" width="160" height="40" rx="3" fill="none" stroke="#859900" stroke-width="2.2"/>
+<text x="48" y="78" font-size="9" fill="#93a1a1" text-anchor="middle">0</text>
+<text x="128" y="78" font-size="9" fill="#859900">b[5]</text>
+<text x="272" y="78" font-size="9" fill="#859900" text-anchor="end">b[14]</text>
+<text x="352" y="78" font-size="9" fill="#93a1a1" text-anchor="middle">19</text>
+<text x="200" y="96" font-size="10.5" fill="#859900" text-anchor="middle">10 个连续元素（n = 10）</text>
+<line x1="120" y1="150" x2="120" y2="70" stroke="#268bd2" stroke-width="2" marker-end="url(#arrSliceB)"/>
+<text x="128" y="126" font-size="10.5" fill="#268bd2">形参 a</text>
+<text x="128" y="148" font-size="10.5" fill="#586e75">find_largest(&amp;b[5], 10)</text>
+<text x="200" y="170" font-size="9.5" fill="#93a1a1" text-anchor="middle">函数只访问绿色片段，不能越过 n</text>
+</svg>
+
+</div>
+
+</div>
 
 ---
 
@@ -472,25 +538,17 @@ largest = find_largest(a[i], NUM_COLS);
 
 - 表达式$a[i]$等价于$*(a + i)$. 
 
-- `&a[i][0]`等同于`&(*(a[i] + 0))`, 而后者等价于`&*a[i]`. 
+- 因此`&a[i][0]`就是第i行第0个元素的地址. 
 
-- &和*运算符可抵消, `&*a[i]`也就等同于$a[i]$ 
-
-- `a[i][0]`为第i行第0个元素, &a[i][0]即为元素的地址. 
-
-- `&a[i][0]`等价于`&(*(a[i]+0))`, 等价于`&*a[i]`
+- 再由`&*a[i]`等价于$a[i]$, 可得`&a[i][0]` = `&(*(a[i] + 0))` = `&*a[i]` = $a[i]$.
 
 
 对数组a的第i行清零的循环:
 
-由于a[i]是指向数组a的第i行的指针, 可将a[i]传递给一维数组作为参数的函数. 
-
-换句话说, 处理一维数组的函数也可以处理二维数组的行.
+由于a[i]是指向第i行的指针, 可将它传给处理一维数组的函数——一维数组函数也能处理二维数组的行.
 
 
-考虑find_largest, 它最初设计用于查找一维数组的最大元素. 
-
-这里使用find_largest来确定二维数组a的第i行中的最大元素:
+用find_largest求二维数组a第i行的最大值:
 
 
 
@@ -520,6 +578,36 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
 ```C
 int a[NUM_ROWS][NUM_COLS];
 ```
+
+<svg viewBox="0 0 400 184" width="430" height="198" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrColB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrColY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b58900"/></marker></defs>
+<text x="133" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">0</text>
+<text x="175" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">1</text>
+<text x="217" y="24" font-size="12" fill="#268bd2" text-anchor="middle">i</text>
+<text x="259" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">3</text>
+<rect x="112" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="154" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="196" y="34" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
+<rect x="238" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="112" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="154" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="196" y="66" width="42" height="32" fill="#dc322f" fill-opacity="0.10" stroke="#dc322f" stroke-width="2.6"/>
+<rect x="238" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="112" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="154" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="196" y="98" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
+<rect x="238" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<text x="41" y="56" font-size="9" fill="#268bd2" text-anchor="middle">行指针</text>
+<rect x="10" y="66" width="62" height="30" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="41" y="86" font-size="14" fill="#268bd2" text-anchor="middle">p</text>
+<line x1="72" y1="81" x2="110" y2="81" stroke="#268bd2" stroke-width="2" marker-end="url(#arrColB)"/>
+<text x="288" y="86" font-size="9.5" fill="#268bd2">第 i 行</text>
+<path d="M41,96 C41,128 80,114 108,114" fill="none" stroke="#b58900" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrColY)"/>
+<text x="66" y="140" font-size="10" fill="#b58900" text-anchor="middle">p++ 跨一行</text>
+<line x1="217" y1="130" x2="217" y2="144" stroke="#dc322f" stroke-width="1.4"/>
+<text x="217" y="158" font-size="11" fill="#dc322f" text-anchor="middle">(*p)[i]</text>
+<text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（NUM_COLS 个 int）</text>
+</svg>
 
 </div>
 

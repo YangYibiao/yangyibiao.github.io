@@ -209,8 +209,6 @@ x = 3, y = 5
 
 ---
 
-8-1 已经把素数判断函数化; 这里把改造三步完整走一遍——==① 输入是什么? ② 输出是什么? ③ 函数叫什么名字?==——后面每个例子都这么问:
-
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1;font-size:0.45em;">
@@ -219,17 +217,11 @@ x = 3, y = 5
 
 ```C
 #include <stdio.h>
-
 int main(void) {
   int n, d, prime = 1;
-
   scanf("%d", &n);
-  for (d = 2; d * d <= n; d++) {
-    if (n % d == 0) {
-      prime = 0;
-      break;
-    }
-  }
+  for (d = 2; d * d <= n; d++)
+    if (n % d == 0) { prime = 0; break; }
   if (prime == 1) printf("是素数\n");
   else printf("不是素数\n");
   return 0;
@@ -244,17 +236,13 @@ int main(void) {
 
 ```C
 #include <stdio.h>
-
 int is_prime(int n) {
-  int divisor;
-
+  int d;
   if (n <= 1) return 0;
-  for (divisor = 2; divisor <= n / divisor; divisor++) {
-    if (n % divisor == 0) return 0;
-  }
+  for (d = 2; d <= n / d; d++)
+    if (n % d == 0) return 0;
   return 1;
 }
-
 int main(void) {
   int n;
   printf("输入一个数: ");
@@ -269,9 +257,11 @@ int main(void) {
 
 </div>
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.5;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.5em;line-height:1.5;">
 
 <div style="flex:1;">
+
+- ==改造三步==: ① 输入 ② 输出 ③ 函数名——后面每个例子都这么问
 
 - `divisor <= n / divisor` 是 $\sqrt{n}$ 的等价写法 (不用 math.h), 不会溢出; 原版的 `d * d` 写法在 n 近 int 上限时溢出 (有符号溢出是==未定义行为==)——结果为负时条件恒真, 循环停不下来
 
@@ -287,7 +277,11 @@ int main(void) {
 
 </div>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开代码工作区</a> <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
+<div style="font-size:0.8em;">
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;text-decoration:none;">⚡ 打开代码工作区</a> <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
+
+</div>
 
 ---
 
@@ -370,7 +364,7 @@ int is_leap_year(int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.85em;line-height:1.55;">
 
 - 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出; 开头的 `int is_leap_year(int);` 是 8-1 讲过的==函数原型==: 先声明, 后使用
 
@@ -735,7 +729,9 @@ int main(void)
 
 ---
 
-函数要操作数组, 就把数组传给函数:
+<div style="font-size:0.8em;margin:0;">函数要操作数组, 就把数组传给函数:</div>
+
+<div style="font-size:0.95em;">
 
 ```C{.line-numbers}
 int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
@@ -746,17 +742,26 @@ int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
   }
   return sum;
 }
-
 total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 ```
 
-- 形参 `int a[]` 只拿到数组的==开头位置==, 不携带长度信息——函数不知道数组到哪结束, 所以长度必须由调用者单独传
+</div>
+
+<div style="text-align:center;margin:2px 0;">
+<svg viewBox='0 0 640 120' style='max-width:100%;height:120px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr1d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='300' y='14' font-size='10' fill='#586e75' font-weight='700'>main: int b[5] = {3, 7, 1, 9, 4};</text><g font-size='13' fill='#073642' text-anchor='middle' font-weight='700'><rect x='300' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='322' y='42'>3</text><rect x='344' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='366' y='42'>7</text><rect x='388' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='410' y='42'>1</text><rect x='432' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='454' y='42'>9</text><rect x='476' y='22' width='44' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='498' y='42'>4</text></g><g font-size='8.5' fill='#586e75' text-anchor='middle' font-family='Menlo, monospace'><text x='322' y='66'>1000</text><text x='366' y='66'>1004</text><text x='410' y='66'>1008</text><text x='454' y='66'>1012</text><text x='498' y='66'>1016</text></g><rect x='18' y='20' width='240' height='84' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='28' y='36' font-size='9.5' fill='#268bd2' font-weight='700'>sum_array 的栈帧</text><g font-weight='700'><rect x='28' y='44' width='95' height='24' rx='5' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='75' y='60' font-size='11' fill='#073642' text-anchor='middle'>a = 1000</text><rect x='132' y='44' width='80' height='24' rx='5' fill='#fdf6e3' stroke='#586e75' stroke-width='1.5'/><text x='172' y='60' font-size='11' fill='#073642' text-anchor='middle'>n = 5</text></g><text x='28' y='90' font-size='8.5' fill='#859900'>函数里 a[i] = 改 b[i]</text><path d='M258 56 H296 V52' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr1d)'/><text x='262' y='84' font-size='9' fill='#268bd2'>只传开头地址</text><text x='18' y='114' font-size='9.5' fill='#586e75'>数组名传开头位置，不传长度 → 长度必须单独传 n</text></g></svg>
+</div>
+
+<div style="font-size:0.75em;line-height:1.4;">
+
+- 形参 `int a[]` 只拿到数组的==开头位置==, 不携带长度信息——长度必须由调用者单独传
 
 - ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
 
 - 为什么能改到原数组, 原因在后面的指针部分揭晓 (数组名传的是地址)
 
-<a href="code/sum-array-re.c" target="_blank">sum-array-re.c (改造前)</a> · <a href="code/sum-array-func.c" target="_blank">sum-array-func.c (函数版)</a>
+<span style="font-size:0.9em;"><a href="code/sum-array-re.c" target="_blank">sum-array-re.c (改造前)</a> · <a href="code/sum-array-func.c" target="_blank">sum-array-func.c (函数版)</a></span>
+
+</div>
 
 ---
 
@@ -828,6 +833,8 @@ int main(void)
 
 第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再写一遍
 
+<div>
+
 ```C{.line-numbers}
 void sort(int a[], int n)          /* 把选择排序装进函数 */
 {
@@ -848,9 +855,15 @@ sort(a, 10);     /* 排 a 的前 10 个元素 */
 sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 ```
 
+</div>
+
+<div style="font-size:0.8em;line-height:1.5;">
+
 - ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
 
-<a href="code/sort-re.c" target="_blank">sort-re.c (改造前)</a> · <a href="code/sort-func.c" target="_blank">sort-func.c (函数版)</a>
+<span style="font-size:0.9em;"><a href="code/sort-re.c" target="_blank">sort-re.c (改造前)</a> · <a href="code/sort-func.c" target="_blank">sort-func.c (函数版)</a></span>
+
+</div>
 
 
 ---
@@ -928,6 +941,10 @@ int m[3][4] = { ... };
 sum_matrix(m, 3);       /* 数组名 + 行数 */
 ```
 
+<div style="text-align:center;margin:4px 0 2px;">
+<svg viewBox='0 0 400 210' style='max-width:100%;height:175px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr2d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='15' font-size='10.5' fill='#073642' font-weight='700'>int a[3][4]：按行连续存放</text><g font-size='9' fill='#586e75' text-anchor='middle'><text x='55' y='24'>j=0</text><text x='89' y='24'>j=1</text><text x='123' y='24'>j=2</text><text x='157' y='24'>j=3</text></g><g font-size='9' fill='#586e75' text-anchor='end'><text x='32' y='43'>i=0</text><text x='32' y='67'>i=1</text><text x='32' y='91'>i=2</text></g><g font-size='11' fill='#073642' text-anchor='middle' font-weight='700'><g><rect x='38' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='72' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='106' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><rect x='140' y='28' width='34' height='24' fill='#dceaf5' stroke='#93a1a1'/><text x='55' y='44'>1</text><text x='89' y='44'>2</text><text x='123' y='44'>3</text><text x='157' y='44'>4</text></g><g><rect x='38' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='72' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='106' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><rect x='140' y='52' width='34' height='24' fill='#eee8d5' stroke='#93a1a1'/><text x='55' y='68'>5</text><text x='89' y='68'>6</text><text x='123' y='68'>7</text><text x='157' y='68'>8</text></g><g><rect x='38' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='72' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='106' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><rect x='140' y='76' width='34' height='24' fill='#fdf6e3' stroke='#93a1a1'/><text x='55' y='92'>9</text><text x='89' y='92'>10</text><text x='123' y='92'>11</text><text x='157' y='92'>12</text></g></g><g font-weight='700'><text x='195' y='40' font-size='10' fill='#586e75'>a[i][j] 的偏移 =</text><text x='195' y='57' font-size='12' fill='#268bd2'>i × 4 + j</text></g><text x='195' y='78' font-size='9.5' fill='#586e75'>列数 4 = 每行 4 个元素</text><text x='195' y='93' font-size='9.5' fill='#586e75'>= 行与行之间的步长</text><path d='M106 100 V132' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr2d)'/><text x='114' y='120' font-size='9' fill='#268bd2'>按行铺开</text><g font-size='10' fill='#073642' text-anchor='middle' font-weight='700'><rect x='18' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='33' y='151'>1</text><rect x='48' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='63' y='151'>2</text><rect x='78' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='93' y='151'>3</text><rect x='108' y='136' width='30' height='22' fill='#dceaf5' stroke='#93a1a1'/><text x='123' y='151'>4</text><rect x='138' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='153' y='151'>5</text><rect x='168' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='183' y='151'>6</text><rect x='198' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='213' y='151'>7</text><rect x='228' y='136' width='30' height='22' fill='#eee8d5' stroke='#93a1a1'/><text x='243' y='151'>8</text><rect x='258' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='273' y='151'>9</text><rect x='288' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='303' y='151'>10</text><rect x='318' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='333' y='151'>11</text><rect x='348' y='136' width='30' height='22' fill='#fdf6e3' stroke='#93a1a1'/><text x='363' y='151'>12</text></g><g fill='none' stroke-width='2'><path d='M18 164 V170 H138 V164' stroke='#268bd2'/><path d='M138 164 V170 H258 V164' stroke='#b58900'/><path d='M258 164 V170 H378 V164' stroke='#859900'/></g><g font-size='9' text-anchor='middle' font-weight='700'><text x='78' y='182' fill='#268bd2'>第 0 行</text><text x='198' y='182' fill='#b58900'>第 1 行</text><text x='318' y='182' fill='#859900'>第 2 行</text></g><text x='18' y='202' font-size='9.5' fill='#586e75'>所以形参必须写 int a[][4]：编译器要用 4 计算 a[i][j] 的地址</text></g></svg>
+</div>
+
 </div>
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
@@ -938,7 +955,7 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 - 调用: 传==数组名 + 行数==——写法朴素, 但数组传的是开头位置, 函数能改到原数组 (和标量不同)
 
-<a href="code/sum-matrix-re.c" target="_blank">sum-matrix-re.c (改造前)</a> · <a href="code/sum-matrix-func.c" target="_blank">sum-matrix-func.c (函数版)</a>
+<div style="font-size:0.55em;line-height:1.3;margin-top:2px;"><a href="code/sum-matrix-re.c" target="_blank">sum-matrix-re.c (改造前)</a> · <a href="code/sum-matrix-func.c" target="_blank">sum-matrix-func.c (函数版)</a></div>
 
 </div>
 
@@ -999,7 +1016,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.85em;line-height:1.6;">
+<div style="flex:1;font-size:0.75em;line-height:1.5;">
 
 ==先看效果==: 左上角的小三角叫==滑翔机==——演化一代后, 它移动了一格:
 
@@ -1019,7 +1036,7 @@ int main(void)
 
 ==同桌讨论 1 分钟==: 先别写代码——打算拆成几个函数? 每个函数的==输入、输出==是什么?
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里会出现==五层嵌套循环== (原本四层, 再套一层); 函数版只需在 main 里写一个十代循环
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层循环——五层嵌套; 函数版只需一个十代循环
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
 
@@ -1134,7 +1151,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.72em;line-height:1.45;">
 
 只改 main 的循环——加上==停顿==和==清屏==, 就能看到滑翔机在屏幕上移动:
 
@@ -1259,9 +1276,9 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ---
 
-==函数化四步==: ① 找输入 ② 定返回/输出参数 ③ 搬代码 ④ 改调用——今天 10 个例子全部按这四步走; 标量例子返回==值==, 数组例子 "返回" 靠==输出参数== (改原数组/写进另一个数组)——这是今天最大的新点:
+==函数化四步==: ① 找输入 ② 定返回/输出参数 ③ 搬代码 ④ 改调用——今天 10 个例子全部按这四步走; 标量返回==值==, 数组靠==输出参数== (改原数组/写进另一个数组):
 
-<div style="font-size:0.7em;">
+<div style="font-size:0.5em;">
 
 | 例子 | 输入 | 返回 / 输出参数 | 调用 |
 |------|------|----------------|------|
@@ -1278,9 +1295,13 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 </div>
 
-==练习==: 矩阵转置 `transpose`——两个形参的列数各写几? (<a href="code/transpose-re.c" target="_blank">题面</a> · <a href="code/transpose-func.c" target="_blank">答案</a>)
+<div style="display:flex;gap:24px;font-size:0.9em;">
 
-<span style="font-size:0.9em;">→ 一路都在说 "数组是例外"——为什么? 答案藏在函数调用的幕后, 下一节揭晓</span>
+<span>==练习==: 矩阵转置 `transpose`——两个形参的列数各写几? (<a href="code/transpose-re.c" target="_blank">题面</a> · <a href="code/transpose-func.c" target="_blank">答案</a>)</span>
+
+<span>→ 一路都在说 "数组是例外"——为什么? 答案藏在函数调用的幕后, 下一节揭晓</span>
+
+</div>
 
 ---
 

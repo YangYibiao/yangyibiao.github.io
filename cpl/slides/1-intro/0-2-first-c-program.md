@@ -131,6 +131,32 @@ int main(void)
 
 - ==链接==: 把 printf 等库函数合到一起, 生成可执行程序
 
+<svg viewBox="0 0 400 150" style="max-width:100%;height:150px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<text x="8" y="26" font-size="12" fill="#268bd2" font-family="Menlo, monospace">gcc hw.c</text>
+<rect x="8" y="38" width="112" height="72" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="64" y="66" font-size="15" fill="#073642" text-anchor="middle">预处理</text>
+<text x="64" y="87" font-size="11" fill="#586e75" text-anchor="middle">展开 #include</text>
+<text x="64" y="103" font-size="11" fill="#586e75" text-anchor="middle">处理 # 指令</text>
+<path d="M120 74 H134" stroke="#586e75" stroke-width="2" marker-end="url(#arrGcc)"/>
+<rect x="136" y="38" width="112" height="72" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
+<text x="192" y="66" font-size="15" fill="#073642" text-anchor="middle">编译</text>
+<text x="192" y="87" font-size="11" fill="#586e75" text-anchor="middle">C → 汇编</text>
+<text x="192" y="103" font-size="11" fill="#586e75" text-anchor="middle">汇编 → 机器指令</text>
+<path d="M248 74 H262" stroke="#586e75" stroke-width="2" marker-end="url(#arrGcc)"/>
+<rect x="264" y="38" width="112" height="72" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
+<text x="320" y="66" font-size="15" fill="#073642" text-anchor="middle">链接</text>
+<text x="320" y="87" font-size="11" fill="#586e75" text-anchor="middle">并入 printf</text>
+<text x="320" y="103" font-size="11" fill="#859900" text-anchor="middle">→ a.out</text>
+<text x="200" y="138" font-size="11" fill="#586e75" text-anchor="middle">我们只写 C 代码, 三步都交给 gcc</text>
+<defs>
+<marker id="arrGcc" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+<path d="M0 0 L7 3.5 L0 7 z" fill="#586e75"/>
+</marker>
+</defs>
+</g>
+</svg>
+
 <span class="blue">:fa-weixin:</span> 这三件事都交给 gcc, 我们只写代码
 
 编译运行之后, 我们来解剖一下 C 程序长什么样:

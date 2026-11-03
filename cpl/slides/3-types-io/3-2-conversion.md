@@ -108,7 +108,7 @@ presentation:
 - 为什么后缀 `++` 高于前缀? 语法里==后缀层贴着操作数==: `-x++` 是 `-(x++)`; 若反过来, `(-x)++` 是对非左值自增, 直接报错
 
 
-<span class="blue">:fa-lightbulb-o:</span> 优先级表可用于给缺少括号的表达式==加括号==: 从最高优先级开始, 在运算符及其操作数周围加上括号 (下一页演示)。优先级是语言设计约定, 不必深究原因——==记表 + 拿不准就加括号==, 永远不会错
+<span class="blue">:fa-lightbulb-o:</span> 优先级表可用于给缺少括号的表达式==加括号== (下一页演示)。==拿不准就加括号==, 永远不会错
 
 </div>
 
@@ -217,6 +217,10 @@ printf("%d %d %d\n", i, j, k);
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:20px;">
+
+<div style="flex:1.15;">
+
 赋值运算符需要一个 ==左值== 作为其左操作数
 
 ==左值== 表示存储在计算机内存中的对象, 而不是常量或计算结果
@@ -230,6 +234,38 @@ printf("%d %d %d\n", i, j, k);
 i + j = 0;   /*** WRONG ***/
 -i = j;      /*** WRONG ***/
 ```
+
+</div>
+
+<div style="flex:1;text-align:center;">
+
+<svg viewBox="0 0 400 175" style="max-width:100%;height:175px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+  <text x="65" y="20" font-size="12" fill="#586e75" text-anchor="middle">变量 i</text>
+  <rect x="20" y="32" width="90" height="56" rx="7" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
+  <text x="65" y="68" font-size="23" fill="#073642" text-anchor="middle">5</text>
+  <text x="65" y="104" font-size="11" fill="#93a1a1" text-anchor="middle">地址 0x7ffc…</text>
+  <text x="65" y="124" font-size="11" fill="#859900" text-anchor="middle">有盒子, 可写</text>
+
+  <text x="200" y="20" font-size="12" fill="#586e75" text-anchor="middle">常量 10</text>
+  <text x="200" y="68" font-size="23" fill="#586e75" text-anchor="middle">10</text>
+  <text x="200" y="104" font-size="11" fill="#93a1a1" text-anchor="middle">没有地址</text>
+  <text x="200" y="124" font-size="11" fill="#dc322f" text-anchor="middle">没有盒子</text>
+
+  <text x="335" y="20" font-size="12" fill="#586e75" text-anchor="middle">表达式 2 * i</text>
+  <rect x="290" y="32" width="90" height="56" rx="7" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="335" y="68" font-size="23" fill="#93a1a1" text-anchor="middle">10</text>
+  <text x="335" y="104" font-size="11" fill="#93a1a1" text-anchor="middle">临时结果</text>
+  <text x="335" y="124" font-size="11" fill="#dc322f" text-anchor="middle">无地址, 不可写</text>
+
+  <text x="200" y="151" font-size="12" fill="#dc322f" text-anchor="middle">12 = i;    i + j = 0;    -i = j;</text>
+  <text x="200" y="169" font-size="11" fill="#dc322f" text-anchor="middle">编译错误: invalid lvalue in assignment</text>
+</g>
+</svg>
+
+</div>
+
+</div>
 
 <span class="blue">:fa-lightbulb-o:</span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"
 

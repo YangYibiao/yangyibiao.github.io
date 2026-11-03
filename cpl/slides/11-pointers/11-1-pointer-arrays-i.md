@@ -73,25 +73,24 @@ presentation:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:1;font-size:0.6em;">
 
 ```C
 int a[10], *p;
 p = &a[0];
 ```
 
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
 指针可以指向==数组元素==:
 
 图示: 
 
 <div class="top-2">
-    <img src="figs/13-1.png" width=420px>
+    <img src="figs/13-1.png" width=400px>
 </div>
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
 
 通过 p 可以访问 a[0]——比如把 5 存进 a[0]: 
 
@@ -100,11 +99,10 @@ p = &a[0];
 如下图: 
 
 <div class="top-2">
-    <img src="figs/13-2.png" width=420px>
+    <img src="figs/13-2.png" width=400px>
 </div>
 
-
-p 指向数组 a 的某个元素时, 对 p 做==指针算术==(也叫地址运算)就能访问其他元素
+p 指向数组元素时, 对 p 做==指针算术==就能访问其他元素
 
 C支持三种(且只有三种)==指针运算==形式:
 
@@ -155,15 +153,26 @@ p -= 6;
 
 假设声明如下:
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 指针加法示例:
 
-<div class="top-2"><img src="figs/13-3.png" width=180px></div>
+<div class="top-2"><img src="figs/13-3.png" width=240px></div>
 
+</div>
+
+<div style="flex:1;">
 
 p 指向 a[i], 则 p - j 指向 a[i-j]。指针减法示例:
 
 <div class="top-2">
-    <img src="figs/13-4.png" width=180px>
+    <img src="figs/13-4.png" width=240px>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -186,6 +195,8 @@ p = &a[5];
 q = &a[1];
 ```
 
+<div style="display:flex;align-items:center;gap:24px;">
+
 <div class="top-2">
     <img src="figs/13-5.png" width=300px>
 </div>
@@ -194,6 +205,8 @@ q = &a[1];
 i = p - q; /* i is  4 */
 i = q - p; /* i is -4 */
 ```
+
+</div>
 
 
 <span class="blue">:fa-lightbulb-o:</span> 对不指向数组元素的指针执行算术运算导致未定义的行为
@@ -214,6 +227,10 @@ i = q - p; /* i is -4 */
 
 使用关系运算符仅对指向同一数组元素的指针有意义. 比较的结果取决于数组中两个元素的相对位置. 
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;">
+
 ```C
 p = &a[5];
 q = &a[1];
@@ -224,6 +241,44 @@ p >= q; // expression value: 1
 完成后: 
 - p<=q的值为0
 - p>=q的值为1.
+
+</div>
+
+<div style="flex:0.9;">
+
+<svg viewBox="0 0 400 170" width="460" height="196" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrCmpB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrCmpG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
+<text x="22" y="72" font-size="13" fill="#93a1a1">a</text>
+<rect x="35" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="75" y="52" width="40" height="36" fill="#859900" fill-opacity="0.17" stroke="#859900" stroke-width="2"/>
+<rect x="115" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="155" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="195" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="235" y="52" width="40" height="36" fill="#268bd2" fill-opacity="0.17" stroke="#268bd2" stroke-width="2"/>
+<rect x="275" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="315" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<text x="55" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">0</text>
+<text x="95" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">1</text>
+<text x="135" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">2</text>
+<text x="175" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">3</text>
+<text x="215" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">4</text>
+<text x="255" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">5</text>
+<text x="295" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">6</text>
+<text x="335" y="104" font-size="9" fill="#93a1a1" text-anchor="middle">7</text>
+<rect x="75" y="12" width="40" height="24" rx="5" fill="#fdf6e3" stroke="#859900" stroke-width="1.8"/>
+<text x="95" y="29" font-size="13" fill="#859900" text-anchor="middle">q</text>
+<line x1="95" y1="36" x2="95" y2="50" stroke="#859900" stroke-width="1.6" marker-end="url(#arrCmpG)"/>
+<rect x="235" y="12" width="40" height="24" rx="5" fill="#fdf6e3" stroke="#268bd2" stroke-width="1.8"/>
+<text x="255" y="29" font-size="13" fill="#268bd2" text-anchor="middle">p</text>
+<line x1="255" y1="36" x2="255" y2="50" stroke="#268bd2" stroke-width="1.6" marker-end="url(#arrCmpB)"/>
+<text x="105" y="130" font-size="11.5" fill="#dc322f" text-anchor="middle">p &lt;= q → 0（假）</text>
+<text x="295" y="130" font-size="11.5" fill="#859900" text-anchor="middle">p &gt;= q → 1（真）</text>
+<text x="200" y="154" font-size="10" fill="#586e75" text-anchor="middle">地址大小 = 元素在数组中的先后</text>
+</svg>
+
+</div>
+
+</div>
 
 ---
 
@@ -240,7 +295,7 @@ p >= q; // expression value: 1
 - 在第三次迭代结束时: 
 
 <div class="top-2">
-    <img src="figs/13-6.png" width=220px>
+    <img src="figs/13-6.png" width=190px>
 </div>
 
 
@@ -272,6 +327,17 @@ while (p < &a[N])
     sum += *p++;
 ```
 
+<div class="fullborder">
+
+| 表达  | 意义 |
+| :--: | :--: |  
+| `*p++或*(p++)` | 表达式的值是`*p`在递增之前, 之后自增p |
+| `(*p)++`      | 表达式的值为`*p`在递增之前, 稍后增加`*p` |
+| `*++p或*(++p)` | 先递增`p`, 表达式的值为`*p` |
+| `++*p或++(*p)` | 先递增`*p`, 表达式的值为`*p` |
+
+</div>
+
 </div>
 
 <div style="flex:1;font-size:0.6em;">
@@ -288,28 +354,13 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 `*(p++) = j;`
 
 
-`*`和`++`的可能组合: 
-
-<div class="fullborder">
-
-| 表达  | 意义 |
-| :--: | :--: |  
-| `*p++或*(p++)` | 表达式的值是`*p`在递增之前, 之后自增p |
-| `(*p)++`      | 表达式的值为`*p`在递增之前, 稍后增加`*p` |
-| `*++p或*(++p)` | 先递增`p`, 表达式的值为`*p` |
-| `++*p或++(*p)` | 先递增`*p`, 表达式的值为`*p` |
-
-</div>
+`*`和`++`的可能组合见左栏表格. 
 
 - *(p++) 指针自增(指向下一个对象)
 - (*p)++ 指向的对象自增(p本身不变)
 
 
-\*和++最常见的组合是`*p++`, 在循环中很常用. 
-
-对数组a的元素求和时, 可以把
-
-改写成
+\*和++最常见的组合是`*p++`, 在循环中很常用. 左栏的求和代码就是这种改写: `for` 版可以改写成 `while` 版.
 
 
 
@@ -369,6 +420,28 @@ int pop(void)
 此外, 数组的名称可以用作指向数组中第一个元素的指针. 
 
 这种关系简化了指针的算术运算, 并使数组和指针更加通用.
+
+<svg viewBox="0 0 400 170" width="440" height="187" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrStkB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrStkG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
+<rect x="186" y="14" width="74" height="26" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="223" y="31" font-size="10.5" fill="#268bd2" text-anchor="middle">top_ptr</text>
+<line x1="223" y1="40" x2="223" y2="74" stroke="#268bd2" stroke-width="2" marker-end="url(#arrStkB)"/>
+<text x="216" y="62" font-size="9" fill="#268bd2" text-anchor="end">下一空位</text>
+<rect x="48" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
+<text x="73" y="99" font-size="15" fill="#073642" text-anchor="middle">7</text>
+<rect x="98" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
+<text x="123" y="99" font-size="15" fill="#073642" text-anchor="middle">8</text>
+<rect x="148" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
+<text x="173" y="99" font-size="15" fill="#073642" text-anchor="middle">9</text>
+<rect x="198" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
+<rect x="248" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
+<rect x="298" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
+<line x1="246" y1="70" x2="270" y2="70" stroke="#268bd2" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkB)"/>
+<text x="276" y="66" font-size="9" fill="#268bd2">push 后 ++</text>
+<path d="M223,114 L223,122 L173,122 L173,114" fill="none" stroke="#859900" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkG)"/>
+<text x="198" y="140" font-size="9.5" fill="#859900" text-anchor="middle">pop：先 -- 再读</text>
+<text x="200" y="162" font-size="10" fill="#586e75" text-anchor="middle">后进先出（LIFO）</text>
+</svg>
 
 </div>
 

@@ -160,6 +160,35 @@ j = -i;
 
 - `/`和`%`与负操作数一起使用时的行为在C89中由实现定义
 
+<div style="text-align:center;">
+
+<svg viewBox="0 0 400 175" style="max-width:100%;height:175px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+  <rect x="14" y="18" width="152" height="42" rx="10" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
+  <rect x="14" y="64" width="152" height="42" rx="10" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
+  <rect x="14" y="110" width="42" height="38" rx="10" fill="#fdf6e3" stroke="#b58900" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <circle cx="34" cy="39" r="9" fill="#268bd2"/>
+  <circle cx="70" cy="39" r="9" fill="#268bd2"/>
+  <circle cx="106" cy="39" r="9" fill="#268bd2"/>
+  <circle cx="142" cy="39" r="9" fill="#268bd2"/>
+  <circle cx="34" cy="85" r="9" fill="#268bd2"/>
+  <circle cx="70" cy="85" r="9" fill="#268bd2"/>
+  <circle cx="106" cy="85" r="9" fill="#268bd2"/>
+  <circle cx="142" cy="85" r="9" fill="#268bd2"/>
+  <circle cx="34" cy="129" r="9" fill="#b58900"/>
+
+  <text x="200" y="48" font-size="21" fill="#268bd2">9 / 4 = 2</text>
+  <text x="200" y="66" font-size="11" fill="#586e75">商: 能分成几组</text>
+  <text x="200" y="104" font-size="21" fill="#b58900">9 % 4 = 1</text>
+  <text x="200" y="122" font-size="11" fill="#586e75">余数: 剩下几个</text>
+
+  <text x="14" y="166" font-size="11.5" fill="#dc322f">两个操作数都是整数: / 丢掉小数, 1 / 2 = 0</text>
+</g>
+</svg>
+
+</div>
+
 <span class="yellow">:fa-weixin:</span> C99中, 除法结果总是向零截断, 并且==i % j==的值与==i==有相同符号
 
 ---
@@ -366,7 +395,7 @@ int main(void) {
 
 ---
 
-- 整数在内存里是==二进制== (第 2 周看过 32 位图案); ==位运算==逐位操作, 把 int 当成 32 根小开关
+- 整数在内存里是==二进制==; ==位运算==逐位操作, 把 int 当成 32 根小开关
 
 <div class="fullborder">
 
@@ -384,13 +413,10 @@ int main(void) {
 ```
     1100   (12)
   & 1010   (10)
-    ----
     1000   (8)
 ```
 
-- `~` 是唯一的一元位运算符: 32 位全翻转, 结果按补码解读是负数
-
-<span class="yellow">:fa-weixin:</span> `&` `|` 是一个符号, 别和两个符号的 `&&` `||` (逻辑与或, 第 4 周) 搞混
+<span class="yellow">:fa-weixin:</span> `&`/`|` 是一个符号, 别和 `&&`/`||` 搞混
 
 ---
 
@@ -473,16 +499,14 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.85em;">
+<div style="flex:1;font-size:0.72em;line-height:1.4;">
 
 教材 ISBN `978-7-04-030276-9` 的校验位计算示例: 
 
-- 奇数位和: $9 + 8 + 0 + 0 + 0 + 7 = 24$
-- 偶数位和: $7 + 7 + 4 + 3 + 2 + 6 = 29$
-- 总数: $24 + 3 \times 29 = 111$
-- $111$ mod $10 = 1$
-- 校验位: $(10 - 1)$ mod $10 = 9$ ✓
-- 课间试试: 翻到课本封底, 验算 ISBN-13
+- 奇数位和: ==9 + 8 + 0 + 0 + 0 + 7 = 24==
+- 偶数位和: ==7 + 7 + 4 + 3 + 2 + 6 = 29==
+- 总数: ==24 + 3 × 29 = 111==
+- ==111 mod 10 = 1==, 校验位 ==(10 - 1) mod 10 = 9== ✓
 
 `isbn.c`
 
@@ -538,13 +562,9 @@ f = 136;      /* f is now 136.0 */
 
 赋值表达式 ==`v = e`== 的值是赋值后 ==`v`== 的值
 
-- 表达式 `i = 72.99f` 的值是 $72$, 而不是 $72.99$
+- 表达式 `i = 72.99f` 的值是 ==72==, 而不是 ==72.99==
 
-```C
-i = j = 50 + 3;
-```
-
-<span class="yellow">:fa-weixin:</span> 由于 ==赋值== 是一个运算符, 因此可以将多个赋值链接在一起: 
+<span class="yellow">:fa-weixin:</span> 由于 ==赋值== 是一个运算符, 因此可以将多个赋值链接在一起: `i = j = 50 + 3;`
 
 ```C{.line-numbers}
 i = j = k = 0;
@@ -722,7 +742,46 @@ printf("i is %d\n", i);     /* prints "i is 0" */
 
 `--`运算符与`++`运算符相似:
 
+<div style="text-align:center;">
 
+<svg viewBox="0 0 400 195" style="max-width:100%;height:195px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+  <text x="14" y="22" font-size="14" fill="#268bd2">++i (前缀)</text>
+  <rect x="14" y="32" width="76" height="38" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+  <text x="52" y="57" font-size="15" fill="#073642" text-anchor="middle">i = 1</text>
+  <path d="M90 51 H116" stroke="#268bd2" stroke-width="2" marker-end="url(#arrInc)"/>
+  <rect x="120" y="32" width="76" height="38" rx="6" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
+  <text x="158" y="57" font-size="15" fill="#073642" text-anchor="middle">i = 2</text>
+  <path d="M196 51 H222" stroke="#268bd2" stroke-width="2" marker-end="url(#arrInc)"/>
+  <rect x="226" y="32" width="160" height="38" rx="6" fill="#e8f0d8" stroke="#859900" stroke-width="2"/>
+  <text x="306" y="57" font-size="13" fill="#073642" text-anchor="middle">表达式的值 = 2</text>
+  <text x="14" y="84" font-size="11.5" fill="#268bd2">先把 i 加 1, 再用新值</text>
+
+  <text x="14" y="112" font-size="14" fill="#b58900">i++ (后缀)</text>
+  <rect x="14" y="122" width="76" height="38" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+  <text x="52" y="147" font-size="15" fill="#073642" text-anchor="middle">i = 1</text>
+  <path d="M90 141 H116" stroke="#b58900" stroke-width="2" marker-end="url(#arrInc2)"/>
+  <rect x="120" y="122" width="140" height="38" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2.5"/>
+  <text x="190" y="147" font-size="13" fill="#073642" text-anchor="middle">表达式的值 = 1</text>
+  <path d="M260 141 H286" stroke="#b58900" stroke-width="2" marker-end="url(#arrInc2)"/>
+  <rect x="290" y="122" width="96" height="38" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+  <text x="338" y="147" font-size="15" fill="#073642" text-anchor="middle">i = 2</text>
+  <text x="14" y="174" font-size="11.5" fill="#b58900">先用旧值, 再把 i 加 1</text>
+
+  <text x="200" y="192" font-size="11" fill="#586e75" text-anchor="middle">i 最终都是 2; 表达式的值: 前缀 2, 后缀 1</text>
+
+  <defs>
+    <marker id="arrInc" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7 z" fill="#268bd2"/>
+    </marker>
+    <marker id="arrInc2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7 z" fill="#b58900"/>
+    </marker>
+  </defs>
+</g>
+</svg>
+
+</div>
 
 </div>
 

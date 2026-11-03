@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>签到码 · 教师端</title>
+<style>
+:root { --bg:#0b1220; --card:#111c30; --ink:#e5e7eb; --muted:#8b95a7; --brand:#3b82f6; --ok:#10b981; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;
+  background:var(--bg); color:var(--ink); min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:32px 16px; color-scheme:dark;
+}
+h1 { font-size:20px; color:var(--muted); font-weight:500; margin-bottom:18px; }
+.codebox {
+  background:var(--card); border-radius:24px; padding:36px 64px;
+  text-align:center; box-shadow:0 12px 40px rgba(0,0,0,.4);
+}
+.code {
+  font-size:clamp(64px, 14vw, 130px); font-weight:800; letter-spacing:18px;
+  font-variant-numeric:tabular-nums; color:#fff;
+}
+.count {
+  margin-top:14px; font-size:16px; color:var(--muted);
+}
+.bar { height:5px; background:#24334d; border-radius:3px; margin-top:12px; overflow:hidden; }
+.bar i { display:block; height:100%; background:var(--brand); width:0%; }
+.tools { margin-top:22px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+.panel {
+  background:var(--card); border-radius:14px; padding:20px 22px;
+  max-width:760px; width:100%; margin-top:18px; font-size:14px; color:var(--muted);
+}
+.panel label { display:block; margin:10px 0 4px; }
+.panel input {
+  width:100%; padding:9px 12px; font-size:15px; border-radius:8px;
+  border:1px solid #2c3c5a; background:#0b1220; color:var(--ink); outline:none;
+}
+.panel button {
+  margin-top:14px; padding:9px 18px; font-size:14px; border:none; border-radius:8px;
+  background:var(--brand); color:#fff; cursor:pointer;
+}
+.panel .res { margin-top:10px; font-size:14px; min-height:20px; }
+.res.ok { color:var(--ok); } .res.bad { color:#f87171; }
+.qr { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.qr span { font-size:12.5px; }
+details { cursor:pointer; }
+summary { font-size:14px; }
+a { color:var(--brand); }
+</style>
+</head>
+<body>
+<h1>课堂签到码 · 请全屏投影</h1>
+<div class="codebox">
+  <div class="code" id="code">------</div>
+  <div class="count" id="count"></div>
+  <div class="bar"><i id="bar"></i></div>
+</div>
+
+<div class="tools">
+  <div class="panel qr" style="max-width:260px;">
+    <div id="qrcode"></div>
+    <span>学生签到入口二维码</span>
+    <a id="url" target="_blank"></a>
+  </div>
+</div>
+
+<div class="panel">
+  <details>
+    <summary>凭证核验 (抽查用)</summary>
+    <label>粘贴学生的 "学号+凭证" (中间空格隔开)</label>
+    <input id="verify_input" placeholder="如 211250001 3f9a2c1b44">
+    <button id="verify_btn">核验</button>
+    <div class="res" id="verify_res"></div>
+    <p style="margin-top:12px;font-size:12.5px;">密钥与教室坐标统一在 <code>config.js</code> 里修改(每学期一次)。</p>
+  </details>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  var C = window.CHECKIN_CONFIG;
+  var cfg = {
+    secret: C.secret,
+    lat: C.lat,
+    lng: C.lng,
+    radius: C.radiusM,
+  };
+
+  // 学生入口二维码
+  var url = location.href.replace('teacher.html', '');
+  document.getElementById('url').textContent = url;
+  document.getElementById('url').href = url;
+  if (window.QRCode) new QRCode(document.getElementById('qrcode'), { text: url, width: 160, height: 160 });
+
+  function sha256hex(str) {
+    var data = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', data).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf),
+        function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    });
+  }
+  function slotOf(t) { return Math.floor(t / (C.slotSeconds * 1000)); }
+  function codeFor(slot) {
+    return sha256hex(cfg.secret + ':' + slot).then(function (h) {
+      var n = parseInt(h.slice(0, 8), 16);
+      return ('000000' + (n % 1000000)).slice(-6);
+    });
+  }
+
+  var lastSlot = null;
+  function tick() {
+    var now = Date.now(), slot = slotOf(now);
+    var remain = Math.ceil((slot + 1) * C.slotSeconds * 1000 - now);
+    document.getElementById('count').textContent =
+      '本次码剩余 ' + Math.ceil(remain / 1000) + ' 秒 (每 ' + C.slotSeconds + ' 秒自动更换)';
+    document.getElementById('bar').style.width =
+      (100 * remain / (C.slotSeconds * 1000)) + '%';
+    if (slot !== lastSlot) {
+      lastSlot = slot;
+      codeFor(slot).then(function (c) {
+        document.getElementById('code').textContent = c;
+      });
+    }
+  }
+  tick(); setInterval(tick, 1000);
+
+  // 设置面板
+  document.getElementById('cfg_secret').value = cfg.secret;
+  document.getElementById('cfg_lat').value = cfg.lat;
+  document.getElementById('cfg_lng').value = cfg.lng;
+  document.getElementById('cfg_radius').value = cfg.radius;
+  document.getElementById('cfg_save').addEventListener('click', function () {
+    cfg.secret = document.getElementById('cfg_secret').value.trim() || cfg.secret;
+    cfg.lat = parseFloat(document.getElementById('cfg_lat').value) || cfg.lat;
+    cfg.lng = parseFloat(document.getElementById('cfg_lng').value) || cfg.lng;
+    cfg.radius = parseInt(document.getElementById('cfg_radius').value, 10) || cfg.radius;
+    localStorage.setItem('ck_secret', cfg.secret);
+    localStorage.setItem('ck_lat', String(cfg.lat));
+    localStorage.setItem('ck_lng', String(cfg.lng));
+    localStorage.setItem('ck_radius', String(cfg.radius));
+    lastSlot = null; tick();
+    alert('已保存到本机 (只影响这台电脑的显示, 学生页仍用 config.js 里的配置)');
+  });
+
+  // 凭证核验: 学号 + 最近 ±3 分钟槽的 SHA 前 10 位
+  document.getElementById('verify_btn').addEventListener('click', function () {
+    var parts = document.getElementById('verify_input').value.trim().split(/\s+/);
+    var res = document.getElementById('verify_res');
+    res.className = 'res';
+    if (parts.length !== 2) { res.textContent = '格式: 学号 + 空格 + 凭证'; res.className = 'res bad'; return; }
+    var sid = parts[0], proof = parts[1].toLowerCase();
+    var slot = slotOf(Date.now()), checks = [];
+    for (var s = slot - 3; s <= slot + 1; s++) {
+      checks.push(sha256hex(sid + ':' + s).then(function (h) { return h.slice(0, 10); }));
+    }
+    Promise.all(checks).then(function (list) {
+      if (list.indexOf(proof) >= 0) { res.textContent = '✓ 凭证有效 (学号 ' + sid + ')'; res.className = 'res ok'; }
+      else { res.textContent = '✗ 凭证无效或已过期'; res.className = 'res bad'; }
+    });
+  });
+})();
+</script>
+</body>
+</html>

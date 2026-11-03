@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>课堂签到</title>
+<style>
+:root {
+  --bg: #f5f7fa; --card: #ffffff; --ink: #1f2937; --muted: #6b7280;
+  --brand: #2563eb; --ok: #059669; --bad: #dc2626; --line: #e5e7eb;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #111827; --card: #1f2937; --ink: #f3f4f6; --muted: #9ca3af;
+          --brand: #3b82f6; --ok: #10b981; --bad: #f87171; --line: #374151; color-scheme: dark; }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif;
+  background: var(--bg); color: var(--ink);
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 24px 16px;
+  padding-top: calc(24px + env(safe-area-inset-top));
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  width: 100%; max-width: 420px; padding: 32px 28px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+}
+h1 { font-size: 22px; text-align: center; margin-bottom: 4px; }
+.sub { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+label { display: block; font-size: 13px; color: var(--muted); margin: 14px 0 6px; }
+input {
+  width: 100%; font-size: 18px; padding: 12px 14px;
+  border: 1.5px solid var(--line); border-radius: 10px;
+  background: var(--bg); color: var(--ink); outline: none;
+  letter-spacing: 1px;
+}
+input:focus { border-color: var(--brand); }
+input.code { letter-spacing: 8px; text-align: center; font-size: 22px; }
+button {
+  width: 100%; margin-top: 22px; padding: 14px; font-size: 17px; font-weight: 600;
+  color: #fff; background: var(--brand); border: none; border-radius: 10px; cursor: pointer;
+}
+button:disabled { opacity: .55; cursor: default; }
+.msg { margin-top: 16px; font-size: 14px; line-height: 1.6; min-height: 22px; }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
+/* 成功屏 */
+.success { text-align: center; padding-top: 8px; }
+.success .check {
+  width: 84px; height: 84px; margin: 0 auto 16px; border-radius: 50%;
+  background: var(--ok); color: #fff; font-size: 48px; line-height: 84px;
+}
+.success h2 { font-size: 20px; margin-bottom: 12px; }
+.receipt {
+  background: var(--bg); border: 1px dashed var(--line); border-radius: 10px;
+  padding: 14px; margin: 12px 0; font-size: 14px; line-height: 2;
+  text-align: left;
+}
+.receipt b { float: right; }
+.note { color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+.hint { color: var(--muted); font-size: 12px; text-align: center; margin-top: 18px; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1 id="course">课堂签到</h1>
+  <p class="sub">输入学号与教室屏幕上的签到码, 并允许定位</p>
+
+  <form id="form">
+    <label for="sid">学号</label>
+    <input id="sid" name="sid" inputmode="numeric" autocomplete="off" placeholder="如 211250001" required>
+    <label for="code">签到码</label>
+    <input id="code" name="code" class="code" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="······" required>
+    <button id="btn" type="submit">定位并签到</button>
+    <p class="msg" id="msg"></p>
+  </form>
+
+  <div class="success" id="success" hidden>
+    <div class="check">✓</div>
+    <h2>签到成功</h2>
+    <div class="receipt">
+      学号<b id="r_sid"></b><br>
+      时间<b id="r_time"></b><br>
+      凭证<b id="r_proof"></b>
+    </div>
+    <p class="note">请把本页给老师看一眼, 或截图发到课程群接龙。凭证码老师可当场核验。</p>
+  </div>
+
+  <p class="hint">定位仅用于判断是否在教室附近, 不会上传或保存。</p>
+</div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  var C = window.CHECKIN_CONFIG;
+  document.getElementById('course').textContent = C.course + ' · 签到';
+
+  function slotOf(t) { return Math.floor(t / (C.slotSeconds * 1000)); }
+
+  function sha256hex(str) {
+    var data = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', data).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf),
+        function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    });
+  }
+
+  // 某个时间槽对应的 6 位签到码
+  function codeFor(slot) {
+    return sha256hex(C.secret + ':' + slot).then(function (h) {
+      var n = parseInt(h.slice(0, 8), 16);
+      return ('000000' + (n % 1000000)).slice(-6);
+    });
+  }
+
+  function distanceM(lat1, lng1, lat2, lng2) {
+    var R = 6371000, rad = Math.PI / 180;
+    var dLat = (lat2 - lat1) * rad, dLng = (lng2 - lng1) * rad;
+    var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+            Math.cos(lat1*rad)*Math.cos(lat2*rad)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  function getPos() {
+    return new Promise(function (resolve, reject) {
+      if (!('geolocation' in navigator)) return reject('no-api');
+      navigator.geolocation.getCurrentPosition(resolve, function (e) {
+        reject(e.code === 1 ? 'denied' : 'timeout');
+      }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
+    });
+  }
+
+  function setMsg(text, cls) {
+    var m = document.getElementById('msg');
+    m.textContent = text; m.className = 'msg ' + (cls || '');
+  }
+
+  document.getElementById('form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('btn');
+    var sid = document.getElementById('sid').value.trim();
+    var code = document.getElementById('code').value.trim();
+    if (!/^\d{5,12}$/.test(sid)) { setMsg('学号格式不对, 请检查后重填', 'bad'); return; }
+    if (!/^\d{6}$/.test(code)) { setMsg('签到码是 6 位数字, 看看是不是输漏了', 'bad'); return; }
+
+    btn.disabled = true; setMsg('正在定位…');
+
+    getPos().then(function (pos) {
+      // 多区域判断: 教学楼或机房, 任一区域在半径内即可
+      var la = pos.coords.latitude, lo = pos.coords.longitude, nearest = null;
+      var okZone = null;
+      C.zones.forEach(function (z) {
+        var d = distanceM(z.lat, z.lng, la, lo);
+        if (!nearest || d < nearest.d) nearest = { d: d, name: z.name };
+        if (d <= z.radiusM && !okZone) okZone = z;
+      });
+      if (!okZone) {
+        setMsg('定位显示你不在签到区域 (' + nearest.name + ' 距你约 ' +
+               Math.round(nearest.d) + ' 米)。签到只在教学楼/机房有效, 请到教室再试。', 'bad');
+        btn.disabled = false; return;
+      }
+      var now = Date.now(), slot = slotOf(now);
+      // 允许 ±1 个时间槽(前 1 分钟、当前、后 1 分钟)
+      return Promise.all([codeFor(slot-1), codeFor(slot), codeFor(slot+1)]).then(function (codes) {
+        if (codes.indexOf(code) < 0) {
+          setMsg('签到码不对或已过期 (每 60 秒换一次), 看下屏幕上的新码', 'bad');
+          btn.disabled = false; return;
+        }
+        return sha256hex(sid + ':' + slot).then(function (proof) {
+          document.getElementById('r_sid').textContent = sid;
+          document.getElementById('r_time').textContent = new Date().toLocaleString('zh-CN');
+          document.getElementById('r_proof').textContent = proof.slice(0, 10);
+          document.getElementById('form').hidden = true;
+          document.getElementById('success').hidden = false;
+        });
+      });
+    }).catch(function (why) {
+      if (why === 'no-api') setMsg('此浏览器不支持定位, 请换手机上的浏览器打开', 'bad');
+      else if (why === 'denied') setMsg('定位权限被拒绝。请在浏览器设置里允许本站定位后重试', 'bad');
+      else setMsg('定位超时。请到窗边或走廊信号好的位置再试一次', 'bad');
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -349,6 +349,26 @@ for (int i = 1; i < n; i++) {
 
 - 有序可以每次砍掉一半: 二分查找, 约 log2(n) 次
 
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="18" font-size="11.5" fill="#586e75" text-anchor="middle">100 万个数据中查找一个数 (平均比较次数)</text>
+
+    <text x="14" y="61" font-size="12.5" fill="#073642">顺序查找</text>
+    <rect x="100" y="42" width="272" height="28" rx="3" fill="#dc322f"/>
+    <text x="366" y="61" font-size="11.5" fill="#fdf6e3" text-anchor="end">≈ 500,000 次</text>
+
+    <text x="14" y="110" font-size="12.5" fill="#073642">二分查找</text>
+    <rect x="100" y="92" width="8" height="28" rx="2" fill="#859900"/>
+    <line x1="110" y1="106" x2="128" y2="106" stroke="#859900" stroke-width="1.5"/>
+    <text x="134" y="110" font-size="12.5" fill="#859900">≈ 20 次</text>
+
+    <text x="200" y="140" font-size="11" fill="#586e75" text-anchor="middle">每次砍掉一半:1,000,000 → 500,000 → … → 1</text>
+    <text x="200" y="160" font-size="11.5" fill="#268bd2" text-anchor="middle">有序,才敢这么砍——这就是排序的价值</text>
+  </g>
+</svg>
+</div>
+
 <span class="blue">:fa-lightbulb-o:</span> 接下来就用排序的成果, 先看顺序查找, 再学二分查找
 
 ---

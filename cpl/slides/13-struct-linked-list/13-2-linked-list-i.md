@@ -121,43 +121,18 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 <div style="flex:1;font-size:0.6em;">
 
-构建链表 = 逐个创建结点, 再逐个挂上去。
+构建链表 = 逐个创建结点, 再逐个挂上去。步骤: ① 为结点==分配内存== ② 在结点中==存储数据== ③ 将结点==插入==到链表中。先看前两步:
 
-创建结点的步骤: 
+临时指针变量: `struct node *new_node;`; 用 malloc 给新结点分配内存, 返回值存进 new_node: `new_node = malloc(sizeof(struct node));`——现在 new_node 指向一块刚好能放下一个结点的内存:
 
-- 为结点分配内存. 
-
-- 在结点中存储数据. 
-
-- 将结点插入到链表中. 
-
-先看前两步。
-
-
-创建结点需要一个临时的指针变量: 
-
-`struct node *new_node;`
-
-用 malloc 给新结点分配内存, 返回值存进 new_node: 
-
-`new_node = malloc(sizeof(struct node));`
-
-现在 new_node 指向一块刚好能放下一个结点的内存: 
-
-<div class="top-2">
-  <img src="figs/16-6.png" width=300px>
+<div class="top-2" style="display:flex;gap:16px;">
+  <img src="figs/16-6.png" width=260px>
+  <img src="figs/16-7.png" width=260px>
 </div>
 
+接着把数据存进新结点的 value 成员: `(*new_node).value = 10;` (左图是分配内存, 右图是赋值后)
 
-接着把数据存进新结点的 value 成员: 
-`(*new_node).value = 10;`
-
-赋值后: 
-<div class="top-2">
-  <img src="figs/16-7.png" width=300px>
-</div>
-
-`*new_node`周围的括号是强制要求的, 因为.运算符优先于*运算符.
+`*new_node` 周围的括号是强制要求的, 因为 `.` 运算符优先于 `*` 运算符.
 
 </div>
 
@@ -170,24 +145,13 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 ---
 
-为了便于使用指针访问结构体的成员, C提供了名为**右箭头选择(->)**的运算符. 
+<div style="font-size:0.85em;line-height:1.5;">
 
-使用`->`运算符: 
+为了便于使用指针访问结构体的成员, C 提供了名为==右箭头选择 (`->`)== 的运算符: `new_node->value = 10;` 来代替 `(*new_node).value = 10;`
 
-`new_node->value = 10;`
+`->` 运算符产生一个左值, 可以在任何允许普通变量的地方使用它。scanf 调用中的示例: `scanf("%d", &new_node->value);`——`&` 运算符仍然是必需的, 即使 new_node 是一个指针。
 
-来代替
-
-`(*new_node).value = 10;`
-
-
-`->`运算符产生一个左值, 可以在任何允许普通变量的地方使用它. 
-
-scanf调用中的示例: 
-
-`scanf("%d", &new_node->value);`
-
-`&`运算符仍然是必需的, 即使new_node是一个指针.
+</div>
 
 ---
 
@@ -205,6 +169,8 @@ scanf调用中的示例:
 2. 变体: 再建一个结点 (value = 30), 接到链表==末尾== (先找到最后结点)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 头插只要两条语句 (`new_node->next = first; first = new_node;`); 尾插要==先找尾==再改两个指针
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 

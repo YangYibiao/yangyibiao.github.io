@@ -286,7 +286,7 @@ printf("%d\n", '9' - '0');    /* 9 */
 <div style="flex:1.35;">
 
 <div class="top-2">
-  <img src="figs/ascii-table-7bit.svg" width=600px style="max-width:100%;">
+  <img src="figs/ascii-table-7bit.svg" width=540px style="max-width:100%;">
 </div>
 
 <span class="blue">:fa-lightbulb-o:</span> Hex 列是==两位 16 进制==; ==大写 + 32 = 小写== (如 0x41 + 0x20 = 0x61)
@@ -587,7 +587,7 @@ $L = 2\pi r \qquad S = \pi r^2$
 
 - 小数点后保留两位
 
-<span class="blue">:fa-lightbulb-o:</span> 打开 CLion, 一起写 circle.c
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/circle.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 circle.c</a>
 
 ---
 
@@ -641,7 +641,7 @@ $A = 4 \pi r^2 \qquad V = \frac{4}{3} \pi r^3$
 
 - 每个结果至少占 $15$ 字符, 左对齐
 
-<span class="blue">:fa-lightbulb-o:</span> 同样打开 CLion, 一起写 sphere.c
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/sphere.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sphere.c</a>
 
 ---
 

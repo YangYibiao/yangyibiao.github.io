@@ -93,12 +93,17 @@ presentation:
 
 - 现场演示: `gcc -E celsius.c | tail -20`
 
-- 记住"就是文本替换", 后面宏的所有怪现象都能解释
+<!-- slide data-notes="" -->
 
-- 经典错误: ==`#define N = 100`== (多了等号) 和 ==`#define N 100;`== (多了分号)——文本替换会把它们原样带进代码; 宏行末==没有分号==, 宏名习惯==全大写==
+##### 预处理: 编译前的文本加工 (续)
 
 ---
 
+- 记住"就是文本替换", 后面宏的所有怪现象都能解释
+
+- 经典错误: ==`#define N = 100`== (多了等号) 和 ==`#define N 100;`== (多了分号)——文本替换会把它们原样带进代码
+
+- 宏行末==没有分号==, 宏名习惯==全大写==
 
 <!-- slide data-notes="" -->
 
@@ -119,6 +124,36 @@ C 程序可分割成任意数量的==源文件== (扩展名 `.c`), 每个源文�
 
 </div>
 </div>
+
+<svg viewBox="0 0 400 180" style="max-width:100%;height:180px;" role="img" aria-label="RPN 计算器拆分为三个源文件">
+  <defs>
+    <marker id="mf-src-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="14" font-size="11" fill="#586e75" text-anchor="middle">RPN 计算器: 按功能拆成三个源文件</text>
+
+    <rect x="140" y="26" width="120" height="44" rx="6" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
+    <text x="200" y="45" font-size="12.5" font-weight="700" fill="#073642" text-anchor="middle">calc.c</text>
+    <text x="200" y="61" font-size="9" fill="#586e75" text-anchor="middle">main · 主循环</text>
+
+    <rect x="10" y="100" width="120" height="50" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="70" y="119" font-size="12" font-weight="700" fill="#073642" text-anchor="middle">token.c</text>
+    <text x="70" y="136" font-size="9.5" fill="#586e75" text-anchor="middle">get_token()</text>
+
+    <rect x="270" y="100" width="120" height="62" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="330" y="119" font-size="12" font-weight="700" fill="#073642" text-anchor="middle">stack.c</text>
+    <text x="330" y="136" font-size="9.5" fill="#586e75" text-anchor="middle">push / pop / ...</text>
+    <text x="330" y="152" font-size="8.5" fill="#93a1a1" text-anchor="middle">栈变量也放这里</text>
+
+    <line x1="160" y1="70" x2="72" y2="98" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-src-arrow)"/>
+    <line x1="240" y1="70" x2="328" y2="98" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-src-arrow)"/>
+    <text x="103" y="87" font-size="8.5" fill="#268bd2" text-anchor="middle">调用</text>
+    <text x="297" y="87" font-size="8.5" fill="#268bd2" text-anchor="middle">调用</text>
+    <text x="200" y="174" font-size="9" fill="#586e75" text-anchor="middle">每个 .c 单独编译; 相关的函数和变量放在一起</text>
+  </g>
+</svg>
 
 <!-- slide data-notes="" -->
 
@@ -210,6 +245,31 @@ main函数放入另一个文件calc.c中.
 #include <myheader.h> /*** 错误 ***/
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+`#include` 有两种写法: `<文件名>` 找 C 自带的库头文件, `"文件名"` 找其他头文件——区别在于编译器==去哪里找==:
+
+- `<文件名>`: 搜索系统头文件目录
+- `"文件名"`: 先搜当前目录, 再搜系统头文件目录
+
+通常: 自带库用尖括号, 自己写的头文件用引号.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### #include 指令 (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.5;font-size:0.5em;">
+
 ```C
 #include "c:\cprogs\utils.h"
 /* Windows 路径 */
@@ -229,15 +289,39 @@ main函数放入另一个文件calc.c中.
 #include "..\include\utils.h"
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+路径可以写绝对路径, 也可以写相对路径.
+
+Windows 路径中的反斜杠要转义 (`\\`), 或者改用 `/`.
+
+`..` 表示上一级目录; 相对路径是相对源文件所在目录而言的.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### #include 指令 (续 2)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.5;font-size:0.5em;">
+
 ```C
 #include 标记            /* 标记是宏名, 展开后须形如 <文件名> 或 "文件名" */
 ```
 
 ```C
 #if defined(IA32)
-  #define CPU_FILE "ia32.h" 
+  #define CPU_FILE "ia32.h"
 #elif defined(IA64)
-  #define CPU_FILE "ia64.h" 
+  #define CPU_FILE "ia64.h"
 #elif defined(AMD64)
   #define CPU_FILE "amd64.h"
 #endif
@@ -249,14 +333,14 @@ main函数放入另一个文件calc.c中.
 
 <div style="flex:1;font-size:0.6em;">
 
-`#include` 有两种写法: `<文件名>` 找 C 自带的库头文件, `"文件名"` 找其他头文件——区别在于编译器==去哪里找==:
+`#include` 后面也可以是一个宏名: 预处理器先展开宏, 再按展开结果包含文件.
 
-- `<文件名>`: 搜索系统头文件目录
-- `"文件名"`: 先搜当前目录, 再搜系统头文件目录
+条件编译常用来根据平台选择不同的头文件.
 
-通常: 自带库用尖括号, 自己写的头文件用引号.
+`#if` / `#elif` / `#else` / `#endif` 按常量表达式选择分支; `#ifdef` / `#ifndef` 检查宏是否已定义.
 
 </div>
+
 </div>
 
 <!-- slide data-notes="" -->
@@ -280,6 +364,40 @@ main函数放入另一个文件calc.c中.
 #include "boolean.h"
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+大多数大型程序包含由多个源文件共享的宏定义和类型定义.
+
+这些定义应该放入头文件.
+
+假设一个程序使用名为 BOOL, TRUE 和 FALSE 的宏.
+
+它们的定义可以放进一个叫 *boolean.h* 的头文件:
+
+任何需要这些宏的源文件将只包含该行
+
+两个文件都包含 boolean.h:
+
+<div class="top-2">
+  <img src="../img/18-1.png" width=380px>
+</div>
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 共享宏定义和类型定义 (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
 ```C
 #define TRUE 1
 #define FALSE 0
@@ -290,36 +408,16 @@ typedef int Bool;
 
 <div style="flex:1;font-size:0.6em;">
 
-大多数大型程序包含由多个源文件共享的宏定义和类型定义. 
+类型定义在头文件中也很常见.
 
-这些定义应该放入头文件.
-
-
-假设一个程序使用名为BOOL, TRUE和FALSE的宏. 
-
-它们的定义可以放进一个叫 *boolean.h* 的头文件:
-
-任何需要这些宏的源文件将只包含该行
-
-两个文件都包含 boolean.h: 
-
-<div class="top-2">
-  <img src="../img/18-1.png" width=380px>
-</div>
-
-
-类型定义在头文件中也很常见. 
-
-例如可使用typedef来创建一个Bool类型, 而不是定义BOOL宏. 
+例如可使用 typedef 来创建一个 Bool 类型, 而不是定义 BOOL 宏.
 
 这么做了之后, boolean.h 里会是:
 
-把宏和类型定义放头文件的好处: 
+把宏和类型定义放头文件的好处:
 
-- 节省时间. 我们不必将定义复制到需要它们的源文件中. 
-
-- 使程序更容易修改. 更改宏或类型的定义只需要编辑单个头文件. 
-
+- 节省时间. 我们不必将定义复制到需要它们的源文件中.
+- 使程序更容易修改. 更改宏或类型的定义只需要编辑单个头文件.
 - 避免由源文件包含相同宏或类型的不同定义而导致的不一致.
 
 </div>
@@ -372,19 +470,26 @@ int pop(void);
 
 <div style="flex:1;font-size:0.6em;">
 
-源文件调用 foo.c 里定义的函数 f 时, 不声明会直接报错——C99 起==不再允许隐式声明== (GCC/Clang 默认报 error). 到处声明又造成维护"噩梦". 更好的方案: ==原型放头文件 (foo.h)==, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.
+源文件调用 foo.c 里定义的函数 f 时, 不声明会直接报错——C99 起==不再允许隐式声明== (GCC/Clang 默认报 error).
+
+到处声明又造成维护"噩梦". 更好的方案: ==原型放头文件 (foo.h)==, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.
 
 foo.c 的大多数函数应在 foo.h 声明; 只在 foo.c 内部使用的函数==不应==写进头文件 (会误导).
 
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 共享函数原型 (续)
+
+---
+
 RPN 计算器示例: `stack.c` 定义 make_empty / is_empty / is_full / push / pop, 原型放 stack.h; calc.c 包含 stack.h 检查调用, stack.c 也包含它核对定义一致:
 
-
 <div class="top-2">
-  <img src="../img/18-2.png">
-</div>
-
-</div>
-
+  <img src="../img/18-2.png" width=380px>
 </div>
 
 <!-- slide data-notes="" -->
@@ -553,6 +658,41 @@ typedef int Bool;
 
 </div>
 
+<svg viewBox="0 0 400 190" style="max-width:100%;height:190px;" role="img" aria-label="头文件保护宏的两次包含">
+  <defs>
+    <marker id="hdr-arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#859900"/>
+    </marker>
+    <marker id="hdr-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#dc322f"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <rect x="150" y="8" width="100" height="26" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="200" y="25" font-size="11" fill="#073642" text-anchor="middle">prog.c</text>
+
+    <rect x="30" y="52" width="95" height="26" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="77" y="69" font-size="11" fill="#073642" text-anchor="middle">file1.h</text>
+    <rect x="275" y="52" width="95" height="26" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="322" y="69" font-size="11" fill="#073642" text-anchor="middle">file2.h</text>
+
+    <line x1="180" y1="34" x2="80" y2="50" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#hdr-arrow-green)"/>
+    <line x1="220" y1="34" x2="320" y2="50" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#hdr-arrow-red)"/>
+
+    <rect x="150" y="104" width="100" height="32" rx="5" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
+    <text x="200" y="125" font-size="11.5" font-weight="700" fill="#268bd2" text-anchor="middle">file3.h</text>
+
+    <path d="M77,78 L77,120 L148,120" fill="none" stroke="#859900" stroke-width="1.7" marker-end="url(#hdr-arrow-green)"/>
+    <path d="M322,78 L322,120 L252,120" fill="none" stroke="#dc322f" stroke-width="1.7" marker-end="url(#hdr-arrow-red)"/>
+    <text x="81" y="98" font-size="8.5" fill="#859900">第 1 次: 展开</text>
+    <text x="318" y="98" font-size="8.5" fill="#dc322f" text-anchor="end">第 2 次: 跳过</text>
+
+    <text x="200" y="152" font-size="9" fill="#586e75" text-anchor="middle">同一份 file3.h, 编译 prog.c 时被包含两次</text>
+    <text x="8" y="170" font-size="9.3" fill="#859900">第一次: FILE3_H 未定义 → 定义它, 展开内容</text>
+    <text x="8" y="184" font-size="9.3" fill="#dc322f">第二次: FILE3_H 已定义 → 整段跳过</text>
+  </g>
+</svg>
+
 <!-- slide data-notes="" -->
 
 
@@ -605,6 +745,55 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 - 链接器把目标文件与库函数代码组合成可执行文件, 并解决==外部引用== (一个文件调用另一个文件中的函数或变量)
 
 - 大多数编译器允许一步构建: `gcc -o justify justify.c line.c word.c`——三个源文件先编译成目标文件, 自动传给链接器; `-o` 指定可执行文件名
+
+<svg viewBox="0 0 400 190" style="max-width:100%;height:190px;" role="img" aria-label="多文件编译与链接流程">
+  <defs>
+    <marker id="mf-build-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+    <marker id="mf-build-arrow-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#859900"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="90" y="14" font-size="12" font-weight="700" fill="#268bd2" text-anchor="middle">① 编译</text>
+    <text x="330" y="14" font-size="12" font-weight="700" fill="#859900" text-anchor="middle">② 链接</text>
+
+    <rect x="8" y="26" width="82" height="32" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="49" y="46" font-size="11" fill="#073642" text-anchor="middle">justify.c</text>
+    <rect x="8" y="82" width="82" height="32" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="49" y="102" font-size="11" fill="#073642" text-anchor="middle">word.c</text>
+    <rect x="8" y="138" width="82" height="32" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="49" y="158" font-size="11" fill="#073642" text-anchor="middle">line.c</text>
+
+    <rect x="148" y="26" width="72" height="32" rx="5" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="184" y="46" font-size="10.5" fill="#073642" text-anchor="middle">justify.o</text>
+    <rect x="148" y="82" width="72" height="32" rx="5" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="184" y="102" font-size="10.5" fill="#073642" text-anchor="middle">word.o</text>
+    <rect x="148" y="138" width="72" height="32" rx="5" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="184" y="158" font-size="10.5" fill="#073642" text-anchor="middle">line.o</text>
+
+    <line x1="90" y1="42" x2="146" y2="42" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-build-arrow)"/>
+    <line x1="90" y1="98" x2="146" y2="98" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-build-arrow)"/>
+    <line x1="90" y1="154" x2="146" y2="154" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-build-arrow)"/>
+    <text x="118" y="37" font-size="8" fill="#586e75" text-anchor="middle">gcc -c</text>
+
+    <line x1="220" y1="42" x2="252" y2="42" stroke="#93a1a1" stroke-width="1.3"/>
+    <line x1="220" y1="98" x2="252" y2="98" stroke="#93a1a1" stroke-width="1.3"/>
+    <line x1="220" y1="154" x2="252" y2="154" stroke="#93a1a1" stroke-width="1.3"/>
+    <line x1="252" y1="42" x2="252" y2="154" stroke="#93a1a1" stroke-width="1.3"/>
+    <line x1="252" y1="98" x2="284" y2="98" stroke="#859900" stroke-width="1.8" marker-end="url(#mf-build-arrow-g)"/>
+
+    <rect x="286" y="80" width="88" height="36" rx="6" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
+    <text x="330" y="103" font-size="13" font-weight="700" fill="#268bd2" text-anchor="middle">justify</text>
+
+    <rect x="286" y="146" width="88" height="24" rx="4" fill="#eee8d5" stroke="#b58900" stroke-width="1.2"/>
+    <text x="330" y="162" font-size="9.5" fill="#073642" text-anchor="middle">库函数 (libc)</text>
+    <line x1="330" y1="146" x2="330" y2="120" stroke="#859900" stroke-width="1.6" marker-end="url(#mf-build-arrow-g)"/>
+
+    <text x="8" y="186" font-size="9" fill="#586e75">头文件 (.h) 不单独编译, 随包含它的 .c 源文件一起编译</text>
+  </g>
+</svg>
 <!-- slide data-notes="" -->
 
 
@@ -627,6 +816,40 @@ line.o: line.c line.h
 	gcc -c line.c
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+为了更容易构建大型程序, UNIX 发明 makefile 的概念.
+
+makefile 不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系.
+
+假设文件 foo.c 包含文件 bar.h.
+
+我们说 foo.c "依赖于" bar.h, 因为修改 bar.h 之后需要重新编译 foo.c.
+
+针对 justify 程序的 UNIX 系统的 makefile:
+
+有 4 组代码行; 每个组称为一条规则.
+
+每个规则的第一行给出目标文件, 然后是它所依赖的文件.
+
+第二行是当目标文件依赖的文件发生改变而需要重新构建目标文件时要执行的命令.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### makefile (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
 ```
 justify: justify.o word.o line.o
         gcc -o justify justify.o word.o line.o   ← 错误: 命令行前是 8 个空格
@@ -636,33 +859,15 @@ justify: justify.o word.o line.o
 
 <div style="flex:1;font-size:0.6em;">
 
-为了更容易构建大型程序, UNIX发明makefile的概念.  
-
-makefile不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系. 
-
-假设文件foo.c包含文件bar.h. 
-
-我们说foo.c"依赖于"bar.h, 因为修改bar.h之后需要重新编译foo.c.
-
-
-针对justify程序的UNIX系统的makefile:
-
-有4组代码行；每个组称为一条规则. 
-
-每个规则的第一行给出目标文件, 然后是它所依赖的文件. 
-
-第二行是当目标文件依赖的文件发生改变而需要重新构建目标文件时要执行的命令.
-
-
 在第一条规则中, justify(可执行文件)是目标文件:
 
-第一行说明justify依赖于文件justify.o, word.o和line.o. 
+第一行说明 justify 依赖于文件 justify.o, word.o 和 line.o.
 
-如果自上次构建程序以来这些文件中的任何一个发生了更改, 则需要重新构建justify. 
+如果自上次构建程序以来这些文件中的任何一个发生了更改, 则需要重新构建 justify.
 
-下一行的命令显示了如何进行重新构建. 
+下一行的命令显示了如何进行重新构建.
 
-==每个命令行必须以 TAB 开头==——写 8 个空格, make 会报 `missing separator` 错误 (下面第二段代码就是错误示范).
+==每个命令行必须以 TAB 开头==——写 8 个空格, make 会报 `missing separator` 错误 (上面就是错误示范).
 
 </div>
 

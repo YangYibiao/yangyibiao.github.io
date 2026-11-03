@@ -136,17 +136,29 @@ decompose的原型可以是:
 
 ---
 
-decompose函数体中的第一个赋值将x的值转换为long类型, 并将其存储在int_part指向的对象中: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+第一个赋值把x转换为long类型, 存入int_part指向的对象中: 
+
 <div class="top-2">
     <img src="figs/11-15.png" width=300px>
 </div>
 
+</div>
+
+<div style="flex:1;">
 
 第二个赋值把`x - *int_part`的值存储到frac_part指向的对象中: 
+
 <div class="top-2">
     <img src="figs/11-16.png" width=300px>
 </div>
 
+</div>
+
+</div>
 
 scanf调用中的参数是指针: 
 ```C
@@ -202,6 +214,40 @@ decompose(3.14159, i, d);
 
 </div>
 
+<svg viewBox="0 0 400 180" width="440" height="198" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrScanB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrScanR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
+<line x1="200" y1="8" x2="200" y2="172" stroke="#93a1a1" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="100" y="20" font-size="11.5" fill="#859900" text-anchor="middle">scanf("%d", p)</text>
+<circle cx="158" cy="16" r="8" fill="#859900"/>
+<path d="M154,16 l3,3 l6,-7" fill="none" stroke="#fdf6e3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="58" y="34" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="68" y="48" font-size="10" fill="#268bd2">p</text>
+<text x="100" y="64" font-size="15" fill="#268bd2" text-anchor="middle">2000</text>
+<line x1="100" y1="80" x2="100" y2="100" stroke="#268bd2" stroke-width="2" marker-end="url(#arrScanB)"/>
+<text x="96" y="94" font-size="8.5" fill="#268bd2" text-anchor="end">p 已保存 &amp;i</text>
+<rect x="58" y="102" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+<text x="68" y="116" font-size="10" fill="#b58900">i</text>
+<text x="100" y="134" font-size="18" fill="#073642" text-anchor="middle">42</text>
+<text x="100" y="166" font-size="10" fill="#859900" text-anchor="middle">scanf 通过 p 写入 i</text>
+<text x="300" y="20" font-size="11.5" fill="#dc322f" text-anchor="middle">scanf("%d", &amp;p)</text>
+<circle cx="360" cy="16" r="8" fill="#dc322f"/>
+<path d="M356,12 l8,8 M364,12 l-8,8" stroke="#fdf6e3" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="258" y="34" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#dc322f" stroke-width="2"/>
+<text x="268" y="48" font-size="10" fill="#dc322f">p</text>
+<text x="300" y="55" font-size="9" fill="#93a1a1" text-anchor="middle">2000</text>
+<line x1="284" y1="55" x2="316" y2="55" stroke="#93a1a1" stroke-width="1.2"/>
+<text x="300" y="72" font-size="15" fill="#dc322f" text-anchor="middle">42</text>
+<text x="398" y="48" font-size="9" fill="#dc322f" text-anchor="end">输入 42</text>
+<line x1="396" y1="52" x2="344" y2="52" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrScanR)"/>
+<line x1="300" y1="80" x2="300" y2="100" stroke="#dc322f" stroke-width="1.6" stroke-dasharray="4 3"/>
+<path d="M295,86 l10,10 M305,86 l-10,10" stroke="#dc322f" stroke-width="2" stroke-linecap="round"/>
+<rect x="258" y="102" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+<text x="268" y="116" font-size="10" fill="#93a1a1">i</text>
+<text x="300" y="130" font-size="16" fill="#93a1a1" text-anchor="middle">?</text>
+<text x="300" y="141" font-size="8.5" fill="#93a1a1" text-anchor="middle">未被写入</text>
+<text x="300" y="166" font-size="10" fill="#dc322f" text-anchor="middle">&amp;p 是 p 自己的地址</text>
+</svg>
+
 <!-- slide data-notes="" -->##### 程序: 查找数组中最大和最小的元素
 
 ---
@@ -214,6 +260,8 @@ decompose(3.14159, i, d);
 输入 10 个数: 3 8 1 9 2 7 4 6 5 0
 最大: 9
 最小: 0
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/minmax.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 minmax.c</a>
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `return` 只能带回一个值, 两个结果怎么传出来? (想想地址的作用)
@@ -298,27 +346,24 @@ f(&x);
 ```C
 void f(const int *p)
 {
-  int j;
   *p = 0; /*** 错误 ***/
-  p = &j; /*** 合法 ***/
+  p = &x; /*** 合法 ***/
 }
 ```
 
 ```C
 void f(int * const p)
 {
-  int j;
   *p = 0; /*** 合法 ***/
-  p = &j; /*** 错误 ***/
+  p = &x; /*** 错误 ***/
 }
 ```
 
 ```C
 void f(const int * const p)
 {
-  int j;
   *p = 0; /*** 错误 ***/
-  p = &j; /*** 错误 ***/
+  p = &x; /*** 错误 ***/
 }
 ```
 
@@ -367,12 +412,6 @@ int *max(int *a, int *b)
 ```
 
 ```C
-int *p, i, j;
-…
-p = max(&i, &j);
-```
-
-```C
 int *f(void)
 {
     int i;
@@ -393,9 +432,9 @@ int *find_middle(int a[], int n) {
 
 允许函数返回指针:
 
-调用max函数:
+调用max函数: `p = max(&i, &j);`
 
-调用后,  p指向i或j .
+调用后, p 指向 i 或 j .
 
 
 尽管这个例子中max返回作为参数传递给它的指针之一, 但这不是唯一的可能性. 
@@ -425,13 +464,15 @@ f返回后变量i将不存在.
 
 ==现场演示==
 
-1. 写 `void swap(int *a, int *b)`, 在 main 里验证真的交换了——第 8 周传值版的悬念今天揭晓 (样例: 交换前 `x=1, y=2`, 调用后 `x=2, y=1`)
+1. 写 `void swap(int *a, int *b)`, 在 main 里验证真的交换了——之前传值版的悬念今天揭晓 (样例: 交换前 `x=1, y=2`, 调用后 `x=2, y=1`)
 
 2. 写 `void max_min(int a[], int n, int *max, int *min, double *avg)`, 一次带回最大、最小和平均值
 
 3. 挑战: 写 `int *last_max(int *a, int n)`, 返回指向==最后一个==最大元素的指针
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚"函数要改谁的什么", 再决定传什么地址
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 

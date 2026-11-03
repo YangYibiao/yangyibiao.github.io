@@ -82,6 +82,62 @@ presentation:
 
 <span class="blue">:fa-lightbulb-o:</span> 本节学习 ==选择== 结构——让程序会"判断"
 
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox="0 0 400 200" style="max-width:100%;height:190px;">
+  <defs>
+    <marker id="ar41g" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#586e75"/>
+    </marker>
+    <marker id="ar41b" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <line x1="133" y1="12" x2="133" y2="164" stroke="#eee8d5" stroke-width="2" stroke-dasharray="5 5"/>
+    <line x1="266" y1="12" x2="266" y2="164" stroke="#eee8d5" stroke-width="2" stroke-dasharray="5 5"/>
+
+    <text x="66" y="26" font-size="15" font-weight="700" fill="#268bd2" text-anchor="middle">顺序</text>
+    <rect x="26" y="40" width="80" height="24" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="66" y="56" font-size="12" fill="#073642" text-anchor="middle">语句 1</text>
+    <line x1="66" y1="64" x2="66" y2="71" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <rect x="26" y="72" width="80" height="24" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="66" y="88" font-size="12" fill="#073642" text-anchor="middle">语句 2</text>
+    <line x1="66" y1="96" x2="66" y2="103" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <rect x="26" y="104" width="80" height="24" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="66" y="120" font-size="12" fill="#073642" text-anchor="middle">语句 3</text>
+
+    <text x="200" y="26" font-size="15" font-weight="700" fill="#268bd2" text-anchor="middle">选择</text>
+    <polygon points="200,36 230,58 200,80 170,58" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="200" y="62" font-size="12" fill="#073642" text-anchor="middle">条件?</text>
+    <path d="M170 58 H156 V98" fill="none" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <path d="M230 58 H244 V98" fill="none" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <text x="162" y="72" font-size="10" fill="#859900" text-anchor="middle">真</text>
+    <text x="238" y="72" font-size="10" fill="#dc322f" text-anchor="middle">假</text>
+    <rect x="136" y="100" width="40" height="22" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="156" y="115" font-size="9.5" fill="#073642" text-anchor="middle">语句 A</text>
+    <rect x="224" y="100" width="40" height="22" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="244" y="115" font-size="9.5" fill="#073642" text-anchor="middle">语句 B</text>
+    <path d="M156 122 V136 H200 M244 122 V136 H200" fill="none" stroke="#93a1a1" stroke-width="1.5"/>
+    <line x1="200" y1="136" x2="200" y2="145" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <text x="200" y="160" font-size="10.5" fill="#586e75" text-anchor="middle">后续语句</text>
+
+    <text x="333" y="26" font-size="15" font-weight="700" fill="#268bd2" text-anchor="middle">循环</text>
+    <polygon points="333,32 363,52 333,72 303,52" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="333" y="56" font-size="11" fill="#073642" text-anchor="middle">条件?</text>
+    <line x1="333" y1="72" x2="333" y2="85" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <text x="340" y="82" font-size="10" fill="#859900">真</text>
+    <rect x="303" y="86" width="60" height="24" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="333" y="102" font-size="11" fill="#073642" text-anchor="middle">循环体</text>
+    <line x1="363" y1="52" x2="382" y2="52" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar41g)"/>
+    <text x="371" y="46" font-size="10" fill="#dc322f">假</text>
+    <path d="M303 98 H292 V52 H299" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#ar41b)"/>
+    <text x="333" y="132" font-size="9.5" fill="#93a1a1" text-anchor="middle">回到条件</text>
+
+    <text x="200" y="188" font-size="11.5" fill="#586e75" text-anchor="middle">任何程序 = 顺序 · 选择 · 循环 三种结构的组合</text>
+  </g>
+</svg>
+</div>
+
 ---
 <!-- slide data-notes="" -->
 

@@ -157,6 +157,39 @@ presentation:
 
 - 字符串: `strcpy` / `strcat` ==不检查长度==, 目标数组要够大; 比较用 `strcmp` 不是 `==`
 
+<svg viewBox="0 0 400 140" style="max-width:100%;height:140px;" role="img" aria-label="程序内存布局">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="84" y="20" font-size="9" fill="#93a1a1" text-anchor="end">高地址</text>
+    <text x="84" y="126" font-size="9" fill="#93a1a1" text-anchor="end">低地址</text>
+
+    <rect x="90" y="10" width="160" height="120" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <rect x="90" y="10" width="160" height="30" fill="#dceaf5" stroke="#268bd2" stroke-width="1.2"/>
+    <text x="100" y="24" font-size="10" font-weight="700" fill="#073642">栈</text>
+    <text x="100" y="35" font-size="8.5" fill="#586e75">局部变量 · 返回地址</text>
+    <text x="238" y="30" font-size="14" fill="#dc322f" text-anchor="middle">↓</text>
+
+    <rect x="90" y="40" width="160" height="30" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="100" y="54" font-size="10" font-weight="700" fill="#073642">堆</text>
+    <text x="100" y="65" font-size="8.5" fill="#586e75">malloc / free</text>
+    <text x="238" y="60" font-size="14" fill="#859900" text-anchor="middle">↑</text>
+
+    <rect x="90" y="70" width="160" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="100" y="84" font-size="10" font-weight="700" fill="#073642">静态区</text>
+    <text x="100" y="95" font-size="8" fill="#586e75">全局变量 · 字符串字面量</text>
+
+    <rect x="90" y="100" width="160" height="30" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="100" y="114" font-size="10" font-weight="700" fill="#073642">代码区</text>
+    <text x="100" y="125" font-size="8.5" fill="#586e75">函数机器指令</text>
+
+    <text x="262" y="36" font-size="11" font-weight="700" fill="#268bd2">指针 = 地址</text>
+    <text x="262" y="54" font-size="8.8" fill="#586e75">p 里存的是字节编号</text>
+    <text x="262" y="76" font-size="9" font-weight="700" fill="#dc322f">野指针 / 越界</text>
+    <text x="262" y="90" font-size="9" fill="#dc322f">会踩到别的区</text>
+    <text x="262" y="114" font-size="8.8" fill="#586e75">malloc 在堆</text>
+    <text x="262" y="128" font-size="8.8" fill="#586e75">局部变量在栈</text>
+  </g>
+</svg>
+
 ---
 
 

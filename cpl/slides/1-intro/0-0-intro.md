@@ -48,22 +48,18 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-<div class="bottom20"></div>
-
 # 智能程序设计（C语言）
 
 <hr class="width50 center">
 
 ## 课程介绍
 
-<div class="bottom8"></div>
-
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
 <div class="top-2">
-  <img src="../figs/lets-code.jpeg" width=360px>
+  <img src="../figs/lets-code.jpeg" width=190px>
 </div>
 
 <!-- slide data-notes="" -->
@@ -71,6 +67,8 @@ presentation:
 ##### 提纲
 
 ---
+
+<div style="font-size:1.3em;">
 
 - 课程安排与日历
 
@@ -82,6 +80,8 @@ presentation:
 
 - 课程答疑
 
+</div>
+
 ---
 
 <!-- slide data-notes="" -->
@@ -89,6 +89,8 @@ presentation:
 ##### 课程安排
 
 ---
+
+<div style="font-size:1.3em;">
 
 - 授课: [杨已彪](http://cs.nju.edu.cn/yangyibiao), yangyibiao@nju.edu.cn
 
@@ -98,14 +100,13 @@ presentation:
 
 - 课程按==节次顺序==进行 (与日历周无关)
 
-<!-- <span class="blue">:fa-lightbulb-o:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
-<span class="blue">:fa-lightbulb-o:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游 -->
-
-<div style="font-size:0.7em;">
+<div style="font-size:0.75em;">
 
 <span class="blue">:fa-weixin:</span> =="Talk is cheap. Show me the code."== -- Linus Torvalds
 
 <span class="blue">:fa-weixin:</span> ==纸上得来终觉浅，绝知此事要躬行== -- 陆游
+
+</div>
 
 </div>
 
@@ -117,6 +118,8 @@ presentation:
 
 <!-- TODO(每学期更新): 本页的星期、日期、考试周每学期换一次 -->
 
+<div style="font-size:1.3em;">
+
 - 上课: ==周二==、==周三== 各 2 节
 
 - 放假: 中秋 ==9/25 ~ 9/27==; 国庆 ==10/1 ~ 10/7==
@@ -124,6 +127,8 @@ presentation:
 - 调休上课日: ==9/20 (周日)==、==10/10 (周六)== 照常上课
 
 - 期末考试周: ==12/28 ~ 1/10== (闭卷机试安排在考试周)
+
+</div>
 
 ---
 
@@ -133,6 +138,8 @@ presentation:
 ##### 课前小调查
 
 ---
+
+<div style="font-size:1.3em;">
 
 ==举手统计==
 
@@ -144,21 +151,29 @@ presentation:
 
 <span class="blue">:fa-lightbulb-o:</span> 调查结果用于调整教学节奏
 
+</div>
+
 <!-- slide data-notes="" -->
 
 ##### 课程答疑
 
 ---
 
+<div style="font-size:1.3em;">
+
 - 线上答疑: QQ群内提问或==私聊==线上助教，每班有一位学长主要负责线上答疑
 
 - 线下答疑: ==上机课==时间，每班有一位学长到线下教室答疑
+
+</div>
 
 <!-- slide data-notes="" -->
 
 ##### 考核方式
 
 ---
+
+<div style="font-size:1.3em;">
 
 - 平时成绩: ==20%== (课堂代码实操 + 在线OJ系统闯关)
 
@@ -170,11 +185,15 @@ presentation:
 
 - 在线评测网址: ==172.28.223.3== (仅校内)
 
+</div>
+
 <!-- slide data-notes="" -->
 
 ##### 在线评测系统 (OJ)
 
 ---
+
+<div style="font-size:1.3em;">
 
 - 地址: ==http://172.28.223.3/== (本平台位于==校园网内==，须在校内网络访问)
 
@@ -182,11 +201,15 @@ presentation:
 
 - ==务必记住密码==: 校外无法收到修改密码的邮件
 
+</div>
+
 <!-- slide data-notes="" -->
 
 ##### OJ 作业流程
 
 ---
+
+<div style="font-size:1.3em;">
 
 - 作业入口: 页面顶端 ==「竞赛 & 作业」== 选项卡，逐题答题
 
@@ -197,6 +220,8 @@ presentation:
 - 提交记录: 点击 C/Edit 可修改并再次提交
 
 - 注意作业==截止提交时间==
+
+</div>
 
 <!-- slide data-notes="" -->
 

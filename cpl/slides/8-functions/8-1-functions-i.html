@@ -59410,7 +59410,8 @@ document.addEventListener("DOMContentLoaded", function () {
     max-width: 100% !important;
     max-height: 50vh !important;
     height: auto !important;
-}
+}.reveal .slides section>pre{-ms-flex-negative:0;flex-shrink:0}.reveal .slides section>section>pre{-ms-flex-negative:0;flex-shrink:0}
+
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -60108,6 +60109,9 @@ div.boardhandle > ul > li {
 <p>实参个数与类型也无法检查, 只能默认提升"希望最好"; 后面遇到真实定义 (返回 <code>double</code>) 才会报错</p>
 <hr>
 <p>避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读</p>
+<div style="text-align:center;margin-top:2px;">
+<svg viewBox='0 0 400 190' style='max-width:100%;height:170px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='decl-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='decl-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><text x='10' y='16' font-size='11' fill='#dc322f' font-weight='700'>✗ 没有原型：编译器只能猜</text><g font-weight='700'><rect x='8' y='26' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='64' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>main 调用</text><text x='64' y='58' font-size='10' fill='#073642' text-anchor='middle'>average(x, y)</text><rect x='140' y='26' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='202' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>编译器没见过</text><text x='202' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 隐式声明 int</text><rect x='284' y='26' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='338' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>之后遇到定义</text><text x='338' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 类型冲突</text></g><path d='M120 48 H137' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><path d='M264 48 H281' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><text x='10' y='100' font-size='11' fill='#859900' font-weight='700'>✓ 有原型：先声明，后调用</text><g font-weight='700'><rect x='8' y='110' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='70' y='127' font-size='9.5' fill='#073642' text-anchor='middle'>double average</text><text x='70' y='142' font-size='9.5' fill='#073642' text-anchor='middle'>(double, double);</text><rect x='152' y='110' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='208' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>调用前已见过</text><text x='208' y='142' font-size='10' fill='#073642' text-anchor='middle'>按 double 检查</text><rect x='284' y='110' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='338' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>实参 int → double</text><text x='338' y='142' font-size='10' fill='#859900' text-anchor='middle'>→ 正确</text></g><path d='M132 132 H149' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><path d='M264 132 H281' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><text x='10' y='180' font-size='9.5' fill='#586e75'>C99：调用前必须先声明或定义，否则直接报错</text></g></svg>
+</div>
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="函数声明---原型">函数声明 · 原型 </h5>
 <hr>
@@ -60115,32 +60119,24 @@ div.boardhandle > ul > li {
 <div style="flex:1.3;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>返回类型 函数名<span class="token punctuation">(</span>参数<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
- 
 <span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* DECLARATION */</span>
-
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
-
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter three numbers: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf%lf%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">,</span> <span class="token operator">&</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g
-"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g
-"</span><span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g
-"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
- 
 <span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span>    <span class="token comment">/* DEFINITION */</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 形参名可省略 */</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.82em;line-height:1.45;">
 <ul>
 <li>
 <p>更好的解决方案: 在调用函数之前<mark>声明</mark>它——声明给编译器一份 "简要介绍", 完整定义以后给出</p>
@@ -60151,7 +60147,7 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>这类声明称为<mark>函数原型</mark>; 原型不必写形参名 (<code>double average(double, double);</code>), 但<mark>最好写上</mark> (便于阅读)</p>
+<p>这类声明称为<mark>函数原型</mark>; 原型不必写形参名, 但<mark>最好写上</mark> (便于阅读)</p>
 
 </li>
 </ul>
@@ -60194,12 +60190,11 @@ div.boardhandle > ul > li {
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     result <span class="token operator">=</span> result <span class="token operator">*</span> x<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
-
-  <span class="token keyword keyword-return">return</span> result<span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> result<span class="token punctuation">;</span>   <span class="token comment">/* x 的 n 次幂 */</span>
 <span class="token punctuation">}</span></code></pre>
 <p>调用: <code>printf("%d\n", power(2, 5));</code> → 输出 32</p>
 </div>
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.5;">
 <p>C 里参数是<mark>按值传递</mark>的:</p>
 <ul>
 <li>
@@ -60251,7 +60246,7 @@ div.boardhandle > ul > li {
 <div style="font-weight:700;color:#268bd2;">📌 传值的优点</div>
 <p><code>n</code> 是原始指数的<mark>副本</mark>, 函数内可以直接修改它 (<code>while (n-- &gt; 0)</code>), 不再需要变量 i</p>
 <div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 传值的代价</div>
-<p>想在函数里 "改外面" 的变量就做不到了——<code>decompose</code> 想分解出整数部分和小数部分: 函数不能返回两个数, 修改形参也<mark>没用</mark></p>
+<p>想在函数里 "改外面" 的变量就做不到——<code>decompose</code> 想分解出整数部分和小数部分, 修改形参也<mark>没用</mark></p>
 <p><code>decompose(3.14159, i, d)</code> 之后, i、d 纹丝不动</p>
 <p>后面的指针部分里, decompose 才能真正奏效 (swap 同理)</p>
 </div>
@@ -60273,6 +60268,9 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 <p>运行结果:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">5</span></code></pre>
+<div style="text-align:center;margin-top:4px;">
+<svg viewBox='0 0 400 180' style='max-width:100%;height:165px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='swap-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='swap-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-weight='700'><text x='55' y='16' font-size='9.5' fill='#dc322f' text-anchor='middle'>main（原件）</text><text x='200' y='16' font-size='9.5' fill='#268bd2' text-anchor='middle'>swap 的形参（复印件）</text><text x='330' y='16' font-size='9.5' fill='#859900' text-anchor='middle'>交换后（仍是副本）</text><rect x='8' y='24' width='94' height='112' rx='6' fill='none' stroke='#dc322f' stroke-width='1.5' stroke-dasharray='5 4'/><rect x='15' y='34' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='55' y='57' font-size='14' fill='#073642' text-anchor='middle'>x = 3</text><rect x='15' y='90' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='55' y='113' font-size='14' fill='#073642' text-anchor='middle'>y = 5</text><rect x='150' y='34' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#268bd2' stroke-width='2' stroke-dasharray='5 3'/><text x='190' y='57' font-size='14' fill='#073642' text-anchor='middle'>a = 3</text><rect x='150' y='90' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#268bd2' stroke-width='2' stroke-dasharray='5 3'/><text x='190' y='113' font-size='14' fill='#073642' text-anchor='middle'>b = 5</text><rect x='285' y='34' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='325' y='57' font-size='14' fill='#073642' text-anchor='middle'>a = 5</text><rect x='285' y='90' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='325' y='113' font-size='14' fill='#073642' text-anchor='middle'>b = 3</text></g><path d='M95 52 H146' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#swap-blue)'/><path d='M95 108 H146' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#swap-blue)'/><text x='121' y='46' font-size='8.5' fill='#268bd2' text-anchor='middle'>复印</text><text x='121' y='102' font-size='8.5' fill='#268bd2' text-anchor='middle'>复印</text><path d='M230 52 L283 108' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#swap-green)'/><path d='M230 108 L283 52' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#swap-green)'/><rect x='243' y='73' width='28' height='14' rx='3' fill='#fdf6e3'/><text x='257' y='84' font-size='9' fill='#859900' text-anchor='middle' font-weight='700'>交换</text><text x='55' y='148' font-size='9.5' fill='#dc322f' text-anchor='middle'>x、y 仍是 3、5</text><text x='15' y='170' font-size='9.5' fill='#586e75'>形参 a、b 只是副本；函数返回，副本销毁 → 外面的 x、y 不受影响</text></g></svg>
+</div>
 </div>
 <div style="flex:1;font-size:0.95em;line-height:1.7;">
 <ul>

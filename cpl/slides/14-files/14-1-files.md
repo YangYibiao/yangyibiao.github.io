@@ -74,7 +74,7 @@ presentation:
 
 
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.92em;">
 
 数据只存在内存里, 程序一关就没了——文件让数据==持久化==, 流就是进出程序的通道。
 
@@ -111,13 +111,8 @@ FILE类型在<stdio.h>中声明.
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<stdio.h> 自带三个标准流:
 
-
-
-<div style="flex:1;">
-
-<stdio.h> 自带三个标准流: 
 | 文件指针 | 流 | 默认含义 |
 | ---- | ---- | ---- |
 | stdin | 标准输入 | 键盘 |
@@ -126,37 +121,49 @@ FILE类型在<stdio.h>中声明.
 
 这些流可以直接使用——我们不需要声明它们, 也不打开或关闭它们.
 
+前面章节中讨论的 I/O 函数从 stdin 获取输入并将输出发送到 stdout.
 
-前面章节中讨论的 I/O 函数从stdin获取输入并将输出发送到stdout. 
+<!-- slide data-notes="" -->
+
+##### 标准流和重定向 (续)
+
+---
 
 许多操作系统允许通过称为**重定向**的机制更改这些默认含义.
 
+让程序从文件而不是键盘读入的常用方法:
 
-让程序从文件而不是键盘读入的常用方法:  
-`demo <in.dat`  
-这种方法称为**输入重定向**. 
+`demo <in.dat`
 
-**输出重定向**类似:  
-`demo >out.dat`  
-所有写入stdout的数据现在都将进入out.dat文件, 而不是出现在屏幕上.
+这种方法称为**输入重定向**.
 
+**输出重定向**类似:
 
-输入、输出重定向可以一起用:  
+`demo >out.dat`
+
+所有写入 stdout 的数据现在都将进入 out.dat 文件, 而不是出现在屏幕上.
+
+<!-- slide data-notes="" -->
+
+##### 标准流和重定向 (续 2)
+
+---
+
+输入、输出重定向可以一起用:
+
 `demo <in.dat >out.dat`
 
-`<`、`>` 和文件名之间有没有空格都行, 多个重定向文件的顺序也无所谓:  
-`demo <in.dat> out.dat`  
-等价于:  
+`<`、`>` 和文件名之间有没有空格都行, 多个重定向文件的顺序也无所谓:
+
+`demo <in.dat> out.dat`
+
+等价于:
+
 `demo >out.dat <in.dat`
 
+输出重定向要注意: 所有写到 stdout 的内容都会进同一个文件.
 
-输出重定向要注意: 所有写到 stdout 的内容都会进同一个文件。
-
-将错误消息写入stderr而不是stdout可以保证即使stdout已被重定向, 错误信息也会出现在屏幕上.
-
-</div>
-
-</div>
+将错误消息写入 stderr 而不是 stdout 可以保证即使 stdout 已被重定向, 错误信息也会出现在屏幕上.
 
 <!-- slide data-notes="" -->
 
@@ -165,86 +172,95 @@ FILE类型在<stdio.h>中声明.
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<stdio.h> 支持两种文件: 文本文件和二进制文件.
 
+**文本文件**中的字节代表字符, 允许人们检查或编辑文件.
 
+- C 程序的源代码存储在文本文件中.
 
-<div style="flex:1;">
+在**二进制文件**中, 字节不一定代表字符.
 
-<stdio.h>支持两种文件: 文本文件和二进制文件. 
-
-**文本文件**中的字节代表字符, 允许人们检查或编辑文件. 
-- C 程序的源代码存储在文本文件中. 
-
-在**二进制文件**中, 字节不一定代表字符. 
-- 字节组可能代表其他类型的数据, 例如整数和浮点数. 
+- 字节组可能代表其他类型的数据, 例如整数和浮点数.
 - 可执行的 C 程序存储在二进制文件中.
 
-
-文本文件具有二进制文件不具备的两个特征. 
-
-文本文件分为若干行. 文本文件中的每一行通常以一个或两个特殊字符结尾. 
-- Windows: 回车符('\x0d')后跟换行符('\x0a')
-- UNIX和较新版本的Mac OS: 换行符
-- 旧版本的Mac OS: 回车符
-
-
-文本文件可以包含一个特殊的"文件结束"标记. 
-- 在Windows中, 标记是'\x1a'(Ctrl+Z), 但这不是必需的. 
-- 大多数其他操作系统, 包括UNIX, 没有特殊的文件结束字符. 
-
-在二进制文件中, 没有行尾或文件结束标记; 所有字节都被平等对待.
-
-</div>
-
-</div>
-
 <!-- slide data-notes="" -->
-
 
 ##### 文本文件与二进制文件 (续)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+文本文件具有二进制文件不具备的两个特征.
 
+文本文件分为若干行. 文本文件中的每一行通常以一个或两个特殊字符结尾.
 
+- Windows: 回车符('\x0d')后跟换行符('\x0a')
+- UNIX 和较新版本的 Mac OS: 换行符
+- 旧版本的 Mac OS: 回车符
 
-<div style="flex:1;">
+文本文件可以包含一个特殊的"文件结束"标记.
 
-数据写入文件时, 可以选择以文本格式或二进制格式存储. 
+- 在 Windows 中, 标记是 '\x1a' (Ctrl+Z), 但这不是必需的.
+- 大多数其他操作系统, 包括 UNIX, 没有特殊的文件结束字符.
 
-把数字 32767 存进文件, 一种方式是按文本写入字符 3、2、7、6、7: 
+在二进制文件中, 没有行尾或文件结束标记; 所有字节都被平等对待.
+
+<!-- slide data-notes="" -->
+
+##### 文本文件与二进制文件 (续 2)
+
+---
+
+数据写入文件时, 可以选择以文本格式或二进制格式存储.
+
+把数字 32767 存进文件, 一种方式是按文本写入字符 3、2、7、6、7:
+
 <div class="top-2">
   <img src="../img/21-1.png">
 </div>
 
+另一种是按二进制存, 只要两个字节:
 
-另一种是按二进制存, 只要两个字节: 
 <div class="top-2">
   <img src="../img/21-2.png">
 </div>
-  
+
 以二进制存储数字通常可以节省空间.
 
+<!-- slide data-notes="" -->
 
-从文件读取或写入文件的程序必须考虑它是文本还是二进制文件. 
+##### 文本文件与二进制文件 (续 3)
 
-在屏幕上显示文件内容的程序可能会假设它是一个文本文件. 
+---
 
-另一方面, 文件复制程序不能假设要复制的文件是文本文件. 
-- 如果是这样, 则不会完全复制包含文件结尾字符的二进制文件. 
+从文件读取或写入文件的程序必须考虑它是文本还是二进制文件.
+
+在屏幕上显示文件内容的程序可能会假设它是一个文本文件.
+
+另一方面, 文件复制程序不能假设要复制的文件是文本文件.
+
+- 如果是这样, 则不会完全复制包含文件结尾字符的二进制文件.
 
 当无法确定文件是文本形式还是二进制形式时, 假设它是二进制文件会更安全.
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->
 
 
 ##### 文件操作
+
+---
+
+简单性是输入和输出重定向的魅力之一.
+
+不幸的是, 重定向在许多应用中受到限制.
+
+- 当程序依赖重定向时, 它无法控制自己的文件; 甚至不知道文件的名字.
+- 如果程序需要同时读取两个文件或写入两个文件, 重定向将无法做到.
+
+当重定向无法满足需要时, 我们将使用 <stdio.h> 提供的文件操作.
+
+<!-- slide data-notes="" -->
+
+##### 文件操作 (续)
 
 ---
 
@@ -261,25 +277,15 @@ FILE *fopen(const char * restrict filename,
 
 <div style="flex:1;">
 
-简单性是输入和输出重定向的魅力之一. 
+如果要把文件用作流, 打开时需要调用 fopen 函数.
 
-不幸的是, 重定向在许多应用中受到限制. 
-- 当程序依赖重定向时, 它无法控制自己的文件; 甚至不知道文件的名字. 
-- 如果程序需要同时读取两个文件或写入两个文件, 重定向将无法做到. 
+fopen 的原型:
 
-当重定向无法满足需要时, 我们将使用<stdio.h>提供的文件操作. 
+filename 是要打开的文件的名称.
 
-
----
-
-如果要把文件用作流, 打开时需要调用fopen函数. 
-
-fopen的原型:
-
-filename是要打开的文件的名称. 
 - 这个参数可以带路径信息, 比如盘符或目录。
 
-mode是一个"模式字符串", 它指定打算对文件执行的操作.
+mode 是一个"模式字符串", 它指定打算对文件执行的操作.
 
 </div>
 
@@ -292,48 +298,58 @@ mode是一个"模式字符串", 它指定打算对文件执行的操作.
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+fopen 的原型中, restrict 关键字出现了两次.
 
-<div style="flex:1.3;font-size:0.6em;">
+restrict 是 C99 关键字, 表示 filename 和 mode 应指向不共享内存单元的字符串.
+
+fopen 的 C89 原型不包含 restrict, 但也有这样的要求.
+
+restrict 对 fopen 的行为没有影响, 因此通常可以忽略它.
+
+<!-- slide data-notes="" -->
+
+##### 打开文件 (续)
+
+---
+
+fopen 调用中的文件名包含 `\` 字符时要小心.
+
+调用
+
+`fopen("c:\project\test1.dat", "r")`
+
+将失败, 因为 `\t` 被视为转义字符.
+
+避开这个问题的一种写法: 用 `\\` 代替 `\`:
+
+`fopen("c:\\project\\test1.dat", "r")`
+
+另一种写法: 用 `/` 代替 `\`:
+
+`fopen("c:/project/test1.dat", "r")`
+
+<!-- slide data-notes="" -->
+
+##### 打开文件 (续 2)
+
+---
+
+fopen 函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中:
 
 ```C
 fp = fopen("in.dat", "r");
 /* 打开 in.dat 以供阅读 */
 ```
 
-</div>
+无法打开文件时, fopen 返回一个空指针.
 
-<div style="flex:1;">
+因此, 打开文件后必须检查返回值:
 
-fopen的原型中, restrict关键字出现了两次. 
-
-restrict是 C99 关键字, 表示filename和mode应指向不共享内存单元的字符串. 
-
-fopen的 C89 原型不包含restrict, 但也有这样的要求. 
-
-restrict对fopen的行为没有影响, 因此通常可以忽略它.
-
-
-fopen调用中的文件名包含`\`字符时要小心. 
-
-调用  
-`fopen("c:\project\test1.dat", "r")`  
-将失败, 因为`\t`被视为转义字符. 
-
-避开这个问题的一种写法: 用 `\\` 代替 `\`:  
-`fopen("c:\\project\\test1.dat", "r")`
-
-另一种写法: 用 `/` 代替 `\`:  
-`fopen("c:/project/test1.dat", "r")`
-
-
-fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指针保存在变量中:
-
-无法打开文件时, fopen返回一个空指针.
-
-</div>
-
-</div>
+```C
+if ((fp = fopen("in.dat", "r")) == NULL) {
+  /* 处理错误 */
+}
+```
 
 <!-- slide data-notes="" -->
 
@@ -342,18 +358,13 @@ fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指�
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+决定将哪个模式字符串传递给 fopen 的因素:
 
-
-
-<div style="flex:1;">
-
-决定将哪个模式字符串传递给fopen的因素: 
 - 要对文件执行的操作
 - 文件中的数据是文本形式还是二进制形式
 
+用于文本文件的模式字符串:
 
-用于文本文件的模式字符串: 
 | 字符串 | 含义 |
 | ---- | ---- |
 | "r" | 打开文件读 |
@@ -363,32 +374,41 @@ fopen函数返回一个文件指针, 程序可以(并且通常会)把这个指�
 | "w+" | 打开文件读写(如果文件存在则截去) |
 | "a+" | 打开文件读写(如果文件存在则追加) |
 
+<!-- slide data-notes="" -->
 
-用于二进制文件的模式字符串: 
+##### 打开模式 (续)
+
+---
+
+用于二进制文件的模式字符串:
+
 | 字符串 | 含义 |
 | ---- | ---- |
 | "rb" | 打开文件读 |
 | "wb" | 打开文件写(文件不需要存在) |
 | "ab" | 打开文件追加(文件不需要存在) |
-| "r+b"或者"rb+" | 打开文件读写, 从文件头开始 |
-| "w+b"或者"wb+" | 打开文件读写(如果文件存在则截去) |
-| "a+b"或者"ab+" | 打开文件读写(如果文件存在则追加) |
+| "r+b" 或者 "rb+" | 打开文件读写, 从文件头开始 |
+| "w+b" 或者 "wb+" | 打开文件读写(如果文件存在则截去) |
+| "a+b" 或者 "ab+" | 打开文件读写(如果文件存在则追加) |
 
+二进制模式只是在文本模式字符串中加一个 `b`; 读写更新模式则再加一个 `+`.
 
-写数据和追加数据有不同的模式字符串. 
+<!-- slide data-notes="" -->
 
-当数据写入文件时, 它通常会覆盖以前存在的内容. 
+##### 打开模式 (续 2)
+
+---
+
+写数据和追加数据有不同的模式字符串.
+
+当数据写入文件时, 它通常会覆盖以前存在的内容.
 
 当打开文件进行追加时, 写入文件的数据将添加到末尾.
 
+当打开文件进行读写时, 适用特殊规则.
 
-当打开文件进行读写时, 适用特殊规则. 
-- 除非读取操作遇到文件末尾, 否则不先调用文件定位函数就无法从读模式切换到写模式. 
-- 如果既没有调用fflush函数也没有调用文件定位函数, 则无法从写模式切换到读模式.
-
-</div>
-
-</div>
+- 除非读取操作遇到文件末尾, 否则不先调用文件定位函数就无法从读模式切换到写模式.
+- 如果既没有调用 fflush 函数也没有调用文件定位函数, 则无法从写模式切换到读模式.
 
 <!-- slide data-notes="" -->
 
@@ -430,13 +450,13 @@ fclose(fp);
 ```C
 #include <stdio.h>
 #include <stdlib.h>
-	 
+
 #define FILE_NAME "example.dat"
-	 
+
 int main(void)
 {
   FILE *fp;
-	 
+
   fp = fopen(FILE_NAME, "r");
   if(fp == NULL) {
     printf("Can't open %s\n", FILE_NAME);
@@ -452,26 +472,35 @@ int main(void)
 
 <div style="flex:1;">
 
-fclose函数允许程序关闭不再使用的文件. 
+fclose 函数允许程序关闭不再使用的文件.
 
-fclose的参数必须是从调用fopen或freopen获得的文件指针. 
+fclose 的参数必须是从调用 fopen 或 freopen 获得的文件指针.
 
-如果文件成功关闭, fclose返回零. 
+如果文件成功关闭, fclose 返回零.
 
-否则, 它返回错误代码EOF(在<stdio.h>中定义的宏).
+否则, 它返回错误代码 EOF(在 <stdio.h> 中定义的宏).
 
+</div>
 
-打开文件进行读取的程序框架:
+</div>
 
-可以把fopen的调用与fp的声明相结合:  
+<!-- slide data-notes="" -->
+
+##### 关闭文件 (续)
+
+---
+
+打开文件进行读取的程序框架已经在前一页给出. 代码可以进一步压缩:
+
+可以把 fopen 的调用与 fp 的声明相结合:
+
 `FILE *fp = fopen(FILE_NAME, "r");`
 
-还可以与NULL的判断相结合:  
-`if((fp = fopen(FILE_NAME, "r")) == NULL) …`
+还可以与 NULL 的判断相结合:
 
-</div>
+`if ((fp = fopen(FILE_NAME, "r")) == NULL) …`
 
-</div>
+这些写法减少重复, 但错误处理仍需保留.
 
 <!-- slide data-notes="" -->
 
@@ -480,9 +509,23 @@ fclose的参数必须是从调用fopen或freopen获得的文件指针.
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+有几种方法可以为程序提供文件名.
 
-<div style="flex:1.3;font-size:0.6em;">
+- 将文件名嵌入程序中不太灵活.
+- 提示用户输入文件名也很笨拙.
+- 让程序从命令行获取文件名通常是最好的解决方案.
+
+为 demo 程序提供两个文件名的示例:
+
+`demo names.dat dates.dat`
+
+<!-- slide data-notes="" -->
+
+##### 从命令行获取文件名 (续)
+
+---
+
+将 main 定义为具有两个参数的函数来访问命令行参数:
 
 ```C
 int main(int argc, char *argv[])
@@ -491,36 +534,30 @@ int main(int argc, char *argv[])
 }
 ```
 
-</div>
+argc 是命令行参数的数量.
 
-<div style="flex:1;">
+argv 是指向参数字符串的指针数组.
 
-有几种方法可以为程序提供文件名. 
-- 将文件名嵌入程序中不太灵活. 
-- 提示用户输入文件名也很笨拙. 
-- 让程序从命令行获取文件名通常是最好的解决方案. 
+argv[0] 指向程序名, argv[1] 到 argv[argc-1] 指向剩余的参数, argv[argc] 是空指针.
 
-为demo程序提供两个文件名的示例:  
-`demo names.dat dates.dat`
+<!-- slide data-notes="" -->
 
+##### 从命令行获取文件名 (续 2)
 
-将main定义为具有两个参数的函数来访问命令行参数:
+---
 
-argc是命令行参数的数量. 
+在上述示例中, argc 为 3, argv 如下图所示:
 
-argv是指向参数字符串的指针数组.
-
-
-argv[0]指向程序名, argv[1]到argv[argc-1]指向剩余的参数, argv[argc]是空指针. 
-
-在上述示例中, argc为3, 而argv如下图所示: 
 <div class="top-2">
-  <img src="../img/21-3.png">
+  <img src="../img/21-3.png" width=420px>
 </div>
 
-</div>
-
-</div>
+| 表达式 | 指向 |
+| ---- | ---- |
+| `argv[0]` | `"demo"` |
+| `argv[1]` | `"names.dat"` |
+| `argv[2]` | `"dates.dat"` |
+| `argv[3]` | `NULL` |
 
 <!-- slide data-notes="" -->##### 程序: 检查文件是否可以打开
 
@@ -535,6 +572,8 @@ $ ./canopen demo.txt
 demo.txt 可以打开
 $ ./canopen 不存在.txt
 不存在.txt 打不开
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/canopen.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 canopen.c</a>
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `fopen` 失败会返回 NULL——判断它; 参数个数不对要提示用法
@@ -603,52 +642,52 @@ int main(int argc, char *argv[])
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+如果要求 scanf 函数读取并存储 n 个数据项, 那么期望它的返回值为 n.
 
-<div style="flex:1.4;font-size:0.55em;">
+如果返回值小于 n, 则出现问题:
 
-```C
-clearerr(fp);
-	/* clears eof and error indicators for fp */
-```
-
-</div>
-
-<div style="flex:1;">
-
-如果要求...scanf函数读取并存储n个数据项, 那么期望它的返回值为n. 
-
-如果返回值小于n, 则出现问题: 
-- 文件末尾. 该函数在完全匹配格式字符串之前遇到文件末尾. 
-- 读取错误. 该函数无法从流中读取字符. 
+- 文件末尾. 该函数在完全匹配格式字符串之前遇到文件末尾.
+- 读取错误. 该函数无法从流中读取字符.
 - 匹配失败. 数据项的格式错误.
 
+<!-- slide data-notes="" -->
 
-每个流都有两个与之关联的指示器: **错误指示器**和**文件末尾指示器**.  
+##### 检测文件末尾和错误条件 (续)
 
-打开流时, 这些指示器会被清除. 
+---
 
-遇到文件末尾就设置文件末尾指示器, 读取错误就设置错误指示器. 
-- 当输出流上发生写错误时, 也会设置错误指示器. 
+每个流都有两个与之关联的指示器: **错误指示器**和**文件末尾指示器**.
+
+打开流时, 这些指示器会被清除.
+
+遇到文件末尾就设置文件末尾指示器, 读取错误就设置错误指示器.
+
+- 当输出流上发生写错误时, 也会设置错误指示器.
 
 匹配失败不会改变任意一个指示器.
 
+<!-- slide data-notes="" -->
 
-一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用clearerr函数.  
-clearerr清除文件末尾和错误指示器:
+##### 检测文件末尾和错误条件 (续 2)
 
-并不需要经常使用clearerr, 因为其他一些库函数的副作用可以清楚指示器.
+---
 
+一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用 clearerr 函数.
 
-feof和ferror函数可用于测试流的指示器以确定先前对流的操作失败的原因. 
+clearerr 清除文件末尾和错误指示器:
 
-如果为与fp关联的流设置了文件末尾指示器, 则调用feof(fp)将返回一个非零值. 
+```C
+clearerr(fp);
+/* clears eof and error indicators for fp */
+```
 
-如果设置了错误指示器, 调用ferror(fp)会返回一个非零值.
+并不需要经常使用 clearerr, 因为其他一些库函数的副作用可以清除指示器.
 
-</div>
+feof 和 ferror 函数可用于测试流的指示器, 以确定先前对流的操作失败的原因.
 
-</div>
+如果为与 fp 关联的流设置了文件末尾指示器, 则调用 feof(fp) 将返回一个非零值.
+
+如果设置了错误指示器, 调用 ferror(fp) 会返回一个非零值.
 
 <!-- slide data-notes="" -->
 
@@ -657,33 +696,31 @@ feof和ferror函数可用于测试流的指示器以确定先前对流的操作�
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+当 scanf 返回小于预期的值时, 可以使用 feof 和 ferror 来判断原因.
 
+- 如果 feof 返回非零值, 则已到达输入文件的末尾.
+- 如果 ferror 返回非零值, 则在输入期间发生读取错误.
+- 如果两者都没有返回非零值, 则一定发生匹配失败.
 
+scanf 的返回值表示在问题发生之前读取了多少数据项.
 
-<div style="flex:1;">
+<!-- slide data-notes="" -->
 
-当scanf返回小于预期的值时, 可以使用feof和ferror来判断原因. 
-- 如果feof返回非零值, 则已到达输入文件的末尾. 
-- 如果ferror返回非零值, 则在输入期间发生读取错误. 
-- 如果两者都没有返回非零值, 则一定发生匹配失败. 
+##### 检测文件末尾 (续 2)
 
-scanf的返回值表示在问题发生之前读取了多少数据项.
+---
 
+find_int 函数是一个示例, 它显示了如何使用 feof 和 ferror.
 
-find_int函数是一个示例, 它显示了如何使用feof和ferror. 
+find_int 在文件中搜索以整数开头的行:
 
-find_int在文件中搜索以整数开头的行:  
 `n = find_int("foo");`
 
-find_int返回它找到的整数的值或错误代码: 
-- –1 文件无法打开
-- –2 读取错误
-- –3 没有行以整数开头
+find_int 返回它找到的整数的值或错误代码:
 
-</div>
-
-</div>
+- -1 文件无法打开
+- -2 读取错误
+- -3 没有行以整数开头
 
 <!-- slide data-notes="" -->
 
@@ -710,43 +747,55 @@ ch = getc(fp);
 
 <div style="flex:1;">
 
-下一组库函数读写单个字符, 文本流与二进制流通用; 字符被当作 `int` 而非 `char`——输入函数用返回 ==EOF== (负整数常量) 指示文件结束或错误. 
+下一组库函数读写单个字符, 文本流与二进制流通用; 字符被当作 `int` 而非 `char`——输入函数用返回 ==EOF== (负整数常量) 指示文件结束或错误.
 
+putc 通常实现为宏(以及函数), 而 fputc 仅实现为函数.
+
+C 标准允许 putc 宏对 stream 参数多次求值, 而 fputc 不可以.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 字符的输入/输出 (续)
 
 ---
 
-putchar将一个字符写入标准输出流:  
+putchar 将一个字符写入标准输出流:
+
 `putchar(ch); /* 将 ch 写入标准输出流 */`
 
-fputc和putc将一个字符写入任意流:
+fputc 和 putc 将一个字符写入任意流.
 
-putc通常实现为宏(以及函数), 而fputc仅实现为函数.
+putchar 本身通常也定义为宏:
 
-
-putchar本身通常也定义为宏:  
 `#define putchar(c) putc((c), stdout)`
 
-C标准允许putc宏对stream参数多次求值, 而fputc不可以. 
+程序员通常更喜欢 putc, 因为它速度更快.
 
-程序员通常更喜欢putc, 因为它速度更快. 
-
-如果发生写入错误, 上述这3个函数都会为流设置错误指示器并返回EOF. 
+如果发生写入错误, 上述这 3 个函数都会为流设置错误指示器并返回 EOF.
 
 否则, 它们返回写入的字符.
 
+<!-- slide data-notes="" -->
 
-getchar从stdin读取一个字符:  
+##### 字符的输入/输出 (续 2)
+
+---
+
+getchar 从 stdin 读取一个字符:
+
 `ch = getchar();`
 
-fgetc和getc从任意流中读取一个字符:
+fgetc 和 getc 从任意流中读取一个字符:
 
-这三个函数都将字符视为unsigned char类型的值(返回之前转换为int类型). 
+`ch = fgetc(fp);`
 
-因此, 它们不会返回EOF以外的负值.
+这三个函数都将字符视为 unsigned char 类型的值(返回之前转换为 int 类型).
 
-</div>
-
-</div>
+因此, 它们不会返回 EOF 以外的负值.
 
 <!-- slide data-notes="" -->##### 程序: 复制文件
 
@@ -759,6 +808,8 @@ fgetc和getc从任意流中读取一个字符:
 ```
 $ ./fcopy a.txt b.txt
 复制完成
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/fcopy.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 fcopy.c</a>
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 用 `"rb"`/`"wb"` 二进制模式; 逐个字符读、逐个写——上一页的 fgetc/fputc
@@ -837,47 +888,49 @@ int main(int argc, char *argv[])
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+下一组中的库函数能够读取和写入行.
 
+这些函数主要用于文本流, 尽管它们也能用于二进制流.
 
+puts 函数将字符串写入 stdout:
 
-<div style="flex:1;">
+`puts("Hi, there!");  /* writes to stdout */`
 
-下一组中的库函数能够读取和写入行. 
+在写入字符串中的字符后, puts 总是添加一个换行符.
 
-这些函数主要用于文本流, 尽管将它们也能用于二进制流. 
+<!-- slide data-notes="" -->
 
+##### 行的输入/输出 (续)
 
 ---
 
-puts函数将字符串写入stdout:  
-`puts("Hi, there!");  /* writes to stdout */`
+fputs 是 puts 的更通用版本.
 
-在写入字符串中的字符后, puts总是添加一个换行符.
+它的第二个参数指示输出应写入的流:
 
-
-fputs是puts的更通用版本. 
-
-它的第二个参数指示输出应写入的流:  
 `fputs("Hi, there!", fp);  /* writes to fp */`
 
-与puts不同, fputs函数不会写入换行符, 除非字符串中本身存在换行符. 
+与 puts 不同, fputs 函数不会写入换行符, 除非字符串中本身存在换行符.
 
-如果发生写入错误, 这两个函数都返回EOF; 否则, 它们返回一个非负数.
+如果发生写入错误, 这两个函数都返回 EOF; 否则, 它们返回一个非负数.
 
+<!-- slide data-notes="" -->
 
-gets函数从stdin读取一行输入:  
+##### 行的输入/输出 (续 2)
+
+---
+
+gets 函数从 stdin 读取一行输入:
+
 `gets(str); /* reads a line from stdin */`
 
-get逐个读取字符, 将它们存储在str指向的数组中, 直到它读取一个换行符(丢弃换行符). 
+gets 逐个读取字符, 将它们存储在 str 指向的数组中, 直到它读取一个换行符(丢弃换行符).
 
-fgets是更通用的get版本, 可以从任意流中读取. 
+fgets 是更通用的 gets 版本, 可以从任意流中读取.
 
-fgets也比gets更安全, 因为它限制了它将存储的字符数.
+fgets 也比 gets 更安全, 因为它限制了它将存储的字符数.
 
-</div>
-
-</div>
+现代 C 代码应使用 `fgets(str, sizeof(str), fp)`, 并检查返回值是否为 `NULL`.
 
 <!-- slide data-notes="" -->
 
@@ -920,53 +973,67 @@ sizeof(a) / sizeof(a[0]), fp);
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-
-
-<div style="flex:1;">
-
 每个流都有一个**文件位置**。
 
 打开文件时, 文件位置在开头。
+
 - "追加"模式下, 初始位置可能在开头也可能在结尾, 看具体实现。
 
 每次读写后, 文件位置自动前进——所以是顺序访问。
 
+尽管顺序访问对许多应用程序来说都很好, 但有些程序需要能够在文件中跳转.
+
+如果文件包含一系列记录, 我们可能希望直接跳转到特定记录.
+
+<stdio.h> 提供五个函数, 用来查当前文件位置或修改它.
+
+<!-- slide data-notes="" -->
+
+##### 文件定位 (续)
 
 ---
 
-尽管顺序访问对许多应用程序来说都很好, 但有些程序需要能够在文件中跳转. 
+fseek 修改第一个参数(文件指针)的文件位置.
 
-如果文件包含一系列记录, 我们可能希望直接跳转到特定记录. 
+第三个参数是三个宏之一:
 
-<stdio.h> 提供五个函数, 用来查当前文件位置或修改它。
-
-
-fseek 修改第一个参数 (文件指针) 的文件位置。
-
-第三个参数是三个宏之一: 
 - SEEK_SET: 文件开头
 - SEEK_CUR: 当前文件位置
 - SEEK_END: 文件结尾
 
-第二个参数, 类型为long int, 是一个(可能是负数)字节计数.
+第二个参数, 类型为 long int, 是一个(可能是负数)字节计数.
 
+<!-- slide data-notes="" -->
 
-使用fseek移动到文件的开头:  
+##### 文件定位 (续 2)
+
+---
+
+使用 fseek 移动到文件的开头:
+
 `fseek(fp, 0L, SEEK_SET);`
 
-使用fseek移动到文件末尾:  
+使用 fseek 移动到文件末尾:
+
 `fseek(fp, 0L, SEEK_END);`
 
-使用fseek往回移动10个字节:  
+使用 fseek 往回移动 10 个字节:
+
 `fseek(fp, -10L, SEEK_CUR);`
 
-出错时 (比如请求的位置不存在), fseek 返回非零值。
+<!-- slide data-notes="" -->
 
-</div>
+##### 文件定位 (续 3)
 
-</div>
+---
+
+出错时 (比如请求的位置不存在), fseek 返回非零值.
+
+三个基准点可以组合出各种定位:
+
+- `SEEK_SET` + 偏移: 从文件开头向后
+- `SEEK_CUR` + 偏移: 从当前位置向前或向后
+- `SEEK_END` + 偏移: 从文件末尾向前或向后
 
 <!-- slide data-notes="" -->
 

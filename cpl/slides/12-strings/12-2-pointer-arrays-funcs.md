@@ -88,11 +88,47 @@ struct node *add_to_list(struct node *list, int n)
 }
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+链表章见过 `struct node *next`——"指向指针的指针"是再进一步:
+
+"指向指针的指针"的概念也经常出现在链式数据结构中.
+
+特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量.
+
+这样做需要使用指向指针的指针.
+
+传给 add_to_list 一个指向原链表首结点的指针; 它返回新链表首结点的指针:
+
+如果要修改 add_to_list, 把 new_node 赋值给 list, 而不是返回 new_node, 这是不起作用的.
+
+调用函数: `add_to_list(first, 10);`
+
+在调用点, first 被复制到 list 中.
+
+函数可以改变 list 的值, 使其指向新结点, 但 first 不受影响.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 指向指针的指针 (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
 ```C{.line-numbers}
 void add_to_list(struct node **list, int n)
 {
   struct node *new_node;
-   
+
   new_node = malloc(sizeof(struct node));
   if (new_node == NULL) {
     printf("Error: malloc failed in add_to_list\n");
@@ -106,34 +142,19 @@ void add_to_list(struct node **list, int n)
 
 </div>
 
-<div style="flex:1;">
-
-链表章见过 `struct node *next`——"指向指针的指针"是再进一步: 
-
-"指向指针的指针"的概念也经常出现在链式数据结构中. 
-
-特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量. 
-
-这样做需要使用指向指针的指针. 
-
-
----
-
-传给 add_to_list 一个指向原链表首结点的指针; 它返回新链表首结点的指针:
-
-如果要修改add_to_list, 把new_node赋值给list, 而不是返回new_node, 这是不起作用的. 
-
-调用函数: 
-`add_to_list(first, 10);`
-
-在调用点, first被复制到list中. 
-
-函数可以改变list的值, 使其指向新结点, 但first不受影响.
-
+<div style="flex:1;font-size:0.6em;">
 
 想让 add_to_list 修改 first 本身, 就传 first 的地址 (指向指针的指针):
 
+`add_to_list(&first, 10);`
 
+在函数内部, `list` 是 `first` 的地址; `*list` 就是 `first` 本身.
+
+因此 `*list = new_node;` 修改的是调用者的 `first`, 而不是一个副本.
+
+`new_node->next = *list;` 把新结点接到原来的首结点之前.
+
+这解决了按值传递无法修改头指针的问题.
 
 </div>
 
@@ -165,34 +186,40 @@ int main(int argc, char *argv[])
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
-运行程序时, 经常需要提供一些信息. 
+运行程序时, 经常需要提供一些信息.
 
-这可能包括文件名或修改程序行为的开关. 
+这可能包括文件名或修改程序行为的开关.
 
 UNIX `ls` 命令的示例:
 
-命令行信息对所有程序都是可用的, 不仅仅是操作系统命令. 
+命令行信息对所有程序都是可用的, 不仅仅是操作系统命令.
 
 要用==命令行参数==, main 必须带两个参数:
 
 命令行参数在 C 标准中称为 ==程序参数==.
 
-
-argc: (argument count)参数计数是命令行参数的数量. 
-
-argv: (argument vector)参数向量是指向命令行参数的指针数组(以字符串形式存储). 
-
-argv[0]指向程序名, 而argv[1]到argv[argc-1]指向剩余的命令行参数. 
-
-argv[argc]总是一个空指针——一个不指向任何东西的特殊指针. 
-
-宏NULL表示一个空指针.
-
 </div>
 
 </div>
+
+<!-- slide data-notes="" -->
+
+##### 命令行参数: 带参数的 main (续)
+
+---
+
+`argc` 与 `argv` 的含义:
+
+| 表达式 | 含义 |
+| ---- | ---- |
+| `argc` | 命令行参数的数量 (含程序名) |
+| `argv[0]` | 程序名 |
+| `argv[1]` … `argv[argc-1]` | 其余命令行参数 |
+| `argv[argc]` | 空指针 NULL |
+
+以 `./demo names.dat dates.dat` 为例, `argc` 为 3: `argv[0]` = `"./demo"`, `argv[1]` = `"names.dat"`, `argv[2]` = `"dates.dat"`, `argv[3]` = `NULL`.
 
 <!-- slide data-notes="" -->
 
@@ -215,32 +242,35 @@ double integrate(double f(double), double a, double b);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
-C 不要求指针只指向数据; 也可以有指向函数的指针. 
+C 不要求指针只指向数据; 也可以有指向函数的指针.
 
-函数占用内存单元, 因此每个函数都有一个地址. 
+函数占用内存单元, 因此每个函数都有一个地址.
 
-可以像使用指向数据的指针一样使用函数指针. 
+可以像使用指向数据的指针一样使用函数指针.
 
-将函数指针作为参数传递是相当普遍的. 
+将函数指针作为参数传递是相当普遍的.
 
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 指向函数的指针 (续)
 
 ---
 
-编写integrate函数求函数f在a点和b点之间的积分, 可以把f作为参数传入, 从而使其尽可能通用. 
+编写 integrate 函数求函数 f 在 a 点和 b 点之间的积分, 可以把 f 作为参数传入, 从而使其尽可能通用.
 
-integrate 的原型:
+```C
+double integrate(double (*f)(double), double a, double b);
+```
 
-`*f`两边的括号表示f是指向函数的指针. 
-
-另一种原型:
-
-
-
-</div>
-
-</div>
+- `*f` 两边的括号表示 f 是指向函数的指针.
+- 去掉括号写成 `double f(double)` 也可以, 编译器会把它当作函数指针参数.
+- 调用时直接传函数名, 例如 `integrate(sin, 0.0, PI/2)`.
 
 <!-- slide data-notes="" -->
 
@@ -282,39 +312,57 @@ void qsort(void *base, size_t nmemb, size_t size,
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
-C 库中一些功能强大的函数要求把函数指针作为参数. 
+C 库中一些功能强大的函数要求把函数指针作为参数.
 
-其中之一是 qsort, 原型在 <stdlib.h> 里。
+其中之一是 qsort, 原型在 `<stdlib.h>` 里。
 
-qsort是一个通用的排序函数, 能够对任何数组进行排序.
+qsort 是一个通用的排序函数, 能够对任何数组进行排序.
 
+必须告诉 qsort 如何确定两个数组元素中的哪个"更小".
 
-必须告诉qsort如何确定两个数组元素中的哪个"更小". 
+做法: 给 qsort 传一个==指向比较函数的指针==.
 
-做法: 给 qsort 传一个==指向比较函数的指针==。
+base 必须指向数组中的第一个元素 (或要排序的部分中的第一个元素).
 
-比较函数拿到两个元素的指针 p、q, 返回一个整数: 
+nmemb 是要排序的元素数.
 
-- 如果*p “小于” *q, 返回负数; 
+size 是每个数组元素的大小, 以字节为单位.
 
-- 如果*p “等于” *q, 返回零; 
-
-- 如果*p “大于” *q, 返回正数.
-
-
-qsort 的原型:
-
-base必须指向数组中的第一个元素(或要排序的部分中的第一个元素). 
-
-nmemb是要排序的元素数. 
-
-size是每个数组元素的大小, 以字节为单位. 
-
-compar是指向比较函数的指针.
+compar 是指向比较函数的指针.
 
 </div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### qsort函数 (续)
+
+---
+
+<div style="font-size:0.92em;">
+
+比较函数拿到两个元素的指针 p、q, 返回一个整数:
+
+- 如果 `*p` "小于" `*q`, 返回负数;
+- 如果 `*p` "等于" `*q`, 返回零;
+- 如果 `*p` "大于" `*q`, 返回正数.
+
+例如, 比较两个 int:
+
+```C
+int cmp_int(const void *p, const void *q)
+{
+  int a = *(const int *)p, b = *(const int *)q;
+  return (a > b) - (a < b);
+}
+```
+
+调用时把函数名传给 qsort:
+
+`qsort(a, n, sizeof(a[0]), cmp_int);`
 
 </div>
 
@@ -335,24 +383,33 @@ void (*pf)(int);
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.6em;">
 
-尽管函数指针经常用作参数, 但这并不是它们的全部优点. 
+尽管函数指针经常用作参数, 但这并不是它们的全部优点.
 
-C 将指向函数的指针视为指向数据的指针. 
+C 将指向函数的指针视为指向数据的指针.
 
-它们可以存储在变量中, 也可以用作数组的元素, 结构或联合的成员. 
+它们可以存储在变量中, 也可以用作数组的元素, 结构或联合的成员.
 
 函数甚至可以返回函数指针.
 
+可以存储指向函数的指针的变量, pf 指向具有 int 型参数且返回 void 型值的函数:
 
-可以存储指向函数的指针的变量, pf指向具有int型参数且返回void型值的函数:
-
-如果f是这样一个函数, 可以通过以下方式使pf指向f: 
+如果 f 是这样一个函数, 可以通过以下方式使 pf 指向 f:
 
 `pf = f;`
 
-可以通过以下方式调用f: 
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 函数指针的其他用途 (续)
+
+---
+
+可以通过以下方式调用 f:
 
 `(*pf)(i);`
 
@@ -360,9 +417,14 @@ C 将指向函数的指针视为指向数据的指针.
 
 `pf(i);`
 
-</div>
+函数指针也可以组成数组, 按编号选择要调用的函数:
 
-</div>
+```C
+void (*ops[2])(int) = {f, g};
+ops[0](i);
+```
+
+这种写法把"做什么"变成数据, 常用于命令表和回调.
 
 <!-- slide data-notes="" -->##### 程序: 列三角函数表
 
@@ -385,6 +447,8 @@ C 将指向函数的指针视为指向数据的指针.
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 同一个循环跑三次, 每次换一个数学函数——怎么把"函数"当作参数传进去?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 

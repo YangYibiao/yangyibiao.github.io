@@ -765,6 +765,10 @@ main 里调用 average 时编译器没有它的信息: 不报错, 而是假设�
 
 避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读
 
+<div style="text-align:center;margin-top:2px;">
+<svg viewBox='0 0 400 190' style='max-width:100%;height:170px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='decl-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='decl-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><text x='10' y='16' font-size='11' fill='#dc322f' font-weight='700'>✗ 没有原型：编译器只能猜</text><g font-weight='700'><rect x='8' y='26' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='64' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>main 调用</text><text x='64' y='58' font-size='10' fill='#073642' text-anchor='middle'>average(x, y)</text><rect x='140' y='26' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='202' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>编译器没见过</text><text x='202' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 隐式声明 int</text><rect x='284' y='26' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='338' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>之后遇到定义</text><text x='338' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 类型冲突</text></g><path d='M120 48 H137' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><path d='M264 48 H281' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><text x='10' y='100' font-size='11' fill='#859900' font-weight='700'>✓ 有原型：先声明，后调用</text><g font-weight='700'><rect x='8' y='110' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='70' y='127' font-size='9.5' fill='#073642' text-anchor='middle'>double average</text><text x='70' y='142' font-size='9.5' fill='#073642' text-anchor='middle'>(double, double);</text><rect x='152' y='110' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='208' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>调用前已见过</text><text x='208' y='142' font-size='10' fill='#073642' text-anchor='middle'>按 double 检查</text><rect x='284' y='110' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='338' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>实参 int → double</text><text x='338' y='142' font-size='10' fill='#859900' text-anchor='middle'>→ 正确</text></g><path d='M132 132 H149' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><path d='M264 132 H281' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><text x='10' y='180' font-size='9.5' fill='#586e75'>C99：调用前必须先声明或定义，否则直接报错</text></g></svg>
+</div>
+
 ---
 
 
@@ -784,25 +788,17 @@ main 里调用 average 时编译器没有它的信息: 不报错, 而是假设�
 
 ```C{.line-numbers}
 #include <stdio.h>
- 
 double average(double a, double b);   /* DECLARATION */
-
 int main(void)
 {
   double x, y, z;
-
   printf("Enter three numbers: ");
   scanf("%lf%lf%lf", &x, &y, &z);
-  printf("Average of %g and %g: %g
-", x, y, average(x, y));
-  printf("Average of %g and %g: %g
-", y, z, average(y, z));
-  printf("Average of %g and %g: %g
-", x, z, average(x, z));
-
+  printf("Average of %g and %g: %g\n", x, y, average(x, y));
+  printf("Average of %g and %g: %g\n", y, z, average(y, z));
+  printf("Average of %g and %g: %g\n", x, z, average(x, z));
   return 0;
 }
- 
 double average(double a, double b)    /* DEFINITION */
 {
   return (a + b) / 2;
@@ -815,13 +811,13 @@ double average(double, double);    /* 形参名可省略 */
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.82em;line-height:1.45;">
 
 - 更好的解决方案: 在调用函数之前==声明==它——声明给编译器一份 "简要介绍", 完整定义以后给出
 
 - ==声明必须与定义一致== (返回类型、参数个数与类型都对上)
 
-- 这类声明称为==函数原型==; 原型不必写形参名 (`double average(double, double);`), 但==最好写上== (便于阅读)
+- 这类声明称为==函数原型==; 原型不必写形参名, 但==最好写上== (便于阅读)
 
 </div>
 
@@ -880,8 +876,7 @@ int power(int x, int n)
   for (i = 1; i <= n; i++) {
     result = result * x;
   }
-
-  return result;
+  return result;   /* x 的 n 次幂 */
 }
 ```
 
@@ -889,7 +884,7 @@ int power(int x, int n)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.5;">
 
 C 里参数是==按值传递==的: 
 
@@ -955,7 +950,7 @@ decompose(3.14159, i, d);
 
 <div style="font-weight:700;color:#268bd2;margin-top:10px;">📌 传值的代价</div>
 
-想在函数里 "改外面" 的变量就做不到了——`decompose` 想分解出整数部分和小数部分: 函数不能返回两个数, 修改形参也==没用==
+想在函数里 "改外面" 的变量就做不到——`decompose` 想分解出整数部分和小数部分, 修改形参也==没用==
 
 `decompose(3.14159, i, d)` 之后, i、d 纹丝不动
 
@@ -994,6 +989,10 @@ int main(void) {
 ```
 x = 3, y = 5
 ```
+
+<div style="text-align:center;margin-top:4px;">
+<svg viewBox='0 0 400 180' style='max-width:100%;height:165px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='swap-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='swap-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-weight='700'><text x='55' y='16' font-size='9.5' fill='#dc322f' text-anchor='middle'>main（原件）</text><text x='200' y='16' font-size='9.5' fill='#268bd2' text-anchor='middle'>swap 的形参（复印件）</text><text x='330' y='16' font-size='9.5' fill='#859900' text-anchor='middle'>交换后（仍是副本）</text><rect x='8' y='24' width='94' height='112' rx='6' fill='none' stroke='#dc322f' stroke-width='1.5' stroke-dasharray='5 4'/><rect x='15' y='34' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='55' y='57' font-size='14' fill='#073642' text-anchor='middle'>x = 3</text><rect x='15' y='90' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='55' y='113' font-size='14' fill='#073642' text-anchor='middle'>y = 5</text><rect x='150' y='34' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#268bd2' stroke-width='2' stroke-dasharray='5 3'/><text x='190' y='57' font-size='14' fill='#073642' text-anchor='middle'>a = 3</text><rect x='150' y='90' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#268bd2' stroke-width='2' stroke-dasharray='5 3'/><text x='190' y='113' font-size='14' fill='#073642' text-anchor='middle'>b = 5</text><rect x='285' y='34' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='325' y='57' font-size='14' fill='#073642' text-anchor='middle'>a = 5</text><rect x='285' y='90' width='80' height='36' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='325' y='113' font-size='14' fill='#073642' text-anchor='middle'>b = 3</text></g><path d='M95 52 H146' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#swap-blue)'/><path d='M95 108 H146' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#swap-blue)'/><text x='121' y='46' font-size='8.5' fill='#268bd2' text-anchor='middle'>复印</text><text x='121' y='102' font-size='8.5' fill='#268bd2' text-anchor='middle'>复印</text><path d='M230 52 L283 108' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#swap-green)'/><path d='M230 108 L283 52' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#swap-green)'/><rect x='243' y='73' width='28' height='14' rx='3' fill='#fdf6e3'/><text x='257' y='84' font-size='9' fill='#859900' text-anchor='middle' font-weight='700'>交换</text><text x='55' y='148' font-size='9.5' fill='#dc322f' text-anchor='middle'>x、y 仍是 3、5</text><text x='15' y='170' font-size='9.5' fill='#586e75'>形参 a、b 只是副本；函数返回，副本销毁 → 外面的 x、y 不受影响</text></g></svg>
+</div>
 
 </div>
 

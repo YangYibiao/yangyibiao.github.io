@@ -1,10 +1,1 @@
-/**/
-#include <stdio.h>
-
-int main() {
-  int age;
-  printf("Enter your age: ");
-  scanf("%d", &age);
-  printf("You are %d years old.\n", age);
-  return 0;
-}
+/* age.c: 输入出生年份, 输出今年的年龄 —— 从这行开始写你的代码 */

@@ -1,6 +1,1 @@
-#include <stdio.h>
-
-int main(void)
-{
-  return 0;
-}
+/* skeleton.c: 从这行开始写你的代码 */

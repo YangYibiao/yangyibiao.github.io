@@ -203,6 +203,71 @@ Commission: $166.00
 
 </div>
 
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox="0 0 400 150" style="max-width:100%;height:150px;">
+  <defs>
+    <marker id="ar42g" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+      <path d="M0,0 L5,2.5 L0,5 Z" fill="#93a1a1"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="10" font-size="10.5" fill="#586e75" text-anchor="middle">级联 if:从低到高,每档只判上限</text>
+
+    <rect x="14" y="18" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="22" y="29.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 2500</text>
+    <line x1="134" y1="26" x2="152" y2="26" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
+    <text x="143" y="23.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="18" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="208" y="29.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$30 + 1.7%</text>
+    <line x1="74" y1="34" x2="74" y2="40" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+
+    <rect x="14" y="40" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="22" y="51.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 6250</text>
+    <line x1="134" y1="48" x2="152" y2="48" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
+    <text x="143" y="45.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="40" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="208" y="51.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$56 + 0.66%</text>
+    <line x1="74" y1="56" x2="74" y2="62" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+
+    <rect x="14" y="62" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="22" y="73.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 20000</text>
+    <line x1="134" y1="70" x2="152" y2="70" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
+    <text x="143" y="67.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="62" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="208" y="73.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$76 + 0.34%</text>
+    <line x1="74" y1="78" x2="74" y2="84" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+
+    <rect x="14" y="84" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="22" y="95.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 50000</text>
+    <line x1="134" y1="92" x2="152" y2="92" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
+    <text x="143" y="89.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="84" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="208" y="95.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$100 + 0.22%</text>
+    <line x1="74" y1="100" x2="74" y2="106" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+
+    <rect x="14" y="106" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="22" y="117.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 500000</text>
+    <line x1="134" y1="114" x2="152" y2="114" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
+    <text x="143" y="111.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="106" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="208" y="117.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$155 + 0.11%</text>
+    <line x1="74" y1="122" x2="74" y2="128" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+
+    <rect x="14" y="128" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="22" y="139.5" font-size="9" fill="#073642">否则 (≥ 500000)</text>
+    <line x1="134" y1="136" x2="152" y2="136" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
+    <text x="143" y="133.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="128" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="208" y="139.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$255 + 0.09%</text>
+
+    <line x1="272" y1="40" x2="272" y2="98" stroke="#268bd2" stroke-width="2"/>
+    <text x="280" y="54" font-size="9.5" fill="#586e75">区间从小到大排</text>
+    <text x="280" y="70" font-size="9.5" fill="#586e75">每个条件只写上限</text>
+    <text x="280" y="86" font-size="9.5" fill="#586e75">不必用逻辑与连接</text>
+  </g>
+</svg>
+</div>
+
 <!-- slide data-notes="" -->
 
 
@@ -425,20 +490,16 @@ printf 的实参也可以直接写条件表达式 (如左最后一行)
 ```C{.line-numbers}
 if (grade == 4) {
   printf("Excellent");
-}
-else if (grade == 3) {
+} else if (grade == 3) {
   printf("Good");
-}
-else if (grade == 2) {
+} else if (grade == 2) {
   printf("Average");
-}
-else if (grade == 1) {
+} else if (grade == 1) {
   printf("Poor");
-}
-else if (grade == 0) {
+} else if (grade == 0) {
   printf("Failing");
 } else {
-  printf("Illegal grade"); 
+  printf("Illegal grade");
 }
 ```
 
@@ -469,11 +530,15 @@ switch (grade) {
 
 </div>
 
+<div style="font-size:0.75em;">
+
 - 级联 if 适合==区间判定==; 与一系列==离散值==比较时, switch 更清晰
 
-- 左边的 if 版把 `grade == x` 写了六遍; switch 版只写一次 `switch (grade)`
+- 左边的 if 版 `grade == x` 写了六遍; switch 版只写一次
 
 - 每个分支末尾的 `break`——下一页就讲它的作用
+
+</div>
 
 <!-- slide data-notes="" -->
 

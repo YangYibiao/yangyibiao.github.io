@@ -162,26 +162,33 @@ for (cur = list, prev = NULL;
 
 链表的一大优势: 删除结点很方便。
 
-删除结点分三步: 
+删除结点分三步:
 
 - 找到要删除的结点.
+- 更改前一个结点, 使其"绕过"已删除的结点.
+- 调用 free 回收被删除结点占用的空间.
 
-- 更改前一个结点, 使其“绕过”已删除的结点. 
-
-- 调用free回收被删除结点占用的空间. 
-
-第1步比看起来更难, 因为第2步需要更改前一个结点. 
+第 1 步比看起来更难, 因为第 2 步需要更改前一个结点.
 
 这个问题有多种解决方案.
 
+"追踪指针"技术涉及保持指向前一个结点(prev)的指针以及指向当前结点(cur)的指针.
 
-"追踪指针"技术涉及保持指向前一个结点(prev)的指针以及指向当前结点(cur)的指针. 
-
-假设list指向要搜索的链表, n是要删除的整数. 
+假设 list 指向要搜索的链表, n 是要删除的整数.
 
 实现第 1 步的循环:
 
-当循环终止时, cur指向要删除的结点, prev指向前一个结点.
+当循环终止时, cur 指向要删除的结点, prev 指向前一个结点.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 从链表中删除结点 (续)
+
+---
 
 第 2、3 步的代码:
 
@@ -194,22 +201,24 @@ free(cur);                 /* 回收内存 */
 ```
 
 - 删除头结点要==更新头指针==; free 之后 cur 不能再解引用
+- 删除操作只改变==指针==, 不移动结点; 查找是 O(n), 删除本身 O(1)
 
+<!-- slide data-notes="" -->
 
-假设链表如下并且n为20: 
+##### 从链表中删除结点 (续 2)
+
+---
+
+假设链表如下并且 n 为 20:
 
 <div class="top-2">
   <img src="figs/16-11-1.png" width=500px>
 </div>
 
-执行完`cur = list, prev = NULL`后: 
+执行完 `cur = list, prev = NULL` 后:
 
 <div class="top-2">
   <img src="figs/16-11-2.png" width=500px>
-</div>
-
-</div>
-
 </div>
 
 <!-- slide data-notes="" -->
@@ -224,6 +233,44 @@ free(cur);                 /* 回收内存 */
 向有序链表中插入结点更加困难, 因为结点并不总是放在链表的开头. 
 
 但是搜索会更快: 在到达期望结点应该出现的位置后, 就可以停止查找.
+
+<svg viewBox="0 0 400 175" style="max-width:100%;height:175px;" role="img" aria-label="有序链表插入 25">
+  <defs>
+    <marker id="ll-order-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="8" y="18" font-size="11" fill="#586e75">有序链表: 找到第一个比 25 大的结点</text>
+    <text x="8" y="48" font-size="9" fill="#859900">list</text>
+    <line x1="34" y1="44" x2="48" y2="44" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
+
+    <rect x="50" y="42" width="64" height="32" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="82" y="63" font-size="13" fill="#073642" text-anchor="middle">10</text>
+    <rect x="150" y="42" width="64" height="32" rx="4" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="182" y="63" font-size="13" fill="#073642" text-anchor="middle">20</text>
+    <rect x="270" y="42" width="64" height="32" rx="4" fill="#fdf6e3" stroke="#dc322f" stroke-width="2"/>
+    <text x="302" y="63" font-size="13" fill="#073642" text-anchor="middle">30</text>
+
+    <line x1="114" y1="58" x2="148" y2="58" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
+    <line x1="214" y1="58" x2="268" y2="58" stroke="#93a1a1" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <text x="240" y="63" font-size="12" fill="#dc322f" text-anchor="middle">×</text>
+    <line x1="334" y1="58" x2="350" y2="58" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ll-order-arrow)"/>
+    <text x="354" y="62" font-size="9" fill="#93a1a1">NULL</text>
+
+    <text x="182" y="34" font-size="8.5" fill="#268bd2" text-anchor="middle">prev</text>
+    <text x="302" y="34" font-size="8.5" fill="#dc322f" text-anchor="middle">cur</text>
+
+    <rect x="190" y="108" width="64" height="32" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
+    <text x="222" y="129" font-size="13" fill="#073642" text-anchor="middle">25</text>
+    <text x="222" y="154" font-size="8.5" fill="#268bd2" text-anchor="middle">new_node</text>
+
+    <line x1="200" y1="74" x2="212" y2="106" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
+    <line x1="254" y1="124" x2="282" y2="76" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
+
+    <text x="8" y="170" font-size="9" fill="#586e75">prev-&gt;next = new; new-&gt;next = cur</text>
+  </g>
+</svg>
 
 ---
 
@@ -243,6 +290,8 @@ free(cur);                 /* 回收内存 */
 3. 删除链表中==所有==值为 n 的结点 (删除头结点要更新头指针!)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚 ==prev 和 cur 两个指针==怎么配合, 再动手
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
 ---
 

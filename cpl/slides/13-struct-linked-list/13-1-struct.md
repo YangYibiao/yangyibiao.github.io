@@ -106,6 +106,43 @@ struct {
 
 </div>
 
+<svg viewBox="0 0 400 125" style="max-width:100%;height:125px;" role="img" aria-label="三个平行数组与一个结构体的对比">
+  <defs>
+    <marker id="struct-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="8" y="14" font-size="10" fill="#dc322f">拆成三个数组</text>
+    <text x="210" y="14" font-size="10" fill="#268bd2">一个结构体 (打包)</text>
+
+    <rect x="8" y="24" width="120" height="30" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="14" y="43" font-size="8.5" fill="#073642">number: 528</text>
+    <rect x="8" y="54" width="120" height="30" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="14" y="73" font-size="8.5" fill="#073642">name: "Disk drive"</text>
+    <rect x="8" y="84" width="120" height="30" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="14" y="103" font-size="8.5" fill="#073642">on_hand: 10</text>
+
+    <text x="134" y="64" font-size="8" fill="#dc322f" text-anchor="middle">三块</text>
+    <text x="134" y="76" font-size="8" fill="#dc322f" text-anchor="middle">独立内存</text>
+
+    <line x1="150" y1="69" x2="204" y2="69" stroke="#268bd2" stroke-width="1.6" marker-end="url(#struct-arrow)"/>
+    <text x="177" y="61" font-size="8.5" fill="#268bd2" text-anchor="middle">打包</text>
+
+    <rect x="210" y="24" width="150" height="90" rx="5" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <line x1="210" y1="54" x2="360" y2="54" stroke="#93a1a1" stroke-width="1"/>
+    <line x1="210" y1="84" x2="360" y2="84" stroke="#93a1a1" stroke-width="1"/>
+    <text x="220" y="43" font-size="8.5" fill="#073642">number: 528</text>
+    <text x="220" y="73" font-size="8.5" fill="#073642">name: "Disk drive"</text>
+    <text x="220" y="103" font-size="8.5" fill="#073642">on_hand: 10</text>
+
+    <path d="M366,24 L374,24 L374,114 L366,114" fill="none" stroke="#859900" stroke-width="1.3"/>
+    <text x="378" y="72" font-size="8" fill="#859900">连续</text>
+
+    <text x="8" y="122" font-size="8.5" fill="#586e75">数组只能存同类型; 结构体成员可不同类型, 按名字访问</text>
+  </g>
+</svg>
+
 <!-- slide data-notes="" -->
 
 
@@ -338,6 +375,8 @@ scanf("%d", &part1.on_hand);
 
 ---
 
+<div style="font-size:0.94em;">
+
 `=`运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组. 
 
 有的程序员利用此属性创建"空"结构体来封装稍后将复制的数组来: 
@@ -358,6 +397,8 @@ a1 = a2;
 除了赋值之外, C 不提供对整个结构体的操作. 
 
 特别是, `==`和`!=`运算符不能用于判定两个结构体是否相等.
+
+</div>
 
 ---
 
@@ -535,6 +576,36 @@ s = 2;   /* 2 represents "hearts" */
 #define SPADES   3
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+在许多程序中, 我们需要只有少量有意义的值的变量.
+
+存扑克牌花色的变量只该有 4 种值: 梅花、方片、红心、黑桃。
+
+可以把花色声明成整数, 用一组编码表示四种花色:
+
+这样做的问题:
+- 读代码的人看不出 s 只有 4 种可能值。
+- 2 的意义不明确.
+
+用宏给花色"类型"和四个名字——方向对了, 但还有更好的办法:
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 枚举 (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
 ```C
 SUIT s;
 …
@@ -545,31 +616,16 @@ s = HEARTS;
 
 <div style="flex:1;font-size:0.6em;">
 
-在许多程序中, 我们需要只有少量有意义的值的变量. 
-
-存扑克牌花色的变量只该有 4 种值: 梅花、方片、红心、黑桃。
-
-
-可以把花色声明成整数, 用一组编码表示四种花色:
-
-这样做的问题: 
-- 读代码的人看不出 s 只有 4 种可能值。
-- 2的意义不明确.
-
-
-用宏给花色"类型"和四个名字——方向对了, 但还有更好的办法:
-
 上一个示例的改进版本:
 
-但宏的问题: 
-- 没有指出宏表示具有相同"类型"的值. 
-- 如果可能值的数量很多, 那么为每个值定义一个宏是很麻烦的. 
-- 预处理器会删除名称CLUBS、DIAMONDS、HEARTS和SPADES, 因此它们在调试期间将不可用.
+但宏的问题:
+- 没有指出宏表示具有相同"类型"的值.
+- 如果可能值的数量很多, 那么为每个值定义一个宏是很麻烦的.
+- 预处理器会删除名称 CLUBS、DIAMONDS、HEARTS 和 SPADES, 因此它们在调试期间将不可用.
 
+C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.
 
-C 提供了一种特殊类型, 专为具有少量可能值的变量而设计. 
-
-**枚举类型**是其值由程序员列出("枚举")的类型. 
+**枚举类型**是其值由程序员列出("枚举")的类型.
 
 每个值都必须有一个名称(枚举常量).
 
@@ -631,6 +687,44 @@ enum EGA_colors {BLACK, LT_GRAY = 7,
                 DK_GRAY, WHITE = 15};
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+在系统内部, C 将枚举变量和常量视为整数.
+
+默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量.
+
+在花色枚举中, CLUBS、DIAMONDS、HEARTS 和 SPADES 分别代表 0、1、2 和 3.
+
+程序员可以为枚举常量选择不同的值:
+
+枚举常量的值可以是任意整数, 不用按特定顺序列出:
+
+两个或多个枚举常量具有相同的值甚至也是合法的.
+
+当没有为枚举常量指定值时, 它的值比前一个常量的值大 1.
+
+第一个枚举常量的值默认为 0.
+
+例子:
+
+BLACK 的值为 0, LT_GRAY 为 7, DK_GRAY 为 8, WHITE 为 15.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 枚举作为整数 (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
 ```C{.line-numbers}
 int i;
 enum {CLUBS, DIAMONDS, HEARTS, SPADES} s;
@@ -645,34 +739,11 @@ i = s + 2;      /* i is now 3            */
 
 <div style="flex:1;font-size:0.6em;">
 
-在系统内部, C 将枚举变量和常量视为整数. 
-
-默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量. 
-
-在花色枚举中, CLUBS、DIAMONDS、HEARTS和SPADES分别代表 0、1、2和3.
-
-
-程序员可以为枚举常量选择不同的值:
-
-枚举常量的值可以是任意整数, 不用按特定顺序列出:
-
-两个或多个枚举常量具有相同的值甚至也是合法的.
-
-
-当没有为枚举常量指定值时, 它的值比前一个常量的值大1. 
-
-第一个枚举常量的值默认为0. 
-
-例子:
-
-BLACK的值为0, LT_GRAY为7, DK_GRAY为8, WHITE为15.
-
-
 枚举值可以与普通整数混合:
 
-s被视为整型变量. 
+s 被视为整型变量.
 
-CLUBS、DIAMONDS、HEARTS和SPADES是整数0、1、2和3的名称.
+CLUBS、DIAMONDS、HEARTS 和 SPADES 是整数 0、1、2 和 3 的名称.
 
 </div>
 
@@ -742,6 +813,32 @@ void print_part(struct part p)
 print_part(part1);
 ```
 
+</div>
+
+<div style="flex:1;font-size:0.6em;">
+
+函数可以有结构体类型的参数和返回值.
+
+带有结构体参数的函数:
+
+调用 print_part:
+
+将结构体传递给函数需要复制结构体中的所有成员.
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 结构体作为参数和返回值 (续)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.4;font-size:0.55em;">
+
 ```C{.line-numbers}
 struct part build_part(int number,
                        const char *name,
@@ -764,42 +861,17 @@ part1 = build_part(528, "Disk drive", 10);
 
 <div style="flex:1;font-size:0.6em;">
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+返回 part 结构体的函数:
 
+调用 build_part:
 
+从函数返回结构体同样需要复制所有成员.
 
-<div style="flex:1;font-size:0.6em;">
-
-函数可以有结构体类型的参数和返回值. 
-
-带有结构体参数的函数:
-
-调用print_part:
-
-返回part结构体的函数:
-
-调用build_part:
-
-将结构体传递给函数和从函数返回结构体都需要复制结构体中的所有成员. 
-
-为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身. 
+为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身.
 
 第 10 周见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样.
 
-
-避免复制结构体还有其他原因. 
-
-例如, <stdio.h>头文件定义了一个名为FILE的类型, 它通常是一个结构体. 
-
-每个FILE结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的. 
-
-<stdio.h>中打开文件的每个函数都返回一个指向FILE结构体的指针. 
-
-每个对已打开文件执行操作的函数都需要一个FILE指针作为参数.
-
-</div>
-
-</div>
+避免复制结构体还有其他原因. 例如, <stdio.h> 头文件定义了一个名为 FILE 的类型, 它通常是一个结构体. 每个 FILE 结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的. <stdio.h> 中打开文件的每个函数都返回一个指向 FILE 结构体的指针; 每个对已打开文件执行操作的函数都需要一个 FILE 指针作为参数.
 
 </div>
 
@@ -933,49 +1005,43 @@ const struct dialing_code country_codes[] =
    {"United States",         1}, {"Vietnam",          84} };
 ```
 
-```C
-struct part inventory[100] = 
- {[0].number = 528, [0].on_hand = 10,
-  [0].name[0] = '\0'};
-```
-
 </div>
 
 <div style="flex:1;font-size:0.6em;">
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-
-
-<div style="flex:1;font-size:0.6em;">
-
-初始化结构体数组的方式与初始化多维数组的方式大致相同. 
+初始化结构体数组的方式与初始化多维数组的方式大致相同.
 
 每个结构体都有自己的大括号括起来的初始化式; 数组的初始化式将另一组大括号包裹在结构体初始化式的外围.
 
+初始化结构体数组的一个原因是它包含在程序执行期间不会改变的信息.
 
-初始化结构体数组的一个原因是它包含在程序执行期间不会改变的信息. 
-
-示例: 存储拨打国际电话时使用的国家/地区代码的数组. 
+示例: 存储拨打国际电话时使用的国家/地区代码的数组.
 
 数组的元素将是存储国家名称及其代码的结构体:
 
 每个结构体值两边的内层大括号是可选的.
 
+</div>
 
-C99 的指定初始化式允许每一项有多个指示符. 
+</div>
 
-声明inventory数组, 使用指定初始化式来包含一个零件:
+<!-- slide data-notes="" -->
+
+##### 初始化结构体数组 (续)
+
+---
+
+C99 的指定初始化式允许每一项有多个指示符.
+
+声明 inventory 数组, 使用指定初始化式来包含一个零件:
+
+```C
+struct part inventory[100] =
+ {[0].number = 528, [0].on_hand = 10,
+  [0].name[0] = '\0'};
+```
 
 初始化式中的前两项使用两个指示符; 最后一项使用三个.
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->
 

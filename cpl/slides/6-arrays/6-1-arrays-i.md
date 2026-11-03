@@ -123,11 +123,49 @@ C 还支持==聚合==:
 
 一维数组的元素一个接一个排成一行 (模型图; 实际上它们在内存里==连续存放==, 中间没有空隙):
 
-<div class="fullborder">
+<div style="text-align:center;margin-top:4px;">
+<svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="18" y="22" font-size="14" font-weight="700" fill="#073642" font-family="Menlo, monospace">int a[10];</text>
+    <text x="382" y="22" font-size="10.5" fill="#586e75" text-anchor="end">每个 int 占 4 字节</text>
+    <text x="18" y="45" font-size="9.5" fill="#93a1a1">下标</text>
+    <text x="34" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">0</text>
+    <text x="68" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">1</text>
+    <text x="102" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">2</text>
+    <text x="136" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">3</text>
+    <text x="170" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">4</text>
+    <text x="204" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">5</text>
+    <text x="238" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">6</text>
+    <text x="272" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">7</text>
+    <text x="306" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">8</text>
+    <text x="340" y="45" font-size="9.5" fill="#93a1a1" text-anchor="middle">9</text>
 
-| &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; | &emsp; |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+    <rect x="18" y="52" width="32" height="32" rx="2" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="34" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[0]</text>
+    <rect x="52" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="68" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[1]</text>
+    <rect x="86" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="102" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[2]</text>
+    <rect x="120" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="136" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[3]</text>
+    <rect x="154" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="170" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[4]</text>
+    <rect x="188" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="204" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[5]</text>
+    <rect x="222" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="238" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[6]</text>
+    <rect x="256" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="272" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[7]</text>
+    <rect x="290" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="306" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[8]</text>
+    <rect x="324" y="52" width="32" height="32" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="340" y="72" font-size="9.5" fill="#073642" text-anchor="middle">a[9]</text>
 
+    <path d="M18 90 V96 H356 V90" fill="none" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="187" y="112" font-size="11.5" fill="#586e75" text-anchor="middle">内存中连续存放,元素之间没有空隙</text>
+    <text x="200" y="138" font-size="12" fill="#073642" text-anchor="middle">下标范围 0 ~ 9;长度 10 的数组没有 <tspan fill="#dc322f" font-family="Menlo, monospace">a[10]</tspan></text>
+  </g>
+</svg>
 </div>
 
 ---
@@ -395,12 +433,10 @@ a[5] = 1
 
 ```C{.line-numbers}
 #include <stdio.h>
-
 int main(void)
 {
   int a[4] = {10, 20, 30, 40};
   int i;
-
   for (i = 0; i < 4; i++) {
     printf("第 %d 轮\n", i);
     if (i == 2) {
@@ -418,7 +454,6 @@ int main(void)
 第 1 轮
 第 2 轮
 第 -99 轮
-第 -98 轮
 …(循环失控, 一路狂奔)
 ```
 
@@ -753,6 +788,52 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 前面的"拆数字"先用起来; 关键是==怎么记住==哪些数字已经出现过
 
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox="0 0 400 180" style="max-width:100%;height:175px;">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="16" font-size="12" fill="#073642" text-anchor="middle">输入 28245:从个位拆起,边拆边记账</text>
+    <text x="18" y="36" font-size="10" fill="#586e75" font-family="Menlo, monospace">digit_seen[10]</text>
+
+    <text x="34" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">0</text>
+    <text x="68" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">1</text>
+    <text x="102" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">2</text>
+    <text x="136" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">3</text>
+    <text x="170" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">4</text>
+    <text x="204" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">5</text>
+    <text x="238" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">6</text>
+    <text x="272" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">7</text>
+    <text x="306" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">8</text>
+    <text x="340" y="50" font-size="9.5" fill="#93a1a1" text-anchor="middle">9</text>
+
+    <rect x="18" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="34" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+    <rect x="52" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="68" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+    <rect x="86" y="56" width="32" height="34" rx="2" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="102" y="77" font-size="13" fill="#073642" text-anchor="middle">1</text>
+    <rect x="120" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="136" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+    <rect x="154" y="56" width="32" height="34" rx="2" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="170" y="77" font-size="13" fill="#073642" text-anchor="middle">1</text>
+    <rect x="188" y="56" width="32" height="34" rx="2" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="204" y="77" font-size="13" fill="#073642" text-anchor="middle">1</text>
+    <rect x="222" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="238" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+    <rect x="256" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="272" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+    <rect x="290" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="306" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+    <rect x="324" y="56" width="32" height="34" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="340" y="77" font-size="13" fill="#073642" text-anchor="middle">0</text>
+
+    <rect x="83" y="53" width="38" height="40" rx="3" fill="none" stroke="#dc322f" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="200" y="120" font-size="11" fill="#586e75" text-anchor="middle">拆出的数字 <tspan font-family="Menlo, monospace" fill="#073642">5 → 4 → 2 → 8 →</tspan> <tspan font-family="Menlo, monospace" fill="#dc322f">2</tspan></text>
+    <text x="200" y="148" font-size="11" fill="#586e75" text-anchor="middle">下标 = 数字 (0~9),值 = 出现过没有 (0/1)</text>
+    <text x="200" y="168" font-size="11" fill="#dc322f" text-anchor="middle">查到 digit_seen[2] 已是 1 → 判定重复!</text>
+  </g>
+</svg>
+</div>
+
 ---
 
 <!-- slide data-notes="" -->
@@ -958,7 +1039,7 @@ int main(void)
 
 - 查表: 值当下标, 取出对应字符——repdigit 的标志数组是"记", 这张表是"取"
 
-- 下一题进制转换的 16 进制输出、下节课生命游戏的图案打印, 都要靠它
+- 下一题进制转换的 16 进制输出、后面生命游戏的图案打印, 都要靠它
 
 </div>
 
@@ -1079,10 +1160,33 @@ int main(void)
 
 1221 拆进数组 (个位在前):
 
-```
-digits = [1, 2, 2, 1]
-下标      0  1  2  3
-```
+<div style="text-align:center;margin-top:4px;">
+<svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="14" font-size="11.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">digits = {1, 2, 2, 1}    len = 4</text>
+    <text x="74" y="31" font-size="9.5" fill="#93a1a1" text-anchor="end">下标</text>
+    <text x="113" y="31" font-size="9.5" fill="#93a1a1" text-anchor="middle">0</text>
+    <text x="171" y="31" font-size="9.5" fill="#93a1a1" text-anchor="middle">1</text>
+    <text x="229" y="31" font-size="9.5" fill="#93a1a1" text-anchor="middle">2</text>
+    <text x="287" y="31" font-size="9.5" fill="#93a1a1" text-anchor="middle">3</text>
+
+    <rect x="88" y="36" width="50" height="42" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="113" y="64" font-size="22" fill="#073642" text-anchor="middle">1</text>
+    <rect x="146" y="36" width="50" height="42" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="171" y="64" font-size="22" fill="#073642" text-anchor="middle">2</text>
+    <rect x="204" y="36" width="50" height="42" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="229" y="64" font-size="22" fill="#073642" text-anchor="middle">2</text>
+    <rect x="262" y="36" width="50" height="42" rx="2" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="287" y="64" font-size="22" fill="#073642" text-anchor="middle">1</text>
+
+    <path d="M171 78 V102 H229 V78" fill="none" stroke="#859900" stroke-width="2"/>
+    <path d="M113 78 V122 H287 V78" fill="none" stroke="#268bd2" stroke-width="2"/>
+    <text x="200" y="97" font-size="10" fill="#859900" text-anchor="middle">2 ↔ 2</text>
+    <text x="200" y="137" font-size="10" fill="#268bd2" text-anchor="middle">1 ↔ 1</text>
+    <text x="200" y="157" font-size="11" fill="#586e75" text-anchor="middle">只比 len/2 = 2 组:digits[i] 与 digits[len-1-i]</text>
+  </g>
+</svg>
+</div>
 
 第 i 位要对的, 是第 ==len-1-i== 位:
 

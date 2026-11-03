@@ -103,6 +103,69 @@ C 有三种循环语句 (控制表达式的玩法下面细讲):
 
 - ==for==: 最适合计数循环
 
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox="0 0 400 200" style="max-width:100%;height:190px;">
+  <defs>
+    <marker id="ar51g" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#586e75"/>
+    </marker>
+    <marker id="ar51b" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <line x1="133" y1="8" x2="133" y2="160" stroke="#eee8d5" stroke-width="2" stroke-dasharray="5 5"/>
+    <line x1="266" y1="8" x2="266" y2="160" stroke="#eee8d5" stroke-width="2" stroke-dasharray="5 5"/>
+
+    <text x="66" y="24" font-size="15" font-weight="700" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">while</text>
+    <polygon points="66,36 94,54 66,72 38,54" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="66" y="58" font-size="11" fill="#073642" text-anchor="middle">条件</text>
+    <line x1="66" y1="72" x2="66" y2="84" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <text x="73" y="81" font-size="9.5" fill="#859900">真</text>
+    <rect x="38" y="86" width="56" height="22" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="66" y="101" font-size="10.5" fill="#073642" text-anchor="middle">循环体</text>
+    <line x1="94" y1="54" x2="114" y2="54" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <text x="101" y="48" font-size="9.5" fill="#dc322f">假</text>
+    <path d="M38 97 H28 V54 H35" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#ar51b)"/>
+    <text x="66" y="132" font-size="10" fill="#586e75" text-anchor="middle">先判断,可能 0 次</text>
+
+    <text x="200" y="24" font-size="14" font-weight="700" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">do-while</text>
+    <rect x="172" y="34" width="56" height="22" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="200" y="49" font-size="10.5" fill="#073642" text-anchor="middle">循环体</text>
+    <line x1="200" y1="56" x2="200" y2="68" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <polygon points="200,70 228,86 200,102 172,86" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="200" y="90" font-size="11" fill="#073642" text-anchor="middle">条件</text>
+    <path d="M172 86 H160 V45 H169" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#ar51b)"/>
+    <text x="166" y="66" font-size="9.5" fill="#859900" text-anchor="middle">真</text>
+    <line x1="200" y1="102" x2="200" y2="114" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <text x="207" y="111" font-size="9.5" fill="#dc322f">假</text>
+    <text x="200" y="130" font-size="10" fill="#586e75" text-anchor="middle">先执行,至少 1 次</text>
+
+    <text x="333" y="24" font-size="15" font-weight="700" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">for</text>
+    <rect x="301" y="30" width="64" height="20" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="333" y="44" font-size="10.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">i = 1</text>
+    <text x="369" y="44" font-size="8.5" fill="#93a1a1">初始化</text>
+    <line x1="333" y1="50" x2="333" y2="58" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <polygon points="333,60 359,74 333,88 307,74" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="333" y="78" font-size="10" fill="#073642" text-anchor="middle">条件</text>
+    <line x1="333" y1="88" x2="333" y2="96" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <text x="340" y="95" font-size="9.5" fill="#859900">真</text>
+    <rect x="301" y="98" width="64" height="20" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="333" y="112" font-size="10.5" fill="#073642" text-anchor="middle">循环体</text>
+    <line x1="333" y1="118" x2="333" y2="124" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <rect x="301" y="126" width="64" height="20" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="333" y="140" font-size="10.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">i++</text>
+    <text x="369" y="140" font-size="8.5" fill="#93a1a1">步长</text>
+    <path d="M365 136 H380 V74 H362" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#ar51b)"/>
+    <line x1="307" y1="74" x2="288" y2="74" stroke="#586e75" stroke-width="1.5" marker-end="url(#ar51g)"/>
+    <text x="296" y="68" font-size="9.5" fill="#dc322f">假</text>
+    <text x="333" y="158" font-size="10" fill="#586e75" text-anchor="middle">初始化 → 条件 → 体 → 步长</text>
+
+    <text x="200" y="186" font-size="11.5" fill="#586e75" text-anchor="middle">while / for 先判断;do-while 先执行——三者可互相改写</text>
+  </g>
+</svg>
+</div>
+
 ---
 
 
@@ -131,9 +194,7 @@ int main(void) {
 }
 ```
 
-执行while语句时, 首先计算控制表达式
-
-- 非零 (true) 就执行循环体并再次测试; 持续到控制表达式变为零才停止
+- 执行过程: 先计算控制表达式; ==非零 (true) 就执行循环体并再次测试==, 持续到控制表达式变为零才停止
 
 ---
 
@@ -217,7 +278,7 @@ printf("发射!\n");
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.5;">
 
 循环体必须是==一条==语句
 
