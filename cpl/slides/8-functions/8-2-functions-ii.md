@@ -205,13 +205,19 @@ x = 3, y = 5
 
 ---
 
-<!-- slide data-notes="" -->##### 程序: 判定素数 · 改造前后
+<!-- slide data-notes="" -->##### 程序: 判定素数 · 原版
 
 ---
 
+<div style="font-size:0.85em;line-height:1.5;">
+
+8-1 已经把素数判断函数化; 这里把改造三步完整走一遍——==① 输入是什么? ② 输出是什么? ③ 函数叫什么名字?==——后面每个例子都这么问:
+
+</div>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.45em;">
+<div style="flex:1.3;font-size:0.55em;">
 
 原版 (判断逻辑埋在 main 里):
 
@@ -230,7 +236,27 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;font-size:0.45em;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+==口头回答==: 三步怎么答? 下一页对照
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 输入是 n, 输出是 "是/不是" (1/0), 函数名 is_prime
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开代码工作区</a> <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 程序: 判定素数 · 函数版
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
 
 函数版 (main 只剩输入输出):
 
@@ -255,31 +281,15 @@ int main(void) {
 
 </div>
 
-</div>
-
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.5em;line-height:1.5;">
-
-<div style="flex:1;">
-
-- ==改造三步==: ① 输入 ② 输出 ③ 函数名——后面每个例子都这么问
+<div style="flex:1;font-size:0.85em;line-height:1.5;">
 
 - `divisor <= n / divisor` 是 $\sqrt{n}$ 的等价写法 (不用 math.h), 不会溢出; 原版的 `d * d` 写法在 n 近 int 上限时溢出 (有符号溢出是==未定义行为==)——结果为负时条件恒真, 循环停不下来
-
-</div>
-
-<div style="flex:1;">
 
 - 顺手补上 `n <= 1`——原版对 n = 1 会误判; 改造不只是搬代码, 也顺手修 bug
 
 - 返回 1/0, `if (is_prime(n))` 直接当条件——与 8-1 一致
 
 </div>
-
-</div>
-
-<div style="font-size:0.8em;">
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;text-decoration:none;">⚡ 打开代码工作区</a> <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
 
 </div>
 
@@ -364,30 +374,59 @@ int is_leap_year(int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.85em;line-height:1.55;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
 - 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出; 开头的 `int is_leap_year(int);` 是 8-1 讲过的==函数原型==: 先声明, 后使用
 
-- 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==:
+- 返回 1/0, `if (is_leap_year(year))` 直接当条件; 以后想再判断, 调函数即可
 
-<div style="font-size:0.6em;">
+<a href="code/leap-re.c" target="_blank">leap-re.c (改造前)</a> · <a href="code/leap-func.c" target="_blank">leap-func.c (函数版)</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 改造进阶: return 让代码更简洁
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.6em;">
 
 ```C
-/* 简洁版 */
+/* 啰嗦版: 用 if 包装 */
+int is_leap_year(int n) {
+  if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
+    return 1;
+  }
+  return 0;
+}
+```
+
+```C
+/* 简洁版: 布尔表达式直接 return */
 int is_leap_year(int n) {
   return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
 }
+```
+
+```C
 int is_even(int n) { return n % 2 == 0; }          /* 偶数 */
 int is_digit(char c) { return c >= '0' && c <= '9'; }  /* 数字 */
 ```
 
 </div>
 
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==
+
+- 一类经典小函数都是 "一行函数": 偶数、数字、大小写字母……
+
 - ==提前 return== 也让代码更简洁: 找到就返回, 不需要 flag 变量——`is_prime` 就是这么写的
-
-- 返回 1/0, `if (is_leap_year(year))` 直接当条件; 以后想再判断, 调函数即可
-
-<a href="code/leap-re.c" target="_blank">leap-re.c (改造前)</a> · <a href="code/leap-func.c" target="_blank">leap-func.c (函数版)</a>
 
 </div>
 
@@ -1310,12 +1349,18 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ---
 
+<div style="font-size:0.85em;line-height:1.5;">
+
+函数不执行的时候是什么? 编译后它只是==代码区==里静静躺着的一段指令——像书架上的菜谱, 不做事也不占台面; 一被调用, 系统才为==这一次调用==在栈上放一张便签。同一张菜谱能反复做菜——同一个函数每次调用都是独立的一次:
+
+</div>
+
 先想一个问题: 函数返回之后, 它里面的局部变量==去了哪里==? 下次再调用, 为什么又是全新的?
 
 <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:start;">
 
 <div style="text-align:center;">
-<svg viewBox="0 0 460 440" style="max-width:100%;height:380px;">
+<svg viewBox="0 0 460 440" style="max-width:100%;height:340px;">
 <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
 <text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>

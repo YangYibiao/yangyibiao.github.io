@@ -63,7 +63,7 @@ int main(void)
   board[4][3] = 1;
   board[4][4] = 1;
 
-  for (i = 0; i < 20; i++) {
+  for (i = 0; i < 30; i++) {
     print_board(board);
     next_generation(board);
     sleep(1);            /* wait one second */

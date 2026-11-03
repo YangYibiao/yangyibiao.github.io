@@ -1,10 +1,19 @@
 #include <stdio.h>
+
+int is_prime(int);
+
 int main(void) {
-  int n, d, prime = 1;
+  int n;
   scanf("%d", &n);
-  for (d = 2; d * d <= n; d++)
-    if (n % d == 0) { prime = 0; break; }
-  if (prime == 1) printf("是素数\n");
+  if (is_prime(n)) printf("是素数\n");
   else printf("不是素数\n");
   return 0;
+}
+
+int is_prime(int n) {
+  if (n <= 1) return 0;
+  for (int d = 2; d <= n / d; d++) {
+    if (n % d == 0) { return 0; }
+  }
+  return 1;
 }

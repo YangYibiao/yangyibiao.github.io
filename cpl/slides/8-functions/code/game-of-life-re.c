@@ -3,6 +3,36 @@
 
 #define SIZE 8
 
+void print_matrix(int mat[][SIZE + 2], int rows) {
+  /* print the initial board */
+  for (int i = 1; i <= rows; i++) {
+    for (int j = 1; j <= SIZE; j++) {
+      printf("%c", mat[i][j] ? '*' : '.');
+    }
+    printf("\n");
+  }
+  printf("\n");
+}
+
+void next_gen(int mat[][SIZE + 2], int next[][SIZE + 2], int rows) {
+  /* count neighbors + apply rules, all inline */
+  for (int i = 1; i <= SIZE; i++) {
+    for (int j = 1; j <= SIZE; j++) {
+      int cnt = -mat[i][j];
+      for (int m = i - 1; m <= i + 1; m++) {
+        for (int n = j - 1; n <= j + 1; n++) {
+          cnt += mat[m][n];
+        }
+      }
+      if (mat[i][j] == 1) {
+        next[i][j] = (cnt == 2 || cnt == 3);
+      } else {
+        next[i][j] = (cnt == 3);
+      }
+    }
+  }
+}
+
 int main(void)
 {
   /* extra border of zeros avoids boundary checks */
@@ -17,38 +47,8 @@ int main(void)
   board[4][3] = 1;
   board[4][4] = 1;
 
-  /* print the initial board */
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
-      printf("%c", board[i][j] ? '*' : '.');
-    }
-    printf("\n");
-  }
-  printf("\n");
-
-  /* count neighbors + apply rules, all inline */
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
-      cnt = -board[i][j];
-      for (m = i - 1; m <= i + 1; m++) {
-        for (n = j - 1; n <= j + 1; n++) {
-          cnt += board[m][n];
-        }
-      }
-      if (board[i][j] == 1) {
-        next[i][j] = (cnt == 2 || cnt == 3);
-      } else {
-        next[i][j] = (cnt == 3);
-      }
-    }
-  }
-
-  /* print the new generation */
-  for (i = 1; i <= SIZE; i++) {
-    for (j = 1; j <= SIZE; j++) {
-      printf("%c", next[i][j] ? '*' : '.');
-    }
-    printf("\n");
-  }
+  print_matrix(board, SIZE + 2);
+  next_gen(board, next, SIZE + 2);
+  print_matrix(next, SIZE + 2);
   return 0;
 }

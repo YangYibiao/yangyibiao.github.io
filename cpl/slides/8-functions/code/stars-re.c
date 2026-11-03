@@ -1,18 +1,18 @@
 #include <stdio.h>
 
+void print_nchars(int n, char c) {
+  for (int j = 0; j < n; j++) {
+    printf("%c", c);
+  }
+}
+
 int main() {
   int lines = 0;
   scanf("%d", &lines);
 
   for (int i = 0; i < lines; i++) {
-    // 打印空格 (居中)
-    for (int j = 0; j < lines - 1 - i; j++) {
-      printf(" ");
-    }
-    // 打印 2*i+1 颗星
-    for (int j = 0; j < 2 * i + 1; j++) {
-      printf("*");
-    }
+    print_nchars(lines - 1 - i, ' ');
+    print_nchars(2 * i + 1, '#');
     if (i != lines - 1) {
       printf("\n");
     }
