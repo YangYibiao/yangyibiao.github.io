@@ -78,7 +78,7 @@ presentation:
 
 ```C
 /* 阶乘: n! = n × (n-1)! */
-long f(long n)
+long long f(long long n)
 {
   if (n == 0) {            /* 基准: 0! = 1, 唯一的奠基 */
     return 1;
@@ -155,7 +155,7 @@ fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 ```C
 #include <stdio.h>
 
-long fact(int n)
+long long fact(int n)
 {
   if (n == 0) {            /* 基准: 0! = 1, 唯一的奠基 */
     return 1;
@@ -207,7 +207,7 @@ void f(void)
 ```
 
 <div style="text-align:center;margin:2px 0;">
-<svg viewBox='0 0 400 200' style='max-width:100%;height:230px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='172' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='14.0' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='86' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='13.3' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='116' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='137' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='116' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='137' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 116 V80' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='108' y='100' font-size='12.6' fill='#dc322f'>遮蔽全局 x</text><path d='M215 132 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='198' font-size='13.3' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
+<svg viewBox='0 0 400 200' style='max-width:100%;height:340px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='172' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='14.0' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='86' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='13.3' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='116' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='137' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='116' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='137' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 116 V80' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='108' y='100' font-size='12.6' fill='#dc322f'>遮蔽全局 x</text><path d='M215 132 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='198' font-size='13.3' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
 </div>
 
 </div>
@@ -239,6 +239,8 @@ void f(void)
 
 - ==动态变量==(默认): 函数被调用时诞生, 函数返回时消亡
 
+- ==动态变量与递归==: 递归的每一层调用都是一次独立的函数调用——各层的参数和局部变量==随层生、随层亡==, 互不干扰 (上一页"每层一套自己变量"的底层原因就在这里)
+
 - ==静态变量==(static): 与程序同生共死, 函数返回后==保留原值==
 
 ```C
@@ -252,7 +254,6 @@ void f(void)
 
 - static 局部变量 = 带记忆的局部变量 (下次调用接着用上次的值)
 
-- ==与递归的关系==: 递归的每一层调用都是一次独立的函数调用——各层的参数和局部变量==随层生、随层亡==, 互不干扰 (上一页"每层一套自己变量"的底层原因就在这里)
 
 ---
 
@@ -314,57 +315,42 @@ i = 32764
 
 ```C
 #include <stdio.h>
-long fib(long n)
+long long fib(long long n)
 {
-  if (n == 0) {
+  if (n == 0) {              /* 奠基之一: F(0) = 0 */
     return 0;
   }
-  if (n == 1) {
+  if (n == 1) {              /* 奠基之二: F(1) = 1 */
     return 1;
   }
   return fib(n - 1) + fib(n - 2);
 }
 int main(void)
 {
-  int n;
-  scanf("%d", &n);
-  printf("fib(%d) = %ld\n", n, fib(n));
+  printf("fib(10) = %lld\n", fib(10));
   return 0;
 }
 ```
 
-</div>
+<div style="font-size:0.85em;color:#586e75;">
 
-<div style="flex:1;">
-
-F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2)
-
-f(5) 会把 f(3)、f(2) 各算多遍——重复计算是朴素递归的代价
+样例输出: `fib(10) = 55`
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
+- ==两个奠基==: 递推式需要==前两项==, 所以基准情形有两个、返回不同值 (对比阶乘: 只靠 0! 一个奠基就够)
 
-##### 递归求最大公约数
+- F(n) = F(n-1) + F(n-2): 一次调用==分成两个分支==——递归展开成一棵二叉树, 深度 n、最多 2ⁿ 个结点
 
----
+- ==重复计算==: fib(5) 会把 fib(3) 算 2 遍、fib(2) 算 3 遍——朴素递归的代价; 优化办法 (记忆化/动态规划) 课下可以了解
 
-辗转相除法用递归表达: gcd(a, b) = gcd(b, a % b)
+</div>
 
-```C
-int gcd(int a, int b)
-{
-  if (b == 0) {             /* 基准情形 */
-    return a;
-  }
-  return gcd(b, a % b);     /* 递归情形 */
-}
-```
-
-- 循环版比较: while (b != 0) { int r = a % b; a = b; b = r; }——递归版更接近数学定义 (注意: 循环条件里不要写赋值)
+</div>
 
 ---
 
@@ -520,7 +506,7 @@ Hanoi(3, A, B, C)
 
 ```C
 /* 不规范: 少了基准情形 */
-long fact(int n)
+long long fact(int n)
 {
   return n * fact(n - 1);
 }
