@@ -177,7 +177,7 @@ presentation:
 <div style="flex:1;font-size:0.75em;">
 
 ```C{.line-numbers}
-/* 第 1 周的猜数字游戏 */
+/* 之前的猜数字游戏 */
 if (guess == reward) {
     printf("恭喜, 猜对了!\n");
 }
@@ -869,7 +869,7 @@ int main(void) {
 
 - 输入 `8 3 5` → `min(8, 3, 5) = 3` (先 3 换掉 8, 5 不动)
 
-- "先假设, 再修正"的思路==第 6 周学数组后会大放异彩== (循环里不断更新最小值)
+- "先假设, 再修正"的思路==学数组后会大放异彩== (循环里不断更新最小值)
 
 </div>
 
@@ -1041,7 +1041,7 @@ int main(void) {
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
-<span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 第 3 周学的==位运算==也能判断——两种方法都想一想
+<span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 之前学的==位运算==也能判断——两种方法都想一想
 
 ---
 
@@ -1084,7 +1084,7 @@ int main(void) {
 
 <div style="flex:1;">
 
-==现场边写边讲==: ① 先用刚学的 `%` 写直白版; ② 问: 第 3 周的==位运算==能不能判?——最低位 `n & 1` 试写一遍
+==现场边写边讲==: ① 先用刚学的 `%` 写直白版; ② 问: 之前学的==位运算==能不能判?——最低位 `n & 1` 试写一遍
 
 - `n % 2`: 偶数除以 2 余 0——最直白
 
@@ -1108,7 +1108,7 @@ int main(void) {
 
 1. ==正负判定==: 输入一个整数, 输出"正数 / 负数 / 零"三个分支 (if/else 嵌套)
 
-2. ==水仙花数判定==: 输入一个 3 位整数, 判断是否水仙花数 (各位立方和等于本身, 如 `153 = 1³+5³+3³`)——复习第 3 周的数字拆分
+2. ==水仙花数判定==: 输入一个 3 位整数, 判断是否水仙花数 (各位立方和等于本身, 如 `153 = 1³+5³+3³`)——复习之前的数字拆分
 
 ---
 <!-- slide data-notes="" -->

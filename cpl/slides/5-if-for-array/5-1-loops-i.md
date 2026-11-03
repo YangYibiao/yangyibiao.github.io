@@ -359,7 +359,7 @@ while (1) … {
          5        25
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 两列右对齐——第 2 周的 `%10d` 字段宽度还记得吗?
+<span class="blue">:fa-lightbulb-o:</span> 提示: 两列右对齐——之前的 `%10d` 字段宽度还记得吗?
 
 ---
 

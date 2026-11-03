@@ -413,7 +413,7 @@ void quicksort(int a[], int low, int high)
 }
 ```
 
-- 平均 O(n log n), 比第 7 周三种排序的 O(n^2) 快得多
+- 平均 O(n log n), 比之前三种排序的 O(n^2) 快得多
 
 - `split` 是划分函数, 下一页展开
 

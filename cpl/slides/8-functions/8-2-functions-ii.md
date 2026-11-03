@@ -309,7 +309,7 @@ int main(void) {
 
 <div style="flex:1.3;font-size:0.55em;">
 
-第 4 周写过的闰年判断 (非函数版):
+之前写过的闰年判断 (非函数版):
 
 ```C
 /* 原版: 判断逻辑在 main 里 */
@@ -843,6 +843,37 @@ int main(void)
 
 </div>
 
+
+---
+
+<!-- slide data-notes="" -->##### 一维数组传参: 开头位置与长度
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;text-align:center;">
+
+<div style="text-align:center;margin:4px 0;">
+<svg viewBox='0 0 400 195' style='max-width:100%;height:225px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr1d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='15' font-size='9.5' fill='#586e75' font-weight='700'>main: int b[5] = {3, 7, 1, 9, 4};</text><g font-size='13' fill='#073642' text-anchor='middle' font-weight='700'><rect x='100' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='118' y='45'>3</text><rect x='136' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='154' y='45'>7</text><rect x='172' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='190' y='45'>1</text><rect x='208' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='226' y='45'>9</text><rect x='244' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='262' y='45'>4</text></g><g font-size='8.5' fill='#586e75' text-anchor='middle' font-family='Menlo, monospace'><text x='118' y='70'>1000</text><text x='154' y='70'>1004</text><text x='190' y='70'>1008</text><text x='226' y='70'>1012</text><text x='262' y='70'>1016</text></g><rect x='100' y='92' width='240' height='78' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='110' y='110' font-size='9.5' fill='#268bd2' font-weight='700'>sum_array 的栈帧</text><g font-weight='700'><rect x='112' y='118' width='105' height='26' rx='5' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='164' y='135' font-size='11' fill='#073642' text-anchor='middle'>a = 1000</text><rect x='230' y='118' width='98' height='26' rx='5' fill='#fdf6e3' stroke='#586e75' stroke-width='1.5'/><text x='279' y='135' font-size='11' fill='#073642' text-anchor='middle'>n = 5</text></g><text x='112' y='160' font-size='8.5' fill='#859900'>函数里 a[i] = 改 b[i]</text><path d='M112 131 H104 V58' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr1d)'/><text x='112' y='82' font-size='9' fill='#268bd2'>只传开头地址</text><text x='18' y='188' font-size='9.5' fill='#586e75'>数组名传开头位置，不传长度 → 长度必须单独传 n</text></g></svg>
+</div>
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- 形参 `int a[]` 只拿到数组的==开头位置== (首元素的地址 1000), 不携带任何长度信息
+
+- 函数不知道数组到哪结束——长度必须由调用者==单独传一个参数== (n = 5)
+
+- 函数里 `a[i]` = 从开头位置往后数 i 个——所以改 `a[i]` 就是改 b[i], 这就是 "函数里改数组 = 改原数组" 的由来
+
+- 为什么传进来的是地址, 原因在后面的指针部分揭晓 (数组名传的是地址)
+
+</div>
+
+</div>
+
 ---
 
 
@@ -850,11 +881,11 @@ int main(void)
 
 ---
 
-第 7 周的选择排序 (非函数版):
-
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.55em;">
+
+之前学过的选择排序 (非函数版):
 
 ```C{.line-numbers}
 /* 选择排序: 非函数版 */
@@ -890,7 +921,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
 ==口头回答==: 把排序逻辑抽成函数, main 里只剩读入、一行调用、输出
 
@@ -911,7 +942,7 @@ int main(void)
 
 ---
 
-第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再写一遍
+之前学过的排序把整段循环写在 main 里——想给另一组数据排序, 就得再写一遍
 
 <div>
 
