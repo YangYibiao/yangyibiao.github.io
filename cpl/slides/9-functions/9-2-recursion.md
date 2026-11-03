@@ -503,9 +503,17 @@ Segmentation fault (core dumped)
 
 <div style="font-size:0.9em;line-height:1.6;">
 
-1. ==递归求数组最大值==: `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)
+1. ==课堂案例·递归求最大值==: `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)
 
-2. ==判断回文==: `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文
+   样例: `a = {3, 9, 1, 7, 5}` → 输出 `9`; 框架已备好, 只写函数体:
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin:4px 0 0 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c</a>
+
+2. ==课堂案例·判断回文==: `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
+
+   样例: `"level"` → 1; `"hello"` → 0; 框架已备好, 只写函数体:
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin:4px 0 0 1.2em;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c</a>
 
 3. ==二分查找==: `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)
 
