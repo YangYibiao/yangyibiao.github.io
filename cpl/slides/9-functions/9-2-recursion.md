@@ -27,6 +27,24 @@ presentation:
 @import "../../js/anychart/pastel.min.js"
 @import "../../js/anychart/venn-ml.js"
 
+<!-- slide data-notes="" -->
+
+<div class="bottom20"></div>
+
+# 智能程序设计（C语言）
+
+<hr class="width50 center">
+
+## 函数 (III) · 递归
+
+<div class="bottom8"></div>
+
+### 计算机学院 &nbsp;&nbsp; 杨已彪
+
+#### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
+
+---
+
 <!-- slide data-notes="" -->##### 提纲
 
 ---
@@ -78,7 +96,7 @@ int power(int x, int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<div style="flex:1;font-size:1.0em;line-height:1.6;">
 
 - ==两个要素==: ==基准情形== (最简单、直接给答案) + ==递归情形== (把问题==缩小==后再调用自己)
 
@@ -137,7 +155,7 @@ void f(void)
 ```
 
 <div style="text-align:center;margin:2px 0;">
-<svg viewBox='0 0 400 200' style='max-width:100%;height:180px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='172' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='10' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='11' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='86' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='9.5' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='116' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='137' font-size='11' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='116' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='137' font-size='11' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 116 V80' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='108' y='100' font-size='9' fill='#dc322f'>遮蔽全局 x</text><path d='M215 132 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='198' font-size='9.5' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
+<svg viewBox='0 0 400 200' style='max-width:100%;height:230px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='172' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='10' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='11' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='86' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='9.5' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='116' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='137' font-size='11' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='116' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='137' font-size='11' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 116 V80' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='108' y='100' font-size='9' fill='#dc322f'>遮蔽全局 x</text><path d='M215 132 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='198' font-size='9.5' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
 </div>
 
 </div>
@@ -375,20 +393,36 @@ void Hanoi(int n, char A, char B, char C)
 
 ==分治法== (divide and conquer): 把大问题拆成几个==同类的小问题==, 分别解决, 再合并结果
 
-<div style="text-align:center;margin:2px 0;">
-<svg viewBox='0 0 400 210' style='max-width:100%;height:180px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='qk-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='qk-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-size='9' fill='#586e75' text-anchor='end' font-weight='700'><text x='90' y='49'>原数组</text><text x='90' y='111'>划分后</text><text x='90' y='173'>最终</text></g><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='30' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='115' y='50' fill='#fdf6e3'>5</text><rect x='132' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='149' y='50' fill='#073642'>2</text><rect x='166' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='183' y='50' fill='#073642'>9</text><rect x='200' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='217' y='50' fill='#073642'>1</text><rect x='234' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='251' y='50' fill='#073642'>8</text><rect x='268' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='285' y='50' fill='#073642'>3</text></g><path d='M200 60 V88' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#qk-blue)'/><text x='208' y='76' font-size='9' fill='#268bd2'>① 划分</text><g font-weight='700'><rect x='98' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='115' y='112' font-size='11' fill='#073642' text-anchor='middle'>2</text><rect x='132' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='149' y='112' font-size='11' fill='#073642' text-anchor='middle'>1</text><rect x='166' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='183' y='112' font-size='11' fill='#073642' text-anchor='middle'>3</text><rect x='200' y='92' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='112' font-size='11' fill='#fdf6e3' text-anchor='middle'>5</text><rect x='234' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='112' font-size='11' fill='#073642' text-anchor='middle'>9</text><rect x='268' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='112' font-size='11' fill='#073642' text-anchor='middle'>8</text></g><g fill='none' stroke-width='1.5'><path d='M98 90 V86 H200 V90' stroke='#268bd2'/><path d='M200 90 V86 H302 V90' stroke='#859900'/></g><text x='149' y='82' font-size='8.5' fill='#268bd2' text-anchor='middle'>左段（&lt;5）</text><text x='268' y='82' font-size='8.5' fill='#859900' text-anchor='middle'>右段（&gt;5）</text><path d='M200 122 V150' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#qk-green)'/><text x='208' y='140' font-size='9' fill='#859900'>② 各自递归</text><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='115' y='174' fill='#073642'>1</text><rect x='132' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='149' y='174' fill='#073642'>2</text><rect x='166' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='183' y='174' fill='#073642'>3</text><rect x='200' y='154' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='174' fill='#fdf6e3'>5</text><rect x='234' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='174' fill='#073642'>8</text><rect x='268' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='174' fill='#073642'>9</text></g><text x='312' y='49' font-size='9' fill='#b58900' font-weight='700'>基准 = 5</text><text x='312' y='106' font-size='9' fill='#586e75'>5 已就位</text><text x='312' y='120' font-size='9' fill='#859900'>左右各自递归</text><text x='312' y='173' font-size='9' fill='#859900' font-weight='700'>无需合并</text><text x='98' y='202' font-size='9.5' fill='#586e75'>基准位置一次到位 → 左右两段递归即可，不需要合并</text></g></svg>
-</div>
+
 
 - 三步: ==分== (拆) → ==治== (解决小问题) → ==合== (拼起来)
 
 - 生活例子: 整理一摞试卷——先按分数段分堆, 每堆再各自整理
 
-- 排序中的分治 (快速排序): 选一个==基准==, 把数组划分成"小的在左、大的在右"两段, 再对两段各自递归——==不需要合并== (划分完位置就对了)
+- 排序中的分治 (快速排序): 选一个==基准==, 把数组划分成"小的在左、大的在右"两段, 再对两段各自递归——==不需要合并== (划分完位置就对了); 过程见==下一页==
 
 - ("分成两半各自排好再合并"是另一种排序——归并排序, 课下可以了解)
 
-<span class="blue">:fa-lightbulb-o:</span> 递归常常是分治法的==自然结果==——下一页的快速排序正是如此
+<span class="blue">:fa-lightbulb-o:</span> 递归常常是分治法的==自然结果==——快速排序正是如此
 
+
+
+
+<!-- slide data-notes="" -->##### 分治图示: 快速排序
+
+---
+
+<div style="text-align:center;margin:2px 0;">
+<svg viewBox='0 0 400 210' style='max-width:100%;height:380px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='qk-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='qk-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-size='9' fill='#586e75' text-anchor='end' font-weight='700'><text x='90' y='49'>原数组</text><text x='90' y='111'>划分后</text><text x='90' y='173'>最终</text></g><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='30' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='115' y='50' fill='#fdf6e3'>5</text><rect x='132' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='149' y='50' fill='#073642'>2</text><rect x='166' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='183' y='50' fill='#073642'>9</text><rect x='200' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='217' y='50' fill='#073642'>1</text><rect x='234' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='251' y='50' fill='#073642'>8</text><rect x='268' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='285' y='50' fill='#073642'>3</text></g><path d='M200 60 V88' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#qk-blue)'/><text x='208' y='76' font-size='9' fill='#268bd2'>① 划分</text><g font-weight='700'><rect x='98' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='115' y='112' font-size='11' fill='#073642' text-anchor='middle'>2</text><rect x='132' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='149' y='112' font-size='11' fill='#073642' text-anchor='middle'>1</text><rect x='166' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='183' y='112' font-size='11' fill='#073642' text-anchor='middle'>3</text><rect x='200' y='92' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='112' font-size='11' fill='#fdf6e3' text-anchor='middle'>5</text><rect x='234' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='112' font-size='11' fill='#073642' text-anchor='middle'>9</text><rect x='268' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='112' font-size='11' fill='#073642' text-anchor='middle'>8</text></g><g fill='none' stroke-width='1.5'><path d='M98 90 V86 H200 V90' stroke='#268bd2'/><path d='M200 90 V86 H302 V90' stroke='#859900'/></g><text x='149' y='82' font-size='8.5' fill='#268bd2' text-anchor='middle'>左段（&lt;5）</text><text x='268' y='82' font-size='8.5' fill='#859900' text-anchor='middle'>右段（&gt;5）</text><path d='M200 122 V150' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#qk-green)'/><text x='208' y='140' font-size='9' fill='#859900'>② 各自递归</text><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='115' y='174' fill='#073642'>1</text><rect x='132' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='149' y='174' fill='#073642'>2</text><rect x='166' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='183' y='174' fill='#073642'>3</text><rect x='200' y='154' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='174' fill='#fdf6e3'>5</text><rect x='234' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='174' fill='#073642'>8</text><rect x='268' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='174' fill='#073642'>9</text></g><text x='312' y='49' font-size='9' fill='#b58900' font-weight='700'>基准 = 5</text><text x='312' y='106' font-size='9' fill='#586e75'>5 已就位</text><text x='312' y='120' font-size='9' fill='#859900'>左右各自递归</text><text x='312' y='173' font-size='9' fill='#859900' font-weight='700'>无需合并</text><text x='98' y='202' font-size='9.5' fill='#586e75'>基准位置一次到位 → 左右两段递归即可，不需要合并</text></g></svg>
+</div>
+
+- ==① 划分==: 选基准 5, 小的放左、大的放右——5 的位置就此==一次到位==
+
+- ==② 治==: 左段 [2, 1, 3] 和右段 [9, 8] 各自递归——同样先划分、再递归
+
+- ==③ 合==: ==什么都不用做==——每次划分都把基准放到最终位置, 递归结束时整个数组就有序了
+
+- 对比: "分成两半各自排好再合并"是另一种思路 (归并排序), 课下了解
 
 <!-- slide data-notes="" -->
 
