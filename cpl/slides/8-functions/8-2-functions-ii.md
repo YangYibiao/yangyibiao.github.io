@@ -209,12 +209,6 @@ x = 3, y = 5
 
 ---
 
-<div style="font-size:0.85em;line-height:1.5;">
-
-8-1 已经把素数判断函数化; 这里把改造三步完整走一遍——==① 输入是什么? ② 输出是什么? ③ 函数叫什么名字?==——后面每个例子都这么问:
-
-</div>
-
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.55em;">
@@ -237,6 +231,12 @@ int main(void) {
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div style="background:#fdf6e3;border-left:3px solid #b58900;padding:6px 10px;margin-bottom:8px;">
+
+==改造三步==: ① 输入是什么? ② 输出是什么? ③ 函数叫什么名字?——后面每个例子都这么问
+
+</div>
 
 ==口头回答==: 三步怎么答? 下一页对照
 
