@@ -35,7 +35,7 @@ presentation:
 
 <hr class="width50 center">
 
-## 函数 (II) · 声明、参数与函数化改造
+## 函数 (II) · 数组参数与函数化改造
 
 <div class="bottom8"></div>
 
@@ -54,13 +54,17 @@ presentation:
 
 - 回顾: 按值传递 (如何理解 + swap 为什么不生效)
 
-- 函数化改造: 素数、leap、primes、stars (return 让代码更简洁)
+- 函数化改造: 素数、闰年 (return 让代码更简洁)、素数统计、星号塔
 
-- 数组作参数: 一维、排序封装、二维、生命游戏、矩阵与成绩案例
+- 课堂编码: 阶乘改写
+
+- 数组作参数: 一维、排序封装、二维、生命游戏、成绩案例 (转置留作练习)
+
+- 函数化四步: 10 个例子的总结收口
 
 - 函数调用栈 (概念与例子)
 
-- 课堂编码
+- 课堂编码: 挑战 · 组合数
 
 - 课堂小测
 
@@ -107,7 +111,7 @@ int flag2 = is_prime(m);   /* 变量也行: 把 m 的值复制给形参 n */
 
 - ==实际参数==: 调用时传进去的值——可以是常量、变量、任意同类型的表达式
 
-- 标量按值传: 改形参==不影响==实参 (swap 陷阱, 上周讲过)
+- 标量按值传: 改形参==不影响==实参 (swap 陷阱, 上一讲讲过)
 
 </div>
 
@@ -201,21 +205,22 @@ x = 3, y = 5
 
 ---
 
-<!-- slide data-notes="" -->##### 程序: 判定素数
+<!-- slide data-notes="" -->##### 程序: 判定素数 · 改造前后
 
 ---
 
+8-1 已经把素数判断函数化; 这里把改造三步完整走一遍——==① 输入是什么? ② 输出是什么? ③ 函数叫什么名字?==——后面每个例子都这么问:
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1;font-size:0.45em;">
 
-第 5 周我们用循环写过素数判断 (非函数版):
+原版 (判断逻辑埋在 main 里):
 
-```C{.line-numbers}
+```C
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
   int n, d, prime = 1;
 
   scanf("%d", &n);
@@ -225,97 +230,64 @@ int main(void)
       break;
     }
   }
-  if (prime == 1) {
-    printf("是素数\n");
-  } else {
-    printf("不是素数\n");
-  }
+  if (prime == 1) printf("是素数\n");
+  else printf("不是素数\n");
   return 0;
 }
 ```
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.45em;">
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开代码工作区 (编辑器 + 右侧终端)</a>
+函数版 (main 只剩输入输出):
 
-==现场演示==: 把左边的判断逻辑改写成函数 `is_prime(n)`, 主函数只负责输入输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 判断逻辑是 "一块完整的事"——这正是适合装进函数的东西
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
-
-
-</div>
-
-</div>
-
----
-
-
-
-
-
-<!-- slide data-notes="" -->
-
-
-##### 程序: 判定素数 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.5em;">
-
-```C{.line-numbers}
-/* 判断一个数是否为素数 */
+```C
 #include <stdio.h>
 
-int is_prime(int n)
-{
+int is_prime(int n) {
   int divisor;
 
-  if (n <= 1) {
-    return 0;
-  }
+  if (n <= 1) return 0;
   for (divisor = 2; divisor <= n / divisor; divisor++) {
-    if (n % divisor == 0) {
-      return 0;
-    }
+    if (n % divisor == 0) return 0;
   }
   return 1;
 }
 
-int main(void)
-{
+int main(void) {
   int n;
-
   printf("输入一个数: ");
   scanf("%d", &n);
-  if (is_prime(n)) {
-    printf("是素数\n");
-  } else {
-    printf("不是素数\n");
-  }
+  if (is_prime(n)) printf("是素数\n");
+  else printf("不是素数\n");
   return 0;
 }
 ```
+
+</div>
+
+</div>
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.5;">
+
+<div style="flex:1;">
+
+- `divisor <= n / divisor` 是 $\sqrt{n}$ 的等价写法 (不用 math.h), 不会溢出; 原版的 `d * d` 写法在 n 近 int 上限时溢出 (有符号溢出是==未定义行为==)——结果为负时条件恒真, 循环停不下来
 
 </div>
 
 <div style="flex:1;">
 
-- 判断逻辑封装进 `is_prime`——main 只剩输入输出, 一目了然
+- 顺手补上 `n <= 1`——原版对 n = 1 会误判; 改造不只是搬代码, 也顺手修 bug
 
-- `divisor <= n / divisor` 是检查到 $\sqrt{n}$ 的等价写法 (不用 math.h), 而且==不会溢出==
-
-- 反例: 判断 n = 2147483647 (int 上限, 本身是素数), divisor 试到 46341 时 `46341 × 46341 = 2147488281` 超出 int 上限 2147483647, 溢出变成==负数== → 条件变 false, 循环提前结束, 素数被误判
-
-- 返回 1/0, 调用处 `if (is_prime(n))` 直接当条件——与 8-1 的写法一致
+- 返回 1/0, `if (is_prime(n))` 直接当条件——与 8-1 一致
 
 </div>
 
 </div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code" style="display:inline-block;padding:5px 14px;background:#b58900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开代码工作区</a> <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/prime-re.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 prime-re.c</a>
 
 ---
 
@@ -352,9 +324,9 @@ int main(void) {
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把判断逻辑改写成函数 `is_leap_year(year)`, main 只剩输入输出
+==口头回答==: 把判断逻辑抽成函数, 三步怎么答? 下一页对照
 
-<span class="blue">:fa-lightbulb-o:</span> 判断条件那一行很长——它最适合被装进函数
+<span class="blue">:fa-lightbulb-o:</span> 提示: 先回答三步——输入是年份, 输出是 "是/不是", 函数名?
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/leap-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 leap-re.c</a>
 
 
@@ -381,11 +353,10 @@ int is_leap_year(int);
 int main(void) {
   int year = 0;
   scanf("%d", &year);
-  int leap = is_leap_year(year);
-  if (leap == 0) {
-    printf("%d 是平年\n", year);
-  } else {
+  if (is_leap_year(year)) {
     printf("%d 是闰年\n", year);
+  } else {
+    printf("%d 是平年\n", year);
   }
   return 0;
 }
@@ -399,61 +370,30 @@ int is_leap_year(int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.95em;line-height:1.7;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-- 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出
+- 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出; 开头的 `int is_leap_year(int);` 是 8-1 讲过的==函数原型==: 先声明, 后使用
 
-- 返回 1/0, `if (is_leap_year(year))` 直接当条件
+- 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==:
 
-- 以后想再判断闰年, 调函数即可——不用重写条件
-
-<a href="code/leap.c" target="_blank">leap.c</a> · <a href="code/leap-re.c" target="_blank">leap-re.c</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->##### 改造进阶: return 让代码更简洁
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
+<div style="font-size:0.6em;">
 
 ```C
-/* 啰嗦版: 用 if 包装 */
-int is_leap_year(int n) {
-  if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
-    return 1;
-  }
-  return 0;
-}
-```
-
-```C
-/* 简洁版: 布尔表达式直接 return */
+/* 简洁版 */
 int is_leap_year(int n) {
   return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
 }
-```
-
-```C
 int is_even(int n) { return n % 2 == 0; }          /* 偶数 */
 int is_digit(char c) { return c >= '0' && c <= '9'; }  /* 数字 */
 ```
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+- ==提前 return== 也让代码更简洁: 找到就返回, 不需要 flag 变量——`is_prime` 就是这么写的
 
-- 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==
+- 返回 1/0, `if (is_leap_year(year))` 直接当条件; 以后想再判断, 调函数即可
 
-- 一类经典小函数都是 "一行函数": 偶数、数字、大小写字母……
-
-- ==提前 return== 也让代码更简洁: 找到就返回, 不需要 flag 变量——前面的 `is_prime` 就是这么写的
+<a href="code/leap-re.c" target="_blank">leap-re.c (改造前)</a> · <a href="code/leap-func.c" target="_blank">leap-func.c (函数版)</a>
 
 </div>
 
@@ -502,7 +442,7 @@ int main() {
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把 "判断 i 是否素数" 的逻辑抽成 `is_prime(i)`
+==口头回答==: 把 "判断 i 是否素数" 的逻辑抽成 `is_prime(i)`
 
 <span style="font-size:0.9em;">进一步: 把统计循环也抽成 `count_primes(max)`——main → count_primes → is_prime ==两层调用链==</span>
 
@@ -567,11 +507,11 @@ int main() {
 
 - ==两层调用链==: main → `count_primes` → `is_prime`——函数不光能被 main 调用, 还能==调用别的函数==
 
-- `is_prime` 被复用了 max-2 次, 与前面判定素数的函数是同一个——写一次, 处处用
+- `is_prime` 被复用了==max-1 次== (i = 2..max), 与前面判定素数的函数是同一个——写一次, 处处用
 
-- main 只剩读入和一行输出——"说明书" 目标更进一步
+- main 只剩读入和一行输出——主函数开始像一份 "说明书": 只写步骤, 细节藏进函数
 
-<a href="code/primes.c" target="_blank">primes.c</a> · <a href="code/primes-re.c" target="_blank">primes-re.c</a>
+<a href="code/primes-re.c" target="_blank">primes-re.c (改造前)</a> · <a href="code/primes-func.c" target="_blank">primes-func.c (函数版)</a>
 
 </div>
 
@@ -582,7 +522,7 @@ int main() {
 <!-- slide data-notes="" -->
 
 
-##### stars.c
+##### stars.c: 原版
 
 ---
 
@@ -619,15 +559,13 @@ int main() {
 
 <div style="flex:1;">
 
-- 程序里 "打印一行 2*i+1 颗星" 的循环, 就是可以抽出来的函数 `print_stars(n)`
-
-- 留到课堂编码: 你来做这个改造
+- ==口头回答==: 程序里 "打印一行 2*i+1 颗星" 的循环, 就是可以抽出来的函数 `print_stars(n)`
 
 - 提示: 打印空格的循环也可以抽成 `print_spaces(n)`——每个函数只做==一件事==
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-re.c</a>
 
 
-<a href="code/stars.c" target="_blank">stars.c</a>
+<a href="code/stars.c" target="_blank">stars.c (改造前)</a>
 
 </div>
 
@@ -689,7 +627,7 @@ int main(void)
 
 - 这就是改造的目标: 主函数读起来像 "说明书", 细节都藏进函数
 
-<a href="code/stars-re.c" target="_blank">stars-re.c</a>
+<a href="code/stars-re.c" target="_blank">stars-re.c (改造前)</a> · <a href="code/stars-func.c" target="_blank">stars-func.c (函数版)</a>
 
 
 </div>
@@ -697,6 +635,53 @@ int main(void)
 </div>
 
 ---
+
+
+<!-- slide data-notes="" -->
+
+##### 课堂编码: 阶乘改写
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.55em;">
+
+```C
+#include <stdio.h>
+
+int main(void)
+{
+  int n, i;
+  long f = 1;
+
+  printf("输入 n: ");
+  scanf("%d", &n);
+
+  for (i = 1; i <= n; i++) {    /* 计算 n! */
+    f = f * i;
+  }
+  printf("%d! = %ld\n", n, f);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+==任务==: 抽出 `long factorial(int n)`, main 只剩输入、调用、输出
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 阶乘函数在后面的递归课上还会==再次登场== (n! = n × (n-1)!)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-re.c</a>
+
+</div>
+
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->##### 一维数组作参数 · 原版
 
@@ -729,11 +714,11 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把求和逻辑抽成函数, main 只剩调用和输出
+==2 分钟, 自己写==: 把求和逻辑抽成函数, main 只剩调用和输出
 
 <span style="font-size:0.9em;">动手前想清楚两件事: ==数组怎么传==? ==长度怎么传==?——下一页揭晓标准写法及原因</span>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再抄一遍——今天要解决的就是这个
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想对另一组数据求和? 非函数版只能把循环再写一遍——今天要解决的就是这个
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/sum-array-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-array-re.c</a>
 
@@ -752,7 +737,7 @@ int main(void)
 
 函数要操作数组, 就把数组传给函数:
 
-```C
+```C{.line-numbers}
 int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
 {
   int i, sum = 0;
@@ -765,9 +750,13 @@ int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
 total = sum_array(b, LEN);       /* 2. 调用: 只写数组名, 不加 [] */
 ```
 
+- 形参 `int a[]` 只拿到数组的==开头位置==, 不携带长度信息——函数不知道数组到哪结束, 所以长度必须由调用者单独传
+
 - ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
 
-- 原因第 11 周指针与数组揭晓 (数组名传的是地址)
+- 为什么能改到原数组, 原因在后面的指针部分揭晓 (数组名传的是地址)
+
+<a href="code/sum-array-re.c" target="_blank">sum-array-re.c (改造前)</a> · <a href="code/sum-array-func.c" target="_blank">sum-array-func.c (函数版)</a>
 
 ---
 
@@ -818,7 +807,7 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把排序逻辑抽成函数, main 里只剩读入、一行调用、输出
+==口头回答==: 把排序逻辑抽成函数, main 里只剩读入、一行调用、输出
 
 <span style="font-size:0.9em;">动手前想清楚: ==数组怎么传==? ==长度怎么传==?——和 sum_array 是同样的两个问题</span>
 
@@ -837,9 +826,9 @@ int main(void)
 
 ---
 
-第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再抄一遍
+第 7 周的排序把整段循环写在 main 里——想给另一组数据排序, 就得再写一遍
 
-```C
+```C{.line-numbers}
 void sort(int a[], int n)          /* 把选择排序装进函数 */
 {
   for (int i = 0; i < n - 1; i++) {
@@ -860,6 +849,8 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 ```
 
 - ==函数化改造==: 把重复的逻辑抽出来封装成函数——本周的核心任务
+
+<a href="code/sort-re.c" target="_blank">sort-re.c (改造前)</a> · <a href="code/sort-func.c" target="_blank">sort-func.c (函数版)</a>
 
 
 ---
@@ -898,7 +889,7 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把求和逻辑抽成函数, main 只剩调用和输出
+==口头回答==: 把求和逻辑抽成函数, main 只剩调用和输出
 
 <span style="font-size:0.9em;">动手前想清楚: 数组怎么传? 行数怎么传? ==列数怎么传==?——二维比一维多一个问题, 下一页揭晓</span>
 
@@ -943,9 +934,11 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 - 二维数组作参数, ==只能省略第一维==——列数必须写出来
 
-- 为什么列数不能省? 编译器要知道 "一行有多长", 才能算出 `a[i][j]` 的位置
+- 为什么列数不能省? 二维数组在内存里==按行连续存放==; 要跳到第 i 行, 先要知道一行有多少个元素——列数就是这个步长, 所以 `a[][4]` 的 4 不能省
 
-- 调用: 传==数组名 + 行数==, 和标量没区别
+- 调用: 传==数组名 + 行数==——写法朴素, 但数组传的是开头位置, 函数能改到原数组 (和标量不同)
+
+<a href="code/sum-matrix-re.c" target="_blank">sum-matrix-re.c (改造前)</a> · <a href="code/sum-matrix-func.c" target="_blank">sum-matrix-func.c (函数版)</a>
 
 </div>
 
@@ -974,17 +967,9 @@ int main(void)
   int next[SIZE + 2][SIZE + 2] = {{0}};
   int i, j, m, n, cnt;
 
-  /* 初始: 一个滑翔机 */
+  /* 初始: 一个滑翔机 (初始画面见右栏) */
   board[2][3] = 1;  board[3][4] = 1;
   board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
-
-  for (i = 1; i <= SIZE; i++) {       /* 打印初始棋盘 */
-    for (j = 1; j <= SIZE; j++) {
-      printf("%c", board[i][j] ? '*' : '.');
-    }
-    printf("\n");
-  }
-  printf("\n");
 
   for (i = 1; i <= SIZE; i++) {
     for (j = 1; j <= SIZE; j++) {
@@ -1016,11 +1001,25 @@ int main(void)
 
 <div style="flex:1;font-size:0.85em;line-height:1.6;">
 
+==先看效果==: 左上角的小三角叫==滑翔机==——演化一代后, 它移动了一格:
+
+<div style="font-size:0.55em;font-family:Menlo,Consolas,monospace;line-height:1.35;background:#fdf6e3;padding:8px;border-radius:6px;">
+初始:          下一代:
+........       ........
+..*.....       ........
+...*....       ..*.*...
+.***....       ...**...
+........       ...*....
+........       ........
+........       ........
+........       ........
+</div>
+
 ==规则==: 活格子活邻居 2 或 3 → 活, 否则死; 死格子活邻居恰好 3 → 活; 边界技巧——四周加一圈 0, 数邻居不用判断边界
 
-==任务==: 把这段代码改写成三个函数——`count_neighbors`、`next_generation`、`print_board`, main 只剩初始化和调用
+==同桌讨论 1 分钟==: 先别写代码——打算拆成几个函数? 每个函数的==输入、输出==是什么?
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里将堆着==四层嵌套循环==; 函数版只需在 main 里写一个十代循环
+<span class="blue">:fa-lightbulb-o:</span> 提示: 想演化 10 代? 非函数版要再套一层外层循环——main 里会出现==五层嵌套循环== (原本四层, 再套一层); 函数版只需在 main 里写一个十代循环
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-re.c</a>
 
@@ -1067,19 +1066,26 @@ void next_generation(int board[][SIZE + 2])
       }
     }
   }
-  /* 写回 board (略) */
+  /* 先算后写: 后面的格子还要读旧的邻居状态, 不能边算边写 */
+  for (i = 1; i <= SIZE; i++) {
+    for (j = 1; j <= SIZE; j++) {
+      board[i][j] = new_board[i][j];
+    }
+  }
 }
 ```
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
 - `count_neighbors`: ==一个格子==数邻居——`cnt = -board[i][j]` 先把自己减掉, 因为自己也被数进去了
 
-- `next_generation`: 对==每个格子==调用 count_neighbors 并套三条规则, 结果写进 new_board 再==写回==
+- `next_generation`: 对==每个格子==调用 count_neighbors 并套三条规则, 结果写进 new_board 再==写回== board——数组形参让这个写回能改到原数组
 
-- 函数之间==互相调用==: next_generation 调 count_neighbors——函数可以调用函数
+- 为什么两块棋盘? 先全部算到 new_board 再整体写回——本代已改的格子会==污染==后面格子的邻居判断
+
+- 函数之间==嵌套调用==: next_generation 调 count_neighbors——函数可以调用函数
 
 </div>
 
@@ -1087,7 +1093,7 @@ void next_generation(int board[][SIZE + 2])
 
 ---
 
-<!-- slide data-notes="" -->##### 生命游戏 · 函数版 (二): 打印与主函数
+<!-- slide data-notes="" -->##### 生命游戏 · 函数版 (二): 打印与动画
 
 ---
 
@@ -1116,51 +1122,6 @@ int main(void)
   board[2][3] = 1;  board[3][4] = 1;
   board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
 
-  for (i = 0; i < 10; i++) {
-    print_board(board);
-    next_generation(board);
-  }
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-- `print_board`: 打印棋盘——和演化逻辑==分开==, 想改输出格式只动这里
-
-- main 只剩三件事: ==初始化==滑翔机 → 十代循环 {打印, 演化}——读起来像说明书
-
-- 二维数组作参数的核心规则: `int board[][SIZE + 2]` 列数==必须写== (编译器要算 board[i][j] 的位置)
-
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->##### 生命游戏 · 动画版
-
----
-
-三个函数与函数版完全相同, 只改 main 里的循环——加上 ==停顿== 和 ==清屏==, 就能看到滑翔机在屏幕上移动:
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.58em;">
-
-```C{.line-numbers}
-/* 三个函数与函数版一致 (略) */
-int main(void)
-{
-  int board[SIZE + 2][SIZE + 2] = {{0}};
-  int i;
-
-  board[2][3] = 1;  board[3][4] = 1;
-  board[4][2] = 1;  board[4][3] = 1;  board[4][4] = 1;
-
   for (i = 0; i < 20; i++) {
     print_board(board);
     next_generation(board);
@@ -1173,13 +1134,19 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-- `sleep(1)`: 每代之间停 1 秒 (`<unistd.h>`); `system("clear")`: 清屏后重画, 画面连起来就是动画
+只改 main 的循环——加上==停顿==和==清屏==, 就能看到滑翔机在屏幕上移动:
 
-- 经典效果: 滑翔机每 4 代平移一格, ==斜着飞过屏幕==
+- `print_board`: 打印棋盘——和演化逻辑==分开==, 想改输出格式只动这里
 
-- 函数化改造的回报: 加动画==只改 main==, 三个函数一行未动
+- main 只剩三件事: ==初始化==滑翔机 → 二十代循环 {打印, 演化, 停顿, 清屏}——读起来像说明书
+
+- 二维数组作参数的核心规则: `int board[][SIZE + 2]` 列数==必须写== (编译器要算 board[i][j] 的位置)
+
+- 加动画==只改 main==: `sleep(1)` 每代停 1 秒, `system("clear")` 清屏重画——三个函数一行未动
+
+- ==先猜再验==: 运行起来观察滑翔机的运动——你发现什么规律? (每 4 代平移一格, ==斜着飞过屏幕==)
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/game-of-life-anim.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 game-of-life-anim.c</a>
 
@@ -1189,121 +1156,15 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 案例: 矩阵转置 · 原版
-
----
-
-第 6 周写过矩阵转置 (非函数版):
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C{.line-numbers}
-/* 3x4 转置成 4x3: 非函数版 */
-#include <stdio.h>
-
-int main(void)
-{
-  int a[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-  int b[4][3];
-  int i, j;
-
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 4; j++) {
-      b[j][i] = a[i][j];
-    }
-  }
-
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < 3; j++) {
-      printf("%3d", b[i][j]);
-    }
-    printf("\n");
-  }
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.85em;line-height:1.6;">
-
-<div style="font-weight:700;color:#268bd2;">📌 核心就一句</div>
-
-`b[j][i] = a[i][j]`——下标 i、j ==互换==: a 的第 i 行第 j 列搬到 b 的第 j 行第 i 列, 相当于==沿对角线翻折==
-
-==任务==: 把转置逻辑抽成 `void transpose(int a[][4], int b[][3], int rows)`, main 只剩调用和输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 形参要写清各自的列数——`a[][4]` 和 `b[][3]`
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/transpose-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 transpose-re.c</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 案例: 矩阵转置函数化
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.58em;">
-
-把第 6 周的转置逻辑封装成函数:
-
-```C{.line-numbers}
-/* a: 3×4 的矩阵, b: 4×3 的转置结果 */
-void transpose(int a[][4], int b[][3], int rows)
-{
-  for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < 4; j++) {
-      b[j][i] = a[i][j];
-    }
-  }
-}
-```
-
-```C
-int a[3][4] = { ... }, b[4][3];
-transpose(a, b, 3);        /* b 得到 a 的转置 */
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-- 形参里两个二维数组: `a[][4]` 和 `b[][3]`——各自写清自己的==列数==
-
-- 列数不同, 两个形参的写法也不同——每个数组单独交代"一行多长"
-
-- 调用的样子和标量没区别: 数组名 + 行数, 结果直接写进 b
-
-
-</div>
-
-</div>
-
----
-
-
-
-
 <!-- slide data-notes="" -->##### 案例: 成绩统计 · 原版
 
 ---
 
-求每个学生的总分 (非函数版):
-
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.55em;">
+
+求每个学生的总分 (非函数版):
 
 ```C{.line-numbers}
 /* 5 名学生 x 3 门课: 非函数版 */
@@ -1334,7 +1195,7 @@ int main(void)
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
 
-==任务==: 把每行求和抽成 `void row_sums(int scores[][3], int n, int sums[])`, main 只剩调用和输出
+==3 分钟, 自己写==: 把每行求和抽成函数, main 只剩调用和输出——二维数组进, 结果往哪放? 下一页对照
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 二维数组进 (`scores`)、一维数组出 (`sums`)——两个都是 "数组作参数"
 
@@ -1349,7 +1210,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 案例: 成绩统计函数化
+##### 案例: 成绩统计 · 函数版
 
 ---
 
@@ -1384,12 +1245,42 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 二维数组进 (`scores`)、一维数组出 (`sums`)——都是"数组作参数"
 
-- 按列统计要单独写: `sums[j]` 的清零放在==行循环之外== (只清一次), 累加行改成 `sums[j] += scores[i][j]` (结果数组长度变成 3)
+==练习==: 按列求和呢? `sums[j]` 的清零该放在哪个循环之外? 结果数组的长度是多少?
 
+<a href="code/row-sums-re.c" target="_blank">row-sums-re.c (改造前)</a> · <a href="code/row-sums-func.c" target="_blank">row-sums-func.c (函数版)</a>
 
 </div>
 
 </div>
+
+---
+
+<!-- slide data-notes="" -->##### 函数化改造 · 四步总结
+
+---
+
+==函数化四步==: ① 找输入 ② 定返回/输出参数 ③ 搬代码 ④ 改调用——今天 10 个例子全部按这四步走; 标量例子返回==值==, 数组例子 "返回" 靠==输出参数== (改原数组/写进另一个数组)——这是今天最大的新点:
+
+<div style="font-size:0.7em;">
+
+| 例子 | 输入 | 返回 / 输出参数 | 调用 |
+|------|------|----------------|------|
+| `is_prime` | `int n` | 1/0 | `if (is_prime(n))` |
+| `count_primes` | `int max` | 个数 | `count_primes(max)` |
+| `is_leap_year` | `int n` | 1/0 | `is_leap_year(year)` |
+| `print_stars` | `int n` | 无 (打印) | `print_stars(2 * i + 1)` |
+| `sum_array` | `a[], n` | 和 | `sum_array(b, 5)` |
+| `sort` | `a[], n` | 无 (改原数组) | `sort(a, 10)` |
+| `sum_matrix` | `a[][4], rows` | 和 | `sum_matrix(m, 3)` |
+| `transpose` | `a[][4], b[][3], rows` | 无 (写进 b) | `transpose(a, b, 3)` |
+| `row_sums` | `scores[][3], n, sums[]` | 无 (写进 sums) | `row_sums(scores, 5, totals)` |
+| `combination` | `m, n` | 值 | ==你自己写== |
+
+</div>
+
+==练习==: 矩阵转置 `transpose`——两个形参的列数各写几? (<a href="code/transpose-re.c" target="_blank">题面</a> · <a href="code/transpose-func.c" target="_blank">答案</a>)
+
+<span style="font-size:0.9em;">→ 一路都在说 "数组是例外"——为什么? 答案藏在函数调用的幕后, 下一节揭晓</span>
 
 ---
 
@@ -1398,25 +1289,40 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ---
 
-先想一个问题: 函数返回之后, 它里面的局部变量==去哪儿了==? 下次再调用, 为什么又是全新的?
+先想一个问题: 函数返回之后, 它里面的局部变量==去了哪里==? 下次再调用, 为什么又是全新的?
 
-<div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:center;">
+<div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:start;">
 
 <div style="text-align:center;">
-  <img src="figs/program-call-stack.svg" height=520px>
+<svg viewBox="0 0 460 440" style="max-width:100%;height:380px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
+<text x="130" y="381" font-size="11" fill="#586e75" text-anchor="middle">局部变量</text>
+<text x="130" y="396" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="286" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="304" font-size="18" fill="#073642" text-anchor="middle">f</text>
+<text x="130" y="321" font-size="11" fill="#586e75" text-anchor="middle">参数 · 局部变量</text>
+<text x="130" y="336" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="226" width="200" height="60" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="130" y="244" font-size="18" fill="#073642" text-anchor="middle">g</text>
+<text x="130" y="261" font-size="11" fill="#586e75" text-anchor="middle">参数 · 局部变量</text>
+<text x="130" y="276" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="130" y1="226" x2="130" y2="206" stroke="#268bd2" stroke-width="2"/>
+<text x="130" y="199" font-size="14" fill="#268bd2" text-anchor="middle">栈顶: g 正在执行</text>
+</g>
+</svg>
 </div>
 
-<div style="font-size:0.9em;line-height:1.7;">
+<div style="font-size:0.85em;line-height:1.6;">
 
-- 每次函数调用, 系统在==调用栈==(call stack) 上放一张 "便签": 记下==返回地址==、==参数==、==局部变量==
+- 每次函数调用, 系统在==调用栈== (call stack) 上放一张 "便签"——术语叫==栈帧== (stack frame): 记下==返回地址==、==参数==、==局部变量==
+
+- ==返回地址==: 函数结束后, 回到调用处==继续执行的下一行==
 
 - 函数返回时揭掉这张便签——局部变量 "出了函数就没了", 就是这个原因
 
-- 栈是==后进先出==: 最后调用的函数最先返回——像一摞盘子, 只能从最上面拿
-
-<span class="blue">:fa-lightbulb-o:</span> 周三的递归: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图
-
-<a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (逐行看栈帧)</a>
+- 栈是==后进先出==: 最后调用的函数最先返回——像一摞便签, 后放的压在最上面, 只能先揭最上面那张
 
 </div>
 
@@ -1434,42 +1340,70 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 <div style="flex:1.1;font-size:0.62em;">
 
 ```C{.line-numbers}
-double average(double a, double b)
-{
-  double sum;              /* 局部变量 */
-  sum = (a + b) / 2;
-  return sum;
+/* primes.c 函数版: 两层调用链 */
+#include <stdio.h>
+
+int is_prime(int n) {
+  int d;
+  if (n <= 1) return 0;
+  for (d = 2; d <= n / d; d++) {
+    if (n % d == 0) return 0;
+  }
+  return 1;
 }
 
-int main(void)
-{
-  double x = 3.0, y = 5.0;
-  printf("%g\n", average(x, y));
+int count_primes(int max) {
+  int i, count = 0;
+  for (i = 2; i <= max; i++) {
+    if (is_prime(i)) count++;
+  }
+  return count;
+}
+
+int main(void) {
+  printf("%d\n", count_primes(10));
   return 0;
 }
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;align-self:stretch;">
 
-<svg viewBox="0 0 460 400" style="max-width:100%;height:auto;">
+<div style="font-size:0.9em;line-height:1.6;">
+
+拿刚才的 primes.c 函数版看: main → count_primes → is_prime ==两层调用==, 运行时栈上叠着三张便签
+
+</div>
+
+<svg viewBox="0 0 520 440" style="max-width:100%;height:400px;">
 <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<rect x="30" y="286" width="180" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-<text x="120" y="309" font-size="18" fill="#073642" text-anchor="middle">main · x, y</text>
-<text x="120" y="329" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
-<rect x="30" y="232" width="180" height="54" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
-<text x="120" y="255" font-size="18" fill="#073642" text-anchor="middle">average · a, b, sum</text>
-<text x="120" y="275" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
-<line x1="120" y1="232" x2="120" y2="212" stroke="#268bd2" stroke-width="2"/>
-<text x="120" y="205" font-size="14" fill="#268bd2" text-anchor="middle">栈顶</text>
-<rect x="250" y="286" width="180" height="54" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-<text x="340" y="309" font-size="18" fill="#073642" text-anchor="middle">main · x, y</text>
-<text x="340" y="329" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
-<line x1="340" y1="232" x2="340" y2="212" stroke="#268bd2" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="340" y="205" font-size="14" fill="#b58900" text-anchor="middle">已撕掉</text>
-<path d="M 220 259 Q 240 259 245 259" stroke="#586e75" stroke-width="2" fill="none" marker-end="url(#arr4)"/>
-<text x="232" y="248" font-size="12" fill="#586e75" text-anchor="middle">返回</text>
+<rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
+<text x="130" y="381" font-size="11" fill="#586e75" text-anchor="middle">无局部变量</text>
+<text x="130" y="396" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="286" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="304" font-size="18" fill="#073642" text-anchor="middle">count_primes</text>
+<text x="130" y="321" font-size="11" fill="#586e75" text-anchor="middle">参数 max · 局部 i, count</text>
+<text x="130" y="336" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="226" width="200" height="60" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="130" y="244" font-size="18" fill="#073642" text-anchor="middle">is_prime</text>
+<text x="130" y="261" font-size="11" fill="#586e75" text-anchor="middle">参数 n · 局部 d</text>
+<text x="130" y="276" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="130" y1="226" x2="130" y2="206" stroke="#268bd2" stroke-width="2"/>
+<text x="130" y="199" font-size="14" fill="#268bd2" text-anchor="middle">栈顶</text>
+<rect x="290" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="390" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
+<text x="390" y="381" font-size="11" fill="#586e75" text-anchor="middle">无局部变量</text>
+<text x="390" y="396" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="290" y="286" width="200" height="60" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="390" y="304" font-size="18" fill="#073642" text-anchor="middle">count_primes</text>
+<text x="390" y="321" font-size="11" fill="#586e75" text-anchor="middle">参数 max · 局部 i, count</text>
+<text x="390" y="336" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="420" y1="226" x2="420" y2="206" stroke="#268bd2" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="420" y="199" font-size="14" fill="#b58900" text-anchor="middle">已撕掉</text>
+<path d="M 232 262 L 286 300" stroke="#586e75" stroke-width="2" fill="none" marker-end="url(#arr4)"/>
+<text x="259" y="294" font-size="12" fill="#586e75" text-anchor="middle">返回</text>
 <defs>
 <marker id="arr4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
 <path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
@@ -1482,94 +1416,36 @@ int main(void)
 
 </div>
 
-- average 返回时, 栈顶的便签被==撕掉==: sum 随之消失, 控制权按 "返回地址" 回到 main
+---
 
-- 下次再调用 average, 系统放一张==全新的便签==——所以每次的局部变量都是新的
-
-<span class="blue">:fa-lightbulb-o:</span> 周三的递归: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图
+<!-- slide data-notes="" -->##### 函数调用栈 · 小结
 
 ---
 
-<!-- slide data-notes="" -->
+- is_prime 返回时, 栈顶的便签被==撕掉==: 局部变量 d 随之消失, 控制权按 "返回地址" 回到 count_primes
 
-##### 课堂编码 1: 星号塔改写
+- count_primes 的循环一次次调用 is_prime, 每次都放一张==全新的便签==——所以每次的局部变量都是新的
 
----
+- 数组作参数时, 便签上记的不是整个数组, 而是数组的==开头位置==——函数顺着位置改到原数组; 普通参数记的是==值的副本==——这就是 "数组是例外" 的原因
 
-把下面的程序改写成 "主函数 + 函数" 的结构:
+<span class="blue">:fa-lightbulb-o:</span> 后面的递归课: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图
 
-```C{.line-numbers}
-#include <stdio.h>
-
-int main(void)
-{
-  int lines, i, j;
-
-  printf("输入行数: ");
-  scanf("%d", &lines);
-
-  for (i = 0; i < lines; i++) {
-    for (j = 0; j < lines - 1 - i; j++) {    /* 打印空格 */
-      printf(" ");
-    }
-    for (j = 0; j < 2 * i + 1; j++) {        /* 打印一行星号 */
-      printf("*");
-    }
-    printf("\n");
-  }
-  return 0;
-}
-```
-
-任务: 抽出 `void print_stars(int n)` (打印一行 n 颗星), 空格的循环也抽成 `void print_spaces(int n)`
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 每个函数只做==一件事==
+<a href="function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (逐帧压栈/弹栈)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘贴左栏代码, 逐行看栈帧)</a>
 
 ---
 
 
-<!-- slide data-notes="" -->
-
-##### 课堂编码 2: 阶乘改写 (挑战)
+<!-- slide data-notes="" -->##### 课堂编码: 挑战 · 组合数
 
 ---
 
-把下面的程序改写成 "主函数 + 函数" 的结构:
+==挑战==: 用今天写好的 `factorial` 写 `combination`——C(m,n) = m! / (n!(m-n)!), 原型 `long combination(int m, int n)`; main → combination → factorial ==两层调用链==, 运行时栈上就叠着刚才那样的两层便签
 
-```C{.line-numbers}
-#include <stdio.h>
+`factorial` 被调用了三次、参数各不同——小函数可以组合成更大的函数
 
-int main(void)
-{
-  int n, i;
-  long f = 1;
+<span style="font-size:0.9em;">==追问==: 试试 m = 30——为什么结果不对? (提示: 30! 超出 long 的容量——Windows 上 long 只有 32 位, 13! 就溢出; Mac/Linux 64 位也到 20!)</span>
 
-  printf("输入 n: ");
-  scanf("%d", &n);
-
-  for (i = 1; i <= n; i++) {    /* 计算 n! */
-    f = f * i;
-  }
-  printf("%d! = %ld\n", n, f);
-  return 0;
-}
-```
-
-任务: 抽出 `long factorial(int n)`, main 只剩输入、调用、输出
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 阶乘函数明天还会在递归课上==再次登场== (n! = n × (n-1)!)
-
-3. ==进阶==: 用刚写好的 `factorial`, 再写一层组合数——main → combination → factorial 两层调用链:
-
-```C
-long combination(int m, int n)
-{
-  return factorial(m) / (factorial(n) * factorial(m - n));
-}
-```
-
-`factorial` 被调用了三次、参数各不同——这就是 "用函数搭积木"
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/factorial-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 factorial-re.c</a>
+---
 
 
 ---
@@ -1582,13 +1458,13 @@ long combination(int m, int n)
 
 ---
 
-1. 概念: 函数调用时栈上发生了什么？局部变量在函数返回后会怎样？
+1. 概念: 函数调用时栈上发生了什么? 局部变量在函数返回后会怎样?
 
-2. 概念: 函数化改造后, `main` 里应该剩下什么？`is_prime(n)` 返回什么类型？
+2. 概念: 数组作参数时, 为什么长度要单独传? 二维数组的形参为什么列数不能省?
 
-3. 代码阅读: 阅读 leap.c 函数版, `is_leap_year(1900)` 返回什么？为什么？
+3. 代码阅读: 阅读 leap-func.c (函数版), `is_leap_year(1900)` 返回什么? 为什么?
 
-4. 纠错: 闰年判断写成 `year % 4 == 0 || year % 400 == 0` (少了 `&& year % 100 != 0`) 会怎样？
+4. 纠错: 二维数组形参写成 `int a[][]`, 能编译吗? 为什么? 正确的写法是什么?
 
 ---
 <!-- slide data-notes="" -->
