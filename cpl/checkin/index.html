@@ -60,6 +60,8 @@ button:disabled { opacity: .55; cursor: default; }
 .receipt b { float: right; }
 .note { color: var(--muted); font-size: 12.5px; line-height: 1.7; }
 .hint { color: var(--muted); font-size: 12px; text-align: center; margin-top: 18px; }
+button.ghost { background: var(--bg); color: var(--brand); border: 1.5px solid var(--brand); }
+button.copied { background: var(--ok); }
 [hidden] { display: none !important; }
 </style>
 </head>
@@ -85,7 +87,8 @@ button:disabled { opacity: .55; cursor: default; }
       时间<b id="r_time"></b><br>
       凭证<b id="r_proof"></b>
     </div>
-    <p class="note">请把本页给老师看一眼, 或截图发到课程群接龙。凭证码老师可当场核验。</p>
+    <p class="note" id="note_copy">点击下方按钮: 签到信息会自动复制到剪贴板, 然后粘贴到收集表提交。</p>
+    <button class="ghost" id="btn_submit" hidden>📋 复制签到信息并打开收集表</button>
   </div>
 
   <p class="hint">定位仅用于判断是否在二维码所在位置附近, 不会上传或保存。</p>
@@ -216,6 +219,23 @@ button:disabled { opacity: .55; cursor: default; }
           document.getElementById('r_proof').textContent = proof.slice(0, 10);
           document.getElementById('form').hidden = true;
           document.getElementById('success').hidden = false;
+          window.__ckInfo = sid + '  ' + proof.slice(0, 10) + '  ' + new Date().toLocaleString('zh-CN');
+          var sub = document.getElementById('btn_submit');
+          if (C.formUrl) {
+            sub.hidden = false;
+            sub.addEventListener('click', function () {
+              var txt = window.__ckInfo || '';
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(txt).catch(function () {});
+              }
+              sub.textContent = '已复制: ' + txt + ' → 打开收集表';
+              sub.classList.add('copied');
+              window.open(C.formUrl, '_blank');
+            });
+          } else {
+            document.getElementById('note_copy').textContent =
+              '请把本页给老师看一眼, 或截图发到课程群接龙。凭证码老师可当场核验。';
+          }
         });
       });
     }).catch(function (why) {
