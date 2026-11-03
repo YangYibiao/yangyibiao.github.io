@@ -412,17 +412,40 @@ int main(void)
 
 - n>1: 先把上面 n-1 个 A → B (借 C), 再把最大盘 A → C, 最后 n-1 个 B → C (借 A)
 
-运行输出 (共 7 步):
-
-<span style="font-size:0.75em;font-family:Menlo,monospace;">A→C &nbsp; A→B &nbsp; C→B &nbsp; A→C &nbsp; B→A &nbsp; B→C &nbsp; A→C</span>
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 hanoi.c (直接编译运行)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘左栏代码, 逐层看调用栈)</a>
-
-64 个盘子需 2^64 - 1 步——"把问题交给递归"的威力
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 hanoi.c (直接编译运行)</a>
 
 </div>
 
 </div>
+
+---
+
+<!-- slide data-notes="" -->##### Hanoi 塔 · 调用过程与运行结果
+
+---
+
+<div style="font-size:0.8em;">
+
+```text
+Hanoi(3, A, B, C)
+ ├─ Hanoi(2, A, C, B)        ← 先把上面 2 个 A→B
+ │    ├─ Hanoi(1, A, B, C) → A→C
+ │    ├─ A→B
+ │    └─ Hanoi(1, C, A, B) → C→B
+ ├─ A→C                      ← 最大盘就位
+ └─ Hanoi(2, B, A, C)        ← 再把上面 2 个 B→C
+      ├─ Hanoi(1, B, C, A) → B→A
+      ├─ B→C
+      └─ Hanoi(1, A, B, C) → A→C
+```
+
+</div>
+
+运行输出 (共 7 步): <span style="font-size:0.75em;font-family:Menlo,monospace;">A→C &nbsp; A→B &nbsp; C→B &nbsp; A→C &nbsp; B→A &nbsp; B→C &nbsp; A→C</span>
+
+<a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘代码, 逐层看调用栈)</a>
+
+---
 
 <!-- slide data-notes="" -->
 
