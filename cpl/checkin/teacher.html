@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>签到码 · 教师端</title>
 <style>
-:root { --bg:#0b1220; --card:#111c30; --ink:#e5e7eb; --muted:#8b95a7; --brand:#3b82f6; --ok:#10b981; }
+:root { --bg:#0b1220; --card:#111c30; --ink:#e5e7eb; --muted:#8b95a7; --brand:#3b82f6; --ok:#10b981; --bad:#f87171; }
 * { box-sizing:border-box; margin:0; padding:0; }
 body {
   font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;
@@ -14,17 +14,24 @@ body {
   padding:32px 16px; color-scheme:dark;
 }
 h1 { font-size:20px; color:var(--muted); font-weight:500; margin-bottom:18px; }
+.locbar {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center;
+  margin-bottom:14px; font-size:14px; color:var(--muted);
+}
+.locbar .ok { color:var(--ok); } .locbar .bad { color:var(--bad); }
+.locbar button {
+  padding:7px 14px; font-size:13px; border:none; border-radius:8px;
+  background:var(--brand); color:#fff; cursor:pointer;
+}
 .codebox {
-  background:var(--card); border-radius:24px; padding:36px 64px;
+  background:var(--card); border-radius:24px; padding:32px 64px;
   text-align:center; box-shadow:0 12px 40px rgba(0,0,0,.4);
 }
 .code {
   font-size:clamp(64px, 14vw, 130px); font-weight:800; letter-spacing:18px;
   font-variant-numeric:tabular-nums; color:#fff;
 }
-.count {
-  margin-top:14px; font-size:16px; color:var(--muted);
-}
+.count { margin-top:14px; font-size:16px; color:var(--muted); }
 .bar { height:5px; background:#24334d; border-radius:3px; margin-top:12px; overflow:hidden; }
 .bar i { display:block; height:100%; background:var(--brand); width:0%; }
 .tools { margin-top:22px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
@@ -42,16 +49,24 @@ h1 { font-size:20px; color:var(--muted); font-weight:500; margin-bottom:18px; }
   background:var(--brand); color:#fff; cursor:pointer;
 }
 .panel .res { margin-top:10px; font-size:14px; min-height:20px; }
-.res.ok { color:var(--ok); } .res.bad { color:#f87171; }
+.res.ok { color:var(--ok); } .res.bad { color:var(--bad); }
 .qr { display:flex; flex-direction:column; align-items:center; gap:6px; }
 .qr span { font-size:12.5px; }
 details { cursor:pointer; }
 summary { font-size:14px; }
 a { color:var(--brand); }
+.row { display:flex; gap:12px; }
+.row > div { flex:1; }
 </style>
 </head>
 <body>
 <h1>课堂签到码 · 请全屏投影</h1>
+
+<div class="locbar">
+  <span id="loc_state" class="bad">📍 尚未获取签到位置</span>
+  <button id="loc_btn">获取我的位置 (二维码在哪, 在哪签到)</button>
+</div>
+
 <div class="codebox">
   <div class="code" id="code">------</div>
   <div class="count" id="count"></div>
@@ -59,21 +74,27 @@ a { color:var(--brand); }
 </div>
 
 <div class="tools">
-  <div class="panel qr" style="max-width:260px;">
+  <div class="panel qr" style="max-width:280px;">
     <div id="qrcode"></div>
-    <span>学生签到入口二维码</span>
-    <a id="url" target="_blank"></a>
+    <span>学生扫码签到 (二维码里带当前位置)</span>
   </div>
 </div>
 
 <div class="panel">
   <details>
-    <summary>凭证核验 (抽查用)</summary>
-    <label>粘贴学生的 "学号+凭证" (中间空格隔开)</label>
+    <summary>手动设置位置 / 凭证核验</summary>
+    <label>如果"获取位置"不准确(教室电脑没有 GPS), 手动填教室坐标 (地图拾取坐标可得):</label>
+    <div class="row">
+      <div><label>纬度</label><input id="m_lat" inputmode="decimal" placeholder="32.1080"></div>
+      <div><label>经度</label><input id="m_lng" inputmode="decimal" placeholder="118.9580"></div>
+      <div><label>半径(米)</label><input id="m_r" inputmode="numeric" value="400"></div>
+    </div>
+    <button id="m_save">用这个位置</button>
+
+    <label style="margin-top:18px;">凭证核验: 粘贴学生的 "学号+凭证" (中间空格隔开)</label>
     <input id="verify_input" placeholder="如 211250001 3f9a2c1b44">
     <button id="verify_btn">核验</button>
     <div class="res" id="verify_res"></div>
-    <p style="margin-top:12px;font-size:12.5px;">密钥与教室坐标统一在 <code>config.js</code> 里修改(每学期一次)。</p>
   </details>
 </div>
 
@@ -82,18 +103,14 @@ a { color:var(--brand); }
 <script>
 (function () {
   var C = window.CHECKIN_CONFIG;
-  var cfg = {
-    secret: C.secret,
-    lat: C.lat,
-    lng: C.lng,
-    radius: C.radiusM,
-  };
+  var base = location.href.replace('teacher.html', '');
+  // 当前位置(默认从本机记忆恢复, 否则用 config.js 的第一个区域兜底)
+  var loc = JSON.parse(localStorage.getItem('ck_loc') || 'null')
+         || { lat: C.zones[0].lat, lng: C.zones[0].lng, r: C.zones[0].radiusM };
+  var locReady = !!localStorage.getItem('ck_loc');
 
-  // 学生入口二维码
-  var url = location.href.replace('teacher.html', '');
-  document.getElementById('url').textContent = url;
-  document.getElementById('url').href = url;
-  if (window.QRCode) new QRCode(document.getElementById('qrcode'), { text: url, width: 160, height: 160 });
+  var qrBox = document.getElementById('qrcode');
+  var qr = null;
 
   function sha256hex(str) {
     var data = new TextEncoder().encode(str);
@@ -104,9 +121,52 @@ a { color:var(--brand); }
   }
   function slotOf(t) { return Math.floor(t / (C.slotSeconds * 1000)); }
   function codeFor(slot) {
-    return sha256hex(cfg.secret + ':' + slot).then(function (h) {
+    return sha256hex(C.secret + ':' + slot).then(function (h) {
       var n = parseInt(h.slice(0, 8), 16);
       return ('000000' + (n % 1000000)).slice(-6);
+    });
+  }
+
+  function setLoc(lat, lng, r, ready) {
+    loc = { lat: lat, lng: lng, r: r };
+    locReady = ready;
+    localStorage.setItem('ck_loc', JSON.stringify(loc));
+    var st = document.getElementById('loc_state');
+    st.textContent = '📍 签到位置: ' + lat.toFixed(5) + ', ' + lng.toFixed(5) + ' (半径 ' + r + ' 米)';
+    st.className = 'ok';
+    refreshQr();
+  }
+
+  // 获取教师当前位置
+  document.getElementById('loc_btn').addEventListener('click', function () {
+    var st = document.getElementById('loc_state');
+    if (!('geolocation' in navigator)) {
+      st.textContent = '此电脑不支持定位, 请用下方手动输入'; st.className = 'bad'; return;
+    }
+    st.textContent = '正在定位…'; st.className = '';
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var acc = Math.max(Math.round(pos.coords.accuracy), 50);
+      setLoc(pos.coords.latitude, pos.coords.longitude, Math.min(Math.max(acc * 2, 150), 600), true);
+    }, function () {
+      st.textContent = '定位失败(教室电脑常无 GPS), 请用下方手动输入坐标'; st.className = 'bad';
+    }, { enableHighAccuracy: true, timeout: 10000 });
+  });
+  document.getElementById('m_save').addEventListener('click', function () {
+    var la = parseFloat(document.getElementById('m_lat').value);
+    var lo = parseFloat(document.getElementById('m_lng').value);
+    var r = parseInt(document.getElementById('m_r').value, 10) || 400;
+    if (isNaN(la) || isNaN(lo)) { alert('纬度和经度要填数字'); return; }
+    setLoc(la, lo, r, true);
+  });
+
+  function refreshQr() {
+    var slot = slotOf(Date.now());
+    codeFor(slot).then(function (c) {
+      var u = base + '?slot=' + slot + '&c=' + c;
+      if (locReady) u += '&lat=' + loc.lat + '&lng=' + loc.lng + '&r=' + loc.r;
+      if (!window.QRCode) return;
+      if (qr) { qr.clear(); qr.makeCode(u); }
+      else qr = new QRCode(qrBox, { text: u, width: 200, height: 200 });
     });
   }
 
@@ -116,34 +176,14 @@ a { color:var(--brand); }
     var remain = Math.ceil((slot + 1) * C.slotSeconds * 1000 - now);
     document.getElementById('count').textContent =
       '本次码剩余 ' + Math.ceil(remain / 1000) + ' 秒 (每 ' + C.slotSeconds + ' 秒自动更换)';
-    document.getElementById('bar').style.width =
-      (100 * remain / (C.slotSeconds * 1000)) + '%';
+    document.getElementById('bar').style.width = (100 * remain / (C.slotSeconds * 1000)) + '%';
     if (slot !== lastSlot) {
       lastSlot = slot;
-      codeFor(slot).then(function (c) {
-        document.getElementById('code').textContent = c;
-      });
+      codeFor(slot).then(function (c) { document.getElementById('code').textContent = c; });
+      refreshQr();
     }
   }
   tick(); setInterval(tick, 1000);
-
-  // 设置面板
-  document.getElementById('cfg_secret').value = cfg.secret;
-  document.getElementById('cfg_lat').value = cfg.lat;
-  document.getElementById('cfg_lng').value = cfg.lng;
-  document.getElementById('cfg_radius').value = cfg.radius;
-  document.getElementById('cfg_save').addEventListener('click', function () {
-    cfg.secret = document.getElementById('cfg_secret').value.trim() || cfg.secret;
-    cfg.lat = parseFloat(document.getElementById('cfg_lat').value) || cfg.lat;
-    cfg.lng = parseFloat(document.getElementById('cfg_lng').value) || cfg.lng;
-    cfg.radius = parseInt(document.getElementById('cfg_radius').value, 10) || cfg.radius;
-    localStorage.setItem('ck_secret', cfg.secret);
-    localStorage.setItem('ck_lat', String(cfg.lat));
-    localStorage.setItem('ck_lng', String(cfg.lng));
-    localStorage.setItem('ck_radius', String(cfg.radius));
-    lastSlot = null; tick();
-    alert('已保存到本机 (只影响这台电脑的显示, 学生页仍用 config.js 里的配置)');
-  });
 
   // 凭证核验: 学号 + 最近 ±3 分钟槽的 SHA 前 10 位
   document.getElementById('verify_btn').addEventListener('click', function () {
