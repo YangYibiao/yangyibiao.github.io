@@ -122,9 +122,7 @@ int power(int x, int n) {
 
 <div style="flex:1.05;text-align:center;">
 
-<div style="text-align:center;margin:2px 0;">
-viewBox='0 0 400 200' style='max-width:100%;height:320px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='fact-down' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='fact-up' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-weight='700'><rect x='48' y='8' width='150' height='38' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='123' y='25' font-size='15.4' fill='#073642' text-anchor='middle'>fact(3)</text><text x='123' y='39' font-size='11.0' fill='#586e75' text-anchor='middle'>n = 3 → 3 × fact(2)</text><rect x='48' y='76' width='150' height='38' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='123' y='93' font-size='15.4' fill='#073642' text-anchor='middle'>fact(2)</text><text x='123' y='107' font-size='11.0' fill='#586e75' text-anchor='middle'>n = 2 → 2 × fact(1)</text><rect x='48' y='144' width='150' height='38' rx='8' fill='#fdf6e3' stroke='#859900' stroke-width='3'/><text x='123' y='161' font-size='15.4' fill='#073642' text-anchor='middle'>fact(1)</text><text x='123' y='175' font-size='11.0' fill='#586e75' text-anchor='middle'>n = 1，命中基准 → return 1</text></g><path d='M123 46 V72' stroke='#268bd2' stroke-width='2.5' fill='none' marker-end='url(#fact-down)'/><path d='M123 114 V140' stroke='#268bd2' stroke-width='2.5' fill='none' marker-end='url(#fact-down)'/><text x='133' y='63' font-size='9.9' fill='#268bd2'>递推（压栈）</text><text x='133' y='131' font-size='9.9' fill='#268bd2'>递推（压栈）</text><path d='M300 184 V20' stroke='#859900' stroke-width='2.5' fill='none' marker-end='url(#fact-up)'/><text x='310' y='12' font-size='9.9' fill='#859900' font-weight='700'>回归（弹栈）</text><text x='310' y='38' font-size='9.9' fill='#859900'>返回 3 × 2 = 6</text><text x='310' y='106' font-size='9.9' fill='#859900'>返回 2 × 1 = 2</text><text x='310' y='176' font-size='9.9' fill='#859900'>返回 1</text><text x='48' y='196' font-size='9.9' fill='#586e75'>蓝色：递推（压栈）　绿色：回归（弹栈）</text></g></svg>
-</div>
+<svg viewBox='0 0 400 200' style='max-width:100%;height:320px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='fact-down' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='fact-up' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-weight='700'><rect x='48' y='8' width='150' height='38' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='123' y='25' font-size='15.4' fill='#073642' text-anchor='middle'>fact(3)</text><text x='123' y='39' font-size='11.0' fill='#586e75' text-anchor='middle'>n = 3 → 3 × fact(2)</text><rect x='48' y='76' width='150' height='38' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='123' y='93' font-size='15.4' fill='#073642' text-anchor='middle'>fact(2)</text><text x='123' y='107' font-size='11.0' fill='#586e75' text-anchor='middle'>n = 2 → 2 × fact(1)</text><rect x='48' y='144' width='150' height='38' rx='8' fill='#fdf6e3' stroke='#859900' stroke-width='3'/><text x='123' y='161' font-size='15.4' fill='#073642' text-anchor='middle'>fact(1)</text><text x='123' y='175' font-size='11.0' fill='#586e75' text-anchor='middle'>n = 1，命中基准 → return 1</text></g><path d='M123 46 V72' stroke='#268bd2' stroke-width='2.5' fill='none' marker-end='url(#fact-down)'/><path d='M123 114 V140' stroke='#268bd2' stroke-width='2.5' fill='none' marker-end='url(#fact-down)'/><text x='133' y='63' font-size='9.9' fill='#268bd2'>递推（压栈）</text><text x='133' y='131' font-size='9.9' fill='#268bd2'>递推（压栈）</text><path d='M300 184 V20' stroke='#859900' stroke-width='2.5' fill='none' marker-end='url(#fact-up)'/><text x='310' y='12' font-size='9.9' fill='#859900' font-weight='700'>回归（弹栈）</text><text x='310' y='38' font-size='9.9' fill='#859900'>返回 3 × 2 = 6</text><text x='310' y='106' font-size='9.9' fill='#859900'>返回 2 × 1 = 2</text><text x='310' y='176' font-size='9.9' fill='#859900'>返回 1</text><text x='48' y='196' font-size='9.9' fill='#586e75'>蓝色：递推（压栈）　绿色：回归（弹栈）</text></g></svg>
 
 </div>
 
@@ -264,7 +262,9 @@ void f(void)
 
 ---
 
-<div style="font-size:0.8em;">
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;font-size:0.85em;">
 
 ```C
 void f(void) {
@@ -274,13 +274,15 @@ void f(void) {
 int main(void) { f(); return 0; }
 ```
 
-</div>
-
-一次运行的结果 (每次可能不同!): 
+一次运行的结果 (每次可能不同!):
 
 ```
 i = 32764
 ```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
 
 - 动态局部变量诞生时==不会自动清零==——里面是内存里残留的"垃圾值"
 
@@ -289,6 +291,10 @@ i = 32764
 - 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
 
 - 递归函数里的局部变量也不例外——忘初始化的话, ==每一层==读到的都是垃圾值
+
+</div>
+
+</div>
 
 ---
 
