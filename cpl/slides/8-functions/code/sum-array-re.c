@@ -1,21 +1,21 @@
-/* 求 b 的元素之和: 非函数版 */
+/* 求两组数据的和: 非函数版 */
 #include <stdio.h>
-
-int sum_array(int arr[], int n) {
-  int sum = 0;
-  for (int i = 0; i < n; i++) {
-    sum += arr[i];
-  }
-  return sum;
-}
 
 int main(void)
 {
-  int b[10] = {3, 7, 1, 9, 4, 6, 7, 8, 9};
-  int sum = sum_array(b, 10);
+  int b[5] = {3, 7, 1, 9, 4};
+  int c[3] = {10, 20, 30};
+  int sum = 0;
+
+  for (int i = 0; i < 5; i++) {    /* 第一组 */
+    sum += b[i];
+  }
+  printf("sum = %d\n", sum);
+
+  sum = 0;
+  for (int i = 0; i < 3; i++) {    /* 第二组: 又抄了一遍 */
+    sum += c[i];
+  }
   printf("sum = %d\n", sum);
   return 0;
 }
-
-
-
