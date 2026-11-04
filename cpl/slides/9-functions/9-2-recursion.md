@@ -687,6 +687,43 @@ Segmentation fault (core dumped)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;font-size:0.6em;">
+
+```C
+/* skeleton.c: 从这行开始写你的代码 */
+#include <stdio.h>
+
+int sum(int n) {
+  return n == 0 ? 0 : n + sum(n - 1);
+}
+
+int power(int x, int n) {
+  return n == 0 ? 1 : n * power(x, n - 1);
+}
+
+void print(int n) {
+  if (n / 10 == 0) {
+    printf("%d", n);
+  } else {
+    print(n / 10);
+    printf(" %d", n % 10);
+  }
+}
+
+int main() {
+  printf("%d\n", sum(10));
+  printf("%d\n", power(5, 3));
+  print(1234);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.5;">
+
 ==现场演示==
 
 1. 递归求和: sum(n) = 1 + 2 + … + n
@@ -698,6 +735,10 @@ Segmentation fault (core dumped)
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+
+</div>
+
+</div>
 
 ---
 
