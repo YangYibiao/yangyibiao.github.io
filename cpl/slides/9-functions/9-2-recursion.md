@@ -382,28 +382,93 @@ int gcd(int a, int b)
 <!-- slide data-notes="" -->
 
 
-##### Hanoi 塔
+<!-- slide data-notes="" -->##### Hanoi 塔 · 任务与规则
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;">
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+==传说==: 印度教寺庙里有 3 根柱子、64 个金盘, 僧侣昼夜不停地移动; 传说 64 个盘移完之日就是世界末日——放心, 一共要 2⁶⁴ − 1 步, 约 5849 亿年
+
+</div>
+
+<div style="display:flex;gap:14px;justify-content:center;margin-top:10px;">
+
+<div style="text-align:center;">
+<div style="font-size:0.8em;color:#586e75;">初始 (n = 3)</div>
+<svg viewBox="0 0 150 130" style="max-width:100%;height:120px;">
+<rect x="5" y="112" width="140" height="5" rx="2" fill="#93a1a1"/>
+<rect x="23" y="30" width="4" height="82" fill="#586e75"/>
+<rect x="73" y="30" width="4" height="82" fill="#586e75"/>
+<rect x="123" y="30" width="4" height="82" fill="#586e75"/>
+<text x="25" y="126" font-size="12" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="75" y="126" font-size="12" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="125" y="126" font-size="12" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<rect x="5" y="96" width="40" height="13" rx="4" fill="#268bd2"/>
+<text x="25" y="106" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+<rect x="13" y="83" width="24" height="13" rx="4" fill="#b58900"/>
+<text x="25" y="93" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+<rect x="19" y="70" width="12" height="13" rx="3" fill="#dc322f"/>
+<text x="25" y="80" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+</svg>
+</div>
+
+<div style="text-align:center;">
+<div style="font-size:0.8em;color:#586e75;">目标</div>
+<svg viewBox="0 0 150 130" style="max-width:100%;height:120px;">
+<rect x="5" y="112" width="140" height="5" rx="2" fill="#93a1a1"/>
+<rect x="23" y="30" width="4" height="82" fill="#586e75"/>
+<rect x="73" y="30" width="4" height="82" fill="#586e75"/>
+<rect x="123" y="30" width="4" height="82" fill="#586e75"/>
+<text x="25" y="126" font-size="12" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="75" y="126" font-size="12" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="125" y="126" font-size="12" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<rect x="105" y="96" width="40" height="13" rx="4" fill="#268bd2"/>
+<text x="125" y="106" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+<rect x="113" y="83" width="24" height="13" rx="4" fill="#b58900"/>
+<text x="125" y="93" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+<rect x="119" y="70" width="12" height="13" rx="3" fill="#dc322f"/>
+<text x="125" y="80" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+</svg>
+</div>
+
+</div>
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+==盘子编号==: 最小的叫 ==盘 1==, 往上依次 ==盘 2、盘 3……==, 最大的叫 ==盘 n== (后面代码输出的就是这些编号)
+
+==目标==: 把 n 个盘子从 A 柱==全部移到 C 柱==, 结束时仍从大到小叠放
+
+==规则==:
+
+- 每次只能移动==一个盘子== (某根柱最上面的)
+
+- 大盘==不能压在小盘==上
+
+- 可以借 B 柱==暂存==
+
+==任务==: 设计算法指挥这些移动——下一页看递归解法
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### Hanoi 塔
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.6em;">
-
-<div style="text-align:center;margin-bottom:4px;">
-<svg viewBox="0 0 300 150" style="max-width:100%;height:120px;display:block;margin:0 auto;">
-<rect x="15" y="130" width="270" height="6" rx="3" fill="#93a1a1"/>
-<rect x="48" y="40" width="5" height="90" fill="#586e75"/>
-<rect x="148" y="40" width="5" height="90" fill="#586e75"/>
-<rect x="248" y="40" width="5" height="90" fill="#586e75"/>
-<text x="50" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
-<text x="150" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
-<text x="250" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
-<rect x="15" y="112" width="66" height="14" rx="4" fill="#268bd2"/>
-<rect x="28" y="98" width="40" height="14" rx="4" fill="#b58900"/>
-<rect x="38" y="84" width="20" height="14" rx="4" fill="#dc322f"/>
-</svg>
-</div>
 
 ```C
 /* hanoi.c: 3 根柱, n 个盘从 A 移到 C (借 B) */
@@ -431,7 +496,7 @@ int main(void)
 
 <div style="flex:1;font-size:0.85em;line-height:1.5;">
 
-==目标==: 把 n 个盘子从 A 柱==全部移到 C 柱== (结束时仍从大到小叠放)。==规则==: ① 每次只移==一个盘子== (最上面的) ② 大盘==不能压小盘== ③ 可借 B ==暂存==
+任务与规则见==上一页==。递归思路:
 
 - n=1: 直接 A → C
 
@@ -487,9 +552,9 @@ Hanoi(3, A, B, C)
 <text x="150" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
 <text x="300" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
 <text x="450" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
-<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/></g>
-<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/></g>
-<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/></g>
+<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text></g>
+<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">2</text></g>
+<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">1</text></g>
 </svg>
 </div>
 
