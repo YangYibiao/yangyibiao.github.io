@@ -416,7 +416,22 @@ int main(void)
 
 <div style="flex:1;font-size:0.85em;line-height:1.5;">
 
-3 根柱 A、B、C, 把 n 个盘子从 A 移到 C。==规则==:
+==目标==: 把 A 柱上的 n 个盘子==全部移到 C 柱== (初始是从大到小叠放, 结束时还是从大到小叠放)。初始状态 (n = 3):
+
+<svg viewBox="0 0 300 150" style="max-width:100%;height:130px;display:block;margin:0 auto;">
+<rect x="15" y="130" width="270" height="6" rx="3" fill="#93a1a1"/>
+<rect x="48" y="40" width="5" height="90" fill="#586e75"/>
+<rect x="148" y="40" width="5" height="90" fill="#586e75"/>
+<rect x="248" y="40" width="5" height="90" fill="#586e75"/>
+<text x="50" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="150" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="250" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<rect x="15" y="112" width="66" height="14" rx="4" fill="#268bd2"/>
+<rect x="28" y="98" width="40" height="14" rx="4" fill="#b58900"/>
+<rect x="38" y="84" width="20" height="14" rx="4" fill="#dc322f"/>
+</svg>
+
+==规则==:
 
 - 每次只能移动==一个盘子== (只能是某根柱最上面的)
 
