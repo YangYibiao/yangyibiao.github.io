@@ -412,11 +412,11 @@ int gcd(int a, int b)
 void Hanoi(int n, char A, char B, char C)
 {
   if (n == 1) {
-    printf("%c -> %c\n", A, C);      /* 基准: 只剩一个盘 */
+    printf("盘 %d: %c -> %c\n", n, A, C);   /* 基准: 只剩一个盘 */
   } else {
-    Hanoi(n - 1, A, C, B);            /* 上面 n-1 个: A -> B (借 C) */
-    printf("%c -> %c\n", A, C);      /* 最大盘: A -> C */
-    Hanoi(n - 1, B, A, C);            /* 上面 n-1 个: B -> C (借 A) */
+    Hanoi(n - 1, A, C, B);                   /* 上面 n-1 个: A -> B (借 C) */
+    printf("盘 %d: %c -> %c\n", n, A, C);   /* 最大盘: A -> C */
+    Hanoi(n - 1, B, A, C);                   /* 上面 n-1 个: B -> C (借 A) */
   }
 }
 
@@ -454,19 +454,19 @@ int main(void)
 ```text
 Hanoi(3, A, B, C)
  ├─ Hanoi(2, A, C, B)        ← 先把上面 2 个 A→B
- │    ├─ Hanoi(1, A, B, C) → A→C
- │    ├─ A→B
- │    └─ Hanoi(1, C, A, B) → C→B
- ├─ A→C                      ← 最大盘就位
+ │    ├─ Hanoi(1, A, B, C) → 盘1: A→C
+ │    ├─ 盘2: A→B
+ │    └─ Hanoi(1, C, A, B) → 盘1: C→B
+ ├─ 盘3: A→C                 ← 最大盘就位
  └─ Hanoi(2, B, A, C)        ← 再把上面 2 个 B→C
-      ├─ Hanoi(1, B, C, A) → B→A
-      ├─ B→C
-      └─ Hanoi(1, A, B, C) → A→C
+      ├─ Hanoi(1, B, C, A) → 盘1: B→A
+      ├─ 盘2: B→C
+      └─ Hanoi(1, A, B, C) → 盘1: A→C
 ```
 
 </div>
 
-运行输出 (共 7 步): <span style="font-size:0.75em;font-family:Menlo,monospace;">A→C &nbsp; A→B &nbsp; C→B &nbsp; A→C &nbsp; B→A &nbsp; B→C &nbsp; A→C</span>
+运行输出 (共 7 步): <span style="font-size:0.75em;font-family:Menlo,monospace;">盘1: A→C &nbsp; 盘2: A→B &nbsp; 盘1: C→B &nbsp; 盘3: A→C &nbsp; 盘1: B→A &nbsp; 盘2: B→C &nbsp; 盘1: A→C</span>
 
 <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘代码, 逐层看调用栈)</a>
 

@@ -34,7 +34,7 @@
     pegs[mv[1]].push(d);
     step++;
     place(d);
-    msg('第 ' + step + ' 步: ' + 'ABC'[mv[0]] + ' → ' + 'ABC'[mv[1]]);
+    msg('第 ' + step + ' 步: 盘 ' + d + ': ' + 'ABC'[mv[0]] + ' → ' + 'ABC'[mv[1]]);
     stepInfo();
   };
 
