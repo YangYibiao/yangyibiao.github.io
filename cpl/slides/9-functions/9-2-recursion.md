@@ -106,7 +106,7 @@ int power(int x, int n) {
 
 - ==为什么能自己调用自己==? 函数名只是代码的==入口==——每次调用都开一张==新便签==、配一套新参数, 互不干扰
 
-<span style="font-size:0.85em;">==递归 = 归纳法的计算版本==: 基准 = 奠基, 递归 = 归纳步骤, 信任递归 = 归纳假设</span>
+<span style="font-size:0.85em;">==递归 = 归纳法的计算版本==: 基准 = 奠基, 递归 = 归纳, 信任递归 = 归纳假设</span>
 
 </div>
 
@@ -390,6 +390,21 @@ int gcd(int a, int b)
 
 <div style="flex:1.3;font-size:0.6em;">
 
+<div style="text-align:center;margin-bottom:4px;">
+<svg viewBox="0 0 300 150" style="max-width:100%;height:120px;display:block;margin:0 auto;">
+<rect x="15" y="130" width="270" height="6" rx="3" fill="#93a1a1"/>
+<rect x="48" y="40" width="5" height="90" fill="#586e75"/>
+<rect x="148" y="40" width="5" height="90" fill="#586e75"/>
+<rect x="248" y="40" width="5" height="90" fill="#586e75"/>
+<text x="50" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="150" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="250" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<rect x="15" y="112" width="66" height="14" rx="4" fill="#268bd2"/>
+<rect x="28" y="98" width="40" height="14" rx="4" fill="#b58900"/>
+<rect x="38" y="84" width="20" height="14" rx="4" fill="#dc322f"/>
+</svg>
+</div>
+
 ```C
 /* hanoi.c: 3 根柱, n 个盘从 A 移到 C (借 B) */
 #include <stdio.h>
@@ -416,34 +431,13 @@ int main(void)
 
 <div style="flex:1;font-size:0.85em;line-height:1.5;">
 
-==目标==: 把 A 柱上的 n 个盘子==全部移到 C 柱== (初始是从大到小叠放, 结束时还是从大到小叠放)。初始状态 (n = 3):
-
-<svg viewBox="0 0 300 150" style="max-width:100%;height:130px;display:block;margin:0 auto;">
-<rect x="15" y="130" width="270" height="6" rx="3" fill="#93a1a1"/>
-<rect x="48" y="40" width="5" height="90" fill="#586e75"/>
-<rect x="148" y="40" width="5" height="90" fill="#586e75"/>
-<rect x="248" y="40" width="5" height="90" fill="#586e75"/>
-<text x="50" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
-<text x="150" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
-<text x="250" y="148" font-size="13" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
-<rect x="15" y="112" width="66" height="14" rx="4" fill="#268bd2"/>
-<rect x="28" y="98" width="40" height="14" rx="4" fill="#b58900"/>
-<rect x="38" y="84" width="20" height="14" rx="4" fill="#dc322f"/>
-</svg>
-
-==规则==:
-
-- 每次只能移动==一个盘子== (只能是某根柱最上面的)
-
-- 大盘==不能压在小盘==上
-
-- 可以借 B 柱==暂存==盘子
+==目标==: 把 n 个盘子从 A 柱==全部移到 C 柱== (结束时仍从大到小叠放)。==规则==: ① 每次只移==一个盘子== (最上面的) ② 大盘==不能压小盘== ③ 可借 B ==暂存==
 
 - n=1: 直接 A → C
 
-- n>1: 先把上面 n-1 个 A → B (借 C), 再把最大盘 A → C, 最后 n-1 个 B → C (借 A)
+- n>1: 上面 n-1 个 A → B (借 C), 最大盘 A → C, 再 n-1 个 B → C (借 A)
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 hanoi.c (直接编译运行)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 hanoi.c (直接编译运行)</a>
 
 </div>
 
