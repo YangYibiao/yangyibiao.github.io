@@ -510,14 +510,14 @@ int main(void)
 <rect x="38" y="69" width="64" height="12" rx="4" fill="#b58900"/>
 <rect x="46" y="57" width="48" height="12" rx="4" fill="#dc322f"/>
 <rect x="54" y="45" width="32" height="12" rx="4" fill="#859900"/>
-<path d="M86 45 V81 H128 V45" fill="none" stroke="#268bd2" stroke-width="1.5"/>
+<path d="M106 40 V81 H128 V40" fill="none" stroke="#268bd2" stroke-width="1.5"/>
 <text x="132" y="64" font-size="9" fill="#268bd2">n-1 个</text>
 <text x="132" y="76" font-size="9" fill="#268bd2">(盘 1…n-1)</text>
 <text x="132" y="90" font-size="9" fill="#586e75">盘 n</text>
 </svg>
 </div>
 
-任务与规则见==上一页== (A 起始、B 辅助、C 目标, 见代码注释)。==分解==:
+任务与规则见==上一页== (A 起始、B 辅助、C 目标)。==分解==:
 
 - ① 先把上面 ==n-1 个== A → B (借 C)——同类问题小 1
 
