@@ -497,7 +497,7 @@ int main(void)
 <div style="flex:1;font-size:0.8em;line-height:1.45;">
 
 <div style="text-align:center;margin-bottom:2px;">
-<svg viewBox="0 0 170 130" style="max-width:100%;height:105px;display:block;margin:0 auto;">
+<svg viewBox="0 0 170 130" style="max-width:100%;height:90px;display:block;margin:0 auto;">
 <rect x="68" y="20" width="4" height="90" fill="#586e75"/>
 <rect x="15" y="96" width="110" height="5" rx="2" fill="#93a1a1"/>
 <rect x="28" y="82" width="84" height="13" rx="4" fill="#268bd2"/>
@@ -512,7 +512,7 @@ int main(void)
 </svg>
 </div>
 
-任务与规则见==上一页== (A 起始柱、B 辅助柱、C 目标柱, 见代码注释)。==分解==:
+任务与规则见==上一页== (A 起始、B 辅助、C 目标, 见代码注释)。==分解==:
 
 - ① 先把上面 ==n-1 个== A → B (借 C)——同类问题, 规模小 1
 
@@ -520,9 +520,9 @@ int main(void)
 
 - ③ 再把那 ==n-1 个== B → C (借 A)
 
-<span style="font-size:0.85em;">①③ 交给递归 (递归情形); n = 1 直接 A → C (基准情形)</span>
+<span style="font-size:0.85em;">①③ 交给递归; n = 1 直接 A → C (基准情形)</span>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 hanoi.c (直接编译运行)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 hanoi.c</a>
 
 </div>
 
