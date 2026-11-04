@@ -477,17 +477,22 @@ int gcd(int a, int b)
 void Hanoi(int n, char A, char B, char C)
 {
   if (n == 1) {
-    printf("盘 %d: %c -> %c\n", n, A, C);   /* 基准: 只剩一个盘 */
+    /* 基准: 只剩一个盘 */
+    printf("盘 %d: %c -> %c\n", n, A, C);
   } else {
-    Hanoi(n - 1, A, C, B);                   /* 上面 n-1 个: A -> B (借 C) */
-    printf("盘 %d: %c -> %c\n", n, A, C);   /* 最大盘: A -> C */
-    Hanoi(n - 1, B, A, C);                   /* 上面 n-1 个: B -> C (借 A) */
+    /* 上面 n-1 个: A -> B (借 C) */
+    Hanoi(n - 1, A, C, B);
+    /* 最大盘: A -> C */
+    printf("盘 %d: %c -> %c\n", n, A, C);
+    /* 上面 n-1 个: B -> C (借 A) */
+    Hanoi(n - 1, B, A, C);
   }
 }
 
 int main(void)
 {
-  Hanoi(3, 'A', 'B', 'C');     /* 3 个盘的完整移法 */
+  /* 3 个盘的完整移法 */
+  Hanoi(3, 'A', 'B', 'C');
   return 0;
 }
 ```
