@@ -494,17 +494,17 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.85em;line-height:1.5;">
+<div style="flex:1;font-size:0.8em;line-height:1.45;">
 
 任务与规则见==上一页==。==分解==: 把"移 n 个盘 A→C"拆成三步:
 
-- ① 先把上面 ==n-1 个== A → B (借 C)——和原问题==同类==, 规模小 1
+- ① 先把上面 ==n-1 个== A → B (借 C)——同类问题, 规模小 1
 
-- ② 把==最大盘 n== 直接 A → C——只此一步, 一步完成
+- ② 把==最大盘 n== 直接 A → C——一步完成
 
-- ③ 再把那 ==n-1 个== B → C (借 A)——又是同类子问题
+- ③ 再把那 ==n-1 个== B → C (借 A)
 
-<span style="font-size:0.85em;">①③ 交给递归 (递归情形); n = 1 时直接 A → C, 是基准情形</span>
+<span style="font-size:0.85em;">①③ 交给递归 (递归情形); n = 1 直接 A → C (基准情形)</span>
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/hanoi.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 hanoi.c (直接编译运行)</a>
 
