@@ -400,7 +400,7 @@ int gcd(int a, int b)
 
 <div style="text-align:center;">
 <div style="font-size:0.8em;color:#586e75;">初始 (n = 3)</div>
-<svg viewBox="0 0 150 130" style="max-width:100%;height:120px;">
+<svg viewBox="0 0 150 130" style="max-width:100%;height:180px;">
 <rect x="5" y="112" width="140" height="5" rx="2" fill="#93a1a1"/>
 <rect x="23" y="30" width="4" height="82" fill="#586e75"/>
 <rect x="73" y="30" width="4" height="82" fill="#586e75"/>
@@ -419,7 +419,7 @@ int gcd(int a, int b)
 
 <div style="text-align:center;">
 <div style="font-size:0.8em;color:#586e75;">目标</div>
-<svg viewBox="0 0 150 130" style="max-width:100%;height:120px;">
+<svg viewBox="0 0 150 130" style="max-width:100%;height:180px;">
 <rect x="5" y="112" width="140" height="5" rx="2" fill="#93a1a1"/>
 <rect x="23" y="30" width="4" height="82" fill="#586e75"/>
 <rect x="73" y="30" width="4" height="82" fill="#586e75"/>
