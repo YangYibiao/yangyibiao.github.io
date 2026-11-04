@@ -165,7 +165,7 @@ long long fact(int n)
 
 int main(void)
 {
-  printf("%ld\n", fact(5));
+  printf("%lld\n", fact(5));
   return 0;
 }
 ```
@@ -642,7 +642,7 @@ long long fact(int n)
 
 int main(void)
 {
-  printf("%ld\n", fact(5));
+  printf("%lld\n", fact(5));
   return 0;
 }
 ```
