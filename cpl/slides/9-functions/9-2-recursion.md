@@ -499,7 +499,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.8em;line-height:1.45;">
+<div style="flex:1;font-size:0.78em;line-height:1.4;">
 
 <div style="text-align:center;margin-bottom:2px;">
 <svg viewBox="0 0 170 130" style="max-width:100%;height:90px;display:block;margin:0 auto;">
