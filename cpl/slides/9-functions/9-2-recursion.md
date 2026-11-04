@@ -96,7 +96,7 @@ int power(int x, int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.95em;line-height:1.45;">
+<div style="flex:1;font-size:0.92em;line-height:1.45;">
 
 - ==两个要素==: ==基准情形== (最简单, 直接给答案) + ==递归情形== (==缩小==后再调用自己)
 
@@ -106,7 +106,7 @@ int power(int x, int n) {
 
 - ==为什么能自己调用自己==? 函数名只是代码的==入口==——每次调用都开一张==新便签==、配一套新参数, 互不干扰
 
-<span style="font-size:0.85em;">==递归 = 归纳法的计算版本==: 基准 = 奠基, 递归 = 归纳, 信任递归 = 归纳假设</span>
+<span style="font-size:0.85em;">==递归 = 归纳法的计算版本==: 基准 = 奠基, 递归 = 归纳, 信任 = 归纳假设</span>
 
 </div>
 
