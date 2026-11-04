@@ -59578,7 +59578,7 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>经典案例: Fibonacci、最大公约数、汉诺塔 (弹性)</p>
+<p>经典案例: Fibonacci (弹性)、汉诺塔</p>
 
 </li>
 <li>
@@ -59841,32 +59841,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="递归求最大公约数">递归求最大公约数 </h5>
-<hr>
-<p>辗转相除法用递归表达: gcd(a, b) = gcd(b, a % b)</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>b <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>             <span class="token comment">/* 基准情形 */</span>
-    <span class="token keyword keyword-return">return</span> a<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  <span class="token keyword keyword-return">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> a <span class="token operator">%</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 递归情形 */</span>
-<span class="token punctuation">}</span></code></pre>
-<ul>
-<li>
-<p><mark>为什么对</mark>: (a, b) 和 (b, a % b) 的<mark>公约数集合完全相同</mark>——任何整除 a、b 的数也整除 a mod b = a − q·b, 反过来也一样; 集合不变, 最大元 (最大公约数) 就不变</p>
-
-</li>
-<li>
-<p><mark>直观类比</mark>: 把 a×b 看作长方形, 最大公约数 = 能正好铺满它的最大正方形边长; a mod b = 切掉整块 b×b 正方形后剩下的边——答案不变, 切到正好铺满 (余数 0) 时, 边长就是答案</p>
-
-</li>
-<li>
-<p>循环版比较: <code>while (b != 0) { int r = a % b; a = b; b = r; }</code>——递归版更接近数学定义</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="hanoi-塔---任务与规则">Hanoi 塔 · 任务与规则 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="hanoi-塔---任务与规则">Hanoi 塔 · 任务与规则 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;">
@@ -59931,8 +59906,46 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <p><mark>任务</mark>: 给定任意 n, 设计算法输出<mark>全部移动步骤</mark> (每一步: 哪个盘、从哪柱到哪柱)</p>
+<p>→ <mark>下一页</mark>: 先看 3 个盘实际怎么挪</p>
 </div>
 </div>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="hanoi-塔---盘子动画">Hanoi 塔 · 盘子动画 </h5>
+<hr>
+<div style="display:flex;align-items:center;gap:20px;">
+<div style="flex:1.2;text-align:center;">
+<svg viewBox="0 0 600 300" style="max-width:100%;height:300px;display:block;margin:0 auto;">
+<rect x="60" y="270" width="480" height="8" rx="4" fill="#93a1a1"/>
+<rect x="147" y="100" width="6" height="170" fill="#586e75"/>
+<rect x="297" y="100" width="6" height="170" fill="#586e75"/>
+<rect x="447" y="100" width="6" height="170" fill="#586e75"/>
+<text x="150" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="300" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="450" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text></g>
+<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">2</text></g>
+<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">1</text></g>
+</svg>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.6;position:relative;z-index:10;pointer-events:auto;">
+<div id="hanoiMsg" style="font-weight:700;min-height:1.6em;">初始状态: 3 个盘都在 A</div>
+<div id="hanoiStep" style="color:#586e75;margin-bottom:8px;">0 / 7</div>
+<button onclick="hanoiNext()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶ 下一步</button>
+<button onclick="hanoiAuto()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶▶ 自动播放 (7 步)</button>
+<button onclick="hanoiReset()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#b58900;color:#fff;border:none;border-radius:8px;cursor:pointer;">⟲ 重来</button>
+<ul>
+<li>
+<p>按 "下一步" 逐盘观察: 大盘<mark>永远不压小盘</mark> (规则见上一页), 3 个盘恰好要 <mark>7 步</mark></p>
+
+</li>
+<li>
+<p>第 4 步恰好是<mark>最大盘就位</mark>——后面讲递归分解时对照着看</p>
+
+</li>
+</ul>
+</div>
+</div>
+<script src="code/hanoi-anim.js"></script>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="hanoi-塔">Hanoi 塔 </h5>
 <hr>
@@ -59998,7 +60011,7 @@ div.boardhandle > ul > li {
 <div style="text-align:center;margin-top:4px;font-size:0.8em;">
 <span style="color:#dc322f;font-weight:700;">①</span> n-1 个: A → B (虚线) &nbsp;&nbsp; <span style="color:#268bd2;font-weight:700;">②</span> 盘 n: A → C (实线)
 </div>
-<p>任务与规则见<mark>上一页</mark> (A 起始、B 辅助、C 目标)。<mark>分解</mark>:</p>
+<p><mark>刚才的动画</mark> (3 个盘、7 步) 正是来自下面的<mark>分解</mark> (A 起始、B 辅助、C 目标):</p>
 <ul>
 <li>
 <p>① 先把上面 <mark>n-1 个</mark> A → B (借 C)——同类问题小 1</p>
@@ -60020,6 +60033,7 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="hanoi-塔---调用过程与运行结果">Hanoi 塔 · 调用过程与运行结果 </h5>
 <hr>
+<p><mark>动画里的 7 步</mark>, 正是下面这棵调用树逐层产生的:</p>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">Hanoi</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> B<span class="token punctuation">,</span> C<span class="token punctuation">)</span>
  ├─ <span class="token function">Hanoi</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> A<span class="token punctuation">,</span> C<span class="token punctuation">,</span> B<span class="token punctuation">)</span>        ← 先把上面 <span class="token number">2</span> 个 A→B
@@ -60035,44 +60049,7 @@ div.boardhandle > ul > li {
 <p>运行输出 (共 7 步): <span style="font-size:0.75em;font-family:Menlo,monospace;">盘1: A→C &nbsp; 盘2: A→B &nbsp; 盘1: C→B &nbsp; 盘3: A→C &nbsp; 盘1: B→A &nbsp; 盘2: B→C &nbsp; 盘1: A→C</span></p>
 <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘代码, 逐层看调用栈)</a>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="hanoi-塔---盘子动画">Hanoi 塔 · 盘子动画 </h5>
-<hr>
-<div style="display:flex;align-items:center;gap:20px;">
-<div style="flex:1.2;text-align:center;">
-<svg viewBox="0 0 600 300" style="max-width:100%;height:300px;display:block;margin:0 auto;">
-<rect x="60" y="270" width="480" height="8" rx="4" fill="#93a1a1"/>
-<rect x="147" y="100" width="6" height="170" fill="#586e75"/>
-<rect x="297" y="100" width="6" height="170" fill="#586e75"/>
-<rect x="447" y="100" width="6" height="170" fill="#586e75"/>
-<text x="150" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
-<text x="300" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
-<text x="450" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
-<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text></g>
-<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">2</text></g>
-<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">1</text></g>
-</svg>
-</div>
-<div style="flex:1;font-size:0.9em;line-height:1.6;position:relative;z-index:10;pointer-events:auto;">
-<div id="hanoiMsg" style="font-weight:700;min-height:1.6em;">初始状态: 3 个盘都在 A</div>
-<div id="hanoiStep" style="color:#586e75;margin-bottom:8px;">0 / 7</div>
-<button onclick="hanoiNext()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶ 下一步</button>
-<button onclick="hanoiAuto()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶▶ 自动播放 (7 步)</button>
-<button onclick="hanoiReset()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">⟲ 重来</button>
-<ul>
-<li>
-<p>按 "下一步" 逐盘观察: 大盘<mark>永远不压小盘</mark>, 每步对应上一页调用树上的一次移动</p>
-
-</li>
-<li>
-<p>第 4 步恰好是<mark>最大盘就位</mark>——和调用树对照着看</p>
-
-</li>
-</ul>
-</div>
-</div>
-<script src="code/hanoi-anim.js"></script>
-<hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="常见错误">常见错误 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="常见错误">常见错误 </h5>
 <hr>
 <ul>
 <li>
@@ -60087,7 +60064,7 @@ div.boardhandle > ul > li {
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 写递归的两步检查: ① 基准情形对吗? ② 每次调用规模在变小吗?</p>
 <p>→ <mark>下一页</mark>: 现场演示"没有基准情形"的下场——调用栈爆掉</p>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="演示--没有基准情形的栈溢出">演示: 没有基准情形的栈溢出 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="演示--没有基准情形的栈溢出">演示: 没有基准情形的栈溢出 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.85em;">
@@ -60130,7 +60107,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
@@ -60144,7 +60121,7 @@ div.boardhandle > ul > li {
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先想清楚<mark>递推关系</mark>和<mark>递归出口</mark>, 再动手写</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂案例-1--递归求最大值">课堂案例 1: 递归求最大值 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂案例-1--递归求最大值">课堂案例 1: 递归求最大值 </h5>
 <hr>
 <div style="font-size:0.9em;line-height:1.6;">
 <p><mark>任务</mark>: 实现 <code>int max_rec(int a[], int n)</code>——最大值 = <code>a[n-1]</code> 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)</p>
@@ -60152,7 +60129,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c (只写函数体)</a>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂案例-1--递归求最大值---参考实现">课堂案例 1: 递归求最大值 · 参考实现 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂案例-1--递归求最大值---参考实现">课堂案例 1: 递归求最大值 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">max_rec</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
@@ -60172,7 +60149,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂案例-2--判断回文">课堂案例 2: 判断回文 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂案例-2--判断回文">课堂案例 2: 判断回文 </h5>
 <hr>
 <div style="font-size:0.9em;line-height:1.6;">
 <p><mark>任务</mark>: 实现 <code>int is_pal(char s[], int l, int r)</code>——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义<mark>直接翻译</mark>成代码")</p>
@@ -60180,7 +60157,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (只写函数体)</a>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂案例-2--判断回文---参考实现">课堂案例 2: 判断回文 · 参考实现 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂案例-2--判断回文---参考实现">课堂案例 2: 判断回文 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">is_pal</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> s<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> l<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> r<span class="token punctuation">)</span>
@@ -60198,7 +60175,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂案例-3--二分查找">课堂案例 3: 二分查找 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂案例-3--二分查找">课堂案例 3: 二分查找 </h5>
 <hr>
 <div style="font-size:0.9em;line-height:1.6;">
 <p><mark>任务</mark>: 实现 <code>int bin_search(int a[], int low, int high, int key)</code>——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)</p>
@@ -60206,7 +60183,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (只写函数体)</a>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂案例-3--二分查找---参考实现">课堂案例 3: 二分查找 · 参考实现 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂案例-3--二分查找---参考实现">课堂案例 3: 二分查找 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">bin_search</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> key<span class="token punctuation">)</span>
@@ -60232,7 +60209,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="课堂案例-4--组合数">课堂案例 4: 组合数 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂案例-4--组合数">课堂案例 4: 组合数 </h5>
 <hr>
 <div style="font-size:0.9em;line-height:1.6;">
 <p><mark>任务</mark>: 实现 <code>long comb(int m, int n)</code>——C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 算组合数: 递归定义有时比公式<mark>更直接</mark></p>
@@ -60240,7 +60217,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (只写函数体)</a>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂案例-4--组合数---参考实现">课堂案例 4: 组合数 · 参考实现 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="课堂案例-4--组合数---参考实现">课堂案例 4: 组合数 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-long">long</span> <span class="token function">comb</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> m<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
@@ -60258,7 +60235,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂案例-5--爬楼梯">课堂案例 5: 爬楼梯 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂案例-5--爬楼梯">课堂案例 5: 爬楼梯 </h5>
 <hr>
 <div style="font-size:0.9em;line-height:1.6;">
 <p><mark>任务</mark>: 实现 <code>int climb(int n)</code>——每次走 1 或 2 级, 最后一步从 n-1 或 n-2 上来 (Fibonacci 的亲戚)</p>
@@ -60266,7 +60243,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (只写函数体)</a>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="课堂案例-5--爬楼梯---参考实现">课堂案例 5: 爬楼梯 · 参考实现 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂案例-5--爬楼梯---参考实现">课堂案例 5: 爬楼梯 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">climb</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
@@ -60284,7 +60261,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="分治法">分治法 </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="分治法">分治法 </h5>
 <hr>
 <p><mark>分治法</mark> (divide and conquer): 把大问题拆成几个<mark>同类的小问题</mark>, 分别解决, 再合并结果</p>
 <ul>
@@ -60307,7 +60284,7 @@ div.boardhandle > ul > li {
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 递归常常是分治法的<mark>自然结果</mark>——快速排序正是如此</p>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="分治图示--快速排序">分治图示: 快速排序 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="分治图示--快速排序">分治图示: 快速排序 </h5>
 <hr>
 <div style="text-align:center;margin:2px 0;">
 <svg viewBox='0 0 400 210' style='max-width:100%;height:380px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='qk-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='qk-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-size='9' fill='#586e75' text-anchor='end' font-weight='700'><text x='90' y='49'>原数组</text><text x='90' y='111'>划分后</text><text x='90' y='173'>最终</text></g><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='30' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='115' y='50' fill='#fdf6e3'>5</text><rect x='132' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='149' y='50' fill='#073642'>2</text><rect x='166' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='183' y='50' fill='#073642'>9</text><rect x='200' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='217' y='50' fill='#073642'>1</text><rect x='234' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='251' y='50' fill='#073642'>8</text><rect x='268' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='285' y='50' fill='#073642'>3</text></g><path d='M200 60 V88' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#qk-blue)'/><text x='208' y='76' font-size='9' fill='#268bd2'>① 划分</text><g font-weight='700'><rect x='98' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='115' y='112' font-size='11' fill='#073642' text-anchor='middle'>2</text><rect x='132' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='149' y='112' font-size='11' fill='#073642' text-anchor='middle'>1</text><rect x='166' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='183' y='112' font-size='11' fill='#073642' text-anchor='middle'>3</text><rect x='200' y='92' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='112' font-size='11' fill='#fdf6e3' text-anchor='middle'>5</text><rect x='234' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='112' font-size='11' fill='#073642' text-anchor='middle'>9</text><rect x='268' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='112' font-size='11' fill='#073642' text-anchor='middle'>8</text></g><g fill='none' stroke-width='1.5'><path d='M98 90 V86 H200 V90' stroke='#268bd2'/><path d='M200 90 V86 H302 V90' stroke='#859900'/></g><text x='149' y='82' font-size='8.5' fill='#268bd2' text-anchor='middle'>左段（&lt;5）</text><text x='268' y='82' font-size='8.5' fill='#859900' text-anchor='middle'>右段（&gt;5）</text><path d='M200 122 V150' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#qk-green)'/><text x='208' y='140' font-size='9' fill='#859900'>② 各自递归</text><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='115' y='174' fill='#073642'>1</text><rect x='132' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='149' y='174' fill='#073642'>2</text><rect x='166' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='183' y='174' fill='#073642'>3</text><rect x='200' y='154' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='174' fill='#fdf6e3'>5</text><rect x='234' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='174' fill='#073642'>8</text><rect x='268' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='174' fill='#073642'>9</text></g><text x='312' y='49' font-size='9' fill='#b58900' font-weight='700'>基准 = 5</text><text x='312' y='106' font-size='9' fill='#586e75'>5 已就位</text><text x='312' y='120' font-size='9' fill='#859900'>左右各自递归</text><text x='312' y='173' font-size='9' fill='#859900' font-weight='700'>无需合并</text><text x='98' y='202' font-size='9.5' fill='#586e75'>基准位置一次到位 → 左右两段递归即可，不需要合并</text></g></svg>
@@ -60331,7 +60308,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
 <hr>
 <p>用<mark>递归</mark>做排序: 选一个基准, 小的放左、大的放右, 再对左右递归</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
@@ -60356,7 +60333,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60392,7 +60369,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 递归函数必须具备哪两个要素？
@@ -60405,7 +60382,7 @@ div.boardhandle > ul > li {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="34" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

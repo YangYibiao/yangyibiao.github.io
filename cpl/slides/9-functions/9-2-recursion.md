@@ -55,7 +55,7 @@ presentation:
 
 - 作用域与生命期
 
-- 经典案例: Fibonacci、最大公约数、汉诺塔 (弹性)
+- 经典案例: Fibonacci (弹性)、汉诺塔
 
 - 常见错误与课堂编码 (基础 + 三个经典案例)
 
@@ -354,29 +354,6 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 递归求最大公约数
-
----
-
-辗转相除法用递归表达: gcd(a, b) = gcd(b, a % b)
-
-```C
-int gcd(int a, int b)
-{
-  if (b == 0) {             /* 基准情形 */
-    return a;
-  }
-  return gcd(b, a % b);     /* 递归情形 */
-}
-```
-
-- ==为什么对==: (a, b) 和 (b, a % b) 的==公约数集合完全相同==——任何整除 a、b 的数也整除 a mod b = a − q·b, 反过来也一样; 集合不变, 最大元 (最大公约数) 就不变
-
-- ==直观类比==: 把 a×b 看作长方形, 最大公约数 = 能正好铺满它的最大正方形边长; a mod b = 切掉整块 b×b 正方形后剩下的边——答案不变, 切到正好铺满 (余数 0) 时, 边长就是答案
-
-- 循环版比较: `while (b != 0) { int r = a % b; a = b; b = r; }`——递归版更接近数学定义
-
----
 
 <!-- slide data-notes="" -->
 
@@ -455,9 +432,56 @@ int gcd(int a, int b)
 
 ==任务==: 给定任意 n, 设计算法输出==全部移动步骤== (每一步: 哪个盘、从哪柱到哪柱)
 
+→ ==下一页==: 先看 3 个盘实际怎么挪
+
 </div>
 
 </div>
+
+---
+
+<!-- slide data-notes="" -->##### Hanoi 塔 · 盘子动画
+
+---
+
+<div style="display:flex;align-items:center;gap:20px;">
+
+<div style="flex:1.2;text-align:center;">
+<svg viewBox="0 0 600 300" style="max-width:100%;height:300px;display:block;margin:0 auto;">
+<rect x="60" y="270" width="480" height="8" rx="4" fill="#93a1a1"/>
+<rect x="147" y="100" width="6" height="170" fill="#586e75"/>
+<rect x="297" y="100" width="6" height="170" fill="#586e75"/>
+<rect x="447" y="100" width="6" height="170" fill="#586e75"/>
+<text x="150" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
+<text x="300" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
+<text x="450" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
+<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text></g>
+<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">2</text></g>
+<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">1</text></g>
+</svg>
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;position:relative;z-index:10;pointer-events:auto;">
+
+<div id="hanoiMsg" style="font-weight:700;min-height:1.6em;">初始状态: 3 个盘都在 A</div>
+
+<div id="hanoiStep" style="color:#586e75;margin-bottom:8px;">0 / 7</div>
+
+<button onclick="hanoiNext()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶ 下一步</button>
+
+<button onclick="hanoiAuto()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶▶ 自动播放 (7 步)</button>
+
+<button onclick="hanoiReset()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#b58900;color:#fff;border:none;border-radius:8px;cursor:pointer;">⟲ 重来</button>
+
+- 按 "下一步" 逐盘观察: 大盘==永远不压小盘== (规则见上一页), 3 个盘恰好要 ==7 步==
+
+- 第 4 步恰好是==最大盘就位==——后面讲递归分解时对照着看
+
+</div>
+
+</div>
+
+<script src="code/hanoi-anim.js"></script>
 
 ---
 
@@ -536,7 +560,7 @@ int main(void)
 <span style="color:#dc322f;font-weight:700;">①</span> n-1 个: A → B (虚线) &nbsp;&nbsp; <span style="color:#268bd2;font-weight:700;">②</span> 盘 n: A → C (实线)
 </div>
 
-任务与规则见==上一页== (A 起始、B 辅助、C 目标)。==分解==:
+==刚才的动画== (3 个盘、7 步) 正是来自下面的==分解== (A 起始、B 辅助、C 目标):
 
 - ① 先把上面 ==n-1 个== A → B (借 C)——同类问题小 1
 
@@ -558,6 +582,8 @@ int main(void)
 
 ---
 
+==动画里的 7 步==, 正是下面这棵调用树逐层产生的:
+
 <div style="font-size:0.8em;">
 
 ```text
@@ -578,51 +604,6 @@ Hanoi(3, A, B, C)
 运行输出 (共 7 步): <span style="font-size:0.75em;font-family:Menlo,monospace;">盘1: A→C &nbsp; 盘2: A→B &nbsp; 盘1: C→B &nbsp; 盘3: A→C &nbsp; 盘1: B→A &nbsp; 盘2: B→C &nbsp; 盘1: A→C</span>
 
 <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘代码, 逐层看调用栈)</a>
-
----
-
-<!-- slide data-notes="" -->##### Hanoi 塔 · 盘子动画
-
----
-
-<div style="display:flex;align-items:center;gap:20px;">
-
-<div style="flex:1.2;text-align:center;">
-<svg viewBox="0 0 600 300" style="max-width:100%;height:300px;display:block;margin:0 auto;">
-<rect x="60" y="270" width="480" height="8" rx="4" fill="#93a1a1"/>
-<rect x="147" y="100" width="6" height="170" fill="#586e75"/>
-<rect x="297" y="100" width="6" height="170" fill="#586e75"/>
-<rect x="447" y="100" width="6" height="170" fill="#586e75"/>
-<text x="150" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
-<text x="300" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
-<text x="450" y="292" font-size="18" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
-<g id="h3"><rect x="-40" y="-11" width="80" height="22" rx="5" fill="#268bd2"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text></g>
-<g id="h2"><rect x="-30" y="-11" width="60" height="22" rx="5" fill="#b58900"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">2</text></g>
-<g id="h1"><rect x="-20" y="-11" width="40" height="22" rx="5" fill="#dc322f"/><text x="0" y="4" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">1</text></g>
-</svg>
-</div>
-
-<div style="flex:1;font-size:0.9em;line-height:1.6;position:relative;z-index:10;pointer-events:auto;">
-
-<div id="hanoiMsg" style="font-weight:700;min-height:1.6em;">初始状态: 3 个盘都在 A</div>
-
-<div id="hanoiStep" style="color:#586e75;margin-bottom:8px;">0 / 7</div>
-
-<button onclick="hanoiNext()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶ 下一步</button>
-
-<button onclick="hanoiAuto()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">▶▶ 自动播放 (7 步)</button>
-
-<button onclick="hanoiReset()" style="display:block;pointer-events:auto!important;margin:6px 0;padding:8px 18px;font-size:0.9em;background:#859900;color:#fff;border:none;border-radius:8px;cursor:pointer;">⟲ 重来</button>
-
-- 按 "下一步" 逐盘观察: 大盘==永远不压小盘==, 每步对应上一页调用树上的一次移动
-
-- 第 4 步恰好是==最大盘就位==——和调用树对照着看
-
-</div>
-
-</div>
-
-<script src="code/hanoi-anim.js"></script>
 
 ---
 
