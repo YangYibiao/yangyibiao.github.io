@@ -546,10 +546,15 @@ int main(void)
 <rect x="151" y="70" width="18" height="11" rx="4" fill="none" stroke="#586e75" stroke-width="1.2" stroke-dasharray="3 3"/>
 <rect x="237" y="103" width="56" height="13" rx="4" fill="#268bd2"/>
 <text x="265" y="113" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">n</text>
+<rect x="244" y="92" width="42" height="11" rx="4" fill="none" stroke="#586e75" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="250" y="81" width="30" height="11" rx="4" fill="none" stroke="#586e75" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="256" y="70" width="18" height="11" rx="4" fill="none" stroke="#586e75" stroke-width="1.2" stroke-dasharray="3 3"/>
 <path d="M 66 72 Q 110 54 149 72" fill="none" stroke="#dc322f" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ah-red)"/>
+<path d="M 175 73 Q 214 52 250 73" fill="none" stroke="#dc322f" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ah-red)"/>
 <text x="100" y="76" font-size="9" fill="#586e75">n-1 个</text>
 <text x="108" y="56" font-size="10" fill="#dc322f" font-weight="700">①</text>
 <text x="93" y="97" font-size="10" fill="#268bd2" font-weight="700">②</text>
+<text x="212" y="48" font-size="10" fill="#dc322f" font-weight="700">③</text>
 <text x="55" y="133" font-size="11" fill="#268bd2" text-anchor="middle" font-weight="700">A</text>
 <text x="160" y="133" font-size="11" fill="#268bd2" text-anchor="middle" font-weight="700">B</text>
 <text x="265" y="133" font-size="11" fill="#268bd2" text-anchor="middle" font-weight="700">C</text>
@@ -557,7 +562,7 @@ int main(void)
 </div>
 
 <div style="text-align:center;margin-top:4px;font-size:0.8em;">
-<span style="color:#dc322f;font-weight:700;">①</span> n-1 个: A → B (虚线) &nbsp;&nbsp; <span style="color:#268bd2;font-weight:700;">②</span> 盘 n: A → C (实线)
+<span style="color:#dc322f;font-weight:700;">①</span> n-1 个: A → B (虚线) &nbsp;&nbsp; <span style="color:#268bd2;font-weight:700;">②</span> 盘 n: A → C (实线) &nbsp;&nbsp; <span style="color:#dc322f;font-weight:700;">③</span> n-1 个: B → C (虚线)
 </div>
 
 ==刚才的动画== (3 个盘、7 步) 正是来自下面的==分解== (A 起始、B 辅助、C 目标):
@@ -665,7 +670,7 @@ Segmentation fault (core dumped)
 
 - 栈的空间是==有限==的 (默认几 MB): 用尽即 ==栈溢出== (stack overflow), 程序直接崩溃
 
-- 即使有基准情形, ==极大的递归==也会爆: 递归深度以"层"计, 大输入要留意 (如对 10 万元素的链表递归打印)
+- 即使有基准情形, ==极大的递归==也会爆: 递归深度以"层"计, 大输入要留意 (如对 10 万个元素的数组递归求最大值)
 
 - 应对: 递归三问缺一不可; 有些递归能改写成==循环==——循环不占栈, 深了也不怕 (这是"尾递归优化"的朴素版理解)
 
