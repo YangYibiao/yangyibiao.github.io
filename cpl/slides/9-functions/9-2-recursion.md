@@ -470,22 +470,6 @@ int gcd(int a, int b)
 
 <div style="flex:1.3;font-size:0.6em;">
 
-<div style="text-align:center;margin-bottom:2px;">
-<svg viewBox="0 0 170 130" style="max-width:100%;height:105px;display:block;margin:0 auto;">
-<rect x="68" y="20" width="4" height="90" fill="#586e75"/>
-<rect x="15" y="96" width="110" height="5" rx="2" fill="#93a1a1"/>
-<rect x="28" y="82" width="84" height="13" rx="4" fill="#268bd2"/>
-<text x="70" y="92" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">n</text>
-<rect x="38" y="69" width="64" height="12" rx="4" fill="#b58900"/>
-<rect x="46" y="57" width="48" height="12" rx="4" fill="#dc322f"/>
-<rect x="54" y="45" width="32" height="12" rx="4" fill="#859900"/>
-<path d="M86 45 V81 H128 V45" fill="none" stroke="#268bd2" stroke-width="1.5"/>
-<text x="132" y="64" font-size="9" fill="#268bd2">n-1 个</text>
-<text x="132" y="76" font-size="9" fill="#268bd2">(盘 1…n-1)</text>
-<text x="132" y="90" font-size="9" fill="#586e75">盘 n</text>
-</svg>
-</div>
-
 ```C
 /* hanoi.c: A = 起始柱, B = 辅助柱, C = 目标柱; n = 本次要移的盘数 (最大盘编号) */
 #include <stdio.h>
@@ -511,6 +495,22 @@ int main(void)
 </div>
 
 <div style="flex:1;font-size:0.8em;line-height:1.45;">
+
+<div style="text-align:center;margin-bottom:2px;">
+<svg viewBox="0 0 170 130" style="max-width:100%;height:105px;display:block;margin:0 auto;">
+<rect x="68" y="20" width="4" height="90" fill="#586e75"/>
+<rect x="15" y="96" width="110" height="5" rx="2" fill="#93a1a1"/>
+<rect x="28" y="82" width="84" height="13" rx="4" fill="#268bd2"/>
+<text x="70" y="92" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">n</text>
+<rect x="38" y="69" width="64" height="12" rx="4" fill="#b58900"/>
+<rect x="46" y="57" width="48" height="12" rx="4" fill="#dc322f"/>
+<rect x="54" y="45" width="32" height="12" rx="4" fill="#859900"/>
+<path d="M86 45 V81 H128 V45" fill="none" stroke="#268bd2" stroke-width="1.5"/>
+<text x="132" y="64" font-size="9" fill="#268bd2">n-1 个</text>
+<text x="132" y="76" font-size="9" fill="#268bd2">(盘 1…n-1)</text>
+<text x="132" y="90" font-size="9" fill="#586e75">盘 n</text>
+</svg>
+</div>
 
 任务与规则见==上一页== (A 起始柱、B 辅助柱、C 目标柱, 见代码注释)。==分解==:
 
