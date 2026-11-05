@@ -1,4 +1,5 @@
 ---
+password: "cpl2026"
 presentation:
   margin: 0
   center: false
@@ -56,7 +57,15 @@ presentation:
 
 - 文本文件与二进制文件
 
-- 打开、读写、关闭: fopen / fgetc / fgets / fclose
+- 打开与关闭: fopen / fclose
+
+- 格式化读写: fprintf / fscanf
+
+- 字符与行读写: fgetc / fputc、fgets / fputs
+
+- 块读写: fread / fwrite
+
+- 文件定位: fseek / ftell / rewind
 
 - 案例: 文件复制、修改零件记录
 
@@ -174,6 +183,8 @@ FILE类型在<stdio.h>中声明.
 
 <stdio.h> 支持两种文件: 文本文件和二进制文件.
 
+用文本模式 (模式串不带 `b`) 读写时, C 库可能在 `'\n'` 与系统行尾之间转换: Windows 上写文件时 `'\n'` 变成 `\r\n`, 读文件时相反. 二进制模式 (模式串带 `b`) 不做这种转换, 读写的字节与文件中的字节一一对应.
+
 **文本文件**中的字节代表字符, 允许人们检查或编辑文件.
 
 - C 程序的源代码存储在文本文件中.
@@ -238,7 +249,7 @@ FILE类型在<stdio.h>中声明.
 
 另一方面, 文件复制程序不能假设要复制的文件是文本文件.
 
-- 如果是这样, 则不会完全复制包含文件结尾字符的二进制文件.
+- 如果按文本方式复制, 则不会完全复制包含文件结尾字符的二进制文件.
 
 当无法确定文件是文本形式还是二进制形式时, 假设它是二进制文件会更安全.
 
@@ -277,9 +288,7 @@ FILE *fopen(const char * restrict filename,
 
 <div style="flex:1;">
 
-如果要把文件用作流, 打开时需要调用 fopen 函数.
-
-fopen 的原型:
+如果要把文件用作流, 打开时需要调用 fopen 函数. fopen 的原型:
 
 filename 是要打开的文件的名称.
 
@@ -287,38 +296,23 @@ filename 是要打开的文件的名称.
 
 mode 是一个"模式字符串", 它指定打算对文件执行的操作.
 
+原型中的 `restrict` 是 C99 关键字, 表示 filename 和 mode 不共享内存单元; 它对 fopen 的行为没有影响, 通常可以忽略.
+
 </div>
 
 </div>
 
 <!-- slide data-notes="" -->
-
 
 ##### 打开文件
 
 ---
 
-fopen 的原型中, restrict 关键字出现了两次.
-
-restrict 是 C99 关键字, 表示 filename 和 mode 应指向不共享内存单元的字符串.
-
-fopen 的 C89 原型不包含 restrict, 但也有这样的要求.
-
-restrict 对 fopen 的行为没有影响, 因此通常可以忽略它.
-
-<!-- slide data-notes="" -->
-
-##### 打开文件 (续)
-
----
-
 fopen 调用中的文件名包含 `\` 字符时要小心.
 
-调用
+调用 `fopen("c:\project\test1.dat", "r")`
 
-`fopen("c:\project\test1.dat", "r")`
-
-将失败, 因为 `\t` 被视为转义字符.
+将失败: `\t` 被当作转义字符 (制表符), `\p` 也不是合法的转义序列, 编译器通常会报告 unknown escape sequence.
 
 避开这个问题的一种写法: 用 `\\` 代替 `\`:
 
@@ -330,7 +324,7 @@ fopen 调用中的文件名包含 `\` 字符时要小心.
 
 <!-- slide data-notes="" -->
 
-##### 打开文件 (续 2)
+##### 打开文件 (续)
 
 ---
 
@@ -358,21 +352,20 @@ if ((fp = fopen("in.dat", "r")) == NULL) {
 
 ---
 
-决定将哪个模式字符串传递给 fopen 的因素:
-
-- 要对文件执行的操作
-- 文件中的数据是文本形式还是二进制形式
+决定将哪个模式字符串传递给 fopen 的因素: 要对文件执行的操作; 文件中的数据是文本形式还是二进制形式.
 
 用于文本文件的模式字符串:
 
 | 字符串 | 含义 |
 | ---- | ---- |
-| "r" | 打开文件读 |
-| "w" | 打开文件写(文件不需要存在) |
-| "a" | 打开文件追加(文件不需要存在) |
-| "r+" | 打开文件读写, 从文件头开始 |
-| "w+" | 打开文件读写(如果文件存在则截去) |
-| "a+" | 打开文件读写(如果文件存在则追加) |
+| "r" | 打开文件读 (文件必须存在) |
+| "w" | 打开文件写 (不存在则创建, 存在则截断为 0 字节) |
+| "a" | 打开文件追加 (不存在则创建, 写入总在末尾) |
+| "r+" | 打开文件读写 (文件必须存在), 从文件头开始 |
+| "w+" | 打开文件读写 (不存在则创建, 存在则截断为 0 字节) |
+| "a+" | 打开文件读写 (不存在则创建, 写入总在末尾) |
+
+`a` / `a+` 模式下, 即使调用 fseek 改变文件位置, 写入也总发生在文件末尾.
 
 <!-- slide data-notes="" -->
 
@@ -384,12 +377,12 @@ if ((fp = fopen("in.dat", "r")) == NULL) {
 
 | 字符串 | 含义 |
 | ---- | ---- |
-| "rb" | 打开文件读 |
-| "wb" | 打开文件写(文件不需要存在) |
-| "ab" | 打开文件追加(文件不需要存在) |
-| "r+b" 或者 "rb+" | 打开文件读写, 从文件头开始 |
-| "w+b" 或者 "wb+" | 打开文件读写(如果文件存在则截去) |
-| "a+b" 或者 "ab+" | 打开文件读写(如果文件存在则追加) |
+| "rb" | 打开文件读 (文件必须存在) |
+| "wb" | 打开文件写 (不存在则创建, 存在则截断为 0 字节) |
+| "ab" | 打开文件追加 (不存在则创建, 写入总在末尾) |
+| "r+b" 或者 "rb+" | 打开文件读写 (文件必须存在), 从文件头开始 |
+| "w+b" 或者 "wb+" | 打开文件读写 (不存在则创建, 存在则截断为 0 字节) |
+| "a+b" 或者 "ab+" | 打开文件读写 (不存在则创建, 写入总在末尾) |
 
 二进制模式只是在文本模式字符串中加一个 `b`; 读写更新模式则再加一个 `+`.
 
@@ -407,8 +400,8 @@ if ((fp = fopen("in.dat", "r")) == NULL) {
 
 当打开文件进行读写时, 适用特殊规则.
 
-- 除非读取操作遇到文件末尾, 否则不先调用文件定位函数就无法从读模式切换到写模式.
-- 如果既没有调用 fflush 函数也没有调用文件定位函数, 则无法从写模式切换到读模式.
+- 除非读取操作遇到文件末尾, 否则不先调用后面讲的文件定位函数 (fseek 等) 就无法从读模式切换到写模式.
+- 如果既没有调用 fflush 函数也没有调用后面讲的文件定位函数 (fseek 等), 则无法从写模式切换到读模式.
 
 <!-- slide data-notes="" -->
 
@@ -417,24 +410,65 @@ if ((fp = fopen("in.dat", "r")) == NULL) {
 
 ---
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.72em;">
 
 ```C
 /* grades.txt 里已经存了一学期的成绩 */
-FILE *fp = fopen("grades.txt", "w");  /* 打开瞬间, 旧内容没了! */
-fprintf(fp, "new line\n");
-fclose(fp);
+#include <stdio.h>
+
+int main(void)
+{
+  FILE *fp = fopen("grades.txt", "w");  /* 打开瞬间, 旧内容没了! */
+  if (fp == NULL) {
+    return 1;
+  }
+  fprintf(fp, "new line\n");
+  fclose(fp);
+  return 0;
+}
 ```
 
 </div>
 
 - ==`"w"`== 打开文件时, 已有内容==立即被清空== (截断为 0 字节), 不询问、不提醒
 
-- 想接着写用 ==`"a"`== (追加, 内容保留) 或 `"r+"` (读写, 不清空)
+- 想接着写用 ==`"a"`== (追加, 内容保留); `"r+"` 只适合原地改写, 要从末尾写需先 `fseek(fp, 0L, SEEK_END)`
 
 - 教训: 写代码前想清楚是"==覆盖重写=="还是"==追加=="——`"w"` 与 `"a"` 差一个字母, 后果天壤之别
 
 ---
+
+<!-- slide data-notes="" -->
+
+##### 格式化输入/输出: fprintf / fscanf
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.62em;">
+
+```C
+int fprintf(FILE * restrict stream,
+            const char * restrict format, ...);
+int fscanf(FILE * restrict stream,
+           const char * restrict format, ...);
+```
+
+</div>
+
+<div style="flex:1;">
+
+fprintf / fscanf 与 printf / scanf 用法相同, 只是第一个参数指定流.
+
+- `fprintf(fp, "%d %s\n", n, name);` 把格式化数据写入 fp
+- `fscanf(fp, "%d", &n);` 从 fp 按格式读取, 存入 n
+
+返回值: fprintf 返回写入的字符数, 出错时返回负值; fscanf 返回成功匹配并赋值的项数, 在第一次转换前遇到输入结束或错误时返回 EOF.
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -474,7 +508,7 @@ int main(void)
 
 fclose 函数允许程序关闭不再使用的文件.
 
-fclose 的参数必须是从调用 fopen 或 freopen 获得的文件指针.
+fclose 的参数必须是从调用 fopen 获得的文件指针.
 
 如果文件成功关闭, fclose 返回零.
 
@@ -490,17 +524,16 @@ fclose 的参数必须是从调用 fopen 或 freopen 获得的文件指针.
 
 ---
 
-打开文件进行读取的程序框架已经在前一页给出. 代码可以进一步压缩:
+打开文件进行读取的程序框架已经在前一页给出. 可以把 fopen 的调用与 fp 的声明写在一起, 再单独判断返回值:
 
-可以把 fopen 的调用与 fp 的声明相结合:
+```C
+FILE *fp = fopen(FILE_NAME, "r");
+if (fp == NULL) {
+  /* 处理错误 */
+}
+```
 
-`FILE *fp = fopen(FILE_NAME, "r");`
-
-还可以与 NULL 的判断相结合:
-
-`if ((fp = fopen(FILE_NAME, "r")) == NULL) …`
-
-这些写法减少重复, 但错误处理仍需保留.
+不要写成 `if (FILE *fp = fopen(...))`: C 的 if 条件里不能声明变量.
 
 <!-- slide data-notes="" -->
 
@@ -509,57 +542,22 @@ fclose 的参数必须是从调用 fopen 或 freopen 获得的文件指针.
 
 ---
 
-有几种方法可以为程序提供文件名.
-
-- 将文件名嵌入程序中不太灵活.
-- 提示用户输入文件名也很笨拙.
-- 让程序从命令行获取文件名通常是最好的解决方案.
-
-为 demo 程序提供两个文件名的示例:
-
-`demo names.dat dates.dat`
-
-<!-- slide data-notes="" -->
-
-##### 从命令行获取文件名 (续)
-
----
-
-将 main 定义为具有两个参数的函数来访问命令行参数:
+之前在指针部分讲过命令行参数, 这里简要回顾.
 
 ```C
 int main(int argc, char *argv[])
-{
-  …
-}
 ```
 
-argc 是命令行参数的数量.
+- `argc` 是命令行参数的数量
+- `argv` 是指向参数字符串的指针数组: `argv[0]` 是程序名, `argv[1]` 到 `argv[argc-1]` 是其余参数, `argv[argc]` 是空指针
 
-argv 是指向参数字符串的指针数组.
+例如运行 `./demo names.dat dates.dat`, 则 `argc` 为 3, `argv[1]` 是 `"names.dat"`, `argv[2]` 是 `"dates.dat"`.
 
-argv[0] 指向程序名, argv[1] 到 argv[argc-1] 指向剩余的参数, argv[argc] 是空指针.
+让程序从命令行获取文件名, 比把文件名写死在程序里或提示用户输入更灵活.
 
 <!-- slide data-notes="" -->
 
-##### 从命令行获取文件名 (续 2)
-
----
-
-在上述示例中, argc 为 3, argv 如下图所示:
-
-<div class="top-2">
-  <img src="../img/21-3.png" width=420px>
-</div>
-
-| 表达式 | 指向 |
-| ---- | ---- |
-| `argv[0]` | `"demo"` |
-| `argv[1]` | `"names.dat"` |
-| `argv[2]` | `"dates.dat"` |
-| `argv[3]` | `NULL` |
-
-<!-- slide data-notes="" -->##### 程序: 检查文件是否可以打开
+##### 程序: 检查文件是否可以打开
 
 ---
 
@@ -567,14 +565,14 @@ argv[0] 指向程序名, argv[1] 到 argv[argc-1] 指向剩余的参数, argv[ar
 
 样例:
 
-```
+```console
 $ ./canopen demo.txt
 demo.txt 可以打开
 $ ./canopen 不存在.txt
 不存在.txt 打不开
+```
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/canopen.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 canopen.c</a>
-```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `fopen` 失败会返回 NULL——判断它; 参数个数不对要提示用法
 
@@ -613,7 +611,7 @@ int main(int argc, char *argv[])
     exit(EXIT_FAILURE);
   }
  
-  printf("%s can be opened\n", argv[1]);
+  printf("%s 可以打开\n", argv[1]);
   fclose(fp);
   return 0;
 }
@@ -623,9 +621,9 @@ int main(int argc, char *argv[])
 
 <div style="flex:1;">
 
-- `argc != 2` 先检查参数个数——命令行参数的第一个实战
+- `argc != 2` 先检查参数个数——命令行参数的第一个完整例子
 
-- `fopen(..., "r")` 失败返回 ==NULL==——判 NULL 是文件程序的标配
+- `fopen(..., "r")` 失败返回 ==NULL==——检查返回值是否为空是常规做法
 
 - 失败用 `exit(EXIT_FAILURE)` 直接退出, 不再往下走
 
@@ -634,93 +632,6 @@ int main(int argc, char *argv[])
 </div>
 
 ---
-
-<!-- slide data-notes="" -->
-
-
-##### 检测文件末尾和错误条件
-
----
-
-如果要求 scanf 函数读取并存储 n 个数据项, 那么期望它的返回值为 n.
-
-如果返回值小于 n, 则出现问题:
-
-- 文件末尾. 该函数在完全匹配格式字符串之前遇到文件末尾.
-- 读取错误. 该函数无法从流中读取字符.
-- 匹配失败. 数据项的格式错误.
-
-<!-- slide data-notes="" -->
-
-##### 检测文件末尾和错误条件 (续)
-
----
-
-每个流都有两个与之关联的指示器: **错误指示器**和**文件末尾指示器**.
-
-打开流时, 这些指示器会被清除.
-
-遇到文件末尾就设置文件末尾指示器, 读取错误就设置错误指示器.
-
-- 当输出流上发生写错误时, 也会设置错误指示器.
-
-匹配失败不会改变任意一个指示器.
-
-<!-- slide data-notes="" -->
-
-##### 检测文件末尾和错误条件 (续 2)
-
----
-
-一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用 clearerr 函数.
-
-clearerr 清除文件末尾和错误指示器:
-
-```C
-clearerr(fp);
-/* clears eof and error indicators for fp */
-```
-
-并不需要经常使用 clearerr, 因为其他一些库函数的副作用可以清除指示器.
-
-feof 和 ferror 函数可用于测试流的指示器, 以确定先前对流的操作失败的原因.
-
-如果为与 fp 关联的流设置了文件末尾指示器, 则调用 feof(fp) 将返回一个非零值.
-
-如果设置了错误指示器, 调用 ferror(fp) 会返回一个非零值.
-
-<!-- slide data-notes="" -->
-
-
-##### 检测文件末尾 (续)
-
----
-
-当 scanf 返回小于预期的值时, 可以使用 feof 和 ferror 来判断原因.
-
-- 如果 feof 返回非零值, 则已到达输入文件的末尾.
-- 如果 ferror 返回非零值, 则在输入期间发生读取错误.
-- 如果两者都没有返回非零值, 则一定发生匹配失败.
-
-scanf 的返回值表示在问题发生之前读取了多少数据项.
-
-<!-- slide data-notes="" -->
-
-##### 检测文件末尾 (续 2)
-
----
-
-find_int 函数是一个示例, 它显示了如何使用 feof 和 ferror.
-
-find_int 在文件中搜索以整数开头的行:
-
-`n = find_int("foo");`
-
-find_int 返回它找到的整数的值或错误代码:
-
-- -1 文件无法打开
-- -2 读取错误
-- -3 没有行以整数开头
 
 <!-- slide data-notes="" -->
 
@@ -769,9 +680,9 @@ putchar 将一个字符写入标准输出流:
 
 fputc 和 putc 将一个字符写入任意流.
 
-putchar 本身通常也定义为宏:
+putchar 本身通常也定义为宏: `#define putchar(c) putc((c), stdout)`
 
-`#define putchar(c) putc((c), stdout)`
+宏的展开后面细讲.
 
 程序员通常更喜欢 putc, 因为它速度更快.
 
@@ -797,7 +708,9 @@ fgetc 和 getc 从任意流中读取一个字符:
 
 因此, 它们不会返回 EOF 以外的负值.
 
-<!-- slide data-notes="" -->##### 程序: 复制文件
+<!-- slide data-notes="" -->
+
+##### 程序: 复制文件
 
 ---
 
@@ -805,14 +718,14 @@ fgetc 和 getc 从任意流中读取一个字符:
 
 样例:
 
-```
+```console
 $ ./fcopy a.txt b.txt
 复制完成
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/fcopy.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 fcopy.c</a>
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 用 `"rb"`/`"wb"` 二进制模式; 逐个字符读、逐个写——上一页的 fgetc/fputc
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/fcopy.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 fcopy.c</a>
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 用 `"rb"`/`"wb"` 二进制模式; 逐个字符读、逐个写——前面讲的 fgetc/fputc (代码中用等价的 getc/putc)
 
 ---
 
@@ -861,6 +774,7 @@ int main(int argc, char *argv[])
  
   fclose(source_fp);
   fclose(dest_fp);
+  printf("复制完成\n");
   return 0;
 }
 ```
@@ -873,7 +787,7 @@ int main(int argc, char *argv[])
 
 - 逐个字符 `fgetc`/`fputc`, 直到 EOF——文件循环的标准写法
 
-- 三个参数、两个 fopen 都判错——错误处理是文件程序的半壁江山
+- 三个参数、两个 fopen 都判错——错误处理是文件程序的重要部分
 
 </div>
 
@@ -920,17 +834,40 @@ fputs 是 puts 的更通用版本.
 
 ---
 
-gets 函数从 stdin 读取一行输入:
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.62em;">
+
+```C
+char line[100];
+while (fgets(line, sizeof(line), fp) != NULL) {
+  for (int i = 0; line[i] != '\0'; i++)
+    if (line[i] == '\n') {
+      line[i] = '\0';
+      break;
+    }
+  printf("%s\n", line);
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.92em;">
+
+gets 函数从 stdin 读取一行输入 (C11 已从标准中移除, 不要使用):
 
 `gets(str); /* reads a line from stdin */`
 
-gets 逐个读取字符, 将它们存储在 str 指向的数组中, 直到它读取一个换行符(丢弃换行符).
+fgets 是更通用、更安全的版本, 可以从任意流中读取, 并限制存储的字符数.
 
-fgets 是更通用的 gets 版本, 可以从任意流中读取.
+- fgets 最多读 n-1 个字符; 读到换行符时把它==保留==在字符串中 (gets 会丢弃)
+- 需要去掉行尾 `'\n'` 时, 可像左边那样找到后覆盖为 `'\0'`
+- `sizeof(line)` 只对数组有效; 如果 line 是指针, 应显式传入缓冲区大小
+- 现代 C 代码应使用 `fgets(str, sizeof(str), fp)`, 并检查返回值是否为 `NULL`
 
-fgets 也比 gets 更安全, 因为它限制了它将存储的字符数.
+</div>
 
-现代 C 代码应使用 `fgets(str, sizeof(str), fp)`, 并检查返回值是否为 `NULL`.
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -941,16 +878,15 @@ fgets 也比 gets 更安全, 因为它限制了它将存储的字符数.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.5em;">
+<div style="flex:1.2;font-size:0.5em;">
 
 ```C
-fwrite(a, sizeof(a[0]),
-sizeof(a) / sizeof(a[0]), fp);
+fwrite(a, sizeof(a[0]), sizeof(a) / sizeof(a[0]), fp);
 ```
 
 ```C
 n = fread(a, sizeof(a[0]),
-sizeof(a) / sizeof(a[0]), fp);
+          sizeof(a) / sizeof(a[0]), fp);
 ```
 
 </div>
@@ -961,10 +897,108 @@ sizeof(a) / sizeof(a[0]), fp);
 
 `fwrite` 把数组从内存复制到流, 参数: 数组地址、元素大小 (字节)、元素个数、文件指针; 返回==实际写入的元素数== (出错时小于第三个参数).
 
-`fread` 从流读数组元素, 返回值是实际读取的元素数 (除非到达文件末尾或出错, 否则应等于第三个参数).
+`fread` 从流读数组元素, 返回值是实际读取的元素数 (除非到达文件末尾或出错, 否则应等于第三个参数). `a` 必须是数组 (或指向连续内存的指针), 元素个数类型为 `size_t`.
 
 </div>
 </div>
+
+<!-- slide data-notes="" -->
+
+##### 检测文件末尾和错误条件
+
+---
+
+如果要求 fscanf 函数读取并存储 n 个数据项, 那么期望它的返回值为 n.
+
+如果返回值小于 n, 则出现问题:
+
+- 文件末尾: 在完全匹配格式字符串之前遇到文件末尾
+- 读取错误: 无法从流中读取字符
+- 匹配失败: 数据项的格式错误
+
+<!-- slide data-notes="" -->
+
+##### 检测文件末尾和错误条件 (续)
+
+---
+
+每个流都有两个与之关联的指示器: **错误指示器**和**文件末尾指示器**.
+
+打开流时, 这些指示器会被清除.
+
+遇到文件末尾就设置文件末尾指示器, 读取错误就设置错误指示器.
+
+- 当输出流上发生写错误时, 也会设置错误指示器.
+
+匹配失败不会改变任意一个指示器.
+
+<!-- slide data-notes="" -->
+
+##### 检测文件末尾和错误条件 (续 2)
+
+---
+
+一旦设置了错误或文件末尾指示器, 它就会保持该状态直到被显式清除, 可能通过调用 clearerr 函数.
+
+clearerr 清除文件末尾和错误指示器:
+
+```C
+clearerr(fp);
+/* clears eof and error indicators for fp */
+```
+
+并不需要经常使用 clearerr, 因为其他一些库函数的副作用可以清除指示器.
+
+feof 和 ferror 函数可用于测试流的指示器, 以确定先前对流的操作失败的原因.
+
+如果为与 fp 关联的流设置了文件末尾指示器, 则调用 feof(fp) 将返回一个非零值.
+
+如果设置了错误指示器, 调用 ferror(fp) 会返回一个非零值.
+
+<!-- slide data-notes="" -->
+
+##### 检测文件末尾和错误条件 (续 3)
+
+---
+
+当 fscanf 返回小于预期的值时, 可以使用 feof 和 ferror 来判断原因.
+
+- 如果 feof 返回非零值, 则已到达输入文件的末尾
+- 如果 ferror 返回非零值, 则在输入期间发生读取错误
+- 如果两者都没有返回非零值, 则一定发生匹配失败
+
+fscanf 的返回值表示在问题发生之前成功匹配并赋值的项数.
+
+==注意==: 不要用 `while (!feof(fp))` 控制循环. feof 只有在一次读取尝试碰到文件末尾后才变为真, 循环体会多执行一次, 处理上一次留下的旧数据. 正确做法是检查读取函数的返回值:
+
+```C
+while (fgets(line, sizeof(line), fp) != NULL) { … }
+while ((ch = fgetc(fp)) != EOF) { … }
+```
+
+<!-- slide data-notes="" -->
+
+##### 检测文件末尾和错误条件 (续 4)
+
+---
+
+find_int 函数是一个示例, 它显示了如何使用 feof 和 ferror.
+
+find_int 在文件中搜索以整数开头的行: `n = find_int("foo");`
+
+find_int 返回它找到的整数的值或错误代码: -1 文件无法打开; -2 读取错误; -3 没有行以整数开头. 核心循环 (简化):
+
+```C
+int n, ch;
+while (fscanf(fp, "%d", &n) != 1) {
+  if (feof(fp)) return -3;      /* 没有找到 */
+  if (ferror(fp)) return -2;    /* 读取出错 */
+  /* 匹配失败: 跳过本行剩余字符, 读下一行 */
+  while ((ch = fgetc(fp)) != '\n' && ch != EOF)
+    ;
+}
+return n;
+```
 
 <!-- slide data-notes="" -->
 
@@ -981,11 +1015,11 @@ sizeof(a) / sizeof(a[0]), fp);
 
 每次读写后, 文件位置自动前进——所以是顺序访问。
 
-尽管顺序访问对许多应用程序来说都很好, 但有些程序需要能够在文件中跳转.
+尽管顺序访问对许多应用程序来说都很好, 但有些程序需要能够在文件中跳转. 如果文件包含一系列记录, 我们可能希望直接跳转到特定记录.
 
-如果文件包含一系列记录, 我们可能希望直接跳转到特定记录.
+<stdio.h> 中常用的文件定位函数是 fseek / ftell / rewind.
 
-<stdio.h> 提供五个函数, 用来查当前文件位置或修改它.
+`ftell(fp)` 返回当前文件位置 (距文件开头的字节数); `rewind(fp)` 把文件位置移到开头, 等价于 `fseek(fp, 0L, SEEK_SET)`.
 
 <!-- slide data-notes="" -->
 
@@ -1042,9 +1076,11 @@ fseek 修改第一个参数(文件指针)的文件位置.
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+==问题==: `inventory.dat` 中按顺序存放若干 `struct part` 记录 (二进制). 写程序把每条记录的 `on_hand` 清零.
 
-<div style="flex:1.5;font-size:0.46em;">
+<div style="display:flex;align-items:flex-start;gap:20px;">
+
+<div style="flex:1.3;font-size:0.46em;">
 
 ```C
 /* Modifies a file of part records by setting the quantity
@@ -1062,14 +1098,13 @@ int num_parts;
 int main(void)
 {
   FILE *fp;
-  int i;
   if((fp = fopen("inventory.dat", "rb+")) == NULL) {
     fprintf(stderr, "Can't open inventory file\n");
     exit(EXIT_FAILURE);
   }
   num_parts = fread(inventory, sizeof(struct part),
                     MAX_PARTS, fp);
-  for(i = 0; i < num_parts; i++)
+  for(int i = 0; i < num_parts; i++)
     inventory[i].on_hand = 0;
   rewind(fp);
   fwrite(inventory, sizeof(struct part), num_parts, fp);
@@ -1080,21 +1115,44 @@ int main(void)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.82em;">
 
-invclear.c程序执行的操作: 
-- 打开包含part结构的二进制文件. 
-- 将结构读入数组. 
-- 把每个结构的成员on_hand设置为0. 
-- 将结构写回文件. 
+`invclear.c` 程序执行的操作:
 
-"rb+"模式打开文件, 允许读写.
+- 打开包含 `struct part` 结构的二进制文件
+- 将结构读入数组, 把每个结构的成员 `on_hand` 设置为 0
+- 将结构写回文件
 
+`"rb+"` 模式打开文件, 允许读写. ==样例==: 文件中原有两条记录, 运行前后:
 
+```text
+运行前: 1  Widget  10    2  Gadget  25
+运行后: 1  Widget  0     2  Gadget  0
+```
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/invclear.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 invclear.c</a>
 
 </div>
 
 </div>
+
+<!-- slide data-notes="" -->
+
+##### 课堂编码
+
+---
+
+==现场演示== (在 skeleton.c 中完成):
+
+1. `int count_lines(const char *filename)`: 用 `fgetc` 统计文件中的换行符个数; 文件打不开返回 -1
+
+2. `void print_numbered(const char *filename)`: 用 `fgets` 逐行读文件, 每行前打印行号 (样例: `1 abc`)
+
+3. 挑战: `int sum_ints(const char *filename)`: 用 `fscanf` 读文件中的所有整数并求和
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 用读取函数的返回值判断循环是否结束, 不要用 `while (!feof(fp))`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
 
 <!-- slide data-notes="" -->
 
@@ -1102,22 +1160,31 @@ invclear.c程序执行的操作:
 
 ---
 
-1. `fopen("data.txt", "r")` 与 `fopen("data.txt", "w")` 有什么区别？返回什么？
+**1. 概念**: `fopen("data.txt", "r")` 与 `"w"` 有什么区别？各自返回什么？
 
-2. `fgetc` / `fputc` 的返回值为什么是 `int` 而不是 `char`？
+**2. 概念**: `fgetc` / `fputc` 的返回值为什么是 `int` 而不是 `char`？
 
-3. `while (!feof(fp))` 这种写法有什么陷阱？应该用什么判断循环结束？
+**3. 代码阅读**: `in.txt` 的内容为两行 `abc`、`def`, 下面的循环输出什么？
 
-4. `fgets` 与 `fscanf` 读行有什么区别？各适合什么场景？
+```C
+char line[100];
+while (fgets(line, sizeof(line), fp) != NULL)
+  fprintf(stdout, "%s", line);
+```
+
+**4. 纠错**: 下面的循环有什么问题？应如何修改？
+
+```C
+while (!feof(fp)) {
+  ch = fgetc(fp);
+  putchar(ch);
+}
+```
 
 ---
 
 
 <!-- slide data-notes="" -->
-
-#####
-
----
 
 <div class="bottom20"></div>
 

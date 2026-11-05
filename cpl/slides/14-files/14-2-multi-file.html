@@ -128,6 +128,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>带参宏</p>
+
+</li>
+<li>
 <p>源文件与头文件</p>
 
 </li>
@@ -147,45 +151,18 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="预处理--编译前的文本加工">预处理: 编译前的文本加工 </h5>
 <hr>
-<p>编译前的<mark>预处理</mark>阶段: 处理以 <mark>#</mark> 开头的命令</p>
+<p>编译前的<mark>预处理</mark>阶段: 处理以 <mark>#</mark> 开头的命令——<code>#include</code> 文件包含 (插入到指令处并继续预处理)、<code>#define</code> 宏定义 (文本替换)、<code>#if</code>/<code>#ifdef</code>/<code>#ifndef</code> 条件编译 (按条件选择编译)</p>
+<p>宏 = <mark>纯文本替换</mark>。用 <code>gcc -E</code> 观察展开前后:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* celsius.c */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FREEZING_PT 32.0</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0 / 9.0)</span>
+<span class="token keyword keyword-double">double</span> <span class="token function">to_celsius</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> fahr<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>fahr <span class="token operator">-</span> FREEZING_PT<span class="token punctuation">)</span> <span class="token operator">*</span> SCALE_FACTOR<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
-<p><code>#include</code>: 文件包含——把指定文件的内容<mark>原样复制</mark>进来</p>
-
-</li>
-<li>
-<p><code>#define</code>: 宏定义——文本替换</p>
-
-</li>
-<li>
-<p><code>#if</code> / <code>#ifdef</code> / <code>#ifndef</code>: 条件编译——按条件选择性地编译代码</p>
-
-</li>
-</ul>
-<p>宏 = <mark>纯文本替换</mark>。用 <code>gcc -E</code> 亲眼看看展开前后:</p>
-<div class="fullborder">
-<table>
-<thead>
-<tr>
-<th>你写的</th>
-<th>预处理后 (<code>gcc -E</code>)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>#define PI 3.14</code></td>
-<td>(定义行消失)</td>
-</tr>
-<tr>
-<td><code>area = PI * r * r;</code></td>
-<td><code>area = 3.14 * r * r;</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>
-<p>现场演示: <code>gcc -E celsius.c | tail -20</code></p>
+<p>例如 <code>(fahr - FREEZING_PT) * SCALE_FACTOR</code> 预处理后变成 <code>(fahr - 32.0) * (5.0 / 9.0)</code>; 用 <code>gcc -E celsius.c</code> 可直接观察展开结果</p>
 
 </li>
 </ul>
@@ -194,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <ul>
 <li>
-<p>记住"就是文本替换", 后面宏的所有怪现象都能解释</p>
+<p>记住“就是文本替换”，后面宏的各种看似异常的现象都能解释</p>
 
 </li>
 <li>
@@ -207,12 +184,34 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="源文件">源文件 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="宏定义--带参宏">宏定义: 带参宏 </h5>
+<hr>
+<p>为 <code>int</code>、<code>double</code> 各写一个 max 函数太重复, 能否用文本替换解决?</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX(a, b) ((a) &gt; (b) ? (a) : (b))</span>
+
+x <span class="token operator">=</span> <span class="token function">MAX</span><span class="token punctuation">(</span>p <span class="token operator">+</span> q<span class="token punctuation">,</span> r <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* 展开为 x = ((p + q) &gt; (r + s) ? (p + q) : (r + s)); */</span></code></pre>
+<ul>
+<li>
+<p><mark>每个参数和整个替换列表都要加括号</mark>: 写成 <code>#define MAX(a,b) a&gt;b?a:b</code> 时, <code>MAX(x &amp; 1, y)</code> 会展开成 <code>x &amp; 1&gt;y?x &amp; 1:y</code>, 运算顺序完全改变</p>
+
+</li>
+<li>
+<p>宏在预处理阶段只做<mark>文本替换</mark>: 实参不会先求值, 也没有类型; 实参原样替换, 展开后可能求值多次, 也可能一次也不求值——<code>MAX(i++, j)</code> 在 <code>i++ &gt; j</code> 时会自增两次, 所以<mark>不要传带副作用的实参</mark></p>
+
+</li>
+<li>
+<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 宏名与左括号之间<mark>不能有空格</mark>: <code>#define MAX (a,b) ...</code> 会被当成“无参数的 MAX”, 报错位置与宏定义相距较远</p>
+
+</li>
+</ul>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="源文件">源文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.6em;">
 <p>C 程序可分割成任意数量的<mark>源文件</mark> (扩展名 <code>.c</code>), 每个源文件包含程序的一部分 (主要是函数和变量的定义); 其中一个必须包含 <code>main</code> 函数, 作为程序的起点.</p>
-<p>例: 逆波兰记法 (RPN) 计算器 (<code>30 5 - 7 *</code> → 175)——读取操作数与运算符, 用栈跟踪中间结果, 左列是程序划分方案.</p>
+<p>例: 逆波兰记法 (RPN) 计算器 (<code>30 5 - 7 *</code> → 175)——读取操作数与运算符, 用栈跟踪中间结果, 下图是程序划分方案.</p>
 </div>
 </div>
 <svg viewBox="0 0 400 180" style="max-width:100%;height:180px;" role="img" aria-label="RPN 计算器拆分为三个源文件">
@@ -229,19 +228,20 @@ document.addEventListener("DOMContentLoaded", function () {
     <rect x="10" y="100" width="120" height="50" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
     <text x="70" y="119" font-size="12" font-weight="700" fill="#073642" text-anchor="middle">token.c</text>
     <text x="70" y="136" font-size="9.5" fill="#586e75" text-anchor="middle">get_token()</text>
-    <rect x="270" y="100" width="120" height="62" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="330" y="119" font-size="12" font-weight="700" fill="#073642" text-anchor="middle">stack.c</text>
-    <text x="330" y="136" font-size="9.5" fill="#586e75" text-anchor="middle">push / pop / ...</text>
-    <text x="330" y="152" font-size="8.5" fill="#93a1a1" text-anchor="middle">栈变量也放这里</text>
+    <rect x="252" y="94" width="138" height="76" rx="6" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
+    <text x="321" y="112" font-size="12" font-weight="700" fill="#073642" text-anchor="middle">stack.c</text>
+    <text x="321" y="128" font-size="9.5" fill="#586e75" text-anchor="middle">push / pop / ...</text>
+    <text x="321" y="145" font-size="8.5" fill="#93a1a1" text-anchor="middle">表示栈的变量</text>
+    <text x="321" y="160" font-size="8.5" fill="#93a1a1" text-anchor="middle">(contents/top) 也放这里</text>
     <line x1="160" y1="70" x2="72" y2="98" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-src-arrow)"/>
-    <line x1="240" y1="70" x2="328" y2="98" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-src-arrow)"/>
+    <line x1="240" y1="70" x2="322" y2="92" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-src-arrow)"/>
     <text x="103" y="87" font-size="8.5" fill="#268bd2" text-anchor="middle">调用</text>
     <text x="297" y="87" font-size="8.5" fill="#268bd2" text-anchor="middle">调用</text>
     <text x="200" y="174" font-size="9" fill="#586e75" text-anchor="middle">每个 .c 单独编译; 相关的函数和变量放在一起</text>
   </g>
 </svg>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="源文件--续">源文件 (续) </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="源文件--续">源文件 (续) </h5>
 <hr>
 <p>读取记号的函数可以与任何需要用到记号的函数一起放入一个源文件(例如<code>token.c</code>).</p>
 <p>与栈相关的函数, 如push, pop, make_empty, is_empty和is_full可以放入另一个文件<code>stack.c</code>中.</p>
@@ -263,11 +263,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="头文件">头文件 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="头文件">头文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.6em;">
-<p>程序拆成几个源文件后, 新问题来了:</p>
+<p>程序拆成几个源文件后, 随之而来的问题:</p>
 <ul>
 <li>
 <p>一个文件中的函数如何调用另一个文件中定义的函数？</p>
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 </ul>
-<p><code>#include</code>指令, 它可以在任意数量的源文件之间共享信息.</p>
+<p>使用 <code>#include</code> 指令可以在任意数量的源文件之间共享信息.</p>
 <hr>
 <p><code>#include</code>指令告诉预处理器插入指定文件的内容.</p>
 <p>可以将要在多个源文件之间共享的信息放入这样的文件中.</p>
@@ -292,13 +292,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="include-指令">#include 指令 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="include-指令">#include 指令 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.5;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;文件名&gt;</span></span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "文件名"</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;myheader.h&gt;</span> /*** 错误 ***/</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;myheader.h&gt;</span>    /* 通常不要用尖括号包含自己写的头文件 */</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
 <p><code>#include</code> 有两种写法: <code>&lt;文件名&gt;</code> 找 C 自带的库头文件, <code>"文件名"</code> 找其他头文件——区别在于编译器<mark>去哪里找</mark>:</p>
@@ -308,37 +308,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p><code>"文件名"</code>: 先搜当前目录, 再搜系统头文件目录</p>
+<p><code>"文件名"</code>: 先搜源文件所在目录, 再搜系统头文件目录</p>
+
+</li>
+<li>
+<p><code>-I 目录</code>: 追加 <code>&lt;文件名&gt;</code> 的搜索路径</p>
+
+</li>
+<li>
+<p><code>-iquote 目录</code>: 追加 <code>"文件名"</code> 的搜索路径</p>
 
 </li>
 </ul>
-<p>通常: 自带库用尖括号, 自己写的头文件用引号.</p>
+<p>通常: 自带库用尖括号, 自己写的头文件用引号; 不要用尖括号包含自己写的头文件.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="include-指令--续">#include 指令 (续) </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="include-指令--续">#include 指令 (续) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.5;font-size:0.5em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "c:\cprogs\utils.h"</span>
-<span class="token comment">/* Windows 路径 */</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "/cprogs/utils.h"</span>
-<span class="token comment">/* UNIX 路径 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "d:utils.h"</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "\cprogs\include\utils.h"</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "d:\cprogs\include\utils.h"</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "utils.h"</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "..\include\utils.h"</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "utils.h"                /* 推荐: 相对路径 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "..\include\utils.h"     /* 推荐: 相对路径 (Windows 写法) */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "../include/utils.h"     /* 推荐: 相对路径 (UNIX 写法) */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "d:utils.h"                    /* 不推荐: 依赖盘符 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "\cprogs\include\utils.h"      /* 不推荐: 绝对路径 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "d:\cprogs\include\utils.h"    /* 不推荐: 绝对路径 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "c:\cprogs\utils.h"            /* 不推荐: 绝对路径 (Windows) */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "/cprogs/utils.h"              /* 不推荐: 绝对路径 (UNIX) */</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>路径可以写绝对路径, 也可以写相对路径.</p>
-<p>Windows 路径中的反斜杠要转义 (<code>\\</code>), 或者改用 <code>/</code>.</p>
-<p><code>..</code> 表示上一级目录; 相对路径是相对源文件所在目录而言的.</p>
+<p>路径可以写相对路径, 也可以写绝对路径; 但<mark>推荐相对路径</mark>: 项目整体移动或换机器后仍然有效, 依赖盘符或绝对路径的写法换环境就会失效.</p>
+<p><code>..</code> 表示上一级目录; 相对路径相对于<mark>源文件所在目录</mark>而言.</p>
+<p>预处理器把 <code>#include "..."</code> 里的路径<mark>原样保留</mark>, 反斜杠不按转义序列处理——Windows 下可以直接写 <code>\</code>; 跨平台建议统一写 <code>/</code>.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="include-指令--续-2">#include 指令 (续 2) </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="include-指令--续-2">#include 指令 (续 2) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.5;font-size:0.5em;">
@@ -357,17 +363,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <p><code>#include</code> 后面也可以是一个宏名: 预处理器先展开宏, 再按展开结果包含文件.</p>
 <p>条件编译常用来根据平台选择不同的头文件.</p>
 <p><code>#if</code> / <code>#elif</code> / <code>#else</code> / <code>#endif</code> 按常量表达式选择分支; <code>#ifdef</code> / <code>#ifndef</code> 检查宏是否已定义.</p>
+<p><code>defined(名字)</code> 在宏已定义时为真, 所以 <code>#if defined(IA32)</code> 与 <code>#ifdef IA32</code> 等价.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="共享宏定义和类型定义">共享宏定义和类型定义 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="共享宏定义和类型定义">共享宏定义和类型定义 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BOOL int</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* boolean.h */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BOOL int</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "boolean.h"</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* prog.c */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "boolean.h"</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
 <p>大多数大型程序包含由多个源文件共享的宏定义和类型定义.</p>
@@ -382,11 +391,12 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="共享宏定义和类型定义--续">共享宏定义和类型定义 (续) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="共享宏定义和类型定义--续">共享宏定义和类型定义 (续) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* boolean.h */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
 <span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Bool<span class="token punctuation">;</span></code></pre>
 </div>
@@ -394,6 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>类型定义在头文件中也很常见.</p>
 <p>例如可使用 typedef 来创建一个 Bool 类型, 而不是定义 BOOL 宏.</p>
 <p>这么做了之后, boolean.h 里会是:</p>
+<p>与宏相比, typedef 有<mark>类型检查</mark>, 调试器能看到类型名, 也遵守<mark>作用域</mark>规则.</p>
 <p>把宏和类型定义放头文件的好处:</p>
 <ul>
 <li>
@@ -412,38 +423,21 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="宏定义--带参宏">宏定义: 带参宏 </h5>
-<hr>
-<p><mark>带参宏</mark>: 像函数一样使用, 但只是文本替换</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX(a, b) ((a) &gt; (b) ? (a) : (b))</span>
-
-x <span class="token operator">=</span> <span class="token function">MAX</span><span class="token punctuation">(</span>p <span class="token operator">+</span> q<span class="token punctuation">,</span> r <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">/* 展开为 x = ((p+q) &gt; (r+s) ? (p+q) : (r+s)); */</span></code></pre>
-<ul>
-<li>
-<p>宏 vs 函数: 宏在预处理阶段只做<mark>文本替换</mark>, 实参不会先求值, 也没有类型; 但实参展开后可能出现多次——<code>MAX(i++, j)</code> 在 <code>i++ &gt; j</code> 时会自增两次, 所以<mark>不要传带副作用的实参</mark></p>
-
-</li>
-<li>
-<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 宏名与左括号之间<mark>不能有空格</mark>: <code>#define MAX (a,b) ...</code> 会被当成"无参数的 MAX", 报错信息离现场很远</p>
-
-</li>
-</ul>
-<hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="共享函数原型">共享函数原型 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">make_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* stack.h */</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">make_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">is_full</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-void">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>源文件调用 foo.c 里定义的函数 f 时, 不声明会直接报错——C99 起<mark>不再允许隐式声明</mark> (GCC/Clang 默认报 error).</p>
-<p>到处声明又造成维护"噩梦". 更好的方案: <mark>原型放头文件 (foo.h)</mark>, 调用处都包含它; foo.c 也包含 foo.h, 让编译器核对原型与定义一致.</p>
-<p>foo.c 的大多数函数应在 foo.h 声明; 只在 foo.c 内部使用的函数<mark>不应</mark>写进头文件 (会误导).</p>
+<p>左列以 stack.h 为例. 源文件调用另一个文件里定义的函数时, 不声明会直接报错——C99 起<mark>标准不再支持隐式声明</mark>; 现代 GCC 14+/Clang 16+ 默认报错, 旧版本仅警告. 即使编译通过, 编译器对返回类型与默认实参提升的假设也可能在运行时出错.</p>
+<p>到处声明又造成维护负担. 更好的方案: <mark>原型放头文件</mark>, 调用处都包含它; 定义文件也包含该头文件, 让编译器核对原型与定义一致.</p>
+<p>对外提供的函数在头文件中声明; 只在文件内部使用的函数<mark>不应</mark>写进头文件 (会误导), 应加 <code>static</code>.</p>
 </div>
 </div>
 <hr>
@@ -454,67 +448,107 @@ x <span class="token operator">=</span> <span class="token function">MAX</span><
   <img src="../img/18-2.png" width=380px>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="共享变量声明">共享变量声明 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="文件作用域的-static">文件作用域的 static </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.3;font-size:0.52em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* stack.c */</span>
+<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-int">int</span> top<span class="token punctuation">;</span>                 <span class="token comment">/* 只在本文件可见 */</span>
+
+<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">stack_error</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>   <span class="token comment">/* 内部辅助函数, 不写进 stack.h */</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/* 只在 stack.c 内部使用 */</span>
+<span class="token punctuation">}</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* token.c */</span>
+<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">stack_error</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>   <span class="token comment">/* 与 stack.c 中的同名函数互不冲突 */</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/* 只在本文件内部使用 */</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.6em;">
+<ul>
+<li>
+<p>文件作用域的 <code>static</code> 把名字改为<mark>内部链接</mark>: 只在本<mark>翻译单元</mark> (一个 .c 连同它包含的头文件) 内可见, 链接器看不到.</p>
+
+</li>
+<li>
+<p>用途: <mark>隐藏实现</mark>——内部辅助函数不必写进头文件; <mark>避免重名</mark>——不同 .c 可以有同名的 static 函数或变量.</p>
+
+</li>
+<li>
+<p>与之前学过的 <code>static</code> 局部变量区分: 函数内的 static 改变的是<mark>存储期</mark> (程序运行期间一直存在); 文件作用域的 static 改变的是<mark>可见性</mark>.</p>
+
+</li>
+<li>
+<p>只在文件内部使用的函数应加 <code>static</code>, 不写进头文件.</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="共享变量声明">共享变量声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file1.c */</span>
-<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>                    <span class="token comment">/* 定义: 为 i 留空间 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c */</span>
-extern <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>             <span class="token comment">/* 声明: i 在别处定义 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c */</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* foo.h */</span>
+extern <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>             <span class="token comment">/* 声明: i 在别处定义 */</span>
 extern <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>           <span class="token comment">/* 数组声明可省略长度 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c (错误示例) */</span>
-extern <span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span>            <span class="token comment">/* 与 file1.c 的 int 定义类型不一致! */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file1.c */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "foo.h"</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>                    <span class="token comment">/* 定义: 为 i 分配空间 */</span>
+<span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>                <span class="token comment">/* 定义: 数组 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file2.c */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> "foo.h"          /* 需要访问 i / a 的文件包含 foo.h */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* file3.c (错误示例) */</span>
+extern <span class="token keyword keyword-long">long</span> i<span class="token punctuation">;</span>            <span class="token comment">/* 与 foo.h 中 int 的类型不一致! */</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>共享函数: 定义放在一个源文件, 声明放在需要调用的其他文件; 共享外部变量的方式相同.</p>
-<p><code>extern</code> 关键字<mark>只声明不定义</mark> (不带初始化式时只为声明, 不分配空间).</p>
+<p>共享函数: 定义放在一个源文件, 声明放在头文件中供其他文件包含; 共享外部变量的方式相同——<code>extern</code> 声明放进头文件 (如 foo.h), 定义 (<code>int i;</code>) 只在一个 .c 文件中; 定义文件也包含 foo.h, 编译器才能核对类型.</p>
+<p>文件作用域下, 不带初始化式的 <code>extern</code> 声明不分配空间; 带初始化式则是定义 (如 <code>extern int i = 0;</code>).</p>
 <p><mark>类型必须一致</mark>: 某文件定义 <code>int i;</code>, 另一文件却写 <code>extern long i;</code>, 编译器可能查不出, 运行时行为异常.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="嵌套包含">嵌套包含 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="嵌套包含">嵌套包含 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* stack.h */</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">is_full</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>Bool <span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* stack.h */</span>
+Bool <span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Bool <span class="token function">is_full</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>头文件可能包含<code>#include</code>指令.</p>
+<p>头文件可能包含 <code>#include</code> 指令.</p>
 <p>stack.h 里的原型:</p>
 <p>这些函数只返回 0 或 1, 返回类型最好声明成 Bool:</p>
-<p>在 stack.h 中包含boolean.h, 以便在编译时可以使用Bool的定义.</p>
+<p>在 stack.h 中包含 boolean.h, 以便在编译时可以使用 Bool 的定义.</p>
 <p>传统上, C 程序员避免使用嵌套包含.</p>
-<p>如今对嵌套包含已经没什么偏见了——部分原因是 C++ 里嵌套包含很常见。</p>
+<p>如今, 嵌套包含在 C/C++ 中都很常见; 配合头文件保护即可安全使用.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="保护头文件">保护头文件 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="保护头文件">保护头文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> BOOLEAN_H</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BOOLEAN_H</span>
-
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* file3.h (未加保护) */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
-<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Bool<span class="token punctuation">;</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span></code></pre>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> Bool<span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
 <p>如果一个源文件两次包含相同的头文件, 可能会导致编译错误.</p>
-<p>当头文件包含其他头文件时, 此问题很常见: file1.h 和 file2.h 都包含 file3.h, prog.c 又同时包含 file1.h 和 file2.h——编译 prog.c 时 file3.h 被编译两次:</p>
+<p>以 file3.h 为例: file1.h 和 file2.h 都包含 file3.h, prog.c 又同时包含 file1.h 和 file2.h——编译 prog.c 时 file3.h 被<mark>包含两次</mark>:</p>
 <div class="top-2">
   <img src="../img/18-3.png" width=380px>
 </div>
 <ul>
 <li>
-<p>只含宏定义/函数原型/变量声明时重复包含没困难; 含<mark>结构体/枚举定义或变量定义</mark>就会编译错误</p>
+<p>只含宏定义/函数原型/变量声明时, 重复包含不会出错; 含<mark>结构体/枚举定义、变量定义或 typedef</mark>时就可能编译错误</p>
 
 </li>
 <li>
@@ -525,12 +559,13 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="保护头文件--ifndef-写法">保护头文件: ifndef 写法 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="保护头文件--ifndef-写法">保护头文件: ifndef 写法 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> BOOLEAN_H</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BOOLEAN_H</span>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* file3.h */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> FILE3_H</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FILE3_H</span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> TRUE 1</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> FALSE 0</span>
@@ -542,15 +577,15 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 <p>把文件的内容包在 <code>#ifndef</code> - <code>#endif</code> 对里:</p>
 <ul>
 <li>
-<p>第一次包含: <code>BOOLEAN_H</code> 未定义 → 定义它 + 展开内容</p>
+<p>第一次包含: <code>FILE3_H</code> 未定义 → 定义它 + 展开内容</p>
 
 </li>
 <li>
-<p>之后再包含: <code>BOOLEAN_H</code> 已定义 → 直接跳过全部内容</p>
+<p>之后再包含: <code>FILE3_H</code> 已定义 → 直接跳过全部内容</p>
 
 </li>
 </ul>
-<p>宏名照头文件名取 (<code>BOOLEAN.H</code> 不能作宏名, 用 <code>BOOLEAN_H</code>), 避免与其他宏冲突</p>
+<p>宏名照头文件名取 (<code>FILE3.H</code> 不能作宏名, 用 <code>FILE3_H</code>), 避免与其他宏冲突</p>
 </div>
 </div>
 <svg viewBox="0 0 400 190" style="max-width:100%;height:190px;" role="img" aria-label="头文件保护宏的两次包含">
@@ -583,7 +618,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
   </g>
 </svg>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="将程序划分为文件">将程序划分为文件 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="将程序划分为文件">将程序划分为文件 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.6em;">
@@ -591,7 +626,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 <p>一旦设计好程序, 就有一种简单的方法可以将其分成文件.</p>
 <hr>
 <p>每组函数都将放入一个单独的源文件(foo.c).</p>
-<p>为每个源文件创建一个同名的头文件(foo.h).</p>
+<p>为每个对外提供函数的源文件创建一个同名的头文件 (foo.h); 只含 main 的文件通常不需要.</p>
 <ul>
 <li>
 <p>foo.h将包含foo.c中定义的函数的原型.</p>
@@ -609,15 +644,21 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="构建多文件程序">构建多文件程序 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="构建多文件程序">构建多文件程序 </h5>
 <hr>
+<div style="font-size:0.62em;">
+<p>以 RPN 计算器为例: 它由 calc.c、stack.c、token.c 三个源文件组成.</p>
 <ul>
 <li>
 <p>构建大型程序与小型程序步骤相同: <mark>编译</mark> + <mark>链接</mark></p>
 
 </li>
 <li>
-<p>每个源文件必须单独编译 (头文件不编译, 随包含它的源文件一起编译); 编译器为每个源文件生成目标文件 (<code>.o</code> / <code>.obj</code>)</p>
+<p>每个源文件各自形成一个<mark>翻译单元</mark>, 编译器分别编译; 头文件<mark>不单独编译</mark>, 随包含它的源文件一起编译; 每个源文件生成一个目标文件 (<code>.o</code> / <code>.obj</code>)</p>
+
+</li>
+<li>
+<p><code>gcc -c calc.c</code> 只编译不链接, 生成目标文件 <code>calc.o</code>; <code>gcc -E calc.c</code> 只做预处理, 输出展开后的源程序</p>
 
 </li>
 <li>
@@ -625,10 +666,12 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
 
 </li>
 <li>
-<p>大多数编译器允许一步构建: <code>gcc -o justify justify.c line.c word.c</code>——三个源文件先编译成目标文件, 自动传给链接器; <code>-o</code> 指定可执行文件名</p>
+<p>也可以用一条命令自动完成编译 + 链接: <code>gcc -o calc calc.c stack.c token.c</code>——三个源文件先编译成目标文件, 自动传给链接器; <code>-o</code> 指定可执行文件名</p>
 
 </li>
 </ul>
+</div>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/calc.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 calc.c (多文件框架)</a>
 <svg viewBox="0 0 400 190" style="max-width:100%;height:190px;" role="img" aria-label="多文件编译与链接流程">
   <defs>
     <marker id="mf-build-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
@@ -642,17 +685,17 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
     <text x="90" y="14" font-size="12" font-weight="700" fill="#268bd2" text-anchor="middle">① 编译</text>
     <text x="330" y="14" font-size="12" font-weight="700" fill="#859900" text-anchor="middle">② 链接</text>
     <rect x="8" y="26" width="82" height="32" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="49" y="46" font-size="11" fill="#073642" text-anchor="middle">justify.c</text>
+    <text x="49" y="46" font-size="11" fill="#073642" text-anchor="middle">calc.c</text>
     <rect x="8" y="82" width="82" height="32" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="49" y="102" font-size="11" fill="#073642" text-anchor="middle">word.c</text>
+    <text x="49" y="102" font-size="11" fill="#073642" text-anchor="middle">stack.c</text>
     <rect x="8" y="138" width="82" height="32" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="49" y="158" font-size="11" fill="#073642" text-anchor="middle">line.c</text>
+    <text x="49" y="158" font-size="11" fill="#073642" text-anchor="middle">token.c</text>
     <rect x="148" y="26" width="72" height="32" rx="5" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="184" y="46" font-size="10.5" fill="#073642" text-anchor="middle">justify.o</text>
+    <text x="184" y="46" font-size="10.5" fill="#073642" text-anchor="middle">calc.o</text>
     <rect x="148" y="82" width="72" height="32" rx="5" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="184" y="102" font-size="10.5" fill="#073642" text-anchor="middle">word.o</text>
+    <text x="184" y="102" font-size="10.5" fill="#073642" text-anchor="middle">stack.o</text>
     <rect x="148" y="138" width="72" height="32" rx="5" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="184" y="158" font-size="10.5" fill="#073642" text-anchor="middle">line.o</text>
+    <text x="184" y="158" font-size="10.5" fill="#073642" text-anchor="middle">token.o</text>
     <line x1="90" y1="42" x2="146" y2="42" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-build-arrow)"/>
     <line x1="90" y1="98" x2="146" y2="98" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-build-arrow)"/>
     <line x1="90" y1="154" x2="146" y2="154" stroke="#268bd2" stroke-width="1.6" marker-end="url(#mf-build-arrow)"/>
@@ -663,7 +706,7 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
     <line x1="252" y1="42" x2="252" y2="154" stroke="#93a1a1" stroke-width="1.3"/>
     <line x1="252" y1="98" x2="284" y2="98" stroke="#859900" stroke-width="1.8" marker-end="url(#mf-build-arrow-g)"/>
     <rect x="286" y="80" width="88" height="36" rx="6" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
-    <text x="330" y="103" font-size="13" font-weight="700" fill="#268bd2" text-anchor="middle">justify</text>
+    <text x="330" y="103" font-size="13" font-weight="700" fill="#268bd2" text-anchor="middle">calc</text>
     <rect x="286" y="146" width="88" height="24" rx="4" fill="#eee8d5" stroke="#b58900" stroke-width="1.2"/>
     <text x="330" y="162" font-size="9.5" fill="#073642" text-anchor="middle">库函数 (libc)</text>
     <line x1="330" y1="146" x2="330" y2="120" stroke="#859900" stroke-width="1.6" marker-end="url(#mf-build-arrow-g)"/>
@@ -671,48 +714,50 @@ Bool <span class="token function">is_full</span><span class="token punctuation">
   </g>
 </svg>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="makefile">makefile </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="makefile">makefile </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>justify<span class="token operator">:</span> justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
-	gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
-justify<span class="token punctuation">.</span>o<span class="token operator">:</span> justify<span class="token punctuation">.</span>c word<span class="token punctuation">.</span>h line<span class="token punctuation">.</span>h
-	gcc <span class="token operator">-</span>c justify<span class="token punctuation">.</span>c
-word<span class="token punctuation">.</span>o<span class="token operator">:</span> word<span class="token punctuation">.</span>c word<span class="token punctuation">.</span>h
-	gcc <span class="token operator">-</span>c word<span class="token punctuation">.</span>c
-line<span class="token punctuation">.</span>o<span class="token operator">:</span> line<span class="token punctuation">.</span>c line<span class="token punctuation">.</span>h
-	gcc <span class="token operator">-</span>c line<span class="token punctuation">.</span>c</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>calc<span class="token operator">:</span> calc<span class="token punctuation">.</span>o stack<span class="token punctuation">.</span>o token<span class="token punctuation">.</span>o
+	gcc <span class="token operator">-</span>o calc calc<span class="token punctuation">.</span>o stack<span class="token punctuation">.</span>o token<span class="token punctuation">.</span>o
+calc<span class="token punctuation">.</span>o<span class="token operator">:</span> calc<span class="token punctuation">.</span>c stack<span class="token punctuation">.</span>h token<span class="token punctuation">.</span>h
+	gcc <span class="token operator">-</span>c calc<span class="token punctuation">.</span>c
+stack<span class="token punctuation">.</span>o<span class="token operator">:</span> stack<span class="token punctuation">.</span>c stack<span class="token punctuation">.</span>h
+	gcc <span class="token operator">-</span>c stack<span class="token punctuation">.</span>c
+token<span class="token punctuation">.</span>o<span class="token operator">:</span> token<span class="token punctuation">.</span>c token<span class="token punctuation">.</span>h
+	gcc <span class="token operator">-</span>c token<span class="token punctuation">.</span>c</code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
 <p>为了更容易构建大型程序, UNIX 发明 makefile 的概念.</p>
 <p>makefile 不仅列出了作为程序一部分的文件, 而且还描述了文件之间的依赖关系.</p>
 <p>假设文件 foo.c 包含文件 bar.h.</p>
 <p>我们说 foo.c "依赖于" bar.h, 因为修改 bar.h 之后需要重新编译 foo.c.</p>
-<p>针对 justify 程序的 UNIX 系统的 makefile:</p>
+<p>针对 calc 程序的 UNIX 系统的 makefile:</p>
 <p>有 4 组代码行; 每个组称为一条规则.</p>
-<p>每个规则的第一行给出目标文件, 然后是它所依赖的文件.</p>
-<p>第二行是当目标文件依赖的文件发生改变而需要重新构建目标文件时要执行的命令.</p>
+<p>每条规则的第一行给出<mark>目标 (target)</mark>和它所依赖的文件.</p>
+<p>第二行是当依赖文件发生改变、需要重新构建目标时要执行的命令.</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/Makefile" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 Makefile</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="makefile--续">makefile (续) </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="makefile--续">makefile (续) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>justify<span class="token operator">:</span> justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o
-        gcc <span class="token operator">-</span>o justify justify<span class="token punctuation">.</span>o word<span class="token punctuation">.</span>o line<span class="token punctuation">.</span>o   ← 错误<span class="token operator">:</span> 命令行前是 <span class="token number">8</span> 个空格</code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>calc<span class="token operator">:</span> calc<span class="token punctuation">.</span>o stack<span class="token punctuation">.</span>o token<span class="token punctuation">.</span>o
+        gcc <span class="token operator">-</span>o calc calc<span class="token punctuation">.</span>o stack<span class="token punctuation">.</span>o token<span class="token punctuation">.</span>o</code></pre>
+<p><span class="red">上面第二行开头是 8 个空格, 不是 TAB——这就是错误所在.</span></p>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>在第一条规则中, justify(可执行文件)是目标文件:</p>
-<p>第一行说明 justify 依赖于文件 justify.o, word.o 和 line.o.</p>
-<p>如果自上次构建程序以来这些文件中的任何一个发生了更改, 则需要重新构建 justify.</p>
+<p>在第一条规则中, calc (最终可执行文件) 是目标 (target):</p>
+<p>第一行说明 calc 依赖于文件 calc.o, stack.o 和 token.o.</p>
+<p>如果自上次构建程序以来这些文件中的任何一个发生了更改, 则需要重新构建 calc.</p>
 <p>下一行的命令显示了如何进行重新构建.</p>
 <p><mark>每个命令行必须以 TAB 开头</mark>——写 8 个空格, make 会报 <code>missing separator</code> 错误 (上面就是错误示范).</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="链接期间的错误">链接期间的错误 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="链接期间的错误">链接期间的错误 </h5>
 <hr>
 <p>一些编译时检测不到的错误会在链接时发现.</p>
 <p>如果程序中缺少函数或变量的定义, 链接器将无法解析对其的外部引用</p>
@@ -724,7 +769,7 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 
 </li>
 <li>
-<p>缺少文件. 如果链接器找不到文件foo.c中的函数, 它可能不知道该文件.</p>
+<p>缺少文件. 忘记把 foo.c 编译出的目标文件交给链接器, 链接器就找不到其中的函数.</p>
 
 </li>
 <li>
@@ -732,23 +777,32 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
 
 </li>
 </ul>
-<p>在 UNIX 中, 当链接使用<math.h>的程序时, 可能需要指定-lm选项.</p>
+<p>在 UNIX 中, 当程序使用 <code>&lt;math.h&gt;</code> 中的数学函数时, 可能需要加 <code>-lm</code> 选项——<code>-l</code> 表示链接库, <code>m</code> 是数学库 <code>libm</code>.</p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
-<ol>
-<li>头文件里通常放什么？源文件 (.c) 里放什么？
-</li>
-<li>为什么头文件要加"保护宏"（#ifndef … #define … #endif）？
-</li>
-<li>纠错: make 报 <code>missing separator</code>，最可能是什么原因？应该改成什么？
-</li>
-<li>把函数原型放进头文件、函数定义放进 .c 文件，有什么好处？
-</li>
-</ol>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.15;font-size:0.5em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* a.c */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+extern <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+<span class="token comment">/* b.c */</span>
+<span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* c.c */</span>
+<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.6em;">
+<p><strong>概念 1</strong>: 头文件里通常放什么？源文件 (.c) 里放什么？</p>
+<p><strong>概念 2</strong>: 为什么头文件要加保护宏 (<code>#ifndef</code> … <code>#define</code> … <code>#endif</code>)？</p>
+<p><strong>阅读</strong>: 左列是三个源文件. 把 a.c、b.c、c.c 一起编译链接, 输出什么？如果漏掉 b.c, 只链接 a.c 和 c.c, 会在哪一步出错？为什么？</p>
+<p><strong>纠错</strong>: make 报 <code>missing separator</code>, 最可能是什么原因？应该改成什么？</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="25" data-v="0"><hr>
-<div class="bottom20"></div>
+</section><section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="26" data-v="0"><div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
 </section>
@@ -769,4 +823,82 @@ line<span class="token punctuation">.</span>o<span class="token operator">:</spa
     
     
   
-    </body></html>
+    <div id="cpl-gate" style="position:fixed;inset:0;z-index:2147483647;background:#fdf6e3;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,'PingFang SC',sans-serif;">
+<h2 style="color:#073642;margin:0 0 18px;font-size:26px;">🔒 本课件尚未发布</h2>
+<input id="cpl-pwd" type="password" placeholder="请输入密码" autocomplete="off" style="width:260px;padding:10px 14px;font-size:16px;border:2px solid #93a1a1;border-radius:8px;outline:none;background:#fff;"/>
+<button id="cpl-go" style="margin-top:14px;padding:9px 26px;font-size:16px;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">进入课件</button>
+<div id="cpl-err" style="margin-top:12px;color:#dc322f;font-size:14px;display:none;">密码不正确，请重试</div>
+</div>
+<script>
+(function(){
+  var KEY = 'cpl_unlock_14-2-multi-file';
+  var HASH = '052b5ebd041dc6778ff1e045bc31ce907709e1b4650afc4e709627c84884bd16';
+  var g = document.getElementById('cpl-gate');
+  if (!g) return;
+  if (sessionStorage.getItem(KEY) === '1') { g.remove(); return; }
+  function sha256(ascii) {
+    function rightRotate(v, a) { return (v >>> a) | (v << (32 - a)); }
+    var maxWord = Math.pow(2, 32), i, j, result = '';
+    var words = [], len = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [], k = sha256.k = sha256.k || [], pc = k.length;
+    var comp = {};
+    for (var c = 2; pc < 64; c++) {
+      if (!comp[c]) {
+        for (i = 0; i < 313; i += c) comp[i] = c;
+        hash[pc] = (Math.pow(c, .5) * maxWord) | 0;
+        k[pc++] = (Math.pow(c, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (i = 0; i < ascii.length; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = ((len / maxWord) | 0);
+    words[words.length] = (len);
+    for (j = 0; j < words.length;) {
+      var w = words.slice(j, j += 16), oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (i = 0; i < 64; i++) {
+        var w15 = w[i - 15], w2 = w[i - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7] + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6])) + k[i]
+          + (w[i] = (i < 16) ? w[i] : (w[i - 16]
+            + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+            + w[i - 7] + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) | 0);
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j + 1; j--) {
+        var b = (hash[i] >> (j * 8)) & 255;
+        result += ((b < 16) ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+  function tryUnlock() {
+    if (sha256(document.getElementById('cpl-pwd').value) === HASH) {
+      sessionStorage.setItem(KEY, '1');
+      g.remove();
+    } else {
+      var e = document.getElementById('cpl-err');
+      e.style.display = 'block';
+      document.getElementById('cpl-pwd').value = '';
+    }
+  }
+  document.getElementById('cpl-go').onclick = tryUnlock;
+  document.getElementById('cpl-pwd').addEventListener('keydown', function (ev) {
+    if (ev.key === 'Enter') tryUnlock();
+  });
+  document.getElementById('cpl-pwd').focus();
+})();
+</script>
+</body></html>

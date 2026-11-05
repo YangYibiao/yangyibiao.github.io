@@ -76,7 +76,7 @@ presentation:
 内存按==字节==划分, 每个字节存 8 位: 
 
 <div class="top-2">
-    <img src="figs/11-1.png" width=400px>
+    <img src="figs/11-1.png" width=640px>
 </div>
 
 每个字节都有==唯一的地址==。
@@ -148,41 +148,53 @@ presentation:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;flex-direction:column;gap:10px;">
 
+<div style="display:flex;align-items:center;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
 
 ```C
 int* p;
 ```
 
+</div>
+<div style="flex:1;font-size:0.62em;line-height:1.5;">
+
+声明指针变量时, 名字前面==必须有星号==: p 是一个指针变量, 能够指向 int 类型的==对象== (用"对象"而非"变量", 因 p 可能指向不属于变量的内存区域)
+
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
+
 ```C
 int i, j, a[10], b[20], *p, *q;
 ```
 
+</div>
+<div style="flex:1;font-size:0.62em;line-height:1.5;">
+
+指针变量可以与其他变量==一起声明==
+
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:24px;">
+<div style="flex:1.2;font-size:0.62em;">
+
 ```C
-int* p; /* 只指向整数 */
+int* p;    /* 只指向整数 */
 double *q; /* 只指向双精度 */
-char *r; /* 只指向字符 */
+char *r;   /* 只指向字符 */
 ```
 
 </div>
+<div style="flex:1;font-size:0.62em;line-height:1.5;">
 
-<div style="flex:1;font-size:0.6em;">
+C 要求每个指针变量==只能指向特定类型==的对象; `void *` 较特殊: 可存放任意类型对象的地址
 
-声明指针变量时, 名字前面==必须有星号==:
-
-p是一个指针变量, 能够指向int类型的对象. 
-
-使用术语==对象==而不是变量, 因p可能指向不属于变量的内存区域.
-
-
-指针变量可以与其他变量一起出现在声明中:
-
-C 要求每个指针变量只能指向特定类型(所指向的类型)的对象:
-
-可以声明指向任意类型的指针；`void *` 较特殊：可存放任意类型对象的地址。
-
+</div>
 </div>
 
 </div>
