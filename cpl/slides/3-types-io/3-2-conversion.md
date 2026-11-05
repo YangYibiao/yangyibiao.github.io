@@ -467,9 +467,21 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 ---
 
-`printf` 打印 `double` 会自动四舍五入, 但怎样把 `double` ==变量本身==四舍五入成整数?
+输入一个==正实数== `x`, 输出它四舍五入后的==整数==
 
-<span class="yellow">:fa-weixin:</span> 提示: 强制转换是"向零截断"——小数部分直接丢掉
+例:
+
+```
+输入: 3.7   → 输出: 4
+输入: 3.4   → 输出: 3
+输入: 2.5   → 输出: 3
+```
+
+注意: `printf("%.0f")` 只是==打印==时四舍五入, 变量本身还是 `double`; 本题要求得到==整数变量的值==
+
+<span class="yellow">:fa-weixin:</span> 提示: 强制转换是"向零截断"——小数部分直接丢掉; 先 `+0.5` 再截断
+
+<span class="blue">:fa-lightbulb-o:</span> 负数怎么处理, 等学了 `if` 再补 (现在只要求正数)
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-round.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-round.c (骨架)</a>
 
@@ -531,7 +543,7 @@ int main(void) {
 
 例: 输入 `1234` → 输出 `和 = 10`、`反转 = 4321`
 
-<span class="yellow">:fa-weixin:</span> 本题==假设输入合法== (就是 4 位数); 想拒绝非 4 位数的输入, 要等第 4 周学了 `if` 才能做校验
+<span class="yellow">:fa-weixin:</span> 本题==假设输入合法== (就是 4 位数); 想拒绝非 4 位数的输入, 要等学了 `if` 之后才能做校验
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `/` 取高位、`%` 取低位
 
