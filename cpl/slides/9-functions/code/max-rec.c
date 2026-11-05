@@ -6,6 +6,11 @@
 int max_rec(int a[], int n)
 {
   /* TODO: 基准情形 + 递归情形 */
+  if (n == 1) {
+    return a[0];
+  }
+  int max = max_rec(a, n - 1);
+  return a[n - 1] > max ? a[n - 1] : max;
 }
 
 int main(void)
