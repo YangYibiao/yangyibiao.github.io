@@ -310,6 +310,62 @@ int main(void)
 
 </div>
 
+<!-- slide data-notes="" -->##### 任务 1: 打印对齐的成绩表
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 打印下面的表, 三列==对齐== (科目左对齐, 分数右对齐保留 1 位小数, 等级居中)
+
+```
+科目        分数    等级
+语文      85.5      A
+数学      92.0      A
+英语      78.2      B
+```
+
+==提示==: 宽度修饰 `%8.1f` (总宽 8, 1 位小数, 右对齐); 左对齐用负号 `%-8s`; 表头与数据行==宽度一致==才对齐
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-table.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-table.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 1: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  printf("%-8s%10s%8s\n", "科目", "分数", "等级");
+  printf("%-8s%10.1f%8c\n", "语文", 85.5, 'A');
+  printf("%-8s%10.1f%8c\n", "数学", 92.0, 'A');
+  printf("%-8s%10.1f%8c\n", "英语", 78.2, 'B');
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 格式: `%[标志][宽度][.精度]转换`——`%-8s` 左对齐, `%10.1f` 右对齐保留 1 位
+
+- ==列对齐的前提==: 每一行同一个位置用==相同宽度==
+
+- 宽度不够会自动加宽 (不会截断数字); 字符串超宽则照原样输出
+
+- 表格类输出是 `printf` 宽度修饰最常见的用途
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -601,6 +657,65 @@ getchar();              /* 先把遗留的换行符吃掉, 再读下面的字符
 </div>
 
 ---
+
+<!-- slide data-notes="" -->##### 任务 2: 遗留换行的坑
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 先读年龄 (整数), 再读性别 (字符)——结果性别==读到了换行==, 打印为空。修复它。
+
+样例:
+
+```
+输入: 19 M
+期望: age=19 gender=M
+```
+
+==提示==: `scanf("%d")` 读完后缓冲区还剩一个 `\n`; 试在 `%c` 前==加一个空格==
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-newline.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-newline.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int age;
+  char gender;
+
+  scanf("%d", &age);
+  scanf(" %c", &gender);   /* 空格: 跳过空白字符 */
+
+  printf("age=%d gender=%c\n", age, gender);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `%d` 读完数字就停, ==换行还留在输入缓冲区==里
+
+- `%c` 不跳过空白, 直接把那个 `\n` 读走——所以"看起来什么都没读到"
+
+- 在 `%c` 前加==空格== (`" %c"`): 格式串里的空白会跳过所有空白字符
+
+- 同类坑: 用 `getchar()` 手动吃掉换行, 也常用于读整行之前
+
+</div>
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->##### 格式字符串中的普通字符
 
