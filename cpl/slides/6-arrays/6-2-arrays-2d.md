@@ -500,9 +500,9 @@ for (int i = 0; i < 5; i++) {
 
 ---
 
-==幻方==: n×n 的格子填 1 ~ n², 每行、每列、两条对角线的和都相等 (n 取==奇数==)
+<p style="margin:8px 2rem;">==幻方==: n×n 的格子填 1 ~ n², 每行、每列、两条对角线的和都相等 (n 取==奇数==)</p>
 
-奇数阶幻方的经典构造法 (de la Loubère):
+<p style="margin:8px 2rem;">奇数阶幻方的经典构造法 (de la Loubère):</p>
 
 - 1 放在第一行正中间
 
@@ -510,7 +510,7 @@ for (int i = 0; i < 5; i++) {
 
 - 右上已被占用, 就改往==正下==走一格
 
-样例 (n=3):
+<p style="margin:4px 2rem;">样例 (n=3):</p>
 
 ```
  8  1  6
@@ -518,7 +518,9 @@ for (int i = 0; i < 5; i++) {
  4  9  2
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: 先想清楚"右上"对应两个下标怎么变, "回绕"用什么运算
+<p style="margin:8px 2rem 0;"><span class="blue">:fa-lightbulb-o:</span> 方向提示: 先想清楚"右上"对应两个下标怎么变, "回绕"用什么运算</p>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-magic.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-magic.c (骨架)</a>
 
 ---
 
@@ -607,6 +609,8 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 更新第 (i,j) 格时, 邻居们必须还是==旧一代==的
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-life.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-life.c (骨架)</a>
+
 ---
 
 <!-- slide data-notes="" -->
@@ -666,10 +670,16 @@ int main(void)
 
 int main(void)
 {
-  int old_grid[N][N] = {0,0,0,0,0, 0,0,1,0,0, 0,0,1,0,0,
-                        0,0,1,0,0, 0,0,0,0,0};
+  int old_grid[N][N] = {
+    0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0
+  };
   int new_grid[N][N];
-  const char cell[] = {'.', '#'};   /* 对照表: 0->. 1-># */
+  /* 对照表: 0->. 1-># */
+  const char cell[] = {'.', '#'};
   int i, j, di, dj, count;
 
   for (i = 0; i < N; i++) {
@@ -678,7 +688,8 @@ int main(void)
       for (di = -1; di <= 1; di++) {
         for (dj = -1; dj <= 1; dj++) {
           int ni = i + di, nj = j + dj;
-          if (ni >= 0 && ni < N && nj >= 0 && nj < N &&
+          if (ni >= 0 && ni < N &&
+              nj >= 0 && nj < N &&
               !(di == 0 && dj == 0)) {
             if (old_grid[ni][nj]) {
               count++;
@@ -687,7 +698,8 @@ int main(void)
         }
       }
       if (old_grid[i][j]) {
-        new_grid[i][j] = (count == 2 || count == 3);
+        new_grid[i][j] =
+            (count == 2 || count == 3);
       } else {
         new_grid[i][j] = (count == 3);
       }
@@ -733,7 +745,7 @@ int main(void)
 
 ==现场演示==: 打印杨辉三角的前 6 行
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-yanghui.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-yanghui.c (骨架)</a>
 
 样例:
 
@@ -816,7 +828,7 @@ int main(void)
 
 ==现场演示==: n×n 的格子, 从 1 开始==螺旋==往里填
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-snake.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-snake.c (骨架)</a>
 
 样例 (n=5):
 
@@ -899,7 +911,7 @@ int main(void)
 
 ==现场演示==: 读入 9×9 数独, 判断是否违反规则 (OJ 1081 同款)
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-sudoku.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-sudoku.c (骨架)</a>
 
 输入: 9 行, 每行 9 个整数 (1~9)
 
