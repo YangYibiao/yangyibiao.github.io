@@ -338,7 +338,7 @@ int main()
 {
   int height = 2;
   char ch = 'a';
-  float profit = 1500f;
+  float profit = 1500.0f;
   double pi = 3.14159;
 
   printf("Height: %d\n", height);

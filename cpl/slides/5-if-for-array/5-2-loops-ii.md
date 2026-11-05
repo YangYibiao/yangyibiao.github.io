@@ -816,6 +816,10 @@ int main(void) {
     printf("输入一个数: ");
     scanf("%d", &n);
 
+    if (n < 2) {                  /* 0、1 和负数都不是素数 */
+        printf("%d 不是素数\n", n);
+        return 0;
+    }
     for (d = 2; d < n; d++) {
         if (n % d == 0) {
             break;        /* 找到约数, 提前退出 */
@@ -837,7 +841,7 @@ int main(void) {
 
 - 循环两种退法: 找到约数 break (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
 
-- 改进: 只需检查到 $\sqrt{n}$——左栏 `divisor * divisor <= n` 就是等价写法 (不用 math.h); ==现场试写 sqrt 版==: `divisor <= sqrt(n)` 对比效果
+- 改进: 只需检查到 $\sqrt{n}$——把循环条件改为 `d * d <= n` 即可 (不用 math.h); ==现场试写 sqrt 版==: `d <= sqrt(n)` 对比效果
 
 </div>
 

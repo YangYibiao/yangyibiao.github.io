@@ -59410,8 +59410,7 @@ document.addEventListener("DOMContentLoaded", function () {
     max-width: 100% !important;
     max-height: 50vh !important;
     height: auto !important;
-}.reveal .slides section>pre{-ms-flex-negative:0;flex-shrink:0}.reveal .slides section>section>pre{-ms-flex-negative:0;flex-shrink:0}
-
+}
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59816,11 +59815,7 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 
 </li>
 <li>
-<p>罪魁祸首是<mark>整数除法的截断</mark>: <code>9/4</code> 悄悄丢掉了小数部分 (下一课深入)</p>
-
-</li>
-<li>
-<p>拿不准时<mark>加括号</mark>, 让意图明确: <code>(9 / 4) * 4</code> 或 <code>9 * 4 / 4</code></p>
+<p>罪魁祸首是<mark>整数除法的截断</mark>: <code>9/4</code> 悄悄丢掉了小数部分 (下一课深入); 拿不准时<mark>加括号</mark>让意图明确: <code>(9 / 4) * 4</code> 或 <code>9 * 4 / 4</code></p>
 
 </li>
 </ul>
@@ -59980,16 +59975,10 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 </tbody>
 </table>
 </div>
-<ul>
-<li>
-<p>手算方法: 两个数<mark>对齐写成二进制</mark>, 竖着一列一列算:</p>
-
-</li>
-</ul>
+<p>手算: 两个数<mark>对齐写成二进制</mark>, 竖着一列一列算 (注意 <code>&amp;</code>/<code>|</code> 是一个符号, 别和 <code>&amp;&amp;</code>/<code>||</code> 搞混):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>    <span class="token number">1100</span>   <span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span>
   <span class="token operator">&</span> <span class="token number">1010</span>   <span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
     <span class="token number">1000</span>   <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span></code></pre>
-<p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <code>&amp;</code>/<code>|</code> 是一个符号, 别和 <code>&amp;&amp;</code>/<code>||</code> 搞混</p>
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="位运算--移位">位运算: 移位 </h5>
 <hr>
@@ -60116,8 +60105,7 @@ j <span class="token operator">=</span> <span class="token operator">-</span>i<s
 
 </li>
 </ul>
-<p><code>v = e</code>先评估表达式<code>e</code>的值, 然后将值复制到<code>v</code>中</p>
-<p><code>e</code>可以是常量、变量或更复杂的表达式:</p>
+<p><code>v = e</code>先评估表达式<code>e</code>的值 (可以是常量、变量或更复杂的表达式), 然后将值复制到<code>v</code>中:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code>i <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>            <span class="token comment">/* i is now 5  */</span>
 j <span class="token operator">=</span> i<span class="token punctuation">;</span>            <span class="token comment">/* j is now 5  */</span>
 k <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">*</span> i <span class="token operator">+</span> j<span class="token punctuation">;</span>   <span class="token comment">/* k is now 55 */</span></code></pre>
@@ -60201,7 +60189,7 @@ f <span class="token operator">=</span> <span class="token number">136</span><sp
 <p><code>i *= j + k</code> 与 <code>i = i * j + k</code> 不等价</p>
 <ul>
 <li>
-<p>在极少数情况下, <code>v += e</code> 不同于 <code>v = v + e</code> 因为 <code>v</code>本身有副作用(如<code>v</code>为<code>++i</code>或<code>i++</code>等)</p>
+<p>复合运算符的左边必须是<mark>可修改的左值</mark>; <code>++i</code>、<code>i++</code> 都不是左值, <code>++i += e</code> 这类写法<mark>非法</mark>, 编译直接报错</p>
 
 </li>
 </ul>
@@ -60356,8 +60344,8 @@ i <span class="token operator">*</span> j <span class="token operator">-</span> 
 </thead>
 <tbody>
 <tr>
-<td><code>abs(x)</code> / <code>fabs(x)</code></td>
-<td>整数 / 浮点数绝对值</td>
+<td><code>fabs(x)</code></td>
+<td>浮点数绝对值 (math.h)</td>
 </tr>
 <tr>
 <td><code>sqrt(x)</code></td>
@@ -60384,7 +60372,7 @@ i <span class="token operator">*</span> j <span class="token operator">-</span> 
 </div>
 <ul>
 <li>
-<p>返回值都是 <mark>double</mark>, 打印用 <code>%f</code></p>
+<p>返回值都是 <mark>double</mark>, 打印用 <code>%f</code> (整数绝对值 <code>abs(x)</code> 不同: 它在 <code>&lt;stdlib.h&gt;</code> 中声明, 返回 <code>int</code>)</p>
 
 </li>
 <li>

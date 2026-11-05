@@ -639,12 +639,10 @@ int main(void)
 
 ---
 
-<video controls width="1100">
-  <source src="../4-loops/videos/Conway-Game-of-Life.mp4" type="video/mp4">
-  [下载视频](../4-loops/videos/Conway-Game-of-Life.mp4) 观看。
+<video controls width="880">
+  <source src="../references/4-loops/videos/Conway-Game-of-Life.mp4" type="video/mp4">
+  [下载视频](../references/4-loops/videos/Conway-Game-of-Life.mp4) 观看。
 </video>
-
----
 
 [Conway's Game of Life @ wiki](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 

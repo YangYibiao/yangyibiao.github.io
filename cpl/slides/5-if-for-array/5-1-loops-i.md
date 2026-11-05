@@ -697,13 +697,9 @@ while (…) {
 
 <div style="flex:1;">
 
-`break`语句对于编写退出点位于循环体中间而不是开头或结尾的循环特别有用
+`break` 适合==退出点位于循环体中间==的场景 (读取输入并在特定值时终止):
 
-读取用户输入并在输入特定值时终止的循环通常属于这种类别:
-
-`break语句`把程序控制从最内层的`while`、`do`、`for`或`switch`转移出去; 当这些语句嵌套时, `break语句`只能跳出一层嵌套:
-
-`break`语句把程序控制从`switch`语句中转移出来, 但是不能跳出`while`循环
+`break` 只跳出==最内层==的一层 `while`/`do`/`for`/`switch`; `switch` 里的 `break` 结束的是 `switch` 本身, 要跳出外层 `while` 需在外层另写 `break`:
 
 </div>
 
@@ -729,11 +725,11 @@ n = 0;
 sum = 0;
 while (n < 10) {
   scanf("%d", &i);
+  n++;             /* 先计数: continue 不能跳过它 */
   if (i == 0) {
     continue;      /* 跳过除零 */
   }
   sum += 100 / i;
-  n++;
 }
 ```
 
@@ -748,9 +744,9 @@ n = 0;
 sum = 0;
 while (n < 10) {
   scanf("%d", &i);
+  n++;
   if (i != 0) {
     sum += 100 / i;
-    n++;
   }
 }
 ```
