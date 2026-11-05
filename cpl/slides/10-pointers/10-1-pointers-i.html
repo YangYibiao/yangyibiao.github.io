@@ -140,6 +140,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>任务: 指针追踪</p>
+
+</li>
+<li>
 <p>课堂小测</p>
 
 </li>
@@ -388,7 +392,69 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务--指针追踪">任务: 指针追踪 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 令 <code>int a = 3, *p = &amp;a;</code>, 打印 <code>a</code>、<code>&amp;a</code>、<code>p</code>、<code>*p</code>; 再执行 <code>*p = 7</code>, 重新打印 <code>a</code> 和 <code>*p</code></p>
+<p>样例 (地址每次运行都不同):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token operator">&</span>a <span class="token operator">=</span> <span class="token number">0</span>x7ffd1a2b<span class="token punctuation">,</span> p <span class="token operator">=</span> <span class="token number">0</span>x7ffd1a2b<span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">3</span>
+改写 <span class="token operator">*</span>p 之后<span class="token operator">:</span> a <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">7</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>打印地址用 <code>%p</code>, 打印整数用 <code>%d</code>——占位符要和参数类型对应</p>
+
+</li>
+<li>
+<p>观察 <code>&amp;a</code> 与 <code>p</code> 是否相等; 改写 <code>*p</code> 之后 <code>a</code> 是否跟着变</p>
+
+</li>
+</ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-pointer-trace.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-pointer-trace.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">;</span>                 <span class="token comment">/* p 指向 a */</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a = %d, &amp;a = %p, p = %p, *p = %d\n"</span><span class="token punctuation">,</span>
+         a<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>                      <span class="token comment">/* 通过 p 改写 a */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"改写 *p 之后: a = %d, *p = %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>p = &amp;a</code>: p 里存的是 a 的<mark>地址</mark>; 所以 <code>&amp;a</code> 与 <code>p</code> 打印结果相同</p>
+
+</li>
+<li>
+<p><code>*p</code> 是 a 的<mark>别名</mark>: 读 <code>*p</code> 就是读 a, 写 <code>*p = 7</code> 就是写 a</p>
+
+</li>
+<li>
+<p><code>%p</code> 打印指针 (地址); 每次运行的地址不同, <mark>不要硬编码比较</mark></p>
+
+</li>
+<li>
+<p>指针类型要匹配: <code>int *p</code> 只能指向 <code>int</code> 对象</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 指针变量里存的是什么？<code>int *p;</code> 中 p 的类型是什么？
@@ -401,7 +467,7 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

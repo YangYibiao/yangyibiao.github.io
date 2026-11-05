@@ -60,6 +60,8 @@ presentation:
 
 - 字符串的读写
 
+- 任务: 自己实现 strlen
+
 - 字符串库函数与综合案例
 
 ---
@@ -798,6 +800,95 @@ len = strlen(str1);   /* len is now 3 */
 
 ---
 
+
+<!-- slide data-notes="" -->##### 任务: 自己实现 strlen
+
+---
+
+<div style="font-size:0.95em;line-height:1.7;">
+
+==任务==: 写 `int my_strlen(const char *s)`, 返回字符串长度 (==不含==结尾的 `'\0'`), 分别用==下标版==和==指针版==实现
+
+在 main 中验证:
+
+```
+"abc" 的长度 = 3
+"" 的长度 = 0
+"hello world" 的长度 = 11
+```
+
+==提示==:
+
+- 下标版: 从 `s[0]` 数到 `s[i] == '\0'` 为止
+
+- 指针版: `*s` 非零就计数并 `s++`, 循环结束时走过的步数就是长度
+
+- 不要调用 `<string.h>` 的 `strlen`, 自己数
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/task-strlen.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-strlen.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.58em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int my_strlen_index(const char *s)
+{
+  int n = 0;
+  while (s[n] != '\0')      /* 下标版 */
+    n++;
+  return n;
+}
+
+int my_strlen_pointer(const char *s)
+{
+  const char *p = s;
+  while (*p != '\0')        /* 指针版 */
+    p++;
+  return (int)(p - s);
+}
+
+int main(void)
+{
+  const char *tests[] = {"abc", "", "hello world"};
+
+  for (int i = 0; i < 3; i++)
+    printf("\"%s\" 的长度 = %d / %d\n", tests[i],
+           my_strlen_index(tests[i]),
+           my_strlen_pointer(tests[i]));
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 字符串以 `'\0'` 结尾, 长度==不包含==这个空字符
+
+- `s[i]` 就是 `*(s + i)`: 下标版和指针版本质相同, 只是写法不同
+
+- 指针版用 `p - s` 得到走过的元素个数——这就是 11-1 讲的指针相减
+
+- 参数写 ==`const char *`== 表明函数不会修改字符串
+
+- `<string.h>` 的 strlen 返回 `size_t` (无符号); 自己实现返回 `int` 便于 `%d` 打印
+
+</div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 

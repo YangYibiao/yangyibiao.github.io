@@ -60,6 +60,8 @@ presentation:
 
 - 指针赋值
 
+- 任务: 指针追踪
+
 - 课堂小测
 
 ---
@@ -518,6 +520,76 @@ i = 1;
 <div class="top-2">
     <img src="figs/11-13.png" width=200px>
 </div>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务: 指针追踪
+
+---
+
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 令 `int a = 3, *p = &a;`, 打印 `a`、`&a`、`p`、`*p`; 再执行 `*p = 7`, 重新打印 `a` 和 `*p`
+
+样例 (地址每次运行都不同):
+
+```
+a = 3, &a = 0x7ffd1a2b, p = 0x7ffd1a2b, *p = 3
+改写 *p 之后: a = 7, *p = 7
+```
+
+==提示==:
+
+- 打印地址用 `%p`, 打印整数用 `%d`——占位符要和参数类型对应
+
+- 观察 `&a` 与 `p` 是否相等; 改写 `*p` 之后 `a` 是否跟着变
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-pointer-trace.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-pointer-trace.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int a = 3;
+  int *p = &a;                 /* p 指向 a */
+
+  printf("a = %d, &a = %p, p = %p, *p = %d\n",
+         a, (void *)&a, (void *)p, *p);
+
+  *p = 7;                      /* 通过 p 改写 a */
+  printf("改写 *p 之后: a = %d, *p = %d\n", a, *p);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `p = &a`: p 里存的是 a 的==地址==; 所以 `&a` 与 `p` 打印结果相同
+
+- `*p` 是 a 的==别名==: 读 `*p` 就是读 a, 写 `*p = 7` 就是写 a
+
+- `%p` 打印指针 (地址); 每次运行的地址不同, ==不要硬编码比较==
+
+- 指针类型要匹配: `int *p` 只能指向 `int` 对象
 
 </div>
 

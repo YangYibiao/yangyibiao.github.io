@@ -54,6 +54,8 @@ presentation:
 
 - 数组名作为指针
 
+- 任务: 数组名与指针
+
 - 案例: 数列反向 (指针版)
 
 - 数组型实际参数
@@ -127,6 +129,90 @@ while (*p != 0)
 
 </div>
 
+<!-- slide data-notes="" -->##### 任务: 数组名与指针
+
+---
+
+<div style="font-size:0.9em;line-height:1.55;">
+
+==任务==: 令 `int a[6] = {2, 4, 6, 8, 10, 12};`
+
+1. 用指针 `p` 从 `a` 遍历到 `a + 6`, 求所有元素之和
+
+2. 对每个下标 `i`, 打印 `a[i]` 与 `*(a + i)`——两列的值应当相同
+
+3. 打印 `a`、`&a[0]`、`a + 1`、`&a[1]`, 观察数组名与首元素地址的关系
+
+样例:
+
+```
+i=0: a[0]=2, *(a+0)=2
+...
+i=5: a[5]=12, *(a+5)=12
+sum = 42
+a = 0x7ffd1a2b, &a[0] = 0x7ffd1a2b
+a + 1 = 0x7ffd1a2f, &a[1] = 0x7ffd1a2f
+```
+
+==提示==: `a + i` 等价于 `&a[i]`, `*(a + i)` 等价于 `a[i]`; 数组名不能自增 (`a++` 非法), 遍历要用指针变量 `p`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-array-pointer.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-array-pointer.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.58em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#define N 6
+
+int main(void)
+{
+  int a[N] = {2, 4, 6, 8, 10, 12};
+  int sum = 0;
+
+  for (int *p = a; p < a + N; p++)
+    sum += *p;
+
+  for (int i = 0; i < N; i++)
+    printf("i=%d: a[%d]=%d, *(a+%d)=%d\n",
+           i, i, a[i], i, *(a + i));
+
+  printf("sum = %d\n", sum);
+  printf("a = %p, &a[0] = %p\n",
+         (void *)a, (void *)&a[0]);
+  printf("a + 1 = %p, &a[1] = %p\n",
+         (void *)(a + 1), (void *)&a[1]);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 数组名 `a` 在表达式中就是指向首元素的指针: `a` 与 `&a[0]` 的值相同
+
+- `a[i]` 是 `*(a + i)` 的==语法糖==——下标运算的本质就是"地址 + 偏移再解引用"
+
+- `a + N` 是==最后一个元素之后==的地址: 可以取、可以比较, 但不能解引用
+
+- `a` 是数组名不是指针变量, ==不能被赋值==; 要移动就复制到 `int *p`
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->##### 程序: 数列反向(指针版)
 
 ---
@@ -142,7 +228,7 @@ while (*p != 0)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 两个循环——一个负责读入, 一个负责倒序输出; 全程不要出现 `a[i]`
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-reverse.c (骨架)</a>
 
 ---
 
