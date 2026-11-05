@@ -72,11 +72,24 @@ presentation:
 
 ---
 
-大多数程序在产生输出之前往往需要执行一系列计算, 因此需要在程序执行过程中有一种 ==临时存储数据== 的方法
+<div style="font-size:0.95em;line-height:1.7;">
 
-==变量==: (Variable)程序执行过程中临时存储数据的单元
+==先想一个问题==: 求平均分——总分算出来之后, 在除以人数之前, ==放在哪里==?
 
-==类型==: (type)每一个变量都有一个类型, 类型用来说明变量所存储的数据的种类, ==int, float, double, char==
+- 程序需要一种==临时存储数据==的地方, 否则中间结果算完就丢
+
+==变量==: 程序执行过程中, 用来临时存储数据的==有名字的单元==
+
+<div style="display:flex;align-items:center;gap:16px;margin:12px 0;">
+<div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:10px 22px;text-align:center;background:#fdf6e3;"><span style="color:#268bd2;font-weight:700;">height</span><br><span style="font-size:1.25em;font-weight:700;">175</span></div>
+<div>← 名字叫 <code>height</code> 的"盒子", 里面装着 175</div>
+</div>
+
+==类型==: 每个变量都有一个类型, 用来说明盒子里装==什么种类的数据==
+
+- 本课最常用的四种: ==int==(整数)、==float / double==(小数)、==char==(字符)——后面逐个展开
+
+</div>
 
 ---
 
