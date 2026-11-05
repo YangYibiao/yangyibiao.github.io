@@ -59410,8 +59410,7 @@ document.addEventListener("DOMContentLoaded", function () {
     max-width: 100% !important;
     max-height: 50vh !important;
     height: auto !important;
-}.reveal .slides section>pre{-ms-flex-negative:0;flex-shrink:0}.reveal .slides section>section>pre{-ms-flex-negative:0;flex-shrink:0}
-
+}
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59644,7 +59643,57 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="整型的取值范围与溢出">整型的取值范围与溢出 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="任务-1--看看你的机器有多大">任务 1: 看看你的机器有多大 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 用 <code>sizeof</code> 打印 <code>int</code> / <code>char</code> / <code>float</code> / <code>double</code> 各占多少<mark>字节</mark></p>
+<p>样例输出 (常见 64 位机器):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">:</span> <span class="token number">4</span> 字节
+<span class="token keyword keyword-char">char</span><span class="token operator">:</span> <span class="token number">1</span> 字节
+<span class="token keyword keyword-float">float</span><span class="token operator">:</span> <span class="token number">4</span> 字节
+<span class="token keyword keyword-double">double</span><span class="token operator">:</span> <span class="token number">8</span> 字节</code></pre>
+<p><mark>提示</mark>: <code>sizeof(int)</code> 是运算符不是函数; 打印结果用 <mark><code>%zu</code></mark></p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-sizeof.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-sizeof.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="任务-1--参考代码与要点">任务 1: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"int: %zu 字节\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"char: %zu 字节\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"float: %zu 字节\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"double: %zu 字节\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>sizeof</code> 的结果类型是 <mark><code>size_t</code></mark>, 对应占位符 <mark><code>%zu</code></mark></p>
+
+</li>
+<li>
+<p>结果<mark>随平台变化</mark>, 以你机器上的输出为准</p>
+
+</li>
+<li>
+<p><code>sizeof x</code> 与 <code>sizeof(int)</code> 都可以</p>
+
+</li>
+<li>
+<p><code>int</code> 的范围限制就来自它只有 4 个字节 (32 位)</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="整型的取值范围与溢出">整型的取值范围与溢出 </h5>
 <hr>
 <ul>
 <li>
@@ -59674,7 +59723,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="整数在内存里长什么样--了解">整数在内存里长什么样 (了解) </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="整数在内存里长什么样--了解">整数在内存里长什么样 (了解) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.8em;">
@@ -59711,7 +59760,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="溢出--先看-12-小时钟">溢出: 先看 12 小时钟 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="溢出--先看-12-小时钟">溢出: 先看 12 小时钟 </h5>
 <hr>
 <div class="top-2" style="text-align:center;">
   <img src="figs/clock-12h.svg" width=380px style="max-width:100%;">
@@ -59727,7 +59776,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="4-位补码环--溢出就是绕圈">4 位补码环: 溢出就是绕圈 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="4-位补码环--溢出就是绕圈">4 位补码环: 溢出就是绕圈 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -59752,7 +59801,64 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="整数常量的进制">整数常量的进制 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="任务-2--整数溢出实验">任务 2: 整数溢出实验 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>:</p>
+<ol>
+<li>打印 <code>INT_MAX</code>, 再打印 <code>INT_MAX + 1</code>, 观察结果
+</li>
+<li>读入一个很大的整数并乘以 2, 看会发生什么
+</li>
+</ol>
+<p>样例 (常见 32 位 int):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>INT_MAX     <span class="token operator">=</span> <span class="token number">2147483647</span>
+INT_MAX <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2147483648</span></code></pre>
+<p><mark>提示</mark>: <code>#include &lt;limits.h&gt;</code> 后可用 <code>INT_MAX</code>; 想想补码环——最大数加一会绕到哪里?</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-overflow.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-overflow.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务-2--参考代码与要点">任务 2: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;limits.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"INT_MAX     = %d\n"</span><span class="token punctuation">,</span> INT_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"INT_MAX + 1 = %d\n"</span><span class="token punctuation">,</span> INT_MAX <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"n * 2 = %d\n"</span><span class="token punctuation">,</span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>INT_MAX + 1</code> 回到 <code>INT_MIN</code>——正好是上一页<mark>补码环绕一圈</mark></p>
+
+</li>
+<li>
+<p><mark>有符号整数溢出在 C 标准里是未定义行为</mark>: 这里只是观察常见实现, 不能依赖</p>
+
+</li>
+<li>
+<p>输入很大时 <code>n * 2</code> 同样绕圈——实际程序要<mark>先判断范围</mark></p>
+
+</li>
+<li>
+<p>无符号整数溢出是<mark>定义良好</mark>的 (按 2 的幂取模), 与有符号不同</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="整数常量的进制">整数常量的进制 </h5>
 <hr>
 <p>同一个整数有三种写法:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span>      <span class="token comment">/* 十进制 */</span>
@@ -59776,7 +59882,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="字符与-ascii--char-其实是小整数">字符与 ASCII: char 其实是小整数 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="字符与-ascii--char-其实是小整数">字符与 ASCII: char 其实是小整数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -59810,7 +59916,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="float-与-double-的精度">float 与 double 的精度 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="float-与-double-的精度">float 与 double 的精度 </h5>
 <hr>
 <ul>
 <li>
@@ -59839,7 +59945,64 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="任务-3--浮点精度实验">任务 3: 浮点精度实验 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>:</p>
+<ol>
+<li>打印 <code>0.1 + 0.2</code> (保留 17 位小数), 再与 <code>0.3</code> 比较是否相等
+</li>
+<li>把 <code>0.1</code> 连加三次, 看结果和 <code>0.3</code> 差多少
+</li>
+</ol>
+<p>样例 (常见结果):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">0.1</span> <span class="token operator">+</span> <span class="token number">0.2</span> <span class="token operator">=</span> <span class="token number">0.30000000000000004</span>
+<span class="token punctuation">(</span><span class="token number">0.1</span> <span class="token operator">+</span> <span class="token number">0.2</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0.3</span> <span class="token operator">?</span> <span class="token number">0</span></code></pre>
+<p><mark>提示</mark>: <code>printf("%.17f", x)</code> 看全部小数; 用 <code>==</code> 比较会得到 0</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-float.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-float.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="任务-3--参考代码与要点">任务 3: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-double">double</span> a <span class="token operator">=</span> <span class="token number">0.1</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0.2</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"0.1 + 0.2 = %.17f\n"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"(0.1 + 0.2) == 0.3 ? %d\n"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b <span class="token operator">==</span> <span class="token number">0.3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-double">double</span> s <span class="token operator">=</span> a <span class="token operator">+</span> a <span class="token operator">+</span> a<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"0.1 连加三次 = %.17f\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s == 0.3 ? %d\n"</span><span class="token punctuation">,</span> s <span class="token operator">==</span> <span class="token number">0.3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p>结果是 <code>0.30000000000000004</code>——浮点是<mark>近似存储</mark></p>
+
+</li>
+<li>
+<p>所以<mark>不要用 <code>==</code> 比较浮点数</mark>; 判近似相等用 <code>fabs(a - b) &lt; 1e-9</code></p>
+
+</li>
+<li>
+<p>下一页 IEEE 754 解释: 为什么 0.1 存不准</p>
+
+</li>
+<li>
+<p>金额等精确计算常见做法: <mark>放大成整数</mark> (以分为单位)</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="浮点数在内存里长什么样--了解">浮点数在内存里长什么样 (了解) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.15;">
@@ -59893,7 +60056,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="浮点数0-75内存中二进制如何表示-ieee-754">浮点数0.75内存中二进制如何表示（IEEE 754）？ </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="浮点数0-75内存中二进制如何表示-ieee-754">浮点数0.75内存中二进制如何表示（IEEE 754）？ </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;">
@@ -59936,7 +60099,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="有限图案---无限数轴">有限图案 → 无限数轴 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="有限图案---无限数轴">有限图案 → 无限数轴 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.15;">
@@ -59963,7 +60126,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="为什么-0-附近密-远处稀">为什么 0 附近密、远处稀? </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="为什么-0-附近密-远处稀">为什么 0 附近密、远处稀? </h5>
 <hr>
 <ul>
 <li>
@@ -60028,7 +60191,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="特殊值的编码">特殊值的编码 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="特殊值的编码">特殊值的编码 </h5>
 <hr>
 <p>指数段<mark>全 0</mark> 与<mark>全 1</mark> 被保留; 浮点数的边界值也都落在它们旁边:</p>
 <div class="fullborder">
@@ -60100,7 +60263,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="赋值细节">赋值细节 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.85em;">
 <div style="flex:1;">
@@ -60123,7 +60286,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="token keyword keyword-float">float</span> f <span class="token operator">=</span> <span class="token number">1.0e100</span><span class="token punctuation">;</span>   <span class="token comment">/* 无意义: 超出 float 范围 */</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="常量与符号常量">常量与符号常量 </h5>
 <hr>
 <p><mark>常量</mark>: 值已知且不能改变的量 (<code>8</code>, <code>12</code>, <code>'M'</code>); <mark>符号常量</mark>: 给常量起名字, 提高可读性、便于修改</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60151,7 +60314,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 宏里如果含运算符, <mark>整体要加括号</mark>, 否则替换后会因优先级出错:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> SCALE_FACTOR (5.0f / 9.0f)   /* 安全: 带括号 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="演示--circle">演示: Circle </h5>
 <hr>
 <p>给定一个圆的<mark>半径</mark> (如 \(10\)), 计算其<mark>周长</mark>和<mark>面积</mark></p>
 <div style="text-align:center;">
@@ -60169,7 +60332,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/circle.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 circle.c</a>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--circle--参考代码">演示: Circle (参考代码) </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--circle--参考代码">演示: Circle (参考代码) </h5>
 <hr>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
@@ -60189,7 +60352,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="token punctuation">}</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--sphere">演示: Sphere </h5>
 <hr>
 <p>给定一个球的<mark>半径</mark> (如 \(100\)), 计算其<mark>表面积</mark>和<mark>体积</mark></p>
 <div style="text-align:center;">
@@ -60207,7 +60370,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/sphere.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sphere.c</a>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="演示--sphere--参考代码">演示: Sphere (参考代码) </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="演示--sphere--参考代码">演示: Sphere (参考代码) </h5>
 <hr>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/*
@@ -60227,7 +60390,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 <span class="token punctuation">}</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>unsigned int</code> 与 <code>int</code> 的区别是什么？查看类型占用字节数用什么运算符？
@@ -60240,7 +60403,7 @@ gender <span class="token operator">=</span> <span class="token string">'M'</spa
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="23" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="29" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

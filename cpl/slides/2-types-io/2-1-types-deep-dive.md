@@ -108,6 +108,64 @@ printf("%zu %zu %zu\n", sizeof(int), sizeof(double), sizeof(char));
 
 
 ---
+<!-- slide data-notes="" -->##### 任务 1: 看看你的机器有多大
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 用 `sizeof` 打印 `int` / `char` / `float` / `double` 各占多少==字节==
+
+样例输出 (常见 64 位机器):
+
+```
+int: 4 字节
+char: 1 字节
+float: 4 字节
+double: 8 字节
+```
+
+==提示==: `sizeof(int)` 是运算符不是函数; 打印结果用 ==`%zu`==
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-sizeof.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-sizeof.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 1: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  printf("int: %zu 字节\n", sizeof(int));
+  printf("char: %zu 字节\n", sizeof(char));
+  printf("float: %zu 字节\n", sizeof(float));
+  printf("double: %zu 字节\n", sizeof(double));
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `sizeof` 的结果类型是 ==`size_t`==, 对应占位符 ==`%zu`==
+
+- 结果==随平台变化==, 以你机器上的输出为准
+
+- `sizeof x` 与 `sizeof(int)` 都可以
+
+- `int` 的范围限制就来自它只有 4 个字节 (32 位)
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 ##### 整型的取值范围与溢出
@@ -229,6 +287,69 @@ int y = -5;   11111111 11111111 11111111 11111011
 - 和左图的钟同一结构: 0 起共 16 格, ==加 1 顺时针走一格==; 负数左半圈, 正数右半圈
 
 - 溢出 = 跨过底部分界: ==0111 + 1 = 1000== (7 → -8), 反向 ==-8 - 1 = 7==; 顶部 -1 + 1 = 0 回原点; C 不检查溢出
+<!-- slide data-notes="" -->##### 任务 2: 整数溢出实验
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==:
+
+1. 打印 `INT_MAX`, 再打印 `INT_MAX + 1`, 观察结果
+
+2. 读入一个很大的整数并乘以 2, 看会发生什么
+
+样例 (常见 32 位 int):
+
+```
+INT_MAX     = 2147483647
+INT_MAX + 1 = -2147483648
+```
+
+==提示==: `#include <limits.h>` 后可用 `INT_MAX`; 想想补码环——最大数加一会绕到哪里?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-overflow.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-overflow.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <limits.h>
+
+int main(void)
+{
+  printf("INT_MAX     = %d\n", INT_MAX);
+  printf("INT_MAX + 1 = %d\n", INT_MAX + 1);
+
+  int n;
+  scanf("%d", &n);
+  printf("n * 2 = %d\n", n * 2);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `INT_MAX + 1` 回到 `INT_MIN`——正好是上一页==补码环绕一圈==
+
+- ==有符号整数溢出在 C 标准里是未定义行为==: 这里只是观察常见实现, 不能依赖
+
+- 输入很大时 `n * 2` 同样绕圈——实际程序要==先判断范围==
+
+- 无符号整数溢出是==定义良好==的 (按 2 的幂取模), 与有符号不同
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -317,6 +438,69 @@ double d = 1.0 / 3.0;    /* 0.333333333333333   */
 - 浮点运算==有误差==: 0.1 + 0.2 不等于 0.3——后面细讲
 
 ---
+
+<!-- slide data-notes="" -->##### 任务 3: 浮点精度实验
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==:
+
+1. 打印 `0.1 + 0.2` (保留 17 位小数), 再与 `0.3` 比较是否相等
+
+2. 把 `0.1` 连加三次, 看结果和 `0.3` 差多少
+
+样例 (常见结果):
+
+```
+0.1 + 0.2 = 0.30000000000000004
+(0.1 + 0.2) == 0.3 ? 0
+```
+
+==提示==: `printf("%.17f", x)` 看全部小数; 用 `==` 比较会得到 0
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-float.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-float.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  double a = 0.1, b = 0.2;
+  printf("0.1 + 0.2 = %.17f\n", a + b);
+  printf("(0.1 + 0.2) == 0.3 ? %d\n", a + b == 0.3);
+
+  double s = a + a + a;
+  printf("0.1 连加三次 = %.17f\n", s);
+  printf("s == 0.3 ? %d\n", s == 0.3);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 结果是 `0.30000000000000004`——浮点是==近似存储==
+
+- 所以==不要用 `==` 比较浮点数==; 判近似相等用 `fabs(a - b) < 1e-9`
+
+- 下一页 IEEE 754 解释: 为什么 0.1 存不准
+
+- 金额等精确计算常见做法: ==放大成整数== (以分为单位)
+
+</div>
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->##### 浮点数在内存里长什么样 (了解)
 
