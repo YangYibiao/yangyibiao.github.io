@@ -61,7 +61,7 @@ presentation:
 
 - 代码展示: 编程能做什么
 
-- 开发环境与 AI 工具
+- → 下一课: 开发环境与 AI 工具 (独立一份课件)
 
 ---
 
@@ -566,44 +566,6 @@ int main(void) {
 ```
 
 </div>
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 集成开发环境
-
----
-
-集编辑、编译、运行、调试的开发环境
-
-- [CLion](https://www.jetbrains.com/clion/): ==推荐==
-  - 学生邮箱可注册免费 License
-  - 或使用校内激活服务器: ==http://210.28.133.13:22737== (==仅校内网络==可用)
-
-- [Visual Studio IDE](https://visualstudio.microsoft.com/zh-hans/vs/community/): 免费社区版(Community Edition)、需配置安全检查
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### AI 辅助编程工具
-
----
-
-- 工具: GitHub Copilot、Cursor; DeepSeek、ChatGPT、Claude、Gemini
-
-- 用法:
-  - 概念理解: 让 AI 解释代码
-  - 代码练习: 让 AI 出题、改题
-  - 项目指导与代码审查
-
-- 规则:
-  - ==先自己写，再让 AI 改==：依赖 AI 的学生学不会编程
-  - ==AI 是副驾驶，方向盘在自己手里==
-  - 要求独立完成的作业，不用 AI 代写
 
 ---
 
