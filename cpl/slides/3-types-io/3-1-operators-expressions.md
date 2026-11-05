@@ -278,7 +278,13 @@ j = -i;
 
 ==任务==: 先在纸上写出下列表达式的值, 再让程序逐个打印验证:
 
-`2 + 3 * 4` / `(2 + 3) * 4` / `10 / 3` / `10 % 3` / `10 / 3 * 3` / `2 + 3 > 4` / `1 < 2 == 1`
+1. `2 + 3 * 4`
+2. `(2 + 3) * 4`
+3. `10 / 3`
+4. `10 % 3`
+5. `10 / 3 * 3`
+6. `2 + 3 > 4`
+7. `1 < 2 == 1`
 
 ==提示==: 算术 > 关系 > 相等; 括号最高; `/` 截断, `%` 取余
 
@@ -503,20 +509,20 @@ int main(void) {
 ---
 <div style="font-size:1.0em;line-height:1.75;">
 
-==任务==: 令 `a = 12` (1100), `b = 10` (1010), 打印:
-
-`a & b` / `a | b` / `a ^ b` / `~a` / `1 << 4` / `32 >> 2`
-
-样例 (常见结果):
+==任务==: 令 `a = 12` (1100), `b = 10` (1010), 先手算再让程序打印这 6 个表达式:
 
 ```
-12 & 10 = 8
-12 | 10 = 14
-12 ^ 10 = 6
-~12 = -13
+a & b
+a | b
+a ^ b
+~a
+1 << 4
+32 >> 2
 ```
 
-==提示==: 先在本子上把两个数写成二进制, ==逐位==算一遍再运行
+样例 (常见结果): 8、14、6、-13、16、8
+
+==提示==: 先把两个数写成二进制, ==逐位==算一遍再运行
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-bitwise.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-bitwise.c (骨架)</a>
 

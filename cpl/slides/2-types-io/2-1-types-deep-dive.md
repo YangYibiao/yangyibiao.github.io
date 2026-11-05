@@ -98,7 +98,7 @@ presentation:
 
 用 ==sizeof== 运算符可查看类型占用的==字节数==
 
-- `sizeof` 用法: `sizeof(int)` 类型 / `sizeof x` 变量 (括号可省)
+- `sizeof` 用法: 写类型用 `sizeof(int)`, 写变量用 `sizeof x` (括号可省)
 
 ```C
 printf("%zu %zu %zu\n", sizeof(int), sizeof(double), sizeof(char));
@@ -112,7 +112,7 @@ printf("%zu %zu %zu\n", sizeof(int), sizeof(double), sizeof(char));
 ---
 <div style="font-size:1.0em;line-height:1.75;">
 
-==任务==: 用 `sizeof` 打印 `int` / `char` / `float` / `double` 各占多少==字节==
+==任务==: 用 `sizeof` 打印 `int`、`char`、`float`、`double` 各占多少==字节==
 
 样例输出 (常见 64 位机器):
 

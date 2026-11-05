@@ -797,7 +797,7 @@ int main(void)
 ---
 <div style="font-size:1.0em;line-height:1.75;">
 
-==任务==: 一行输入年龄、身高、性别, 读入 `int` / `double` / `char` 并回显:
+==任务==: 一行输入年龄、身高、性别, 读入 `int`、`double`、`char` 并回显:
 
 ```
 输入 (年龄 身高 性别): 19 1.75 M
