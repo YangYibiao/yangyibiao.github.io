@@ -48,18 +48,22 @@ presentation:
 
 <!-- slide data-notes="" -->
 
+<div class="bottom20"></div>
+
 # 智能程序设计（C语言）
 
 <hr class="width50 center">
 
 ## 课程介绍
 
+<div class="bottom8"></div>
+
 ### 计算机学院 &nbsp;&nbsp; 杨已彪
 
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
-<div class="top-2">
-  <img src="../figs/lets-code.jpeg" width=190px>
+<div class="top0">
+  <img src="../figs/lets-code.jpeg" width=120px>
 </div>
 
 <!-- slide data-notes="" -->
