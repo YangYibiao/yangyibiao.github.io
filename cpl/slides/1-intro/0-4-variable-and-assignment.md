@@ -91,7 +91,7 @@ presentation:
 ==变量==: 程序执行过程中, 用来临时存储数据的==有名字的单元==
 
 <div style="display:flex;align-items:center;gap:16px;margin:12px 0;">
-<div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:10px 22px;text-align:center;background:#fdf6e3;"><span style="color:#268bd2;font-weight:700;">height</span><br><span style="font-size:1.25em;font-weight:700;">175</span></div>
+<div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:8px 26px;text-align:center;background:#fdf6e3;"><span style="color:#268bd2;font-weight:700;font-size:1.1em;">height</span><br><span style="font-size:1.5em;font-weight:700;">175</span></div>
 <div>← 名字叫 <code>height</code> 的"盒子", 里面装着 175</div>
 </div>
 
@@ -507,19 +507,19 @@ height = 10;         /* 赋值: 用新值覆盖旧值 */
 ```
 
 <div class="top-1">
-<svg viewBox="0 0 400 150" style="max-width:100%;height:150px;">
+<svg viewBox="0 0 400 150" style="max-width:100%;height:190px;">
 <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<text x="30" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height;</text>
+<text x="30" y="20" font-size="15.5" fill="#586e75" font-family="Menlo, monospace">int height;</text>
 <rect x="30" y="30" width="150" height="70" rx="8" fill="#fdf6e3" stroke="#dc322f" stroke-width="2.5" stroke-dasharray="7 5"/>
-<text x="105" y="70" font-size="32" fill="#dc322f" text-anchor="middle">?</text>
-<text x="105" y="90" font-size="11" fill="#dc322f" text-anchor="middle">残留的垃圾值</text>
-<text x="230" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height = 8;</text>
+<text x="105" y="70" font-size="40" fill="#dc322f" text-anchor="middle">?</text>
+<text x="105" y="90" font-size="13.5" fill="#dc322f" text-anchor="middle">残留的垃圾值</text>
+<text x="230" y="20" font-size="15.5" fill="#586e75" font-family="Menlo, monospace">int height = 8;</text>
 <rect x="230" y="30" width="150" height="70" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
-<text x="305" y="70" font-size="32" fill="#859900" text-anchor="middle">8</text>
-<text x="305" y="90" font-size="11" fill="#586e75" text-anchor="middle">确定的值</text>
-<text x="30" y="122" font-size="11" fill="#586e75">分配了盒子, 但没放值</text>
-<text x="230" y="122" font-size="11" fill="#586e75">声明的同时放入 8</text>
-<text x="200" y="145" font-size="11.5" fill="#b58900" text-anchor="middle">读未初始化的盒子 → 结果不可预知</text>
+<text x="305" y="70" font-size="40" fill="#859900" text-anchor="middle">8</text>
+<text x="305" y="90" font-size="13.5" fill="#586e75" text-anchor="middle">确定的值</text>
+<text x="30" y="122" font-size="13.5" fill="#586e75">分配了盒子, 但没放值</text>
+<text x="230" y="122" font-size="13.5" fill="#586e75">声明的同时放入 8</text>
+<text x="200" y="145" font-size="13.5" fill="#b58900" text-anchor="middle">读未初始化的盒子 → 结果不可预知</text>
 </g>
 </svg>
 </div>
