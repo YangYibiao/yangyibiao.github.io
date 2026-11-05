@@ -426,6 +426,60 @@ printf("\\"); /* prints one \ character */
 
 ---
 
+<!-- slide data-notes="" -->##### 任务 2: 用转义序列打印三行
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 打印下面的内容 (注意引号、反斜杠、制表符):
+
+```
+姓名	分数
+"张三"	92
+路径: C:\temp
+```
+
+==提示==: 换行 `\n`; 制表 `\t` (列间对齐); 双引号写 `\"`; 反斜杠本身写 `\\`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-escape.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-escape.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  printf("姓名\t分数\n");
+  printf("\"张三\"\t92\n");
+  printf("路径: C:\\temp\n");
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `\n` 换行, `\t` 制表 (两列对齐比空格稳)
+
+- `\"` 才能在字符串里打印出双引号; `\\` 才能打印出一个反斜杠
+
+- 反斜杠是==转义引子==: 它和后面的字符合成"一个字符", 如 `\n` 是一个字符
+
+- 反斜杠写单个会引发警告/意外转义 (如 `\t` 变制表符)
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -658,7 +712,7 @@ getchar();              /* 先把遗留的换行符吃掉, 再读下面的字符
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 2: 遗留换行的坑
+<!-- slide data-notes="" -->##### 任务 3: 遗留换行的坑
 ---
 <div style="font-size:1.0em;line-height:1.75;">
 
@@ -679,7 +733,7 @@ getchar();              /* 先把遗留的换行符吃掉, 再读下面的字符
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+<!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
 ---
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.62em;">
@@ -739,6 +793,64 @@ int main(void)
 
 ---
 
+<!-- slide data-notes="" -->##### 任务 4: 一次读入混合类型
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 一行输入年龄、身高、性别, 读入 `int` / `double` / `char` 并回显:
+
+```
+输入 (年龄 身高 性别): 19 1.75 M
+age=19 height=1.75 gender=M
+```
+
+==提示==: 三个转换说明按顺序匹配; `%c` 前留空格 (`" %c"`) 跳过空白; 别忘 `&`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-mixed-scanf.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-mixed-scanf.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 4: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int age;
+  double height;
+  char gender;
+
+  printf("输入 (年龄 身高 性别): ");
+  scanf("%d %lf %c", &age, &height, &gender);
+
+  printf("age=%d height=%.2f gender=%c\n", age, height, gender);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 一条 scanf 可以按顺序读多个值: `%d` → int, `%lf` → double, `%c` → char
+
+- 输入里的空格会被格式串中的空白==跳过==; `%c` 不跳过, 所以写 `" %c"`
+
+- scanf 的返回值是==成功读入的项数== (这里应为 3), 可用于检查输入
+
+- 变量与转换说明==一一对应==, 顺序错了读到的是垃圾值
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -792,6 +904,59 @@ putchar('\n');    /* 输出换行符 */
 <span class="blue">:fa-weixin:</span> getchar/putchar 读写字符的效率高于 scanf/printf, 在==字符处理==类程序(如统计输入字符个数)中常用
 
 ---
+
+<!-- slide data-notes="" -->##### 任务 5: getchar / putchar 大小写转换
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 输入一个小写字母, 用 `getchar`/`putchar` 输出对应大写字母+换行:
+
+```
+输入: b
+输出: B
+```
+
+==提示==: `getchar()` 返回字符的编码 (int); 小写比大写大 32: `c - 'a' + 'A'`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-putchar.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-putchar.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 5: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int c = getchar();
+  putchar(c - 'a' + 'A');
+  putchar('\n');
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `getchar()` 读==一个字符==并返回编码 (int), 适合逐字符处理
+
+- `putchar(c)` 输出一个字符; 用 `putchar('\n')` 换行
+
+- 字符本质是整数: `c - 'a' + 'A'` 完成小写→大写 (差 32)
+
+- 注意: 输入 "b 回车" 时, 回车还留在缓冲区——前面"遗留换行"的坑同理
+
+</div>
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->
 

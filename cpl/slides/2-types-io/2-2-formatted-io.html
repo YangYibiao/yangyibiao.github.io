@@ -59897,7 +59897,54 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\\"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* prints one \ character */</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="scanf函数">scanf函数 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="任务-2--用转义序列打印三行">任务 2: 用转义序列打印三行 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 打印下面的内容 (注意引号、反斜杠、制表符):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>姓名	分数
+<span class="token string">"张三"</span>	<span class="token number">92</span>
+路径<span class="token operator">:</span> C<span class="token operator">:</span>\temp</code></pre>
+<p><mark>提示</mark>: 换行 <code>\n</code>; 制表 <code>\t</code> (列间对齐); 双引号写 <code>\"</code>; 反斜杠本身写 <code>\\</code></p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-escape.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-escape.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务-2--参考代码与要点">任务 2: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"姓名\t分数\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\"张三\"\t92\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"路径: C:\\temp\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>\n</code> 换行, <code>\t</code> 制表 (两列对齐比空格稳)</p>
+
+</li>
+<li>
+<p><code>\"</code> 才能在字符串里打印出双引号; <code>\\</code> 才能打印出一个反斜杠</p>
+
+</li>
+<li>
+<p>反斜杠是<mark>转义引子</mark>: 它和后面的字符合成"一个字符", 如 <code>\n</code> 是一个字符</p>
+
+</li>
+<li>
+<p>反斜杠写单个会引发警告/意外转义 (如 <code>\t</code> 变制表符)</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="scanf函数">scanf函数 </h5>
 <hr>
 <p><mark><code>scanf</code></mark> 根据指定格式读取输入; 格式字符串同样含<mark>普通字符</mark>与<mark>转换说明</mark>, 与 <mark><code>printf</code></mark> 基本相同</p>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 在多数情况下, <mark><code>scanf</code></mark> 格式字符串只包含转换说明: </p>
@@ -59911,7 +59958,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <p><code>1 -20 .3 -4.0e3</code></p>
 <p><mark><code>scanf</code></mark> 将变量 <code>i</code>、<code>j</code>、<code>x</code>和<code>y</code>赋值为 <code>1</code>、<code>–20</code>、<code>0.3</code> 和 <code>–4000.0</code></p>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="scanf函数">scanf函数 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="scanf函数">scanf函数 </h5>
 <hr>
 <p>使用 <mark><code>scanf</code></mark> 时, 程序员须自己检查:</p>
 <ul>
@@ -59927,7 +59974,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 <p><mark><code>&amp;</code></mark> 符号通常需要用在 <mark><code>scanf</code></mark> 调用中的每个变量之前</p>
 <p><mark><code>&amp;</code></mark> 通常(但不总是)是必需的, 在读取输入至变量时需记住使用它</p>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="scanf工作原理">scanf工作原理 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="scanf工作原理">scanf工作原理 </h5>
 <hr>
 <ul>
 <li>
@@ -59956,7 +60003,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="scanf工作原理">scanf工作原理 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="scanf工作原理">scanf工作原理 </h5>
 <hr>
 <ul>
 <li>
@@ -59990,7 +60037,7 @@ i <span class="token operator">=</span> <span class="token number">10</span><spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="scanf-与输入缓冲区">scanf 与输入缓冲区 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="scanf-与输入缓冲区">scanf 与输入缓冲区 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.68em;">
@@ -60025,7 +60072,7 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="scanf-读字符与-遗留的换行">scanf 读字符与"遗留的换行" </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="scanf-读字符与-遗留的换行">scanf 读字符与"遗留的换行" </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:20px;">
 <div style="flex:1.25;">
@@ -60087,7 +60134,7 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="任务-2--遗留换行的坑">任务 2: 遗留换行的坑 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="任务-3--遗留换行的坑">任务 3: 遗留换行的坑 </h5>
 <hr>
 <div style="font-size:1.0em;line-height:1.75;">
 <p><mark>任务</mark>: 先读年龄 (整数), 再读性别 (字符)——结果性别<mark>读到了换行</mark>, 打印为空。修复它。</p>
@@ -60098,7 +60145,7 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-newline.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-newline.c (骨架)</a>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="任务-2--参考代码与要点">任务 2: 参考代码与要点 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="任务-3--参考代码与要点">任务 3: 参考代码与要点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.62em;">
@@ -60138,7 +60185,7 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
 <hr>
 <ul>
 <li>
@@ -60171,7 +60218,58 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 </ul>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 要在第一个数字后允许空格, 需改用格式字符串 <mark><code>"%d /%d"</code></mark></p>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="任务-4--一次读入混合类型">任务 4: 一次读入混合类型 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 一行输入年龄、身高、性别, 读入 <code>int</code> / <code>double</code> / <code>char</code> 并回显:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token punctuation">(</span>年龄 身高 性别<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token number">19</span> <span class="token number">1.75</span> M
+age<span class="token operator">=</span><span class="token number">19</span> height<span class="token operator">=</span><span class="token number">1.75</span> gender<span class="token operator">=</span>M</code></pre>
+<p><mark>提示</mark>: 三个转换说明按顺序匹配; <code>%c</code> 前留空格 (<code>" %c"</code>) 跳过空白; 别忘 <code>&amp;</code></p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-mixed-scanf.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-mixed-scanf.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="任务-4--参考代码与要点">任务 4: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> age<span class="token punctuation">;</span>
+  <span class="token keyword keyword-double">double</span> height<span class="token punctuation">;</span>
+  <span class="token keyword keyword-char">char</span> gender<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 (年龄 身高 性别): "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %lf %c"</span><span class="token punctuation">,</span> <span class="token operator">&</span>age<span class="token punctuation">,</span> <span class="token operator">&</span>height<span class="token punctuation">,</span> <span class="token operator">&</span>gender<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"age=%d height=%.2f gender=%c\n"</span><span class="token punctuation">,</span> age<span class="token punctuation">,</span> height<span class="token punctuation">,</span> gender<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p>一条 scanf 可以按顺序读多个值: <code>%d</code> → int, <code>%lf</code> → double, <code>%c</code> → char</p>
+
+</li>
+<li>
+<p>输入里的空格会被格式串中的空白<mark>跳过</mark>; <code>%c</code> 不跳过, 所以写 <code>" %c"</code></p>
+
+</li>
+<li>
+<p>scanf 的返回值是<mark>成功读入的项数</mark> (这里应为 3), 可用于检查输入</p>
+
+</li>
+<li>
+<p>变量与转换说明<mark>一一对应</mark>, 顺序错了读到的是垃圾值</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
 <hr>
 <p><mark><code>scanf</code></mark> 和 <mark><code>printf</code></mark> 的调用看起来相似, 但两者之间存在显著差异</p>
 <ul>
@@ -60196,7 +60294,7 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
 <hr>
 <p><mark>getchar</mark>: 读取单个字符</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> ch<span class="token punctuation">;</span>              <span class="token comment">/* 注意: 返回值是 int, 不是 char! */</span>
@@ -60207,7 +60305,53 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 输出换行符 */</span></code></pre>
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> getchar/putchar 读写字符的效率高于 scanf/printf, 在<mark>字符处理</mark>类程序(如统计输入字符个数)中常用</p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="任务-5--getchar---putchar-大小写转换">任务 5: getchar / putchar 大小写转换 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 输入一个小写字母, 用 <code>getchar</code>/<code>putchar</code> 输出对应大写字母+换行:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入<span class="token operator">:</span> b
+输出<span class="token operator">:</span> B</code></pre>
+<p><mark>提示</mark>: <code>getchar()</code> 返回字符的编码 (int); 小写比大写大 32: <code>c - 'a' + 'A'</code></p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-putchar.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-putchar.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="任务-5--参考代码与要点">任务 5: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> c <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">putchar</span><span class="token punctuation">(</span>c <span class="token operator">-</span> <span class="token string">'a'</span> <span class="token operator">+</span> <span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>getchar()</code> 读<mark>一个字符</mark>并返回编码 (int), 适合逐字符处理</p>
+
+</li>
+<li>
+<p><code>putchar(c)</code> 输出一个字符; 用 <code>putchar('\n')</code> 换行</p>
+
+</li>
+<li>
+<p>字符本质是整数: <code>c - 'a' + 'A'</code> 完成小写→大写 (差 32)</p>
+
+</li>
+<li>
+<p>注意: 输入 "b 回车" 时, 回车还留在缓冲区——前面"遗留换行"的坑同理</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -60237,7 +60381,7 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>printf("%-8.3f", x)</code> 中 <code>-</code>、<code>8</code>、<code>.3</code> 分别表示什么？
@@ -60250,7 +60394,7 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="32" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
