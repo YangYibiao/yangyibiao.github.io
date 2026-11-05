@@ -59790,9 +59790,61 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="考试形式与评分">考试形式与评分 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="易错点串讲--5---链表与递归">易错点串讲 (5): 链表与递归 </h5>
 <hr>
-<p><mark>闭卷机试</mark> (占总评 60%)</p>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.8em;line-height:1.55;">
+<div style="flex:1;">
+<p><mark>链表四件套</mark> (笔试高频)</p>
+<ul>
+<li>
+<p>结点: <code>struct node { int value; struct node *next; };</code></p>
+
+</li>
+<li>
+<p><mark>头插</mark>: <code>new_node-&gt;next = first; first = new_node;</code> (空链表也成立)</p>
+
+</li>
+<li>
+<p><mark>删除</mark>: 先找到 <code>cur</code> 与 <code>prev</code>; <code>n</code> 不存在时 <code>cur == NULL</code> <mark>必须先返回</mark></p>
+
+</li>
+<li>
+<p><mark>释放</mark>: <code>free(cur)</code> 之后<mark>不能再解引用</mark> cur</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cur <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> list<span class="token punctuation">;</span>      <span class="token comment">/* 没找到 */</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>prev <span class="token operator">==</span> NULL<span class="token punctuation">)</span> list <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span> <span class="token comment">/* 删头 */</span>
+<span class="token keyword keyword-else">else</span> prev<span class="token operator">-&gt;</span>next <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+<span class="token function">free</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="flex:1;">
+<p><mark>递归三问</mark> (写之前先回答)</p>
+<ol>
+<li><mark>基准情形</mark>是什么? (n == 0 / 一位数 / 区间为空)
+</li>
+<li>每次递归<mark>规模在变小</mark>吗? (n-1 / 砍一半)
+</li>
+<li>相信子问题的结果, 本层要<mark>做什么</mark>?
+</li>
+</ol>
+<ul>
+<li>
+<p>典型失分: 忘了基准情形 (栈溢出)、规模没变小 (死循环)、先打印再递归 (逆序)</p>
+
+</li>
+<li>
+<p>手写练习: 阶乘、斐波那契、二分查找、汉诺塔</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="考试形式与评分">考试形式与评分 </h5>
+<hr>
+<p><mark>总评构成</mark>: 平时 20% (课堂实操 + OJ) + 期末项目 20% + 闭卷机试 60%</p>
+<p><mark>闭卷机试</mark> (60%)</p>
 <ul>
 <li>
 <p>形式: 在线、限时、闭卷, 现场写程序并提交评测</p>
@@ -59818,12 +59870,12 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p>牢记本页的<mark>易错点清单</mark>——机试最常见的失分点</p>
+<p>牢记前面第 3-6 页的<mark>易错点清单</mark>——机试最常见的失分点</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="模拟练习">模拟练习 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="模拟练习">模拟练习 </h5>
 <hr>
 <p><mark>课堂限时练习</mark> (20 分钟, 必做第 1 题, 选做第 2 或第 3 题):</p>
 <ol>
@@ -59836,7 +59888,7 @@ div.boardhandle > ul > li {
 </ol>
 <p>提示: 每题先想<mark>输入 → 处理 → 输出</mark>, 再想需要哪些<mark>循环/判断/数组</mark></p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="一学期的旅程">一学期的旅程 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="一学期的旅程">一学期的旅程 </h5>
 <hr>
 <p>从第一个 Hello World 到今天的项目:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>第<span class="token number">1</span>周  Hello World <span class="token operator">/</span> 猜数字        →  让程序跑起来
@@ -59852,7 +59904,7 @@ div.boardhandle > ul > li {
 第<span class="token number">15</span>周 项目与总复习                →  把一切拼起来做一个<span class="token string">"聪明"</span>的程序</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 这门课学的不是"背语法", 而是<mark>用计算思维解决问题</mark>的能力——它会陪你走很远</p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="课程结语">课程结语 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课程结语">课程结语 </h5>
 <hr>
 <p><mark>做中学</mark></p>
 <ul>
@@ -59868,7 +59920,7 @@ div.boardhandle > ul > li {
 <p><mark>接着走</mark></p>
 <ul>
 <li>
-<p>想深入 C: 读 K.N. King《C程序设计语言: 现代方法》, 或做更复杂的系统编程</p>
+<p>想深入 C: 读 K.N. King《C语言程序设计：现代方法》, 或做更复杂的系统编程</p>
 
 </li>
 <li>
@@ -59882,7 +59934,7 @@ div.boardhandle > ul > li {
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 感谢一学期的陪伴, 祝大家在后面的学习和项目里一切顺利!</p>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="11" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
 <div class="bottom20"></div>
 <h1 id="周三见">考试周见! </h1>
 <hr class="width50 center">

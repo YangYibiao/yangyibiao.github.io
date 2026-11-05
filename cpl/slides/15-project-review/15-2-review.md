@@ -214,6 +214,51 @@ presentation:
 ---
 
 
+<!-- slide data-notes="" -->##### 易错点串讲 (5): 链表与递归
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.8em;line-height:1.55;">
+
+<div style="flex:1;">
+
+==链表四件套== (笔试高频)
+
+- 结点: `struct node { int value; struct node *next; };`
+
+- ==头插==: `new_node->next = first; first = new_node;` (空链表也成立)
+
+- ==删除==: 先找到 `cur` 与 `prev`; `n` 不存在时 `cur == NULL` ==必须先返回==
+
+- ==释放==: `free(cur)` 之后==不能再解引用== cur
+
+```C
+if (cur == NULL) return list;      /* 没找到 */
+if (prev == NULL) list = cur->next; /* 删头 */
+else prev->next = cur->next;
+free(cur);
+```
+
+</div>
+
+<div style="flex:1;">
+
+==递归三问== (写之前先回答)
+
+1. ==基准情形==是什么? (n == 0 / 一位数 / 区间为空)
+
+2. 每次递归==规模在变小==吗? (n-1 / 砍一半)
+
+3. 相信子问题的结果, 本层要==做什么==?
+
+- 典型失分: 忘了基准情形 (栈溢出)、规模没变小 (死循环)、先打印再递归 (逆序)
+
+- 手写练习: 阶乘、斐波那契、二分查找、汉诺塔
+
+</div>
+
+</div>
+
 <!-- slide data-notes="" -->
 
 
@@ -221,7 +266,9 @@ presentation:
 
 ---
 
-==闭卷机试== (占总评 60%)
+==总评构成==: 平时 20% (课堂实操 + OJ) + 期末项目 20% + 闭卷机试 60%
+
+==闭卷机试== (60%)
 
 - 形式: 在线、限时、闭卷, 现场写程序并提交评测
 
@@ -235,7 +282,7 @@ presentation:
 
 - 手写几个"经典小程序": 排序、查找、字符串处理、链表插入删除
 
-- 牢记本页的==易错点清单==——机试最常见的失分点
+- 牢记前面第 3-6 页的==易错点清单==——机试最常见的失分点
 
 ---
 
@@ -302,7 +349,7 @@ presentation:
 
 ==接着走==
 
-- 想深入 C: 读 K.N. King《C程序设计语言: 现代方法》, 或做更复杂的系统编程
+- 想深入 C: 读 K.N. King《C语言程序设计：现代方法》, 或做更复杂的系统编程
 
 - 想转向应用: Python / C++ / Rust——你在 C 里学的内存、指针、数据结构, 全都用得上
 
