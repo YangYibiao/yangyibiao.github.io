@@ -478,6 +478,83 @@ int main(void)
 
 </div>
 
+<!-- slide data-notes="" -->##### 任务 1: 猜数字 (循环版)
+
+---
+
+<div style="font-size:0.95em;line-height:1.6;">
+
+==任务==: 程序心里想好一个 1~100 的整数 (骨架里已设为 42), 你反复输入猜测, 程序提示"太大"或"太小", 直到猜中; 最后输出猜了几次
+
+样例:
+
+```
+猜一个 1~100 的整数: 50
+太大了
+猜一个 1~100 的整数: 25
+太小了
+猜一个 1~100 的整数: 42
+猜对了! 你猜了 3 次
+```
+
+==提示==:
+
+- 先读一次, 再进入 while——循环条件就是"没猜中"
+
+- 每轮: 比较并提示 → 计数 → 再读下一个; 猜中那次不在循环体里, 计数别漏
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task1-guess.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task1-guess.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 1: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+/* guess.c: 猜数字循环版 */
+#include <stdio.h>
+int main(void) {
+  int secret = 42, guess, count = 0;
+  printf("猜一个 1~100 的整数: ");
+  scanf("%d", &guess);
+  while (guess != secret) {
+    if (guess > secret) printf("太大了\n");
+    else                printf("太小了\n");
+    count++;
+    printf("猜一个 1~100 的整数: ");
+    scanf("%d", &guess);
+  }
+  count++;
+  printf("猜对了! 你猜了 %d 次\n", count);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 循环条件 `guess != secret`: 猜中就退出——沿用"先读一次, 再判断"的哨兵模式
+
+- 循环体末尾再读一次, 下一轮判断的才是新输入; 忘了这句就是死循环
+
+- 计数: 循环体里的 `count++` 只数"猜错"的次数, 猜中那次在循环外, 所以结束后再 `count++`
+
+- 也可以用 `while (1)` + 猜中时 `break`——下一节的 break 会让这种写法更直接
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
@@ -539,6 +616,80 @@ while (i > 0); {
 }
 
 - 粗心的读者会把结尾的 `while` 当成新循环的开头 
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 各位数字之和
+
+---
+
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 输入一个非负整数, 输出它各位数字之和; 0 也要能正确处理
+
+样例:
+
+```
+输入一个非负整数: 12345
+各位数字之和 = 15
+输入一个非负整数: 0
+各位数字之和 = 0
+```
+
+==提示==:
+
+- 拆位老办法: `% 10` 取末位, `/ 10` 去掉末位
+
+- 至少要做一次——`do-while` 正合适; 想想输入 0 时 while 版会怎样
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task2-digit-sum.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task2-digit-sum.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+/* digitsum.c: 各位数字之和 */
+#include <stdio.h>
+int main(void) {
+  int n, sum = 0;
+
+  printf("输入一个非负整数: ");
+  scanf("%d", &n);
+
+  do {
+    sum += n % 10;
+    n /= 10;
+  } while (n > 0);
+
+  printf("各位数字之和 = %d\n", sum);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `n % 10` 取末位、`n /= 10` 缩位, 循环到 n 变 0——和"计算整数的位数"是同一套拆位
+
+- 用 do-while: 0 也是一位数, 循环体==至少执行一次==; 换成 `while (n > 0)`, 输入 0 时一次都不进 (本题 sum 初值 0 碰巧对, 换成统计位数就错了)
+
+- 循环结束后 n 已经被改成 0; 还要用原数的话, 先复制一份 (下一节"位数"的例子就是这么做的)
+
+- `sum` 是累加器, 初值必须为 ==0==——和数列求和的 `sum` 一样
+
+</div>
+
+</div>
 
 ---
 

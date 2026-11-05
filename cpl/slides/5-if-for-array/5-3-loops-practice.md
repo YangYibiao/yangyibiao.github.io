@@ -75,7 +75,7 @@ presentation:
 
 ==现场演示==: 输入一批学生成绩 (0~100), 直到 ==-1== 结束, 输出==最高分==以及==得最高分的人数==
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-score-stats.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-score-stats.c (骨架)</a>
 
 样例:
 
@@ -152,7 +152,7 @@ int main(void) {
 
 ==现场演示==: 输入一个整数, 判断它是不是==完全数== (等于除自身外的所有因数之和, 如 6 = 1+2+3, 28 = 1+2+4+7+14)
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-perfect-number.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-perfect-number.c (骨架)</a>
 
 样例:
 
@@ -240,6 +240,8 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 嵌套循环——外层管行, 内层管每行个数; 内层打印的是==行号==还是别的?
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-number-triangle.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-number-triangle.c (骨架)</a>
+
 </div>
 
 </div>
@@ -308,6 +310,8 @@ int main(void) {
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 去掉最高和最低——你需要在循环里同时维护==哪几个量==?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-diving-score.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-diving-score.c (骨架)</a>
 
 </div>
 
@@ -381,6 +385,8 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 怎么判断一个数是不是水仙花数? 每位数字怎么拆出来? (之前的老朋友)
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-narcissus.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-narcissus.c (骨架)</a>
+
 </div>
 
 </div>
@@ -451,6 +457,8 @@ int main(void) {
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 怎么把数"反过来读"? 数位拆分的老朋友, 但这次要把拆出来的数字==重新拼起来==
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-palindrome.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-palindrome.c (骨架)</a>
 
 </div>
 
@@ -528,6 +536,8 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 每项是前两项之和——需要同时==记住哪两个数==? 每轮它们怎么变?
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-fibonacci.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-fibonacci.c (骨架)</a>
+
 </div>
 
 </div>
@@ -603,6 +613,8 @@ int main(void) {
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 公鸡和母鸡的只数都枚举一遍, 小鸡只数能==推出来==吗? 价钱条件怎么写?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-hundred-chickens.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-hundred-chickens.c (骨架)</a>
 
 </div>
 
@@ -683,6 +695,8 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 菜单要==反复出现==——哪种循环最合适? 选择项用什么结构处理? 退出要跳出哪一层?
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-menu-calculator.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-menu-calculator.c (骨架)</a>
+
 </div>
 
 </div>
@@ -762,6 +776,8 @@ A: 2  B: 1  C: 1  D: 1  F: 1
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 怎么把 0~100 的成绩划分成 A~F 五档? 每个等级需要一个什么?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-grade-stats.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-grade-stats.c (骨架)</a>
 
 </div>
 

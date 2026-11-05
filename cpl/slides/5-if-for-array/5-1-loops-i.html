@@ -59896,7 +59896,76 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="do语句">do语句 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="任务-1--猜数字--循环版">任务 1: 猜数字 (循环版) </h5>
+<hr>
+<div style="font-size:0.95em;line-height:1.6;">
+<p><mark>任务</mark>: 程序心里想好一个 1~100 的整数 (骨架里已设为 42), 你反复输入猜测, 程序提示"太大"或"太小", 直到猜中; 最后输出猜了几次</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>猜一个 <span class="token number">1</span>~<span class="token number">100</span> 的整数<span class="token operator">:</span> <span class="token number">50</span>
+太大了
+猜一个 <span class="token number">1</span>~<span class="token number">100</span> 的整数<span class="token operator">:</span> <span class="token number">25</span>
+太小了
+猜一个 <span class="token number">1</span>~<span class="token number">100</span> 的整数<span class="token operator">:</span> <span class="token number">42</span>
+猜对了<span class="token operator">!</span> 你猜了 <span class="token number">3</span> 次</code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>先读一次, 再进入 while——循环条件就是"没猜中"</p>
+
+</li>
+<li>
+<p>每轮: 比较并提示 → 计数 → 再读下一个; 猜中那次不在循环体里, 计数别漏</p>
+
+</li>
+</ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task1-guess.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task1-guess.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务-1--参考代码与要点">任务 1: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* guess.c: 猜数字循环版 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> secret <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">,</span> guess<span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"猜一个 1~100 的整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>guess<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>guess <span class="token operator">!=</span> secret<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>guess <span class="token operator">></span> secret<span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太大了\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-else">else</span>                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"太小了\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    count<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"猜一个 1~100 的整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>guess<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  count<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"猜对了! 你猜了 %d 次\n"</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p>循环条件 <code>guess != secret</code>: 猜中就退出——沿用"先读一次, 再判断"的哨兵模式</p>
+
+</li>
+<li>
+<p>循环体末尾再读一次, 下一轮判断的才是新输入; 忘了这句就是死循环</p>
+
+</li>
+<li>
+<p>计数: 循环体里的 <code>count++</code> 只数"猜错"的次数, 猜中那次在循环外, 所以结束后再 <code>count++</code></p>
+
+</li>
+<li>
+<p>也可以用 <code>while (1)</code> + 猜中时 <code>break</code>——下一节的 break 会让这种写法更直接</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="do语句">do语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -59931,7 +60000,7 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="do语句">do语句 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="do语句">do语句 </h5>
 <hr>
 <p><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span> <mark>建议给所有 do 语句都加大括号</mark>——没有大括号的 do 很容易被误读成 while:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-do">do</span>
@@ -59945,7 +60014,73 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="程序--计算整数的位数">程序: 计算整数的位数 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="任务-2--各位数字之和">任务 2: 各位数字之和 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 输入一个非负整数, 输出它各位数字之和; 0 也要能正确处理</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入一个非负整数<span class="token operator">:</span> <span class="token number">12345</span>
+各位数字之和 <span class="token operator">=</span> <span class="token number">15</span>
+输入一个非负整数<span class="token operator">:</span> <span class="token number">0</span>
+各位数字之和 <span class="token operator">=</span> <span class="token number">0</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>拆位老办法: <code>% 10</code> 取末位, <code>/ 10</code> 去掉末位</p>
+
+</li>
+<li>
+<p>至少要做一次——<code>do-while</code> 正合适; 想想输入 0 时 while 版会怎样</p>
+
+</li>
+</ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task2-digit-sum.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task2-digit-sum.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="任务-2--参考代码与要点">任务 2: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* digitsum.c: 各位数字之和 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入一个非负整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-do">do</span> <span class="token punctuation">{</span>
+    sum <span class="token operator">+=</span> n <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    n <span class="token operator">/=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>n <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"各位数字之和 = %d\n"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>n % 10</code> 取末位、<code>n /= 10</code> 缩位, 循环到 n 变 0——和"计算整数的位数"是同一套拆位</p>
+
+</li>
+<li>
+<p>用 do-while: 0 也是一位数, 循环体<mark>至少执行一次</mark>; 换成 <code>while (n &gt; 0)</code>, 输入 0 时一次都不进 (本题 sum 初值 0 碰巧对, 换成统计位数就错了)</p>
+
+</li>
+<li>
+<p>循环结束后 n 已经被改成 0; 还要用原数的话, 先复制一份 (下一节"位数"的例子就是这么做的)</p>
+
+</li>
+<li>
+<p><code>sum</code> 是累加器, 初值必须为 <mark>0</mark>——和数列求和的 <code>sum</code> 一样</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="程序--计算整数的位数">程序: 计算整数的位数 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个非负整数, 输出它是几位数</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
@@ -59954,7 +60089,7 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 它有 <span class="token number">2</span> 位数字</code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 每除以 10 一次, 位数就多 1——直到除成 0。想想为什么这里用 do-while 比 while 更合适?</p>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="程序--计算整数的位数--参考代码">程序: 计算整数的位数 (参考代码) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="程序--计算整数的位数--参考代码">程序: 计算整数的位数 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.65em;">
@@ -59995,7 +60130,7 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="break语句">break语句 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="break语句">break语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.65em;">
@@ -60023,7 +60158,7 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="break语句">break语句 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="break语句">break语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.65em;">
@@ -60054,7 +60189,7 @@ i <span class="token operator"><</span> n<span class="token operator">?</span>  
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="continue语句">continue语句 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="continue语句">continue语句 </h5>
 <hr>
 <p>任务: <mark>读入 10 个整数, 计算 100/i 的和</mark>——<code>i</code> 为 <code>0</code> 时除零会崩溃, 必须跳过</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60099,7 +60234,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="空语句--一个分号的代价">空语句: 一个分号的代价 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="空语句--一个分号的代价">空语句: 一个分号的代价 </h5>
 <hr>
 <p><mark>空语句</mark>: 只有一个分号 <code>;</code>, 什么都不做</p>
 <ul>
@@ -60124,7 +60259,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>(概念) while 和 do-while 唯一的区别是什么？
@@ -60135,7 +60270,7 @@ sum <span class="token operator">=</span> <span class="token number">0</span><sp
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

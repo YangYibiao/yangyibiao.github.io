@@ -716,6 +716,81 @@ int main(void)
 
 </div>
 
+<!-- slide data-notes="" -->##### 任务 3: 星号塔 (倒三角)
+
+---
+
+<div style="font-size:0.95em;line-height:1.6;">
+
+==任务==: 输入高度 n, 打印 n 行倒置星号塔: 第 i 行先 i-1 个空格, 再 2×(n-i)+1 颗星
+
+样例 (n = 5):
+
+```
+*********
+ *******
+  *****
+   ***
+    *
+```
+
+==提示==:
+
+- 外层管行, 内层两个: 先打空格, 再打星号
+
+- 第 i 行: 空格 `i - 1` 个, 星号 `2 * (n - i) + 1` 颗
+
+- 和正三角相比, 两个内层的上限都反过来了
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task3-star.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task3-star.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+/* stars-inv.c: 倒置星号塔 */
+#include <stdio.h>
+int main(void) {
+  int n;
+  printf("输入高度: ");
+  scanf("%d", &n);
+
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= i - 1; j++)
+      printf(" ");
+    for (int j = 1; j <= 2 * (n - i) + 1; j++)
+      printf("*");
+    printf("\n");
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 外层 `i` 管行: 第 i 行空格 ==i-1== 个、星号 ==2(n-i)+1== 颗, 一个递增一个递减
+
+- 与正三角对照: 正三角是空格 n-i、星号 2i-1——倒三角把两者==互换==, 循环仍然从小到大
+
+- 内层上限==依赖外层变量== i, 这是嵌套循环的精髓; 输入 5 → 星号数 9/7/5/3/1
+
+- 每行最后别忘了 `printf("\n")`——否则所有行会挤成一行
+
+</div>
+
+</div>
+
 <!-- slide data-notes="" -->
 
 
@@ -842,6 +917,84 @@ int main(void) {
 - 循环两种退法: 找到约数 break (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
 
 - 改进: 只需检查到 $\sqrt{n}$——把循环条件改为 `d * d <= n` 即可 (不用 math.h); ==现场试写 sqrt 版==: `d <= sqrt(n)` 对比效果
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->##### 任务 4: 素数判断
+
+---
+
+<div style="font-size:0.9em;line-height:1.55;">
+
+==任务==: 输入一个整数 n, 判断它是不是素数; 不是素数时, 再输出它的最小约数
+
+样例:
+
+```
+输入一个整数: 91
+91 不是素数, 最小约数是 7
+输入一个整数: 13
+13 是素数
+输入一个整数: 1
+1 不是素数
+```
+
+==提示==:
+
+- 用 `for` 从 2 试到 n-1, `n % d == 0` 就 `break`
+
+- `break` 之后 d 停在第一个约数上——正好是最小约数
+
+- 别忘了 n < 2: 0、1 和负数都不是素数
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task4-prime.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task4-prime.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 4: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+/* prime.c: 判断素数, 不是则给出最小约数 */
+#include <stdio.h>
+int main(void) {
+  int n, d;
+  printf("输入一个整数: ");
+  scanf("%d", &n);
+  if (n < 2) {
+    printf("%d 不是素数\n", n);
+    return 0;
+  }
+  for (d = 2; d < n; d++)
+    if (n % d == 0) break;
+  if (d < n)
+    printf("%d 不是素数, 最小约数是 %d\n", n, d);
+  else
+    printf("%d 是素数\n", n);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `for` 从 2 试到 n-1: 一旦 `n % d == 0` 就 `break`——找到第一个约数就停, 不必检查完
+
+- 循环结束时 d 有两种身份: 提前退出 → ==最小约数==; 正常跑完 → d 等于 n
+
+- `if (d < n)` 就是"是否提前退出"的判据——和前面课件的素数参考代码同一套路
+
+- n < 2 必须提前处理: 0、1 和负数直接判"不是素数", 不进循环
 
 </div>
 
