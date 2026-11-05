@@ -339,9 +339,21 @@ def parse_content(lines):
             tbl, i = parse_table(lines, i)
             out.append(tbl); continue
         if is_raw(ln):
+            # <script> 块原样保留 (脚本内容不能做 HTML 转义, 否则 && 会变成 &amp;&amp;)
+            if ln.strip().startswith('<script'):
+                if '</script>' in ln:      # 单行脚本: 直接原样输出
+                    out.append(ln); i += 1; continue
+                raw = [ln]; i += 1
+                while i < len(lines):
+                    raw.append(lines[i])
+                    if '</script>' in lines[i]:
+                        i += 1; break
+                    i += 1
+                out.append('\n'.join(raw)); continue
             raw = [raw_inline(ln)]
             i += 1
-            while i < len(lines) and lines[i].strip() and is_raw(lines[i]):
+            while (i < len(lines) and lines[i].strip() and is_raw(lines[i])
+                   and not lines[i].strip().startswith('<script')):
                 raw.append(raw_inline(lines[i])); i += 1
             joined = '\n'.join(raw)
             if ln.strip().startswith('<span'):
