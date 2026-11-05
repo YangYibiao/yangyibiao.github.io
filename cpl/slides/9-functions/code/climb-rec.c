@@ -7,10 +7,6 @@
 int climb(int n)
 {
   /* TODO: 基准情形 + 递归情形 */
-  if (n <= 1) {
-    return 1;
-  }
-  return climb(n - 1) + climb(n - 2);
 }
 
 int main(void)

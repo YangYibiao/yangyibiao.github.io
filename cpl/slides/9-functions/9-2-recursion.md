@@ -683,63 +683,61 @@ Segmentation fault (core dumped)
 <!-- slide data-notes="" -->
 
 
-##### 课堂编码
+##### 课堂编码 1: 递归求幂
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="font-size:0.9em;line-height:1.6;">
 
-<div style="flex:1.25;font-size:0.6em;">
+==任务==: 实现 `int power(int x, int n)`——计算 x 的 n 次方 (开篇"递归是什么"一页提过的例子, 这里把它写完整)
 
-```C
-/* skeleton.c: 从这行开始写你的代码 */
-#include <stdio.h>
+样例: `power(5, 3)` → 125; `power(2, 10)` → 1024
 
-int power(int x, int n) {
-  /* TODO: 递归求 x 的 n 次方 */
-}
-
-int sum(int n) {
-  /* TODO: 递归求和 1 + 2 + ... + n */
-}
-
-void print(int n) {
-  /* TODO: 递归按位打印整数 */
-}
-
-int main() {
-  printf("%d\n", power(5, 3));   /* 期望输出: 125 */
-  printf("%d\n", sum(10));       /* 期望输出: 55 */
-  print(1234);                   /* 期望输出: 1 2 3 4 */
-  return 0;
-}
-```
+==先想参数==: 哪些量随递归变化、哪些全程不变?
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.5;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/power-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 power-rec.c (只写函数体)</a>
 
-==现场演示==
+---
 
-1. 递归求幂: power(x, n) = x 的 n 次方 (开篇"递归是什么"一页提过的例子, 这里把它写完整)
+<!-- slide data-notes="" -->##### 课堂编码 2: 递归求和
 
-2. 递归求和: sum(n) = 1 + 2 + … + n
+---
 
-3. 递归打印整数: 输入 1234, 按位逐个打印 (样例: `1234 → 1 2 3 4`)
+<div style="font-size:0.9em;line-height:1.6;">
 
-==先想参数==: 每个递归函数需要哪些参数?
+==任务==: 实现 `int sum(int n)`——计算 1 + 2 + … + n
+
+样例: `sum(10)` → 55; `sum(100)` → 5050
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
-
 </div>
 
-</div>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/sum-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-rec.c (只写函数体)</a>
 
 ---
 
-<!-- slide data-notes="" -->##### 课堂编码 · 参考实现: 递归求幂
+<!-- slide data-notes="" -->##### 课堂编码 3: 递归打印整数
+
+---
+
+<div style="font-size:0.9em;line-height:1.6;">
+
+==任务==: 实现 `void print(int n)`——输入 1234, 按位逐个打印
+
+样例: `1234` → `1 2 3 4`
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 先递归打印前面几位, 回来再打印末位——==顺序是本题关键==
+
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/print-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 print-rec.c (只写函数体)</a>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 1 · 参考实现: 递归求幂
 
 ---
 
@@ -895,7 +893,7 @@ int is_pal(char s[], int l, int r)
 
 <div style="font-size:0.9em;line-height:1.6;">
 
-==任务==: 在升序数组 a 的某个区间里查找 key——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友); 找到返回下标, 找不到返回 -1
+==任务==: 在升序数组 a 的某个区间里查找 key——每次砍一半, 与分治同构; 找到返回下标, 找不到返回 -1
 
 ==先想参数==: `int bin_search( ??? )`——==子问题是什么==? 哪几个量==随递归变化==、哪几个==全程不变==? 想清楚再打开 VS Code 对照骨架里的签名
 

@@ -7,10 +7,6 @@
 long comb(int m, int n)
 {
   /* TODO: 基准情形 + 递归情形 */
-  if (n == 0 || n == m) {
-    return 1;
-  }
-  return comb(m - 1, n - 1) + comb(m - 1, n);
 }
 
 int main(void)
