@@ -727,6 +727,83 @@ switch (grade) {
 
 ---
 
+<!-- slide data-notes="" -->##### 任务 3: 成绩等级
+
+---
+
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 输入百分制成绩 (0–100 的整数), 输出等级 A/B/C/D/F
+
+样例:
+
+```
+请输入成绩: 87
+等级: B
+```
+
+等级规则: 90–100 A, 80–89 B, 70–79 C, 60–69 D, 0–59 F
+
+==提示==:
+
+- 用 `switch (score / 10)` 把分数段变成 10、9、8……
+
+- 多个 `case` 可以共用一组语句; 每个分支别忘 `break`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/task-grade.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-grade.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void) {
+  int score;
+  printf("请输入成绩: "); scanf("%d", &score);
+  if (score < 0 || score > 100) {
+    printf("成绩非法\n");
+  } else {
+    switch (score / 10) {
+      case 10: case 9: printf("等级: A\n"); break;
+      case 8: printf("等级: B\n"); break;
+      case 7: printf("等级: C\n"); break;
+      case 6: printf("等级: D\n"); break;
+      default: printf("等级: F\n"); break;
+    }
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `score / 10` 是==整数除法==: `87` → `8`, `100` → `10`
+
+- `case 10:` 与 `case 9:` ==共用一个分支==——多标签写法
+
+- `break` 跳出 switch; 漏写会==穿透==到下一个 case
+
+- 先判 `0–100`, 非法成绩不进入 switch
+
+- switch 的控制表达式==必须是整数==, 不能用浮点
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
@@ -849,6 +926,8 @@ int main(void) {
 ##### 布尔值 (C99)
 
 ---
+
+<style>.reveal .slides section>pre{-ms-flex-negative:0;flex-shrink:0}.reveal .slides section>section>pre{-ms-flex-negative:0;flex-shrink:0}</style>
 
 `C89` 没有布尔类型, 我们一直用 `int` 变量当标志 (比如上一页的 `leap`)
 

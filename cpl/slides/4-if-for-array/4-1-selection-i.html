@@ -60057,7 +60057,75 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 范围判断是 if 的<mark>最高频用法</mark>: 检查下标、成绩、温度……都长这样</p>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="复合语句">复合语句 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="任务-1--判断闰年">任务 1: 判断闰年 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 输入一个年份, 判断它是不是闰年</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>请输入年份<span class="token operator">:</span> <span class="token number">2024</span>
+<span class="token number">2024</span> 是闰年</code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>闰年规则: 能被 4 整除且不能被 100 整除, 或者能被 400 整除</p>
+
+</li>
+<li>
+<p>用 <code>%</code> 判断整除, 用 <code>&amp;&amp;</code>、<code>||</code> 把三个条件组合起来</p>
+
+</li>
+</ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/task-leap-year.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-leap-year.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="任务-1--参考代码与要点">任务 1: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.15;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* leap.c: 判断闰年 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> year<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入年份: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>year<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-int">int</span> leap <span class="token operator">=</span> <span class="token punctuation">(</span>year <span class="token operator">%</span> <span class="token number">4</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> year <span class="token operator">%</span> <span class="token number">100</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+             <span class="token operator">||</span> year <span class="token operator">%</span> <span class="token number">400</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>leap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 是闰年\n"</span><span class="token punctuation">,</span> year<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d 不是闰年\n"</span><span class="token punctuation">,</span> year<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>year % 4 == 0</code>: 余数为 0 就是<mark>能整除</mark></p>
+
+</li>
+<li>
+<p><code>&amp;&amp;</code> 的优先级<mark>高于</mark> <code>||</code>, 括号让前两个条件先组合</p>
+
+</li>
+<li>
+<p><code>!=</code> 是<mark>判不等</mark>, 不是赋值 <code>=</code></p>
+
+</li>
+<li>
+<p><code>leap</code> 是 <mark>0/1 标志变量</mark>; <code>if (leap)</code> 等价于 <code>if (leap != 0)</code></p>
+
+</li>
+<li>
+<p>测试: <code>2024</code> → 闰年, <code>1900</code> → 不是, <code>2000</code> → 闰年</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="复合语句">复合语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;">
@@ -60085,7 +60153,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="复合语句">复合语句 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="复合语句">复合语句 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.75em;">
@@ -60110,7 +60178,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="else子句">else子句 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="else子句">else子句 </h5>
 <hr>
 <p>回到 <code>else</code> 子句: 前面的例子都只有一层判断, 但 <mark><code>if</code> 里面还可以再嵌一个 <code>if</code></mark>——判断里还有判断时, 就出现了嵌套</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60163,7 +60231,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="else子句">else子句 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="else子句">else子句 </h5>
 <hr>
 <p>大括号的优点 (即使只有一条语句也建议加):</p>
 <ul>
@@ -60177,12 +60245,79 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--min-of-two">演示: min of two </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="任务-2--三个数排序">任务 2: 三个数排序 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 输入三个整数, 按从小到大的顺序输出</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>请输入三个整数<span class="token operator">:</span> <span class="token number">8</span> <span class="token number">3</span> <span class="token number">5</span>
+排序结果<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">5</span> <span class="token number">8</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>先把最小的换到 <code>a</code>, 再把 <code>b</code>、<code>c</code> 排好</p>
+
+</li>
+<li>
+<p>交换两个变量要借助临时变量 <code>t</code>: <code>t = a; a = b; b = t;</code></p>
+
+</li>
+</ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/task-sort3.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-sort3.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="任务-2--参考代码与要点">任务 2: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.15;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* sort3.c: 三个数排序 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> t<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入三个整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">,</span> <span class="token operator">&</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">></span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span> a <span class="token operator">=</span> b<span class="token punctuation">;</span> b <span class="token operator">=</span> t<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span> a <span class="token operator">=</span> c<span class="token punctuation">;</span> c <span class="token operator">=</span> t<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>b <span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span> t <span class="token operator">=</span> b<span class="token punctuation">;</span> b <span class="token operator">=</span> c<span class="token punctuation">;</span> c <span class="token operator">=</span> t<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"排序结果: %d %d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p>三次交换: 前两次让 <code>a</code> 成为<mark>三者最小</mark>, 第三次只需排 <code>b</code>、<code>c</code></p>
+
+</li>
+<li>
+<p>交换必须借助临时变量 <code>t</code>; 直接 <code>a = b; b = a;</code> 会把 <code>a</code> 的值<mark>覆盖丢失</mark></p>
+
+</li>
+<li>
+<p>每条 <code>if</code> 后面的<mark>复合语句</mark>把三条交换语句包成一条</p>
+
+</li>
+<li>
+<p>不需要嵌套: 三个单分支 <code>if</code> 依次执行, 结果一定有序</p>
+
+</li>
+<li>
+<p>测试: <code>8 3 5</code> → <code>3 5 8</code>; <code>1 2 3</code> 已有序; <code>3 3 1</code> 有重复也能排</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="演示--min-of-two">演示: min of two </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入两个整数, 输出其中较小的一个</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="演示--min-of-two--参考代码">演示: min of two (参考代码) </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="演示--min-of-two--参考代码">演示: min of two (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.15;font-size:0.7em;">
@@ -60220,12 +60355,12 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="演示--min-of-three">演示: min of three </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--min-of-three">演示: min of three </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入三个整数, 输出其中最小的一个</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="演示--min-of-three--参考代码-1--嵌套版">演示: min of three (参考代码 1: 嵌套版) </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--min-of-three--参考代码-1--嵌套版">演示: min of three (参考代码 1: 嵌套版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.6;font-size:0.62em;">
@@ -60268,12 +60403,12 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="演示--min-of-three--挑战--另一种写法">演示: min of three (挑战: 另一种写法) </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="演示--min-of-three--挑战--另一种写法">演示: min of three (挑战: 另一种写法) </h5>
 <hr>
 <p>写完了? <mark>还有另一种写法</mark>——不用嵌套</p>
 <p>延续 min of two 的"<mark>先假设, 再修正</mark>"思路: <code>min</code> 先取 <code>a</code>, 然后逐个比较替换</p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="演示--min-of-three--参考代码-2--单分支版">演示: min of three (参考代码 2: 单分支版) </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="演示--min-of-three--参考代码-2--单分支版">演示: min of three (参考代码 2: 单分支版) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -60311,7 +60446,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="演示--闰年判断">演示: 闰年判断 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="演示--闰年判断">演示: 闰年判断 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -60327,7 +60462,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--闰年判断--参考代码">演示: 闰年判断 (参考代码) </h5>
+</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="演示--闰年判断--参考代码">演示: 闰年判断 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -60382,13 +60517,13 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="演示--三角形判定">演示: 三角形判定 </h5>
+</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="演示--三角形判定">演示: 三角形判定 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入三边 <code>a b c</code>, 判断能否构成三角形</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 <p>规则: <mark>任意两边之和大于第三边</mark>——三个条件要<mark>同时</mark>成立</p>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="演示--三角形判定--参考代码">演示: 三角形判定 (参考代码) </h5>
+</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="演示--三角形判定--参考代码">演示: 三角形判定 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -60420,13 +60555,13 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="演示--奇偶判断">演示: 奇偶判断 </h5>
+</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="演示--奇偶判断">演示: 奇偶判断 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入一个整数, 输出它是奇数还是偶数</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 除了 <code>% 2</code> 的余数, 之前学的<mark>位运算</mark>也能判断——两种方法都想一想</p>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="演示--奇偶判断--参考代码">演示: 奇偶判断 (参考代码) </h5>
+</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="演示--奇偶判断--参考代码">演示: 奇偶判断 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -60470,7 +60605,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="课堂习题">课堂习题 </h5>
+</section><section data-notes="" lineno="542" class="slide " data-source-line="542" data-h="35" data-v="0"><h5 id="课堂习题">课堂习题 </h5>
 <hr>
 <p>两道题, 限时 10 分钟, 答案见讲义:</p>
 <ol>
@@ -60480,7 +60615,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="556" class="slide " data-source-line="556" data-h="36" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>i &lt; j &lt; k</code> 能判断 j 是否在 i 和 k 之间吗？正确的写法是什么？
@@ -60493,7 +60628,7 @@ x <span class="token operator">=</span> <span class="token number">5</span></cod
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="33" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="37" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

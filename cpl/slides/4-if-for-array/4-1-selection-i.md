@@ -535,6 +535,81 @@ if (i < 0 || i >= n) { … }
 <span class="blue">:fa-lightbulb-o:</span> 范围判断是 if 的==最高频用法==: 检查下标、成绩、温度……都长这样
 
 ---
+
+<!-- slide data-notes="" -->##### 任务 1: 判断闰年
+
+---
+
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 输入一个年份, 判断它是不是闰年
+
+样例:
+
+```
+请输入年份: 2024
+2024 是闰年
+```
+
+==提示==:
+
+- 闰年规则: 能被 4 整除且不能被 100 整除, 或者能被 400 整除
+
+- 用 `%` 判断整除, 用 `&&`、`||` 把三个条件组合起来
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/task-leap-year.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-leap-year.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 1: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.6em;">
+
+```C{.line-numbers}
+/* leap.c: 判断闰年 */
+#include <stdio.h>
+int main(void) {
+  int year;
+  printf("请输入年份: "); scanf("%d", &year);
+
+  int leap = (year % 4 == 0 && year % 100 != 0)
+             || year % 400 == 0;
+
+  if (leap) {
+    printf("%d 是闰年\n", year);
+  } else {
+    printf("%d 不是闰年\n", year);
+  }
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `year % 4 == 0`: 余数为 0 就是==能整除==
+
+- `&&` 的优先级==高于== `||`, 括号让前两个条件先组合
+
+- `!=` 是==判不等==, 不是赋值 `=`
+
+- `leap` 是 ==0/1 标志变量==; `if (leap)` 等价于 `if (leap != 0)`
+
+- 测试: `2024` → 闰年, `1900` → 不是, `2000` → 闰年
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 ##### 复合语句
@@ -687,6 +762,80 @@ if (i > j) {
 - 避免"忘加大括号"类错误——缩进对齐了, 逻辑没对齐 (下一课的"悬空 else"就是典型)
 
 ---
+
+<!-- slide data-notes="" -->##### 任务 2: 三个数排序
+
+---
+
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 输入三个整数, 按从小到大的顺序输出
+
+样例:
+
+```
+请输入三个整数: 8 3 5
+排序结果: 3 5 8
+```
+
+==提示==:
+
+- 先把最小的换到 `a`, 再把 `b`、`c` 排好
+
+- 交换两个变量要借助临时变量 `t`: `t = a; a = b; b = t;`
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/task-sort3.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-sort3.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.6em;">
+
+```C{.line-numbers}
+/* sort3.c: 三个数排序 */
+#include <stdio.h>
+
+int main(void) {
+  int a, b, c, t;
+  printf("请输入三个整数: ");
+  scanf("%d%d%d", &a, &b, &c);
+
+  if (a > b) { t = a; a = b; b = t; }
+  if (a > c) { t = a; a = c; c = t; }
+  if (b > c) { t = b; b = c; c = t; }
+
+  printf("排序结果: %d %d %d\n", a, b, c);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 三次交换: 前两次让 `a` 成为==三者最小==, 第三次只需排 `b`、`c`
+
+- 交换必须借助临时变量 `t`; 直接 `a = b; b = a;` 会把 `a` 的值==覆盖丢失==
+
+- 每条 `if` 后面的==复合语句==把三条交换语句包成一条
+
+- 不需要嵌套: 三个单分支 `if` 依次执行, 结果一定有序
+
+- 测试: `8 3 5` → `3 5 8`; `1 2 3` 已有序; `3 3 1` 有重复也能排
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 
