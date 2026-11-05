@@ -578,7 +578,7 @@ int main(void)
 
 </div>
 
-<!-- slide data-notes="" -->##### 有限图案 → 无限数轴
+<!-- slide data-notes="" -->##### 42.9 亿个刻度 vs 无穷多的数
 
 ---
 
@@ -587,18 +587,20 @@ int main(void)
 <div style="flex:1.15;">
 
 <div class="top-2">
-  <img src="figs/float-mapping.svg" width=480px style="max-width:100%;">
+  <img src="figs/float-mapping.svg" width=540px style="max-width:100%;">
 </div>
 
 </div>
 
 <div style="flex:1;">
 
-- 32 位图案一共只有 ==2³² ≈ 42.9 亿个==——而数轴上的数是==无限==的, ==绝大多数数都表示不出来==
+- 32 位图案只有 ==2³² ≈ 42.9 亿个==, 数轴上的数却==无穷多==——只能挑出其中有限个"刻度"
 
-- 比如 0.1: 只能存成离它==最近的那个可表示数== (就近截断)
+- ==为什么越远越稀==: 浮点 = 固定位数的有效数字 × 2 的指数; 指数每大一级, 相邻刻度的间隔就==翻倍==
 
-- 结论: 浮点是==近似存储==; 比较浮点数不要用 `==`, 用 `fabs(a - b) < 1e-9` (`fabs` 是 math.h 的绝对值函数, 第 3 周细讲)
+- 比如 0.1: 落在两个刻度之间, 只能存成==最近的刻度==——这就是"近似存储"
+
+- 所以比较浮点数不要用 `==`, 用 `fabs(a - b) < 1e-9` (`fabs` 是 math.h 的绝对值函数, 后面细讲)
 
 <span class="blue">:fa-lightbulb-o:</span> 0 附近密、越远越稀——下一页放大看为什么
 
