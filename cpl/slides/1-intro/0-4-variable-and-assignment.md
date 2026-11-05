@@ -123,6 +123,8 @@ presentation:
 
 - 声明时就把值放进去——试试 `int age = 19;`
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task1-print-age.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task1-print-age.c (骨架)</a>
+
 </div>
 
 ---
@@ -181,7 +183,7 @@ int main(void)
 
 ==提示==: 用 `scanf` 读入, 别漏了 `&`; 年龄 = `2026 - birth_year`
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/age.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 age.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task2-age.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task2-age.c (骨架)</a>
 
 </div>
 
@@ -249,7 +251,7 @@ int main(void) {
 
 <span class="blue">:fa-weixin:</span> 小心 `9 / 5`: 两个整数相除会==截断==
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/temp.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 temp.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task3-temp.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task3-temp.c (骨架)</a>
 
 </div>
 
@@ -319,7 +321,7 @@ int main(void) {
 
 ==提示==: `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把金额一层层拆开
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/change.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 change.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task4-change.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task4-change.c (骨架)</a>
 
 </div>
 
@@ -393,6 +395,8 @@ M 的编码是 77
 - 字符用 `char`, 值写在==单引号==里: `'M'`
 
 - 同一个值, 用 `%c` 打印是字符, 用 `%d` 打印是编码——两种都试试
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task5-char.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task5-char.c (骨架)</a>
 
 </div>
 
