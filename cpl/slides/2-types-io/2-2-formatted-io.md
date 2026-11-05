@@ -54,15 +54,21 @@ presentation:
 
 ---
 
-- 输出: printf与转换说明
+<div style="font-size:0.85em;line-height:1.9;">
 
-- 转义序列
+- 速查: printf 与转换说明 → 任务 1: 打印对齐的成绩表
 
-- 输入: scanf
+- 速查: 转义序列 → 任务 2: 用转义序列打印三行
 
-- getchar与putchar
+- 速查: scanf 与输入缓冲区 → 任务 3: 遗留换行的坑
 
-- 综合案例: 分数相加
+- 格式串中的普通字符 → 任务 4: 一次读入混合类型
+
+- printf/scanf 混淆、getchar/putchar → 任务 5: 大小写转换
+
+- 综合案例: 分数相加 · 课堂小测
+
+</div>
 
 ---
 
@@ -70,20 +76,25 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### printf函数
+##### printf 要点
 
 ---
 
+<style>.p3 p{margin:0.3rem 2rem}</style>
+
+<div class="p3">
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.15;">
+<div style="flex:1.15;font-size:0.78em;line-height:1.55;">
 
-==`printf`== 函数必须提供格式字符串, 后跟打印期间要插入到串中的任何值: 
+==`printf`== 必须提供格式字符串, 后跟要插入到串中的值:
+
 ```C
-printf(字符串, 表达式1, 表达式2, ...);
+printf(格式串, 表达式1, 表达式2, ...);
 ```
 
-格式字符串可以包含普通字符和转换说明, 以 ==`%`== 字符开头
+格式串 = ==普通字符== (原样打印) + ==转换说明== (以 ==`%`== 开头, 用对应的值替换)
 
 </div>
 
@@ -127,188 +138,94 @@ printf(字符串, 表达式1, 表达式2, ...);
 
 </div>
 
-==转换说明== 是一个占位符, 表示要在打印期间填充的值
-- ==`%d`== 用于 ==`int`== 值
-- ==`%f`== 用于 ==`float`== / ==`double`== 值 (printf 中 float 自动提升为 double)
-- ==`%c`== 用于 ==`char`== 值
-- ==`%s`== 用于 ==`char []`== 值
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### printf函数
-
----
-
-格式字符串:
-- ==普通字符== 按出现在字符串中的方式打印
-- ==转换说明== 则需用待显示的值来替换填充
-
-<div style="font-size:0.8em;">
-
-```C{.line-numbers}
-int i, j;
-float x, y;
- 
-i = 10;
-j = 20;
-x = 43.2892f;
-y = 5527.0f;
-
-printf("i = %d, j = %d, x = %f, y = %f\n", i, j, x, y);
-```
-
-</div>
-
-```
-输出: 
-i = 10, j = 20, x = 43.289200, y = 5527.000000
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### printf函数
-
----
-
-- 编译器==不检查==格式串与输出项是否匹配:
-
-```C
-printf("%d %d\n", i);    /*** WRONG: 转换说明过多 ***/
-printf("%d\n", i, j);    /*** WRONG: 转换说明太少 ***/
-```
-
-- 也不检查转换说明是否合适; 用错了 → ==无意义的输出==
-
-```C{.line-numbers}
-int i;
-float x;
-printf("%f %d\n", i, x); /*** WRONG ***/
-```
-
-- `%d` 配 float/double 时, 读到的==不是这个数的比特==: 整数和浮点数调用时走==不同的通道==, `%d` 在整数通道里拿到的只是==残留的无关值== (第 3 周细讲)
-
-<!-- slide data-notes="" -->
-
-
-##### 转换说明
-
----
-
-转换说明可以采用 ==`%m.pX`== 或 ==`%-m.pX`== 形式
-
-- ==`m`== 和 ==`p`== 是整数常量
-- ==`X`== 是一个字符
-- ==`m`== 和 ==`p`== 都是可选的
-- 如果省略 ==`p`==, 则分隔 ==`m`== 和 ==`p`== 的句点也应删除
-
-在转换规约 ==`%10.2f`== 中, ==`m`== 为 ==`10`== , ==`p`== 为 ==`2`==, ==`X`== 为 ==`f`==
-在转换规约 ==`%10f`== 中, ==`m`== 为 ==`10`== 且缺少 ==`p`==(连同句点)
-在转换规约 ==`%.2f`== 中, ==`p`== 为 ==`2`==  且缺少 ==`m`==
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 转换说明
-
----
-
-最小字段宽度 ==m== 指定要打印的最小字符数
-
-- 如果要打印的值需要少于 ==m== 个字符, 则在字段内右对齐
-
-转换说明 ==`%4d`== 会将数字 ==`123`== 显示为 ==`•123`==(==`•`== 表示空格字符)
-
-- 如果要打印的值需要超过 ==m== 个字符, 则字段宽度会自动扩展为所需的大小, 若 ==m== 前面加上减号会导致左对齐
-
-转换说明 ==`%-4d`== 会将数字 ==`123`== 显示为 ==`123•`==
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 转换说明
-
----
-
-精度 ==p== 的含义取决于转换说明符 ==X== 的选择
-
-- 结合 ==%d== 说明符使用, ==%m.pX== 中的 ==p== 表示要显示的最小位数(如需要, 将在数字的开头添加额外的零)
-
-- 如果 ==p== 省略, 则默认它的值为 ==1==
-
-浮点数的转换说明: 
-
-- ==`%e`== 指数格式: ==p== 表示小数点后位数 (默认 6; p 为 0 不显示小数点)
-
-- ==`%f`== 固定十进制格式: ==p== 含义与 `%e` 相同
-
-- ==`%g`== 按数字大小自动选指数或定点: ==p== 表示最大有效位数, 不显示尾随零
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 程序: 使用printf格式化数字
-
----
+宽度 / 精度 / 左对齐, 一个例子:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.68em;">
+<div style="flex:1.15;font-size:0.8em;">
 
-```C{.line-numbers}
-/* Prints int and float values in various formats */ 
-#include <stdio.h>
- 
-int main(void)
-{
-  int i;
-  float x;
- 
-  i = 40;
-  x = 839.21f;
- 
-  printf("|%d|%5d|%-5d|%5.3d|\n", i, i, i, i);
-  printf("|%10.3f|%10.3e|%-10g|\n", x, x, x);
- 
-  return 0;
-}
+```C
+printf("|%-8s|%10.1f|\n", "name", 85.5);
 ```
 
+输出: `|name••••|••••••85.5|`
+
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.85em;line-height:1.65;">
 
-`tprintf.c`程序使用 ==printf== 以各种格式显示整数和浮点数
+`%-8s`: 宽 8、左对齐
 
-<div style="font-size:0.8em;">
-
-```
-输出:
-|40|•••40|40•••|••040|
-|•••839.210|•8.392e+02|839.21••••|
-```
+`%10.1f`: 宽 10、1 位小数、右对齐
 
 </div>
 
 </div>
 
+<div style="height:10px;"></div>
+
+<span class="yellow">:fa-weixin:</span> 编译器==不检查==转换说明与参数的数量、类型: 多了少了、或用 `%d` 打印 `double` (`%d` 从整数通道取到的是无关值), 输出都==无意义==.
+
 </div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 转换说明速查表
+
+---
+
+<style>.qt table{margin:6px auto!important}.qt th,.qt td{font-size:18px!important;padding:1px 8px!important;line-height:1.25!important}</style>
+
+<div style="font-size:0.72em;line-height:1.55;">
+
+写法: ==`%[标志][宽度][.精度]X`==, 如 ==`%-8s`== (宽 8、左对齐)、==`%10.1f`== (宽 10、1 位小数); 标志、宽度、精度都可省略 (省略精度时句点一并去掉).
+
+<div class="fullborder qt" style="font-size:0.82em;">
+
+| 转换说明 | 用于 | 示例 |
+| :-- | :-- | :-- |
+| `%d` | `int` | `42` |
+| `%f` | `float` / `double` (printf) | `3.140000` |
+| `%lf` | `double` (仅 scanf) | 读入 `1.75` |
+| `%c` | `char` | `A` |
+| `%s` | 字符串 (`char []`) | `Hi` |
+| `%o` | 八进制整数 | `12` (由 10 得到) |
+| `%x` | 十六进制整数 | `ff` (由 255 得到) |
+| `%e` | 指数格式 | `1.234500e+03` |
+| `%%` | 百分号本身 | `100%` |
+
+</div>
+
+<div style="display:flex;gap:18px;align-items:stretch;font-size:0.86em;line-height:1.5;">
+
+<div style="flex:1;border-left:3px solid #268bd2;padding-left:10px;">
+
+==printf 与 scanf 的 double 差异==: printf 的 `%f` 可打印 `float`/`double` (float 自动提升); scanf 读 `double` 必须用 `%lf`, 读 `float` 才用 `%f`.
+
+</div>
+
+<div style="flex:1;border-left:3px solid #859900;padding-left:10px;">
+
+==宽度不够自动加宽==: 宽度 m 是最小字段宽度, 值更宽时自动加宽、不截断; ==`-`== 标志表示左对齐 (`%4d`→`•123`, `%-4d`→`123•`).
+
+</div>
+
+<div style="flex:1;border-left:3px solid #b58900;padding-left:10px;">
+
+==精度 p 随 X 变==: `%d` 的 p 是最少位数 (不足补 0, 默认 1); `%f`/`%e` 的 p 是小数位数 (默认 6, p 为 0 不显示小数点); `%g` 按大小自动选 `%e`/`%f`, p 是最大有效位数并去掉尾随零.
+
+</div>
+
+</div>
+
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->##### 任务 1: 打印对齐的成绩表
 ---
@@ -369,62 +286,35 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 转义序列
+##### 转义序列表
 
 ---
 
-形如 ==`\n`== 的代码称为 ==转义序列==
+==转义序列== 让字符串包含非打印 (控制) 字符或具有特殊含义的字符; 反斜杠 ==`\`== 是==转义引子==——它和后面的一个字符合成"一个字符" (如 `\n` 是一个字符, 不是 `\` 和 `n` 两个).
 
-==转义序列==: 使字符串包含非打印(控制)字符和具有特殊含义的字符(如 ==`"`==)
+<div class="fullborder" style="font-size:0.8em;">
 
-转义序列的部分列表: 
-
-<div class="fullborder">
-
-| 警报(铃声) | \a |
-| :--       | :-- |
-| 回退符     | \b |
-| 换行符     | \n |
-| 水平制表符  | \t |
+| 转义序列 | 含义 | 示例 |
+| :-- | :-- | :-- |
+| `\n` | 换行符 | 光标移到下一行开头 |
+| `\t` | 水平制表符 | `printf("A\tB")` 两列对齐 |
+| `\"` | 双引号 `"` | `printf("\"Hi\"")` → `"Hi"` |
+| `\\` | 一个反斜杠 `\` | `printf("C:\\temp")` → `C:\temp` |
+| `\a` | 警报 (铃声) | 响铃 |
+| `\b` | 回退符 | 光标退回一格 |
 
 </div>
 
-- 一个字符串可以包含任意数量的转义序列: 
+<div style="font-size:0.8em;line-height:1.5;">
 
-  ```C
-  printf("Item\tUnit\tPurchase\n\tPrice\tDate\n");
-  ```
+- 一个字符串可以包含任意数量的转义序列: `printf("Item\tUnit\tPurchase\n\tPrice\tDate\n");`
 
----
-
-<!-- slide data-notes="" -->
-
-
-##### 转义序列
-
----
-
-<div>
-
-另一常见的转义序列是 ==`\"`==, 代表 ==`"`== 字符: 
-
-```C
-printf("\"Hello!\""); /* prints "Hello!" */
-```
-
-</div>
-
-<div>
-
-要打印单个 ==`\`== 字符, 在字符串中放置两个 ==`\`==: 
-
-```C
-printf("\\"); /* prints one \ character */
-```
+- 要打印双引号必须写 `\"`; 要打印单个 `\` 必须写 `\\`, 否则它会和后一个字符组成别的转义序列.
 
 </div>
 
 ---
+
 
 <!-- slide data-notes="" -->##### 任务 2: 用转义序列打印三行
 ---
@@ -483,30 +373,44 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### scanf函数
+##### scanf 要点（一）：怎么读
 
 ---
 
-==`scanf`== 根据指定格式读取输入; 格式字符串同样含==普通字符==与==转换说明==, 与 ==`printf`== 基本相同
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<span class="yellow">:fa-weixin:</span> 在多数情况下, ==`scanf`== 格式字符串只包含转换说明: 
+<div style="flex:1;font-size:0.85em;line-height:1.7;">
 
-<div style="font-size:0.85em;">
+- `scanf` 按格式串==从左到右==依次匹配; 格式串通常只含转换说明
+
+- 通常每个变量前要加 ==`&`== (取地址), 告诉 `scanf` 把值存到哪里
+
+- ==返回值== = 成功读入的项数, 可用于检查输入是否完整
+
+- 读 ==`double`== 必须用 ==`%lf`== (读 `float` 才用 `%f`)
+
+</div>
+
+<div style="flex:1.1;font-size:0.62em;">
 
 ```C{.line-numbers}
 int i, j;
-float x, y;
+double x, y;
 
-scanf("%d%d%f%f", &i, &j, &x, &y);
+scanf("%d%d%lf%lf", &i, &j, &x, &y);
+```
+
+样本输入: `1 -20 .3 -4.0e3`
+
+```
+i=1  j=-20  x=0.3  y=-4000.0
 ```
 
 </div>
 
-样本输入: 
+</div>
 
-`1 -20 .3 -4.0e3`
-
-==`scanf`== 将变量 `i`、`j`、`x`和`y`赋值为 `1`、`–20`、`0.3` 和 `–4000.0`
+<span class="yellow">:fa-weixin:</span> `scanf` 不检查转换说明的数量和类型是否与变量匹配; 顺序错了, 读到的是==无意义的值==.
 
 ---
 
@@ -514,63 +418,32 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 <!-- slide data-notes="" -->
 
 
-##### scanf函数
+##### scanf 要点（二）：输入缓冲区
 
 ---
 
-使用 ==`scanf`== 时, 程序员须自己检查: 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-- ==转换说明== 的数量与 ==输入变量== 的数量是否相同
+<div style="flex:1.05;font-size:0.8em;line-height:1.65;">
 
-- 确保各个转换说明 ==适用于== 相应变量
+- 输入先进入==缓冲区==; `scanf` 每次从上次读到的位置接着读, 多次调用共享同一条输入流
 
-==`&`== 符号通常需要用在 ==`scanf`== 调用中的每个变量之前
+- 对每个转换说明, `scanf` 在缓冲区里找合适的数据, 必要时==跳过空白== (空格 / 制表 / 换行)
 
-==`&`== 通常(但不总是)是必需的, 在读取输入至变量时需记住使用它
+- 读整数时先找数字或正负号, 继续读数字, 直到遇到==非数字==; 这个字符被==放回==, 留给下一次读取
 
----
-
-<!-- slide data-notes="" -->
-
-
-##### scanf工作原理
-
----
-
-- ==`scanf`== 尝试将输入字符组与格式字符串中的转换说明进行匹配
-
-- 对每个转换说明, ==`scanf`== 尝试在输入数据中寻找适当类型数据, 必要时==跳过空格==
-
-- 当被要求读取整数时, 首先搜索数字或正负号, 然后继续读取数字, 直到遇到非数字
-
-- 遇到不能成为当前变量一部分的字符时, 会 ==放回== 该字符留待下次读取
-
-- 如果数据读取不成功, ==`scanf`== 立即返回
-
-- 输入流中没有可用的数据时, ==scanf 会等待用户输入==——交互式程序"卡住"往往就是在等你敲键盘
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### scanf工作原理
-
----
-
-- ==`scanf`== 搜索数字时忽略空白 (空格/制表/换行); 读取四个数字的调用: 
-
-<div style="font-size:0.8em;">
-
-```C
-scanf("%d%d%f%f", &i, &j, &x, &y);
-```
+- 缓冲区没有数据时, `scanf` ==等待用户输入==——交互式程序"卡住"往往是在等你敲键盘; 数据不匹配时则立即返回
 
 </div>
 
-- 输入的数字可以在一行上, 也可以分布在多行上: 
+<div style="flex:1;font-size:0.66em;">
 
-<div style="font-size:0.8em;">
+```C{.line-numbers}
+int i, j; double x, y;
+scanf("%d%d%lf%lf", &i, &j, &x, &y);
+```
+
+输入的数字可以在同一行, 也可以分布在多行:
 
 ```
 ••1
@@ -578,39 +451,43 @@ scanf("%d%d%f%f", &i, &j, &x, &y);
 •••-4.0e3
 ```
 
+`1-20.3-4.0e3` 的处理:
+
+```
+%d  → i=1, j=-20      (放回 - 和 .)
+%lf → x=0.3, y=-4000.0 (放回 - 和换行)
+```
+
 </div>
 
-样本输入 `1-20.3-4.0e3¤` 的处理步骤: 
+</div>
 
-- `%d` 把 `1` 存进 i、把 `-20` 存进 j (分别放回 `-` 和 `.`)
-
-- `%f` 把 `0.3` 存进 x、把 `-4.0×10³` 存进 y (放回 `-` 和换行符)
+<span class="yellow">:fa-weixin:</span> `%d` / `%f` 读完后停在第一个不能构成数字的字符; 换行符因此常留在缓冲区里——下一页的 `%c` 会读到它.
 
 ---
 
 
 <!-- slide data-notes="" -->
 
-##### scanf 与输入缓冲区
+
+##### 缓冲区与遗留换行
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:20px;">
 
-<div style="flex:1.3;font-size:0.68em;">
-
-==scanf== 每次==从上次读到的位置接着读==, 程序里的多次调用共享同一条==输入字符流==: 
+<div style="flex:1.2;font-size:0.55em;">
 
 ```C{.line-numbers}
 int a, b;
 printf("请输入两个整数: ");
 scanf("%d", &a);          /* 读走 10, 剩 " 20↵" */
-printf("a = %d\n", a);    /* 马上打印已读到的 */
+printf("a = %d\n", a);
 scanf("%d", &b);          /* 跳过空格, 接着读 20 */
 printf("b = %d\n", b);
 ```
 
-用户==只输入一行== `10 20↵`: 
+用户只输入一行 `10 20↵`:
 
 ```
 请输入两个整数: 10 20↵
@@ -620,91 +497,38 @@ b = 20
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.8em;line-height:1.65;">
 
-- 输入==先全部进入缓冲区==, 两条 ==`scanf`== 依次"消费": 第一个只拿走 `10`, 第二个接着拿走 `20`
+- 输入==先全部进入缓冲区==, 两条 `scanf` 依次"消费": 第一个拿走 `10`, 第二个接着拿走 `20`
 
-- 夹在中间的 ==`printf`== 打印的是"已经读到的"——输入与输出互不干扰
+- `scanf` 读走的数据==不会再次被读到==; 夹在中间的 `printf` 只打印已读到的值
 
-- ==`scanf`== 读走的数据==不会再次被读到==(不回看、不重复)
+- 若第一次只输入 `10↵` 就回车, 第二个 `scanf` 在缓冲区找不到整数, 程序==卡住==等待继续输入
 
-<span class="yellow">:fa-weixin:</span> 试一试: 如果第一次只输入 `10↵` 就回车, 会发生什么? 程序会==卡住==等待继续输入——第二个 ==`scanf`== 在缓冲区里找不到整数
-
-</div>
+- `%d` / `%f` 跳过空白, ==`%c` 不跳过==——它读到的可能就是上一次留下的换行
 
 </div>
 
----
+</div>
 
+<div style="display:flex;align-items:flex-start;gap:20px;margin-top:4px;">
 
-<!-- slide data-notes="" -->
-
-##### scanf 读字符与"遗留的换行"
-
----
-
-<div style="display:flex;align-items:flex-start;gap:20px;">
-
-<div style="flex:1.25;">
-
-- `%d`、`%f` 会自动跳过空格和换行; ==`%c` 不会==——它读到的可能就是上一次输入留下的换行符
+<div style="flex:1.1;font-size:0.6em;">
 
 ```C
 int n; char ch;
 scanf("%d", &n);
-scanf("%c", &ch);       /* 读到的是 '\n' 或空格, 不是用户新输入的字符! */
-```
-
-- 解决: 在 `%c` 前加一个空格表示"跳过空白": `scanf(" %c", &ch);`
-
-- scanf 与 getchar 混用时的经典坑: scanf 结束后==换行符还留在输入流里==, 会被后面的 `getchar()` 当"第一个字符"吃掉
-
-```C
-scanf("%d", &n);
-getchar();              /* 先把遗留的换行符吃掉, 再读下面的字符 */
+scanf("%c", &ch);     /* ch 读到 '\n', 不是新字符! */
+scanf(" %c", &ch);    /* 空格: 跳过所有空白 */
 ```
 
 </div>
 
-<div style="flex:1;text-align:center;">
+<div style="flex:1;font-size:0.64em;line-height:1.5;">
 
-<svg viewBox="0 0 400 200" style="max-width:100%;height:200px;">
-<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-  <text x="14" y="18" font-size="12" fill="#586e75">用户输入: 12↵</text>
+==修复==: 在 `%c` 前加一个空格 (`" %c"`), 格式串里的空白会跳过所有空白字符.
 
-  <rect x="20" y="28" width="42" height="36" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-  <text x="41" y="54" font-size="20" fill="#073642" text-anchor="middle">1</text>
-  <rect x="62" y="28" width="42" height="36" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
-  <text x="83" y="54" font-size="20" fill="#073642" text-anchor="middle">2</text>
-  <rect x="104" y="28" width="42" height="36" rx="4" fill="#fde4e2" stroke="#dc322f" stroke-width="2.5"/>
-  <text x="125" y="53" font-size="18" fill="#dc322f" text-anchor="middle">↵</text>
-
-  <path d="M20 66 V72 H104 V66" fill="none" stroke="#268bd2" stroke-width="1.5"/>
-  <path d="M62 72 V94" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#arrScanA)"/>
-  <path d="M125 64 V80 H190 V94" fill="none" stroke="#dc322f" stroke-width="2" marker-end="url(#arrScanB)"/>
-  <text x="68" y="88" font-size="11" fill="#268bd2">%d</text>
-  <text x="130" y="78" font-size="11" fill="#dc322f">%c</text>
-
-  <rect x="18" y="96" width="92" height="44" rx="6" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
-  <text x="28" y="113" font-size="11" fill="#586e75">int n</text>
-  <text x="64" y="134" font-size="20" fill="#073642" text-anchor="middle">12</text>
-  <rect x="148" y="96" width="112" height="44" rx="6" fill="#fde4e2" stroke="#dc322f" stroke-width="2.5"/>
-  <text x="158" y="113" font-size="11" fill="#586e75">char ch</text>
-  <text x="204" y="134" font-size="18" fill="#dc322f" text-anchor="middle">'\n'</text>
-
-  <text x="16" y="168" font-size="11.5" fill="#586e75">第一个 scanf: 只拿走 12, ↵ 留在缓冲区</text>
-  <text x="16" y="189" font-size="11.5" fill="#dc322f">第二个 scanf("%c"): 直接读走 ↵, 不是新字符</text>
-
-  <defs>
-    <marker id="arrScanA" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-      <path d="M0 0 L7 3.5 L0 7 z" fill="#268bd2"/>
-    </marker>
-    <marker id="arrScanB" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-      <path d="M0 0 L7 3.5 L0 7 z" fill="#dc322f"/>
-    </marker>
-  </defs>
-</g>
-</svg>
+`scanf` 与 `getchar()` 混用同理: `scanf` 结束后==换行符还留在输入流里==, 会被后面的 `getchar()` 当"第一个字符"吃掉; 先 `getchar()` 把换行吃掉再读, 也常用于读整行之前.
 
 </div>
 
@@ -965,12 +789,13 @@ int main(void)
 
 ---
 
+<style>.frac pre code{font-size:18px!important;line-height:1.2!important}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.62em;">
+<div class="frac" style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
-
 #include <stdio.h>
  
 int main(void)
@@ -1035,5 +860,3 @@ The sum is 38/24
 ## 未完待续
 
 ---
-
-
