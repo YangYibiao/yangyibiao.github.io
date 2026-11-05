@@ -137,37 +137,47 @@ decompose的原型可以是:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:32px;font-size:0.68em;line-height:1.5;">
 
 <div style="flex:1;">
 
-第一个赋值把x转换为long类型, 存入int_part指向的对象中: 
+<div style="font-weight:700;color:#268bd2;margin-bottom:4px;">① 第一个赋值</div>
+
+把 x 转换为 long 类型, 存入 ==int_part 指向的对象==中:
 
 <div class="top-2">
-    <img src="figs/11-15.png" width=300px>
+    <img src="figs/11-15.png" width=340px>
 </div>
 
 </div>
 
 <div style="flex:1;">
 
-第二个赋值把`x - *int_part`的值存储到frac_part指向的对象中: 
+<div style="font-weight:700;color:#268bd2;margin-bottom:4px;">② 第二个赋值</div>
+
+把 `x - *int_part` 的值存储到 ==frac_part 指向的对象==中:
 
 <div class="top-2">
-    <img src="figs/11-16.png" width=300px>
+    <img src="figs/11-16.png" width=340px>
 </div>
 
 </div>
 
 </div>
 
-scanf调用中的参数是指针: 
+<div style="margin-top:10px;font-size:0.72em;line-height:1.5;">
+
+==scanf 调用中的参数是指针==——scanf 需要地址, 才能把读入的结果写回调用者的变量:
+
 ```C
 int i;
 …
 scanf("%d", &i);
 ```
-如果没有&, 传递给scanf函数的将是i的值.
+
+如果没有 `&`, 传递给 scanf 的将是 i 的==值==而不是地址——scanf 无处写回结果.
+
+</div>
 
 ---
 

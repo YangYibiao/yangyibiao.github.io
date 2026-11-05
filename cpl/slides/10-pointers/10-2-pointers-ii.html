@@ -177,25 +177,29 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针作为参数--decompose-与-scanf">指针作为参数: decompose 与 scanf </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:32px;font-size:0.68em;line-height:1.5;">
 <div style="flex:1;">
-<p>第一个赋值把x转换为long类型, 存入int_part指向的对象中:</p>
+<div style="font-weight:700;color:#268bd2;margin-bottom:4px;">① 第一个赋值</div>
+<p>把 x 转换为 long 类型, 存入 <mark>int_part 指向的对象</mark>中:</p>
 <div class="top-2">
-    <img src="figs/11-15.png" width=300px>
+    <img src="figs/11-15.png" width=340px>
 </div>
 </div>
 <div style="flex:1;">
-<p>第二个赋值把<code>x - *int_part</code>的值存储到frac_part指向的对象中:</p>
+<div style="font-weight:700;color:#268bd2;margin-bottom:4px;">② 第二个赋值</div>
+<p>把 <code>x - *int_part</code> 的值存储到 <mark>frac_part 指向的对象</mark>中:</p>
 <div class="top-2">
-    <img src="figs/11-16.png" width=300px>
+    <img src="figs/11-16.png" width=340px>
 </div>
 </div>
 </div>
-<p>scanf调用中的参数是指针:</p>
+<div style="margin-top:10px;font-size:0.72em;line-height:1.5;">
+<p><mark>scanf 调用中的参数是指针</mark>——scanf 需要地址, 才能把读入的结果写回调用者的变量:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 …
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>如果没有&, 传递给scanf函数的将是i的值.</p>
+<p>如果没有 <code>&amp;</code>, 传递给 scanf 的将是 i 的<mark>值</mark>而不是地址——scanf 无处写回结果.</p>
+</div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="指针作为参数--常见错误">指针作为参数: 常见错误 </h5>
 <hr>
