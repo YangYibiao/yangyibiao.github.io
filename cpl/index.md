@@ -49,18 +49,18 @@
 | 第6周   | [一维数组](slides/6-arrays/6-1-arrays-i.html) | 一维数组（与循环配合） |
 |   ^    | [二维数组与矩阵运算](slides/6-arrays/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
 | 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
-|   ^    | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
-| 第8周   | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数 + 函数调用栈 |
-|   ^    | [递归](slides/9-functions/9-2-recursion.html) | 递归：作用域与生命期 + 递归 |
-| 第9周   | [指针（上）](slides/10-pointers/10-1-pointers-i.html) | 指针（上）：概念、& 与 *、赋值 |
+| 第8周   | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
+|   ^    | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数 + 函数调用栈 |
+| 第9周   | [递归](slides/9-functions/9-2-recursion.html) | 递归：作用域与生命期 + 递归 |
+| 第10周  | [指针（上）](slides/10-pointers/10-1-pointers-i.html) | 指针（上）：概念、& 与 *、赋值 |
 |   ^    | [指针（下）](slides/10-pointers/10-2-pointers-ii.html) | 指针（下）：传址调用、const 与返回值 |
-| 第10周  | [指针与数组（上）](slides/11-pointers/11-1-pointer-arrays-i.html) | 指针与数组（上）：算术运算、* 与 ++ |
+| 第11周  | [指针与数组（上）](slides/11-pointers/11-1-pointer-arrays-i.html) | 指针与数组（上）：算术运算、* 与 ++ |
 |   ^    | [指针与数组（下）](slides/11-pointers/11-2-pointer-arrays-ii.html) | 指针与数组（下）：数组名、数组实参、多维数组 |
-| 第11周  | [字符指针与字符串处理](slides/12-strings/12-1-strings.html) | 字符指针与字符串处理 |
+| 第12周  | [字符指针与字符串处理](slides/12-strings/12-1-strings.html) | 字符指针与字符串处理 |
 |   ^    | [指针数组与函数指针](slides/12-strings/12-2-pointer-arrays-funcs.html) | 指针数组与函数指针 |
-| 第12周  | [结构体](slides/13-struct-linked-list/13-1-struct.html) | 结构体 |
+| 第13周  | [结构体](slides/13-struct-linked-list/13-1-struct.html) | 结构体 |
 |   ^    | [链表（一）](slides/13-struct-linked-list/13-2-linked-list-i.html) | 链表（一）：动态内存 malloc/free 与建表 |
-| 第13周  | [链表（二）](slides/13-struct-linked-list/13-2-linked-list-ii.html) | 链表（二）：插入、删除与遍历 |
+|   ^    | [链表（二）](slides/13-struct-linked-list/13-2-linked-list-ii.html) | 链表（二）：插入、删除与遍历 |
 |   ^    | [链表（三）](slides/13-struct-linked-list/13-2-linked-list-iii.html) | 链表（三）：综合案例（约瑟夫问题等） |
 | 第14周  | [文件操作](slides/14-files/14-1-files.html) | 文件操作 |
 |   ^    | [预处理命令与多文件组织](slides/14-files/14-2-multi-file.html) | 预处理命令与多文件组织 |
