@@ -853,15 +853,15 @@ int max_rec(int a[], int n)
 
 <div style="font-size:0.9em;line-height:1.6;">
 
-==任务==: 实现 `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
+==任务==: 判断字符串是否回文——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
 
-==先想参数==: 子问题是什么? ——首尾去掉后剩下的"中间一段"; 用 l、r 两个下标刻画它, s 全程不变——不需要复制新字符串
+==先想参数==: `int is_pal( ??? )`——子问题是"首尾去掉后剩下的中间一段", 要==几个参数==才能刻画它? 需要复制一个新字符串吗? 想清楚再打开 VS Code 对照
 
 样例: `"level"` → 1, `"hello"` → 0
 
 </div>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (只写函数体)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (自己设计签名 + 函数体 + main 调用)</a>
 
 ---
 
@@ -895,15 +895,15 @@ int is_pal(char s[], int l, int r)
 
 <div style="font-size:0.9em;line-height:1.6;">
 
-==任务==: 实现 `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)
+==任务==: 在升序数组 a 的某个区间里查找 key——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友); 找到返回下标, 找不到返回 -1
 
-==先想参数==: 递归函数需要哪些参数? ——"当前在哪个区间找"随递归变化 (low、high), 要找的 key 和数组 a 全程不变
+==先想参数==: `int bin_search( ??? )`——==子问题是什么==? 哪几个量==随递归变化==、哪几个==全程不变==? 想清楚再打开 VS Code 对照骨架里的签名
 
 样例: 在 `{2, 5, 8, 12, 19}` 中找 8 → 下标 2; 找 7 → -1
 
 </div>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (只写函数体)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (自己设计签名 + 函数体 + main 调用)</a>
 
 ---
 

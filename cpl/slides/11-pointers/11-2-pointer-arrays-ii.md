@@ -78,8 +78,8 @@ presentation:
 
 ```C
 int a[10];
-*a = 7;      /* 将 7存储在a[0]中 */
-*(a+1) = 12; /* 将12存储在a[1]中 */
+*a = 7;      /* 将 7 存储在a[0]中 */
+*(a+1) = 12; /* 将 12 存储在a[1]中 */
 ```
 
 ```C{.line-numbers}
@@ -202,23 +202,23 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.5em;">
 
 ```C{.line-numbers}
 #define N 10
 int find_largest(int a[], int n)
 {
-    int i, max;
+    int max;
 
     max = a[0];
-    for (i = 1; i < n; i++)
+    for (int i = 1; i < n; i++)
         if (a[i] > max)
             max = a[i];
     return max;
 }
 
-int main(){
-    int b[N] = {0};
+int main(void) {
+    int b[N] = {0}, largest;
     ...
     /* 此调用导致将指向b的第一个元素的指针赋值给a, 数组本身不会被复制. */
     largest = find_largest(b, N); /* 调用find_largest */
@@ -291,6 +291,7 @@ int find_largest(int a[], int n);
 /* 不等价 */
 int a[10]; /* 编译器为数组a留出10个整数的空间 */
 int *a; /* 编译器仅为指针变量分配空间 */
+*a = 0; /*** 错误的 ***/
 ```
 
 </div>
@@ -300,6 +301,8 @@ int *a; /* 编译器仅为指针变量分配空间 */
 - 数组名传给函数时总被视为指针; ==数组可能被修改== (普通变量传值, 改参数不影响原变量)
 
 - 用 `const` 声明表明不修改: 编译器会检查函数体没有对 a 中元素赋值
+
+- 若 `a` 只是指针，`*a = 0` 会把 0 存到 `a` 指向的地方——不清楚 `a` 指向哪，后果不确定。
 
 - ==之前的悬念在这里揭晓==: 数组作参数为什么能改原数组——传的本来就是地址
 
@@ -336,17 +339,9 @@ int *a; /* 编译器仅为指针变量分配空间 */
 
 ---
 
-后一种情况下, a不是数组; 试图将其用作数组可能会导致灾难性的后果. 
+形参收到的是首元素地址，函数并不知道整个数组有多大——只要给它一段连续元素的起点和长度，它就能正常工作。
 
-```C
-int *a;
-*a = 0; /*** 错误的 ***/
-```
-
-将0存到a指向的地方. 不清楚a指向哪, 所以对程序的影响不确定.
-
-
-- 结果4: 可以给形式参数为数组的函数传递==数组的片段==——连续的数组元素组成的序列. 
+- 另一个结果：可以给形式参数为数组的函数传递==数组的片段==——连续的数组元素组成的序列。
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -420,9 +415,9 @@ C允许把指针看作数组名进行取下标操作:
 ```C{.line-numbers}
 #define N 10
 …
-int a[N], i, sum = 0, *p = a;
+int a[N], sum = 0, *p = a;
 …
-for (i = 0; i < N; i++)
+for (int i = 0; i < N; i++)
     sum += p[i];
 ```
 
@@ -449,14 +444,14 @@ for (i = 0; i < N; i++)
 
 <div style="flex:1.3;font-size:0.55em;">
 
+考虑将以下数组的所有元素初始化为0的问题：
+
 ```C{.line-numbers}
 int a[NUM_ROWS][NUM_COLS];
 
 /* 方法1: 使用嵌套的for循环来进行二维数组的初始化 */
-int row, col;
-…
-for (row = 0; row < NUM_ROWS; row++)
-    for (col = 0; col < NUM_COLS; col++)
+for (int row = 0; row < NUM_ROWS; row++)
+    for (int col = 0; col < NUM_COLS; col++)
         a[row][col] = 0;
 
 /* 方法2: 将a视为一维的整型数组, 单个循环进行初始化 */
@@ -480,10 +475,7 @@ r行的数组的布局:
 
 p 一开始指向第 0 行第 0 列 ($a[0][0]$), 不断自增 p 就能挨个访问每个元素。
 
-
-考虑将以下数组的所有元素初始化为0的问题:
-
-严格说, 把二维数组当一维扁平遍历==依赖实现== (标准不保证可移植), 了解思路即可——正规写法是嵌套循环或下一节的行指针. 
+严格说, 把二维数组当一维扁平遍历==依赖实现== (标准不保证可移植), 了解思路即可——正规写法是嵌套循环，或用后面介绍的行指针（指向数组的指针）。
 
 该方法会损害程序的可读性, 对老的编译器可能产生效率提升. 
 
@@ -546,7 +538,7 @@ largest = find_largest(a[i], NUM_COLS);
 
 对数组a的第i行清零的循环:
 
-由于a[i]是指向第i行的指针, 可将它传给处理一维数组的函数——一维数组函数也能处理二维数组的行.
+由于a[i]是指向第i行第一个元素的指针, 可将它传给处理一维数组的函数——一维数组函数也能处理二维数组的行.
 
 
 用find_largest求二维数组a第i行的最大值:
@@ -581,32 +573,31 @@ int a[NUM_ROWS][NUM_COLS];
 ```
 
 <svg viewBox="0 0 400 184" width="430" height="198" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<defs><marker id="arrColB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrColY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b58900"/></marker></defs>
+<defs><marker id="arrColB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrColY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b58900"/></marker><marker id="arrColR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
 <text x="133" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">0</text>
 <text x="175" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">1</text>
 <text x="217" y="24" font-size="12" fill="#268bd2" text-anchor="middle">i</text>
 <text x="259" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">3</text>
 <rect x="112" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
 <rect x="154" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="196" y="34" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
+<rect x="196" y="34" width="42" height="32" fill="#dc322f" fill-opacity="0.10" stroke="#dc322f" stroke-width="2.6"/>
 <rect x="238" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
 <rect x="112" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
 <rect x="154" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="196" y="66" width="42" height="32" fill="#dc322f" fill-opacity="0.10" stroke="#dc322f" stroke-width="2.6"/>
+<rect x="196" y="66" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
 <rect x="238" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
 <rect x="112" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
 <rect x="154" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
 <rect x="196" y="98" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
 <rect x="238" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<text x="41" y="56" font-size="9" fill="#268bd2" text-anchor="middle">行指针</text>
-<rect x="10" y="66" width="62" height="30" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="41" y="86" font-size="14" fill="#268bd2" text-anchor="middle">p</text>
-<line x1="72" y1="81" x2="110" y2="81" stroke="#268bd2" stroke-width="2" marker-end="url(#arrColB)"/>
-<text x="288" y="86" font-size="9.5" fill="#268bd2">第 i 行</text>
-<path d="M41,96 C41,128 80,114 108,114" fill="none" stroke="#b58900" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrColY)"/>
-<text x="66" y="140" font-size="10" fill="#b58900" text-anchor="middle">p++ 跨一行</text>
-<line x1="217" y1="130" x2="217" y2="144" stroke="#dc322f" stroke-width="1.4"/>
-<text x="217" y="158" font-size="11" fill="#dc322f" text-anchor="middle">(*p)[i]</text>
+<text x="41" y="28" font-size="9" fill="#268bd2" text-anchor="middle">行指针</text>
+<rect x="10" y="35" width="62" height="30" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="41" y="55" font-size="14" fill="#268bd2" text-anchor="middle">p</text>
+<line x1="72" y1="50" x2="110" y2="50" stroke="#268bd2" stroke-width="2" marker-end="url(#arrColB)"/>
+<path d="M41,65 C41,100 80,82 108,82" fill="none" stroke="#b58900" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrColY)"/>
+<text x="66" y="118" font-size="10" fill="#b58900" text-anchor="middle">p++ 跨一行</text>
+<text x="288" y="54" font-size="10.5" fill="#dc322f">(*p)[i]</text>
+<line x1="284" y1="50" x2="242" y2="50" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrColR)"/>
 <text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（NUM_COLS 个 int）</text>
 </svg>
 
@@ -616,7 +607,7 @@ int a[NUM_ROWS][NUM_COLS];
 
 处理二维数组一列的元素:
 
-`int (*p)[NUM_COLS];`把p声明为指向长度为NUM_COLS的整形数组的指针
+`int (*p)[NUM_COLS];`把p声明为指向长度为NUM_COLS的整型数组的指针
 
 - `(*p)`括号是必需的, 若无括号则编译器将p看作指针数组, 而不是指向数组的指针
 

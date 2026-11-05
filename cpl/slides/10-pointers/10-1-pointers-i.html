@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>使用术语<mark>对象</mark>而不是变量, 因p可能指向不属于变量的内存区域.</p>
 <p>指针变量可以与其他变量一起出现在声明中:</p>
 <p>C 要求每个指针变量只能指向特定类型(所指向的类型)的对象:</p>
-<p>对指针指向的类型没有限制 (<code>void *</code> 例外: 可存任意对象的地址).</p>
+<p>可以声明指向任意类型的指针；<code>void *</code> 较特殊：可存放任意类型对象的地址。</p>
 </div>
 </div>
 <hr>
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>  <span class="token comment">/* 没有指向特定对象 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span> p<span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
 …
 p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
@@ -235,8 +235,11 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <div style="flex:1;font-size:0.6em;">
 <p>一旦指针变量指向一个对象, 就可以使用<code>*</code>(间接寻址)运算符来访问对象中存储的内容.</p>
 <p>如果p指向i, 我们可以打印i的值如下:</p>
-<p>对变量使用<code>&amp;</code>运算符生成指向变量的指针</p>
 <ul>
+<li>
+<p>对变量使用<code>&amp;</code>运算符生成指向变量的指针</p>
+
+</li>
 <li>
 <p>对指针使用<code>*</code>运算符则可以返回原始变量</p>
 
@@ -286,7 +289,6 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 </div><div class="top-2">
   <img src="figs/11-8.png" width=200px>
 </div>
-<p>将间接寻址运算符应用于未初始化的指针变量会导致未定义的行为:</p>
 </div>
 </div>
 <hr>
@@ -300,6 +302,7 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
+<p>将间接寻址运算符应用于未初始化的指针变量会导致未定义的行为.</p>
 <p>给*p赋值是特别危险的:</p>
 </div>
 </div>
@@ -377,9 +380,9 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
-<li>指针变量里存的是什么？<code>int *p;</code> 中 p 的类型是什么？
+<li>概念: 指针变量里存的是什么？<code>int *p;</code> 中 p 的类型是什么？
 </li>
-<li><code>&amp;x</code> 和 <code>*p</code> 分别做什么？它们互为逆运算吗？
+<li>概念: <code>&amp;x</code> 和 <code>*p</code> 分别做什么？它们互为逆运算吗？
 </li>
 <li>代码阅读: <code>int i = 1, *p = &amp;i; *p = 2; printf("%d", i);</code> 输出什么？
 </li>

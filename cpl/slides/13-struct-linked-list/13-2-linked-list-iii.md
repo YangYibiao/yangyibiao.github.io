@@ -27,7 +27,7 @@ password: "cpl2026"
 
 - 案例: 约瑟夫问题 (问题 → 思路 → 代码)
 
-- 案例: 零件数据库 (改进版)
+- 程序: 维护零件数据库 (改进版)
 
 - 课堂编码与小测
 
@@ -101,16 +101,17 @@ n 个人围成一圈 (编号 1~n), 从 1 号开始报数, 报到 m 的人==出�
     <text x="90" y="65" font-size="12" fill="#073642" text-anchor="middle">7</text>
 
     <text x="232" y="38" font-size="11.5" font-weight="700" fill="#268bd2">一轮操作 (m = 3)</text>
-    <text x="232" y="60" font-size="9.2" fill="#073642">① prev 从 1 走 2 步</text>
-    <text x="232" y="78" font-size="9.2" fill="#073642">② p = prev-&gt;next (3)</text>
-    <text x="232" y="96" font-size="9.2" fill="#073642">③ 输出 3, 绕过 p</text>
-    <text x="232" y="114" font-size="9.2" fill="#073642">④ free(p), prev 不动</text>
-    <text x="232" y="132" font-size="9.2" fill="#073642">⑤ 直到 prev-&gt;next == prev</text>
+    <text x="232" y="58" font-size="9.2" fill="#073642">① 报数从 1 (prev-&gt;next) 起，</text>
+    <text x="232" y="70" font-size="9.2" fill="#073642">　 prev 走 m-1=2 步：7 → 1 → 2</text>
+    <text x="232" y="88" font-size="9.2" fill="#073642">② p = prev-&gt;next (3)</text>
+    <text x="232" y="106" font-size="9.2" fill="#073642">③ 输出 3, 绕过 p</text>
+    <text x="232" y="124" font-size="9.2" fill="#073642">④ free(p), prev 不动</text>
+    <text x="232" y="142" font-size="9.2" fill="#073642">⑤ 直到 prev-&gt;next == prev</text>
 
-    <circle cx="236" cy="152" r="4" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-    <text x="246" y="155" font-size="8.5" fill="#268bd2">prev</text>
-    <circle cx="296" cy="152" r="4" fill="#fdf6e3" stroke="#dc322f" stroke-width="2"/>
-    <text x="306" y="155" font-size="8.5" fill="#dc322f">p (出列)</text>
+    <circle cx="236" cy="162" r="4" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="246" y="165" font-size="8.5" fill="#268bd2">prev</text>
+    <circle cx="296" cy="162" r="4" fill="#fdf6e3" stroke="#dc322f" stroke-width="2"/>
+    <text x="306" y="165" font-size="8.5" fill="#dc322f">p (出列)</text>
 
     <text x="8" y="190" font-size="9.5" fill="#586e75">7 人、m=3: 出列 3 6 2 7 5 1 4, 幸存 4</text>
   </g>
@@ -138,26 +139,33 @@ struct node {
 
 int main(void)
 {
-  int n, m, i;
-  struct node *head, *p, *prev;
+  int n, m;
+  struct node *first = NULL, *p, *prev;
 
-  scanf("%d %d", &n, &m);
-
-  for (i = n; i >= 1; i--) {          /* 头插法建 1..n */
-    p = malloc(sizeof(struct node));
-    p->no = i;
-    p->next = head;
-    head = p;
+  if (scanf("%d %d", &n, &m) != 2 || n < 1) {
+    printf("输入无效\n");
+    return 1;
   }
 
-  prev = head;                        /* 找尾结点, 连成环 */
+  for (int i = n; i >= 1; i--) {      /* 头插法建 1..n */
+    p = malloc(sizeof(struct node));
+    if (p == NULL) {                  /* 分配失败 */
+      printf("内存不足\n");
+      return 1;
+    }
+    p->no = i;
+    p->next = first;
+    first = p;
+  }
+
+  prev = first;                       /* 找尾结点, 连成环 */
   while (prev->next != NULL) {
     prev = prev->next;
   }
-  prev->next = head;
+  prev->next = first;
 
   while (prev->next != prev) {        /* 只剩一人时停止 */
-    for (i = 1; i < m; i++) {         /* 报数 m-1 步 */
+    for (int i = 1; i < m; i++) {     /* 报数 m-1 步 */
       prev = prev->next;
     }
     p = prev->next;                   /* 报到 m 的人 */
@@ -172,7 +180,7 @@ int main(void)
 
 </div>
 
-- 建环用==头插法== (倒着插, 正着报); 尾结点怎么找? 从 head 走到 `next == NULL`
+- 建环用==头插法== (倒着插, 正着报); 尾结点怎么找? 从 first 走到 `next == NULL`
 
 - 出列后 prev ==不要动==——它正好是下一个报数者的前一个
 
@@ -182,7 +190,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 程序: 维护零件数据库(改进版)
+##### 程序: 维护零件数据库 (改进版)
 
 ---
 
@@ -191,6 +199,8 @@ int main(void)
 <div style="flex:1.5;font-size:0.7em;">
 
 ```C{.line-numbers}
+#define NAME_LEN 25
+
 struct part {
   int number;
   char name[NAME_LEN+1];
@@ -216,14 +226,14 @@ struct part {
 
 part 结构体多加一个成员: 指向下一个结点的指针:
 
-inventory将指向链表首结点: 
+`inventory` 将指向链表首结点: 
 
 `struct part *inventory = NULL;`
 
 
 新程序中的大多数函数与原始程序中的版本非常相似. 
 
-find_part和insert会更复杂, 因为将按零件编号对链表inventory中的结点进行排序.
+`find_part` 和 `insert` 会更复杂, 因为要按零件编号对链表 `inventory` 中的结点排序; 这两个函数在课堂编码中完成.
 
 </div>
 
@@ -268,9 +278,9 @@ find_part和insert会更复杂, 因为将按零件编号对链表inventory中的
     <line x1="316" y1="45" x2="334" y2="45" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ll-rev-arrow)"/>
     <text x="340" y="49" font-size="9" fill="#93a1a1">NULL</text>
 
-    <text x="128" y="74" font-size="8.5" fill="#268bd2" text-anchor="middle">prev</text>
-    <text x="208" y="74" font-size="8.5" fill="#859900" text-anchor="middle">cur</text>
-    <text x="288" y="74" font-size="8.5" fill="#b58900" text-anchor="middle">next</text>
+    <text x="8" y="74" font-size="8.5" fill="#268bd2">prev = NULL</text>
+    <text x="128" y="74" font-size="8.5" fill="#859900" text-anchor="middle">cur</text>
+    <text x="208" y="74" font-size="8.5" fill="#b58900" text-anchor="middle">next</text>
 
     <text x="8" y="98" font-size="11" font-weight="700" fill="#586e75">反转后</text>
     <text x="352" y="127" font-size="9" fill="#859900">first</text>

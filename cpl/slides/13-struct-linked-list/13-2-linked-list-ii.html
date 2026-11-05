@@ -149,31 +149,24 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.6em;">
-<p>链表的优点之一是可以在链表中的任何位置添加结点.</p>
-<p>但是, 链表的开头是最容易插入结点的地方.</p>
-<p>假设new_node指向要插入的结点, first指向链表中的第一个结点.</p>
-<p>将结点插入链表需要两个语句.</p>
+<p>链表的优点之一是可以在任何位置添加结点, 但开头最容易插入.</p>
+<p>上一节课堂编码已用过这两条语句, 这里回顾一下: 顺序不能交换.</p>
 <p>第一步是修改新结点的成员next, 使其指向之前在链表开头的结点:</p>
 <p><code>new_node-&gt;next = first;</code></p>
 <p>第二步是使first指向新结点:</p>
 <p><code>first = new_node;</code></p>
-<p>即使链表为空, 这些语句也有效.</p>
-<p>让我们跟踪将两个结点插入一个空链表的过程.</p>
-<p>首先插入一个包含数字10的结点, 然后插入一个包含20的结点.</p>
+<p>重点: <mark>即使链表为空, 这些语句也有效</mark>——first 为 NULL 时, 新结点的 next 变成 NULL, 它自然成为唯一的结点.</p>
 </div>
 </div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="搜索链表">搜索链表 </h5>
 <hr>
+<p>问题: 在链表中搜索整数 n——找到则返回指向该结点的指针, 否则返回空指针.</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> first<span class="token punctuation">;</span> p <span class="token operator">!=</span> NULL<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token operator">-&gt;</span>next<span class="token punctuation">)</span>
-  …</code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span><span class="token function">search_list</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>list<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
- <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>p<span class="token punctuation">;</span>
-
- <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> list<span class="token punctuation">;</span> p <span class="token operator">!=</span> NULL<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token operator">-&gt;</span>next<span class="token punctuation">)</span>
+ <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>p <span class="token operator">=</span> list<span class="token punctuation">;</span> p <span class="token operator">!=</span> NULL<span class="token punctuation">;</span> p <span class="token operator">=</span> p<span class="token operator">-&gt;</span>next<span class="token punctuation">)</span>
    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p<span class="token operator">-&gt;</span>value <span class="token operator">==</span> n<span class="token punctuation">)</span>
      <span class="token keyword keyword-return">return</span> p<span class="token punctuation">;</span>
  <span class="token keyword keyword-return">return</span> NULL<span class="token punctuation">;</span>
@@ -189,8 +182,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <div style="flex:1;font-size:0.6em;">
 <p>虽然while循环也可以搜索链表, 但for语句通常是首选.</p>
 <p>访问链表中结点的循环, 使用指针变量p来跟踪"当前"结点:</p>
-<p>这种形式的循环可用于在链表中搜索整数n的函数.</p>
-<p>如果找到n, 该函数将返回一个指向包含n的结点的指针; 否则, 它将返回一个空指针.</p>
 <p>该函数的初始版本:</p>
 <p>还有很多其他的方法来编写search_list.</p>
 <p>一种替代方法是消除变量p, 用list本身来跟踪当前结点:</p>
@@ -208,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>链表的一大优势: 删除结点很方便。</p>
+<p>链表的一大优势: 删除结点很方便.</p>
 <p>删除结点分三步:</p>
 <ul>
 <li>
@@ -229,18 +220,26 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>"追踪指针"技术涉及保持指向前一个结点(prev)的指针以及指向当前结点(cur)的指针.</p>
 <p>假设 list 指向要搜索的链表, n 是要删除的整数.</p>
 <p>实现第 1 步的循环:</p>
-<p>当循环终止时, cur 指向要删除的结点, prev 指向前一个结点.</p>
+<p>当循环终止时, 若找到 n, cur 指向要删除的结点, prev 指向前一个结点; 若 n 不在链表中, cur 为 NULL, 需先检查再删除.</p>
 </div>
 </div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="从链表中删除结点--续">从链表中删除结点 (续) </h5>
 <hr>
-<p>第 2、3 步的代码:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>prev <span class="token operator">==</span> NULL<span class="token punctuation">)</span>          <span class="token comment">/* 删的是头结点 */</span>
-  list <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
-<span class="token keyword keyword-else">else</span>
-  prev<span class="token operator">-&gt;</span>next <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>  <span class="token comment">/* 绕过 cur */</span>
-<span class="token function">free</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token comment">/* 回收内存 */</span></code></pre>
+<p>把前面的循环与第 2、3 步合起来, 得到完整的删除函数:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span><span class="token function">delete_node</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>list<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>cur<span class="token punctuation">,</span> <span class="token operator">*</span>prev<span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>cur <span class="token operator">=</span> list<span class="token punctuation">,</span> prev <span class="token operator">=</span> NULL<span class="token punctuation">;</span>
+      cur <span class="token operator">!=</span> NULL <span class="token operator">&amp;&amp;</span> cur<span class="token operator">-&gt;</span>value <span class="token operator">!=</span> n<span class="token punctuation">;</span>
+      prev <span class="token operator">=</span> cur<span class="token punctuation">,</span> cur <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">)</span>
+    <span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cur <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> list<span class="token punctuation">;</span>              <span class="token comment">/* n 不在链表中 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>prev <span class="token operator">==</span> NULL<span class="token punctuation">)</span> list <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>        <span class="token comment">/* 删的是头结点 */</span>
+  <span class="token keyword keyword-else">else</span> prev<span class="token operator">-&gt;</span>next <span class="token operator">=</span> cur<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>               <span class="token comment">/* 绕过 cur */</span>
+  <span class="token function">free</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span><span class="token punctuation">;</span>                                 <span class="token comment">/* 回收内存 */</span>
+  <span class="token keyword keyword-return">return</span> list<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>
 <p>删除头结点要<mark>更新头指针</mark>; free 之后 cur 不能再解引用</p>
@@ -296,13 +295,15 @@ document.addEventListener("DOMContentLoaded", function () {
     <text x="222" y="154" font-size="8.5" fill="#268bd2" text-anchor="middle">new_node</text>
     <line x1="200" y1="74" x2="212" y2="106" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
     <line x1="254" y1="124" x2="282" y2="76" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
-    <text x="8" y="170" font-size="9" fill="#586e75">prev-&gt;next = new; new-&gt;next = cur</text>
+    <text x="8" y="170" font-size="9" fill="#586e75">new_node-&gt;next = cur; prev-&gt;next = new_node</text>
   </g>
 </svg>
+<p>插入时<mark>先接后断</mark>: 先让 <code>new_node-&gt;next = cur</code>, 再让 <code>prev-&gt;next = new_node</code>; 顺序反过来会先丢掉 cur 之后的链表.</p>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
+<p>三个课时的任务共用同一份 <code>skeleton.c</code>, 按注释分组, 只写函数体.</p>
 <ol>
 <li>写 <code>void print_list(struct node *list)</code>: 从头到尾打印每个结点的 value
 </li>

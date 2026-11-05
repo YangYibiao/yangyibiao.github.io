@@ -56,9 +56,11 @@ presentation:
 
 - 比较指针
 
-- 用指针处理数组
+- 使用指针进行数组处理
 
 - 结合 * 和 ++ 运算符
+
+- 课堂编码
 
 - 课堂小测
 
@@ -239,10 +241,6 @@ p <= q; // expression value: 0
 p >= q; // expression value: 1
 ```
 
-完成后: 
-- p<=q的值为0
-- p>=q的值为1.
-
 </div>
 
 <div style="flex:0.9;">
@@ -274,7 +272,7 @@ p >= q; // expression value: 1
 <line x1="255" y1="36" x2="255" y2="50" stroke="#268bd2" stroke-width="1.6" marker-end="url(#arrCmpB)"/>
 <text x="105" y="130" font-size="11.5" fill="#dc322f" text-anchor="middle">p &lt;= q → 0（假）</text>
 <text x="295" y="130" font-size="11.5" fill="#859900" text-anchor="middle">p &gt;= q → 1（真）</text>
-<text x="200" y="154" font-size="10" fill="#586e75" text-anchor="middle">地址大小 = 元素在数组中的先后</text>
+<text x="200" y="154" font-size="10" fill="#586e75" text-anchor="middle">同一数组中，地址越大元素越靠后</text>
 </svg>
 
 </div>
@@ -291,17 +289,42 @@ p >= q; // expression value: 1
 
 ---
 
-- 在第一次迭代结束时: 
-- 在第二次迭代结束时: 
-- 在第三次迭代结束时: 
+<div style="font-size:0.6em;">
 
-<div class="top-2">
-    <img src="figs/13-6.png" width=190px>
+```C
+#define N 10
+int a[N] = {11, 34, 82, 7, 64, 98, 47, 18, 79, 20};
+int sum = 0, *p;
+…
+for (p = &a[0]; p < &a[N]; p++)
+    sum += *p;
+```
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
+- 在第一次迭代结束时：`p` 指向 `a[1]`，`sum` 为 11（已加上 `a[0]`）
+
+- 在第二次迭代结束时：`p` 指向 `a[2]`，`sum` 为 45（又加上 `a[1]`）
+
+- 在第三次迭代结束时：`p` 指向 `a[3]`，`sum` 为 127（又加上 `a[2]`）
+
+`for` 语句中的条件 `p < &a[N]` 值得特别提及。将地址运算符应用于 `a[N]` 是合法的，即使此元素不存在。
+
 </div>
 
+<div style="flex:0.7;">
 
-`for`语句中的条件`p < &a[N]`值得特别提及. 
-将地址运算符应用于`a[N]`是合法的, 即使此元素不存在.
+<div class="top-2">
+    <img src="figs/13-6.png" width=250px>
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 ---
 
@@ -318,11 +341,6 @@ p >= q; // expression value: 1
 <div style="flex:1.2;font-size:0.6em;">
 
 ```C
-for (p = &a[0]; p < &a[N]; p++)
-    sum += *p;
-```
-
-```C
 p = &a[0];
 while (p < &a[N])
     sum += *p++;
@@ -330,7 +348,7 @@ while (p < &a[N])
 
 <div class="fullborder">
 
-| 表达  | 意义 |
+| 表达式 | 意义 |
 | :--: | :--: |  
 | `*p++或*(p++)` | 表达式的值是`*p`在递增之前, 之后自增p |
 | `(*p)++`      | 表达式的值为`*p`在递增之前, 稍后增加`*p` |
@@ -361,7 +379,7 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 - (*p)++ 指向的对象自增(p本身不变)
 
 
-\*和++最常见的组合是`*p++`, 在循环中很常用. 左栏的求和代码就是这种改写: `for` 版可以改写成 `while` 版.
+\*和++最常见的组合是`*p++`, 在循环中很常用. 上一页的求和 `for` 循环可以改写成左栏的 `while` 版.
 
 
 
@@ -378,27 +396,29 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
+<div style="flex:1.2;font-size:0.5em;">
 
 ```C
-int *top_ptr = &contents[0]; 
+int contents[100];
+int top = 0;
+
+void push(int i) { contents[top++] = i; }
+int pop(void)   { return contents[--top]; }
 ```
 
 ```C {.line-numbers}
+int *top_ptr = &contents[0];
+
 void push(int i)
 {
-    if (is_full())
-        stack_overflow();
-    else
-        *top_ptr++ = i;
+  if (is_full()) stack_overflow();
+  else           *top_ptr++ = i;
 }
 
 int pop(void)
 {
-    if (is_empty())
-        stack_underflow();
-    else
-        return *--top_ptr;
+  if (is_empty()) stack_underflow();
+  else            return *--top_ptr;
 }
 ```
 
@@ -410,19 +430,11 @@ int pop(void)
 
 看一个 `*` 和 `--` 组合的例子——用数组模拟一个==栈== (后进先出):
 
-用整型变量 top 记录 contents 数组的==栈顶==位置:
+索引版：用整型变量 top 记录 contents 数组的==下一个空位==——push 把元素存到 top 处，再让 top 后移；pop 先让 top 前移，再返回该处的元素（见左栏）。
 
-现在把 top 换成初始指向 contents[0] 的指针变量:
+指针版：把 top 换成初始指向 contents[0] 的 top_ptr，它同样指向==下一个空位==，新的 push 和 pop 函数见左栏。
 
-新的push和pop函数:
-
-指针的算术运算是数组和指针相互关联的一种方法. 
-
-此外, 数组的名称可以用作指向数组中第一个元素的指针. 
-
-这种关系简化了指针的算术运算, 并使数组和指针更加通用.
-
-<svg viewBox="0 0 400 170" width="440" height="187" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<svg viewBox="0 0 400 170" width="376" height="160" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrStkB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrStkG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
 <rect x="186" y="14" width="74" height="26" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
 <text x="223" y="31" font-size="10.5" fill="#268bd2" text-anchor="middle">top_ptr</text>
@@ -451,6 +463,109 @@ int pop(void)
 <!-- slide data-notes="" -->
 
 
+##### 课堂编码
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.75em;">
+
+==任务==：用指针遍历数组，实现两个函数。
+
+- `int find_sum(int *a, int n)`：返回数组所有元素之和。
+
+- `int find_max(int *a, int n)`：返回数组元素的最大值。
+
+要求：只用指针 `*p` 访问元素，不使用下标 `a[i]`；循环变量在 `for` 中自声明。
+
+样例输入：`34 82 49 102 7 94 23 11 50 31`
+
+样例输出：`sum = 483`、`max = 102`
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
+
+<span class="blue">:fa-lightbulb-o:</span> 提示：求和让 `p` 从 `a` 走到 `a + n`，每次把 `*p` 累加；求最大值先把 `max` 初始化为 `*a`，再从 `a + 1` 开始逐个比较。
+
+==先想参数==：函数需要数组首元素地址 `a` 和元素个数 `n`——指针本身不知道数组有多长。
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
+##### 课堂编码 · 参考实现
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.5em;">
+
+```C{.line-numbers}
+int find_sum(int *a, int n)
+{
+  int sum = 0;
+  for (int *p = a; p < a + n; p++)
+    sum += *p;
+  return sum;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.5em;">
+
+```C{.line-numbers}
+int find_max(int *a, int n)
+{
+  int max = *a;
+  for (int *p = a + 1; p < a + n; p++)
+    if (*p > max)
+      max = *p;
+  return max;
+}
+```
+
+</div>
+
+</div>
+
+<div style="font-size:0.5em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int b[10] = {34, 82, 49, 102, 7, 94, 23, 11, 50, 31};
+  printf("sum = %d\n", find_sum(b, 10));   /* 期望输出: sum = 483 */
+  printf("max = %d\n", find_max(b, 10));   /* 期望输出: max = 102 */
+  return 0;
+}
+```
+
+</div>
+
+<div style="font-size:0.6em;">
+
+两个循环都用 `p < a + n` 作条件，指针不会走到数组之外；调用时数组名 `b` 自动作为 `&b[0]` 传入。
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->
+
+
 ##### 课堂小测
 
 ---
@@ -459,7 +574,7 @@ int pop(void)
 
 2. `p2 - p1` 得到的是地址差还是元素个数差？
 
-3. `*p++` 等价于什么？先取 p 指向的值，还是先移动 p？
+3. 阅读代码：`int a[3] = {1, 2, 3}, *p = a; (*p)++; *++p;` 执行后，数组 `a` 的三个元素各是多少？`p` 指向哪个元素？
 
 4. 纠错: `int a[10], *p; for (p = a; p <= a + 10; p++) ...` 有什么问题？
 

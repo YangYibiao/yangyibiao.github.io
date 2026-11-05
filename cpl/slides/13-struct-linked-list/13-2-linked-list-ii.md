@@ -51,14 +51,9 @@ password: "cpl2026"
 
 <div style="flex:1;font-size:0.6em;">
 
-链表的优点之一是可以在链表中的任何位置添加结点. 
+链表的优点之一是可以在任何位置添加结点, 但开头最容易插入. 
 
-但是, 链表的开头是最容易插入结点的地方. 
-
-假设new_node指向要插入的结点, first指向链表中的第一个结点.
-
-
-将结点插入链表需要两个语句. 
+上一节课堂编码已用过这两条语句, 这里回顾一下: 顺序不能交换.
 
 第一步是修改新结点的成员next, 使其指向之前在链表开头的结点: 
 
@@ -68,12 +63,7 @@ password: "cpl2026"
 
 `first = new_node;`
 
-即使链表为空, 这些语句也有效.
-
-
-让我们跟踪将两个结点插入一个空链表的过程. 
-
-首先插入一个包含数字10的结点, 然后插入一个包含20的结点.
+重点: ==即使链表为空, 这些语句也有效==——first 为 NULL 时, 新结点的 next 变成 NULL, 它自然成为唯一的结点.
 
 </div>
 
@@ -86,21 +76,16 @@ password: "cpl2026"
 
 ---
 
+问题: 在链表中搜索整数 n——找到则返回指向该结点的指针, 否则返回空指针.
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.6em;">
 
 ```C
-for (p = first; p != NULL; p = p->next)
-  …
-```
-
-```C
 struct node *search_list(struct node *list, int n)
 {
- struct node *p;
-
- for (p = list; p != NULL; p = p->next)
+ for (struct node *p = list; p != NULL; p = p->next)
    if (p->value == n)
      return p;
  return NULL;
@@ -124,11 +109,6 @@ struct node *search_list(struct node *list, int n)
 虽然while循环也可以搜索链表, 但for语句通常是首选. 
 
 访问链表中结点的循环, 使用指针变量p来跟踪"当前"结点:
-
-这种形式的循环可用于在链表中搜索整数n的函数.
-
-
-如果找到n, 该函数将返回一个指向包含n的结点的指针; 否则, 它将返回一个空指针. 
 
 该函数的初始版本:
 
@@ -164,7 +144,7 @@ for (cur = list, prev = NULL;
 
 <div style="flex:1;font-size:0.6em;">
 
-链表的一大优势: 删除结点很方便。
+链表的一大优势: 删除结点很方便.
 
 删除结点分三步:
 
@@ -182,7 +162,7 @@ for (cur = list, prev = NULL;
 
 实现第 1 步的循环:
 
-当循环终止时, cur 指向要删除的结点, prev 指向前一个结点.
+当循环终止时, 若找到 n, cur 指向要删除的结点, prev 指向前一个结点; 若 n 不在链表中, cur 为 NULL, 需先检查再删除.
 
 </div>
 
@@ -194,14 +174,22 @@ for (cur = list, prev = NULL;
 
 ---
 
-第 2、3 步的代码:
+把前面的循环与第 2、3 步合起来, 得到完整的删除函数:
 
 ```C
-if (prev == NULL)          /* 删的是头结点 */
-  list = cur->next;
-else
-  prev->next = cur->next;  /* 绕过 cur */
-free(cur);                 /* 回收内存 */
+struct node *delete_node(struct node *list, int n)
+{
+  struct node *cur, *prev;
+  for (cur = list, prev = NULL;
+      cur != NULL && cur->value != n;
+      prev = cur, cur = cur->next)
+    ;
+  if (cur == NULL) return list;              /* n 不在链表中 */
+  if (prev == NULL) list = cur->next;        /* 删的是头结点 */
+  else prev->next = cur->next;               /* 绕过 cur */
+  free(cur);                                 /* 回收内存 */
+  return list;
+}
 ```
 
 - 删除头结点要==更新头指针==; free 之后 cur 不能再解引用
@@ -272,9 +260,11 @@ free(cur);                 /* 回收内存 */
     <line x1="200" y1="74" x2="212" y2="106" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
     <line x1="254" y1="124" x2="282" y2="76" stroke="#268bd2" stroke-width="1.6" marker-end="url(#ll-order-arrow)"/>
 
-    <text x="8" y="170" font-size="9" fill="#586e75">prev-&gt;next = new; new-&gt;next = cur</text>
+    <text x="8" y="170" font-size="9" fill="#586e75">new_node-&gt;next = cur; prev-&gt;next = new_node</text>
   </g>
 </svg>
+
+插入时==先接后断==: 先让 `new_node->next = cur`, 再让 `prev->next = new_node`; 顺序反过来会先丢掉 cur 之后的链表.
 
 ---
 
@@ -286,6 +276,8 @@ free(cur);                 /* 回收内存 */
 ---
 
 ==现场演示==
+
+三个课时的任务共用同一份 `skeleton.c`, 按注释分组, 只写函数体.
 
 1. 写 `void print_list(struct node *list)`: 从头到尾打印每个结点的 value
 

@@ -38,7 +38,9 @@ password: "cpl2026"
 ---
 
 
-<!-- slide data-notes="" -->##### 为什么链表
+<!-- slide data-notes="" -->
+
+##### 为什么链表
 
 ---
 
@@ -64,15 +66,18 @@ password: "cpl2026"
 
 ---
 
-链表结点是==运行时逐个创建==的——用 `malloc` 向系统借内存
+链表结点是==运行时逐个创建==的——用 `malloc` 向系统借内存。`struct node` 是下一页要定义的结点类型，这里先看 `malloc` 的用法：
 
 ```C
+struct node *new_node;                    /* struct node 下一页定义 */
 new_node = malloc(sizeof(struct node));   /* 借一块刚好放下一个结点的内存 */
 if (new_node == NULL) {                   /* 借不到要检查 */
   printf("内存不足\n");
   exit(1);
 }
 ```
+
+`exit(1)` 直接终止程序，声明在 `<stdlib.h>` 中。
 
 - `malloc(n)`: 借 n 字节, ==不清零==; 返回通用指针 `void *`; 需要 `<stdlib.h>`
 
@@ -100,14 +105,14 @@ struct node {
 };
 ```
 
-node必须是结构标记, 而不是typedef名称, 否则将无法声明next的类型.
+`node` 必须是结构标记, 而不是 `typedef` 名称, 否则将无法声明 `next` 的类型。
 
 
 还需要一个始终指向==第一个结点==的变量: 
 
 `struct node *first = NULL;`
 
-将first设置为NULL表示链表最初为空.
+将 `first` 设置为 `NULL` 表示链表最初为空。
 
 ---
 
@@ -123,11 +128,11 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.75em;">
 
 构建链表 = 逐个创建结点, 再逐个挂上去。步骤: ① 为结点==分配内存== ② 在结点中==存储数据== ③ 将结点==插入==到链表中。先看前两步:
 
-临时指针变量: `struct node *new_node;`; 用 malloc 给新结点分配内存, 返回值存进 new_node: `new_node = malloc(sizeof(struct node));`——现在 new_node 指向一块刚好能放下一个结点的内存:
+临时指针变量: `struct node *new_node;` 用 malloc 给新结点分配内存, 返回值存进 new_node: `new_node = malloc(sizeof(struct node));`——现在 new_node 指向一块刚好能放下一个结点的内存:
 
 <div class="top-2" style="display:flex;gap:16px;">
   <img src="figs/16-6.png" width=260px>
@@ -191,7 +196,7 @@ node必须是结构标记, 而不是typedef名称, 否则将无法声明next的�
 
 3. 阅读: `p->value` 等价于什么 (用 `*` 和 `.` 表示)？为什么 `->` 的左边必须是指针？
 
-4. 纠错: `malloc` 之后不检查 `NULL` 就直接解引用会怎样？
+4. 纠错: `new_node = malloc(sizeof(struct node)); new_node->value = 10;` 少了什么检查？内存不足时这两条语句会有什么后果？应怎么改？
 
 ---
 

@@ -140,6 +140,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>结构体作为参数和返回值</p>
+
+</li>
+<li>
+<p>嵌套的结构体</p>
+
+</li>
+<li>
 <p>结构体数组与案例: 零件数据库</p>
 
 </li>
@@ -168,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <p>在某些语言中, 结构体称为记录, 成员称为字段.</p>
-<p>一个零件有编号、名字、库存量——数组只能存同类型, 拆成三个数组数据就散了。<mark>结构体</mark>把一件事物的信息<mark>打包</mark>在一起:</p>
+<p>一个零件有编号、名字、库存量——数组只能存同类型, 拆成三个数组就互不关联了。<mark>结构体</mark>把一件事物的信息<mark>打包</mark>在一起:</p>
 <p>声明两个结构体变量, 存仓库里零件的信息:</p>
 </div>
 </div>
@@ -247,9 +255,9 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token keyword keyword-char">char</span> sex<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> employee1<span class="token punctuation">,</span> employee2<span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.5em;line-height:1.35;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 <p>假设:</p>
 <ul>
 <li>
@@ -296,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div style="flex:1;font-size:0.6em;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 <p>声明结构体变量的同时可以初始化:</p>
 <p>part1 初始化后的样子:</p>
 <div class="top-2">
@@ -326,7 +334,7 @@ part1<span class="token punctuation">.</span>on_hand<span class="token operator"
 </div>
 <div style="flex:1;font-size:0.6em;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 <p>要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称.</p>
 <p>打印 part1 成员值的语句:</p>
 <p>结构体的成员是左值.</p>
@@ -346,7 +354,7 @@ part1<span class="token punctuation">.</span>on_hand<span class="token operator"
 <hr>
 <div style="font-size:0.94em;">
 <p><code>=</code>运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组.</p>
-<p>有的程序员利用此属性创建"空"结构体来封装稍后将复制的数组来:</p>
+<p>有的程序员利用此属性创建"空"结构体来封装稍后将复制的数组:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">;</span>
 a1 <span class="token operator">=</span> a2<span class="token punctuation">;</span>
  <span class="token comment">/* legal, since a1 and a2 are structures */</span></code></pre>
@@ -398,15 +406,12 @@ a <span class="token operator">=</span> b<span class="token punctuation">;</span
 <span class="token punctuation">}</span> part1<span class="token punctuation">,</span> part2<span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> part part1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-struct">struct</span> part part2<span class="token punctuation">;</span>
-
 part2 <span class="token operator">=</span> part1<span class="token punctuation">;</span> <span class="token comment">/* legal; both parts have the same type */</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.5em;line-height:1.22;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
-<p>如果程序里要声明多个成员相同的结构体变量:</p>
-<p>需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量.</p>
-<p>命名结构体的方法:</p>
+<div style="flex:1;">
+<p>要声明多个成员相同的结构体变量, 需要一个代表"类型"的名称:</p>
 <ul>
 <li>
 <p>声明一个"结构体标记"</p>
@@ -417,17 +422,12 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 
 </li>
 </ul>
-<p>结构体标记是用于标识特定类型结构体的名称.</p>
-<p>名为part的结构体标记的声明:</p>
-<p>请注意, 分号必须跟在右大括号后面.</p>
-<p>part标记可用于声明变量:</p>
+<p>名为part的结构体标记的声明 (注意分号必须跟在右大括号后):</p>
+<p>part标记可用于声明变量 (struct不能省略):</p>
 <p><code>struct part part1, part2;</code></p>
-<p>struct不能省略:</p>
 <p><code>part part1, part2;   /*** WRONG ***/</code></p>
-<p>part不是类型名; 没有struct这个词, 它是没有意义的.</p>
-<p>结构体标记只有在struct后才有意义, 因此它们不会与程序中使用的其他名称冲突.</p>
-<p>结构体标记的声明可以与结构体变量的声明相结合:</p>
-<p>所有声明为struct part类型的结构体相互兼容:</p>
+<p>part不是类型名; 结构体标记只在struct后有意义, 因此不会与其他名称冲突.</p>
+<p>结构体标记的声明可与结构体变量的声明相结合; 所有声明为struct part类型的结构体相互兼容:</p>
 </div>
 </div>
 </div>
@@ -435,17 +435,15 @@ part2 <span class="token operator">=</span> part1<span class="token punctuation"
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="定义结构体类型--typedef">定义结构体类型 (typedef) </h5>
 <hr>
-<p>除了声明结构体标记, 还可以使用typedef来定义真实的类型名.</p>
-<p>一个名为Part的类型的定义:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+<p>除了声明结构体标记, 还可以用typedef定义真实的类型名——一个名为Part的类型的定义:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> number<span class="token punctuation">;</span>
   <span class="token keyword keyword-char">char</span> name<span class="token punctuation">[</span>NAME_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> Part<span class="token punctuation">;</span></code></pre>
 <p>Part的使用方式与内置类型相同:</p>
 <p><code>Part part1, part2;</code></p>
-<p>当需要命名结构体时, 通常可以选择声明结构体标记或typedef.</p>
-<p>但是, 当要在链表中使用结构体时, 必须声明结构体标记.</p>
+<p>命名结构体时可以选择结构体标记或typedef; 后面讲到链表时, 还会用到结构体标记.</p>
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="枚举">枚举 </h5>
 <hr>
@@ -475,7 +473,7 @@ s <span class="token operator">=</span> <span class="token number">2</span><span
 
 </li>
 </ul>
-<p>用宏给花色"类型"和四个名字——方向对了, 但还有更好的办法:</p>
+<p>用宏给花色"类型"和四个名字——思路可行, 但还有更好的办法:</p>
 </div>
 </div>
 <hr>
@@ -512,8 +510,8 @@ s <span class="token operator">=</span> HEARTS<span class="token punctuation">;<
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="枚举标记和类型名称">枚举标记和类型名称 </h5>
 <hr>
-<p>与结构体和联合一样, 有两种命名枚举的方法: 声明标记或使用typedef创建真正的类型名称.</p>
-<p>枚举标记类似于结构体和联合标记: <code>enum suit {CLUBS, DIAMONDS, HEARTS, SPADES};</code></p>
+<p>与结构体一样, 有两种命名枚举的方法: 声明标记或使用typedef创建真正的类型名称.</p>
+<p>枚举标记类似于结构体标记: <code>enum suit {CLUBS, DIAMONDS, HEARTS, SPADES};</code></p>
 <p>suit变量将以下列方式声明: <code>enum suit s1, s2;</code></p>
 <p>也可以使用typedef把Suit定义为类型名称:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-typedef">typedef</span> enum <span class="token punctuation">{</span>CLUBS<span class="token punctuation">,</span> DIAMONDS<span class="token punctuation">,</span> HEARTS<span class="token punctuation">,</span> SPADES<span class="token punctuation">}</span> Suit<span class="token punctuation">;</span>
@@ -579,7 +577,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 <p>把对象声明成 const 的好处:</p>
 <ul>
 <li>
-<p>const是文档格式.</p>
+<p><mark>const</mark> 是一种文档（自说明）.</p>
 
 </li>
 <li>
@@ -591,7 +589,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 
 </li>
 </ul>
-<p>const 与 <code>#define</code> 不同: 宏只做<mark>文本替换</mark> (没有类型、没有作用域、不能用于需要常量表达式的场合), const 创建<mark>有类型、有作用域、有地址</mark>的只读对象, 可在调试器中查看.</p>
+<p>const 与 <code>#define</code> 不同: 宏只做<mark>文本替换</mark>（没有类型、没有作用域，调试器中不可见）；const 对象<mark>有类型、有作用域、有地址</mark>，但不是常量表达式，不能用作 static 数组长度等场合。</p>
 </div>
 </div>
 <hr>
@@ -636,9 +634,8 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 <p>返回 part 结构体的函数:</p>
 <p>调用 build_part:</p>
 <p>从函数返回结构体同样需要复制所有成员.</p>
-<p>为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身.</p>
-<p>之前见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样.</p>
-<p>避免复制结构体还有其他原因. 例如, <stdio.h> 头文件定义了一个名为 FILE 的类型, 它通常是一个结构体. 每个 FILE 结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的. <stdio.h> 中打开文件的每个函数都返回一个指向 FILE 结构体的指针; 每个对已打开文件执行操作的函数都需要一个 FILE 指针作为参数.</p>
+<p>结构体很大时复制开销大, 可以改用指向结构体的指针来代替结构体本身.</p>
+<p>之前见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样; 通过指针访问成员要用 <code>-&gt;</code> 运算符, 后面讲链表时细讲.</p>
 </div>
 </div>
 <hr>
@@ -659,10 +656,9 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 </div>
 <div style="flex:1;font-size:0.6em;">
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 <p>结构体和数组可以无限制地组合.</p>
 <p>数组可以有结构体作为元素, 结构体可以包含数组和结构体作为成员.</p>
-<hr>
 <p>将一个结构体嵌套在另一个结构体中通常很有用.</p>
 <p>假设 person_name 是这样的结构体:</p>
 <p>我们可以使用person_name作为更大结构体的一部分:</p>
@@ -768,9 +764,10 @@ Part Number   Part Name             Quantity on Hand
 Enter operation code<span class="token operator">:</span> q</code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>inventory.c 演示<mark>嵌套数组与结构体</mark>的实战: 零件存在结构体数组中, 每个结构体含零件号、名称、数量.</p>
+<p>把 <code>skeleton.c</code> 另存为 <code>inventory.c</code> 再写: 程序演示<mark>嵌套数组与结构体</mark>的实战——零件存在结构体数组中, 每个结构体含零件号、名称、数量.</p>
 <p>支持的操作: 插入 (i)、搜索 (s)、更新 (u)、打印 (p)、退出 (q).</p>
 <p>结构体存进 inventory 数组, num_parts 跟踪当前零件数.</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 </div>
 </div>
 <hr>
@@ -794,6 +791,7 @@ Enter operation code<span class="token operator">:</span> q</code></pre>
 <div style="flex:1;font-size:0.6em;">
 <p>主循环: 读操作码 → 调用对应函数 (insert/search/update/print); 每种零件的信息保存在结构体中, 结构体存进 inventory 数组.</p>
 <p>代码结构: struct part 定义 → 各操作函数 → main 主循环.</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 </div>
 </div>
 <hr>
@@ -806,7 +804,7 @@ Enter operation code<span class="token operator">:</span> q</code></pre>
 </li>
 <li>代码阅读: <code>struct { int x; } a, b; a.x = 1; b = a; b.x = 2;</code> 执行后 <code>a.x</code> 是多少？这说明结构体赋值是"复制"还是"共享"？
 </li>
-<li>结构体作函数参数与数组作参数，哪个是"复制"、哪个是"共享"？
+<li>纠错: <code>struct part a, b; if (a == b) ...</code> 错在哪里？应怎么改？
 </li>
 </ol>
 <hr>

@@ -59,7 +59,7 @@ presentation:
 
 - 函数指针与 qsort
 
----
+- 指针声明怎么读 (复杂声明的解读小结)
 
 
 <!-- slide data-notes="" -->
@@ -71,21 +71,24 @@ presentation:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.5em;">
 
 ```C{.line-numbers}
-struct node *add_to_list(struct node *list, int n)
+void skip_spaces(char *p)
 {
-  struct node *new_node;
+  while (*p == ' ')
+    p++;
+  printf("%s\n", p);
+}
 
-  new_node = malloc(sizeof(struct node));
-  if (new_node == NULL) {
-    printf("Error: malloc failed in add_to_list\n");
-    exit(EXIT_FAILURE);
-  }
-  new_node->value = n;
-  new_node->next = list;
-  return new_node;
+int main(void)
+{
+  char str[] = "   hello";
+  char *p = str;
+
+  skip_spaces(p);
+  printf("%s\n", p);
+  return 0;
 }
 ```
 
@@ -93,23 +96,15 @@ struct node *add_to_list(struct node *list, int n)
 
 <div style="flex:1;font-size:0.6em;">
 
-链表章见过 `struct node *next`——"指向指针的指针"是再进一步:
+函数参数按值传递. 调用 `skip_spaces(p)` 时, p 的值被复制给形参.
 
-"指向指针的指针"的概念也经常出现在链式数据结构中.
+函数内的 `p` 是副本, 在函数里移动它, 调用者的 `p` 不受影响.
 
-特别是, 当函数的实际参数是指针变量时, 可能会希望函数能够修改变量.
+程序输出: 第一行是 `hello`, 第二行开头仍有三个空格, 后接 `hello`.
+
+如果希望函数修改指针变量本身 (让它指向别处), 需要把指针的地址传进去.
 
 这样做需要使用指向指针的指针.
-
-传给 add_to_list 一个指向原链表首结点的指针; 它返回新链表首结点的指针:
-
-如果要修改 add_to_list, 把 new_node 赋值给 list, 而不是返回 new_node, 这是不起作用的.
-
-调用函数: `add_to_list(first, 10);`
-
-在调用点, first 被复制到 list 中.
-
-函数可以改变 list 的值, 使其指向新结点, 但 first 不受影响.
 
 </div>
 
@@ -123,21 +118,23 @@ struct node *add_to_list(struct node *list, int n)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.5em;">
 
 ```C{.line-numbers}
-void add_to_list(struct node **list, int n)
+void skip_spaces(char **p)
 {
-  struct node *new_node;
+  while (**p == ' ')
+    (*p)++;
+}
 
-  new_node = malloc(sizeof(struct node));
-  if (new_node == NULL) {
-    printf("Error: malloc failed in add_to_list\n");
-    exit(EXIT_FAILURE);
-  }
-  new_node->value = n;
-  new_node->next = *list;
-  *list = new_node;
+int main(void)
+{
+  char str[] = "   hello";
+  char *p = str;
+
+  skip_spaces(&p);
+  printf("%s\n", p);   /* hello */
+  return 0;
 }
 ```
 
@@ -145,17 +142,15 @@ void add_to_list(struct node **list, int n)
 
 <div style="flex:1;font-size:0.6em;">
 
-想让 add_to_list 修改 first 本身, 就传 first 的地址 (指向指针的指针):
+`char **p` 表示 p 指向一个 `char *` 变量.
 
-`add_to_list(&first, 10);`
+实参是 `&p`, 类型为 `char **`; 形参 `p` 保存调用者指针变量的地址.
 
-在函数内部, `list` 是 `first` 的地址; `*list` 就是 `first` 本身.
+`*p` 就是调用者的 `p`; `(*p)++` 让它指向下一个字符.
 
-因此 `*list = new_node;` 修改的是调用者的 `first`, 而不是一个副本.
+因此函数返回后, 调用者的 `p` 已经指向 `hello` 的首字符.
 
-`new_node->next = *list;` 把新结点接到原来的首结点之前.
-
-这解决了按值传递无法修改头指针的问题.
+括号不能省略: `*p++` 等价于 `*(p++)`, 移动的是形参 p 本身, 而不是调用者的指针.
 
 </div>
 
@@ -174,7 +169,7 @@ void add_to_list(struct node **list, int n)
 
 ```
 ls
-ls –l
+ls -l
 ls -l remind.c
 ```
 
@@ -221,6 +216,8 @@ UNIX `ls` 命令的示例:
 | `argv[argc]` | 空指针 NULL |
 
 以 `./demo names.dat dates.dat` 为例, `argc` 为 3: `argv[0]` = `"./demo"`, `argv[1]` = `"names.dat"`, `argv[2]` = `"dates.dat"`, `argv[3]` = `NULL`.
+
+`argv` 是一个==指针数组==: 元素类型是 `char *`, 分别指向一个参数字符串. 类似地, `int *pa[5]` 是含 5 个 `int *` 元素的数组, `pa[0]` 的类型是 `int *`.
 
 <!-- slide data-notes="" -->
 
@@ -273,6 +270,8 @@ double integrate(double (*f)(double), double a, double b);
 - 去掉括号写成 `double f(double)` 也可以, 编译器会把它当作函数指针参数.
 - 调用时直接传函数名, 例如 `integrate(sin, 0.0, PI/2)`.
 
+`PI` 需要自己定义, 例如: `#define PI 3.141592653589793`
+
 <!-- slide data-notes="" -->
 
 
@@ -290,10 +289,7 @@ double integrate(double (*f)(double), double a, double b);
 
 `y = (*f)(x);`
 
-允许使用f(x)代替(*f)(x) .
-
----
-
+允许使用 `f(x)` 代替 `(*f)(x)`。
 
 <!-- slide data-notes="" -->
 
@@ -388,11 +384,7 @@ void (*pf)(int);
 
 尽管函数指针经常用作参数, 但这并不是它们的全部优点.
 
-C 将指向函数的指针视为指向数据的指针.
-
-它们可以存储在变量中, 也可以用作数组的元素, 结构或联合的成员.
-
-函数甚至可以返回函数指针.
+函数指针可以像数据指针一样保存到变量、组成数组、作为参数和返回值使用.
 
 可以存储指向函数的指针的变量, pf 指向具有 int 型参数且返回 void 型值的函数:
 
@@ -427,11 +419,13 @@ ops[0](i);
 
 这种写法把"做什么"变成数据, 常用于命令表和回调.
 
-<!-- slide data-notes="" -->##### 程序: 列三角函数表
+<!-- slide data-notes="" -->
+
+##### 程序: 列三角函数表
 
 ---
 
-==现场演示==: 输入初值、终值、步长, 打印一张三角函数表 (sin、cos、tan 三张)
+==现场演示==: 输入初值、终值、步长, 打印 sin、cos、tan 三张三角函数表
 
 样例:
 
@@ -440,7 +434,7 @@ ops[0](i);
 输入终值: 0.5
 输入步长: 0.1
 
-     x        cos(x)
+     x        f(x)
   -------    -------
   0.00000    1.00000
   0.10000    0.99500
@@ -450,9 +444,6 @@ ops[0](i);
 <span class="blue">:fa-lightbulb-o:</span> 提示: 同一个循环跑三次, 每次换一个数学函数——怎么把"函数"当作参数传进去?
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
-
----
-
 
 
 <!-- slide data-notes="" -->
@@ -473,11 +464,14 @@ ops[0](i);
 
 void tabulate(double (*f)(double), double a, double b, double step)
 {
-    double x;
+    int n = (int)((b - a) / step + 0.5);
+
     printf("     x       f(x)\n");
     printf("  -------   -------\n");
-    for (x = a; x <= b; x += step)
+    for (int i = 0; i <= n; i++) {
+        double x = a + i * step;
         printf("  %7.5f  %7.5f\n", x, f(x));
+    }
 }
 
 int main(void)
@@ -497,7 +491,8 @@ int main(void)
     printf("\ntan(x):\n");
     tabulate(tan, a, b, step);
     return 0;
-}```
+}
+```
 
 </div>
 
@@ -512,6 +507,91 @@ int main(void)
 </div>
 
 </div>
+
+<!-- slide data-notes="" -->##### 指针声明怎么读 · 规则
+
+---
+
+<div style="font-size:0.9em;line-height:1.7;">
+
+复杂声明不必靠背——两条==读法规则==:
+
+1. ==从标识符出发==, 由内向外读: 先找到被声明的名字, 再从它开始解读
+
+2. 有选择时, ==`[]` 和 `()` 优先于 `*`==; 圆括号可以改变优先级
+
+</div>
+
+<div style="font-size:0.85em;margin-top:12px;">
+
+```C
+int *ap[10];        /* ap 先和 [] 结合 → ap 是数组 (10 个元素) */
+                    /* 元素类型是 int * → 指针数组 */
+
+float *fp(float);   /* fp 先和 () 结合 → fp 是函数 (参数 float) */
+                    /* 返回类型是 float * → 返回指针的函数 */
+```
+
+</div>
+
+- 同样两个符号 `*` 与 `[]`/`()`，结合顺序不同, 含义完全不同——这就是读出类型的==关键==
+
+---
+
+<!-- slide data-notes="" -->##### 指针声明怎么读 · 圆括号改变优先级
+
+---
+
+<div style="font-size:0.85em;line-height:1.6;">
+
+```C
+int (*p)[NUM_COLS];   /* 有圆括号: p 先是指针 → 指向"含 NUM_COLS 个 int 的数组" */
+                      /* 这就是行指针 */
+
+void (*pf)(int);      /* pf 是指针 → 指向"参数 int、返回 void 的函数" */
+                      /* 这就是函数指针 */
+```
+
+</div>
+
+- ==加一对圆括号, `*` 从"最后结合"变成"最先结合"==——`int *p[10]` (指针数组) 与 `int (*p)[10]` (行指针) 只差一对括号
+
+- ==之字形读法==: 从标识符往右读 (`[]`/`()`) → 折回往左读 (`*`) → 再往右……直到读完
+
+---
+
+<!-- slide data-notes="" -->##### 指针声明怎么读 · 综合练习
+
+---
+
+<div style="font-size:0.85em;line-height:1.6;">
+
+==先遮住类型名, 从标识符开始, 逐层读出下列声明的含义:==
+
+1. `int *p[5];`
+
+2. `int (*p)[5];`
+
+3. `char *(*f[3])(char *);`
+
+4. `int *(*x[10])(void);`
+
+</div>
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 从标识符出发; 有圆括号先看圆括号; `[]`/`()` 与标识符先结合, 再考虑 `*`
+
+<details style="font-size:0.8em;margin-top:10px;">
+<summary style="cursor:pointer;color:#268bd2;">参考答案 (点击展开)</summary>
+
+1. `p` 是数组 (5 个元素), 元素是 `int *` → ==指针数组==
+
+2. `p` 是指针, 指向"含 5 个 int 的数组" → ==行指针==
+
+3. `f` 是数组 (3 个元素), 元素是函数指针: 参数 `char *`, 返回 `char *`
+
+4. `x` 是数组 (10 个元素), 元素是函数指针: 无参, 返回 `int *`
+
+</details>
 
 ---
 
@@ -529,8 +609,6 @@ int main(void)
 
 4. `qsort` 的第四个参数是什么类型？为什么排序函数需要它？
 
----
-
 
 <!-- slide data-notes="" -->
 
@@ -543,7 +621,5 @@ int main(void)
 <hr class="width50 center">
 
 ## 未完待续
-
----
 
 

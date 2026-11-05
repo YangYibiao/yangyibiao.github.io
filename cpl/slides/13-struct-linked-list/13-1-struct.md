@@ -63,6 +63,10 @@ presentation:
 
 - 枚举与 const
 
+- 结构体作为参数和返回值
+
+- 嵌套的结构体
+
 - 结构体数组与案例: 零件数据库
 
 ---
@@ -99,7 +103,7 @@ struct {
 
 在某些语言中, 结构体称为记录, 成员称为字段. 
 
-一个零件有编号、名字、库存量——数组只能存同类型, 拆成三个数组数据就散了。==结构体==把一件事物的信息==打包==在一起: 
+一个零件有编号、名字、库存量——数组只能存同类型, 拆成三个数组就互不关联了。==结构体==把一件事物的信息==打包==在一起: 
 
 声明两个结构体变量, 存仓库里零件的信息:
 
@@ -200,13 +204,13 @@ struct {
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.5em;line-height:1.35;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 
 假设: 
 
@@ -275,7 +279,7 @@ struct {
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 
 声明结构体变量的同时可以初始化:
 
@@ -338,7 +342,7 @@ scanf("%d", &part1.on_hand);
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 
 要访问结构体中的成员, 首先写出结构体的名称, 然后写一个句点, 再写出成员的名称. 
 
@@ -380,7 +384,7 @@ scanf("%d", &part1.on_hand);
 
 `=`运算符无法用于复制数组, 但在复制结构体时也会复制嵌在结构体中的数组. 
 
-有的程序员利用此属性创建"空"结构体来封装稍后将复制的数组来: 
+有的程序员利用此属性创建"空"结构体来封装稍后将复制的数组: 
 
 ```C
 struct { int a[10]; } a1, a2;
@@ -463,53 +467,36 @@ struct part {
 ```C
 struct part part1 = {528, "Disk drive", 10};
 struct part part2;
-
 part2 = part1; /* legal; both parts have the same type */
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.5em;line-height:1.22;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 
-如果程序里要声明多个成员相同的结构体变量: 
-
-需要一个代表一种结构体类型的名称, 而不是一个特定的结构体变量. 
-
-命名结构体的方法: 
+要声明多个成员相同的结构体变量, 需要一个代表"类型"的名称:
 
 - 声明一个"结构体标记"
 
 - 使用typedef定义类型名
 
-结构体标记是用于标识特定类型结构体的名称. 
+名为part的结构体标记的声明 (注意分号必须跟在右大括号后):
 
-名为part的结构体标记的声明:
-
-请注意, 分号必须跟在右大括号后面.
-
-
-part标记可用于声明变量: 
+part标记可用于声明变量 (struct不能省略):
 
 `struct part part1, part2;`
 
-struct不能省略: 
-
 `part part1, part2;   /*** WRONG ***/`
 
-part不是类型名; 没有struct这个词, 它是没有意义的. 
+part不是类型名; 结构体标记只在struct后有意义, 因此不会与其他名称冲突.
 
-结构体标记只有在struct后才有意义, 因此它们不会与程序中使用的其他名称冲突.
-
-
-结构体标记的声明可以与结构体变量的声明相结合:
-
-所有声明为struct part类型的结构体相互兼容:
+结构体标记的声明可与结构体变量的声明相结合; 所有声明为struct part类型的结构体相互兼容:
 
 
 
@@ -528,11 +515,9 @@ part不是类型名; 没有struct这个词, 它是没有意义的.
 
 ---
 
-除了声明结构体标记, 还可以使用typedef来定义真实的类型名. 
+除了声明结构体标记, 还可以用typedef定义真实的类型名——一个名为Part的类型的定义: 
 
-一个名为Part的类型的定义: 
-
-```C{.line-numbers}
+```C
 typedef struct {
   int number;
   char name[NAME_LEN+1];
@@ -545,9 +530,7 @@ Part的使用方式与内置类型相同:
 `Part part1, part2;`
 
 
-当需要命名结构体时, 通常可以选择声明结构体标记或typedef. 
-
-但是, 当要在链表中使用结构体时, 必须声明结构体标记.
+命名结构体时可以选择结构体标记或typedef; 后面讲到链表时, 还会用到结构体标记.
 
 ---
 
@@ -591,7 +574,7 @@ s = 2;   /* 2 represents "hearts" */
 - 读代码的人看不出 s 只有 4 种可能值。
 - 2 的意义不明确.
 
-用宏给花色"类型"和四个名字——方向对了, 但还有更好的办法:
+用宏给花色"类型"和四个名字——思路可行, 但还有更好的办法:
 
 </div>
 
@@ -641,9 +624,9 @@ C 提供了一种特殊类型, 专为具有少量可能值的变量而设计.
 
 ---
 
-与结构体和联合一样, 有两种命名枚举的方法: 声明标记或使用typedef创建真正的类型名称. 
+与结构体一样, 有两种命名枚举的方法: 声明标记或使用typedef创建真正的类型名称. 
 
-枚举标记类似于结构体和联合标记: 
+枚举标记类似于结构体标记: 
 `enum suit {CLUBS, DIAMONDS, HEARTS, SPADES};`
 
 suit变量将以下列方式声明: 
@@ -779,12 +762,12 @@ static int a[n]; /*** 错误的: 静态数组长度必须是常量表达式 ***/
 类型限定符: ==const== (只读) 与 ==volatile== (少见); C99 还有 ==restrict== (只用于指针). 例子:
 
 把对象声明成 const 的好处: 
-- const是文档格式. 
+- ==const== 是一种文档（自说明）. 
 - 允许编译器检查对象的值是否未更改. 
 - 提醒编译器对象可以存储在ROM(只读存储器)中.
 
 
-const 与 `#define` 不同: 宏只做==文本替换== (没有类型、没有作用域、不能用于需要常量表达式的场合), const 创建==有类型、有作用域、有地址==的只读对象, 可在调试器中查看.
+const 与 `#define` 不同: 宏只做==文本替换==（没有类型、没有作用域，调试器中不可见）；const 对象==有类型、有作用域、有地址==，但不是常量表达式，不能用作 static 数组长度等场合。
 
 </div>
 
@@ -868,11 +851,9 @@ part1 = build_part(528, "Disk drive", 10);
 
 从函数返回结构体同样需要复制所有成员.
 
-为了避免这种开销, 有时建议用一个指向结构体的指针来代替结构体本身.
+结构体很大时复制开销大, 可以改用指向结构体的指针来代替结构体本身.
 
-之前见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样.
-
-避免复制结构体还有其他原因. 例如, <stdio.h> 头文件定义了一个名为 FILE 的类型, 它通常是一个结构体. 每个 FILE 结构体都存储已打开文件的状态信息, 因此在程序中必须是唯一的. <stdio.h> 中打开文件的每个函数都返回一个指向 FILE 结构体的指针; 每个对已打开文件执行操作的函数都需要一个 FILE 指针作为参数.
+之前见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样; 通过指针访问成员要用 `->` 运算符, 后面讲链表时细讲.
 
 </div>
 
@@ -913,14 +894,11 @@ struct student {
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;">
 
 结构体和数组可以无限制地组合. 
 
 数组可以有结构体作为元素, 结构体可以包含数组和结构体作为成员. 
-
-
----
 
 将一个结构体嵌套在另一个结构体中通常很有用. 
 
@@ -1096,11 +1074,13 @@ Enter operation code: q
 
 <div style="flex:1;font-size:0.6em;">
 
-inventory.c 演示==嵌套数组与结构体==的实战: 零件存在结构体数组中, 每个结构体含零件号、名称、数量.
+把 `skeleton.c` 另存为 `inventory.c` 再写: 程序演示==嵌套数组与结构体==的实战——零件存在结构体数组中, 每个结构体含零件号、名称、数量.
 
 支持的操作: 插入 (i)、搜索 (s)、更新 (u)、打印 (p)、退出 (q).
 
 结构体存进 inventory 数组, num_parts 跟踪当前零件数.
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
 </div>
 </div>
@@ -1141,6 +1121,8 @@ for (;;) {
 
 代码结构: struct part 定义 → 各操作函数 → main 主循环.
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+
 </div>
 </div>
 
@@ -1158,7 +1140,7 @@ for (;;) {
 
 3. 代码阅读: `struct { int x; } a, b; a.x = 1; b = a; b.x = 2;` 执行后 `a.x` 是多少？这说明结构体赋值是"复制"还是"共享"？
 
-4. 结构体作函数参数与数组作参数，哪个是"复制"、哪个是"共享"？
+4. 纠错: `struct part a, b; if (a == b) ...` 错在哪里？应怎么改？
 
 ---
 

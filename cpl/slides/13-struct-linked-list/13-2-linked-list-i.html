@@ -165,12 +165,14 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="动态内存--malloc-与-free">动态内存: malloc 与 free </h5>
 <hr>
-<p>链表结点是<mark>运行时逐个创建</mark>的——用 <code>malloc</code> 向系统借内存</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>new_node <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 借一块刚好放下一个结点的内存 */</span>
+<p>链表结点是<mark>运行时逐个创建</mark>的——用 <code>malloc</code> 向系统借内存。<code>struct node</code> 是下一页要定义的结点类型，这里先看 <code>malloc</code> 的用法：</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>new_node<span class="token punctuation">;</span>                    <span class="token comment">/* struct node 下一页定义 */</span>
+new_node <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 借一块刚好放下一个结点的内存 */</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>new_node <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>                   <span class="token comment">/* 借不到要检查 */</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"内存不足\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+<p><code>exit(1)</code> 直接终止程序，声明在 <code>&lt;stdlib.h&gt;</code> 中。</p>
 <ul>
 <li>
 <p><code>malloc(n)</code>: 借 n 字节, <mark>不清零</mark>; 返回通用指针 <code>void *</code>; 需要 <code>&lt;stdlib.h&gt;</code></p>
@@ -194,17 +196,17 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="token keyword keyword-int">int</span> value<span class="token punctuation">;</span>          <span class="token comment">/* data stored in the node  */</span>
   <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>next<span class="token punctuation">;</span>  <span class="token comment">/* pointer to the next node */</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>node必须是结构标记, 而不是typedef名称, 否则将无法声明next的类型.</p>
+<p><code>node</code> 必须是结构标记, 而不是 <code>typedef</code> 名称, 否则将无法声明 <code>next</code> 的类型。</p>
 <p>还需要一个始终指向<mark>第一个结点</mark>的变量:</p>
 <p><code>struct node *first = NULL;</code></p>
-<p>将first设置为NULL表示链表最初为空.</p>
+<p>将 <code>first</code> 设置为 <code>NULL</code> 表示链表最初为空。</p>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="创建结点">创建结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.75em;">
 <p>构建链表 = 逐个创建结点, 再逐个挂上去。步骤: ① 为结点<mark>分配内存</mark> ② 在结点中<mark>存储数据</mark> ③ 将结点<mark>插入</mark>到链表中。先看前两步:</p>
-<p>临时指针变量: <code>struct node *new_node;</code>; 用 malloc 给新结点分配内存, 返回值存进 new_node: <code>new_node = malloc(sizeof(struct node));</code>——现在 new_node 指向一块刚好能放下一个结点的内存:</p>
+<p>临时指针变量: <code>struct node *new_node;</code> 用 malloc 给新结点分配内存, 返回值存进 new_node: <code>new_node = malloc(sizeof(struct node));</code>——现在 new_node 指向一块刚好能放下一个结点的内存:</p>
 <div class="top-2" style="display:flex;gap:16px;">
   <img src="figs/16-6.png" width=260px>
   <img src="figs/16-7.png" width=260px>
@@ -242,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 <li>阅读: <code>p-&gt;value</code> 等价于什么 (用 <code>*</code> 和 <code>.</code> 表示)？为什么 <code>-&gt;</code> 的左边必须是指针？
 </li>
-<li>纠错: <code>malloc</code> 之后不检查 <code>NULL</code> 就直接解引用会怎样？
+<li>纠错: <code>new_node = malloc(sizeof(struct node)); new_node-&gt;value = 10;</code> 少了什么检查？内存不足时这两条语句会有什么后果？应怎么改？
 </li>
 </ol>
 <hr>

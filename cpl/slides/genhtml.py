@@ -601,6 +601,8 @@ if _pwd:
 })();
 </script>
 """
+    # 先移除已有的密码门 (重新生成时 tail 取自旧 html, 不清除会层层叠加)
+    tail_html = re.sub(r'<div id="cpl-gate".*?\n\}\)\(\);\n</script>\n?', '', tail_html, flags=re.S)
     tail_html = tail_html.replace('</body>', _GATE + '</body>', 1)
 
 open(BASE + name + '.html', 'w', encoding='utf-8').write(head_html + body_out + tail_html)

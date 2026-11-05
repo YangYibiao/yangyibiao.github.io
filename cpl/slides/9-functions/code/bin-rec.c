@@ -1,30 +1,17 @@
-/* bin-rec.c: 递归二分查找 —— 只写函数体
-   参数设计: low、high = 当前查找区间 (随递归缩小); key 与数组 a 全程不变
-   提示: 每次砍一半; 基准情形: low > high (没找到)
-   a 是升序数组, 找到返回下标, 找不到返回 -1 */
+/* bin-rec.c: 递归二分查找 —— 签名和函数体都自己写
+   问题: 在升序数组 a 的某个区间里查找 key, 每次砍一半; 找到返回下标, 找不到返回 -1
+   先想参数: 子问题是什么? 哪几个量随递归变化、哪几个全程不变?
+             (想清楚再动手——签名写错, 递归一定写不对)
+   基准情形提示: 区间为空时, 说明没找到 */
 #include <stdio.h>
 
-int bin_search(int a[], int low, int high, int key)
-{
-  /* TODO: 基准情形 + 递归情形 */
-  if (low > high) {
-    return -1;
-  } else {
-    int med = (low + high) / 2;
-    if (a[med] == key) { return med; }
-    if (a[med] > key) {
-      return bin_search(a, low, med - 1, key);
-    } else {
-      return bin_search(a, med + 1, high, key);
-    }
-  }
-}
+/* TODO: 在这里写出你认为正确的 bin_search 签名与函数体 */
 
 int main(void)
 {
   int a[] = {2, 5, 8, 12, 19};
 
-  printf("%d\n", bin_search(a, 0, 4, 8));    /* 期望输出: 2 */
-  printf("%d\n", bin_search(a, 0, 4, 7));    /* 期望输出: -1 */
+  /* TODO: 调用你设计的 bin_search, 在 a 中查找 8 —— 期望输出: 2 */
+  /* TODO: 调用你设计的 bin_search, 在 a 中查找 7 —— 期望输出: -1 */
   return 0;
 }

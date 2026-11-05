@@ -54,7 +54,7 @@ presentation:
 
 - 指针作为参数: 传址调用
 
-- swap 与 scanf 的秘密
+- 传址调用要点与 scanf 的参数
 
 - 案例: 查找最大最小
 
@@ -175,7 +175,7 @@ scanf("%d", &i);
 <!-- slide data-notes="" -->
 
 
-##### 指针作为参数
+##### 指针作为参数: 常见错误
 
 ---
 
@@ -261,9 +261,9 @@ decompose(3.14159, i, d);
 输入 10 个数: 3 8 1 9 2 7 4 6 5 0
 最大: 9
 最小: 0
+```
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/minmax.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 minmax.c</a>
-```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `return` 只能带回一个值, 两个结果怎么传出来? (想想地址的作用)
 
@@ -289,9 +289,9 @@ decompose(3.14159, i, d);
 void max_min(int a[], int n, int *max, int *min);
 int main(void)
 {
-  int b[N], i, big, small;
+  int b[N], big, small;
   printf("输入 %d 个数: ", N);
-  for (i = 0; i < N; i++) {
+  for (int i = 0; i < N; i++) {
     scanf("%d", &b[i]);
   }
   max_min(b, N, &big, &small);
@@ -301,9 +301,8 @@ int main(void)
 }
 void max_min(int a[], int n, int *max, int *min)
 {
-  int i;
   *max = *min = a[0];
-  for (i = 1; i < n; i++) {
+  for (int i = 1; i < n; i++) {
     if (a[i] > *max) {
       *max = a[i];
     } else if (a[i] < *min) {
@@ -381,9 +380,9 @@ void f(const int * const p)
 
 可以使用const来表明函数不会更改指针参数所指向的对象. 
 
-const放置在形式参数的声明中, 后面紧跟着其类型说明:
+把 const 写在类型说明符之前（const int *p）表示不能通过 p 修改 *p；const 位置不同，保护的对象不同，见下列三种写法
 
-尝试修改\*p, 编译器会报错.
+尝试修改`*p`, 编译器会报错.
 
 
 
@@ -439,7 +438,7 @@ int *find_middle(int a[], int n) {
 
 
 尽管这个例子中max返回作为参数传递给它的指针之一, 但这不是唯一的可能性. 
-函数还可以返回指向外部变量或静态局部变量的指针. 
+函数还可以返回指向全局变量（文件作用域变量）或静态局部变量的指针. 
 永远不要返回指向自动局部变量的指针:
 
 f返回后变量i将不存在.
@@ -467,7 +466,7 @@ f返回后变量i将不存在.
 
 1. 写 `void swap(int *a, int *b)`, 在 main 里验证真的交换了——之前传值版的悬念今天揭晓 (样例: 交换前 `x=1, y=2`, 调用后 `x=2, y=1`)
 
-2. 写 `void max_min(int a[], int n, int *max, int *min, double *avg)`, 一次带回最大、最小和平均值
+2. 在第7页参考代码基础上增加 `avg` 指针参数, 写 `void max_min(int a[], int n, int *max, int *min, double *avg)`, 一次带回最大、最小和平均值
 
 3. 挑战: 写 `int *last_max(int *a, int n)`, 返回指向==最后一个==最大元素的指针
 
@@ -484,13 +483,13 @@ f返回后变量i将不存在.
 
 ---
 
-1. 为什么 `void swap(int *a, int *b)` 的参数要用指针？
+1. 概念: 为什么 `void swap(int *a, int *b)` 的参数要用指针？
 
-2. `decompose(3.14159, i, d)` 少写了 & 会发生什么？编译器能发现吗？
+2. 概念: `const int *p` 与 `int * const p` 的区别是什么？
 
-3. 函数能不能返回指向自己局部变量的指针？为什么？
+3. 代码阅读: `void f(int x, int *p) { x = 10; *p = 20; }`，执行 `int a = 1, b = 2; f(a, &b); printf("%d %d", a, b);` 输出什么？
 
-4. `const int *p` 与 `int * const p` 的区别是什么？
+4. 纠错: `int *f(void) { int i = 1; return &i; }` 错在哪里？应该怎么改？
 
 ---
 
