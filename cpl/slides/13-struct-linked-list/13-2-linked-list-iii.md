@@ -1,3 +1,7 @@
+---
+password: "cpl2026"
+---
+
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>

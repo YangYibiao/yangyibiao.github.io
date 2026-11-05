@@ -1,4 +1,5 @@
 ---
+password: "cpl2026"
 presentation:
   margin: 0
   center: false
