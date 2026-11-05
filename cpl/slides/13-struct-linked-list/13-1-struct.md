@@ -435,6 +435,8 @@ if (a == b)             /* 编译错误! C 不提供整体比较 */
 
 - 想比较就写函数, ==逐成员比==: `a.number == b.number && strcmp(a.name, b.name) == 0`
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/struct-compare.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 struct-compare.c</a>
+
 ---
 
 <!-- slide data-notes="" -->
@@ -1074,13 +1076,13 @@ Enter operation code: q
 
 <div style="flex:1;font-size:0.6em;">
 
-把 `skeleton.c` 另存为 `inventory.c` 再写: 程序演示==嵌套数组与结构体==的实战——零件存在结构体数组中, 每个结构体含零件号、名称、数量.
+从 `inventory.c` 的框架开始写: 程序演示==嵌套数组与结构体==的实战——零件存在结构体数组中, 每个结构体含零件号、名称、数量.
 
 支持的操作: 插入 (i)、搜索 (s)、更新 (u)、打印 (p)、退出 (q).
 
 结构体存进 inventory 数组, num_parts 跟踪当前零件数.
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/inventory.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 inventory.c</a>
 
 </div>
 </div>
@@ -1121,7 +1123,7 @@ for (;;) {
 
 代码结构: struct part 定义 → 各操作函数 → main 主循环.
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/inventory.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 inventory.c</a>
 
 </div>
 </div>

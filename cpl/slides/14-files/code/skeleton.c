@@ -2,6 +2,7 @@
    1. count_lines: 用 fgetc 统计文件中的 '\n' 个数; 打不开返回 -1
    2. print_numbered: 用 fgets 逐行读文件, 打印 "行号 内容"
    3. sum_ints: 用 fscanf 读文件中的所有整数并求和 (挑战)
+   样例: numbers.txt 内容 "1 2 3 4 5", 期望和为 15 (已放在同目录; 若缺失请自行创建).
    提示: 用读取函数的返回值判断循环是否结束, 不要用 while (!feof(fp)). */
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +28,6 @@ int main(void)
 {
   printf("%d\n", count_lines("skeleton.c"));  /* 期望: 文件的行数 */
   print_numbered("skeleton.c");                /* 期望: 每行前带行号 */
-  printf("%d\n", sum_ints("numbers.txt"));     /* 期望: 各整数之和 */
+  printf("%d\n", sum_ints("numbers.txt"));     /* 期望: 15 (numbers.txt 中 1+2+3+4+5) */
   return 0;
 }

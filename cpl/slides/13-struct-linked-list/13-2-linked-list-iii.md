@@ -48,7 +48,7 @@ n 个人围成一圈 (编号 1~n), 从 1 号开始报数, 报到 m 的人==出�
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 围成一圈 = 尾结点的 next 指向头结点 (==循环链表==); 出列 = 删除结点
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/joseph.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 joseph.c</a>
 
 ---
 

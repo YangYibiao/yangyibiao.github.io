@@ -436,6 +436,8 @@ int main(void)
 
 - 教训: 写代码前想清楚是"==覆盖重写=="还是"==追加=="——`"w"` 与 `"a"` 差一个字母, 后果天壤之别
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/wtrunc.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 wtrunc.c</a>
+
 ---
 
 <!-- slide data-notes="" -->
