@@ -37,7 +37,7 @@
 |   ^    | [初识C程序](slides/1-intro/0-2-first-c-program.html)        | 初识C程序：Hello World 与 C 程序结构                    |
 |   ^    | [C 语言历史与 AI](slides/1-intro/0-3-c-and-ai.html)        | C 语言历史与人工智能                    |
 |   ^    | [变量与基本数据类型](slides/1-intro/0-4-variable-and-assignment.html)        | 变量与基本数据类型                    |
-|   ^    | [上手: 开发环境与 AI 工具](slides/1-intro/0-5-environment-ai.html) | 开发环境与 AI 工具（安装、编译运行、调试、AI 规范） |
+|   ^    | [上手: 开发环境与 AI 工具](slides/1-intro/0-5-environment-ai.html) | 开发环境与 AI 工具（安装、编译运行、调试、AI 规范）—— ==上机课 / 课后自学== |
 | 第2周   | [数据类型深化](slides/2-types-io/2-1-types-deep-dive.html)   | 数据类型深化                    |
 |   ^    | [格式化输入输出](slides/2-types-io/2-2-formatted-io.html)    | 格式化输入输出                    |
 | 第3周   | [运算符和表达式](slides/3-types-io/3-1-operators-expressions.html) | 运算符和表达式                |
