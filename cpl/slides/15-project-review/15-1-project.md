@@ -1,4 +1,5 @@
 ---
+password: "cpl2026"
 presentation:
   width: 1280
   height: 720
