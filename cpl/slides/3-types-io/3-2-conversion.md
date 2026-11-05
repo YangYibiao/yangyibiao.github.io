@@ -368,6 +368,71 @@ printf("%f\n", a / 4.0);        /* 2.250000: 4.0 是 double, 整体提升 */
 
 ---
 
+<!-- slide data-notes="" -->##### 任务 4: 隐式转换与强制转换实验
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 观察并解释四组输出:
+
+1. `7 / 2` 与 `7 / 2.0`
+
+2. `'A'` 当整数打印
+
+3. `(unsigned)-1` 用 `%u` 打印
+
+4. `(int)3.99` 与 `(int)-3.99`
+
+样例 (常见结果):
+
+```
+7 / 2 = 3, 7 / 2.0 = 3.5
+'A' 的整数值 = 65
+(int)3.99 = 3, (int)-3.99 = -3
+```
+
+==提示==: 混合类型先转换; 强制转换==向零截断==, 不是四舍五入
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-convert.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-convert.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 4: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  printf("7 / 2 = %d, 7 / 2.0 = %f\n", 7 / 2, 7 / 2.0);
+  printf("'A' 的整数值 = %d\n", 'A');
+  printf("(unsigned)-1 = %u\n", (unsigned)-1);
+  printf("(int)3.99 = %d, (int)-3.99 = %d\n", (int)3.99, (int)-3.99);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `7/2` 是整数除法得 3; 有一个操作数是 double 时, 另一个先==隐式转换==, 才得 3.5
+
+- `char` → `int` 得到编码 65——0-4 的 ASCII 知识
+
+- 负数转 `unsigned`: 按 ==2 的幂取模==, -1 变成 4294967295
+
+- 强制转换 `(int)` ==向零截断==: 3.99→3, -3.99→-3; 要实现四舍五入需另加修正
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -405,6 +470,8 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 `printf` 打印 `double` 会自动四舍五入, 但怎样把 `double` ==变量本身==四舍五入成整数?
 
 <span class="yellow">:fa-weixin:</span> 提示: 强制转换是"向零截断"——小数部分直接丢掉
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-round.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-round.c (骨架)</a>
 
 ---
 
@@ -468,6 +535,8 @@ int main(void) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: `/` 取高位、`%` 取低位
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-digits.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-digits.c (骨架)</a>
+
 ---
 
 
@@ -524,6 +593,8 @@ int main(void) {
 例: 输入 `3671` → 输出 `1 小时 1 分 11 秒`
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 一小时 `3600` 秒
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-time.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-time.c (骨架)</a>
 
 ---
 

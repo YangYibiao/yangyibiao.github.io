@@ -59410,8 +59410,7 @@ document.addEventListener("DOMContentLoaded", function () {
     max-width: 100% !important;
     max-height: 50vh !important;
     height: auto !important;
-}.reveal .slides section>pre{-ms-flex-negative:0;flex-shrink:0}.reveal .slides section>section>pre{-ms-flex-negative:0;flex-shrink:0}
-
+}
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59885,7 +59884,66 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="任务-4--隐式转换与强制转换实验">任务 4: 隐式转换与强制转换实验 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 观察并解释四组输出:</p>
+<ol>
+<li><code>7 / 2</code> 与 <code>7 / 2.0</code>
+</li>
+<li><code>'A'</code> 当整数打印
+</li>
+<li><code>(unsigned)-1</code> 用 <code>%u</code> 打印
+</li>
+<li><code>(int)3.99</code> 与 <code>(int)-3.99</code>
+</li>
+</ol>
+<p>样例 (常见结果):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">7</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">7</span> <span class="token operator">/</span> <span class="token number">2.0</span> <span class="token operator">=</span> <span class="token number">3.5</span>
+<span class="token string">'A'</span> 的整数值 <span class="token operator">=</span> <span class="token number">65</span>
+<span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token number">3.99</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">3.99</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span></code></pre>
+<p><mark>提示</mark>: 混合类型先转换; 强制转换<mark>向零截断</mark>, 不是四舍五入</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-convert.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-convert.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务-4--参考代码与要点">任务 4: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"7 / 2 = %d, 7 / 2.0 = %f\n"</span><span class="token punctuation">,</span> <span class="token number">7</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">7</span> <span class="token operator">/</span> <span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"'A' 的整数值 = %d\n"</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"(unsigned)-1 = %u\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"(int)3.99 = %d, (int)-3.99 = %d\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token number">3.99</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">3.99</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p><code>7/2</code> 是整数除法得 3; 有一个操作数是 double 时, 另一个先<mark>隐式转换</mark>, 才得 3.5</p>
+
+</li>
+<li>
+<p><code>char</code> → <code>int</code> 得到编码 65——0-4 的 ASCII 知识</p>
+
+</li>
+<li>
+<p>负数转 <code>unsigned</code>: 按 <mark>2 的幂取模</mark>, -1 变成 4294967295</p>
+
+</li>
+<li>
+<p>强制转换 <code>(int)</code> <mark>向零截断</mark>: 3.99→3, -3.99→-3; 要实现四舍五入需另加修正</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="类型转换---强制转换">类型转换 - 强制转换 </h5>
 <hr>
 <p><mark>强制转换</mark>: 显式地把值转换为目标类型</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 0.5 */</span>
@@ -59901,12 +59959,13 @@ d <span class="token operator">=</span> i<span class="token punctuation">;</span
 i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> j <span class="token operator">*</span> j<span class="token punctuation">;</span>      <span class="token comment">/* 正确: j 先转成 long, 乘法不会溢出 */</span>
 i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-long">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>j <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 错误: j * j 已经在 int 里溢出了 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="动手小练习--四舍五入">动手小练习: 四舍五入 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="动手小练习--四舍五入">动手小练习: 四舍五入 </h5>
 <hr>
 <p><code>printf</code> 打印 <code>double</code> 会自动四舍五入, 但怎样把 <code>double</code> <mark>变量本身</mark>四舍五入成整数?</p>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 提示: 强制转换是"向零截断"——小数部分直接丢掉</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-round.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-round.c (骨架)</a>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="动手小练习--四舍五入--参考代码">动手小练习: 四舍五入 (参考代码) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="动手小练习--四舍五入--参考代码">动手小练习: 四舍五入 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -59942,7 +60001,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="编码实践--数字拆分">编码实践: 数字拆分 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="编码实践--数字拆分">编码实践: 数字拆分 </h5>
 <hr>
 <p>输入一个<mark>4 位整数</mark> <code>N</code> (<code>1000</code>~<code>9999</code>), 输出两样东西:</p>
 <ul>
@@ -59958,8 +60017,9 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <p>例: 输入 <code>1234</code> → 输出 <code>和 = 10</code>、<code>反转 = 4321</code></p>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> 本题<mark>假设输入合法</mark> (就是 4 位数); 想拒绝非 4 位数的输入, 要等第 4 周学了 <code>if</code> 才能做校验</p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: <code>/</code> 取高位、<code>%</code> 取低位</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-digits.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-digits.c (骨架)</a>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="编码实践--数字拆分--参考代码">编码实践: 数字拆分 (参考代码) </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="编码实践--数字拆分--参考代码">编码实践: 数字拆分 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -59994,13 +60054,14 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="编码实践--时间换算">编码实践: 时间换算 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="编码实践--时间换算">编码实践: 时间换算 </h5>
 <hr>
 <p>输入总秒数 <code>N</code>, 输出"<code>X</code> 小时 <code>Y</code> 分 <code>Z</code> 秒"</p>
 <p>例: 输入 <code>3671</code> → 输出 <code>1 小时 1 分 11 秒</code></p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 一小时 <code>3600</code> 秒</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-time.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-time.c (骨架)</a>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="编码实践--时间换算--参考代码">编码实践: 时间换算 (参考代码) </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="编码实践--时间换算--参考代码">编码实践: 时间换算 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.7em;">
@@ -60034,7 +60095,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂习题课">课堂习题课 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂习题课">课堂习题课 </h5>
 <hr>
 <p>三道题, 限时 10 分钟, 每题都藏着<mark>一个坑</mark> (答案见讲义):</p>
 <ol>
@@ -60046,7 +60107,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int i = (int) 3.9;</code> 中 <code>i</code> 的值是多少？<code>(float) 1 / 2</code> 的值是多少？
@@ -60057,7 +60118,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

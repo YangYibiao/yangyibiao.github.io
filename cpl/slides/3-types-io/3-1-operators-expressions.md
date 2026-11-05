@@ -272,6 +272,62 @@ j = -i;
 
 ---
 
+<!-- slide data-notes="" -->##### 任务 1: 先手算, 再让程序验证
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 先在纸上写出下列表达式的值, 再让程序逐个打印验证:
+
+`2 + 3 * 4` / `(2 + 3) * 4` / `10 / 3` / `10 % 3` / `10 / 3 * 3` / `2 + 3 > 4` / `1 < 2 == 1`
+
+==提示==: 算术 > 关系 > 相等; 括号最高; `/` 截断, `%` 取余
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-priority.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-priority.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 1: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  printf("2 + 3 * 4   = %d\n", 2 + 3 * 4);
+  printf("(2 + 3) * 4 = %d\n", (2 + 3) * 4);
+  printf("10 / 3      = %d\n", 10 / 3);
+  printf("10 %% 3      = %d\n", 10 % 3);
+  printf("10 / 3 * 3  = %d\n", 10 / 3 * 3);
+  printf("2 + 3 > 4   = %d\n", 2 + 3 > 4);
+  printf("1 < 2 == 1  = %d\n", 1 < 2 == 1);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `2+3*4` 是 14——乘法先于加法; 括号改变顺序得 20
+
+- `10/3` 得 ==3== (截断), `10%3` 得 1; `10/3*3` 得 ==9==, 不是 10
+
+- 关系/相等运算结果是 ==0 或 1==; `2+3>4` 等价于 `(2+3)>4`
+
+- `1 < 2 == 1`: `<` 优先于 `==`, 结果是 ==1==
+
+- 打印 `%` 时格式串里要写 ==`%%`== (百分号转义)
+
+</div>
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 
@@ -442,6 +498,69 @@ int main(void) {
 <span class="blue">:fa-lightbulb-o:</span> 了解即可——知道"位运算在动二进制"就够了, 后面复合赋值会用到它们的缩写
 
 ---
+
+<!-- slide data-notes="" -->##### 任务 3: 位运算实验 (选做)
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 令 `a = 12` (1100), `b = 10` (1010), 打印:
+
+`a & b` / `a | b` / `a ^ b` / `~a` / `1 << 4` / `32 >> 2`
+
+样例 (常见结果):
+
+```
+12 & 10 = 8
+12 | 10 = 14
+12 ^ 10 = 6
+~12 = -13
+```
+
+==提示==: 先在本子上把两个数写成二进制, ==逐位==算一遍再运行
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-bitwise.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-bitwise.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int a = 12, b = 10;
+  printf("12 & 10 = %d\n", a & b);
+  printf("12 | 10 = %d\n", a | b);
+  printf("12 ^ 10 = %d\n", a ^ b);
+  printf("~12     = %d\n", ~a);
+  printf("1 << 4  = %d\n", 1 << 4);
+  printf("32 >> 2 = %d\n", 32 >> 2);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `&`/`|`/`^` 逐位运算: 1100 & 1010 = 1000 (8)
+
+- `~12` 得 ==-13==——负数用补码, 取反加一看不懂时翻回补码页
+
+- `1 << 4` == 16, `32 >> 2` == 8: 左移相当于乘 2, 右移相当于除 2 (整数)
+
+- 位运算在嵌入式/性能代码里常见; 本课要求==看懂==, 不要求熟练
+
+</div>
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->
 
@@ -829,6 +948,73 @@ i, j和k的最终值分别为 2, 3和4.
 </div>
 
 </div>
+
+<!-- slide data-notes="" -->##### 任务 2: 自增自减追踪
+---
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 令 `int i = 5;` 依次执行 `i++`、`++i`、`i--`、`--i`, 每条==语句==后打印 `i`
+
+样例:
+
+```
+起始 i = 5
+i++ 之后 i = 6
+++i 之后 i = 7
+```
+
+==提示==: 语句形式下两者效果相同, ==区别在"表达式的值"==; 但==别把多个 ++ 和读取写进同一表达式== (未定义行为)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/3-types-io/code/task-incdec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-incdec.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
+---
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.6em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  int i = 5;
+  printf("起始 i = %d\n", i);
+
+  i++;                           /* 语句: 先用后加, 这里"用"不到 */
+  printf("i++ 之后 i = %d\n", i);
+
+  ++i;                           /* 语句: 先加后用 */
+  printf("++i 之后 i = %d\n", i);
+
+  i--;
+  printf("i-- 之后 i = %d\n", i);
+
+  --i;
+  printf("--i 之后 i = %d\n", i);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `i++` 的==表达式值==是旧值 (5), `++i` 是新值 (7)——但本页把它们==单独成句==, 看不出差别
+
+- 想观察差别, 要取表达式的值: `int a = i++;` 与 `int b = ++i;` 对比 a、b
+
+- ⚠ ==未定义行为==: 把 `i++` 和读取 `i` 写进同一个表达式 (如 `printf("%d %d", i++, i)`) 时, 求值顺序未定义, 输出因编译器而异——==永远不要这么写==
+
+- 结论: 单独成句时两种写法等价; 只有在表达式里取值时才有区别
+
+</div>
+</div>
+
+---
+
 
 <!-- slide data-notes="" -->
 
