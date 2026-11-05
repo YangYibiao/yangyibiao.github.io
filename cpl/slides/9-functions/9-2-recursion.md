@@ -53,8 +53,6 @@ presentation:
 
 - 递归执行过程 (层层递推与回归)
 
-- 作用域与生命期
-
 - 经典案例: Fibonacci (弹性)、汉诺塔
 
 - 常见错误与课堂编码 (基础 + 三个经典案例)
@@ -134,7 +132,7 @@ fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 
 - 每一层调用压一张==便签== (昨天的栈), 回归时逐层弹栈==结算==——递归就是便签一层层叠高、再一层层揭掉
 
-- 每层调用有==自己的一套局部变量和参数==, 各层互不干扰 (下一页: 生命期)
+- 每层调用有==自己的一套局部变量和参数==, 各层互不干扰 (作用域与生命期见上一讲)
 
 - 递归深度 = 压栈层数; 递归过深 → ==栈溢出==
 
@@ -185,122 +183,6 @@ int main(void)
 </div>
 
 ---
-
-<!-- slide data-notes="" -->
-
-
-##### 标识符的作用域
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.7em;">
-
-```C
-int x = 0;            /* 文件作用域 */
-void f(void)
-{
-  int x = 1;        /* 块作用域, 屏蔽全局 x */
-  printf("%d", x);  /* 打印 1 */
-}
-```
-
-<div style="text-align:center;margin:2px 0;">
-<svg viewBox='0 0 400 214' style='max-width:100%;height:360px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='180' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='14.0' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='90' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='13.3' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='128' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='149' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='128' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='149' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 128 V84' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='96' y='106' font-size='12.6' fill='#dc322f' text-anchor='end'>遮蔽全局 x</text><path d='M215 144 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='208' font-size='13.3' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
-</div>
-
-</div>
-
-<div style="flex:1;">
-
-==作用域==: 标识符可以被使用的那段代码范围
-
-- ==块作用域==: 函数体内 {} 覆盖的范围——局部变量、形式参数
-
-- ==文件作用域==: 从定义位置到文件末尾——全局变量
-
-- 内层屏蔽外层: 内层同名变量会==遮蔽==外层的
-
-==局部变量==: 定义在函数内, 出了函数就不可见
-
-- ==全局变量==: 定义在函数外, 整个文件可见; 少用为妙 (谁都可能改它)
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-
-##### 变量的生命期
-
----
-
-- ==动态变量==(默认): 函数被调用时诞生, 函数返回时消亡
-
-- ==动态变量与递归==: 递归的每一层调用都是一次独立的函数调用——各层的参数和局部变量==随层生、随层亡==, 互不干扰 (上一页"每层一套自己变量"的底层原因就在这里)
-
-- ==静态变量==(static): 与程序同生共死, 函数返回后==保留原值==
-
-```C
-void f(void)
-{
-  static int count = 0;  /* 只初始化一次 */
-  count++;
-  printf("第 %d 次调用\n", count);
-}
-```
-
-- static 局部变量 = 带记忆的局部变量 (下次调用接着用上次的值)
-
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 演示: 局部变量的"垃圾值"
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.05;font-size:0.85em;">
-
-```C
-void f(void) {
-    int i;                    /* 没有初始化 */
-    printf("i = %d\n", i);
-}
-int main(void) { f(); return 0; }
-```
-
-一次运行的结果 (每次可能不同!):
-
-```
-i = 32764
-```
-
-</div>
-
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
-
-- 动态局部变量诞生时==不会自动清零==——里面是内存里残留的"垃圾值"
-
-- 每次运行、每台机器都可能不同; 调试器里恰好是 `0` 只是假象
-
-- 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
-
-- 递归函数里的局部变量也不例外——忘初始化的话, ==每一层==读到的都是垃圾值
-
-</div>
-
-</div>
-
----
-
 
 <!-- slide data-notes="" -->
 

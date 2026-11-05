@@ -54,15 +54,17 @@ presentation:
 
 - 回顾: 按值传递 (如何理解 + swap 为什么不生效)
 
-- 函数化改造: 素数、闰年 (return 让代码更简洁)、素数统计、星号塔
+- 函数化改造: 素数判定 (return 让代码更简洁)、素数统计
 
 - 课堂编码: 阶乘改写
 
 - 数组作参数: 一维、排序封装、二维、生命游戏、成绩案例 (转置留作练习)
 
-- 函数化四步: 10 个例子的总结收口
+- 函数化四步: 全部例子的总结收口
 
 - 函数调用栈 (概念与例子)
+
+- 作用域与生命期: 局部变量何时诞生、何时消失
 
 - 课堂编码: 挑战 · 组合数
 
@@ -71,131 +73,35 @@ presentation:
 ---
 
 
-<!-- slide data-notes="" -->##### 回顾: 形式参数 vs 实际参数
+<!-- slide data-notes="" -->
+##### 回顾: 形参、实参与按值传递
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.65em;">
+<div style="flex:1.25;font-size:0.62em;">
 
 ```C{.line-numbers}
-int is_prime(int n)      /* n 是==形式参数==: 定义里的占位名 */
-{
-  if (n <= 1) {
-    return 0;
-  }
-  for (int d = 2; d <= n / d; d++) {
-    if (n % d == 0) {
-      return 0;
-    }
-  }
-  return 1;
-}
-```
+void f(int n) { n = n + 1; }        /* 改的是副本 */
+void swap(int a, int b) { int t = a; a = b; b = t; }
 
-```C
-int flag1 = is_prime(97);   /* 97 是==实际参数==: 返回值可保存 */
-int flag2 = is_prime(m);   /* 变量也行: 把 m 的值复制给形参 n */
+int x = 10, y = 5;
+f(x);        /* x 仍是 10 */
+swap(x, y);  /* x、y 都没变 */
 ```
 
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
 
-- ==形式参数==: 函数定义里的占位名; 调用时拿到的是实参的==副本==
+- ==形式参数==: 定义里的占位名; 进入函数体就是一个==已初始化的局部变量== (拿到实参的副本)
 
-- 占位名是==定义时==的视角; 进入函数体后, 形参就是一个==已初始化的局部变量==——可以读, 也可以改 (下一页 `f` 里的 `n = n + 1` 就会改它)
+- ==实际参数==: 调用时传入的值——常量、变量或任意同类型表达式
 
-- ==实际参数==: 调用时传进去的值——可以是常量、变量、任意同类型的表达式
+- ==按值传递==: 复制一份给形参, 之后两者互不影响——`swap` 失效的根因; 相当于把文件==复印==一份交给函数
 
-- 标量按值传: 改形参==不影响==实参 (swap 陷阱, 上一讲讲过)
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->##### 如何理解按值传递
-
----
-
-==按值传递==: 调用时, 把实参的==值==复制一份赋给形参——之后两者==互不影响==
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.65em;">
-
-```C{.line-numbers}
-void f(int n)
-{
-  n = n + 1;              /* 改的是副本 */
-  printf("n = %d\n", n);
-}
-
-int main(void)
-{
-  int x = 10;
-  f(x);                   /* ≈ 函数开头先执行 n = x */
-  printf("x = %d\n", x); /* 10, 不是 11 */
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-- 调用 `f(x)` 相当于函数开头先执行 ==`n = x`==——x 是赋值表达式的==右值== (只读它的值); 形参 n 拿到的是 x 的==值==, 不是 x 本身
-
-- 类比: 把文件==复印==一份交给函数——复印件上的修改不会影响原件
-
-- 数组是==例外==: 数组作参数时函数却能改到原数组——为什么是例外, 后面==指针部分==会详细介绍和分析
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->##### 回顾: swap 为什么不生效
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.62em;">
-
-```C
-void swap(int a, int b) {
-    int t = a;  a = b;  b = t;      /* 交换的是 a、b 的值 */
-}
-
-int main(void) {
-    int x = 3, y = 5;
-    swap(x, y);
-    printf("x = %d, y = %d\n", x, y);
-    return 0;
-}
-```
-
-运行结果:
-
-```
-x = 3, y = 5
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-- 按值传递的直接体现: `a`、`b` 拿到 `x`、`y` 的==值== (即副本)——函数内交换的是 a、b 的值, 与外面的 x、y ==没有关系==
-
-- 换个角度看: 调用 `swap(x + 6, y + 5)` 传进去的是表达式的==值==, 没人指望 x、y 被改; `swap(x, y)` 传的同样是值, 不是变量本身
-
-- 这是新手最困惑的现象之一: 函数明明执行了, 外界却看不到任何变化
-
-- 记住这个结论——后面==指针部分==会用 `swap(&x, &y)` 真正交换两个变量; 想想 `scanf("%d", &x)` 里的 `&`: 它传的是同一种东西
+- 数组是==例外== (函数能改到原数组)——为什么, 后面==指针部分==详细介绍
 
 </div>
 
@@ -301,99 +207,6 @@ int main(void) {
 
 ---
 
-<!-- slide data-notes="" -->##### leap.c: 原版
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-之前写过的闰年判断 (非函数版):
-
-```C
-/* 原版: 判断逻辑在 main 里 */
-#include <stdio.h>
-int main(void) {
-  int year = 0;
-  scanf("%d", &year);
-  int leap = 0;
-  if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-    leap = 1;
-  }
-  if (leap == 0) {
-    printf("%d 是平年\n", year);
-  } else {
-    printf("%d 是闰年\n", year);
-  }
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:1.0em;line-height:1.7;">
-
-==口头回答==: 把判断逻辑抽成函数, 三步怎么答? 下一页对照
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 先回答三步——输入是年份, 输出是 "是/不是", 函数名?
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/leap-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 leap-re.c</a>
-
-
-</div>
-
-</div>
-
----
-
-
-
-<!-- slide data-notes="" -->##### leap.c: 函数版
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C
-/* 函数版: 判断逻辑抽成函数 */
-#include <stdio.h>
-int is_leap_year(int);
-int main(void) {
-  int year = 0;
-  scanf("%d", &year);
-  if (is_leap_year(year)) {
-    printf("%d 是闰年\n", year);
-  } else {
-    printf("%d 是平年\n", year);
-  }
-  return 0;
-}
-int is_leap_year(int n) {
-  if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
-    return 1;
-  }
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
-
-- 判断逻辑抽成 `is_leap_year(year)`, main 只剩输入输出; 开头的 `int is_leap_year(int);` 是 8-1 讲过的==函数原型==: 先声明, 后使用
-
-- 返回 1/0, `if (is_leap_year(year))` 直接当条件; 以后想再判断, 调函数即可
-
-<a href="code/leap-re.c" target="_blank">leap-re.c (改造前)</a> · <a href="code/leap-func.c" target="_blank">leap-func.c (函数版)</a>
-
-</div>
-
-</div>
-
----
-
 <!-- slide data-notes="" -->##### 改造进阶: return 让代码更简洁
 
 ---
@@ -404,8 +217,8 @@ int is_leap_year(int n) {
 
 ```C
 /* 啰嗦版: 用 if 包装 */
-int is_leap_year(int n) {
-  if ((n % 4 == 0 && n % 100 != 0) || (n % 400 == 0)) {
+int is_even(int n) {
+  if (n % 2 == 0) {
     return 1;
   }
   return 0;
@@ -414,13 +227,10 @@ int is_leap_year(int n) {
 
 ```C
 /* 简洁版: 布尔表达式直接 return */
-int is_leap_year(int n) {
-  return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
-}
+int is_even(int n) { return n % 2 == 0; }
 ```
 
 ```C
-int is_even(int n) { return n % 2 == 0; }          /* 偶数 */
 int is_digit(char c) { return c >= '0' && c <= '9'; }  /* 数字 */
 double average(double a, double b) { return (a + b) / 2; }  /* 两个参数, 照样一行 */
 ```
@@ -558,134 +368,6 @@ int main() {
 </div>
 
 ---
-
-<!-- slide data-notes="" -->
-
-
-##### stars.c: 原版
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C
-#include <stdio.h>
-
-int main() {
-  int lines = 0;
-  scanf("%d", &lines);
-
-  for (int i = 0; i < lines; i++) {
-    // 打印空格 (居中)
-    for (int j = 0; j < lines - 1 - i; j++) {
-      printf(" ");
-    }
-    // 打印 2*i+1 颗星
-    for (int j = 0; j < 2 * i + 1; j++) {
-      printf("*");
-    }
-    if (i != lines - 1) {
-      printf("\n");
-    }
-  }
-
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- ==口头回答==: 程序里 "打印一行 2*i+1 颗星" 的循环, 就是可以抽出来的函数 `print_stars(n)`
-
-- 提示: 打印空格的循环也可以抽成 `print_spaces(n)`——每个函数只做==一件事==
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/stars-re.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stars-re.c</a>
-
-
-<a href="code/stars.c" target="_blank">stars.c (改造前)</a>
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->##### stars.c: 函数版
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.58em;">
-
-```C{.line-numbers}
-/* 星号塔: 函数版 (每个函数只做一件事) */
-#include <stdio.h>
-
-void print_spaces(int n)
-{
-  for (int j = 0; j < n; j++) {
-    printf(" ");
-  }
-}
-
-void print_stars(int n)
-{
-  for (int j = 0; j < n; j++) {
-    printf("*");
-  }
-}
-
-int main(void)
-{
-  int lines, i;
-  printf("Enter lines: ");
-  scanf("%d", &lines);
-  for (i = 0; i < lines; i++) {
-    print_spaces(lines - 1 - i);
-    print_stars(2 * i + 1);
-    printf("\n");
-  }
-  return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.8em;line-height:1.45;">
-
-- 两个循环各自成函数: `print_spaces` 和 `print_stars`——每个函数只做==一件事==
-
-- 更进一步: 两个函数只差打印的==字符==——把字符变成参数, 合并成一个==多参数==函数:
-
-<div style="font-size:0.6em;">
-
-```C
-void print_chars(int n, char ch)   /* 打印 n 个 ch */
-{
-  for (int i = 0; i < n; i++) {
-    printf("%c", ch);
-  }
-}
-
-print_chars(lines - 1 - i, ' ');   /* ch 可以是空格 */
-print_chars(2 * i + 1, '*');       /* 也可以是星号 */
-```
-
-</div>
-
-- 打印不产生值, 所以返回类型是 ==void==; 两个函数合成一个——这是函数抽象的==关键一步==; main 里也只剩一行行的==调用==, 结构一目了然
-
-<a href="code/stars-re.c" target="_blank">stars-re.c (改造前)</a> · <a href="code/stars-func.c" target="_blank">stars-func.c (函数版)</a>
-
-
-</div>
-
-</div>
-
----
-
 
 <!-- slide data-notes="" -->
 
@@ -1409,7 +1091,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ---
 
-==函数化四步==: ① 找输入 ② 定返回/输出参数 ③ 搬代码 ④ 改调用——今天 10 个例子全部按这四步走; 标量返回==值==, 数组靠==输出参数== (改原数组/写进另一个数组):
+==函数化四步==: ① 找输入 ② 定返回/输出参数 ③ 搬代码 ④ 改调用——今天的例子全部按这四步走; 标量返回==值==, 数组靠==输出参数== (改原数组/写进另一个数组):
 
 <div style="font-size:0.5em;">
 
@@ -1417,8 +1099,6 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 |------|------|----------------|------|
 | `is_prime` | `int n` | 1/0 | `if (is_prime(n))` |
 | `count_primes` | `int max` | 个数 | `count_primes(max)` |
-| `is_leap_year` | `int n` | 1/0 | `is_leap_year(year)` |
-| `print_stars` | `int n` | 无 (打印) | `print_stars(2 * i + 1)` |
 | `sum_array` | `a[], n` | 和 | `sum_array(b, 5)` |
 | `sort` | `a[], n` | 无 (改原数组) | `sort(a, 10)` |
 | `sum_matrix` | `a[][4], rows` | 和 | `sum_matrix(m, 3)` |
@@ -1594,6 +1274,122 @@ int main(void) {
 ---
 
 
+<!-- slide data-notes="" -->
+
+
+##### 标识符的作用域
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.7em;">
+
+```C
+int x = 0;            /* 文件作用域 */
+void f(void)
+{
+  int x = 1;        /* 块作用域, 屏蔽全局 x */
+  printf("%d", x);  /* 打印 1 */
+}
+```
+
+<div style="text-align:center;margin:2px 0;">
+<svg viewBox='0 0 400 214' style='max-width:100%;height:360px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='180' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='14.0' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='90' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='13.3' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='128' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='149' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='128' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='149' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 128 V84' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='96' y='106' font-size='12.6' fill='#dc322f' text-anchor='end'>遮蔽全局 x</text><path d='M215 144 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='208' font-size='13.3' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
+</div>
+
+</div>
+
+<div style="flex:1;">
+
+==作用域==: 标识符可以被使用的那段代码范围
+
+- ==块作用域==: 函数体内 {} 覆盖的范围——局部变量、形式参数
+
+- ==文件作用域==: 从定义位置到文件末尾——全局变量
+
+- 内层屏蔽外层: 内层同名变量会==遮蔽==外层的
+
+==局部变量==: 定义在函数内, 出了函数就不可见
+
+- ==全局变量==: 定义在函数外, 整个文件可见; 少用为妙 (谁都可能改它)
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 变量的生命期
+
+---
+
+- ==动态变量==(默认): 函数被调用时诞生, 函数返回时消亡
+
+- ==动态变量与递归==: 递归的每一层调用都是一次独立的函数调用——各层的参数和局部变量==随层生、随层亡==, 互不干扰 (上一页"每层一套自己变量"的底层原因就在这里)
+
+- ==静态变量==(static): 与程序同生共死, 函数返回后==保留原值==
+
+```C
+void f(void)
+{
+  static int count = 0;  /* 只初始化一次 */
+  count++;
+  printf("第 %d 次调用\n", count);
+}
+```
+
+- static 局部变量 = 带记忆的局部变量 (下次调用接着用上次的值)
+
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: 局部变量的"垃圾值"
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;font-size:0.85em;">
+
+```C
+void f(void) {
+    int i;                    /* 没有初始化 */
+    printf("i = %d\n", i);
+}
+int main(void) { f(); return 0; }
+```
+
+一次运行的结果 (每次可能不同!):
+
+```
+i = 32764
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+- 动态局部变量诞生时==不会自动清零==——里面是内存里残留的"垃圾值"
+
+- 每次运行、每台机器都可能不同; 调试器里恰好是 `0` 只是假象
+
+- 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
+
+- 后面讲递归时也一样: 每层调用的局部变量各自独立, 忘初始化同样读到垃圾值
+
+</div>
+
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->##### 课堂编码: 挑战 · 组合数
 
 ---
@@ -1621,7 +1417,7 @@ int main(void) {
 
 2. 概念: 数组作参数时, 为什么长度要单独传? 二维数组的形参为什么列数不能省?
 
-3. 代码阅读: 阅读 leap-func.c (函数版), `is_leap_year(1900)` 返回什么? 为什么?
+3. 代码阅读: 阅读 primes-func.c (函数版), `count_primes(10)` 返回什么? 为什么?
 
 4. 纠错: 二维数组形参写成 `int a[][]`, 能编译吗? 为什么? 正确的写法是什么?
 
