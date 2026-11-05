@@ -30,6 +30,10 @@ presentation:
 @import "../../js/anychart/venn-ml.js"
 
 
+<style>
+:root { --r-main-font-size: 46px; }
+</style>
+
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
@@ -48,27 +52,33 @@ presentation:
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-##### 提纲
+<!-- slide data-notes="" -->##### 提纲
 
 ---
 
-- 变量与基本数据类型: 声明、初始化、赋值、打印
+<div style="font-size:1.1em;line-height:1.85;">
 
-- 读取输入: scanf
+今天用 ==5 个小任务== 学会变量与基本类型:
 
-- 代码展示: 编程能做什么
+- 变量、类型、变量名 (5 分钟扫一遍)
 
-- → 下一课: 开发环境与 AI 工具 (独立一份课件)
+- 任务 1: 打印年龄 —— `int`、声明、`printf`
+
+- 任务 2: 输入出生年份算年龄 —— `scanf`
+
+- 任务 3: 温度转换 —— `double`、小数格式
+
+- 任务 4: 找零计算 —— `/` 与 `%`
+
+- 任务 5: 字符与编码 —— `char`
+
+- 语法补全 + 输入输出一览 + 课堂编码
+
+</div>
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值
+<!-- slide data-notes="" -->##### 变量、类型与变量名
 
 ---
 
@@ -85,297 +95,68 @@ presentation:
 <div>← 名字叫 <code>height</code> 的"盒子", 里面装着 175</div>
 </div>
 
-==类型==: 每个变量都有一个类型, 用来说明盒子里装==什么种类的数据==
+==类型==: 每个变量都有类型, 用来说明盒子里装==什么种类的数据==——本课常用 `int` / `float` / `double` / `char`, 接下来随用随讲
 
-- 本课最常用的四种: ==int==(整数)、==float / double==(小数)、==char==(字符)——后面逐个展开
+==变量名==: 字母、数字、下划线组成, ==不能以数字开头==; 区分大小写; 不能用关键字 (`int`、`return` 等)
 
 </div>
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-##### 类型: int
+<!-- slide data-notes="" -->##### 任务 1: 打印年龄
 
 ---
 
-==int==变量: (整数integer的缩写)存储整数, 如`0`, `1`, `392`或`-2553`
+<div style="font-size:1.05em;line-height:1.85;">
 
-- 取值范围是受限的, 最大的整数通常是2 147 483 647($2^{31}-1$)
+==任务==: 把自己的年龄存进一个变量, 打印出来
 
-- INT_MAX, INT_MIN (limits.h头文件中定义的常量)
+样例:
 
-```C
+```
+我今年 19 岁
+```
+
+==提示==:
+
+- 整数用什么类型? 打印整数用哪个占位符?
+
+- 声明时就把值放进去——试试 `int age = 19;`
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 1: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
 #include <stdio.h>
-#include <limits.h>
 
-int main(void) {
-  printf("Max: %d, Min: %d", INT_MAX, INT_MIN);
+int main(void)
+{
+  int age = 19;          /* 声明 + 初始化 */
+  printf("我今年 %d 岁\n", age);
   return 0;
 }
 ```
 
----
-
-
-<!-- slide data-notes="" -->
-
-##### 类型: float/double
-
----
-
-==float/double== 变量: 存储浮点数/双精度浮点数, 即可以带小数位, 如`379.125`
-
-- ==float/double== 型变量算术运算通常比int型变量慢
-
-- ==float/double== 在计算机中是近似存储的
-
-<span class="blue">:fa-weixin:</span> 需要注意: 
-
-- ==float/double== 型变量所存储的数值往往只是实际数值的一个近似值
-- ==float/double== 型变量中存储0.1, 可能发现变量值为0.099 999 999 999 999 87
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 类型: char
-
----
-
-==char== 变量: 存储字符, 如'A'
-
-- 用单引号括起来
-
-- 存储的是字符对应的编码(0 ~ 127的整数)
-
-- 字符'a'的值是97, 'A'的值是65, '0'的值是48, ' '的值是32
-
-- 使用 ==%c== 打印
-
-```C
-char gender = 'M';
-printf("%c\n", gender);
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 标识符与关键字
-
----
-
-==标识符==: 变量、函数等对象的==名字==
-
-- 由字母、数字、下划线组成; 不能以数字开头 (==10times== 非法)
-
-- C 是==大小写敏感==的: `job`、`Job`、`jOb` …… 8 种排列是不同的名字
-
-- 不能用关键字; 建议避免以下划线开头
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 标识符与关键字
-
----
-
-==关键字==: C 语言保留的词, 全部==小写== (C89 有 32 个; 下表含 C99 新增的 `inline`、`restrict`, 共 34 个):
-
-| 关键字 | 关键字 | 关键字 | 关键字 | 关键字 | 关键字 | 关键字 | 关键字 |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| auto | break | case | char | const | continue | default | do |
-| double | else | enum | extern | float | for | goto | if |
-| inline | int | long | register | restrict | return | short | signed |
-| sizeof | static | struct | switch | typedef | union | unsigned | void |
-| volatile | while | | | | | | |
-
-
-命名风格: `student_name` 或 `studentName`, 选一种==保持统一==; 名字要有==含义==
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 声明
-
----
-
-==声明==: 变量使用前必须对其进行 ==声明==(为编译器所做的描述)
-
-- 指定变量的类型
-
-- 说明变量的名字
-
-```C
-int main(void)
-{
-  声明
-  语句
-}
-```
-
-<span class="blue">:fa-weixin:</span> C99 起, 变量可以==随用随声明==, 不必把声明都堆在函数开头 (老教材里的 C89 风格要求声明在前)
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 声明
-
----
-
-- 可以一次声明一个变量: 
-
-```C{.line-numbers}
-int height;
-float profit;
-char gender;
-double area;
-```
-
-- 可以同时声明多个变量: 
-
-```C{.line-numbers}
-int height, length, width, volume;
-float profit, loss;
-char gender, grade;
-double radius, area;
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 初始化
-
----
-
-当程序开始执行时, 某些变量会自动设零, 而大多数则不会
-
-- 没有默认值并且尚未在程序中赋值的变量是 ==未初始化的==(uninitialized)
-
-- 若试图访问未初始化的变量, 可能会得到不可预知的结果
-
-```C
-int height = 8;
-```
-
-这里, 数值8是一个==初始化式==
-
-<svg viewBox="0 0 400 170" style="max-width:100%;height:170px;">
-<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<text x="30" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height;</text>
-<rect x="30" y="32" width="150" height="76" rx="8" fill="#fdf6e3" stroke="#dc322f" stroke-width="2.5" stroke-dasharray="7 5"/>
-<text x="105" y="80" font-size="34" fill="#dc322f" text-anchor="middle">?</text>
-<text x="105" y="98" font-size="11" fill="#dc322f" text-anchor="middle">残留的垃圾值</text>
-<text x="230" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height = 8;</text>
-<rect x="230" y="32" width="150" height="76" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
-<text x="305" y="80" font-size="34" fill="#859900" text-anchor="middle">8</text>
-<text x="305" y="98" font-size="11" fill="#586e75" text-anchor="middle">确定的值</text>
-<text x="30" y="132" font-size="11" fill="#586e75">分配了盒子, 但没放值</text>
-<text x="230" y="132" font-size="11" fill="#586e75">声明的同时放入 8</text>
-<text x="200" y="160" font-size="12" fill="#b58900" text-anchor="middle">读未初始化的盒子 → 结果不可预知</text>
-</g>
-</svg>
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 初始化
-
----
-
-同一个声明中可以对任意数量的变量进行初始化, 如: 
-
-```C
-int height = 8, length = 12, width = 10;
-```
-或
-```C
-int height, length, width = 10;   /* 只有 width 被初始化! */
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 赋值
-
----
-
-==赋值==: 用 `=` 把值存进==已经声明==的变量
-
-```C{.line-numbers}
-int height;        /* 先声明 */
-height = 8;        /* 再赋值: 把 8 存进 height */
-height = 10;       /* 可以再改: height 现在是 10 */
-```
-
-- `=` 是==赋值==(把右边的值存到左边), 不是数学的"相等"
-
-- 变量可以被反复赋值, 新值会==覆盖==旧值
-
-- 先声明后赋值: `height = 8;` 写在 `int height;` 前面是==错误==的
-
-- 对比: `int height = 8;` 是==初始化==(声明的同时给值)
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 打印变量的值
-
----
-
-<div style="display:flex;align-items:flex-start;gap:16px;">
-
-<div style="flex:1.15;">
-
-```C
-#include <stdio.h>
-int main()
-{
-  int height = 2;
-  char ch = 'a';
-  float profit = 1500.0f;
-  double pi = 3.14159;
-
-  printf("Height: %d\n", height);
-  printf("Character: %c\n", ch);
-  printf("Profit: %f\n", profit);
-  printf("Pi: %f\n", pi);
-}
-```
-
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
 
-==`printf`== 可用于打印变量的当前值——每个变量对应一个==占位符==:
+- ==声明==: `int age;` 告诉编译器"留一个装整数的盒子"
 
-- ==`%d`==: int (`height`)
+- ==初始化==: 声明的同时放值 `= 19`; 不初始化就读取, 可能得到==垃圾值==
 
-- ==`%c`==: char (`ch`)
+- `printf` 里用 ==`%d`== 对应 int——占位符要和变量==类型一致==
 
-- ==`%f`==: float (`profit`)
-
-- ==`%f`==: double (`pi`)——printf 里 double 也用 `%f` (==`%lf` 只有 scanf 需要==)
-
-<span class="blue">:fa-lightbulb-o:</span> 占位符要跟变量的==类型==对上
+- `=` 是==赋值== (把右边存进左边), 不是数学的"相等"
 
 </div>
 
@@ -383,85 +164,38 @@ int main()
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-##### 变量与赋值 - 打印变量的值
+<!-- slide data-notes="" -->##### 任务 2: 输入出生年份, 算年龄
 
 ---
 
-浮点数 
+<div style="font-size:1.0em;line-height:1.75;">
 
-- 要显示`float`型变量, 需使用 ==`%f`== 代替 ==`%d`==, ==`%f`== 默认会显示出小数点后6位
+==任务==: 输入出生年份, 计算并输出今年的年龄
 
-- 如果要强制 ==`%f`== 显示小数点后 ==`p`== 位数字, 可以把 ==`.p`== 放置在 ==`%`== 和 ==`f`== 之间, 如: 
-```C
-printf("profit: %.2f", profit);
+样例:
+
+```
+请输入出生年份: 2007
+今年 19 岁
 ```
 
-- ==`printf`== 打印的变量数量没有限制
-```C
-printf("Height: %d Length: %d", height, length);
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 读取输入
-
----
-
-==`scanf`== 函数: 与 ==`printf`== 对应, 两者的字母 ==`f`== 含义相同, 都表示格式化
-
-```C
-int i;
-scanf("%d", &i); /* reads an integer; stores into i */
-```
-
-<span class="blue">:fa-weixin:</span> ==&== 符号通常(但不总是)在使用 ==`scanf`== 时是必需的
-
-读取浮点值的scanf调用: 
-```C
-float  f;  double d;
-scanf("%f",  &f);    /* float*  → %f  */
-scanf("%lf", &d);    /* double*  → %lf */
-```
-- 读 ==`float`== 用 ==`%f`==, 读 ==`double`== 用 ==`%lf`== (scanf 传指针, 不像 printf 自动提升)
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 代码演示1: 年龄
-
----
-
-==现场演示==
-
-输入出生年份, 输出今年的年龄 (纯变量 + 表达式)
-
-- 三个"变量": `birth_year` (输入)、`age` (计算)、`2026` (常量)
-
-- 表达式 `2026 - birth_year` 的结果直接赋给 age——==赋值 = 把右边算出来存进左边==
-
-- 加一点判断就能算"生日过了没"——那是后面的内容
+==提示==: 用 `scanf` 读入, 别漏了 `&`; 年龄 = `2026 - birth_year`
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/age.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 age.c</a>
 
----
-
-<!-- slide data-notes="" -->
-
-##### 代码演示1: 年龄 (参考代码)
+</div>
 
 ---
 
-<div style="font-size:0.8em;">
+<!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
 
-```C
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
 /* age.c: 计算年龄 */
 #include <stdio.h>
 
@@ -480,43 +214,62 @@ int main(void) {
 
 </div>
 
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `scanf("%d", &birth_year)`: `%d` 读整数, ==`&` 取地址==——漏掉 `&` 程序会出错
+
+- `2026 - birth_year` 先==算出值==, 再存进 `age`——赋值右边可以是表达式
+
+- `2026` 是==常量==, 不占变量盒子
+
+- C99 起变量可以==随用随声明== (`int age` 写在中间也可以)
+
+</div>
+
+</div>
+
 ---
 
-<!-- slide data-notes="" -->
-
-##### 代码演示2: 温度转换
+<!-- slide data-notes="" -->##### 任务 3: 摄氏转华氏
 
 ---
 
-==现场演示==
+<div style="font-size:1.0em;line-height:1.75;">
 
-输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$
+==任务==: 输入摄氏温度, 输出对应的华氏温度: $F = \frac{9}{5} C + 32$
 
-- 变量: `double` c, f (浮点数)
+样例:
 
-- 输入: `scanf("%lf", &c)` 读取 double
+```
+请输入摄氏温度: 37.0
+37.0 C = 98.6 F
+```
 
-- `9.0 / 5` 而不是 `9 / 5` (整数除法的坑, 后面细讲)
+==提示==: 温度会带小数——用什么类型? 输出保留一位小数: `%.1f`
+
+<span class="blue">:fa-weixin:</span> 小心 `9 / 5`: 两个整数相除会==截断==
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/temp.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 temp.c</a>
 
----
-
-<!-- slide data-notes="" -->
-
-##### 代码演示2: 温度转换 (参考代码)
+</div>
 
 ---
 
-<div style="font-size:0.8em;">
+<!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
 
-```C
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
 /* temp.c: 摄氏转华氏 */
 #include <stdio.h>
 
 int main(void) {
     double c, f;
-    printf("Enter Celsius temperature: ");
+    printf("请输入摄氏温度: ");
     scanf("%lf", &c);
 
     f = 9.0 / 5 * c + 32;
@@ -528,43 +281,67 @@ int main(void) {
 
 </div>
 
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `double` 存小数; 声明两个可以写在一起 `double c, f;`
+
+- scanf 读 double 用 ==`%lf`==; printf 打印 double 用 ==`%f`== (写 `%.1f` 保留一位小数)
+
+- `9.0 / 5` 而不是 `9 / 5`: 整数除法得 `1`, 浮点除法才是 `1.8`
+
+- 浮点数是==近似存储==: `0.1` 可能是 `0.099999…`——比较两个浮点数要格外小心
+
+</div>
+
+</div>
+
 ---
 
-<!-- slide data-notes="" -->
-
-##### 代码演示3: 找零计算
+<!-- slide data-notes="" -->##### 任务 4: 找零计算
 
 ---
 
-==现场演示==
+<div style="font-size:1.0em;line-height:1.75;">
 
-输入金额 (整数元), 输出需要各种面额==多少张==: `/` 与 `%` 的第一次实战
+==任务==: 输入金额 (整数元), 输出需要各种面额==多少张==: 100、50、20、10、5、1
 
-- `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把一个数一层层拆开
+样例:
 
-- 课后 OJ 有 `change.c` 同款题目, 自己动手写一遍
+```
+请输入金额 (元): 386
+100元: 3 张
+ 50元: 1 张
+ 20元: 1 张
+ 10元: 1 张
+  5元: 1 张
+  1元: 1 张
+```
+
+==提示==: `/` 求"有几个", `%` 求"剩多少"——两个运算符配合, 把金额一层层拆开
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/change.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 change.c</a>
 
----
-
-<!-- slide data-notes="" -->
-
-##### 代码演示3: 找零计算 (参考代码)
+</div>
 
 ---
 
-<div style="font-size:0.7em;">
+<!-- slide data-notes="" -->##### 任务 4: 参考代码与要点
 
-```C
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.55em;">
+
+```C{.line-numbers}
 /* change.c: 找零计算 */
 #include <stdio.h>
 int main(void) {
   int amount;
   printf("请输入金额 (元): ");
   scanf("%d", &amount);
-  printf("100元: %d 张\n", amount / 100);     /* 整除: 有几个 100 */
-  amount = amount % 100;                       /* 取余: 剩下多少 */
+  printf("100元: %d 张\n", amount / 100);
+  amount = amount % 100;
   printf(" 50元: %d 张\n", amount / 50);
   amount = amount % 50;
   printf(" 20元: %d 张\n", amount / 20);
@@ -580,16 +357,177 @@ int main(void) {
 
 </div>
 
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `amount / 100`: 整数除法, 得到"有几个 100"
+
+- `amount % 100`: 取余, 得到"剩下的钱"——再拿剩下的继续拆
+
+- `amount = amount % 100;`: ==新值覆盖旧值==, 同一个变量反复赋值
+
+- `/` 与 `%` 只对整数有意义; 浮点数不能取余
+
+</div>
+
+</div>
+
 ---
 
-
-<!-- slide data-notes="" -->
-
-##### 课堂编码
+<!-- slide data-notes="" -->##### 任务 5: 字符与编码
 
 ---
 
-==轮到你了: 把课程演示变成自己的程序==——打开 CLion / VSCode, 现场完成 (10 分钟):
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 存一个大写字母, 输出它的 ASCII 编码; 再把编码存成整数, 输出对应的字符
+
+样例:
+
+```
+M 的编码是 77
+编码 77 对应 M
+```
+
+==提示==:
+
+- 字符用 `char`, 值写在==单引号==里: `'M'`
+
+- 同一个值, 用 `%c` 打印是字符, 用 `%d` 打印是编码——两种都试试
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 5: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+  char ch = 'M';
+  int code = 77;
+
+  printf("%c 的编码是 %d\n", ch, ch);
+  printf("编码 %d 对应 %c\n", code, code);
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- `char` 存的其实是==字符的编码== (0~127 的整数): `'a'`=97, `'A'`=65, `'0'`=48
+
+- ==单引号==是字符 (`'M'`), 双引号是字符串 (`"M"`)——字符串后面再讲
+
+- `%c` 按字符打印, `%d` 按整数打印; 同一个 `ch` 两种视角
+
+- 字符本质是整数, 可以参与运算——后面大小写转换就靠这个
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 语法补全: 标识符与关键字
+
+---
+
+<div style="font-size:0.95em;line-height:1.8;">
+
+==标识符==: 变量、函数等对象的==名字==
+
+- 由字母、数字、下划线组成; ==不能以数字开头== (`10times` 非法)
+
+- C 是==大小写敏感==的: `job`、`Job`、`jOb` 是三个不同的名字
+
+- 不能用==关键字== (`int`、`return`、`if`、`while` …); 建议避免以下划线开头
+
+- 起名要==见名知义==: `birth_year` 比 `a` 好; 风格统一
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 语法补全: 声明、初始化与赋值
+
+---
+
+<div style="font-size:0.85em;line-height:1.6;">
+
+```C{.line-numbers}
+int height;          /* 声明: 留一个装整数的盒子, 但还没放值 */
+int height = 8;      /* 初始化: 声明的同时放入 8 */
+height = 10;         /* 赋值: 用新值覆盖旧值 */
+```
+
+<div class="top-1">
+<svg viewBox="0 0 400 150" style="max-width:100%;height:150px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<text x="30" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height;</text>
+<rect x="30" y="30" width="150" height="70" rx="8" fill="#fdf6e3" stroke="#dc322f" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="105" y="70" font-size="32" fill="#dc322f" text-anchor="middle">?</text>
+<text x="105" y="90" font-size="11" fill="#dc322f" text-anchor="middle">残留的垃圾值</text>
+<text x="230" y="20" font-size="12" fill="#586e75" font-family="Menlo, monospace">int height = 8;</text>
+<rect x="230" y="30" width="150" height="70" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
+<text x="305" y="70" font-size="32" fill="#859900" text-anchor="middle">8</text>
+<text x="305" y="90" font-size="11" fill="#586e75" text-anchor="middle">确定的值</text>
+<text x="30" y="122" font-size="11" fill="#586e75">分配了盒子, 但没放值</text>
+<text x="230" y="122" font-size="11" fill="#586e75">声明的同时放入 8</text>
+<text x="200" y="145" font-size="11.5" fill="#b58900" text-anchor="middle">读未初始化的盒子 → 结果不可预知</text>
+</g>
+</svg>
+</div>
+
+- `=` 是==赋值==不是"相等"; 赋值前必须先声明
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 输入输出格式一览
+
+---
+
+<div class="fullborder">
+
+| 类型 | printf 占位符 | scanf 占位符 | 例子 |
+| :-- | :-- | :-- | :-- |
+| `int` | `%d` | `%d` | `printf("%d", n);` / `scanf("%d", &n);` |
+| `float` | `%f` | `%f` | `printf("%.1f", f);` / `scanf("%f", &f);` |
+| `double` | `%f` | `%lf` | `printf("%.2f", d);` / `scanf("%lf", &d);` |
+| `char` | `%c` | `%c` | `printf("%c", ch);` / `scanf(" %c", &ch);` |
+
+</div>
+
+<div style="font-size:0.9em;line-height:1.7;">
+
+- ==scanf 的参数要加 `&`== (取地址); printf 不用
+
+- double: ==printf 用 `%f`, scanf 用 `%lf`==——最容易混的一处
+
+- `%.1f` / `%.2f`: 保留 1 位/2 位小数
+
+- `%c` 前加空格 (` %c`) 可跳过遗留的空白/换行
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码
+
+---
+
+==轮到你了: 把课程演示变成自己的程序==——现场完成 (10 分钟):
 
 1. ==温度转换==: 输入摄氏温度, 输出华氏温度 ($F = \frac{9}{5}C + 32$)
 
@@ -598,30 +536,28 @@ int main(void) {
 提示:
 
 - 变量: 需要什么类型? (`double`? `int`?)
+
 - 输入: `scanf("%lf", &c);` —— 不要遗漏 ==&==
+
 - 输出: `printf("%.1f\n", f);`
 
-<span class="blue">:fa-lightbulb-o:</span> 卡住了? 先看课件对应的演示页, 再问助教——==今天每个人的程序都要能跑起来==
+<span class="blue">:fa-lightbulb-o:</span> 卡住了? 先看课件对应的任务页, 再问助教——==今天每个人的程序都要能跑起来==
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-##### 课堂小测
+<!-- slide data-notes="" -->##### 课堂小测
 
 ---
 
-1. 存储"成绩 98.5"用什么类型？"学号 20260001"呢？"性别 M"呢？
+1. 概念: 声明 `int x;` 与初始化 `int x = 5;` 有什么区别? 只声明不初始化就用, 可能发生什么?
 
-2. 声明一个整数变量 `height` 并初始化为 `175`，怎么写？
+2. 概念: 打印 double 用哪个占位符? 用 scanf 读 double 呢?
 
-3. 用 `printf` 打印 double 型变量用哪个转换说明？用 `scanf` 读取整数到变量 `i`，调用怎么写？
+3. 代码阅读: `int a = 7, b = 2; printf("%d %f\n", a / b, a / 2.0);` 输出什么? 为什么?
 
-4. TensorFlow / PyTorch 的性能核心由什么语言实现？
+4. 纠错: 下面三行各有错, 找出来并改正——`int 2age = 19;` / `scanf("%d", age);` / `char c = "M";`
 
 ---
-
 
 <!-- slide data-notes="" -->
 
@@ -636,5 +572,3 @@ int main(void) {
 ## 未完待续
 
 ---
-
-
