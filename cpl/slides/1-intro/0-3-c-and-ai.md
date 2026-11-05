@@ -159,48 +159,48 @@ presentation:
 
 
 <!-- slide data-notes="" -->
-
 ##### C的缺点与应对
 
 ---
 
-- 缺点: 程序容易隐藏错误、可能难以理解、可能难以维护
-
-- 应对:
-  - 深入理解以避免 C 语言的陷阱
-  - 避免过于复杂的代码
-  - 使用软件工具 (lint、调试器) 使程序更可靠
-  - 采用一套合理的编码规范
-  - 紧贴标准
+<div style="font-size:1.25em;line-height:1.7;">
+<ul>
+<li>==缺点==: 程序容易隐藏错误、可能难以理解、可能难以维护</li>
+<li>==应对==:
+<div style="font-size:0.8em;line-height:1.7;">
+<ul>
+<li>深入理解, 避开 C 语言的陷阱</li>
+<li>避免过于复杂的代码</li>
+<li>使用软件工具 (lint、调试器) 让程序更可靠</li>
+<li>采用一套合理的编码规范</li>
+<li>紧贴标准</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 
 ---
 
-
-
-
-
 <!-- slide data-notes="" -->
-
 ##### 什么是人工智能
 
 ---
 
-人工智能 (Artificial Intelligence): 研究如何用计算机去==模拟、延伸和扩展==人的智能
+<p style="font-size:1.1em;">==人工智能 (AI)==: 研究如何让计算机去==模拟、延伸和扩展==人的智能</p>
 
-- 图灵测试: 让机器表现得像人一样思考、学习、做决策
+<div style="font-size:1.25em;line-height:1.65;">
+<ul>
+<li>==图灵测试==: 机器能否像人一样思考? —— 用一场"模仿游戏"来判断</li>
+<li>==身边的 AI==: 人脸识别 · 机器翻译 · 自动驾驶 · 语音助手 (Siri/小爱同学) · 大语言模型 (GPT、DeepSeek)</li>
+</ul>
+</div>
 
-- 身边的 AI: 
-  - <span class="blue">:fa-camera:</span> 人脸识别
-  - <span class="blue">:fa-language:</span> 机器翻译
-  - <span class="blue">:fa-car:</span> 自动驾驶
-  - <span class="blue">:fa-microphone:</span> 语音助手 (Siri/小爱同学)
-  - <span class="blue">:fa-comments:</span> 大语言模型 (GPT、DeepSeek 等)
+<div style="font-size:1.05em;line-height:1.65;border-left:4px solid #268bd2;padding-left:14px;margin-top:12px;">
+==图灵测试 (1950)==: 裁判在看不到对方的情况下, 通过文字对话分辨哪边是人、哪边是机器; ==分不出来, 就认为机器表现出了智能==。它把"机器能否思考"变成了==可操作的行为判断==——但==会模仿 &ne; 真正理解==, 这也是今天评价大模型时的常用视角。
+</div>
 
 ---
-
-
-
-
 
 <!-- slide data-notes="" -->
 
@@ -227,34 +227,29 @@ presentation:
 
 
 <!-- slide data-notes="" -->
-
 ##### AI 的底层: C 与 C++
 
 ---
 
-当我们用 Python 调用 AI 框架时，发生了什么？
+当我们用 Python 调用 AI 框架时, 发生了什么?
 
-<div style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:0.85em;text-align:center;">
-  <div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:8px 16px;">Python<br>发出指令</div>
-  <span class="blue" style="font-size:1.5em;">→</span>
-  <div style="border:2px solid var(--solarized-red);border-radius:8px;padding:8px 16px;"><mark>C/C++ 高性能引擎</mark><br>完成繁重的数学计算</div>
-  <span class="blue" style="font-size:1.5em;">→</span>
-  <div style="border:2px solid var(--solarized-green);border-radius:8px;padding:8px 16px;">结果返回<br>Python</div>
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;font-size:0.78em;text-align:center;flex-wrap:wrap;margin:8px 0;">
+  <div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:10px 14px;">Python 前端<br>调用框架 API</div>
+  <span class="blue" style="font-size:1.6em;align-self:center;">→</span>
+  <div style="border:2px solid var(--solarized-red);border-radius:8px;padding:10px 14px;"><mark>C/C++ 引擎</mark><br>算子调度 · 张量运算</div>
+  <span class="blue" style="font-size:1.6em;align-self:center;">→</span>
+  <div style="border:2px solid var(--solarized-yellow);border-radius:8px;padding:10px 14px;">数值内核<br>CPU: BLAS/OpenBLAS<br>GPU: CUDA 内核</div>
+  <span class="blue" style="font-size:1.6em;align-self:center;">→</span>
+  <div style="border:2px solid var(--solarized-green);border-radius:8px;padding:10px 14px;">结果返回<br>Python</div>
 </div>
 
-- TensorFlow / PyTorch 核心: C++ 实现
+- TensorFlow / PyTorch 的核心引擎: ==C++ 实现==; Python 层只负责"发号施令"
 
-- BLAS / LAPACK: 数值计算的==接口标准== (经典实现用 Fortran); OpenBLAS 等高性能实现用 C/汇编
+- 数值计算最终落在: CPU 的 ==BLAS/LAPACK== 内核 (经典实现为 Fortran, OpenBLAS 等用 C/汇编) 或 GPU 的 ==CUDA 内核== (以 C 语言为基础扩展)
 
-- CUDA: 以 C 语言为基础扩展而来，驱动 GPU
-
-- TinyML (如 TensorFlow Lite for Microcontrollers): 用 C/C++ 编写、无动态内存，跑在单片机上
+- TinyML (如 TensorFlow Lite for Microcontrollers): 用 C/C++ 编写、无动态内存, 跑在单片机上
 
 ---
-
-
-
-
 
 <!-- slide data-notes="" -->
 
