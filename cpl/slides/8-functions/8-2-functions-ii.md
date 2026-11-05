@@ -1081,6 +1081,8 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 <a href="code/row-sums-re.c" target="_blank">row-sums-re.c (改造前)</a> · <a href="code/row-sums-func.c" target="_blank">row-sums-func.c (函数版)</a>
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/row-sums-func.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 row-sums-func.c</a>
+
 </div>
 
 </div>
@@ -1383,6 +1385,8 @@ i = 32764
 
 - 后面讲递归时也一样: 每层调用的局部变量各自独立, 忘初始化同样读到垃圾值
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/garbage.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 garbage.c</a>
+
 </div>
 
 </div>
@@ -1399,6 +1403,8 @@ i = 32764
 `factorial` 被调用了三次、参数各不同——小函数可以组合成更大的函数
 
 <span style="font-size:0.9em;">==追问==: 试试 m = 30——为什么结果不对? (提示: 30! 超出 long 的容量——Windows 上 long 只有 32 位, 13! 就溢出; Mac/Linux 64 位也到 20!)</span>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/combination.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 combination.c (只写 combination)</a>
 
 ---
 

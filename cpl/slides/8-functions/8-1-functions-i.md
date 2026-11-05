@@ -86,6 +86,8 @@ presentation:
 
 <span class="blue">:fa-lightbulb-o:</span> 先想想: 三个任务里, 哪道检查会被==反复使用==? 第 5 周是不是写过其中一道?
 
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/palindrome-prime.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 palindrome-prime.c (参考实现)</a>
+
 ---
 
 <!-- slide data-notes="" -->##### 不用函数: 检查写了四遍
@@ -1005,6 +1007,8 @@ x = 3, y = 5
 - 这是新手最困惑的现象之一: 函数明明执行了, 外界却看不到任何变化
 
 - 记住这个悬念——后面的指针部分, 用 `swap(&x, &y)` 就能真正交换
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/swap.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap.c</a>
 
 </div>
 
