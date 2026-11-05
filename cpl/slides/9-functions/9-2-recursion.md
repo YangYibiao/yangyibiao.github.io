@@ -695,27 +695,22 @@ Segmentation fault (core dumped)
 /* skeleton.c: 从这行开始写你的代码 */
 #include <stdio.h>
 
-int sum(int n) {
-  return n == 0 ? 0 : n + sum(n - 1);
+int power(int x, int n) {
+  /* TODO: 递归求 x 的 n 次方 */
 }
 
-int power(int x, int n) {
-  return n == 0 ? 1 : n * power(x, n - 1);
+int sum(int n) {
+  /* TODO: 递归求和 1 + 2 + ... + n */
 }
 
 void print(int n) {
-  if (n / 10 == 0) {
-    printf("%d", n);
-  } else {
-    print(n / 10);
-    printf(" %d", n % 10);
-  }
+  /* TODO: 递归按位打印整数 */
 }
 
 int main() {
-  printf("%d\n", sum(10));
-  printf("%d\n", power(5, 3));
-  print(1234);
+  printf("%d\n", power(5, 3));   /* 期望输出: 125 */
+  printf("%d\n", sum(10));       /* 期望输出: 55 */
+  print(1234);                   /* 期望输出: 1 2 3 4 */
   return 0;
 }
 ```
@@ -726,19 +721,89 @@ int main() {
 
 ==现场演示==
 
-1. 递归求和: sum(n) = 1 + 2 + … + n
+1. 递归求幂: power(x, n) = x 的 n 次方 (开篇"递归是什么"一页提过的例子, 这里把它写完整)
 
-2. 递归求幂: power(x, n) = x 的 n 次方
+2. 递归求和: sum(n) = 1 + 2 + … + n
 
 3. 递归打印整数: 输入 1234, 按位逐个打印 (样例: `1234 → 1 2 3 4`)
 
+==先想参数==: 每个递归函数需要哪些参数?
+
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
 
 </div>
 
 </div>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 · 参考实现: 递归求幂
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+int power(int x, int n)
+{
+  return n == 0 ? 1 : x * power(x, n - 1);   /* 基准 x^0=1; 递归 x × x^(n-1) */
+}
+```
+
+</div>
+
+- ==参数即状态==: 底数 x 全程不变, 指数 n 逐层减 1——两个量都要进参数, 缺一不可
+
+- ==基准情形==: n == 0 → 1; 递归情形把问题缩小成 x^(n-1)
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 · 参考实现: 递归求和
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+int sum(int n)
+{
+  return n == 0 ? 0 : n + sum(n - 1);        /* 基准 0; 递归 n + sum(n-1) */
+}
+```
+
+</div>
+
+- ==参数即状态==: 只带 n——"加到几为止"就是子问题的全部状态
+
+- ==基准情形==: n == 0 → 0; 递归情形: sum(n) = n + sum(n-1)
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 · 参考实现: 递归打印整数
+
+---
+
+<div style="font-size:0.85em;">
+
+```C
+void print(int n)
+{
+  if (n / 10 == 0) {
+    printf("%d", n);              /* 基准: 一位数直接打印 */
+  } else {
+    print(n / 10);                /* 先递归打印前面几位 */
+    printf(" %d", n % 10);        /* 回来再打印末位 —— 顺序是本题关键 */
+  }
+}
+```
+
+</div>
+
+- ==参数即状态==: 只带 n; ==顺序是本题关键==——先递归打印 n/10, 回来再打印末位 n%10, 得到正序
+
+- ==基准情形==: 一位数 (n / 10 == 0) 直接打印
 
 ---
 
@@ -790,6 +855,8 @@ int max_rec(int a[], int n)
 
 ==任务==: 实现 `int is_pal(char s[], int l, int r)`——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
 
+==先想参数==: 子问题是什么? ——首尾去掉后剩下的"中间一段"; 用 l、r 两个下标刻画它, s 全程不变——不需要复制新字符串
+
 样例: `"level"` → 1, `"hello"` → 0
 
 </div>
@@ -816,6 +883,8 @@ int is_pal(char s[], int l, int r)
 
 </div>
 
+- ==参数即状态==: l、r 刻画当前子串——不复制字符串, 只移动两个下标
+
 - ==定义即代码==: 把"首尾相等且中间是回文"逐字翻译出来, 就是函数体
 
 ---
@@ -827,6 +896,8 @@ int is_pal(char s[], int l, int r)
 <div style="font-size:0.9em;line-height:1.6;">
 
 ==任务==: 实现 `int bin_search(int a[], int low, int high, int key)`——每次砍一半, 与分治同构 (有序数组是第 7 周的老朋友)
+
+==先想参数==: 递归函数需要哪些参数? ——"当前在哪个区间找"随递归变化 (low、high), 要找的 key 和数组 a 全程不变
 
 样例: 在 `{2, 5, 8, 12, 19}` 中找 8 → 下标 2; 找 7 → -1
 
@@ -862,6 +933,8 @@ int bin_search(int a[], int low, int high, int key)
 
 </div>
 
+- ==参数即状态==: 递归函数的参数要能完整描述"当前子问题"——low、high 刻画查找区间, key 与 a 全程不变
+
 - 每次调用区间==必然缩小==——这保证递归一定终止; 下一页分治法正是这个思想的放大版
 
 ---
@@ -872,7 +945,7 @@ int bin_search(int a[], int low, int high, int key)
 
 <div style="font-size:0.9em;line-height:1.6;">
 
-==任务==: 实现 `long comb(int m, int n)`——C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 算组合数: 递归定义有时比公式==更直接==
+==任务==: C(m,n) = 从 m 个元素中选出 n 个的==方案数==。实现 `long comb(int m, int n)`——按"选/不选第 m 个元素"分成两类: C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 的公式算法: 递归定义有时比公式==更直接==
 
 样例: `comb(5, 2)` → 10
 
@@ -910,9 +983,9 @@ long comb(int m, int n)
 
 <div style="font-size:0.9em;line-height:1.6;">
 
-==任务==: 实现 `int climb(int n)`——每次走 1 或 2 级, 最后一步从 n-1 或 n-2 上来 (Fibonacci 的亲戚)
+==任务==: 有 n 级台阶, 每次可以走 ==1 或 2 级==——从第 0 级走到第 n 级共有==多少种走法==? 实现 `int climb(int n)`
 
-样例: `climb(4)` → 5
+样例: `climb(4)` → 5 (走法: 1111、112、121、211、22)
 
 </div>
 
