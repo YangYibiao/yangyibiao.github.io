@@ -57,7 +57,7 @@ presentation:
 
 - 为什么需要数组
 
-- 案例: 数列反向、平均分与高于平均、检查重复数字、大小写转换
+- 案例: 数列反向、平均分与高于平均、检查重复数字、统计正负零
 
 - 现场挑战: 进制转换、回文数
 
@@ -788,8 +788,8 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 前面的"拆数字"先用起来; 关键是==怎么记住==哪些数字已经出现过
 
-<div style="text-align:center;margin-top:6px;">
-<svg viewBox="0 0 400 180" style="max-width:100%;height:175px;">
+<div style="text-align:center;margin-top:2px;">
+<svg viewBox="0 0 400 180" style="max-width:100%;height:152px;">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="200" y="16" font-size="12" fill="#073642" text-anchor="middle">输入 28245:从个位拆起,边拆边记账</text>
     <text x="18" y="36" font-size="10" fill="#586e75" font-family="Menlo, monospace">digit_seen[10]</text>
@@ -856,7 +856,6 @@ int main(void)
   int digit_seen[10] = {0};   /* 0=没出现过, 1=出现过 */
   int digit;
   long n;
-
   printf("输入一个数: ");
   scanf("%ld", &n);
   while (n > 0) {
@@ -894,22 +893,23 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 案例: 大小写转换
+<!-- slide data-notes="" -->##### 案例: 统计正数、负数与零
 
 ---
 
-==现场演示==: 输入一个单词 (不含空格), 全部转成大写输出
+==现场演示==: 先读入 n, 再读入 n 个整数, 统计其中正数、负数、零各有多少个
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 样例:
 
 ```
-输入一个单词: hello
-HELLO
+输入个数: 6
+输入 6 个整数: 3 -1 0 7 -4 0
+正数 2 个, 负数 2 个, 零 2 个
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 方向提示: char 就是小整数——ASCII 表里 'a' 和 'A' 差多少?
+<span class="blue">:fa-lightbulb-o:</span> 方向提示: 三个计数器, 遍历一次数组即可
 
 ---
 
@@ -918,7 +918,7 @@ HELLO
 <!-- slide data-notes="" -->
 
 
-##### 案例: 大小写转换 (参考代码)
+##### 案例: 统计正数、负数与零 (参考代码)
 
 ---
 
@@ -927,24 +927,33 @@ HELLO
 <div style="flex:1.2;font-size:0.62em;">
 
 ```C{.line-numbers}
-/* 大小写转换 */
+/* count_sign.c: 统计正数、负数、零的个数 */
 #include <stdio.h>
+#define N 100
 
 int main(void)
 {
-  char s[100];
-  int i;
+  int a[N], n, i;
+  int pos = 0, neg = 0, zero = 0;
 
-  printf("输入一个单词: ");
-  scanf("%s", s);              /* 遇空格就停, 自动补 '\0' */
+  printf("输入个数: ");
+  scanf("%d", &n);
+  printf("输入 %d 个整数: ", n);
+  for (i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+  }
 
-  for (i = 0; s[i] != '\0'; i++) {
-    if (s[i] >= 'a' && s[i] <= 'z') {
-      s[i] = s[i] - 'a' + 'A';  /* 'a' 比 'A' 大 32 */
+  for (i = 0; i < n; i++) {
+    if (a[i] > 0) {
+      pos++;
+    } else if (a[i] < 0) {
+      neg++;
+    } else {
+      zero++;
     }
   }
 
-  printf("%s\n", s);
+  printf("正数 %d 个, 负数 %d 个, 零 %d 个\n", pos, neg, zero);
   return 0;
 }
 ```
@@ -953,15 +962,13 @@ int main(void)
 
 <div style="flex:1;">
 
-- `scanf("%s", s)`: 遇空格就停, 末尾自动补 `'\0'`
+- 先==读入==再==遍历==: 两个 for 循环各管一件事, 比边读边统计更清晰
 
-- 读数组==不加 &==——为什么, 以后讲指针时揭晓
+- 三个计数器必须==先初始化为 0==——局部变量不会自动清零
 
-- 循环条件 `s[i] != '\0'`: 数组遍历的==新写法==
+- `a[i] > 0` / `< 0` / 其余: ==三分支==用 `if / else if / else` 写最自然
 
-- `'a'` 比 `'A'` 大 32——加餐: 换成 `(s[i] - 'a' + 3) % 26 + 'a'` 就是凯撒加密
-
-- 查表玩法稍后见: 进制转换的 16 进制输出就靠它
+- 数组大小用 `#define N 100`; 实际个数用变量 `n`——==容量与个数分开==
 
 </div>
 
@@ -1357,12 +1364,10 @@ for (int r = 0; r < NUM_RATES; r++) {
 /* 公共前提 */
 #define N 10
 int a[N], i;
-
 /* ① 把数组 a 全部清零 */
 for (i = 1; i <= N; i++) {
   a[i] = 0;
 }
-
 /* ② 求数组 a 的最大值 */
 int max = 0;
 for (i = 0; i < N; i++) {
@@ -1370,7 +1375,6 @@ for (i = 0; i < N; i++) {
     max = a[i];
   }
 }
-
 /* ③ 把数组全部初始化为 1 */
 int b[N] = {1};      /* 以为全是 1? */
 ```

@@ -226,7 +226,7 @@ int main(void)
 int height;
 float profit;
 char gender;
-char name[20];
+double area;
 ```
 
 - 可以同时声明多个变量: 
@@ -234,8 +234,8 @@ char name[20];
 ```C{.line-numbers}
 int height, length, width, volume;
 float profit, loss;
-char gender;
-char name[30], nation[20], address[60];
+char gender, grade;
+double radius, area;
 ```
 
 ---
