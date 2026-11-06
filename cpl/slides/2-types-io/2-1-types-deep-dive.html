@@ -59587,8 +59587,9 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="类型修饰符">类型修饰符 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="类型修饰符--调整整数范围与符号">类型修饰符: 调整整数范围与符号 </h5>
 <hr>
+<p>在讨论类型大小之前, 先看能改变整数范围的修饰符:</p>
 <p><mark>修饰符</mark>: 改变整数类型的取值范围, 或是否允许负号</p>
 <div class="fullborder">
 <table>
@@ -59622,8 +59623,9 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="sizeof-运算符">sizeof 运算符 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="sizeof--查类型占多少字节">sizeof: 查类型占多少字节 </h5>
 <hr>
+<p>修饰符改变了范围; 范围由类型占几个字节决定:</p>
 <p>用 <mark>sizeof</mark> 运算符可查看类型占用的<mark>字节数</mark></p>
 <ul>
 <li>
@@ -59631,6 +59633,7 @@ div.boardhandle > ul > li {
 
 </li>
 </ul>
+<p>下面一行同时量三种类型:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%zu %zu %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <ul>
 <li>
@@ -59638,6 +59641,7 @@ div.boardhandle > ul > li {
 
 </li>
 </ul>
+<p>知道怎么量了, 在自己机器上量一量四种类型:</p>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="任务-1--看看你的机器有多大">任务 1: 看看你的机器有多大 </h5>
 <hr>
@@ -59688,8 +59692,9 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 </div>
+<p>那么 4 个字节到底能装多大?</p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="整型的取值范围与溢出">整型的取值范围与溢出 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="int-的上限--21-亿--再加-1-就溢出">int 的上限: 21 亿, 再加 1 就溢出 </h5>
 <hr>
 <ul>
 <li>
@@ -59701,6 +59706,7 @@ div.boardhandle > ul > li {
 
 </li>
 </ul>
+<p>下面把 INT_MAX 加 1, 看它绕到哪里:</p>
 <div style="font-size:0.8em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;limits.h&gt;</span></span>
@@ -59714,13 +59720,14 @@ div.boardhandle > ul > li {
 </div>
 <ul>
 <li>
-<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 溢出<mark>不会报错</mark>, 会"绕回"成负数——C 不做检查; 用 <mark>sizeof</mark> 查看类型字节数 (呼应修饰符页)</p>
+<p><span class="yellow"><span class="blue"><i class="fa fa-weixin" aria-hidden="true"></i></span></span> 溢出<mark>不会报错</mark>, 会"绕回"成负数——C 不做检查</p>
 
 </li>
 </ul>
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="补码与溢出--12-小时钟---4-位补码环">补码与溢出: 12 小时钟 → 4 位补码环 </h5>
 <hr>
+<p>为什么 INT_MAX 加 1 会变成负数? 把 32 位想成一个钟面:</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.05;">
 <div class="top-2">
@@ -59792,7 +59799,7 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 <div style="flex:1;font-size:0.9em;line-height:1.7;">
 <ul>
 <li>
-<p><code>INT_MAX + 1</code> 回到 <code>INT_MIN</code>——正好是上一页<mark>补码环绕一圈</mark></p>
+<p><code>INT_MAX + 1</code> 回到 <code>INT_MIN</code>——正好是<mark>补码环</mark>绕了一圈</p>
 
 </li>
 <li>
@@ -59810,8 +59817,9 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 </ul>
 </div>
 </div>
+<p>溢出实验做完, 再看整数的写法:</p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="整数常量的进制">整数常量的进制 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="整数的三种写法--十进制---八进制---十六进制">整数的三种写法: 十进制 / 八进制 / 十六进制 </h5>
 <hr>
 <p>同一个整数有三种写法:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span>      <span class="token comment">/* 十进制 */</span>
@@ -59834,6 +59842,7 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 
 </li>
 </ul>
+<p>用一个任务把三种进制串起来:</p>
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务-3--同一个数--三种进制">任务 3: 同一个数, 三种进制 </h5>
 <hr>
@@ -59897,12 +59906,13 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 </ul>
 </div>
 </div>
+<p>数字的"面孔"会变, 字符呢? 它其实也是整数:</p>
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="字符与-ascii--char-其实是小整数">字符与 ASCII: char 其实是小整数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
-<p>前面已经知道 char 存的是<mark>编码</mark>; 今天把它当整数用</p>
+<p>char 存的是<mark>编码</mark>; 今天把它当整数用</p>
 <ul>
 <li>
 <p>'a'=97, 'A'=65, '0'=48, ' '=32——大写字母与小写字母<mark>差 32</mark></p>
@@ -59932,8 +59942,9 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="float-与-double-的精度">float 与 double 的精度 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="float-与-double--6-位-vs-15-位有效数字">float 与 double: 6 位 vs 15 位有效数字 </h5>
 <hr>
+<p>整数和字符都看完了, 再看带小数的类型:</p>
 <ul>
 <li>
 <p><mark>float</mark>: 约 6 位有效数字; <mark>double</mark>: 约 15 位有效数字</p>
@@ -59956,12 +59967,12 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 
 </li>
 <li>
-<p>浮点运算<mark>有误差</mark>: 0.1 + 0.2 不等于 0.3——后面细讲</p>
+<p>浮点运算<mark>有误差</mark>: 0.1 + 0.2 不等于 0.3——下一页看它在内存里怎么存</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="ieee-754-速览--了解">IEEE 754 速览 (了解) </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="ieee-754--符号---指数---尾数--了解">IEEE 754: 符号 + 指数 + 尾数 (了解) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.86em;">
 <div style="flex:1.05;">
@@ -60022,10 +60033,11 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 <li>验算: 指数 \(126 - 127 = -1\), 尾数补回 1 得 \(1.1_2\), 即 \(1.1_2 \times 2^{-1} = 0.75\) ✓
 </li>
 </ol>
-<p><mark>特殊值</mark>: 指数段<mark>全 0 / 全 1</mark> 保留——全 0 给 <code>±0</code> 与极小非规格化数, 全 1 给 <code>±∞</code> (尾数 0) 或 <code>NaN</code> (尾数非 0)</p>
+<p><mark>特殊值 (选讲)</mark>: 指数段<mark>全 0 / 全 1</mark> 保留——全 0 给 <code>±0</code> 与极小非规格化数, 全 1 给 <code>±∞</code> (尾数 0) 或 <code>NaN</code> (尾数非 0)</p>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 32 位只有 42.9 亿个图案, 约<mark>一半的 float 挤在 -1 到 1 之间</mark>——0 附近密, 越远越稀</p>
 </div>
 </div>
+<p>存法看清了, 再算算 32 位能表示多少个数:</p>
 <hr>
 </section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="42-9-亿个刻度-vs-无穷多的数">42.9 亿个刻度 vs 无穷多的数 </h5>
 <hr>
@@ -60054,7 +60066,7 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 
 </li>
 <li>
-<p>所以比较浮点数不要用 <code>==</code>, 用 <code>fabs(a - b) &lt; 1e-9</code> (<code>fabs</code> 是 math.h 的绝对值函数, 后面细讲)</p>
+<p>所以比较浮点数不要用 <code>==</code>, 用 <code>fabs(a - b) &lt; 1e-9</code> (<code>fabs</code> 是 math.h 的绝对值函数)</p>
 
 </li>
 </ul>
@@ -60118,8 +60130,9 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 </ul>
 </div>
 </div>
+<p>浮点的存储与比较讲完, 回到赋值本身——还有类型匹配与常量的细节:</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="赋值细节与常量">赋值细节与常量 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="赋值与常量--类型要匹配--宏要加括号">赋值与常量: 类型要匹配, 宏要加括号 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.84em;">
 <div style="flex:1;">
@@ -60150,8 +60163,9 @@ INT_MAX <span class="token operator">+</span> <span class="token number">1</span
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="综合演示--circle-与-sphere">综合演示: Circle 与 Sphere </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="综合案例--circle-与-sphere">综合案例: Circle 与 Sphere </h5>
 <hr>
+<p>把常量、类型和格式化输出串起来, 算两个几何量:</p>
 <div style="display:flex;align-items:flex-start;gap:20px;">
 <div style="flex:1;font-size:0.84em;">
 <p><strong>Circle</strong> (半径 \(r = 10\))</p>

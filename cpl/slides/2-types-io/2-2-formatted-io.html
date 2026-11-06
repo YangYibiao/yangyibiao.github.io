@@ -59593,8 +59593,9 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="printf-要点">printf 要点 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="printf--格式串---普通字符---转换说明">printf: 格式串 = 普通字符 + 转换说明 </h5>
 <hr>
+<p>先看输出: printf 把值填进格式串的空位:</p>
 <style>.p3 p{margin:0.3rem 2rem}</style>
 <div class="p3">
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -59653,6 +59654,7 @@ div.boardhandle > ul > li {
 <hr>
 <style>.qt table{margin:6px auto!important}.qt th,.qt td{font-size:18px!important;padding:1px 8px!important;line-height:1.25!important}</style>
 <div style="font-size:0.72em;line-height:1.55;">
+<p>刚才的 <code>%-8s</code>、<code>%10.1f</code> 只是其中两例, 完整清单如下:</p>
 <p>写法: <mark><code>%[标志][宽度][.精度]X</code></mark>, 如 <mark><code>%-8s</code></mark> (宽 8、左对齐)、<mark><code>%10.1f</code></mark> (宽 10、1 位小数); 标志、宽度、精度都可省略 (省略精度时句点一并去掉).</p>
 <div class="fullborder qt" style="font-size:0.82em;">
 <table>
@@ -59773,8 +59775,9 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 </div>
+<p>对齐靠宽度; 字符串里还有看不见的字符——转义序列:</p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="转义序列表">转义序列表 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="转义序列--反斜杠引出特殊字符">转义序列: 反斜杠引出特殊字符 </h5>
 <hr>
 <p><mark>转义序列</mark> 让字符串包含非打印 (控制) 字符或具有特殊含义的字符; 反斜杠 <mark><code>\</code></mark> 是<mark>转义引子</mark>——它和后面的一个字符合成"一个字符" (如 <code>\n</code> 是一个字符, 不是 <code>\</code> 和 <code>n</code> 两个).</p>
 <div class="fullborder" style="font-size:0.8em;">
@@ -59879,8 +59882,9 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 </div>
+<p>输出会了, 反过来看输入——scanf 怎么读?</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="scanf-要点-一--怎么读">scanf 要点（一）：怎么读 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="scanf-一---按格式串顺序匹配--别忘">scanf（一）: 按格式串顺序匹配, 别忘 & </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.85em;line-height:1.7;">
@@ -59904,6 +59908,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <div style="flex:1.1;font-size:0.62em;">
+<p>一次读入两个 int、两个 double:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
 <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
 
@@ -59913,8 +59918,9 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <code>scanf</code> 不检查转换说明的数量和类型是否与变量匹配; 顺序错了, 读到的是<mark>无意义的值</mark>.</p>
+<p>一次读多个值已经清楚; 连续多次 scanf 时, 数据从哪来?</p>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="scanf-要点-二--输入缓冲区">scanf 要点（二）：输入缓冲区 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="scanf-二---输入先进缓冲区--再逐个消费">scanf（二）: 输入先进缓冲区, 再逐个消费 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.05;font-size:0.8em;line-height:1.65;">
@@ -59938,6 +59944,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <div style="flex:1;font-size:0.66em;">
+<div style="line-height:1.2;text-align:left;margin-left:2rem;">同一个 scanf 调用, 数据从缓冲区来:</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span> <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%lf%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>输入的数字可以在同一行, 也可以分布在多行:</p>
@@ -59951,10 +59958,11 @@ div.boardhandle > ul > li {
 </div>
 <p><span class="yellow"><i class="fa fa-weixin" aria-hidden="true"></i></span> <code>%d</code> / <code>%f</code> 读完后停在第一个不能构成数字的字符; 换行符因此常留在缓冲区里——下一页的 <code>%c</code> 会读到它.</p>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="缓冲区与遗留换行">缓冲区与遗留换行 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="遗留换行---c-会读到上一次的回车">遗留换行: %c 会读到上一次的回车 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:20px;">
 <div style="flex:1.2;font-size:0.55em;">
+<div style="line-height:1.2;text-align:left;margin-left:2rem;">先看两条 scanf 如何依次读取:</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入两个整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">/* 读走 10, 剩 " 20↵" */</span>
@@ -60050,8 +60058,9 @@ b <span class="token operator">=</span> <span class="token number">20</span></co
 </ul>
 </div>
 </div>
+<p>换行的坑搞清楚了; 格式串里的普通字符也有讲究:</p>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="格式字符串中的普通字符">格式字符串中的普通字符 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="格式串的普通字符--必须逐字匹配">格式串的普通字符: 必须逐字匹配 </h5>
 <hr>
 <ul>
 <li>
@@ -60134,8 +60143,9 @@ age<span class="token operator">=</span><span class="token number">19</span> hei
 </ul>
 </div>
 </div>
+<p>混合读入没问题; 但 printf 和 scanf 长得像, 容易混:</p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="printf与scanf混淆">printf与scanf混淆 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="printf-与-scanf--三个易混点">printf 与 scanf: 三个易混点 </h5>
 <hr>
 <p><mark><code>scanf</code></mark> 和 <mark><code>printf</code></mark> 的调用看起来相似, 但两者之间存在显著差异</p>
 <ul>
@@ -60159,8 +60169,9 @@ age<span class="token operator">=</span><span class="token number">19</span> hei
 
 </li>
 </ul>
+<div style="font-size:0.7em;line-height:1.3;text-align:left;margin-left:2rem;">除了格式化读写, 还可以逐个字符读写:</div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="getchar与putchar">getchar与putchar </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="getchar---putchar--每次读写一个字符">getchar / putchar: 每次读写一个字符 </h5>
 <hr>
 <p><mark>getchar</mark>: 读取单个字符</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> ch<span class="token punctuation">;</span>              <span class="token comment">/* 注意: 返回值是 int, 不是 char! */</span>
@@ -60217,9 +60228,10 @@ ch <span class="token operator">=</span> <span class="token function">getchar</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="程序--分数相加">程序: 分数相加 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="综合案例--分数相加">综合案例: 分数相加 </h5>
 <hr>
 <style>.frac pre code{font-size:18px!important;line-height:1.2!important}</style>
+<p>格式串里的 <code>/</code> 需要原样匹配; 用它读两个分数并相加:</p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="frac" style="flex:1.3;font-size:0.62em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>

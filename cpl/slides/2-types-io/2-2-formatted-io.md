@@ -76,9 +76,11 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### printf 要点
+##### printf: 格式串 = 普通字符 + 转换说明
 
 ---
+
+先看输出: printf 把值填进格式串的空位:
 
 <style>.p3 p{margin:0.3rem 2rem}</style>
 
@@ -182,6 +184,8 @@ printf("|%-8s|%10.1f|\n", "name", 85.5);
 
 <div style="font-size:0.72em;line-height:1.55;">
 
+刚才的 `%-8s`、`%10.1f` 只是其中两例, 完整清单如下:
+
 写法: ==`%[标志][宽度][.精度]X`==, 如 ==`%-8s`== (宽 8、左对齐)、==`%10.1f`== (宽 10、1 位小数); 标志、宽度、精度都可省略 (省略精度时句点一并去掉).
 
 <div class="fullborder qt" style="font-size:0.82em;">
@@ -280,13 +284,15 @@ int main(void)
 </div>
 </div>
 
+对齐靠宽度; 字符串里还有看不见的字符——转义序列:
+
 ---
 
 
 <!-- slide data-notes="" -->
 
 
-##### 转义序列表
+##### 转义序列: 反斜杠引出特殊字符
 
 ---
 
@@ -367,13 +373,15 @@ int main(void)
 </div>
 </div>
 
+输出会了, 反过来看输入——scanf 怎么读?
+
 ---
 
 
 <!-- slide data-notes="" -->
 
 
-##### scanf 要点（一）：怎么读
+##### scanf（一）: 按格式串顺序匹配, 别忘 &
 
 ---
 
@@ -392,6 +400,8 @@ int main(void)
 </div>
 
 <div style="flex:1.1;font-size:0.62em;">
+
+一次读入两个 int、两个 double:
 
 ```C{.line-numbers}
 int i, j;
@@ -412,13 +422,15 @@ i=1  j=-20  x=0.3  y=-4000.0
 
 <span class="yellow">:fa-weixin:</span> `scanf` 不检查转换说明的数量和类型是否与变量匹配; 顺序错了, 读到的是==无意义的值==.
 
+一次读多个值已经清楚; 连续多次 scanf 时, 数据从哪来?
+
 ---
 
 
 <!-- slide data-notes="" -->
 
 
-##### scanf 要点（二）：输入缓冲区
+##### scanf（二）: 输入先进缓冲区, 再逐个消费
 
 ---
 
@@ -437,6 +449,8 @@ i=1  j=-20  x=0.3  y=-4000.0
 </div>
 
 <div style="flex:1;font-size:0.66em;">
+
+<div style="line-height:1.2;text-align:left;margin-left:2rem;">同一个 scanf 调用, 数据从缓冲区来:</div>
 
 ```C{.line-numbers}
 int i, j; double x, y;
@@ -470,13 +484,15 @@ scanf("%d%d%lf%lf", &i, &j, &x, &y);
 <!-- slide data-notes="" -->
 
 
-##### 缓冲区与遗留换行
+##### 遗留换行: %c 会读到上一次的回车
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:20px;">
 
 <div style="flex:1.2;font-size:0.55em;">
+
+<div style="line-height:1.2;text-align:left;margin-left:2rem;">先看两条 scanf 如何依次读取:</div>
 
 ```C{.line-numbers}
 int a, b;
@@ -592,10 +608,12 @@ int main(void)
 </div>
 </div>
 
+换行的坑搞清楚了; 格式串里的普通字符也有讲究:
+
 ---
 
 
-<!-- slide data-notes="" -->##### 格式字符串中的普通字符
+<!-- slide data-notes="" -->##### 格式串的普通字符: 必须逐字匹配
 
 ---
 
@@ -672,13 +690,15 @@ int main(void)
 </div>
 </div>
 
+混合读入没问题; 但 printf 和 scanf 长得像, 容易混:
+
 ---
 
 
 <!-- slide data-notes="" -->
 
 
-##### printf与scanf混淆
+##### printf 与 scanf: 三个易混点
 
 ---
 
@@ -700,12 +720,14 @@ scanf("%d, %d", &i, &j);
 
 - 多数情况下, 一定不要在 ==`scanf`== 格式化字符串的末尾放置换行符, 否则会导致交互式程序 ==挂起== 直到用户输入下一个非空格字符
 
+<div style="font-size:0.7em;line-height:1.3;text-align:left;margin-left:2rem;">除了格式化读写, 还可以逐个字符读写:</div>
+
 ---
 
 <!-- slide data-notes="" -->
 
 
-##### getchar与putchar
+##### getchar / putchar: 每次读写一个字符
 
 ---
 
@@ -785,11 +807,13 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 程序: 分数相加
+##### 综合案例: 分数相加
 
 ---
 
 <style>.frac pre code{font-size:18px!important;line-height:1.2!important}</style>
+
+格式串里的 `/` 需要原样匹配; 用它读两个分数并相加:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
