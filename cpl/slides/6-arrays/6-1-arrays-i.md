@@ -127,7 +127,7 @@ C 还支持==聚合==:
 一维数组的元素一个接一个排成一行 (模型图; 实际上它们在内存里==连续存放==, 中间没有空隙):
 
 <div style="text-align:center;margin-top:4px;">
-<svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
+<svg viewBox="0 0 400 170" style="max-width:100%;height:250px;">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="18" y="22" font-size="14" font-weight="700" fill="#073642" font-family="Menlo, monospace">int a[10];</text>
     <text x="382" y="22" font-size="10.5" fill="#586e75" text-anchor="end">每个 int 占 4 字节</text>
@@ -756,7 +756,7 @@ int main(void)
 
 ---
 
-<style>#repdigit-task p{margin:6px 2rem!important}#repdigit-task a{display:block!important;margin-top:8px!important}#repdigit-task pre code{font-size:15px!important;line-height:1.2!important}</style>
+<style>#repdigit-task p{font-size:24px!important;line-height:1.3!important;margin:4px 2rem!important}#repdigit-task a{display:block!important;margin-top:8px!important}#repdigit-task pre code{font-size:15px!important;line-height:1.2!important}#repdigit-task + hr{display:none!important}</style>
 
 <div id="repdigit-task">
 
@@ -774,7 +774,7 @@ int main(void)
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 前面的"拆数字"先用起来; 关键是==怎么记住==哪些数字已经出现过
 
 <div style="text-align:center;margin-top:2px;">
-<svg viewBox="0 0 400 180" style="max-width:100%;height:152px;">
+<svg viewBox="0 0 400 180" style="max-width:100%;height:265px;display:block;margin:0 auto;">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="200" y="16" font-size="12" fill="#073642" text-anchor="middle">输入 28245:从个位拆起,边拆边记账</text>
     <text x="18" y="36" font-size="10" fill="#586e75" font-family="Menlo, monospace">digit_seen[10]</text>
@@ -1148,7 +1148,7 @@ int main(void)
 1221 拆进数组 (个位在前):
 
 <div style="text-align:center;margin-top:4px;">
-<svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
+<svg viewBox="0 0 400 170" style="max-width:100%;height:250px;">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="200" y="14" font-size="11.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">digits = {1, 2, 2, 1}    len = 4</text>
     <text x="74" y="31" font-size="9.5" fill="#93a1a1" text-anchor="end">下标</text>

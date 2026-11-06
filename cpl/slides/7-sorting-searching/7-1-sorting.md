@@ -364,7 +364,7 @@ for (int i = 1; i < n; i++) {
 
 从第一个元素开始==逐个比较==, 找到即停
 
-<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
+<div style="display:grid;grid-template-columns:1.35fr 1fr;gap:14px;align-items:center;">
 
 <div>
 
@@ -388,7 +388,7 @@ if (i < n) {
 <div>
 
 <div style="text-align:center;">
-<svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
+<svg viewBox="0 0 400 170" style="max-width:100%;height:217px;display:block;margin:0 auto;">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="200" y="18" font-size="11.5" fill="#586e75" text-anchor="middle">100 万个数据中查找一个数 (平均比较次数)</text>
 

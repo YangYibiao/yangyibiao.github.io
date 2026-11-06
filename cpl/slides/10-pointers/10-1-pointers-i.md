@@ -74,6 +74,10 @@ presentation:
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
+
 理解指针的第一步是在机器级别观察它们表示的内容. 
 内存按==字节==划分, 每个字节存 8 位: 
 
@@ -83,20 +87,13 @@ presentation:
 
 每个字节都有==唯一的地址==。
 
-
-<div style="display:flex;align-items:center;gap:24px;">
-
-<div style="flex:1;">
-
 内存共 n 个字节, 地址就是从 $0$ 到 $n-1$ 的编号: 
 
 </div>
 
-<div style="flex:0 0 auto;">
+<div style="flex:0 0 337px;">
 
-<div class="top-2">
-    <img src="figs/11-2.png" width=140px>
-</div>
+<img src="figs/11-2.png" width=320px>
 
 </div>
 
@@ -299,7 +296,7 @@ j = *&i; /* 等同于 j = i; */
 
 </div>
 
-<svg viewBox="0 0 400 160" width="480" height="192" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<svg viewBox="0 0 400 160" width="620" height="248" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrDerefB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrDerefG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
 <text x="118" y="24" font-size="10" fill="#268bd2" text-anchor="middle">p 存的是地址</text>
 <text x="298" y="24" font-size="10" fill="#b58900" text-anchor="middle">内存中的 i</text>
@@ -352,11 +349,11 @@ printf("%d\n", *p); /* 打印 2 */
 
 
 <div class="top-2">
-  <img src="figs/11-6.png" width=200px>
+  <img src="figs/11-6.png" width=330px>
 </div><div class="top-2">
-  <img src="figs/11-7.png" width=200px>
+  <img src="figs/11-7.png" width=330px>
 </div><div class="top-2">
-  <img src="figs/11-8.png" width=200px>
+  <img src="figs/11-8.png" width=330px>
 </div>
 
 </div>
@@ -395,7 +392,7 @@ int* p;
 
 </div>
 
-<svg viewBox="0 0 400 160" width="480" height="192" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<svg viewBox="0 0 400 160" width="620" height="248" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrUninitR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
 <rect x="55" y="42" width="100" height="58" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
 <text x="67" y="60" font-size="12" fill="#268bd2">p</text>
@@ -450,11 +447,9 @@ q = p;
 C 允许使用赋值运算符来复制相同类型的指针. 
 假设有以下声明:
 
-指针赋值示例:
-
 q现在指向与p相同的位置: 
 <div class="top-2">
-    <img src="figs/11-9.png" width=300px>
+    <img src="figs/11-9.png" width=320px>
 </div>
 
 
@@ -463,11 +458,11 @@ q现在指向与p相同的位置:
 <div style="display:flex;align-items:flex-start;gap:16px;">
 
 <div class="top-2">
-    <img src="figs/11-10.png" width=200px>
+    <img src="figs/11-10.png" width=253px>
 </div>
 
 <div class="top-2">
-    <img src="figs/11-11.png" width=200px>
+    <img src="figs/11-11.png" width=253px>
 </div>
 
 </div>
@@ -511,14 +506,14 @@ q = &j;
 i = 1;
 ```
 <div class="top-2">
-    <img src="figs/11-12.png" width=200px>
+    <img src="figs/11-12.png" width=285px>
 </div>
 
 ```C
 *q = *p;
 ```
 <div class="top-2">
-    <img src="figs/11-13.png" width=200px>
+    <img src="figs/11-13.png" width=285px>
 </div>
 
 </div>

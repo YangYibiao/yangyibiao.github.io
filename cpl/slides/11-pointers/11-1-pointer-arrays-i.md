@@ -128,7 +128,7 @@ C支持三种(且只有三种)==指针运算==形式:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:0.8;font-size:0.62em;">
 
 ```C
 int a[10], *p, *q, i;
@@ -148,11 +148,11 @@ p -= 6;
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1.2;font-size:0.6em;">
 
 将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后. 
 
-准确地说: p 指向 a[i], 则 p + j 指向 a[i+j]。
+准确地说: p 指向 a[i], 则 p + j 指向 a[i+j]; p 指向 a[i], 则 p - j 指向 a[i-j]。
 
 假设声明如下:
 
@@ -160,18 +160,14 @@ p -= 6;
 
 <div style="flex:1;">
 
-指针加法示例:
-
-<div class="top-2"><img src="figs/13-3.png" width=240px></div>
+<div class="top-2"><img src="figs/13-3.png" width=320px></div>
 
 </div>
 
 <div style="flex:1;">
 
-p 指向 a[i], 则 p - j 指向 a[i-j]。指针减法示例:
-
 <div class="top-2">
-    <img src="figs/13-4.png" width=240px>
+    <img src="figs/13-4.png" width=320px>
 </div>
 
 </div>
@@ -201,7 +197,7 @@ q = &a[1];
 <div style="display:flex;align-items:center;gap:24px;">
 
 <div class="top-2">
-    <img src="figs/13-5.png" width=300px>
+    <img src="figs/13-5.png" width=400px>
 </div>
 
 ```C
@@ -232,7 +228,7 @@ i = q - p; /* i is -4 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.1;">
+<div style="flex:0.9;">
 
 ```C
 p = &a[5];
@@ -243,9 +239,9 @@ p >= q; // expression value: 1
 
 </div>
 
-<div style="flex:0.9;">
+<div style="flex:1.1;">
 
-<svg viewBox="0 0 400 170" width="460" height="196" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<svg viewBox="0 0 400 170" width="620" height="264" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrCmpB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrCmpG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
 <text x="22" y="72" font-size="13" fill="#93a1a1">a</text>
 <rect x="35" y="52" width="40" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
@@ -289,7 +285,9 @@ p >= q; // expression value: 1
 
 ---
 
-<div style="font-size:0.6em;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;">
+
+<div style="flex:1.35;">
 
 ```C
 #define N 10
@@ -299,10 +297,6 @@ int sum = 0, *p;
 for (p = &a[0]; p < &a[N]; p++)
     sum += *p;
 ```
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
 
 - 在第一次迭代结束时：`p` 指向 `a[1]`，`sum` 为 11（已加上 `a[0]`）
 
@@ -314,12 +308,10 @@ for (p = &a[0]; p < &a[N]; p++)
 
 </div>
 
-<div style="flex:0.7;">
+<div style="flex:0.65;">
 
 <div class="top-2">
-    <img src="figs/13-6.png" width=250px>
-</div>
-
+    <img src="figs/13-6.png" width=320px>
 </div>
 
 </div>
@@ -434,12 +426,12 @@ int pop(void)
 
 指针版：把 top 换成初始指向 contents[0] 的 top_ptr，它同样指向==下一个空位==，新的 push 和 pop 函数见左栏。
 
-<svg viewBox="0 0 400 170" width="376" height="160" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<svg viewBox="0 0 400 170" width="520" height="221" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrStkB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrStkG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
 <rect x="186" y="14" width="74" height="26" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
 <text x="223" y="31" font-size="10.5" fill="#268bd2" text-anchor="middle">top_ptr</text>
 <line x1="223" y1="40" x2="223" y2="74" stroke="#268bd2" stroke-width="2" marker-end="url(#arrStkB)"/>
-<text x="216" y="62" font-size="9" fill="#268bd2" text-anchor="end">下一空位</text>
+<text x="216" y="62" font-size="11" fill="#268bd2" text-anchor="end">下一空位</text>
 <rect x="48" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
 <text x="73" y="99" font-size="15" fill="#073642" text-anchor="middle">7</text>
 <rect x="98" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
@@ -450,10 +442,10 @@ int pop(void)
 <rect x="248" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
 <rect x="298" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
 <line x1="246" y1="70" x2="270" y2="70" stroke="#268bd2" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkB)"/>
-<text x="276" y="66" font-size="9" fill="#268bd2">push 后 ++</text>
+<text x="276" y="66" font-size="11" fill="#268bd2">push 后 ++</text>
 <path d="M223,114 L223,122 L173,122 L173,114" fill="none" stroke="#859900" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkG)"/>
-<text x="198" y="140" font-size="9.5" fill="#859900" text-anchor="middle">pop：先 -- 再读</text>
-<text x="200" y="162" font-size="10" fill="#586e75" text-anchor="middle">后进先出（LIFO）</text>
+<text x="198" y="140" font-size="10.5" fill="#859900" text-anchor="middle">pop：先 -- 再读</text>
+<text x="200" y="162" font-size="10.5" fill="#586e75" text-anchor="middle">后进先出（LIFO）</text>
 </svg>
 
 </div>

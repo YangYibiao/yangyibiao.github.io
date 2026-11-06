@@ -119,7 +119,7 @@ decompose的原型可以是:
 作为调用的结果, 指向i的指针存储在int_part中, 指向d的指针存储在frac_part中: 
 
 <div class="top-2">
-    <img src="figs/11-14.png" width=300px>
+    <img src="figs/11-14.png" width=380px>
 </div>
 
 </div>
@@ -189,9 +189,11 @@ scanf("%d", &i);
 
 ---
 
+<style>.err-pre pre{margin:0.3rem 0 !important;}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.62em;">
+<div class="err-pre" style="flex:1.2;font-size:0.62em;">
 
 ```C
 int i, *p;
@@ -225,7 +227,7 @@ decompose(3.14159, i, d);
 
 </div>
 
-<svg viewBox="0 0 400 180" width="440" height="198" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<svg viewBox="0 0 400 180" width="660" height="297" style="display:block;flex-shrink:0;margin:0 auto;" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrScanB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrScanR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
 <line x1="200" y1="8" x2="200" y2="172" stroke="#93a1a1" stroke-width="1" stroke-dasharray="4 4"/>
 <text x="100" y="20" font-size="11.5" fill="#859900" text-anchor="middle">scanf("%d", p)</text>
