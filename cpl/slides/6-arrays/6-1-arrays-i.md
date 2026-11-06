@@ -51,13 +51,19 @@ presentation:
 
 ---
 
+<style>.reveal pre code{max-height:none!important}</style>
+
 <div style="font-size:1.3em;text-align:left;margin-left:2rem;">
 
-- 一维数组: 声明、下标、初始化
+- 数组: 声明、下标与越界
 
 - 为什么需要数组
 
-- 案例: 数列反向、平均分与高于平均、检查重复数字、统计正负零
+- 程序: 数列反向
+
+- 数组初始化与指定初始化式
+
+- 案例: 平均分与高于平均、检查重复数字、统计正负零
 
 - 现场挑战: 进制转换、回文数
 
@@ -66,9 +72,6 @@ presentation:
 - AI 审计
 
 </div>
-
----
-
 
 <!-- slide data-notes="" -->
 
@@ -249,7 +252,9 @@ for (i = 1; i <= 10; i++) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#sub-loops pre code{font-size:19px!important;line-height:1.15!important}#sub-loops ul ul{margin:0!important;padding-left:24px!important}#sub-loops ul ul li{margin-right:0!important}#sub-loops ul ul li p{margin:2px 0!important;font-size:18px!important;line-height:1.3!important}</style>
+
+<div id="sub-loops" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.68em;">
 
@@ -280,7 +285,6 @@ for (i = 0; i < N; i++) {
 `a[i]` 是左值, 可以==像普通变量一样用==——上面三种操作都合法
 
 - 对数组的常见操作, 几乎都是"循环 + 下标"的这三个模式:
-
   - ① 清零 / 赋初值、② 逐个读入、③ 累加 / 统计
 
 </div>
@@ -312,7 +316,7 @@ a[n - 1 - i];       /* 倒数第 i 个 */
 
 ---
 
-- `a[i * W + j]`——把二维网格平铺成一维; 周三的二维数组, 底层就是这个
+- `a[i * W + j]`——把二维网格平铺成一维; 后面的二维数组, 底层就是这个
 
 - `a[n - 1 - i]`——倒数第 i 个; 待会儿的数列反向、挑战里的回文数都靠它
 
@@ -326,7 +330,9 @@ a[n - 1 - i];       /* 倒数第 i 个 */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#sub-side pre code{font-size:16px!important;line-height:1.15!important}</style>
+
+<div id="sub-side" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.1;font-size:0.62em;">
 
@@ -376,7 +382,9 @@ for (i = 0; i < N; i++) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#oob-read pre code{font-size:18px!important;line-height:1.15!important}</style>
+
+<div id="oob-read" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.68em;">
 
@@ -427,7 +435,9 @@ a[5] = 1
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#oob-write pre code{font-size:18px!important;line-height:1.15!important}</style>
+
+<div id="oob-write" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.68em;">
 
@@ -477,10 +487,15 @@ int main(void)
 
 <!-- slide data-notes="" -->
 
-
 ##### 为什么需要数组
 
 ---
+
+<style>#why .narrative>p{font-size:24px!important;line-height:1.32!important;margin:8px 0!important}#why .narrative ul{margin:4px 0!important;padding-left:28px!important}#why .narrative ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#why .narrative li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#why .narrative ul ul li{font-size:17px!important}#why .narrative hr{margin:6px 0!important;width:100%!important}#why .codepane pre code{font-size:16px!important;line-height:1.15!important}#why .codepane ul{margin:6px 0!important;padding-left:28px!important}#why .codepane ul>li{margin:0 0 5px 0!important;font-size:18px!important;line-height:1.35!important}#why .codepane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}</style>
+
+<div id="why" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="narrative" style="flex:1;">
 
 我们已经会用数组了——回头想想: 它到底解决了什么问题?
 
@@ -489,29 +504,17 @@ int main(void)
 - 第一节课的"找最高分": 读一个、比一个、丢一个——==一个变量就够==, 因为不需要回头
 
 - 有了数组, 问题就敢这样提了:
-
   - 把 10 个成绩==逆序==打印——读完了还要"回头"
-
   - 算完平均分, 统计有几人==高于平均==——先算平均, 再回头比每个人
-
   - 给全班成绩==排序==——数据之间要反复比较
 
 ---
 
 结论: 需要"回头"再看的数据, 必须先==存下来==——这就是数组要解决的问题
 
----
+</div>
 
-<!-- slide data-notes="" -->
-
-
-##### 为什么需要数组 (不用数组会怎样)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
+<div class="codepane" style="flex:1.15;">
 
 ```C
 /* 不用数组: 变量不够用了 */
@@ -532,10 +535,6 @@ for (i = 0; i < 10; i++) {
 printf("%d", n[i]);  /* 想要第几个都行 */
 ```
 
-</div>
-
-<div style="flex:1;">
-
 - 10 个变量写 10 行, 1000 个写 1000 行——而且==没法用循环==
 
 - 数组给一批同类型数据==编号==: 用下标就能批量处理
@@ -546,11 +545,17 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 
 </div>
 
+<!-- slide data-notes="" -->
+
+##### 程序: 数列反向
+
 ---
 
-<!-- slide data-notes="" -->##### 程序: 数列反向
+<style>#m-reverse .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-reverse .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-reverse .taskpane pre{margin:6px 0!important}#m-reverse .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-reverse .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-reverse .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .codepane pre code{font-size:16px!important;line-height:1.15!important}</style>
 
----
+<div id="m-reverse" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="taskpane" style="flex:1;">
 
 ==现场演示==: 输入 10 个数, 逆序输出
 
@@ -565,20 +570,17 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 存储的顺序和打印的顺序是什么关系?
 
----
+<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(147,161,161,.45);">
 
+- 正着读 (`i` 从 0 到 N-1), 倒着打 (`i` 从 N-1 到 0)——==同一数组, 两种遍历方向==
 
+- 数据先全部存下来, 才能"回头"——数组的价值就在这
 
-<!-- slide data-notes="" -->
+</div>
 
+</div>
 
-##### 程序: 数列反向 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
+<div class="codepane" style="flex:1.4;">
 
 ```C{.line-numbers}
 /* 数列反向 */
@@ -607,27 +609,23 @@ int main(void)
 
 </div>
 
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 数组初始化与指定初始化式
+
+---
+
+<style>#init p{margin:6px 0!important}#init ul{margin:4px 0!important;padding-left:28px!important}#init ul>li{margin:0 0 6px 0!important;font-size:18px!important;line-height:1.35!important}#init li p{margin:0!important;font-size:18px!important;line-height:1.35!important}</style>
+
+<div id="init" style="display:flex;align-items:flex-start;gap:24px;">
+
 <div style="flex:1;">
 
-- 正着读 (`i` 从 0 到 N-1), 倒着打 (`i` 从 N-1 到 0)——==同一数组, 两种遍历方向==
+==常规初始化==
 
-- 数据先全部存下来, 才能"回头"——数组的价值就在这
-
-</div>
-
-</div>
-
----
-
----
-
-<!-- slide data-notes="" -->##### 数组初始化
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;font-size:0.62em;">
+<div style="font-size:0.62em;">
 
 ```C
 int a[10] = {1, 2, 3};
@@ -642,27 +640,21 @@ int a[] = {1, 2, 3};
 
 </div>
 
-<div style="flex:1.3;">
-
 - 初始化式比数组短 → 其余元素==自动赋 0==
 
 - 初始化式==为空或超长==都非法
 
 - 给了初始化式, 长度可以==省略==——由编译器计算
 
-- 大数组只改少数元素, 一个个列出来冗长易错——==下一页==的指定初始化式来救场
+- 大数组只改少数元素, 一个个列出来冗长易错——==指定初始化式==来救场
 
 </div>
 
-</div>
+<div style="flex:1.05;">
 
-<!-- slide data-notes="" -->##### 指定初始化式 (C99)
+==指定初始化式 (C99)==
 
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;font-size:0.62em;">
+<div style="font-size:0.62em;">
 
 ```C
 int a[15] = {[2] = 29, [9] = 7};
@@ -677,8 +669,6 @@ int b[] = {[23] = 5};
 
 </div>
 
-<div style="flex:1.3;">
-
 - C99 的==指定初始化式==: `[下标] = 值`, 只初始化想改的元素
 
 - 括号中的数字叫==指示符==, 取值 0 ~ n-1
@@ -691,10 +681,15 @@ int b[] = {[23] = 5};
 
 <!-- slide data-notes="" -->
 
-
 ##### 案例: 平均分与高于平均
 
 ---
+
+<style>#m-average .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-average .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-average .taskpane pre{margin:6px 0!important}#m-average .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-average .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-average .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-average .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-average .codepane pre code{font-size:16px!important;line-height:1.15!important}</style>
+
+<div id="m-average" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="taskpane" style="flex:1;">
 
 ==现场演示==: 输入 10 个成绩, 输出平均分和==高于平均分的人数==
 
@@ -711,18 +706,19 @@ int b[] = {[23] = 5};
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 平均分算出来之前没人能比; 算出来之后, 数据还在吗?
 
----
+<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(147,161,161,.45);">
 
-<!-- slide data-notes="" -->
+- ==两遍扫描==: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)
 
+- 对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"==非两遍不可==
 
-##### 案例: 平均分与高于平均 (参考代码)
+- `sum / N` 是整数除法——`(double)` 强转, 不然 58/10 变成 5
 
----
+</div>
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+</div>
 
-<div style="flex:1.3;font-size:0.6em;">
+<div class="codepane" style="flex:1.4;">
 
 ```C{.line-numbers}
 /* 平均分与高于平均分的人数 */
@@ -754,26 +750,15 @@ int main(void)
 
 </div>
 
-<div style="flex:1;">
-
-- ==两遍扫描==: 第一遍读入+求和, 第二遍回头比平均——第二遍之前, 数据必须还在 (数组)
-
-- 对比: "最高分并列"一遍就能数 (更新 max 时重置 count), 但"高于平均"==非两遍不可==
-
-- `sum / N` 是整数除法——`(double)` 强转, 不然 58/10 变成 5
-
 </div>
 
-</div>
+<!-- slide data-notes="" -->##### 程序: 检查重复数字
 
 ---
 
-<!-- slide data-notes="" -->
+<style>#repdigit-task p{margin:6px 2rem!important}#repdigit-task a{display:block!important;margin-top:8px!important}#repdigit-task pre code{font-size:15px!important;line-height:1.2!important}</style>
 
-
-##### 程序: 检查重复数字
-
----
+<div id="repdigit-task">
 
 ==现场演示==: 输入一个==长整数== (正数), 判断它的各位数字里有没有重复的 (如 28245 有重复的 2)
 
@@ -834,7 +819,7 @@ int main(void)
 </svg>
 </div>
 
----
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -843,7 +828,9 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#repdigit-ref pre code{font-size:16px!important;line-height:1.15!important}</style>
+
+<div id="repdigit-ref" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.4;font-size:0.55em;">
 
@@ -893,9 +880,17 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 案例: 统计正数、负数与零
+<!-- slide data-notes="" -->
+
+##### 案例: 统计正数、负数与零
 
 ---
+
+<style>#m-count .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-count .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-count .taskpane pre{margin:6px 0!important}#m-count .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-count .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-count .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-count .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-count .codepane pre code{font-size:16px!important;line-height:1.08!important}</style>
+
+<div id="m-count" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="taskpane" style="flex:1;">
 
 ==现场演示==: 先读入 n, 再读入 n 个整数, 统计其中正数、负数、零各有多少个
 
@@ -911,20 +906,21 @@ int main(void)
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 三个计数器, 遍历一次数组即可
 
----
+<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(147,161,161,.45);">
 
+- 先==读入==再==遍历==: 两个 for 循环各管一件事, 比边读边统计更清晰
 
+- 三个计数器必须==先初始化为 0==——局部变量不会自动清零
 
-<!-- slide data-notes="" -->
+- `a[i] > 0` / `< 0` / 其余: ==三分支==用 `if / else if / else` 写最自然
 
+- 数组大小用 `#define N 100`; 实际个数用变量 `n`——==容量与个数分开==
 
-##### 案例: 统计正数、负数与零 (参考代码)
+</div>
 
----
+</div>
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.62em;">
+<div class="codepane" style="flex:1.4;">
 
 ```C{.line-numbers}
 /* count_sign.c: 统计正数、负数、零的个数 */
@@ -960,21 +956,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;">
-
-- 先==读入==再==遍历==: 两个 for 循环各管一件事, 比边读边统计更清晰
-
-- 三个计数器必须==先初始化为 0==——局部变量不会自动清零
-
-- `a[i] > 0` / `< 0` / 其余: ==三分支==用 `if / else if / else` 写最自然
-
-- 数组大小用 `#define N 100`; 实际个数用变量 `n`——==容量与个数分开==
-
 </div>
-
-</div>
-
----
 
 <!-- slide data-notes="" -->
 
@@ -1081,7 +1063,9 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#base-ref pre code{font-size:16px!important;line-height:1.15!important}</style>
+
+<div id="base-ref" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.6em;">
 
@@ -1208,7 +1192,9 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#pal-ref pre code{font-size:16px!important;line-height:1.15!important}</style>
+
+<div id="pal-ref" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.6em;">
 
@@ -1257,24 +1243,39 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 对数组使用sizeof运算符
+<!-- slide data-notes="" -->
+
+##### sizeof 与变长数组
 
 ---
+
+<style>#sizevla .leftcol>p{font-size:23px!important;line-height:1.32!important;margin:8px 0!important}#sizevla .leftcol ul{margin:4px 0!important;padding-left:28px!important}#sizevla .leftcol ul>li{margin:0 0 6px 0!important;font-size:18px!important;line-height:1.35!important}#sizevla .leftcol li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#sizevla .leftcol hr{margin:6px 0!important;width:100%!important}#sizevla .codepane pre code{font-size:16px!important;line-height:1.15!important}</style>
+
+<div id="sizevla" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="leftcol" style="flex:1;">
 
 - 用 `sizeof` 表达数组长度: `for (i = 0; i < sizeof(a) / sizeof(a[0]); i++)` 清零——==日后改长度, 循环不用改==
 
 - 可能告警: `i` 是 int (有符号), `sizeof` 返回 size_t (无符号); 此处安全, 也可强转避免: `(int) (sizeof(a) / sizeof(a[0]))`
 
-- 为数组大小定义宏: `#define SIZE ((int) (sizeof(a) / sizeof(a[0])))`——宏要加括号, 防止运算顺序不一致<!-- slide data-notes="" -->
-
-
-##### 变长数组 (C99)
+- 为数组大小定义宏: `#define SIZE ((int) (sizeof(a) / sizeof(a[0])))`——宏要加括号, 防止运算顺序不一致
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+数组 a 的长度由变量 n 决定, 是==变长数组==:
 
-<div style="flex:1.3;font-size:0.62em;">
+- 长度在==程序执行时==才计算——需要多少就开多少, 不多占、不漏放
+
+- 长度不一定是变量, 任意(整数)表达式都可以:
+
+---
+
+==工程上少用==: C11 把 VLA 降为可选特性 (MSVC 一直不支持), 长度在栈上运行时分配、不可控——了解即可, 实践优先用固定长度数组
+
+</div>
+
+<div class="codepane" style="flex:1.2;">
 
 ```C{.line-numbers}
 int n, i;
@@ -1292,20 +1293,6 @@ for (i = 0; i < n; i++) {
 ```C
 int a[3 * i + 5];   /* 长度可以是任意表达式 */
 ```
-
-</div>
-
-<div style="flex:1;">
-
-数组 a 的长度由变量 n 决定, 是==变长数组==:
-
-- 长度在==程序执行时==才计算——需要多少就开多少, 不多占、不漏放
-
-- 长度不一定是变量, 任意(整数)表达式都可以:
-
----
-
-==工程上少用==: C11 把 VLA 降为可选特性 (MSVC 一直不支持), 长度在栈上运行时分配、不可控——了解即可, 实践优先用固定长度数组
 
 </div>
 

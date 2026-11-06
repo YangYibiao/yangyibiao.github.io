@@ -59582,6 +59582,10 @@ div.boardhandle > ul > li {
 <p>案例: 幻方、生命游戏</p>
 
 </li>
+<li>
+<p>现场演示: 杨辉三角、蛇形填数、数独校验</p>
+
+</li>
 </ul>
 </div>
 <hr>
@@ -59693,10 +59697,11 @@ div.boardhandle > ul > li {
 <hr>
 <p>怎么访问每一个格子? 下一页</p>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="多维数组--访问">多维数组: 访问 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="多维数组--访问与陷阱">多维数组: 访问与陷阱 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.65em;">
+<div style="flex:1.15;">
+<p>访问 i 行 j 列的元素, 写成 <code>m[i][j]</code>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>m<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>          <span class="token comment">/* 第 2 行第 3 列 = 42 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> m<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 像普通变量一样用 */</span>
 
@@ -59704,9 +59709,6 @@ div.boardhandle > ul > li {
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> <span class="token number">9</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> m<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-</div>
-<div style="flex:1;">
-<p>访问 i 行 j 列的元素, 写成 <code>m[i][j]</code>:</p>
 <ul>
 <li>
 <p><code>m[i]</code> 是第 i 行, <code>m[i][j]</code> 是这一行里的第 j 个元素</p>
@@ -59722,12 +59724,8 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 </div>
-</div>
-<hr>
+<div style="flex:1;">
 <p>下一行代码看起来和它几乎一样——却是<mark>最容易写错</mark>的写法</p>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="陷阱--m-i-j--不是-m-i--j">陷阱: m[i,j] 不是 m[i][j] </h5>
-<hr>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>m<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>    <span class="token comment">/* 第 i 行第 j 列 */</span>
 m<span class="token punctuation">[</span>i<span class="token punctuation">,</span>j<span class="token punctuation">]</span>     <span class="token comment">/*** WRONG: 不是二维访问! ***/</span></code></pre>
 <p><code>m[i,j]</code> 里的逗号是<mark>逗号运算符</mark>: 先算 i、再算 j, 整个表达式等于 <code>m[j]</code>——只取了第 j 行, 根本不是二维访问</p>
@@ -59741,9 +59739,13 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="多维数组的存储--行主序">多维数组的存储: 行主序 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="多维数组--行主序与嵌套循环">多维数组: 行主序与嵌套循环 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;">
 <p><mark>表格只是模型</mark>: 内存里没有"行"——二维数组是<mark>按行连续存放</mark>的: 第 0 行存完, 紧跟着第 1 行, 依此类推</p>
 <div style="text-align:center;margin-top:4px;">
 <svg viewBox="0 0 400 200" style="max-width:100%;height:195px;">
@@ -59819,11 +59821,8 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 <hr>
 <p>这就是<mark>行主序</mark> (row-major): 有了它, 就知道 <code>a[i][j]</code> 在内存中的位置——后面的矩阵运算、指针都建立在这上面</p>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="二维数组与嵌套循环">二维数组与嵌套循环 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
+</div>
+<div style="flex:1.15;font-size:0.6em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
 
 <span class="token keyword keyword-double">double</span> ident<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -59838,15 +59837,13 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-</div>
-<div style="flex:1;">
 <p>嵌套 for 循环非常适合处理多维数组——<mark>外层行, 内层列</mark></p>
 <p>单位矩阵: <code>row == col</code> 放 1, 其余放 0</p>
 <p>想只处理对角线以上? 改 <code>if</code> 的条件即可</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="多维数组初始化">多维数组初始化 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -59868,7 +59865,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="多维数组初始化--省略与指定">多维数组初始化: 省略与指定 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="多维数组初始化--省略与指定">多维数组初始化: 省略与指定 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -59911,8 +59908,10 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="矩阵运算--转置">矩阵运算: 转置 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="矩阵运算--转置与乘法">矩阵运算: 转置与乘法 </h5>
 <hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;">
 <p>转置: 行列互换, <mark>b[j][i] = a[i][j]</mark></p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                   <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -59934,9 +59933,8 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 
 </li>
 </ul>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="矩阵运算--乘法">矩阵运算: 乘法 </h5>
-<hr>
+</div>
+<div style="flex:1.1;">
 <p>矩阵乘法: \(c_{ij} = \sum_k a_{ik} \times b_{kj}\) (a 的列数必须等于 b 的行数)</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* a: m×n, b: n×p, c: m×p */</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -59957,8 +59955,10 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 
 </li>
 </ul>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="矩阵运算--按行-按列统计">矩阵运算: 按行/按列统计 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="矩阵运算--按行-按列统计">矩阵运算: 按行/按列统计 </h5>
 <hr>
 <p>统计每行的和、每列的和 (成绩表场景):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* scores: 5 名学生 × 3 门课 */</span>
@@ -59977,7 +59977,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="案例--幻方">案例: 幻方 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="案例--幻方">案例: 幻方 </h5>
 <hr>
 <p style="margin:8px 2rem;"><mark>幻方</mark>: n×n 的格子填 1 ~ n², 每行、每列、两条对角线的和都相等 (n 取<mark>奇数</mark>)</p>
 <p style="margin:8px 2rem;">奇数阶幻方的经典构造法 (de la Loubère):</p>
@@ -60002,7 +60002,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <p style="margin:8px 2rem 0;"><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 先想清楚"右上"对应两个下标怎么变, "回绕"用什么运算</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-magic.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-magic.c (骨架)</a>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="案例--幻方--参考代码">案例: 幻方 (参考代码) </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="案例--幻方--参考代码">案例: 幻方 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -60062,7 +60062,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="案例--生命游戏">案例: 生命游戏 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="案例--生命游戏">案例: 生命游戏 </h5>
 <hr>
 <p>细胞自动机: 网格里每个格子是"活(1)"或"死(0)", 每一代按<mark>邻居</mark>数更新:</p>
 <ul>
@@ -60084,7 +60084,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 更新第 (i,j) 格时, 邻居们必须还是<mark>旧一代</mark>的</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-life.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-life.c (骨架)</a>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="生命游戏--怎么想">生命游戏: 怎么想 </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="生命游戏--怎么想">生命游戏: 怎么想 </h5>
 <hr>
 <p>每个格子都要回答同一个问题: 我有几个活邻居?</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>· · ·
@@ -60105,7 +60105,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="生命游戏--动画演示">生命游戏: 动画演示 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="生命游戏--动画演示">生命游戏: 动画演示 </h5>
 <hr>
 <video controls width="880">
   <source src="../references/4-loops/videos/Conway-Game-of-Life.mp4" type="video/mp4">
@@ -60113,7 +60113,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </video>
 <p><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life @ wiki</a></p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="案例--生命游戏--参考代码">案例: 生命游戏 (参考代码) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="案例--生命游戏--参考代码">案例: 生命游戏 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;min-width:0;font-size:0.55em;">
@@ -60194,7 +60194,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="杨辉三角">杨辉三角 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="杨辉三角">杨辉三角 </h5>
 <hr>
 <p><mark>现场演示</mark>: 打印杨辉三角的前 6 行</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-yanghui.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-yanghui.c (骨架)</a>
@@ -60207,7 +60207,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
    <span class="token number">1</span>   <span class="token number">5</span>  <span class="token number">10</span>  <span class="token number">10</span>   <span class="token number">5</span>   <span class="token number">1</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 第 i 行第 j 个数, 是"上一行"的哪两个数之和?</p>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="杨辉三角--参考代码">杨辉三角 (参考代码) </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="杨辉三角--参考代码">杨辉三角 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -60259,7 +60259,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="蛇形填数">蛇形填数 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="蛇形填数">蛇形填数 </h5>
 <hr>
 <p><mark>现场演示</mark>: n×n 的格子, 从 1 开始<mark>螺旋</mark>往里填</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-snake.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-snake.c (骨架)</a>
@@ -60271,7 +60271,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <span class="token number">13</span> <span class="token number">12</span> <span class="token number">11</span> <span class="token number">10</span>  <span class="token number">9</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 往右走, 走不动了就拐弯——四个方向轮流试</p>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="蛇形填数--参考代码">蛇形填数 (参考代码) </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="蛇形填数--参考代码">蛇形填数 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60322,7 +60322,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="数独校验">数独校验 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="数独校验">数独校验 </h5>
 <hr>
 <p><mark>现场演示</mark>: 读入 9×9 数独, 判断是否违反规则 (OJ 1081 同款)</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/6-arrays/code/task-sudoku.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-sudoku.c (骨架)</a>
@@ -60333,7 +60333,7 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 <span class="token function">Wrong</span>   <span class="token punctuation">(</span>有重复<span class="token punctuation">)</span></code></pre>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 方向提示: 三次扫描, 每次都是标志数组查重——和 repdigit 同款</p>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="数独校验--参考代码">数独校验 (参考代码) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="数独校验--参考代码">数独校验 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.5em;">
@@ -60394,25 +60394,20 @@ m<span class="token punctuation">[</span>i<span class="token punctuation">,</spa
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测--1-2">课堂小测 (1/2) </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>声明一个 3 行 4 列的整型二维数组，怎么写？访问第 2 行第 3 列的元素怎么写？
 </li>
 <li><code>m[i,j]</code> 与 <code>m[i][j]</code> 有什么区别？
 </li>
-</ol>
-<hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测--2-2">课堂小测 (2/2) </h5>
-<hr>
-<ol>
 <li>二维数组在内存中是怎么存储的（行主序是什么意思）？
 </li>
 <li>矩阵乘法的三层循环里，最内层的循环在做什么？
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="22" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

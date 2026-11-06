@@ -61,6 +61,8 @@ presentation:
 
 - 案例: 幻方、生命游戏
 
+- 现场演示: 杨辉三角、蛇形填数、数独校验
+
 
 </div>
 
@@ -121,13 +123,15 @@ int m[5][9];
 <!-- slide data-notes="" -->
 
 
-##### 多维数组: 访问
+##### 多维数组: 访问与陷阱
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.65em;">
+<div style="flex:1.15;">
+
+访问 i 行 j 列的元素, 写成 `m[i][j]`:
 
 ```C
 m[2][3] = 42;          /* 第 2 行第 3 列 = 42 */
@@ -139,12 +143,6 @@ for (j = 0; j < 9; j++) {
 }
 ```
 
-</div>
-
-<div style="flex:1;">
-
-访问 i 行 j 列的元素, 写成 `m[i][j]`:
-
 - `m[i]` 是第 i 行, `m[i][j]` 是这一行里的第 j 个元素
 
 - 行下标 0~4, 列下标 0~8——都从 0 数起
@@ -153,20 +151,9 @@ for (j = 0; j < 9; j++) {
 
 </div>
 
-</div>
-
----
+<div style="flex:1;">
 
 下一行代码看起来和它几乎一样——却是==最容易写错==的写法
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 陷阱: m[i,j] 不是 m[i][j]
-
----
 
 ```C
 m[i][j]    /* 第 i 行第 j 列 */
@@ -179,15 +166,23 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 
 - 键盘上多打一个逗号, 程序就悄悄错了
 
+</div>
+
+</div>
+
 ---
 
 
 <!-- slide data-notes="" -->
 
 
-##### 多维数组的存储: 行主序
+##### 多维数组: 行主序与嵌套循环
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;">
 
 ==表格只是模型==: 内存里没有"行"——二维数组是==按行连续存放==的: 第 0 行存完, 紧跟着第 1 行, 依此类推
 
@@ -275,19 +270,9 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 
 这就是==行主序== (row-major): 有了它, 就知道 `a[i][j]` 在内存中的位置——后面的矩阵运算、指针都建立在这上面
 
----
+</div>
 
-
-<!-- slide data-notes="" -->
-
-
-##### 二维数组与嵌套循环
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.15;font-size:0.6em;">
 
 ```C{.line-numbers}
 #define N 10
@@ -305,10 +290,6 @@ for (row = 0; row < N; row++) {
   }
 }
 ```
-
-</div>
-
-<div style="flex:1;">
 
 嵌套 for 循环非常适合处理多维数组——==外层行, 内层列==
 
@@ -415,9 +396,13 @@ double ident[2][2] = {[0][0] = 1.0, [1][1] = 1.0};
 
 <!-- slide data-notes="" -->
 
-##### 矩阵运算: 转置
+##### 矩阵运算: 转置与乘法
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
 
 转置: 行列互换, ==b[j][i] = a[i][j]==
 
@@ -438,14 +423,9 @@ for (int i = 0; i < 3; i++) {
 
 - 注意 b 的行列数与 a ==正好相反==
 
----
+</div>
 
-
-<!-- slide data-notes="" -->
-
-##### 矩阵运算: 乘法
-
----
+<div style="flex:1.1;">
 
 矩阵乘法: $c_{ij} = \sum_k a_{ik} \times b_{kj}$ (a 的列数必须等于 b 的行数)
 
@@ -464,6 +444,10 @@ for (int i = 0; i < m; i++) {
 - ==三层循环==: 外层两重选行与列, 最内层求和
 
 - 神经网络的核心运算就是矩阵乘法 (GEMM): 全连接、卷积、注意力最后都归到它——三层循环是朴素版, 真实库还会做分块、向量化优化
+
+</div>
+
+</div>
 
 ---
 
@@ -931,9 +915,6 @@ Wrong   (有重复)
 <!-- slide data-notes="" -->
 
 
-<!-- slide data-notes="" -->
-
-
 ##### 数独校验 (参考代码)
 
 ---
@@ -1002,22 +983,13 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 课堂小测 (1/2)
+##### 课堂小测
 
 ---
 
 1. 声明一个 3 行 4 列的整型二维数组，怎么写？访问第 2 行第 3 列的元素怎么写？
 
 2. `m[i,j]` 与 `m[i][j]` 有什么区别？
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂小测 (2/2)
-
----
 
 3. 二维数组在内存中是怎么存储的（行主序是什么意思）？
 
