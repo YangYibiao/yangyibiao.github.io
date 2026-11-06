@@ -114,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="reveal">
       <div class="slides">
         <section><section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
+<style>.reveal pre code{max-height:none!important;overflow:visible!important}.small-code pre{font-size:1em!important}.left-justify p,.left-justify li{text-align:left!important}</style>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
 <h2 id="指针数组与函数指针">指针数组与函数指针 </h2>
@@ -269,36 +270,55 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="指向函数的指针--续">指向函数的指针 (续) </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="指向函数的指针--integrate-的参数与调用">指向函数的指针: integrate 的参数与调用 </h5>
 <hr>
-<p>编写 integrate 函数求函数 f 在 a 点和 b 点之间的积分, 可以把 f 作为参数传入, 从而使其尽可能通用.</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">integrate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<div style="display:grid;grid-template-columns:1.08fr 1fr;gap:24px;align-items:start;">
+<div class="left-justify" style="font-size:0.84em;text-align:left;">
+<p>integrate 求函数 f 在 a 到 b 之间的积分; 把 f 作为参数, 同一个 integrate 就能处理不同函数.</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">integrate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                 <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-double">double</span> result <span class="token operator">=</span> <span class="token function">integrate</span><span class="token punctuation">(</span>sin<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> PI<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <ul>
 <li>
-<p><code>*f</code> 两边的括号表示 f 是指向函数的指针.</p>
+<p><code>*f</code> 两边的括号表示 f 是<mark>指向函数的指针</mark>;</p>
 
 </li>
 <li>
-<p>去掉括号写成 <code>double f(double)</code> 也可以, 编译器会把它当作函数指针参数.</p>
+<p>去掉括号写成 <code>double f(double)</code> 也可以, 编译器同样当作函数指针参数;</p>
 
 </li>
 <li>
-<p>调用时直接传函数名, 例如 <code>integrate(sin, 0.0, PI/2)</code>.</p>
+<p>函数名后面没有括号时生成指向该函数的指针, 调用时直接传 <code>sin</code>;</p>
+
+</li>
+<li>
+<p><code>PI</code> 需要自己定义, 如 <code>#define PI 3.141592653589793</code>.</p>
 
 </li>
 </ul>
-<p><code>PI</code> 需要自己定义, 例如: <code>#define PI 3.141592653589793</code></p>
-<hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数指针作为参数">函数指针作为参数 </h5>
-<hr>
-<p>调用 integrate 计算 sin 从 0 到 \(\pi/2\) 的积分:</p>
-<p><code>result = integrate(sin, 0.0, PI/2);</code></p>
-<p>当函数名后面没有括号时, C 编译器会生成一个指向该函数的指针.</p>
+</div>
+<div class="left-justify" style="font-size:0.84em;text-align:left;">
 <p>在 integrate 函数体里, 可以调用 f 指向的函数:</p>
-<p><code>y = (*f)(x);</code></p>
-<p>允许使用 <code>f(x)</code> 代替 <code>(*f)(x)</code>。</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> y <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 等价于 f(x) */</span></code></pre>
+<ul>
+<li>
+<p><code>(*f)(x)</code> 先解引用 f, 再调用得到的函数;</p>
+
+</li>
+<li>
+<p><code>f(x)</code> 是允许的简写, 两者效果相同;</p>
+
+</li>
+<li>
+<p>这就是"把函数当参数": 循环不变, 只换传入的函数.</p>
+
+</li>
+</ul>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="qsort函数">qsort函数 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="qsort函数">qsort函数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -318,7 +338,7 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="qsort函数--续">qsort函数 (续) </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="qsort函数--续">qsort函数 (续) </h5>
 <hr>
 <div style="font-size:0.92em;">
 <p>比较函数拿到两个元素的指针 p、q, 返回一个整数:</p>
@@ -346,33 +366,35 @@ ls <span class="token operator">-</span>l remind<span class="token punctuation">
 <p><code>qsort(a, n, sizeof(a[0]), cmp_int);</code></p>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="函数指针的其他用途">函数指针的其他用途 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="函数指针的其他用途--变量与数组">函数指针的其他用途: 变量与数组 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>pf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+<div style="font-size:0.84em;">
+<p>函数指针可以像数据指针一样<mark>保存到变量、组成数组、作为参数和返回值</mark>.</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>pf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 指向 "参数 int、返回 void" 的函数 */</span>
+pf <span class="token operator">=</span> f<span class="token punctuation">;</span>            <span class="token comment">/* 让 pf 指向 f */</span>
+<span class="token function">pf</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>             <span class="token comment">/* 调用 f(i), 等价于 (*pf)(i) */</span></code></pre>
+<ul>
+<li>
+<p><code>pf</code> 是一个变量, 保存函数的地址;</p>
+
+</li>
+<li>
+<p><code>pf(i)</code> 与 <code>(*pf)(i)</code> 等价.</p>
+
+</li>
+</ul>
 </div>
-<div style="flex:1;font-size:0.6em;">
-<p>尽管函数指针经常用作参数, 但这并不是它们的全部优点.</p>
-<p>函数指针可以像数据指针一样保存到变量、组成数组、作为参数和返回值使用.</p>
-<p>可以存储指向函数的指针的变量, pf 指向具有 int 型参数且返回 void 型值的函数:</p>
-<p>如果 f 是这样一个函数, 可以通过以下方式使 pf 指向 f:</p>
-<p><code>pf = f;</code></p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="函数指针的其他用途--续">函数指针的其他用途 (续) </h5>
-<hr>
-<p>可以通过以下方式调用 f:</p>
-<p><code>(*pf)(i);</code></p>
-<p>或者</p>
-<p><code>pf(i);</code></p>
-<p>函数指针也可以组成数组, 按编号选择要调用的函数:</p>
+<div style="font-size:0.84em;">
+<p>函数指针数组可以按编号选择要调用的函数:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>ops<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">{</span>f<span class="token punctuation">,</span> g<span class="token punctuation">}</span><span class="token punctuation">;</span>
-ops<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>这种写法把"做什么"变成数据, 常用于命令表和回调.</p>
+ops<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 调用 f(i) */</span>
+ops<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 调用 g(i) */</span></code></pre>
+<p>把"做什么"变成数据, 常用于命令表和回调.</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="程序--列三角函数表">程序: 列三角函数表 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--列三角函数表">程序: 列三角函数表 </h5>
 <hr>
 <p><mark>现场演示</mark>: 输入初值、终值、步长, 打印 sin、cos、tan 三张三角函数表</p>
 <p>样例:</p>
@@ -388,18 +410,17 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 同一个循环跑三次, 每次换一个数学函数——怎么把"函数"当作参数传进去?</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="程序--列三角函数表--参考代码">程序: 列三角函数表 (参考代码) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--列三角函数表--参考代码">程序: 列三角函数表 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.5em;">
+<div class="small-code" style="flex:1.4;min-width:0;font-size:0.34em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 列三角函数表: 函数指针作参数 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
-
-<span class="token keyword keyword-void">void</span> <span class="token function">tabulate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> step<span class="token punctuation">)</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">tabulate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span>
+              <span class="token keyword keyword-double">double</span> b<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> step<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">-</span> a<span class="token punctuation">)</span> <span class="token operator">/</span> step <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"     x       f(x)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  -------   -------\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -407,7 +428,6 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  %7.5f  %7.5f\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">;</span>
@@ -417,7 +437,6 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入步长: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>step<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\ncos(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">tabulate</span><span class="token punctuation">(</span>cos<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nsin(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -427,7 +446,7 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
+<div style="flex:1;min-width:0;font-size:0.64em;">
 <ul>
 <li>
 <p><mark>函数指针</mark> <code>f</code> 作参数: <code>tabulate(f, a, b, step)</code>——三次调用传 <code>cos</code>/<code>sin</code>/<code>tan</code></p>
@@ -445,52 +464,31 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="指针声明怎么读---规则">指针声明怎么读 · 规则 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="指针声明怎么读--规则与圆括号">指针声明怎么读: 规则与圆括号 </h5>
 <hr>
-<div style="font-size:0.9em;line-height:1.7;">
-<p>复杂声明不必靠背——两条<mark>读法规则</mark>:</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+<div style="font-size:0.82em;">
+<p><mark>两条读法规则</mark>:</p>
 <ol>
-<li><mark>从标识符出发</mark>, 由内向外读: 先找到被声明的名字, 再从它开始解读
+<li><mark>从标识符出发</mark>, 由内向外读;
 </li>
-<li>有选择时, <mark><code>[]</code> 和 <code>()</code> 优先于 <code>*</code></mark>; 圆括号可以改变优先级
+<li>有选择时, <mark><code>[]</code> 和 <code>()</code> 优先于 <code>*</code></mark>; 圆括号可以改变优先级.
 </li>
 </ol>
 </div>
-<div style="font-size:0.85em;margin-top:12px;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>ap<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>        <span class="token comment">/* ap 先和 [] 结合 → ap 是数组 (10 个元素) */</span>
-                    <span class="token comment">/* 元素类型是 int * → 指针数组 */</span>
-
-<span class="token keyword keyword-float">float</span> <span class="token operator">*</span><span class="token function">fp</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* fp 先和 () 结合 → fp 是函数 (参数 float) */</span>
-                    <span class="token comment">/* 返回类型是 float * → 返回指针的函数 */</span></code></pre>
+<div style="font-size:0.82em;">
+<p><mark>之字形读法</mark>: 从标识符往右读 (<code>[]</code>/<code>()</code>) → 折回往左读 (<code>*</code>) → 再往右……直到读完.</p>
 </div>
-<ul>
-<li>
-<p>同样两个符号 <code>*</code> 与 <code>[]</code>/<code>()</code>，结合顺序不同, 含义完全不同——这就是读出类型的<mark>关键</mark></p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="指针声明怎么读---圆括号改变优先级">指针声明怎么读 · 圆括号改变优先级 </h5>
-<hr>
-<div style="font-size:0.85em;line-height:1.6;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>NUM_COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">/* 有圆括号: p 先是指针 → 指向"含 NUM_COLS 个 int 的数组" */</span>
-                      <span class="token comment">/* 这就是行指针 */</span>
-
-<span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>pf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* pf 是指针 → 指向"参数 int、返回 void 的函数" */</span>
-                      <span class="token comment">/* 这就是函数指针 */</span></code></pre>
 </div>
-<ul>
-<li>
-<p><mark>加一对圆括号, <code>*</code> 从"最后结合"变成"最先结合"</mark>——<code>int *p[10]</code> (指针数组) 与 <code>int (*p)[10]</code> (行指针) 只差一对括号</p>
-
-</li>
-<li>
-<p><mark>之字形读法</mark>: 从标识符往右读 (<code>[]</code>/<code>()</code>) → 折回往左读 (<code>*</code>) → 再往右……直到读完</p>
-
-</li>
-</ul>
+<div style="font-size:0.82em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>ap<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>        <span class="token comment">/* ap 先和 [] 结合: 指针数组 */</span>
+<span class="token keyword keyword-float">float</span> <span class="token operator">*</span><span class="token function">fp</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* fp 先和 () 结合: 返回指针的函数 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>NUM_COLS<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* p 先是指针: 行指针 */</span>
+<span class="token keyword keyword-void">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>pf<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* pf 是函数指针 */</span></code></pre>
+</div>
+<p><code>int *p[10]</code> 是<mark>指针数组</mark>, <code>int (*p)[10]</code> 是<mark>行指针</mark>, 只差一对圆括号: <mark>加括号让 <code>*</code> 从最后结合变成最先结合</mark>.</p>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="指针声明怎么读---综合练习">指针声明怎么读 · 综合练习 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="指针声明怎么读---综合练习">指针声明怎么读 · 综合练习 </h5>
 <hr>
 <div style="font-size:0.85em;line-height:1.6;">
 <p><mark>先遮住类型名, 从标识符开始, 逐层读出下列声明的含义:</mark></p>
@@ -520,7 +518,7 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
 </ol>
 </details>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int **pp;</code> 是什么？它和 <code>int *p;</code> 的区别？
@@ -533,7 +531,7 @@ ops<span class="token punctuation">[</span><span class="token number">0</span><s
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

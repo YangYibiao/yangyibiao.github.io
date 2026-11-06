@@ -114,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="reveal">
       <div class="slides">
         <section><section data-notes="" lineno="32" class="slide " data-source-line="32" data-h="0" data-v="0"><div class="bottom20"></div>
+<style>.reveal pre code{max-height:none!important;overflow:visible!important}.small-code pre{font-size:1em!important}</style>
 <h1 id="智能程序设计c语言">智能程序设计（C语言） </h1>
 <hr class="width50 center">
 <h2 id="指针与字符串">指针与字符串 </h2>
@@ -136,44 +137,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
+<p>字符串库函数: strcpy 与 strlen</p>
+
+</li>
+<li>
 <p>任务: 自己实现 strlen</p>
 
 </li>
 <li>
-<p>字符串库函数与综合案例</p>
+<p>更多库函数与综合案例</p>
 
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="字符串字面量">字符串字面量 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="字符串字面量--定义与转义">字符串字面量: 定义与转义 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
+<div style="font-size:0.92em;">
+<p><mark>字符串字面量</mark>: 用双引号括起来的字符序列. 程序处理的名字、句子、文件名……都是字符串; 本章讲字符串常量(字面量)与字符串变量.</p>
+</div>
+<div style="display:grid;grid-template-columns:1.05fr 1fr;gap:26px;align-items:start;margin-top:4px;">
+<div style="font-size:0.76em;">
+<p>这一串打印出来是四行诗 (诗只在这里出现一次):</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>Candy
 Is dandy
 But liquor
 Is quicker<span class="token punctuation">.</span>
   <span class="token operator">--</span>Ogden Nash</code></pre>
 </div>
-<div style="flex:1;">
-<p>程序处理的不只是数字——名字、句子、文件名……都是<mark>字符串</mark>。</p>
-<p>本章涵盖<mark>字符串常量</mark>(C标准中称为字符串字面量)和<mark>字符串变量</mark>.</p>
-<p>字符串是字符数组, 用特殊字符(空字符)标记结束.</p>
-<p>C库提供了一组用于处理字符串的函数.</p>
+<div style="font-size:0.82em;">
+<p>字符串字面量可以包含<mark>转义序列</mark>; 转义字符经常出现在 <code>printf</code>/<code>scanf</code> 的格式串里.</p>
+<p>最常用的是 <code>\n</code>: 每个 <code>\n</code> 使光标移到下一行.</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"one\ntwo\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>输出为两行:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>one
+two</code></pre>
 </div>
 </div>
+<p>字符串是字符数组, 用<mark>空字符</mark> <code>'\0'</code> 标记结束; C 库提供一组字符串处理函数.</p>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="字符串字面量--续">字符串字面量 (续) </h5>
-<hr>
-<p>字符串字面量: 用双引号括起来的字符序列。</p>
-<p><code>"When you come to a fork in the road, take it."</code></p>
-<p>字符串字面量可能包含转义序列.</p>
-<p>转义字符经常出现在 printf 和 scanf 格式字符串中.</p>
-<p>例如, 字符串</p>
-<p><code>"Candy\nIs dandy\nBut liquor\nIs quicker.\n  --Ogden Nash\n"</code></p>
-<p>每个 <code>\n</code> 字符使光标移到下一行:</p>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="字符串字面量的存储">字符串字面量的存储 </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="字符串字面量的存储">字符串字面量的存储 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -193,32 +195,29 @@ Is quicker<span class="token punctuation">.</span>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="对字符串字面量的操作">对字符串字面量的操作 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="对字符串字面量的操作">对字符串字面量的操作 </h5>
 <hr>
-<p>凡是能用 <code>char *</code> 指针的地方, 都能直接用字符串字面量:</p>
-<div style="font-size:0.85em;">
+<p>凡是能用 <code>char *</code> 指针的地方, 都能直接用字符串字面量; 字面量也可以像数组一样取下标.</p>
+<div style="display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:start;">
+<div style="font-size:0.86em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-p <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span> <span class="token comment">/* 正确 */</span></code></pre>
+p <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>          <span class="token comment">/* p 指向 'a' */</span>
+
+<span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
+ch <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>      <span class="token comment">/* ch = 'b' */</span></code></pre>
+<p>赋值让 p 指向字符串的<mark>第一个字符</mark>; <code>"abc"[1]</code> 就是字符 <code>'b'</code>.</p>
 </div>
-<p>该赋值使 p 指向字符串的第一个字符.</p>
-<p>字符串字面量也可以取下标:</p>
-<div style="font-size:0.85em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> ch<span class="token punctuation">;</span>
-ch <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">// ch is now 'b'</span></code></pre>
-</div>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="对字符串字面量的操作--续">对字符串字面量的操作 (续) </h5>
-<hr>
-<p>把 0 ~ 15 的数字转成十六进制字符的函数:</p>
-<div style="font-size:0.85em;">
+<div style="font-size:0.86em;">
+<p>把 0 ~ 15 的数字转成十六进制字符:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> <span class="token function">digit_to_hex_char</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> digit<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-return">return</span> <span class="token string">"0123456789ABCDEF"</span><span class="token punctuation">[</span>digit<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+<p>这里把字符串字面量当作<mark>只读数组</mark>: <code>digit</code> 是下标, 返回值是对应字符.</p>
 </div>
-<p>函数把字符串字面量当作只读数组使用: <code>digit</code> 是下标, 返回值是对应字符.</p>
+</div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="字符串字面量与字符常量">字符串字面量与字符常量 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="字符串字面量与字符常量">字符串字面量与字符常量 </h5>
 <hr>
 <p>包含单个字符的字符串字面量与字符常量不同.</p>
 <ul>
@@ -236,122 +235,98 @@ ch <span class="token operator">=</span> <span class="token string">"abc"</span>
 <p>非法调用:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="字符串变量--字符数组">字符串变量: 字符数组 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="字符串变量--字符数组">字符串变量: 字符数组 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
+<div style="display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:start;">
+<div style="font-size:0.68em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> STR_LEN 80</span>
-…
-<span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span>STR_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> date1<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span></code></pre>
+
+<span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span>STR_LEN <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'H'</span><span class="token punctuation">;</span>
+str<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'i'</span><span class="token punctuation">;</span>
+str<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'\0'</span><span class="token punctuation">;</span>   <span class="token comment">/* 现在 str 是字符串 "Hi" */</span></code></pre>
 </div>
-<div style="flex:1;">
-<p>任何一维字符数组都可以用来存储字符串.</p>
-<p>字符串必须以空字符结尾.</p>
+<div style="font-size:0.8em;">
+<p>任何一维字符数组都可以用来存储字符串, 但必须以空字符 <code>'\0'</code> 结尾.</p>
+<p>要存 80 个字符, 数组必须声明为 81: 多出的 1 个字节留给空字符; 先 <code>#define STR_LEN 80</code> 再加 1 是<mark>惯用法</mark>.</p>
 <p>用数组存字符串的难点:</p>
 <ul>
 <li>
-<p>很难判断一个字符数组是否被用作字符串.</p>
+<p>很难判断一个字符数组是否被当作字符串;</p>
 
 </li>
 <li>
-<p>字符串处理函数必须小心处理空字符.</p>
+<p>字符串处理函数必须小心处理空字符;</p>
 
 </li>
 <li>
-<p>确定字符串的长度需要搜索空字符.</p>
+<p>确定字符串长度需要搜索空字符.</p>
 
 </li>
 </ul>
 </div>
 </div>
+<p><code>STR_LEN + 1</code> 的数组可保存长度 0 ~ <code>STR_LEN</code> 的字符串; <mark>实际长度取决于空字符的位置</mark>. 不留空字符空间, 程序执行时可能得到不可预知的结果.</p>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="字符串变量--字符数组--续">字符串变量: 字符数组 (续) </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="初始化字符串变量--恰好-过短-过长">初始化字符串变量: 恰好、过短、过长 </h5>
 <hr>
-<p>如果字符串变量需要存储 80 个字符, 则必须将其声明为 81:</p>
-<p>长度加 1 可以为字符串末尾的空字符留出空间.</p>
-<p>定义一个代表 80 的宏, 然后加 1 是一种<u>惯用法</u>.</p>
-<p>声明字符串变量时, 请务必为空字符留出空间.</p>
-<p>不这样做可能会在程序执行时导致不可预知的结果.</p>
-<p>字符串的实际长度取决于终止空字符的位置.</p>
-<p><code>STR_LEN + 1</code> 长度的字符数组可以保存长度为 0 ~ <code>STR_LEN</code> 之间的字符串.</p>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="字符串变量--字符数组--续-2">字符串变量: 字符数组 (续 2) </h5>
-<hr>
-<p>字符串变量可以在声明时初始化:</p>
-<p>编译器将自动添加一个空字符, 使 date1 可以用作字符串:</p>
-<div class="top-2">
-  <img src="figs/14-3.png" height=100px>
+<div style="font-size:0.8em;">
+<p>声明时可以直接用字符串初始化. 编译器把 <code>"June 14"</code> 当作<mark>字符数组初始化式</mark>的缩写, 并自动补上空字符.</p>
 </div>
-<p>"June 14" 在此上下文中不是字符串字面量.</p>
-<p>C 编译器将其视为字符数组初始化式的缩写.</p>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="初始化字符串变量">初始化字符串变量 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.15;font-size:0.6em;">
-<p>若初始化式太短无法填满字符串变量, 编译器会添加额外空字符:</p>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;align-items:start;margin:0 2rem;">
+<div>
+<div style="font-size:0.8em;color:#268bd2;"><strong>恰好</strong></div>
+<div style="font-size:0.46em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> date1<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span></code></pre>
+</div>
+<img src="figs/14-3.png" style="width:100%;height:auto;">
+<div style="font-size:0.68em;">7 个字符 + 1 个空字符, 正好填满 8 字节.</div>
+</div>
+<div>
+<div style="font-size:0.8em;color:#268bd2;"><strong>过短</strong></div>
+<div style="font-size:0.46em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> date2<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span></code></pre>
-<p>字符串变量的初始化式不能长于变量, 但长度可以相同:</p>
+</div>
+<img src="figs/14-4.png" style="width:100%;height:auto;">
+<div style="font-size:0.68em;">空间有富余, 编译器补足额外的空字符.</div>
+</div>
+<div>
+<div style="font-size:0.8em;color:#268bd2;"><strong>过长</strong></div>
+<div style="font-size:0.46em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> date3<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span></code></pre>
-<p>因为没有给空字符留空间, 编译器不会尝试存储空字符.</p>
 </div>
-<div style="flex:1;font-size:0.6em;">
-<p>之后, date2 将如下所示:</p>
-<div class="top-2">
-  <img src="figs/14-4.png" height=65px>
-</div>
-<p>date3 的存储:</p>
-<div class="top-2">
-  <img src="figs/14-5.png" height=75px>
-</div>
+<img src="figs/14-5.png" style="width:100%;height:auto;">
+<div style="font-size:0.68em;">初始化式不能长于数组, 但可以一样长; 没有空间存空字符, 不能当字符串用.</div>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="字符数组与字符指针">字符数组与字符指针 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="字符数组与字符指针">字符数组与字符指针 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> date<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>date <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;">
-<p>左侧第一个声明将 date 声明为一个数组:</p>
-<p>左侧第二个声明则将 date 声明为一个指针:</p>
-<p>由于数组和指针之间的密切关系, 这两种都可以用作字符串.</p>
-<p>两种 date 之间存在的差异:</p>
+<div style="display:grid;grid-template-columns:1.02fr 1fr;gap:24px;align-items:start;">
+<div style="font-size:0.82em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> date<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span>   <span class="token comment">/* 数组 */</span>
+<span class="token keyword keyword-char">char</span> <span class="token operator">*</span>date <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span>    <span class="token comment">/* 指针 */</span></code></pre>
+<p>两种声明都能当字符串用, 但:</p>
 <ul>
 <li>
-<p>声明为数组时, 可以修改存储在 date 中的字符. 声明为指针时, date 指向不应修改的字符串字面量.</p>
+<p>数组: date 是数组名, 内容<mark>可以修改</mark>, 存放的是自己的一份副本.</p>
 
 </li>
 <li>
-<p>声明为数组时, date 是一个数组名. 声明为指针时, date 是一个可以指向其他字符串的指针变量.</p>
+<p>指针: date 是变量, 可以改指向; 指向<mark>不应修改</mark>的字符串字面量.</p>
 
 </li>
 </ul>
 </div>
-</div>
-<hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="字符数组与字符指针--续">字符数组与字符指针 (续) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span>STR_LEN<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-p <span class="token operator">=</span> str<span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;">
-<p>声明</p>
-<p><code>char *p;</code></p>
-<p>不会为字符串分配空间.</p>
-<p>在使用 p 作为字符串之前, 必须把 p 指向字符数组.</p>
-<p>一种可能是把 p 指向一个字符串变量:</p>
-<p>另一种可能是让 p 指向动态分配的字符串, 这一点后面讲到动态内存分配时再介绍.</p>
+<div style="font-size:0.82em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+<span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span>STR_LEN <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+p <span class="token operator">=</span> str<span class="token punctuation">;</span>        <span class="token comment">/* 让 p 指向字符数组 */</span></code></pre>
+<p><code>char *p;</code> <mark>不会为字符串分配空间</mark>. 使用 p 作为字符串前, 必须让它指向一个字符数组; 也可以指向以后动态分配的字符串.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="写字符串--printf-与-puts">写字符串: printf 与 puts </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="写字符串--printf-与-puts">写字符串: printf 与 puts </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -367,7 +342,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="写字符串--字段宽度">写字符串: 字段宽度 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="写字符串--字段宽度">写字符串: 字段宽度 </h5>
 <hr>
 <p>转换说明 <mark>%ms</mark> 将在大小为 <mark>m</mark> 的字段内打印字符串.</p>
 <p>如果字符串少于 <mark>m</mark> 个字符, 则会在字段内右对齐输出.</p>
@@ -378,40 +353,46 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%10.6s|\n"</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 字段宽 10, 取前 6 个字符, 右对齐 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-10.6s|\n"</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 左对齐 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="读字符串--scanf">读字符串: scanf </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="读字符串--scanf">读字符串: scanf </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p>转换说明 <mark>%s</mark> 允许 scanf 将字符串读入字符数组:</p>
-<p><code>scanf("%s", str);</code></p>
-<p>str 被视为指针, 因此无需在 str 前添加 <code>&amp;</code> 运算符.</p>
-<p>scanf 会跳过空白字符, 然后读入字符并存储到 str 中, 直到遇到空白字符.</p>
-<p>scanf 会在字符串的末尾存储一个空字符.</p>
-<p>scanf 通常不会读取整行输入.</p>
-<p>换行符会导致 scanf 停止读取, 空格和制表符也会.</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="读字符串--scanf--续">读字符串: scanf (续) </h5>
-<hr>
-<p>要读取整行输入, 历史上常用 gets. gets 的特点:</p>
+<div style="display:grid;grid-template-columns:1.08fr 1fr;gap:24px;align-items:start;">
+<div style="font-size:0.88em;">
+<p>转换说明 <code>%s</code> 允许 scanf 把字符串读入字符数组:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* str 是数组名, 无需 &amp; */</span></code></pre>
 <ul>
 <li>
-<p>不会在开始读字符串之前跳过空白字符.</p>
+<p>scanf 先<mark>跳过空白字符</mark>, 再读入字符, 直到遇到空白;</p>
 
 </li>
 <li>
-<p>持续读入直到找到<u>换行符</u>才停止.</p>
+<p>空格、制表符、换行符都会让它停止;</p>
 
 </li>
 <li>
-<p>忽略换行符而不存储它, 用空字符代替换行符.</p>
+<p>它在末尾自动存储一个空字符.</p>
 
 </li>
 </ul>
-<p>但 gets 有严重缺陷, 下一页细讲.</p>
+<p>因此 scanf 通常<mark>读不到整行</mark>.</p>
+</div>
+<div style="font-size:0.88em;">
+<p>要读取整行, 历史上常用 <code>gets</code>, 它的特点是:</p>
+<ul>
+<li>
+<p>不跳过开头的空白字符, 一直读到<u>换行符</u>才停止;</p>
+
+</li>
+<li>
+<p>丢弃换行符, 用空字符代替.</p>
+
+</li>
+</ul>
+<p>但 gets 有严重缺陷, 下一页细讲; 现在应改用 <code>fgets</code>.</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="读字符串--为什么不用-gets">读字符串: 为什么不用 gets </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="读字符串--为什么不用-gets">读字符串: 为什么不用 gets </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.62em;">
@@ -440,33 +421,32 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="逐个字符读字符串">逐个字符读字符串 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="逐个字符读字符串">逐个字符读字符串 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p>程序员经常自己编写输入函数. 需要考虑的问题:</p>
+<div style="flex:1;font-size:0.9em;">
+<p>程序员经常自己编写输入函数. 设计时要考虑:</p>
 <ul>
 <li>
-<p>在开始存储字符串之前, 函数是否应该跳过空白字符？</p>
+<p>是否在存储前<mark>跳过空白字符</mark>?</p>
 
 </li>
 <li>
-<p>什么字符会导致函数停止读取: 换行符、任何空白字符或其他字符？这个字符是存储在字符串中还是被丢弃？</p>
+<p>什么字符让函数<mark>停止读取</mark> (换行/任意空白/其他)? 这个字符存不存?</p>
 
 </li>
 <li>
-<p>如果输入字符串太长而无法存储, 函数应该做什么: 丢弃多余的字符或将它们留给下一次输入操作？</p>
+<p>输入太长无法存储时, <mark>丢弃多余字符</mark>还是留给下一次输入?</p>
 
 </li>
 </ul>
-<p>假设我们需要一个函数: (1)不跳过空白字符； (2)在第一个换行符处停止读取(不存储到字符串中)； (3)丢弃多余的字符.</p>
+<p>假设需要这样一个函数: 不跳过空白, 在第一个换行符处停止 (不存储), 并丢弃多余字符.</p>
 <p>函数原型: <code>int read_line(char str[], int n);</code></p>
-<p>如果输入行包含多于 n-1 个字符, read_line 将丢弃额外的字符.</p>
-<p>read_line将返回实际存储在str中的字符数量.</p>
+<p>若输入行超过 n-1 个字符, 多出的字符被丢弃; 函数返回<mark>实际存入的字符数</mark>.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="逐个字符读字符串--实现">逐个字符读字符串 (实现) </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="逐个字符读字符串--实现">逐个字符读字符串 (实现) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -482,16 +462,29 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
   <span class="token keyword keyword-return">return</span> i<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<p><code>getchar</code> 每次读入一个字符.</p>
-<p>循环在换行符或文件结束处停止, 换行符不存入数组.</p>
-<p><code>i &lt; n - 1</code> 保证数组留出一个位置给空字符; 超出的字符被读入后直接丢弃.</p>
-<p>循环结束后补上空字符, 返回实际存储的字符数.</p>
-<p>输入行不超过 <code>n-1</code> 个字符时, 返回值就是行长; 否则返回 <code>n-1</code>.</p>
+<div style="flex:1;font-size:0.82em;">
+<ul>
+<li>
+<p><code>getchar</code> 每次读入一个字符;</p>
+
+</li>
+<li>
+<p>循环在换行符或 EOF 处停止, 换行符不存入数组;</p>
+
+</li>
+<li>
+<p><code>i &lt; n - 1</code> 给空字符留位置, 超出的字符读入后直接丢弃;</p>
+
+</li>
+<li>
+<p>循环后补 <code>'\0'</code>, 返回实际存储的字符数 (输入过长时返回 n-1).</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="访问字符串中的字符">访问字符串中的字符 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="访问字符串中的字符">访问字符串中的字符 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -523,7 +516,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="strcpy-字符串复制">strcpy(字符串复制) </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="strcpy-字符串复制">strcpy(字符串复制) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -544,7 +537,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="strlen-字符串长度">strlen(字符串长度) </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="strlen-字符串长度">strlen(字符串长度) </h5>
 <hr>
 <p>strlen函数的原型:</p>
 <p><code>size_t strlen(const char *s);</code></p>
@@ -557,9 +550,9 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 <span class="token function">strcpy</span><span class="token punctuation">(</span>str1<span class="token punctuation">,</span> <span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 len <span class="token operator">=</span> <span class="token function">strlen</span><span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* len is now 3 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="任务--自己实现-strlen">任务: 自己实现 strlen </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="任务--自己实现-strlen">任务: 自己实现 strlen </h5>
 <hr>
-<div style="font-size:0.95em;line-height:1.7;">
+<div style="font-size:0.9em;line-height:1.55;">
 <p><mark>任务</mark>: 写 <code>int my_strlen(const char *s)</code>, 返回字符串长度 (<mark>不含</mark>结尾的 <code>'\0'</code>), 分别用<mark>下标版</mark>和<mark>指针版</mark>实现</p>
 <p>在 main 中验证:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token string">"abc"</span> 的长度 <span class="token operator">=</span> <span class="token number">3</span>
@@ -580,13 +573,13 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 
 </li>
 </ul>
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/task-strlen.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-strlen.c (骨架)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/task-strlen.c" style="display:inline-block;margin-top:3px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-strlen.c (骨架)</a>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.1;font-size:0.58em;">
+<div class="small-code" style="flex:1.08;min-width:0;font-size:0.4em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">my_strlen_index</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>s<span class="token punctuation">)</span>
@@ -596,7 +589,6 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
     n<span class="token operator">++</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> n<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
 <span class="token keyword keyword-int">int</span> <span class="token function">my_strlen_pointer</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>s<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p <span class="token operator">=</span> s<span class="token punctuation">;</span>
@@ -608,7 +600,6 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>tests<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"abc"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">"hello world"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\"%s\" 的长度 = %d / %d\n"</span><span class="token punctuation">,</span> tests<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>
            <span class="token function">my_strlen_index</span><span class="token punctuation">(</span>tests<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -616,7 +607,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<div style="flex:1;min-width:0;font-size:0.66em;line-height:1.55;">
 <ul>
 <li>
 <p>字符串以 <code>'\0'</code> 结尾, 长度<mark>不包含</mark>这个空字符</p>
@@ -642,7 +633,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="strcat-字符串拼接">strcat(字符串拼接) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="strcat-字符串拼接">strcat(字符串拼接) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -671,7 +662,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="strcmp-字符串比较">strcmp(字符串比较) </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="strcmp-字符串比较">strcmp(字符串比较) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -690,10 +681,10 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="程序--打印一个月的提醒列表">程序: 打印一个月的提醒列表 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="程序--打印一个月的提醒列表">程序: 打印一个月的提醒列表 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.5em;">
+<div style="display:grid;grid-template-columns:1.12fr 1fr;gap:22px;align-items:start;">
+<div style="font-size:0.48em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入日期和提醒<span class="token operator">:</span> <span class="token number">24</span> 妈妈的生日
 输入日期和提醒<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">18</span><span class="token operator">:</span><span class="token number">00</span> 与朋友聚餐
 输入日期和提醒<span class="token operator">:</span> <span class="token number">26</span> 看电影
@@ -712,44 +703,36 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
  <span class="token number">24</span> 妈妈的生日
  <span class="token number">26</span> 看电影</code></pre>
 </div>
-<div style="flex:1;">
-<p><code>remind.c</code> 维护一个月的每日提醒列表：</p>
-<p>用户逐条输入"日期 + 提醒内容"，输入 0 结束，程序按日期排序打印全部提醒。</p>
-<p>scanf 用来读日期。</p>
-<p>read_line 用来读提醒。</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="程序--打印一个月的提醒列表--续">程序: 打印一个月的提醒列表 (续) </h5>
-<hr>
+<div style="font-size:0.72em;">
+<p><code>remind.c</code> 维护一个月的每日提醒列表: 用户逐条输入"日期 + 提醒", 输入 0 结束, 程序按日期排序打印全部提醒.</p>
 <p>总体策略:</p>
 <ul>
 <li>
-<p>读入一系列日期和提醒的组合</p>
+<p>读入一系列日期和提醒;</p>
 
 </li>
 <li>
-<p>按顺序存储(按日期排序)</p>
+<p>按日期有序存储;</p>
 
 </li>
 <li>
-<p>显示</p>
+<p>显示.</p>
 
 </li>
 </ul>
-<p>排序时要比较日期; 读提醒时要处理空格, 因此日期用 <code>scanf</code>, 整行提醒用 <code>read_line</code>.</p>
+<p>日期用 <code>scanf</code>, 整行提醒用 <code>read_line</code>: 排序要比较日期, 读提醒要保留空格.</p>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="程序--打印一个月的提醒列表--参考实现">程序: 打印一个月的提醒列表 (参考实现) </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="程序--打印一个月的提醒列表--参考实现">程序: 打印一个月的提醒列表 (参考实现) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.5;font-size:0.42em;">
+<div class="small-code" style="flex:1.42;min-width:0;font-size:0.36em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_REMIND 50</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MSG_LEN 60</span>
-
 <span class="token keyword keyword-char">char</span> reminders<span class="token punctuation">[</span>MAX_REMIND<span class="token punctuation">]</span><span class="token punctuation">[</span>MSG_LEN <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-char">char</span> day_str<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> msg_str<span class="token punctuation">[</span>MSG_LEN <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> day<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> num_remind <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入日期和提醒: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%2d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>day<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -757,23 +740,20 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
     <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
   <span class="token function">sprintf</span><span class="token punctuation">(</span>day_str<span class="token punctuation">,</span> <span class="token string">"%2d"</span><span class="token punctuation">,</span> day<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">read_line</span><span class="token punctuation">(</span>msg_str<span class="token punctuation">,</span> MSG_LEN <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_remind<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>day_str<span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
       <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> num_remind<span class="token punctuation">;</span> j <span class="token operator">></span> i<span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
     <span class="token function">strcpy</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
   <span class="token function">strcpy</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> day_str<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">strcat</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> msg_str<span class="token punctuation">)</span><span class="token punctuation">;</span>
   num_remind<span class="token operator">++</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n日期  提醒\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_remind<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %s\n"</span><span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.58em;">
+<div style="flex:1;min-width:0;font-size:0.6em;">
 <p>下面是 <code>main</code> 的核心代码 (节选), 完整程序见 <code>code/remind.c</code>.</p>
 <ul>
 <li>
@@ -793,11 +773,11 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 
 </li>
 </ul>
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/remind.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 remind.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/remind.c" style="display:inline-block;margin-top:5px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 remind.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="字符串惯用法--搜索结尾与复制">字符串惯用法: 搜索结尾与复制 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="字符串惯用法--搜索结尾与复制">字符串惯用法: 搜索结尾与复制 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -833,42 +813,30 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="字符串数组">字符串数组 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="字符串数组">字符串数组 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
+<div style="display:grid;grid-template-columns:1.12fr 1fr;gap:22px;align-items:start;">
+<div style="font-size:0.76em;">
+<p>二维字符数组, 每行一个字符串:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> planets<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Mercury"</span><span class="token punctuation">,</span> <span class="token string">"Venus"</span><span class="token punctuation">,</span> <span class="token string">"Earth"</span><span class="token punctuation">,</span>
                      <span class="token string">"Mars"</span><span class="token punctuation">,</span> <span class="token string">"Jupiter"</span><span class="token punctuation">,</span> <span class="token string">"Saturn"</span><span class="token punctuation">,</span>
                      <span class="token string">"Uranus"</span><span class="token punctuation">,</span> <span class="token string">"Neptune"</span><span class="token punctuation">,</span> <span class="token string">"Pluto"</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>行数可以省略, 但必须指定列数.</p>
+<p>用<mark>指针数组</mark>模拟不规则数组:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>planets<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Mercury"</span><span class="token punctuation">,</span> <span class="token string">"Venus"</span><span class="token punctuation">,</span> <span class="token string">"Earth"</span><span class="token punctuation">,</span>
                    <span class="token string">"Mars"</span><span class="token punctuation">,</span> <span class="token string">"Jupiter"</span><span class="token punctuation">,</span> <span class="token string">"Saturn"</span><span class="token punctuation">,</span>
                    <span class="token string">"Uranus"</span><span class="token punctuation">,</span> <span class="token string">"Neptune"</span><span class="token punctuation">,</span> <span class="token string">"Pluto"</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>每个元素是一个指针, 指向对应字符串字面量; 各行长度可以不同.</p>
 </div>
-<div style="flex:1;">
-<p>存储字符串数组的方法不止一种.</p>
-<p>一种选择是使用二维字符数组, 每行一个字符串:</p>
-<p>数组中的行数可以省略, 但必须指定列数.</p>
+<div style="text-align:center;">
+<img src="figs/14-10.png" style="height:250px;max-width:100%;">
+<div style="font-size:0.66em;text-align:left;margin-top:4px;">
+<p>二维数组每行按最长的字符串分配, 大量空字符被浪费; 字符串长短不一时, 用<mark>指针数组</mark>模拟不规则数组.</p>
 </div>
-</div>
-<hr>
-</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="字符串数组--续">字符串数组 (续) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.05;">
-<div class="top-2">
-  <img src="figs/14-10.png" height=300px>
-</div>
-</div>
-<div style="flex:1;font-size:0.62em;">
-<p>不幸的是, planets 数组浪费了相当多的空间(额外的空字符).</p>
-<p>大多数字符串集合都是长字符串和短字符串的混合.</p>
-<p>我们需要的是一个参差不齐的数组, 它的行可以有不同的长度.</p>
-<p>用指向<mark>字符串的指针的数组</mark>来模拟 C 中的不规则数组:</p>
-<p><code>char *planets[]</code> 的每个元素是一个指针, 指向对应字符串字面量; 各行长度可以不同.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <p style="margin:0.25rem 2rem;"><strong>1. 概念：</strong> <code>"abc"</code> 和 <code>'a'</code> 的区别是什么？<code>"abc"</code> 在内存里占几个字节？</p>
 <p style="margin:0.25rem 2rem;"><strong>2. 概念：</strong> <code>char s[] = "hello";</code> 与 <code>char *p = "hello";</code> 有什么区别？</p>
@@ -888,7 +856,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 <span class="token function">strcpy</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token string">"hi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="35" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

@@ -32,6 +32,7 @@ presentation:
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
+<style>.reveal pre code{max-height:none!important;overflow:visible!important}.small-code pre{font-size:1em!important}.left-justify p,.left-justify li{text-align:left!important}</style>
 
 # 智能程序设计（C语言）
 
@@ -256,40 +257,45 @@ C 不要求指针只指向数据; 也可以有指向函数的指针.
 
 <!-- slide data-notes="" -->
 
-##### 指向函数的指针 (续)
+##### 指向函数的指针: integrate 的参数与调用
 
 ---
 
-编写 integrate 函数求函数 f 在 a 点和 b 点之间的积分, 可以把 f 作为参数传入, 从而使其尽可能通用.
+<div style="display:grid;grid-template-columns:1.08fr 1fr;gap:24px;align-items:start;">
+
+<div class="left-justify" style="font-size:0.84em;text-align:left;">
+
+integrate 求函数 f 在 a 到 b 之间的积分; 把 f 作为参数, 同一个 integrate 就能处理不同函数.
 
 ```C
-double integrate(double (*f)(double), double a, double b);
+double integrate(double (*f)(double),
+                 double a, double b);
+
+double result = integrate(sin, 0.0, PI/2);
 ```
 
-- `*f` 两边的括号表示 f 是指向函数的指针.
-- 去掉括号写成 `double f(double)` 也可以, 编译器会把它当作函数指针参数.
-- 调用时直接传函数名, 例如 `integrate(sin, 0.0, PI/2)`.
+- `*f` 两边的括号表示 f 是==指向函数的指针==;
+- 去掉括号写成 `double f(double)` 也可以, 编译器同样当作函数指针参数;
+- 函数名后面没有括号时生成指向该函数的指针, 调用时直接传 `sin`;
+- `PI` 需要自己定义, 如 `#define PI 3.141592653589793`.
 
-`PI` 需要自己定义, 例如: `#define PI 3.141592653589793`
+</div>
 
-<!-- slide data-notes="" -->
+<div class="left-justify" style="font-size:0.84em;text-align:left;">
 
+在 integrate 函数体里, 可以调用 f 指向的函数:
 
-##### 函数指针作为参数
+```C
+double y = (*f)(x);   /* 等价于 f(x) */
+```
 
----
+- `(*f)(x)` 先解引用 f, 再调用得到的函数;
+- `f(x)` 是允许的简写, 两者效果相同;
+- 这就是"把函数当参数": 循环不变, 只换传入的函数.
 
-调用 integrate 计算 sin 从 0 到 $\pi/2$ 的积分: 
+</div>
 
-`result = integrate(sin, 0.0, PI/2);`
-
-当函数名后面没有括号时, C 编译器会生成一个指向该函数的指针. 
-
-在 integrate 函数体里, 可以调用 f 指向的函数: 
-
-`y = (*f)(x);`
-
-允许使用 `f(x)` 代替 `(*f)(x)`。
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -365,59 +371,42 @@ int cmp_int(const void *p, const void *q)
 
 <!-- slide data-notes="" -->
 
-
-##### 函数指针的其他用途
+##### 函数指针的其他用途: 变量与数组
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="font-size:0.84em;">
+
+函数指针可以像数据指针一样==保存到变量、组成数组、作为参数和返回值==.
 
 ```C
-void (*pf)(int);
+void (*pf)(int);   /* 指向 "参数 int、返回 void" 的函数 */
+pf = f;            /* 让 pf 指向 f */
+pf(i);             /* 调用 f(i), 等价于 (*pf)(i) */
 ```
 
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
-尽管函数指针经常用作参数, 但这并不是它们的全部优点.
-
-函数指针可以像数据指针一样保存到变量、组成数组、作为参数和返回值使用.
-
-可以存储指向函数的指针的变量, pf 指向具有 int 型参数且返回 void 型值的函数:
-
-如果 f 是这样一个函数, 可以通过以下方式使 pf 指向 f:
-
-`pf = f;`
+- `pf` 是一个变量, 保存函数的地址;
+- `pf(i)` 与 `(*pf)(i)` 等价.
 
 </div>
 
-</div>
+<div style="font-size:0.84em;">
 
-<!-- slide data-notes="" -->
-
-##### 函数指针的其他用途 (续)
-
----
-
-可以通过以下方式调用 f:
-
-`(*pf)(i);`
-
-或者
-
-`pf(i);`
-
-函数指针也可以组成数组, 按编号选择要调用的函数:
+函数指针数组可以按编号选择要调用的函数:
 
 ```C
 void (*ops[2])(int) = {f, g};
-ops[0](i);
+ops[0](i);   /* 调用 f(i) */
+ops[1](i);   /* 调用 g(i) */
 ```
 
-这种写法把"做什么"变成数据, 常用于命令表和回调.
+把"做什么"变成数据, 常用于命令表和回调.
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -448,24 +437,22 @@ ops[0](i);
 
 <!-- slide data-notes="" -->
 
-
 ##### 程序: 列三角函数表 (参考代码)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.5em;">
+<div class="small-code" style="flex:1.4;min-width:0;font-size:0.34em;">
 
 ```C{.line-numbers}
 /* 列三角函数表: 函数指针作参数 */
 #include <stdio.h>
 #include <math.h>
-
-void tabulate(double (*f)(double), double a, double b, double step)
+void tabulate(double (*f)(double), double a,
+              double b, double step)
 {
     int n = (int)((b - a) / step + 0.5);
-
     printf("     x       f(x)\n");
     printf("  -------   -------\n");
     for (int i = 0; i <= n; i++) {
@@ -473,7 +460,6 @@ void tabulate(double (*f)(double), double a, double b, double step)
         printf("  %7.5f  %7.5f\n", x, f(x));
     }
 }
-
 int main(void)
 {
     double a, b, step;
@@ -483,7 +469,6 @@ int main(void)
     scanf("%lf", &b);
     printf("输入步长: ");
     scanf("%lf", &step);
-
     printf("\ncos(x):\n");
     tabulate(cos, a, b, step);
     printf("\nsin(x):\n");
@@ -496,7 +481,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;min-width:0;font-size:0.64em;">
 
 - ==函数指针== `f` 作参数: `tabulate(f, a, b, step)`——三次调用传 `cos`/`sin`/`tan`
 
@@ -508,57 +493,43 @@ int main(void)
 
 </div>
 
-<!-- slide data-notes="" -->##### 指针声明怎么读 · 规则
+<!-- slide data-notes="" -->
+
+##### 指针声明怎么读: 规则与圆括号
 
 ---
 
-<div style="font-size:0.9em;line-height:1.7;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
 
-复杂声明不必靠背——两条==读法规则==:
+<div style="font-size:0.82em;">
 
-1. ==从标识符出发==, 由内向外读: 先找到被声明的名字, 再从它开始解读
+==两条读法规则==:
 
-2. 有选择时, ==`[]` 和 `()` 优先于 `*`==; 圆括号可以改变优先级
+1. ==从标识符出发==, 由内向外读;
+2. 有选择时, ==`[]` 和 `()` 优先于 `*`==; 圆括号可以改变优先级.
 
 </div>
 
-<div style="font-size:0.85em;margin-top:12px;">
+<div style="font-size:0.82em;">
+
+==之字形读法==: 从标识符往右读 (`[]`/`()`) → 折回往左读 (`*`) → 再往右……直到读完.
+
+</div>
+
+</div>
+
+<div style="font-size:0.82em;">
 
 ```C
-int *ap[10];        /* ap 先和 [] 结合 → ap 是数组 (10 个元素) */
-                    /* 元素类型是 int * → 指针数组 */
-
-float *fp(float);   /* fp 先和 () 结合 → fp 是函数 (参数 float) */
-                    /* 返回类型是 float * → 返回指针的函数 */
+int *ap[10];        /* ap 先和 [] 结合: 指针数组 */
+float *fp(float);   /* fp 先和 () 结合: 返回指针的函数 */
+int (*p)[NUM_COLS]; /* p 先是指针: 行指针 */
+void (*pf)(int);    /* pf 是函数指针 */
 ```
 
 </div>
 
-- 同样两个符号 `*` 与 `[]`/`()`，结合顺序不同, 含义完全不同——这就是读出类型的==关键==
-
----
-
-<!-- slide data-notes="" -->##### 指针声明怎么读 · 圆括号改变优先级
-
----
-
-<div style="font-size:0.85em;line-height:1.6;">
-
-```C
-int (*p)[NUM_COLS];   /* 有圆括号: p 先是指针 → 指向"含 NUM_COLS 个 int 的数组" */
-                      /* 这就是行指针 */
-
-void (*pf)(int);      /* pf 是指针 → 指向"参数 int、返回 void 的函数" */
-                      /* 这就是函数指针 */
-```
-
-</div>
-
-- ==加一对圆括号, `*` 从"最后结合"变成"最先结合"==——`int *p[10]` (指针数组) 与 `int (*p)[10]` (行指针) 只差一对括号
-
-- ==之字形读法==: 从标识符往右读 (`[]`/`()`) → 折回往左读 (`*`) → 再往右……直到读完
-
----
+`int *p[10]` 是==指针数组==, `int (*p)[10]` 是==行指针==, 只差一对圆括号: ==加括号让 `*` 从最后结合变成最先结合==.
 
 <!-- slide data-notes="" -->##### 指针声明怎么读 · 综合练习
 
