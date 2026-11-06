@@ -283,9 +283,9 @@ j = *&i; /* 等同于 j = i; */
 
 如果p指向i, 我们可以打印i的值如下:
 
-- 对变量使用`&`运算符生成指向变量的指针
+- 对变量用 `&` 得到它的==地址== (一个指针值); 把该值赋给指针变量后, 指针==指向==该变量
 
-- 对指针使用`*`运算符则可以返回原始变量
+- 对指针用 `*` 则==解引用==: 顺着地址找到原变量, 读写它
 
 只要p指向i, `*p`就是i的别名. 
 `*p`与i具有相同的值. 
@@ -296,25 +296,34 @@ j = *&i; /* 等同于 j = i; */
 
 </div>
 
-<svg viewBox="0 0 400 160" width="620" height="248" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<defs><marker id="arrDerefB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrDerefG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
-<text x="118" y="24" font-size="10" fill="#268bd2" text-anchor="middle">p 存的是地址</text>
-<text x="298" y="24" font-size="10" fill="#b58900" text-anchor="middle">内存中的 i</text>
-<text x="18" y="76" font-size="15" fill="#859900" text-anchor="middle">&amp;i</text>
-<line x1="34" y1="71" x2="66" y2="71" stroke="#859900" stroke-width="2" marker-end="url(#arrDerefG)"/>
-<text x="50" y="90" font-size="9" fill="#859900" text-anchor="middle">取地址</text>
-<rect x="70" y="42" width="96" height="58" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="82" y="60" font-size="12" fill="#268bd2">p</text>
-<text x="118" y="82" font-size="18" fill="#268bd2" text-anchor="middle">2000</text>
-<text x="118" y="95" font-size="9" fill="#93a1a1" text-anchor="middle">指针变量</text>
-<line x1="168" y1="71" x2="246" y2="71" stroke="#268bd2" stroke-width="2" marker-end="url(#arrDerefB)"/>
-<text x="207" y="90" font-size="9" fill="#268bd2" text-anchor="middle">*p 顺着地址找到 i</text>
-<rect x="250" y="42" width="96" height="58" rx="8" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-<text x="262" y="60" font-size="12" fill="#b58900">i</text>
-<text x="298" y="82" font-size="20" fill="#073642" text-anchor="middle">1</text>
-<text x="298" y="95" font-size="9" fill="#93a1a1" text-anchor="middle">int 变量</text>
-<text x="298" y="122" font-size="9.5" fill="#93a1a1" text-anchor="middle">地址 2000</text>
-<text x="200" y="148" font-size="11" fill="#073642" text-anchor="middle">p 指向 i：*p 与 i 是同一块内存</text>
+<svg viewBox="0 0 420 200" width="620" height="295" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs>
+<marker id="ahAssign" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker>
+<marker id="ahPoint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker>
+</defs>
+<text x="210" y="18" font-size="12" fill="#073642" text-anchor="middle">p 的盒子里存"i 的地址"; 顺着地址就能找到 i</text>
+
+<rect x="46" y="40" width="120" height="66" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="58" y="58" font-size="12" fill="#268bd2">p</text>
+<text x="58" y="72" font-size="8.5" fill="#93a1a1">int *</text>
+<text x="106" y="86" font-size="16" fill="#268bd2" text-anchor="middle">2000</text>
+<text x="106" y="99" font-size="9" fill="#268bd2" text-anchor="middle">存的是地址</text>
+
+<rect x="254" y="40" width="120" height="66" rx="8" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+<text x="266" y="58" font-size="12" fill="#b58900">i</text>
+<text x="266" y="72" font-size="8.5" fill="#93a1a1">int</text>
+<text x="314" y="86" font-size="18" fill="#073642" text-anchor="middle">1</text>
+<text x="314" y="99" font-size="9" fill="#93a1a1" text-anchor="middle">地址恰好是 2000</text>
+
+<line x1="168" y1="73" x2="250" y2="73" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#ahPoint)"/>
+<text x="209" y="64" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+
+<text x="106" y="150" font-size="12" fill="#859900" text-anchor="middle">&amp;i 得到 2000</text>
+<text x="106" y="164" font-size="9" fill="#859900" text-anchor="middle">(i 的地址, 是一个值)</text>
+<line x1="106" y1="140" x2="106" y2="110" stroke="#859900" stroke-width="2" marker-end="url(#ahAssign)"/>
+<text x="116" y="128" font-size="10" fill="#859900">赋给 p</text>
+
+<text x="210" y="188" font-size="10.5" fill="#073642" text-anchor="middle">*p 就是 i (同一块内存): 读 *p 得 1, 写 *p = 2 就把 i 改成 2</text>
 </svg>
 
 <!-- slide data-notes="" -->##### 间接寻址运算符 * (上)
