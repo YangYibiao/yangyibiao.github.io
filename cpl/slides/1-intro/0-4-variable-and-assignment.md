@@ -72,6 +72,8 @@ presentation:
 
 - 任务 5: 字符与编码 —— `char`
 
+- 任务 6: 交换两个数 —— 临时变量与赋值
+
 - 语法补全 + 输入输出一览 + 课堂编码
 
 </div>
@@ -82,7 +84,7 @@ presentation:
 
 ---
 
-<div style="font-size:0.88em;line-height:1.55;">
+<div style="font-size:0.93em;line-height:1.62;">
 
 ==先想一个问题==: 求平均分——总分算出来之后, 在除以人数之前, ==放在哪里==?
 
@@ -90,14 +92,14 @@ presentation:
 
 ==变量==: 程序执行过程中, 用来临时存储数据的==有名字的单元==
 
-<div style="display:flex;align-items:center;gap:16px;margin:6px 0;">
+<div style="display:flex;align-items:center;gap:16px;margin:10px 0;">
 <div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:8px 26px;text-align:center;background:#fdf6e3;"><span style="color:#268bd2;font-weight:700;font-size:1.1em;">height</span><br><span style="font-size:1.5em;font-weight:700;">175</span></div>
 <div>← 名字叫 <code>height</code> 的"盒子", 里面装着 175</div>
 </div>
 
 ==类型==: 每个变量都有类型, 用来说明盒子里装==什么种类的数据==——本课常用 `int`、`float`、`double`、`char`, 接下来随用随讲
 
-==变量名==: 字母、数字、下划线组成, ==不能以数字开头==; 区分大小写; 不能用关键字 (`int`、`return` 等)
+==变量名==: 命名规则见后面「语法补全: 标识符与关键字」
 
 概念扫完, 动手写第一个任务:
 
@@ -462,6 +464,66 @@ int main(void)
 
 ---
 
+<!-- slide data-notes="" -->##### 任务 6: 交换两个数
+
+---
+
+<div style="font-size:1.0em;line-height:1.75;">
+
+==任务==: 读入两个整数 a、b, ==交换==它们的值后输出
+
+样例:
+
+```
+输入: 3 5
+输出: a=5 b=3
+```
+
+==提示==: 直接写 `a = b; b = a;` 会怎样? 试试看, 再用==临时变量==修正
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task-swap.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-swap.c (骨架)</a>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 任务 6: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+
+```C{.line-numbers}
+#include <stdio.h>
+int main(void)
+{
+  int a, b, t;
+  scanf("%d %d", &a, &b);
+  t = a;   /* 先把 a 存起来 */
+  a = b;
+  b = t;
+  printf("a=%d b=%d\n", a, b);
+  return 0;
+}
+```
+
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+
+- 直接 `a=b; b=a;`: 第一步就把 a 原值==覆盖==, 两次都变成 b 的值
+
+- 用==临时变量== `t` 保存一个值, 再交换——这就是赋值"覆盖"特性的应用
+
+- 顺序: 先存 a → 把 b 给 a → 把 t (原 a) 给 b
+
+- 三行交换是后面排序、链表操作的==基本动作==
+
+</div>
+</div>
+
+---
+
 <!-- slide data-notes="" -->##### 工具页: ASCII 码速查
 
 ---
@@ -593,7 +655,7 @@ height = 10;         /* 赋值: 用新值覆盖旧值 */
 
 1. ==温度转换==: 输入摄氏温度, 输出华氏温度 ($F = \frac{9}{5}C + 32$)
 
-2. ==交换两个数==: 输入两个整数 a、b, 交换后输出
+2. ==交换两个数==: 见任务 6, 先自己写一遍, 再对照参考页
 
 提示:
 

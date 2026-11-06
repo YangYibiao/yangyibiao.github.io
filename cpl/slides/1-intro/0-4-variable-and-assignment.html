@@ -59596,6 +59596,10 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
+<p>任务 6: 交换两个数 —— 临时变量与赋值</p>
+
+</li>
+<li>
 <p>语法补全 + 输入输出一览 + 课堂编码</p>
 
 </li>
@@ -59604,7 +59608,7 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="变量-类型与变量名">变量、类型与变量名 </h5>
 <hr>
-<div style="font-size:0.88em;line-height:1.55;">
+<div style="font-size:0.93em;line-height:1.62;">
 <p><mark>先想一个问题</mark>: 求平均分——总分算出来之后, 在除以人数之前, <mark>放在哪里</mark>?</p>
 <ul>
 <li>
@@ -59613,12 +59617,12 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <p><mark>变量</mark>: 程序执行过程中, 用来临时存储数据的<mark>有名字的单元</mark></p>
-<div style="display:flex;align-items:center;gap:16px;margin:6px 0;">
+<div style="display:flex;align-items:center;gap:16px;margin:10px 0;">
 <div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:8px 26px;text-align:center;background:#fdf6e3;"><span style="color:#268bd2;font-weight:700;font-size:1.1em;">height</span><br><span style="font-size:1.5em;font-weight:700;">175</span></div>
 <div>← 名字叫 <code>height</code> 的"盒子", 里面装着 175</div>
 </div>
 <p><mark>类型</mark>: 每个变量都有类型, 用来说明盒子里装<mark>什么种类的数据</mark>——本课常用 <code>int</code>、<code>float</code>、<code>double</code>、<code>char</code>, 接下来随用随讲</p>
-<p><mark>变量名</mark>: 字母、数字、下划线组成, <mark>不能以数字开头</mark>; 区分大小写; 不能用关键字 (<code>int</code>、<code>return</code> 等)</p>
+<p><mark>变量名</mark>: 命名规则见后面「语法补全: 标识符与关键字」</p>
 <p>概念扫完, 动手写第一个任务:</p>
 </div>
 <hr>
@@ -59911,7 +59915,56 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="工具页--ascii-码速查">工具页: ASCII 码速查 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="任务-6--交换两个数">任务 6: 交换两个数 </h5>
+<hr>
+<div style="font-size:1.0em;line-height:1.75;">
+<p><mark>任务</mark>: 读入两个整数 a、b, <mark>交换</mark>它们的值后输出</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">5</span>
+输出<span class="token operator">:</span> a<span class="token operator">=</span><span class="token number">5</span> b<span class="token operator">=</span><span class="token number">3</span></code></pre>
+<p><mark>提示</mark>: 直接写 <code>a = b; b = a;</code> 会怎样? 试试看, 再用<mark>临时变量</mark>修正</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/1-intro/code/task-swap.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-swap.c (骨架)</a>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务-6--参考代码与要点">任务 6: 参考代码与要点 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> t<span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  t <span class="token operator">=</span> a<span class="token punctuation">;</span>   <span class="token comment">/* 先把 a 存起来 */</span>
+  a <span class="token operator">=</span> b<span class="token punctuation">;</span>
+  b <span class="token operator">=</span> t<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a=%d b=%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.9em;line-height:1.7;">
+<ul>
+<li>
+<p>直接 <code>a=b; b=a;</code>: 第一步就把 a 原值<mark>覆盖</mark>, 两次都变成 b 的值</p>
+
+</li>
+<li>
+<p>用<mark>临时变量</mark> <code>t</code> 保存一个值, 再交换——这就是赋值"覆盖"特性的应用</p>
+
+</li>
+<li>
+<p>顺序: 先存 a → 把 b 给 a → 把 t (原 a) 给 b</p>
+
+</li>
+<li>
+<p>三行交换是后面排序、链表操作的<mark>基本动作</mark></p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="工具页--ascii-码速查">工具页: ASCII 码速查 </h5>
 <hr>
 <div style="font-size:0.8em;line-height:1.5;">
 <p><mark>ASCII</mark>: 常用字符的编码表 (0~127)。记住三组就够用:</p>
@@ -59991,7 +60044,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="语法补全--标识符与关键字">语法补全: 标识符与关键字 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="语法补全--标识符与关键字">语法补全: 标识符与关键字 </h5>
 <hr>
 <p>编码表备查; 回到语法, 先看名字怎么起:</p>
 <div style="font-size:0.95em;line-height:1.8;">
@@ -60016,7 +60069,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="语法补全--声明-初始化与赋值">语法补全: 声明、初始化与赋值 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="语法补全--声明-初始化与赋值">语法补全: 声明、初始化与赋值 </h5>
 <hr>
 <p>名字会起了, 再看变量怎么声明、初始化、赋值:</p>
 <div style="font-size:0.85em;line-height:1.6;">
@@ -60048,7 +60101,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </ul>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="输入输出格式一览">输入输出格式一览 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="输入输出格式一览">输入输出格式一览 </h5>
 <hr>
 <p>变量会用了, 还要会读写——四种常用类型的占位符:</p>
 <div class="fullborder">
@@ -60110,13 +60163,13 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </ul>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>轮到你了: 把课程演示变成自己的程序</mark>——现场完成 (10 分钟):</p>
 <ol>
 <li><mark>温度转换</mark>: 输入摄氏温度, 输出华氏温度 (\(F = \frac{9}{5}C + 32\))
 </li>
-<li><mark>交换两个数</mark>: 输入两个整数 a、b, 交换后输出
+<li><mark>交换两个数</mark>: 见任务 6, 先自己写一遍, 再对照参考页
 </li>
 </ol>
 <p>提示:</p>
@@ -60136,7 +60189,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 卡住了? 温度转换看任务 3; 交换两个数先自己想, 再问助教——<mark>今天每个人的程序都要能跑起来</mark></p>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <p>程序跑通后, 用四道题检验概念:</p>
 <ol>
@@ -60150,7 +60203,7 @@ height <span class="token operator">=</span> <span class="token number">10</span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="21" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
