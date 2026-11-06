@@ -657,7 +657,7 @@ void print(int n)
 
 <div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
 
-<div class="ct">课堂案例 1: 递归求最大值</div>
+<div class="ct">课堂案例 4: 递归求最大值</div>
 
 ==任务==: 实现 `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与之前"先假设再修正"同源)
 
@@ -669,7 +669,7 @@ void print(int n)
 
 <div style="font-size:0.64em;line-height:1.55;">
 
-<div class="ct">课堂案例 2: 判断回文</div>
+<div class="ct">课堂案例 5: 判断回文</div>
 
 ==任务==: 判断字符串是否回文——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
 
@@ -692,7 +692,7 @@ void print(int n)
 
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 
-<div class="ct">案例 1: 递归求最大值</div>
+<div class="ct">案例 4: 递归求最大值</div>
 
 ```C
 int max_rec(int a[], int n)
@@ -712,7 +712,7 @@ int max_rec(int a[], int n)
 
 <div style="font-size:0.58em;line-height:1.5;">
 
-<div class="ct">案例 2: 判断回文</div>
+<div class="ct">案例 5: 判断回文</div>
 
 ```C
 int is_pal(char s[], int l, int r)
@@ -733,6 +733,8 @@ int is_pal(char s[], int l, int r)
 <!-- slide data-notes="" -->##### 课堂案例: 二分查找
 
 ---
+
+<div class="ct">课堂案例 6: 二分查找</div>
 
 <div style="font-size:0.9em;line-height:1.6;">
 
@@ -790,7 +792,7 @@ int bin_search(int a[], int low, int high, int key)
 
 <div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
 
-<div class="ct">课堂案例 4: 组合数</div>
+<div class="ct">课堂案例 7: 组合数</div>
 
 ==任务==: C(m,n) = 从 m 个元素中选出 n 个的==方案数==。实现 `long comb(int m, int n)`——按"选/不选第 m 个元素"分成两类: C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 的公式算法: 递归定义有时比公式==更直接==
 
@@ -802,7 +804,7 @@ int bin_search(int a[], int low, int high, int key)
 
 <div style="font-size:0.64em;line-height:1.55;">
 
-<div class="ct">课堂案例 5: 爬楼梯</div>
+<div class="ct">课堂案例 8: 爬楼梯</div>
 
 ==任务==: 有 n 级台阶, 每次可以走 ==1 或 2 级==——从第 0 级走到第 n 级共有==多少种走法==? 实现 `int climb(int n)`
 
@@ -823,7 +825,7 @@ int bin_search(int a[], int low, int high, int key)
 
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 
-<div class="ct">案例 4: 组合数</div>
+<div class="ct">案例 7: 组合数</div>
 
 ```C
 long comb(int m, int n)
@@ -841,7 +843,7 @@ long comb(int m, int n)
 
 <div style="font-size:0.58em;line-height:1.5;">
 
-<div class="ct">案例 5: 爬楼梯</div>
+<div class="ct">案例 8: 爬楼梯</div>
 
 ```C
 int climb(int n)
