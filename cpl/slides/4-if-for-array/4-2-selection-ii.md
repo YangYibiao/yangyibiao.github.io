@@ -132,110 +132,103 @@ else {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:22px;">
 
-<div style="flex:1.2;font-size:0.6em;">
+<div style="flex:1.1;font-size:0.62em;line-height:1.55;">
 
-股票交易的佣金取决于交易金额, 某经纪人按下表收费: 
+<p>股票交易的佣金取决于交易金额, 某经纪人按下表收费:</p>
 
-<div class="threelines column1-border-left-solid column2-border-right-solid column1-border-right-solid head-highlight-1 tr-hover">
+<table class="threelines column1-border-left-solid column2-border-right-solid column1-border-right-solid head-highlight-1 tr-hover">
+<tr><td>交易规模</td><td>佣金率</td></tr>
+<tr><td>低于 $2,500</td><td>$30 + 1.7%</td></tr>
+<tr><td>$2,500–$6,250</td><td>$56 + 0.66%</td></tr>
+<tr><td>$6,250–$20,000</td><td>$76 + 0.34%</td></tr>
+<tr><td>$20,000–$50,000</td><td>$100 + 0.22%</td></tr>
+<tr><td>$50,000–$500,000</td><td>$155 + 0.11%</td></tr>
+<tr><td>超过 $500,000</td><td>$255 + 0.09%</td></tr>
+</table>
 
-| 交易规模            | 佣金率        |
-| :--                | :--          |
-| 低于`$2,500`        | `$30 + 1.7%` |
-| `$2,500–$6,250`    | `$56 + 0.66%`|
-| `$6,250–$20,000`   | `$76 + 0.34%`|
-| `$20,000–$50,000`  | `$100 + 0.22%`|
-| `$50,000–$500,000` | `$155 + 0.11%`|
-| 超过`$500,000`      | `$255 + 0.09%`|
+<p>另有==最低收费==: 佣金不足 $39 按 $39 收</p>
 
-</div>
-
-- 另有==最低收费==: 佣金不足 `$39` 按 `$39` 收
-
-</div>
-
-<div style="flex:1;">
-
-`broker.c` 输入交易金额, 输出佣金: 
+<p><code>broker.c</code> 输入交易金额, 输出佣金:</p>
 
 ```
 Enter value of trade: 30000
 Commission: $166.00
 ```
 
-- 核心是一个==级联 if==, 判定交易落在哪个区间
-
-- 两个要点: 区间按大小==从低到高排==, 只需 `<` 不用 `&&`; 最后再==用 if 兜住最低收费==
+<ul>
+<li>核心是一个==级联 if==, 判定交易落在哪个区间</li>
+<li>区间按大小==从低到高排==, 只需 <code>&lt;</code> 不用 <code>&amp;&amp;</code></li>
+<li>最后再==用 if 兜住最低收费==</li>
+</ul>
 
 </div>
 
-</div>
-
-<div style="text-align:center;margin-top:2px;line-height:0;">
-<svg viewBox="0 0 400 150" style="max-width:100%;height:150px;">
+<div style="flex:0 0 auto;">
+<svg viewBox="0 0 300 400" style="width:100%;max-width:460px;height:540px;display:block;" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="ar42g" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-      <path d="M0,0 L5,2.5 L0,5 Z" fill="#93a1a1"/>
-    </marker>
+    <marker id="ar42g" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#586e75"/></marker>
   </defs>
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="200" y="10" font-size="10.5" fill="#586e75" text-anchor="middle">级联 if:从低到高,每档只判上限</text>
+    <text x="150" y="18" font-size="15" fill="#586e75" text-anchor="middle">级联 if: 从低到高, 每档只判上限</text>
 
-    <rect x="14" y="18" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="22" y="29.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 2500</text>
-    <line x1="134" y1="26" x2="152" y2="26" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
-    <text x="143" y="23.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
-    <rect x="156" y="18" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="208" y="29.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$30 + 1.7%</text>
-    <line x1="74" y1="34" x2="74" y2="40" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+    <rect x="6" y="32" width="128" height="26" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+    <text x="14" y="49" font-size="12.5" fill="#073642" font-family="Menlo, monospace">value &lt; 2500</text>
+    <line x1="134" y1="45" x2="152" y2="45" stroke="#586e75" stroke-width="1.6" marker-end="url(#ar42g)"/>
+    <text x="143" y="38" font-size="10" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="32" width="138" height="26" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <text x="225" y="49" font-size="12.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$30 + 1.7%</text>
+    <line x1="70" y1="58" x2="70" y2="70" stroke="#586e75" stroke-width="1.4" marker-end="url(#ar42g)"/>
 
-    <rect x="14" y="40" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="22" y="51.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 6250</text>
-    <line x1="134" y1="48" x2="152" y2="48" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
-    <text x="143" y="45.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
-    <rect x="156" y="40" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="208" y="51.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$56 + 0.66%</text>
-    <line x1="74" y1="56" x2="74" y2="62" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+    <rect x="6" y="72" width="128" height="26" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+    <text x="14" y="89" font-size="12.5" fill="#073642" font-family="Menlo, monospace">value &lt; 6250</text>
+    <line x1="134" y1="85" x2="152" y2="85" stroke="#586e75" stroke-width="1.6" marker-end="url(#ar42g)"/>
+    <text x="143" y="78" font-size="10" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="72" width="138" height="26" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <text x="225" y="89" font-size="12.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$56 + 0.66%</text>
+    <line x1="70" y1="98" x2="70" y2="110" stroke="#586e75" stroke-width="1.4" marker-end="url(#ar42g)"/>
 
-    <rect x="14" y="62" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="22" y="73.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 20000</text>
-    <line x1="134" y1="70" x2="152" y2="70" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
-    <text x="143" y="67.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
-    <rect x="156" y="62" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="208" y="73.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$76 + 0.34%</text>
-    <line x1="74" y1="78" x2="74" y2="84" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+    <rect x="6" y="112" width="128" height="26" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+    <text x="14" y="129" font-size="12.5" fill="#073642" font-family="Menlo, monospace">value &lt; 20000</text>
+    <line x1="134" y1="125" x2="152" y2="125" stroke="#586e75" stroke-width="1.6" marker-end="url(#ar42g)"/>
+    <text x="143" y="118" font-size="10" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="112" width="138" height="26" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <text x="225" y="129" font-size="12.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$76 + 0.34%</text>
+    <line x1="70" y1="138" x2="70" y2="150" stroke="#586e75" stroke-width="1.4" marker-end="url(#ar42g)"/>
 
-    <rect x="14" y="84" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="22" y="95.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 50000</text>
-    <line x1="134" y1="92" x2="152" y2="92" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
-    <text x="143" y="89.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
-    <rect x="156" y="84" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="208" y="95.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$100 + 0.22%</text>
-    <line x1="74" y1="100" x2="74" y2="106" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+    <rect x="6" y="152" width="128" height="26" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+    <text x="14" y="169" font-size="12.5" fill="#073642" font-family="Menlo, monospace">value &lt; 50000</text>
+    <line x1="134" y1="165" x2="152" y2="165" stroke="#586e75" stroke-width="1.6" marker-end="url(#ar42g)"/>
+    <text x="143" y="158" font-size="10" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="152" width="138" height="26" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <text x="225" y="169" font-size="12.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$100 + 0.22%</text>
+    <line x1="70" y1="178" x2="70" y2="190" stroke="#586e75" stroke-width="1.4" marker-end="url(#ar42g)"/>
 
-    <rect x="14" y="106" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="22" y="117.5" font-size="9" fill="#073642" font-family="Menlo, monospace">value &lt; 500000</text>
-    <line x1="134" y1="114" x2="152" y2="114" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
-    <text x="143" y="111.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
-    <rect x="156" y="106" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="208" y="117.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$155 + 0.11%</text>
-    <line x1="74" y1="122" x2="74" y2="128" stroke="#93a1a1" stroke-width="1.1" marker-end="url(#ar42g)"/>
+    <rect x="6" y="192" width="128" height="26" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+    <text x="14" y="209" font-size="12.5" fill="#073642" font-family="Menlo, monospace">value &lt; 500000</text>
+    <line x1="134" y1="205" x2="152" y2="205" stroke="#586e75" stroke-width="1.6" marker-end="url(#ar42g)"/>
+    <text x="143" y="198" font-size="10" fill="#859900" text-anchor="middle">是</text>
+    <rect x="156" y="192" width="138" height="26" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <text x="225" y="209" font-size="12.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$155 + 0.11%</text>
+    <line x1="70" y1="218" x2="70" y2="230" stroke="#586e75" stroke-width="1.4" marker-end="url(#ar42g)"/>
 
-    <rect x="14" y="128" width="120" height="16" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.5"/>
-    <text x="22" y="139.5" font-size="9" fill="#073642">否则 (≥ 500000)</text>
-    <line x1="134" y1="136" x2="152" y2="136" stroke="#93a1a1" stroke-width="1.4" marker-end="url(#ar42g)"/>
-    <text x="143" y="133.5" font-size="7.5" fill="#859900" text-anchor="middle">是</text>
-    <rect x="156" y="128" width="104" height="16" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="208" y="139.5" font-size="9" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$255 + 0.09%</text>
+    <rect x="6" y="232" width="128" height="26" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
+    <text x="14" y="249" font-size="12.5" fill="#073642">否则 (≥ 500000)</text>
+    <line x1="134" y1="245" x2="152" y2="245" stroke="#586e75" stroke-width="1.6" marker-end="url(#ar42g)"/>
+    <rect x="156" y="232" width="138" height="26" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <text x="225" y="249" font-size="12.5" fill="#073642" text-anchor="middle" font-family="Menlo, monospace">$255 + 0.09%</text>
 
-    <line x1="272" y1="40" x2="272" y2="98" stroke="#268bd2" stroke-width="2"/>
-    <text x="280" y="54" font-size="9.5" fill="#586e75">区间从小到大排</text>
-    <text x="280" y="70" font-size="9.5" fill="#586e75">每个条件只写上限</text>
-    <text x="280" y="86" font-size="9.5" fill="#586e75">不必用逻辑与连接</text>
+    <text x="150" y="300" font-size="12" fill="#586e75" text-anchor="middle">区间从小到大排 · 每个条件只写上限</text>
+    <text x="150" y="324" font-size="12" fill="#586e75" text-anchor="middle">不必用 &amp;&amp; 连接相邻区间</text>
+    <text x="150" y="360" font-size="12.5" fill="#b58900" text-anchor="middle">最后: 佣金 &lt; $39 时按 $39 收</text>
   </g>
 </svg>
 </div>
+
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
