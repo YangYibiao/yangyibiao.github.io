@@ -65,6 +65,8 @@ presentation:
 
 - 构建多文件程序与 makefile
 
+- 课堂编码: 拆成多文件
+
 
 <!-- slide data-notes="" -->
 
@@ -73,9 +75,13 @@ presentation:
 
 ---
 
-编译前的==预处理==阶段: 处理以 ==#== 开头的命令——`#include` 文件包含 (插入到指令处并继续预处理)、`#define` 宏定义 (文本替换)、`#if`/`#ifdef`/`#ifndef` 条件编译 (按条件选择编译)
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-宏 = ==纯文本替换==。用 `gcc -E` 观察展开前后:
+<div style="flex:1.05;min-width:0;font-size:0.66em;">
+
+编译前的==预处理==阶段处理以 ==#== 开头的命令: `#include` 把文件内容插入指令处; `#define` 做文本替换; `#if`/`#ifdef`/`#ifndef` 按条件选择参与编译的代码.
+
+宏 = ==纯文本替换==, 用 `gcc -E` 观察展开前后:
 
 ```C
 /* celsius.c */
@@ -87,19 +93,23 @@ double to_celsius(double fahr)
 }
 ```
 
-- 例如 `(fahr - FREEZING_PT) * SCALE_FACTOR` 预处理后变成 `(fahr - 32.0) * (5.0 / 9.0)`; 用 `gcc -E celsius.c` 可直接观察展开结果
+</div>
 
-<!-- slide data-notes="" -->
+<div style="flex:0.95;min-width:0;font-size:0.7em;">
 
-##### 预处理: 编译前的文本加工 (续)
+`(fahr - FREEZING_PT) * SCALE_FACTOR` 预处理后变成 `(fahr - 32.0) * (5.0 / 9.0)`.
 
----
+- 记住“就是文本替换”, 宏的各种看似异常的现象都能由此解释
 
-- 记住“就是文本替换”，后面宏的各种看似异常的现象都能解释
+- 经典错误 ①: ==`#define N = 100`==——多了等号, 替换进代码后成为非法表达式
 
-- 经典错误: ==`#define N = 100`== (多了等号) 和 ==`#define N 100;`== (多了分号)——文本替换会把它们原样带进代码
+- 经典错误 ②: ==`#define N 100;`==——多了分号, 展开后把分号带进表达式
 
 - 宏行末==没有分号==, 宏名习惯==全大写==
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
@@ -247,32 +257,32 @@ main函数放入另一个文件calc.c中.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.5;font-size:0.5em;">
+<div style="flex:1.15;min-width:0;font-size:0.55em;">
 
 ```C
-#include <文件名>
+#include <文件名>     /* 尖括号: 搜索系统头文件目录 */
+#include "文件名"     /* 引号: 先搜源文件目录, 再搜系统目录 */
 ```
 
 ```C
-#include "文件名"
-```
-
-```C
-#include <myheader.h>    /* 通常不要用尖括号包含自己写的头文件 */
+#include "utils.h"              /* 推荐: 相对路径 */
+#include "../include/utils.h"   /* 推荐: 相对路径 (UNIX) */
+#include "/cprogs/utils.h"      /* 不推荐: 绝对路径 */
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:0.85;min-width:0;font-size:0.7em;">
 
-`#include` 有两种写法: `<文件名>` 找 C 自带的库头文件, `"文件名"` 找其他头文件——区别在于编译器==去哪里找==:
+- `<文件名>` 搜索系统头文件目录; `"文件名"` 先搜源文件所在目录, 再搜系统目录
 
-- `<文件名>`: 搜索系统头文件目录
-- `"文件名"`: 先搜源文件所在目录, 再搜系统头文件目录
-- `-I 目录`: 追加 `<文件名>` 的搜索路径
-- `-iquote 目录`: 追加 `"文件名"` 的搜索路径
+- `-I 目录` 追加尖括号的搜索路径; `-iquote 目录` 追加引号的搜索路径
 
-通常: 自带库用尖括号, 自己写的头文件用引号; 不要用尖括号包含自己写的头文件.
+- 自己写的头文件用引号, 不要用尖括号; 路径==推荐相对路径==——项目移动或换机器后仍然有效
+
+- `..` 表示上一级目录; 相对路径相对于==源文件所在目录==; Windows 可写 `..\include\utils.h`
+
+- 路径中的 `\` ==原样保留==, 不按转义序列处理; 跨平台统一写 `/`
 
 </div>
 
@@ -281,44 +291,6 @@ main函数放入另一个文件calc.c中.
 <!-- slide data-notes="" -->
 
 ##### #include 指令 (续)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.5;font-size:0.5em;">
-
-```C
-#include "utils.h"                /* 推荐: 相对路径 */
-#include "..\include\utils.h"     /* 推荐: 相对路径 (Windows 写法) */
-#include "../include/utils.h"     /* 推荐: 相对路径 (UNIX 写法) */
-```
-
-```C
-#include "d:utils.h"                    /* 不推荐: 依赖盘符 */
-#include "\cprogs\include\utils.h"      /* 不推荐: 绝对路径 */
-#include "d:\cprogs\include\utils.h"    /* 不推荐: 绝对路径 */
-#include "c:\cprogs\utils.h"            /* 不推荐: 绝对路径 (Windows) */
-#include "/cprogs/utils.h"              /* 不推荐: 绝对路径 (UNIX) */
-```
-
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
-路径可以写相对路径, 也可以写绝对路径; 但==推荐相对路径==: 项目整体移动或换机器后仍然有效, 依赖盘符或绝对路径的写法换环境就会失效.
-
-`..` 表示上一级目录; 相对路径相对于==源文件所在目录==而言.
-
-预处理器把 `#include "..."` 里的路径==原样保留==, 反斜杠不按转义序列处理——Windows 下可以直接写 `\`; 跨平台建议统一写 `/`.
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-##### #include 指令 (续 2)
 
 ---
 
@@ -367,11 +339,18 @@ main函数放入另一个文件calc.c中.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.05;min-width:0;font-size:0.52em;">
 
 ```C{.line-numbers}
-/* boolean.h */
+/* boolean.h —— 宏版 */
 #define BOOL int
+#define TRUE 1
+#define FALSE 0
+```
+
+```C{.line-numbers}
+/* boolean.h —— typedef 版 */
+typedef int Bool;
 #define TRUE 1
 #define FALSE 0
 ```
@@ -383,62 +362,21 @@ main函数放入另一个文件calc.c中.
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;min-width:0;font-size:0.62em;">
 
-大多数大型程序包含由多个源文件共享的宏定义和类型定义.
+大型程序常有多个源文件共享的宏定义和类型定义; 把它们放进头文件, 其他文件只需一行 `#include` 即可使用.
 
-这些定义应该放入头文件.
+`typedef` 版比宏版更好: 有==类型检查==, 调试器能看到类型名, 也遵守==作用域==规则.
 
-假设一个程序使用名为 BOOL, TRUE 和 FALSE 的宏.
+把宏和类型定义放头文件的好处:
 
-它们的定义可以放进一个叫 *boolean.h* 的头文件:
+- 不必把定义复制到每个源文件, ==改一处==即可生效
 
-任何需要这些宏的源文件将只包含该行
-
-两个文件都包含 boolean.h:
+- 避免各源文件包含的定义不一致
 
 <div class="top-2">
   <img src="../img/18-1.png" width=380px>
 </div>
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-##### 共享宏定义和类型定义 (续)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.4;font-size:0.55em;">
-
-```C
-/* boolean.h */
-#define TRUE 1
-#define FALSE 0
-typedef int Bool;
-```
-
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
-类型定义在头文件中也很常见.
-
-例如可使用 typedef 来创建一个 Bool 类型, 而不是定义 BOOL 宏.
-
-这么做了之后, boolean.h 里会是:
-
-与宏相比, typedef 有==类型检查==, 调试器能看到类型名, 也遵守==作用域==规则.
-
-把宏和类型定义放头文件的好处:
-
-- 节省时间. 我们不必将定义复制到需要它们的源文件中.
-- 使程序更容易修改. 更改宏或类型的定义只需要编辑单个头文件.
-- 避免由源文件包含相同宏或类型的不同定义而导致的不一致.
 
 </div>
 
@@ -789,7 +727,7 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 
 - 每个源文件各自形成一个==翻译单元==, 编译器分别编译; 头文件==不单独编译==, 随包含它的源文件一起编译; 每个源文件生成一个目标文件 (`.o` / `.obj`)
 
-- `gcc -c calc.c` 只编译不链接, 生成目标文件 `calc.o`; `gcc -E calc.c` 只做预处理, 输出展开后的源程序
+- `gcc -c calc.c` 只编译不链接, 生成目标文件 `calc.o`
 
 - 链接器把目标文件与库函数代码组合成可执行文件, 并解决==外部引用== (一个文件调用另一个文件中的函数或变量)
 
@@ -797,7 +735,7 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 
 </div>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/calc.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 calc.c (多文件框架)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/calc.c" style="display:inline-block;align-self:flex-start;margin:8px 0 0 2rem;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 calc.c (多文件框架)</a>
 
 <svg viewBox="0 0 400 190" style="max-width:100%;height:190px;" role="img" aria-label="多文件编译与链接流程">
   <defs>
@@ -925,6 +863,102 @@ calc: calc.o stack.o token.o
 下一行的命令显示了如何进行重新构建.
 
 ==每个命令行必须以 TAB 开头==——写 8 个空格, make 会报 `missing separator` 错误 (上面就是错误示范).
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 课堂编码: 拆成多文件
+
+---
+
+==任务==: 把 RPN 计算器拆成 `calc.c` / `stack.c` / `token.c` + 各自的 `.h` + `Makefile`; `code/` 中已备好 TODO 框架, 补全各函数后构建.
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;min-width:0;font-size:0.62em;">
+
+- `calc.c`: `main` 主循环——读记号; 数字入栈; 运算符弹出两个操作数, 计算后入栈; 结束后打印栈顶
+- `stack.c`: `make_empty` / `is_empty` / `is_full` / `push` / `pop`; 栈变量 `contents`、`top` 用文件作用域 `static`
+- `token.c`: `get_token`——跳过空白, 读整数或运算符, 到 `EOF` 返回 `EOF`
+- `stack.h` / `token.h`: 函数原型与 `STACK_SIZE`, 保护宏已写好
+- `Makefile`: 4 条规则已给出, 注意命令行行首是 TAB
+
+</div>
+
+<div style="flex:0.85;min-width:0;font-size:0.62em;">
+
+==验收==: `make` 构建成功; 运行 `./calc`, 输入 `30 5 - 7 *`, 输出 `175`
+
+```text
+$ make
+$ ./calc
+30 5 - 7 *
+175
+```
+
+提示:
+
+- 头文件只放声明, 定义放 `.c`; 内部辅助函数加 `static`
+- 先 `make` 看链接错误, 再回去补函数
+
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/Makefile" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 Makefile</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/14-files/code/calc.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 calc.c</a>
+</div>
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 课堂编码: 参考代码与要点
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;min-width:0;font-size:0.55em;">
+
+拆分后的文件清单:
+
+```text
+code/
+  calc.c      main: 读记号、计算、输出
+  stack.c     push/pop/... + static 变量
+  stack.h     原型 + STACK_SIZE
+  token.c     get_token()
+  token.h     get_token 原型
+  Makefile    4 条规则
+```
+
+`#include` 关系:
+
+```text
+calc.c  ──→ stack.h, token.h
+stack.c ──→ stack.h
+token.c ──→ token.h
+```
+
+</div>
+
+<div style="flex:1;min-width:0;font-size:0.62em;">
+
+Makefile 三条要点:
+
+- 规则写成 `目标: 依赖`, 下一行是重建命令
+- 命令行的行首==必须是 TAB==, 8 个空格会报 `missing separator`
+- 头文件也要写进依赖: 改 `stack.h` 会重编 `calc.o` 与 `stack.o`
+
+关键点:
+
+- 头文件只放==声明== (原型/宏/`extern`), 定义放 `.c`
+- `stack.c` 的 `contents` / `top` 加 `static`, 其他文件不可见
+- 只被本文件调用的辅助函数也加 `static`, 不写进 `.h`
+- 先编译后链接: `gcc -c` 生成 `.o`, 再 `gcc -o calc *.o`
 
 </div>
 
