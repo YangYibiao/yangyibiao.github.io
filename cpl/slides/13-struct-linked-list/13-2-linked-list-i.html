@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>数组有两个局限: 大小<mark>定死</mark> (要么浪费、要么不够); 中间插入/删除要<mark>搬移</mark>整段元素</p>
 <p>链表: 一串<mark>结点</mark>用指针串起来, 每个结点存数据 + <mark>指向下一个结点的指针</mark>:</p>
 <div style="text-align:center;">
-  <img src="figs/16-5.png" width=300px>
+  <img src="figs/16-5.png" width=470px>
 </div>
 <ul>
 <li>
@@ -190,6 +190,8 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="声明结点类型">声明结点类型 </h5>
 <hr>
+<style>.node-decl pre{font-size:18px;line-height:1.2;padding:0.5em 1em;}.node-decl pre code{max-height:none;padding:2px 4px;}</style>
+<div class="node-decl">
 <p>建链表, 先要有表示单个结点的结构体。</p>
 <p>结点结构体: 数据 (本例是整数) + 指向下一个结点的指针:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> node <span class="token punctuation">{</span>
@@ -200,6 +202,7 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 <p>还需要一个始终指向<mark>第一个结点</mark>的变量:</p>
 <p><code>struct node *first = NULL;</code></p>
 <p>将 <code>first</code> 设置为 <code>NULL</code> 表示链表最初为空。</p>
+</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="创建结点">创建结点 </h5>
 <hr>
@@ -207,9 +210,9 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 <div style="flex:1;font-size:0.75em;">
 <p>构建链表 = 逐个创建结点, 再逐个挂上去。步骤: ① 为结点<mark>分配内存</mark> ② 在结点中<mark>存储数据</mark> ③ 将结点<mark>插入</mark>到链表中。先看前两步:</p>
 <p>临时指针变量: <code>struct node *new_node;</code> 用 malloc 给新结点分配内存, 返回值存进 new_node: <code>new_node = malloc(sizeof(struct node));</code>——现在 new_node 指向一块刚好能放下一个结点的内存:</p>
-<div class="top-2" style="display:flex;gap:16px;">
-  <img src="figs/16-6.png" width=260px>
-  <img src="figs/16-7.png" width=260px>
+<div class="top-2" style="display:flex;align-items:flex-start;justify-content:center;gap:16px;">
+  <img src="figs/16-6.png" width=400px>
+  <img src="figs/16-7.png" width=400px>
 </div>
 <p>接着把数据存进新结点的 value 成员: <code>(*new_node).value = 10;</code> (左图是分配内存, 右图是赋值后)</p>
 <p><code>*new_node</code> 周围的括号是强制要求的, 因为 <code>.</code> 运算符优先于 <code>*</code> 运算符.</p>

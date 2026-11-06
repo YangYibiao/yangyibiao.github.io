@@ -111,7 +111,7 @@ struct {
 
 </div>
 
-<svg viewBox="0 0 400 125" style="max-width:100%;height:125px;" role="img" aria-label="三个平行数组与一个结构体的对比">
+<svg viewBox="0 0 400 125" style="display:block;width:900px;max-width:100%;height:auto;flex-shrink:0;margin:0 auto;" role="img" aria-label="三个平行数组与一个结构体的对比">
   <defs>
     <marker id="struct-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
@@ -159,17 +159,17 @@ struct {
 
 <div style="flex:1;font-size:0.6em;">
 
-- 成员按==声明顺序==存放在内存里, part1 的三个成员在内存中连续排列:
+<div style="text-align:center;">三个成员按==声明顺序==连续存放:</div>
 
-<div class="top-2">
-  <img src="figs/15-1.png" height=300px>
+<div class="top-2" style="text-align:center;">
+  <img src="figs/15-1.png" width=275px>
 </div>
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1.1;font-size:0.6em;">
 
-- 之前学过: 数组是一段连续内存——结构体内部同样是"一段连续内存, 成员依次排开"
+- 数组是一段连续内存——结构体内部同样是"一段连续内存, 成员依次排开"
 
 - 这也解释了结构体为什么能==整体赋值== (把整段内存复制过去)
 
@@ -238,11 +238,6 @@ struct {
 
 每个结构体都为它的成员设置了独立的名字空间.
 
-
-比如, 下面的声明可以同时出现在程序里:
-
-
-
 </div>
 
 </div>
@@ -286,7 +281,7 @@ struct {
 part1 初始化后的样子: 
 
 <div class="top-2">
-  <img src="figs/15-3.png">
+  <img src="figs/15-3.png" width=360px>
 </div>
 
 
@@ -391,17 +386,6 @@ struct { int a[10]; } a1, a2;
 a1 = a2;
  /* legal, since a1 and a2 are structures */
 ```
-
-
-`=`运算符只能用于类型兼容的结构体. 
-
-两个同时声明的结构体(如part1和part2)是兼容的. 
-
-使用相同"结构体标记"或相同类型名声明的结构体也是兼容的. 
-
-除了赋值之外, C 不提供对整个结构体的操作. 
-
-特别是, `==`和`!=`运算符不能用于判定两个结构体是否相等.
 
 </div>
 
@@ -654,9 +638,11 @@ Suit s1, s2;
 
 ---
 
+<style>.enum-int pre{font-size:15px;line-height:1.25;padding:6px 10px;margin:4px 0;}.enum-int pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div class="enum-int" style="flex:1.25;font-size:0.55em;">
 
 ```C
 enum suit {CLUBS = 1, DIAMONDS = 2,
@@ -673,44 +659,6 @@ enum EGA_colors {BLACK, LT_GRAY = 7,
                 DK_GRAY, WHITE = 15};
 ```
 
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
-在系统内部, C 将枚举变量和常量视为整数.
-
-默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量.
-
-在花色枚举中, CLUBS、DIAMONDS、HEARTS 和 SPADES 分别代表 0、1、2 和 3.
-
-程序员可以为枚举常量选择不同的值:
-
-枚举常量的值可以是任意整数, 不用按特定顺序列出:
-
-两个或多个枚举常量具有相同的值甚至也是合法的.
-
-当没有为枚举常量指定值时, 它的值比前一个常量的值大 1.
-
-第一个枚举常量的值默认为 0.
-
-例子:
-
-BLACK 的值为 0, LT_GRAY 为 7, DK_GRAY 为 8, WHITE 为 15.
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-##### 枚举作为整数 (续)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.4;font-size:0.55em;">
-
 ```C{.line-numbers}
 int i;
 enum {CLUBS, DIAMONDS, HEARTS, SPADES} s;
@@ -723,13 +671,19 @@ i = s + 2;      /* i is now 3            */
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.55em;">
 
-枚举值可以与普通整数混合:
+在系统内部, C 将枚举变量和常量视为整数: 默认从 0 开始, 依次加 1——花色枚举中 CLUBS、DIAMONDS、HEARTS、SPADES 分别为 0、1、2、3.
 
-s 被视为整型变量.
+- 可为枚举常量指定任意整数值, 不必按顺序; 两个常量取相同值也合法.
 
-CLUBS、DIAMONDS、HEARTS 和 SPADES 是整数 0、1、2 和 3 的名称.
+- 未指定值时, 比前一个常量大 1; 第一个默认为 0.
+
+EGA_colors 中: BLACK 为 0, LT_GRAY 为 7, DK_GRAY 为 8, WHITE 为 15.
+
+枚举值可与普通整数混合——s 被视为整型变量, 枚举常量就是整数 0、1、2、3 的名称:
+
+`i = DIAMONDS;` (i 为 1) → `s = 0;` (CLUBS) → `s++;` (DIAMONDS) → `i = s + 2;` (i 为 3).
 
 </div>
 
@@ -782,9 +736,11 @@ const 与 `#define` 不同: 宏只做==文本替换==（没有类型、没有作
 
 ---
 
+<style>.struct-param pre{font-size:15px;line-height:1.25;padding:6px 10px;margin:4px 0;}.struct-param pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div class="struct-param" style="flex:1.35;font-size:0.55em;">
 
 ```C{.line-numbers}
 void print_part(struct part p)
@@ -798,32 +754,6 @@ void print_part(struct part p)
 ```C
 print_part(part1);
 ```
-
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
-函数可以有结构体类型的参数和返回值.
-
-带有结构体参数的函数:
-
-调用 print_part:
-
-将结构体传递给函数需要复制结构体中的所有成员.
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-##### 结构体作为参数和返回值 (续)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 struct part build_part(int number,
@@ -847,15 +777,15 @@ part1 = build_part(528, "Disk drive", 10);
 
 <div style="flex:1;font-size:0.6em;">
 
-返回 part 结构体的函数:
+函数可以有结构体类型的参数和返回值.
 
-调用 build_part:
+- `print_part`: 调用时把 part1 的==所有成员复制==给形参 p.
 
-从函数返回结构体同样需要复制所有成员.
+- `build_part`: 构造并返回 `struct part`; 返回时同样复制所有成员.
 
-结构体很大时复制开销大, 可以改用指向结构体的指针来代替结构体本身.
+- 结构体很大时复制开销大, 可以改用指向结构体的指针来代替结构体本身.
 
-之前见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样; 通过指针访问成员要用 `->` 运算符, 后面讲链表时细讲.
+- 通过指针访问成员要用 `->` 运算符; 之前见过指针作参数/返回值 (swap、max_min), 用法完全一样, 后面讲链表时细讲.
 
 </div>
 
@@ -1027,13 +957,15 @@ struct part inventory[100] =
 <!-- slide data-notes="" -->
 
 
-##### 程序: 维护零件数据库 (说明)
+##### 程序: 维护零件数据库
 
 ---
 
+<style>.io34 pre{font-size:13.5px;line-height:1.18;padding:8px 10px;margin:0;}.io34 pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.46em;">
+<div class="io34" style="flex:1.15;font-size:0.46em;">
 
 ```
 Enter operation code: i
@@ -1082,6 +1014,10 @@ Enter operation code: q
 
 结构体存进 inventory 数组, num_parts 跟踪当前零件数.
 
+- 主循环: 读操作码 → `switch` 分发到 `insert`/`search`/`update`/`print`; `q` 退出.
+
+- 代码结构: `struct part` 定义 → 各操作函数 → `main` 主循环.
+
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/inventory.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 inventory.c</a>
 
 </div>
@@ -1091,44 +1027,48 @@ Enter operation code: q
 
 <!-- slide data-notes="" -->
 
-
-##### 程序: 维护零件数据库 (代码)
+##### 课堂编码
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+==现场演示==: 补全 `inventory.c` 的五个函数
 
-<div style="flex:1.4;font-size:0.6em;">
+<div style="display:flex;align-items:flex-start;gap:28px;">
 
-```C{.line-numbers}
-for (;;) {
- prompt user to enter operation code;
- read code;
- switch (code) {
-   case 'i': perform insert operation; break;
-   case 's': perform search operation; break;
-   case 'u': perform update operation; break;
-   case 'p': perform print operation; break;
-   case 'q': terminate program;
-   default:  print error message;
- }
-}
-```
+<div style="flex:1.15;font-size:0.62em;">
+
+1. `find_part`: 按零件号查找, 返回数组下标; 找不到返回 -1.
+
+2. `insert`: 先判重、再判满, 然后读入 number、name、on_hand, `num_parts++`.
+
+3. `search`: 读零件号, 找到则打印名称与数量, 否则输出 `Part not found.`
+
+4. `update`: 读零件号与增减量, 找到则 `on_hand += change`, 否则输出 `Part not found.`
+
+5. `print`: 打印表头, 再逐行打印每个零件的编号、名称、数量.
 
 </div>
 
 <div style="flex:1;font-size:0.6em;">
 
-主循环: 读操作码 → 调用对应函数 (insert/search/update/print); 每种零件的信息保存在结构体中, 结构体存进 inventory 数组.
+样例操作序列:
 
-代码结构: struct part 定义 → 各操作函数 → main 主循环.
+```C
+i 528 Disk_drive 10
+s 528
+u 528 -2
+p
+q
+```
+
+<span class="blue">:fa-lightbulb-o:</span> 提示: 插入前先调用 `find_part` 判重, 再检查 `num_parts == MAX_PARTS`.
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/inventory.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 inventory.c</a>
 
 </div>
 </div>
 
-
+---
 
 <!-- slide data-notes="" -->
 

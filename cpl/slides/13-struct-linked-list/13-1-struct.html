@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>声明两个结构体变量, 存仓库里零件的信息:</p>
 </div>
 </div>
-<svg viewBox="0 0 400 125" style="max-width:100%;height:125px;" role="img" aria-label="三个平行数组与一个结构体的对比">
+<svg viewBox="0 0 400 125" style="display:block;width:900px;max-width:100%;height:auto;flex-shrink:0;margin:0 auto;" role="img" aria-label="三个平行数组与一个结构体的对比">
   <defs>
     <marker id="struct-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
@@ -215,20 +215,15 @@ document.addEventListener("DOMContentLoaded", function () {
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.6em;">
-<ul>
-<li>
-<p>成员按<mark>声明顺序</mark>存放在内存里, part1 的三个成员在内存中连续排列:</p>
-
-</li>
-</ul>
-<div class="top-2">
-  <img src="figs/15-1.png" height=300px>
+<div style="text-align:center;">三个成员按<mark>声明顺序</mark>连续存放:</div>
+<div class="top-2" style="text-align:center;">
+  <img src="figs/15-1.png" width=275px>
 </div>
 </div>
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1.1;font-size:0.6em;">
 <ul>
 <li>
-<p>之前学过: 数组是一段连续内存——结构体内部同样是"一段连续内存, 成员依次排开"</p>
+<p>数组是一段连续内存——结构体内部同样是"一段连续内存, 成员依次排开"</p>
 
 </li>
 <li>
@@ -285,7 +280,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>每个结构体代表一种新的作用域.</p>
 <p>在该作用域内声明的任何名称都不会与程序中的其他名称冲突.</p>
 <p>每个结构体都为它的成员设置了独立的名字空间.</p>
-<p>比如, 下面的声明可以同时出现在程序里:</p>
 </div>
 </div>
 </div>
@@ -308,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>声明结构体变量的同时可以初始化:</p>
 <p>part1 初始化后的样子:</p>
 <div class="top-2">
-  <img src="figs/15-3.png">
+  <img src="figs/15-3.png" width=360px>
 </div>
 <p>结构体初始化式遵循类似于数组初始化式的规则.</p>
 <p>结构体初始化式中使用的表达式必须是常量. (这个限制在 C99 中放宽了)</p>
@@ -358,11 +352,6 @@ part1<span class="token punctuation">.</span>on_hand<span class="token operator"
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">;</span>
 a1 <span class="token operator">=</span> a2<span class="token punctuation">;</span>
  <span class="token comment">/* legal, since a1 and a2 are structures */</span></code></pre>
-<p><code>=</code>运算符只能用于类型兼容的结构体.</p>
-<p>两个同时声明的结构体(如part1和part2)是兼容的.</p>
-<p>使用相同"结构体标记"或相同类型名声明的结构体也是兼容的.</p>
-<p>除了赋值之外, C 不提供对整个结构体的操作.</p>
-<p>特别是, <code>==</code>和<code>!=</code>运算符不能用于判定两个结构体是否相等.</p>
 </div>
 <hr>
 </section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="演示--结构体能赋值--不能比">演示: 结构体能赋值, 不能比 </h5>
@@ -521,33 +510,15 @@ Suit s1<span class="token punctuation">,</span> s2<span class="token punctuation
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="枚举作为整数">枚举作为整数 </h5>
 <hr>
+<style>.enum-int pre{font-size:15px;line-height:1.25;padding:6px 10px;margin:4px 0;}.enum-int pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
+<div class="enum-int" style="flex:1.25;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>enum suit <span class="token punctuation">{</span>CLUBS <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> DIAMONDS <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
           HEARTS <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> SPADES <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>enum dept <span class="token punctuation">{</span>RESEARCH <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span>
           PRODUCTION <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> SALES <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>enum EGA_colors <span class="token punctuation">{</span>BLACK<span class="token punctuation">,</span> LT_GRAY <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span>
                 DK_GRAY<span class="token punctuation">,</span> WHITE <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.6em;">
-<p>在系统内部, C 将枚举变量和常量视为整数.</p>
-<p>默认情况下, 编译器将整数 0, 1, 2, ... 赋给特定枚举中的常量.</p>
-<p>在花色枚举中, CLUBS、DIAMONDS、HEARTS 和 SPADES 分别代表 0、1、2 和 3.</p>
-<p>程序员可以为枚举常量选择不同的值:</p>
-<p>枚举常量的值可以是任意整数, 不用按特定顺序列出:</p>
-<p>两个或多个枚举常量具有相同的值甚至也是合法的.</p>
-<p>当没有为枚举常量指定值时, 它的值比前一个常量的值大 1.</p>
-<p>第一个枚举常量的值默认为 0.</p>
-<p>例子:</p>
-<p>BLACK 的值为 0, LT_GRAY 为 7, DK_GRAY 为 8, WHITE 为 15.</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="枚举作为整数--续">枚举作为整数 (续) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
 enum <span class="token punctuation">{</span>CLUBS<span class="token punctuation">,</span> DIAMONDS<span class="token punctuation">,</span> HEARTS<span class="token punctuation">,</span> SPADES<span class="token punctuation">}</span> s<span class="token punctuation">;</span>
 
@@ -556,14 +527,25 @@ s <span class="token operator">=</span> <span class="token number">0</span><span
 s<span class="token operator">++</span><span class="token punctuation">;</span>            <span class="token comment">/* s is now 1 (DIAMONDS) */</span>
 i <span class="token operator">=</span> s <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>      <span class="token comment">/* i is now 3            */</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
-<p>枚举值可以与普通整数混合:</p>
-<p>s 被视为整型变量.</p>
-<p>CLUBS、DIAMONDS、HEARTS 和 SPADES 是整数 0、1、2 和 3 的名称.</p>
+<div style="flex:1;font-size:0.55em;">
+<p>在系统内部, C 将枚举变量和常量视为整数: 默认从 0 开始, 依次加 1——花色枚举中 CLUBS、DIAMONDS、HEARTS、SPADES 分别为 0、1、2、3.</p>
+<ul>
+<li>
+<p>可为枚举常量指定任意整数值, 不必按顺序; 两个常量取相同值也合法.</p>
+
+</li>
+<li>
+<p>未指定值时, 比前一个常量大 1; 第一个默认为 0.</p>
+
+</li>
+</ul>
+<p>EGA_colors 中: BLACK 为 0, LT_GRAY 为 7, DK_GRAY 为 8, WHITE 为 15.</p>
+<p>枚举值可与普通整数混合——s 被视为整型变量, 枚举常量就是整数 0、1、2、3 的名称:</p>
+<p><code>i = DIAMONDS;</code> (i 为 1) → <code>s = 0;</code> (CLUBS) → <code>s++;</code> (DIAMONDS) → <code>i = s + 2;</code> (i 为 3).</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="类型限定符--const-等">类型限定符 (const 等) </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="类型限定符--const-等">类型限定符 (const 等) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -594,10 +576,11 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="结构体作为参数和返回值">结构体作为参数和返回值 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="结构体作为参数和返回值">结构体作为参数和返回值 </h5>
 <hr>
+<style>.struct-param pre{font-size:15px;line-height:1.25;padding:6px 10px;margin:4px 0;}.struct-param pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
+<div class="struct-param" style="flex:1.35;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_part</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> part p<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Part number: %d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>number<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -605,19 +588,6 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Quantity on hand: %d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>on_hand<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_part</span><span class="token punctuation">(</span>part1<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.6em;">
-<p>函数可以有结构体类型的参数和返回值.</p>
-<p>带有结构体参数的函数:</p>
-<p>调用 print_part:</p>
-<p>将结构体传递给函数需要复制结构体中的所有成员.</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="结构体作为参数和返回值--续">结构体作为参数和返回值 (续) </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> part <span class="token function">build_part</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> number<span class="token punctuation">,</span>
                        <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span>
                        <span class="token keyword keyword-int">int</span> on_hand<span class="token punctuation">)</span>
@@ -632,15 +602,29 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>part1 <span class="token operator">=</span> <span class="token function">build_part</span><span class="token punctuation">(</span><span class="token number">528</span><span class="token punctuation">,</span> <span class="token string">"Disk drive"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>返回 part 结构体的函数:</p>
-<p>调用 build_part:</p>
-<p>从函数返回结构体同样需要复制所有成员.</p>
+<p>函数可以有结构体类型的参数和返回值.</p>
+<ul>
+<li>
+<p><code>print_part</code>: 调用时把 part1 的<mark>所有成员复制</mark>给形参 p.</p>
+
+</li>
+<li>
+<p><code>build_part</code>: 构造并返回 <code>struct part</code>; 返回时同样复制所有成员.</p>
+
+</li>
+<li>
 <p>结构体很大时复制开销大, 可以改用指向结构体的指针来代替结构体本身.</p>
-<p>之前见过指针作参数/返回值 (swap、max_min)——结构体指针的用法完全一样; 通过指针访问成员要用 <code>-&gt;</code> 运算符, 后面讲链表时细讲.</p>
+
+</li>
+<li>
+<p>通过指针访问成员要用 <code>-&gt;</code> 运算符; 之前见过指针作参数/返回值 (swap、max_min), 用法完全一样, 后面讲链表时细讲.</p>
+
+</li>
+</ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="嵌套的结构体">嵌套的结构体 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="嵌套的结构体">嵌套的结构体 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -670,7 +654,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="结构体数组">结构体数组 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="结构体数组">结构体数组 </h5>
 <hr>
 <p>数组和结构体的最常见组合之一是其元素是结构体的数组.</p>
 <p>这种数组可以作为一个简单的数据库.</p>
@@ -680,7 +664,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 <p>访问结构体part中的成员需要结合使用下标和成员选择: <code>inventory[i].number = 883;</code></p>
 <p>访问零件名称中的单个字符需要先取下标, 然后是选择成员, 然后再取下标: <code>inventory[i].name[0] = '\0';</code></p>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="初始化结构体数组">初始化结构体数组 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="初始化结构体数组">初始化结构体数组 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.4;font-size:0.55em;">
@@ -716,7 +700,7 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="初始化结构体数组--续">初始化结构体数组 (续) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="初始化结构体数组--续">初始化结构体数组 (续) </h5>
 <hr>
 <p>C99 的指定初始化式允许每一项有多个指示符.</p>
 <p>声明 inventory 数组, 使用指定初始化式来包含一个零件:</p>
@@ -725,10 +709,11 @@ i <span class="token operator">=</span> s <span class="token operator">+</span> 
   <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'\0'</span><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <p>初始化式中的前两项使用两个指示符; 最后一项使用三个.</p>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="程序--维护零件数据库--说明">程序: 维护零件数据库 (说明) </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="程序--维护零件数据库">程序: 维护零件数据库 </h5>
 <hr>
+<style>.io34 pre{font-size:13.5px;line-height:1.18;padding:8px 10px;margin:0;}.io34 pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.46em;">
+<div class="io34" style="flex:1.15;font-size:0.46em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>Enter operation code<span class="token operator">:</span> i
 Enter part number<span class="token operator">:</span> <span class="token number">528</span>
 Enter part name<span class="token operator">:</span> Disk drive
@@ -768,35 +753,51 @@ Enter operation code<span class="token operator">:</span> q</code></pre>
 <p>从 <code>inventory.c</code> 的框架开始写: 程序演示<mark>嵌套数组与结构体</mark>的实战——零件存在结构体数组中, 每个结构体含零件号、名称、数量.</p>
 <p>支持的操作: 插入 (i)、搜索 (s)、更新 (u)、打印 (p)、退出 (q).</p>
 <p>结构体存进 inventory 数组, num_parts 跟踪当前零件数.</p>
+<ul>
+<li>
+<p>主循环: 读操作码 → <code>switch</code> 分发到 <code>insert</code>/<code>search</code>/<code>update</code>/<code>print</code>; <code>q</code> 退出.</p>
+
+</li>
+<li>
+<p>代码结构: <code>struct part</code> 定义 → 各操作函数 → <code>main</code> 主循环.</p>
+
+</li>
+</ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/inventory.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 inventory.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="程序--维护零件数据库--代码">程序: 维护零件数据库 (代码) </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.4;font-size:0.6em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
- prompt user to enter operation code<span class="token punctuation">;</span>
- read code<span class="token punctuation">;</span>
- <span class="token keyword keyword-switch">switch</span> <span class="token punctuation">(</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-   <span class="token keyword keyword-case">case</span> <span class="token string">'i'</span><span class="token operator">:</span> perform insert operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-   <span class="token keyword keyword-case">case</span> <span class="token string">'s'</span><span class="token operator">:</span> perform search operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-   <span class="token keyword keyword-case">case</span> <span class="token string">'u'</span><span class="token operator">:</span> perform update operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-   <span class="token keyword keyword-case">case</span> <span class="token string">'p'</span><span class="token operator">:</span> perform print operation<span class="token punctuation">;</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-   <span class="token keyword keyword-case">case</span> <span class="token string">'q'</span><span class="token operator">:</span> terminate program<span class="token punctuation">;</span>
-   <span class="token keyword keyword-default">default</span><span class="token operator">:</span>  print error message<span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
+<p><mark>现场演示</mark>: 补全 <code>inventory.c</code> 的五个函数</p>
+<div style="display:flex;align-items:flex-start;gap:28px;">
+<div style="flex:1.15;font-size:0.62em;">
+<ol>
+<li><code>find_part</code>: 按零件号查找, 返回数组下标; 找不到返回 -1.
+</li>
+<li><code>insert</code>: 先判重、再判满, 然后读入 number、name、on_hand, <code>num_parts++</code>.
+</li>
+<li><code>search</code>: 读零件号, 找到则打印名称与数量, 否则输出 <code>Part not found.</code>
+</li>
+<li><code>update</code>: 读零件号与增减量, 找到则 <code>on_hand += change</code>, 否则输出 <code>Part not found.</code>
+</li>
+<li><code>print</code>: 打印表头, 再逐行打印每个零件的编号、名称、数量.
+</li>
+</ol>
 </div>
 <div style="flex:1;font-size:0.6em;">
-<p>主循环: 读操作码 → 调用对应函数 (insert/search/update/print); 每种零件的信息保存在结构体中, 结构体存进 inventory 数组.</p>
-<p>代码结构: struct part 定义 → 各操作函数 → main 主循环.</p>
+<p>样例操作序列:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token number">528</span> Disk_drive <span class="token number">10</span>
+s <span class="token number">528</span>
+u <span class="token number">528</span> <span class="token operator">-</span><span class="token number">2</span>
+p
+q</code></pre>
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 插入前先调用 <code>find_part</code> 判重, 再检查 <code>num_parts == MAX_PARTS</code>.</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/inventory.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 inventory.c</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>用结构体标记 <code>point</code> 声明含 <code>int x, y;</code> 的类型，并定义变量 <code>pt</code>；再用 typedef 定义类型名 <code>Point</code> 怎么写？
@@ -809,7 +810,7 @@ Enter operation code<span class="token operator">:</span> q</code></pre>
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="24" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

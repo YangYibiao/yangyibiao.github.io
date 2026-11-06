@@ -67,7 +67,7 @@ n 个人围成一圈 (编号 1~n), 从 1 号开始报数, 报到 m 的人==出�
 
 4. ==循环==: prev 不动 (它就是下一个报数者的前一个), 直到 `prev->next == prev` (只剩一人)
 
-<svg viewBox="0 0 400 200" style="max-width:100%;height:200px;" role="img" aria-label="约瑟夫问题循环链表">
+<svg viewBox="0 0 400 200" style="display:block;width:880px;max-width:100%;height:auto;flex-shrink:0;margin:0 auto;" role="img" aria-label="约瑟夫问题循环链表">
   <defs>
     <marker id="joseph-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#93a1a1"/>
@@ -125,7 +125,11 @@ n 个人围成一圈 (编号 1~n), 从 1 号开始报数, 报到 m 的人==出�
 
 ---
 
-<div style="font-size:0.6em;">
+<style>.joseph-ref pre{font-size:13.5px;line-height:1.18;padding:5px 8px;}.joseph-ref pre code{max-height:none;padding:2px 4px;}.joseph-ref .p2 pre.line-numbers{counter-reset:linenumber 30;}</style>
+
+<div class="joseph-ref" style="display:flex;align-items:flex-start;gap:16px;">
+
+<div style="flex:1;">
 
 ```C{.line-numbers}
 /* 约瑟夫问题: n 个人围圈, 报到 m 出列 */
@@ -158,6 +162,13 @@ int main(void)
     first = p;
   }
 
+```
+
+</div>
+
+<div class="p2" style="flex:1;">
+
+```C{.line-numbers}
   prev = first;                       /* 找尾结点, 连成环 */
   while (prev->next != NULL) {
     prev = prev->next;
@@ -177,6 +188,8 @@ int main(void)
   return 0;
 }
 ```
+
+</div>
 
 </div>
 
@@ -255,7 +268,7 @@ part 结构体多加一个成员: 指向下一个结点的指针:
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 
-<svg viewBox="0 0 400 180" style="max-width:100%;height:180px;" role="img" aria-label="链表反转前后指针变化">
+<svg viewBox="0 0 400 180" style="display:block;width:750px;max-width:100%;height:auto;flex-shrink:0;margin:0 auto;" role="img" aria-label="链表反转前后指针变化">
   <defs>
     <marker id="ll-rev-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>

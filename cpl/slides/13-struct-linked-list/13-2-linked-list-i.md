@@ -49,7 +49,7 @@ password: "cpl2026"
 链表: 一串==结点==用指针串起来, 每个结点存数据 + ==指向下一个结点的指针==:
 
 <div style="text-align:center;">
-  <img src="figs/16-5.png" width=300px>
+  <img src="figs/16-5.png" width=470px>
 </div>
 
 - 优点: 按需==逐个创建==, 插入、删除只需改指针; 最后结点的 next 是 `NULL` (空指针)
@@ -95,6 +95,10 @@ if (new_node == NULL) {                   /* 借不到要检查 */
 
 ---
 
+<style>.node-decl pre{font-size:18px;line-height:1.2;padding:0.5em 1em;}.node-decl pre code{max-height:none;padding:2px 4px;}</style>
+
+<div class="node-decl">
+
 建链表, 先要有表示单个结点的结构体。
 
 结点结构体: 数据 (本例是整数) + 指向下一个结点的指针: 
@@ -113,6 +117,8 @@ struct node {
 `struct node *first = NULL;`
 
 将 `first` 设置为 `NULL` 表示链表最初为空。
+
+</div>
 
 ---
 
@@ -134,9 +140,9 @@ struct node {
 
 临时指针变量: `struct node *new_node;` 用 malloc 给新结点分配内存, 返回值存进 new_node: `new_node = malloc(sizeof(struct node));`——现在 new_node 指向一块刚好能放下一个结点的内存:
 
-<div class="top-2" style="display:flex;gap:16px;">
-  <img src="figs/16-6.png" width=260px>
-  <img src="figs/16-7.png" width=260px>
+<div class="top-2" style="display:flex;align-items:flex-start;justify-content:center;gap:16px;">
+  <img src="figs/16-6.png" width=400px>
+  <img src="figs/16-7.png" width=400px>
 </div>
 
 接着把数据存进新结点的 value 成员: `(*new_node).value = 10;` (左图是分配内存, 右图是赋值后)

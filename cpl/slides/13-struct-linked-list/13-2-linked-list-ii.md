@@ -174,6 +174,10 @@ for (cur = list, prev = NULL;
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:20px;">
+
+<div style="flex:1.25;font-size:0.55em;">
+
 把前面的循环与第 2、3 步合起来, 得到完整的删除函数:
 
 ```C
@@ -192,25 +196,23 @@ struct node *delete_node(struct node *list, int n)
 }
 ```
 
-- 删除头结点要==更新头指针==; free 之后 cur 不能再解引用
-- 删除操作只改变==指针==, 不移动结点; 查找是 O(n), 删除本身 O(1)
-
-<!-- slide data-notes="" -->
-
-##### 从链表中删除结点 (续 2)
-
----
-
-假设链表如下并且 n 为 20:
-
-<div class="top-2">
-  <img src="figs/16-11-1.png" width=500px>
 </div>
 
-执行完 `cur = list, prev = NULL` 后:
+<div style="flex:1;font-size:0.6em;">
 
-<div class="top-2">
-  <img src="figs/16-11-2.png" width=500px>
+- 删除头结点要==更新头指针==; free 之后 cur 不能再解引用
+
+- 删除操作只改变==指针==, 不移动结点; 查找是 O(n), 删除本身 O(1)
+
+<div class="top-2" style="text-align:center;">假设链表如下并且 n 为 20; 执行完 `cur = list, prev = NULL` 后:</div>
+
+<div style="text-align:center;">
+  <img src="figs/16-11-1.png" width=380px>
+  <img src="figs/16-11-2.png" width=380px>
+</div>
+
+</div>
+
 </div>
 
 <!-- slide data-notes="" -->
@@ -220,13 +222,17 @@ struct node *delete_node(struct node *list, int n)
 
 ---
 
-当链表的结点是有序的——按结点中的数据排序——我们称该链表是**有序链表**. 
+<div style="font-size:0.8em;">
 
-向有序链表中插入结点更加困难, 因为结点并不总是放在链表的开头. 
+- 结点按数据排序的链表称为==有序链表==.
 
-但是搜索会更快: 在到达期望结点应该出现的位置后, 就可以停止查找.
+- 插入更难: 新结点并不总是放在链表的开头.
 
-<svg viewBox="0 0 400 175" style="max-width:100%;height:175px;" role="img" aria-label="有序链表插入 25">
+- 搜索更快: 到达期望结点应该出现的位置后即可停止查找.
+
+</div>
+
+<svg viewBox="0 0 400 175" style="display:block;width:660px;max-width:100%;height:auto;flex-shrink:0;margin:0 auto;" role="img" aria-label="有序链表插入 25">
   <defs>
     <marker id="ll-order-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
