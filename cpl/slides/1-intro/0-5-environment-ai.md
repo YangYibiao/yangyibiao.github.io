@@ -71,6 +71,8 @@ presentation:
 
 ---
 
+代码写出来了, 要能在自己的机器上独立编译、运行、调试——先搭好开发环境:
+
 <div style="font-size:0.95em;line-height:1.6;">
 
 ==开发环境==: 把"写代码"变成"能运行、能排错"的一整套工具
@@ -93,7 +95,7 @@ presentation:
 
 ---
 
-<!-- slide data-notes="" -->##### 工具选择
+<!-- slide data-notes="" -->##### 工具选择: CLion 为主, VS Code / 命令行为辅
 
 ---
 
@@ -146,6 +148,8 @@ presentation:
 <!-- slide data-notes="" -->##### 跑通第一个程序
 
 ---
+
+装好后, 先跑通一个最小程序:
 
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.85em;">
 
@@ -219,9 +223,11 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### AI 辅助编程工具
+<!-- slide data-notes="" -->##### AI 辅助编程: 能帮你做什么
 
 ---
+
+环境问题解决后, 再看 AI 工具能帮什么:
 
 <div style="font-size:0.95em;line-height:1.7;">
 
@@ -265,6 +271,8 @@ int main(void)
 
 ---
 
+规范说完了, 这是本周要完成的事:
+
 <div style="font-size:0.95em;line-height:1.7;">
 
 ==本周完成==:
@@ -275,7 +283,7 @@ int main(void)
 
 3. 注册 ==OJ== 账号 (学号), 完成第一道题
 
-4. 遇到环境问题: 先查本页"常见环境问题", 再问助教
+4. 遇到环境问题: 先查前面的"常见环境问题", 再问助教
 
 <span class="blue">:fa-lightbulb-o:</span> 环境问题是==一次性成本==——今天花 30 分钟装好, 后面一学期都省心
 

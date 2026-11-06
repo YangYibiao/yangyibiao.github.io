@@ -143,6 +143,8 @@ presentation:
 
 ---
 
+日历记好后, 先了解大家的基础:
+
 <div style="font-size:1.3em;">
 
 ==举手统计==
@@ -163,6 +165,8 @@ presentation:
 
 ---
 
+调查之后, 遇到问题可以找谁?
+
 <div style="font-size:1.3em;">
 
 - 线上答疑: QQ群内提问或==私聊==线上助教，每班有一位学长主要负责线上答疑
@@ -176,6 +180,8 @@ presentation:
 ##### 考核方式
 
 ---
+
+课程怎么上、问题找谁已经清楚, 再看成绩怎么算:
 
 <div style="font-size:1.3em;">
 
@@ -196,6 +202,8 @@ presentation:
 ##### 在线评测系统 (OJ)
 
 ---
+
+考核方式里的「在线评测」就是它:
 
 <div style="font-size:1.3em;">
 
@@ -243,7 +251,7 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-##### 课程说明
+##### 课程说明: 免修不免考
 
 ---
 
@@ -264,6 +272,8 @@ presentation:
 
 ---
 
+课程事务说完, 再看教材:
+
 <div class="top-2">
   <img src="book/C语言程序设计-姜恒远.jpg" width=240px>
 </div>
@@ -280,6 +290,8 @@ presentation:
 
 ---
 
+教材之外, 再推荐一本参考书:
+
 <div class="top-2">
   <img src="book/cpm.jpg" width=200px height=270px>
 </div>
@@ -292,9 +304,11 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-##### 不必焦虑
+##### 不必焦虑: 多数同学零基础
 
 ---
+
+零基础不是问题, 注意以下三点:
 
 - 课前预习
 

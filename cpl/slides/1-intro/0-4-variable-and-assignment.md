@@ -82,7 +82,7 @@ presentation:
 
 ---
 
-<div style="font-size:0.95em;line-height:1.7;">
+<div style="font-size:0.88em;line-height:1.55;">
 
 ==先想一个问题==: 求平均分——总分算出来之后, 在除以人数之前, ==放在哪里==?
 
@@ -90,7 +90,7 @@ presentation:
 
 ==变量==: 程序执行过程中, 用来临时存储数据的==有名字的单元==
 
-<div style="display:flex;align-items:center;gap:16px;margin:12px 0;">
+<div style="display:flex;align-items:center;gap:16px;margin:6px 0;">
 <div style="border:2px solid var(--solarized-blue);border-radius:8px;padding:8px 26px;text-align:center;background:#fdf6e3;"><span style="color:#268bd2;font-weight:700;font-size:1.1em;">height</span><br><span style="font-size:1.5em;font-weight:700;">175</span></div>
 <div>← 名字叫 <code>height</code> 的"盒子", 里面装着 175</div>
 </div>
@@ -98,6 +98,8 @@ presentation:
 ==类型==: 每个变量都有类型, 用来说明盒子里装==什么种类的数据==——本课常用 `int`、`float`、`double`、`char`, 接下来随用随讲
 
 ==变量名==: 字母、数字、下划线组成, ==不能以数字开头==; 区分大小写; 不能用关键字 (`int`、`return` 等)
+
+概念扫完, 动手写第一个任务:
 
 </div>
 
@@ -133,6 +135,8 @@ presentation:
 
 ---
 
+参考实现: 声明、初始化、打印三步:
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.1;font-size:0.62em;">
@@ -164,6 +168,8 @@ int main(void)
 
 </div>
 
+会打印了, 下一步让程序读入数据:
+
 ---
 
 <!-- slide data-notes="" -->##### 任务 2: 输入出生年份, 算年龄
@@ -192,6 +198,8 @@ int main(void)
 <!-- slide data-notes="" -->##### 任务 2: 参考代码与要点
 
 ---
+
+参考实现: 读入、计算、输出三步:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -230,6 +238,8 @@ int main(void) {
 
 </div>
 
+整数会了, 换成带小数的温度:
+
 ---
 
 <!-- slide data-notes="" -->##### 任务 3: 摄氏转华氏
@@ -260,6 +270,8 @@ int main(void) {
 <!-- slide data-notes="" -->##### 任务 3: 参考代码与要点
 
 ---
+
+参考实现: 用 double 存温度, 用 9.0/5 做浮点除法:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -297,6 +309,8 @@ int main(void) {
 
 </div>
 
+小数会了, 再看整数除法与取余:
+
 ---
 
 <!-- slide data-notes="" -->##### 任务 4: 找零计算
@@ -330,6 +344,8 @@ int main(void) {
 <!-- slide data-notes="" -->##### 任务 4: 参考代码与要点
 
 ---
+
+参考实现: 用 / 和 % 逐层拆金额:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -373,6 +389,8 @@ int main(void) {
 
 </div>
 
+整数运算会了, 最后看字符:
+
 ---
 
 <!-- slide data-notes="" -->##### 任务 5: 字符与编码
@@ -405,6 +423,8 @@ M 的编码是 77
 <!-- slide data-notes="" -->##### 任务 5: 参考代码与要点
 
 ---
+
+参考实现: 同一个值, 两种占位符两种视角:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -478,6 +498,8 @@ int main(void)
 
 ---
 
+编码表备查; 回到语法, 先看名字怎么起:
+
 <div style="font-size:0.95em;line-height:1.8;">
 
 ==标识符==: 变量、函数等对象的==名字==
@@ -497,6 +519,8 @@ int main(void)
 <!-- slide data-notes="" -->##### 语法补全: 声明、初始化与赋值
 
 ---
+
+名字会起了, 再看变量怎么声明、初始化、赋值:
 
 <div style="font-size:0.85em;line-height:1.6;">
 
@@ -533,6 +557,8 @@ height = 10;         /* 赋值: 用新值覆盖旧值 */
 <!-- slide data-notes="" -->##### 输入输出格式一览
 
 ---
+
+变量会用了, 还要会读写——四种常用类型的占位符:
 
 <div class="fullborder">
 
@@ -577,13 +603,15 @@ height = 10;         /* 赋值: 用新值覆盖旧值 */
 
 - 输出: `printf("%.1f\n", f);`
 
-<span class="blue">:fa-lightbulb-o:</span> 卡住了? 先看课件对应的任务页, 再问助教——==今天每个人的程序都要能跑起来==
+<span class="blue">:fa-lightbulb-o:</span> 卡住了? 温度转换看任务 3; 交换两个数先自己想, 再问助教——==今天每个人的程序都要能跑起来==
 
 ---
 
 <!-- slide data-notes="" -->##### 课堂小测
 
 ---
+
+程序跑通后, 用四道题检验概念:
 
 1. 概念: 声明 `int x;` 与初始化 `int x = 5;` 有什么区别? 只声明不初始化就用, 可能发生什么?
 

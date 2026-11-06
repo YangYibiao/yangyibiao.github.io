@@ -70,9 +70,11 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### 程序: 打印Hello NJU
+##### 第一个程序: 打印 Hello NJU
 
 ---
+
+最小的 C 程序长这样:
 
 <div style="display:flex;align-items:flex-start;gap:20px;">
 
@@ -119,7 +121,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### gcc 背后做了什么
+##### gcc 背后: 预处理 → 编译 → 链接
 
 ---
 
@@ -166,9 +168,11 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 简单C程序的一般形式
+##### C 程序的一般形式: 指令 + 函数 + 语句
 
 ---
+
+一个 C 程序的最小骨架:
 
 ```C
 指令
@@ -196,7 +200,7 @@ C 使用 =={== 和 ==}== 标识函数开始与结束
 <!-- slide data-notes="" -->
 
 
-##### 指令
+##### 指令: 以 # 开头的预处理命令
 
 ---
 
@@ -217,9 +221,11 @@ C 使用 =={== 和 ==}== 标识函数开始与结束
 <!-- slide data-notes="" -->
 
 
-##### 主函数
+##### 主函数: 程序的入口
 
 ---
+
+最小的 main 函数:
 
 ```C{.line-numbers}
 int main(void)
@@ -239,7 +245,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 函数
+##### 函数: C 程序由函数组成
 
 ---
 
@@ -260,7 +266,7 @@ C程序是==函数的集合==, 函数由一系列语句构成
 <!-- slide data-notes="" -->
 
 
-##### 语句
+##### 语句: 以分号结尾的命令
 
 ---
 
@@ -281,7 +287,7 @@ printf("Hello, World!\n");
 <!-- slide data-notes="" -->
 
 
-##### 程序是怎样构成的
+##### 程序由 token 构成
 
 ---
 
@@ -310,7 +316,7 @@ printf("Hello, World!\n");
 <!-- slide data-notes="" -->
 
 
-##### 注释
+##### 注释: 写给人看, 编译器忽略
 
 ---
 
@@ -345,7 +351,7 @@ int main(void)
 
 <!-- slide data-notes="" -->
 
-##### 注释
+##### 小挑战: 未闭合的注释会怎样？
 
 ---
 
@@ -363,11 +369,11 @@ printf("fleas");
 
 <!-- slide data-notes="" -->
 
-##### 注释
+##### 答案: 输出 My fleas
 
 ---
 
-答案: 输出 ==My fleas==——第一个 /* 把中间两行"吞"进注释, 直到遇到第一个 */
+输出 ==My fleas==——第一个 /* 把中间两行"吞"进注释, 直到遇到第一个 */
 
 ---
 
@@ -375,6 +381,8 @@ printf("fleas");
 ##### 猜数字游戏
 
 ---
+
+语法看完了, 用一个小游戏把输入、输出、比较串起来:
 
 <div style="display:flex;align-items:flex-start;gap:28px;">
 
@@ -415,6 +423,8 @@ printf("fleas");
 <!-- slide data-notes="" -->##### 猜数字游戏: 代码
 
 ---
+
+完整的猜数字程序如下:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
