@@ -176,11 +176,15 @@ C 有三种循环语句 (控制表达式的玩法下面细讲):
 
 ---
 
-`while` 是设置循环最简单的方法, 形式为 `while (表达式) 语句`
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.2;font-size:0.7em;">
+
+`while` 是最简单的循环语句, 形式为 `while (表达式) 语句`
 
 - ==表达式==是==控制表达式==(条件表达式); ==语句==是==循环体==, 可为单条语句或 `{}` 复合语句
 
-while 示例: 
+例: 找 ≥ `n` 的最小 2 的幂:
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -194,35 +198,11 @@ int main(void) {
 }
 ```
 
-- 执行过程: 先计算控制表达式; ==非零 (true) 就执行循环体并再次测试==, 持续到控制表达式变为零才停止
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### while语句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-用 `while` 找 ≥ `n` 的最小 2 的幂:
-
-```C{.line-numbers}
-i = 1;
-while (i < n) {
-  i = i * 2;
-}
-```
-
 </div>
 
-<div style="flex:1.15;font-size:0.72em;">
+<div style="flex:1;font-size:0.72em;">
 
-`n = 10` 时, while 的执行过程:
+`n = 10` 时, `while` 的执行过程:
 
 ```C{.line-numbers}
 i = 1;        i 现在是 1
@@ -241,8 +221,9 @@ i < n?        否, 退出循环
 
 </div>
 
----
+- 执行过程: 先计算控制表达式; ==非零 (true) 就执行循环体并再次测试==, 持续到控制表达式变为零才停止
 
+---
 <!-- slide data-notes="" -->
 
 
@@ -297,17 +278,15 @@ printf("发射!\n");
 <!-- slide data-notes="" -->
 
 
-##### while语句
+##### while语句: 注意点与无限循环
 
 ---
-
-while 的几个注意点: 
 
 - 循环结束时, 控制表达式==一定为假==——倒计时循环结束, 说明 `i ≤ 0` 了
 
 - 循环体可能==一次都不执行==——条件在循环体之前先判定
 
-- 倒计时还有更简洁的写法 (`i--` 直接在 printf 里用掉): 
+- 倒计时还有更简洁的写法 (`i--` 直接在 printf 里用掉):
 
 ```C{.line-numbers}
 while (i > 0) {
@@ -315,28 +294,9 @@ while (i > 0) {
 }
 ```
 
----
-
-<!-- slide data-notes="" -->
-
-
-##### 无限循环
+- 控制表达式==恒为非零==就是无限循环: `while (1) { … }` 会永远执行, 除非循环体里有 `break`、`goto`、`return`, 或调用终止程序的函数
 
 ---
-
-如果控制表达式的值始终非零, while语句将无法终止
-
-控制表达式恒为非零, 就是无限循环: 
-
-```C
-while (1) … {
-```
-}
-
-这样的while语句将永远执行, 除非它的循环体中含有跳出循环控制的语句(break, goto, return)或调用导致程序终止的函数
-
----
-
 <!-- slide data-notes="" -->
 
 
@@ -568,7 +528,7 @@ int main(void) {
 
 一般形式: `do 语句 while (表达式);`
 
-==do-while 最典型的用途: 输入校验==——必须先读一次, 才知道合不合法:
+==最典型的用途: 输入校验==——必须先读一次, 才知道合不合法:
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -585,40 +545,27 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.74em;">
 
 - 执行顺序: ==先执行循环体 → 再算控制表达式 → 非零再来一轮==
 
-- 与 `while` 的唯一区别: 循环体==至少执行一次==
+- 与 `while` 的唯一区别: 循环体==至少执行一次==——`0` 也是一位数, 至少拆一次位
 
-- "先读后判"的场景 while 写起来很别扭 (得先预读一次), do-while 刚刚好——对比上一页数列求和的预读写法
+- "先读后判"的场景 `while` 写起来别扭 (得先预读一次), do-while 刚刚好——对比数列求和的预读写法
 
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### do语句
-
----
-
-<span class="blue">:fa-weixin:</span> ==建议给所有 do 语句都加大括号==——没有大括号的 do 很容易被误读成 while:
+- <span class="blue">:fa-weixin:</span> ==建议给所有 do 语句都加大括号==——没有大括号的 `do` 容易被误读成 `while` 的开头:
 
 ```C
 do
     printf("%d\n", i--);
-while (i > 0); {
+while (i > 0);   /* 这个 while 不是新循环 */
 ```
-}
 
-- 粗心的读者会把结尾的 `while` 当成新循环的开头 
+</div>
+
+</div>
 
 ---
-
 <!-- slide data-notes="" -->##### 任务 2: 各位数字之和
 
 ---
@@ -768,9 +715,15 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>.break51 p:last-child { margin-bottom: 0 !important; }</style>
 
-<div style="flex:1.2;font-size:0.65em;">
+<div class="break51" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.62em;">
+
+`break` 把控制从 `switch` 中转出, 也可跳出循环。
+
+检查 `n` 是否为素数的循环, 找到因子后立即 `break`:
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -791,32 +744,13 @@ int main(void) {
 }
 ```
 
-</div>
-
-<div style="flex:1;">
-
-`break语句`可以把程序控制从 `switch` 语句中转移出来, 也可以用于跳出`while`、`do`或`for`循环
-
-检查数字`n`是否为素数的循环可以在找到约数(因子)后立即使用break语句终止循环:
-
-循环终止后, 可以使用`if语句`来确定循环是提前终止(因此n不是素数)还是正常终止(n是素数):
-
-
+循环终止后, 用 `if` 判断: ==提前终止 → n 不是素数==; ==正常终止 → n 是素数==。
 
 </div>
 
-</div>
+<div style="flex:1;font-size:0.62em;">
 
-<!-- slide data-notes="" -->
-
-
-##### break语句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.65em;">
+`break` 适合==退出点位于循环体中间==的场景 (读取输入并在特定值时终止):
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -834,28 +768,13 @@ int main(void) {
 }
 ```
 
-```C{.line-numbers}
-while (…) {
-  switch (…) {
-    …
-    break;
-    …
-  }
-}
-```
+- `break` 只跳出==最内层==的一层 `while`/`do`/`for`/`switch`
 
-</div>
-
-<div style="flex:1;">
-
-`break` 适合==退出点位于循环体中间==的场景 (读取输入并在特定值时终止):
-
-`break` 只跳出==最内层==的一层 `while`/`do`/`for`/`switch`; `switch` 里的 `break` 结束的是 `switch` 本身, 要跳出外层 `while` 需在外层另写 `break`:
+- `switch` 里的 `break` 只结束 `switch` 本身; 要跳出外层 `while`, 需在外层另写 `break`
 
 </div>
 
 </div>
-
 <!-- slide data-notes="" -->
 
 

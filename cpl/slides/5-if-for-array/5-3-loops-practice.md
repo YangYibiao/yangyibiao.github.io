@@ -75,8 +75,6 @@ presentation:
 
 ==现场演示==: 输入一批学生成绩 (0~100), 直到 ==-1== 结束, 输出==最高分==以及==得最高分的人数==
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-score-stats.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-score-stats.c (骨架)</a>
-
 样例:
 
 ```
@@ -86,6 +84,8 @@ presentation:
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 哨兵值 -1 不参与统计; 出现==更高的分数==时, 人数要==重置==吗?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-score-stats.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-score-stats.c (骨架)</a>
 
 </div>
 
@@ -152,8 +152,6 @@ int main(void) {
 
 ==现场演示==: 输入一个整数, 判断它是不是==完全数== (等于除自身外的所有因数之和, 如 6 = 1+2+3, 28 = 1+2+4+7+14)
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-perfect-number.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-perfect-number.c (骨架)</a>
-
 样例:
 
 ```
@@ -164,6 +162,8 @@ int main(void) {
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 完全数等于除自身外的因数之和——怎么==找出这些因数==?
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-perfect-number.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-perfect-number.c (骨架)</a>
 
 </div>
 
@@ -437,7 +437,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 回文数判定 (选做)
+##### 进阶练习: 回文数判定 (选做)
 
 ---
 
@@ -470,7 +470,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 回文数判定 (参考代码)
+##### 进阶练习: 回文数判定 (参考代码)
 
 ---
 
@@ -518,7 +518,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 斐波那契数列 (选做)
+##### 进阶练习: 斐波那契数列 (选做)
 
 ---
 
@@ -548,7 +548,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 斐波那契数列 (参考代码)
+##### 进阶练习: 斐波那契数列 (参考代码)
 
 ---
 
@@ -593,7 +593,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 百钱百鸡 (选做)
+##### 进阶练习: 百钱百鸡 (选做)
 
 ---
 
@@ -626,7 +626,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 百钱百鸡 (参考代码)
+##### 进阶练习: 百钱百鸡 (参考代码)
 
 ---
 
@@ -667,7 +667,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 菜单计算器 (选做)
+##### 组合练习: 菜单计算器 (选做)
 
 ---
 
@@ -686,14 +686,11 @@ int main(void) {
 请选择: 1
 输入两个数: 3 5
 3 + 5 = 8
-请选择: 2
-输入两个数: 10 4
-10 - 4 = 6
 请选择: 3
 再见!
 ```
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 菜单要==反复出现==——哪种循环最合适? 选择项用什么结构处理? 退出要跳出哪一层?
+<span class="blue">:fa-lightbulb-o:</span> 提示: 哪种循环让菜单==反复出现==? 选项怎么分发? 退出跳出哪层?
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/task-menu-calculator.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-menu-calculator.c (骨架)</a>
 
@@ -707,7 +704,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 菜单计算器 (参考代码)
+##### 组合练习: 菜单计算器 (参考代码)
 
 ---
 
@@ -758,7 +755,7 @@ int main(void) {
 <!-- slide data-notes="" -->
 
 
-##### 练习: 成绩等级统计 (选做)
+##### 组合练习: 成绩等级统计 (选做)
 
 ---
 
@@ -789,7 +786,7 @@ A: 2  B: 1  C: 1  D: 1  F: 1
 <!-- slide data-notes="" -->
 
 
-##### 练习: 成绩等级统计 (参考代码)
+##### 组合练习: 成绩等级统计 (参考代码)
 
 ---
 

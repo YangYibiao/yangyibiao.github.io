@@ -34,6 +34,7 @@ presentation:
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
+<style>.reveal pre code{max-height:none!important}</style>
 
 # 智能程序设计（C语言）
 
@@ -239,138 +240,52 @@ int main(void) {
 
 ---<!-- slide data-notes="" -->
 
-
-##### for语句省略表达式 (省略1)
+##### for语句省略表达式 (省 1 / 省 3)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.7em;">
+<div style="flex:1.1;font-size:0.7em;">
 
 ==省略表达式 1==: 初始化挪到循环前
 
 ```C{.line-numbers}
-#include <stdio.h>
-int main(void) {
-    int n = 100, i = 1, sum = 0;
-    for (; i <= n; ++i) {
-        sum += i;
-    }
-    printf("1+...+%d = %d\n", n, sum);
-    return 0;
+int n = 100, i = 1, sum = 0;
+for (; i <= n; ++i) {
+    sum += i;
 }
+printf("1+...+%d = %d\n", n, sum);
+```
+
+==省略表达式 3==: 递增挪进循环体
+
+```C{.line-numbers}
+int n = 100, i = 1, sum = 0;
+for (; i <= n;) {
+    sum += i++;
+}
+printf("1+...+%d = %d\n", n, sum);
 ```
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.82em;line-height:1.55;">
 
-- 循环变量的初值==已经在前面算好了==, 表达式 1 的位置就空着 (分号照写)
+- 表达式 1 的初值==已经在前面算好==时, 位置空着; ==两个分号不能省==; 常见于初值来自前面计算结果的循环
+- 表达式 3 的递增==藏进循环体== (`sum += i++`); 风险: 循环体必须保证条件最终变假——==忘了递增就是死循环==
+- 省 1 又省 3 (`for (; i <= n;)`) 与 `while (i <= n)` 语义等价
+- 这种场合 ==while 更清晰、更推荐==——看到 `for (; …;)` 先想想是不是 while 更合适
 
-- 运行结果: `1+...+100 = 5050`
-
-- 常见于初值来自前面计算结果的循环
+<span class="blue">:fa-weixin:</span> 两版输出都是 `1+...+100 = 5050`
 
 </div>
 
 </div>
 
 ---
-
 
 <!-- slide data-notes="" -->
-
-
-##### for语句省略表达式 (省略3)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.7em;">
-
-==省略表达式 3==: 递增/递减写进循环体
-
-```C{.line-numbers}
-#include <stdio.h>
-int main(void) {
-    int n = 100, i, sum = 0;
-    for (i = 1; i <= n;) {
-        sum += i++;
-    }
-    printf("1+...+%d = %d\n", n, sum);
-    return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- 递增==挪进循环体== (藏在 `sum += i++` 里), 表达式 3 的位置空着
-
-- ==风险==: 循环体必须保证条件最终变假——忘了递增就是死循环
-
-- 运行结果: 同样 `1+...+100 = 5050`
-
-</div>
-
-</div>
-
----
-
-
-<!-- slide data-notes="" -->
-##### for语句省略表达式 (省1+3)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;font-size:0.62em;">
-
-==省 1 又省 3 的 for==: 两个分号之间只剩条件:
-
-```C{.line-numbers}
-#include <stdio.h>
-int main(void) {
-    int n = 100, i = 1, sum = 0;
-    for (; i <= n;) {
-        sum += i++;
-    }
-    printf("1+...+%d = %d\n", n, sum);
-    return 0;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.62em;">
-
-==等价 while 版==:
-
-```C{.line-numbers}
-#include <stdio.h>
-int main(void) {
-    int n = 100, i = 1, sum = 0;
-    while (i <= n) {
-        sum += i++;
-    }
-    printf("1+...+%d = %d\n", n, sum);
-    return 0;
-}
-```
-
-</div>
-
-</div>
-
-- 两版输出相同: `1+...+100 = 5050`——都省了初始化与递增, 语义完全等价
-
-- 这种场合 ==while 更清晰, 更推荐==——看到 `for (; …;)` 时想想是不是 while 更合适
-
----<!-- slide data-notes="" -->
 
 
 ##### for语句省略表达式 (全省: 省略2)
@@ -407,7 +322,7 @@ int main(void) {
 
 - 没有 `break`/`return`, 循环永远不停——==试试把 break 删掉再跑==, 用 ==Ctrl+C== 打断
 
-- `break` 下页细讲; 和 5-1 的 `while (1)` 是同类写法, 习惯用哪个都行
+- `break` 的用法已在 5-1 细讲; 和 `while (1)` 是同类写法, 习惯用哪个都行
 
 </div>
 
@@ -834,73 +749,37 @@ for (int i = 1; i <= n; i++) {
 
 <!-- slide data-notes="" -->
 
-
 ##### 算法案例: 素数判断
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#prime-merged pre code{font-size:17px!important;line-height:1.2!important}</style>
 
-<div style="flex:1;">
+<div style="font-size:0.72em;line-height:1.45;">
 
-==现场演示==: 输入一个整数, 判断它是不是素数 (只能被 1 和自己整除)
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
-
-样例:
-
-```
-输入一个数: 13
-13 是素数
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 检查 2 ~ n-1 里有没有约数; ==找到第一个约数就可以停了==——想一想用什么
+==现场演示==: 输入一个整数, 判断它是不是素数 (只能被 1 和自己整除); 样例: `13` → `13 是素数` <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="color:#268bd2;text-decoration:underline;">⚡ skeleton.c</a>
 
 </div>
 
-<div style="flex:1.1;">
+<div id="prime-merged" style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="top-2">
-  <img src="figs/prime.jpg" width=420px>
-</div>
+<div style="flex:1.15;font-size:0.6em;">
 
-</div>
-
-</div>
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 算法案例: 素数判断 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-```C
-/* primes.c: 判断 n 是否为素数 */
+```C{.line-numbers}
 #include <stdio.h>
-
 int main(void) {
     int n, d;
     printf("输入一个数: ");
     scanf("%d", &n);
-
     if (n < 2) {                  /* 0、1 和负数都不是素数 */
         printf("%d 不是素数\n", n);
         return 0;
     }
     for (d = 2; d < n; d++) {
         if (n % d == 0) {
-            break;        /* 找到约数, 提前退出 */
+            break;                /* 找到约数, 提前退出 */
         }
     }
-
     if (d < n) {
         printf("%d 不是素数\n", n);
     } else {
@@ -912,15 +791,18 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:0.85;font-size:0.78em;line-height:1.5;">
 
-- 循环两种退法: 找到约数 break (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
-
-- 改进: 只需检查到 $\sqrt{n}$——把循环条件改为 `d * d <= n` 即可 (不用 math.h); ==现场试写 sqrt 版==: `d <= sqrt(n)` 对比效果
+- 检查 2 ~ n-1 有没有约数; ==找到第一个约数就可以停==——用 `break` 提前退出
+- 循环两种退法: 找到约数 `break` (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
+- 改进: 只需检查到 $\sqrt{n}$——循环条件改为 `d * d <= n` (不用 math.h); ==现场试写== `d <= sqrt(n)` 对比效果
+- 别忘了 n < 2: 0、1 和负数都不是素数
 
 </div>
 
 </div>
+
+---
 
 <!-- slide data-notes="" -->##### 任务 4: 素数判断
 
@@ -1002,58 +884,21 @@ int main(void) {
 
 <!-- slide data-notes="" -->
 
-
 ##### 综合案例: 非完全平方数的和
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="font-size:0.72em;line-height:1.45;">
 
-<div style="flex:1;">
-
-==现场演示==: 输入 n, 计算 1~n 中所有==非完全平方数==的和 (完全平方数: 1、4、9、16、…)
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
-
-样例 (n = 10):
-
-```
-输入 n: 10
-非完全平方数之和 = 41
-```
-
-(1~10 的和 55, 减去完全平方数 1+4+9 = 41)
-
-<span class="blue">:fa-lightbulb-o:</span> 提示: 完全平方数怎么判断? 要跳过——用什么?
+==现场演示==: 输入 n, 计算 1~n 中所有==非完全平方数==的和 (完全平方数: 1、4、9、16、…); 样例 n=10 → `41` <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/5-if-for-array/code/skeleton.c" style="color:#268bd2;text-decoration:underline;">⚡ skeleton.c</a>
 
 </div>
-
-<div style="flex:1.1;">
-
-<div class="top-2">
-  <img src="figs/perfectSquare.gif" width=280px>
-</div>
-
-</div>
-
-</div>
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 综合案例: 非完全平方数的和 (参考代码)
-
----
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.1;font-size:0.6em;">
 
-```C
-/* perfectsquare.c: 1~n 中非完全平方数之和 */
+```C{.line-numbers}
 #include <stdio.h>
 #include <math.h>
 
@@ -1061,7 +906,6 @@ int main(void) {
     int n, sum = 0;
     printf("输入 n: ");
     scanf("%d", &n);
-
     for (int i = 1; i <= n; i++) {
         int r = (int) sqrt(i);
         if (r * r == i) {
@@ -1076,22 +920,30 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:0.9;font-size:0.8em;line-height:1.5;">
 
-- `r = (int) sqrt(i)` + `r * r == i`: 之前学的强制转换在这里兑现
-
-- `continue` 跳过完全平方数——==循环与数学库函数的第一次合作==
+- 枚举 1~n; `r = (int) sqrt(i)` 后 `r * r == i` 判断完全平方数——==强制转换在这里兑现==
+- `continue` 跳过完全平方数, 直接进入下一轮——==循环与数学库函数的第一次合作==
+- 样例 n=10: 1~10 的和 55, 减去 1+4+9 = 41
+- `continue` 只跳过本轮, 循环照常继续; 与 `break` 区分
 
 </div>
 
 </div>
-
-<!-- slide data-notes="" -->
-##### 课堂小测 1 (概念)
 
 ---
 
-看代码, 回答: 循环体执行了多少次?
+<!-- slide data-notes="" -->
+
+##### 课堂小测 1~2 (概念)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.72em;line-height:1.45;">
+
+**1. (概念)** 看代码, 回答: 循环体执行了多少次? 输出会是从几到几? 一共几个数?
 
 ```C
 int i;
@@ -1100,19 +952,11 @@ for (i = 0; i < n; i++) {
 }
 ```
 
-- 输出会是从几到几? 一共几个数?
+</div>
 
----
+<div style="flex:1;font-size:0.72em;line-height:1.45;">
 
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂小测 2 (概念)
-
----
-
-看代码, 回答: 这是什么循环? 怎么停下来?
+**2. (概念)** 看代码, 回答: 这是什么循环? 怎么停下来? `for(;;)` 省略的三个表达式分别默认什么?
 
 ```C
 for (;;) {
@@ -1124,58 +968,61 @@ for (;;) {
 }
 ```
 
-- `for(;;)` 省略的三个表达式分别默认什么?
+</div>
+
+</div>
 
 ---
-
 
 <!-- slide data-notes="" -->
-##### 课堂小测 3 (编码)
+
+##### 课堂小测 3~4 (编码)
 
 ---
 
-用 `for` 求 1+2+...+n
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-样例 (n = 100):
+<div style="flex:1;font-size:0.75em;line-height:1.45;">
 
-```
+**3. (编码)** 用 `for` 求 1+2+...+n; 样例 (n = 100):
+
+```text
 1+...+100 = 5050
 ```
 
-写完后编译运行验证
+写完后编译运行验证。
 
----
+</div>
 
+<div style="flex:1;font-size:0.75em;line-height:1.45;">
 
-<!-- slide data-notes="" -->
+**4. (编码)** 打印乘法口诀表: 第 i 行输出 i 个式子; 样例 (前 3 行):
 
-
-##### 课堂小测 4 (编码)
-
----
-
-打印乘法口诀表: 第 i 行输出 i 个式子
-
-样例 (前 3 行):
-
-```
+```text
 1×1=1
 1×2=2 2×2=4
 1×3=3 2×3=6 3×3=9
 ```
 
-写完后编译运行验证
+写完后编译运行验证。
+
+</div>
+
+</div>
 
 ---
 
 <!-- slide data-notes="" -->
 
-
-##### 课堂小测 5 (纠错)
+##### 课堂小测 5~6 (纠错)
 
 ---
 
-==找错==: 下面代码哪里错了?
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.75em;line-height:1.45;">
+
+**5. (纠错)** ==找错==: 下面代码哪里错了? 想想 `i` 的值怎么变化, 循环什么时候停?
 
 ```C
 int sum = 0;
@@ -1184,19 +1031,11 @@ for (i = 1; i <= n; i--) {
 }
 ```
 
-- 想想 `i` 的值怎么变化, 循环什么时候停?
+</div>
 
----
+<div style="flex:1;font-size:0.75em;line-height:1.45;">
 
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂小测 6 (纠错)
-
----
-
-==找错==: 想打印乘法口诀表, 下面代码哪里错了?
+**6. (纠错)** ==找错==: 想打印乘法口诀表, 下面代码哪里错了? 运行一下会看到什么? 和真正的口诀表差在哪?
 
 ```C
 for (int i = 1; i <= 9; i++) {
@@ -1206,14 +1045,23 @@ for (int i = 1; i <= 9; i++) {
 }
 ```
 
-- 运行一下会看到什么? 和真正的口诀表差在哪?
+</div>
 
----<!-- slide data-notes="" -->
-##### 课堂小测 7 (分析)
+</div>
 
 ---
 
-分析运行结果: 下面嵌套循环输出什么?
+<!-- slide data-notes="" -->
+
+##### 课堂小测 7~8 (分析)
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.75em;line-height:1.45;">
+
+**7. (分析)** 分析运行结果: 下面嵌套循环输出什么?
 
 ```C
 for (int i = 1; i <= 3; i++) {
@@ -1226,17 +1074,11 @@ for (int i = 1; i <= 3; i++) {
 }
 ```
 
----
+</div>
 
+<div style="flex:1;font-size:0.75em;line-height:1.45;">
 
-<!-- slide data-notes="" -->
-
-
-##### 课堂小测 8 (分析)
-
----
-
-分析运行结果: `count` 最后是多少?
+**8. (分析)** 分析运行结果: `count` 最后是多少?
 
 ```C
 int count = 0;
@@ -1248,8 +1090,11 @@ for (int i = 1; i <= 3; i++) {
 printf("%d\n", count);
 ```
 
----
+</div>
 
+</div>
+
+---
 
 <!-- slide data-notes="" -->
 
