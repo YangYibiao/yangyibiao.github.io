@@ -158,7 +158,7 @@ presentation:
 
 - 字符串: `strcpy` / `strcat` ==不检查长度==, 目标数组要够大; 比较用 `strcmp` 不是 `==`
 
-<svg viewBox="0 0 400 140" style="max-width:100%;height:140px;" role="img" aria-label="程序内存布局">
+<svg viewBox="0 0 400 140" width="800" height="280" style="max-width:100%;height:auto;display:block;margin:0 auto -8px;flex-shrink:0;" role="img" aria-label="程序内存布局">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="84" y="20" font-size="9" fill="#93a1a1" text-anchor="end">高地址</text>
     <text x="84" y="126" font-size="9" fill="#93a1a1" text-anchor="end">低地址</text>
