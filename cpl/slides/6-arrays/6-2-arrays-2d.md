@@ -180,14 +180,8 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;">
-
-==表格只是模型==: 内存里没有"行"——二维数组是==按行连续存放==的: 第 0 行存完, 紧跟着第 1 行, 依此类推
-
-<div style="text-align:center;margin-top:4px;">
-<svg viewBox="0 0 400 200" style="max-width:100%;height:195px;">
+<div style="text-align:center;margin:0;">
+<svg viewBox="0 0 400 200" style="width:100%;max-width:640px;height:auto;display:block;margin:0 auto;">
   <defs>
     <marker id="ar62b" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
       <path d="M0,0 L6,3 L0,6 Z" fill="#268bd2"/>
@@ -266,20 +260,27 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 </svg>
 </div>
 
----
+<div style="display:flex;align-items:flex-start;gap:24px;margin-top:2px;">
 
-这就是==行主序== (row-major): 有了它, 就知道 `a[i][j]` 在内存中的位置——后面的矩阵运算、指针都建立在这上面
+<div style="flex:1;font-size:0.6em;line-height:1.55;">
+
+- ==表格只是模型==: 内存里没有"行"——二维数组==按行连续存放==, 第 0 行存完紧跟第 1 行
+
+- 这就是==行主序== (row-major): 有了它就能算出 `a[i][j]` 在内存中的位置; 后面的矩阵运算、指针都建立在这上面
+
+- ==嵌套 for 循环==最适合处理多维数组——外层行, 内层列
+
+- 单位矩阵: `row == col` 放 1, 其余放 0
 
 </div>
 
-<div style="flex:1.15;font-size:0.6em;">
+<style>.rm62 pre code{font-size:16px!important;line-height:1.15!important}</style>
+<div class="rm62" style="flex:1.05;font-size:0.5em;">
 
 ```C{.line-numbers}
 #define N 10
-
 double ident[N][N];
 int row, col;
- 
 for (row = 0; row < N; row++) {
   for (col = 0; col < N; col++) {
     if (row == col) {
@@ -290,14 +291,6 @@ for (row = 0; row < N; row++) {
   }
 }
 ```
-
-嵌套 for 循环非常适合处理多维数组——==外层行, 内层列==
-
-单位矩阵: `row == col` 放 1, 其余放 0
-
-想只处理对角线以上? 改 `if` 的条件即可
-
-
 
 </div>
 
