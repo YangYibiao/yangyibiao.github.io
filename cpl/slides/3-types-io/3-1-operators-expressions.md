@@ -47,6 +47,8 @@ presentation:
 
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
+<style>.reveal table{margin:0.5rem auto}</style>
+
 
 
 <!-- slide data-notes="" -->
@@ -55,220 +57,129 @@ presentation:
 
 ---
 
-- 运算符
+- 运算符与算术运算
 
 - 优先级与结合性
 
+- 动手算一算
+
 - 位运算
-
-- 数学库函数
-
-- 赋值运算符
-
-- 自增和自减运算符
 
 - 案例: 计算 ISBN-13 书号校验位
 
----
+- 赋值运算符与复合赋值
 
-
-<!-- slide data-notes="" -->
-
-
-##### 运算符
-
----
-
-<span class="yellow">:fa-weixin:</span> C语言的特点在于更加强调==表达式的使用==
-
-==表达式==是由==变量==、==常量==和==运算符==所构成的
-
-C拥有丰富的运算符集合, 包括: 
-
-- 算术运算符
-- 关系运算符
-- 逻辑运算符
-- 赋值运算符
 - 自增和自减运算符
-- 其他运算符
+
+- 数学库函数
+
+- 课堂小测
 
 ---
+
 
 <!-- slide data-notes="" -->
 
 
-##### 算术运算符
-
----
-
-五个==二元==算术运算符 (两个操作数): `+` 加、`-` 减、`*` 乘、`/` 除、`%` 求余
-
-两个==一元==算术运算符 (一个操作数): `+` 一元加、`-` 一元减
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 一元算术运算符
-
----
-
-一元运算符只需要一个操作数: 
-
-```C
-i = +1;
-j = -i;
-```
-
-<span class="yellow">:fa-weixin:</span> 一元`+`运算符什么也不做, 它主要用于强调数字常数是正数
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 二元算术运算符
-
----
-
-==i % j==是i除以j时的余数
-
-- 二元算术运算符(%除外)允许使用整数或浮点操作数, 并允许混合
-
-- 当==int==和==float/double==操作数混合时, 结果的类型为==float/double==
-
-1. ==10 % 3==的值为1, 而==12 % 4==的值为0
-2. ==9 + 2.5== 的值为11.5, 而==6.7 / 2== 的值为3.35
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### `/`和`%`运算符
-
----
-
-`/`和`%`运算符使用需要特别注意: 
-
-- 当两个操作数都是整数时, `/`会==截断==结果: 值==1 / 2==是0, 而不是0.5
-
-- `%`运算符要求整数作为操作数; 任一操作数不是整数, 程序将无法编译
-
-- 使用==零==作为`/`或`%`的==右操作数==会导致未定义的行为
-
-- `/`和`%`与负操作数一起使用时的行为在C89中由实现定义
-
-<div style="text-align:center;">
-
-<svg viewBox="0 0 400 175" style="max-width:100%;height:175px;">
-<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-  <rect x="14" y="18" width="152" height="42" rx="10" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
-  <rect x="14" y="64" width="152" height="42" rx="10" fill="#dceaf5" stroke="#268bd2" stroke-width="2"/>
-  <rect x="14" y="110" width="42" height="38" rx="10" fill="#fdf6e3" stroke="#b58900" stroke-width="2" stroke-dasharray="6 4"/>
-
-  <circle cx="34" cy="39" r="9" fill="#268bd2"/>
-  <circle cx="70" cy="39" r="9" fill="#268bd2"/>
-  <circle cx="106" cy="39" r="9" fill="#268bd2"/>
-  <circle cx="142" cy="39" r="9" fill="#268bd2"/>
-  <circle cx="34" cy="85" r="9" fill="#268bd2"/>
-  <circle cx="70" cy="85" r="9" fill="#268bd2"/>
-  <circle cx="106" cy="85" r="9" fill="#268bd2"/>
-  <circle cx="142" cy="85" r="9" fill="#268bd2"/>
-  <circle cx="34" cy="129" r="9" fill="#b58900"/>
-
-  <text x="200" y="48" font-size="21" fill="#268bd2">9 / 4 = 2</text>
-  <text x="200" y="66" font-size="11" fill="#586e75">商: 能分成几组</text>
-  <text x="200" y="104" font-size="21" fill="#b58900">9 % 4 = 1</text>
-  <text x="200" y="122" font-size="11" fill="#586e75">余数: 剩下几个</text>
-
-  <text x="14" y="166" font-size="11.5" fill="#dc322f">两个操作数都是整数: / 丢掉小数, 1 / 2 = 0</text>
-</g>
-</svg>
-
-</div>
-
-<span class="yellow">:fa-weixin:</span> C99中, 除法结果总是向零截断, 并且==i % j==的值与==i==有相同符号
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 由实现定义的行为
-
----
-
-<span class="yellow">:fa-weixin:</span> C标准故意不指定语言的某些部分
-
-- 未指定部分是因为C语言更强调==效率==, 常常意味着与硬件行为相匹配
-
-<span class="blue">:fa-weixin:</span> 避免编写依赖于由具体实现所定义的行为的程序
-
----
-
-<!-- slide data-notes="" -->##### 运算符优先级
+##### 运算符与算术运算
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;">
+<div style="flex:1.02;font-size:0.82em;line-height:1.5;">
 
-`i + j * k` 是先加再乘, 还是先乘再加? 加括号可以消歧; 省略括号时, C 用==运算符优先级==规则来确定含义
+<span class="yellow">:fa-weixin:</span> C语言的特点在于更加强调==表达式的使用==: ==表达式==由==变量==、==常量==和==运算符==构成
 
-==算术运算符== 的优先级:
-
-- 最高: `+ -` (一元)
-
-- 其次: `* / %` (二元)
-
-- 最低: `+ -` (二元)
-
-示例:
-
-</div>
-
-<div style="flex:1;">
+C 的运算符包括: ==算术==、==关系==、==逻辑==、==赋值==、==自增和自减==及其他运算符
 
 <div class="fullborder">
-| `i + j * k`  | 等价于  | `i + (j * k)`    |
-| :--          | :--    | :--              |
-| `-i * -j`    | 等价于  | `(-i) * (-j)`    |
-| `+i + j / k` | 等价于  | `(+i) + (j / k)` |
-</div>
+
+| 分类 | 运算符 | 说明 |
+| :-- | :-- | :-- |
+| 一元 (1 个操作数) | `+` `-` | 一元 `+` 什么也不做, 主要用于强调正数 |
+| 二元 (2 个操作数) | `+ - * / %` | 加、减、乘、除、求余 |
 
 </div>
 
+- 二元运算符 (`%` 除外) 允许整数或浮点操作数, 也允许==混合==; `int` 与 `float/double` 混合时, 结果的类型为 `float/double`
+
+- 例: `9 + 2.5` 得 ==11.5==, `6.7 / 2` 得 ==3.35==
+
 </div>
 
-<!-- slide data-notes="" -->
+<div style="flex:1;font-size:0.82em;line-height:1.5;">
 
+==`/` 与 `%` 的要点==
 
-##### 运算符结合性
+- 两个操作数都是整数时, `/` 求商并==截断==小数: `1 / 2` 得 ==0==, `10 / 3` 得 ==3==
+
+- `%` 求==余数==, 要求两个操作数都是整数, 否则==无法编译==: `10 % 3` 得 ==1==, `12 % 4` 得 ==0==
+
+- 使用==零==作为 `/` 或 `%` 的右操作数会导致==未定义行为==
+
+<span class="yellow">:fa-weixin:</span> C99 起, 除法结果总是==向零截断==, 且 `i % j` 的值与 `i` 有相同符号: `-10 / 3` 得 ==-3==, `-10 % 3` 得 ==-1==
+
+<span class="blue">:fa-weixin:</span> ==由实现定义的行为==: C 标准故意不指定语言的某些部分 (为了==效率==, 常常意味着与硬件行为匹配), 例如 C89 中负数 `/`、`%` 的结果; 避免编写依赖具体实现的程序
+
+</div>
+
+</div>
 
 ---
 
-表达式有多个相同优先级操作符, 考虑运算符的结合性
+<!-- slide data-notes="" -->##### 优先级与结合性
 
-如果运算符从左到右结合的, 则称它为==左结合运算符==
+---
 
-二元算术运算符`*`, `/`, `%`, `+`, `-`都是==左结合==的:
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.84em;line-height:1.5;">
+
+`i + j * k` 是先加再乘, 还是先乘再加? 加括号可以消歧; 省略括号时, C 用==运算符优先级==规则来确定含义
+
+==算术运算符== 的优先级 (高 → 低):
+
+1. 一元 `+` `-`
+
+2. 二元 `*` `/` `%`
+
+3. 二元 `+` `-`
 
 <div class="fullborder">
 
-| `i - j – k` | 等价于 | `(i - j) - k` |
-| :--         | :--   | :--           |
-| `i * j / k` | 等价于 | `(i * j) / k` |
+| 表达式 | 等价于 |
+| :-- | :-- |
+| `i + j * k` | `i + (j * k)` |
+| `-i * -j` | `(-i) * (-j)` |
+| `+i + j / k` | `(+i) + (j / k)` |
 
 </div>
 
-如果运算符从右向左结合, 则它是右结合的运算符
+</div>
 
-一元算术运算符(`+`和`-`)都是右结合的: 
+<div style="flex:1;font-size:0.84em;line-height:1.5;">
 
-`-+i`等价于`-(+i)`
+==结合性==: 多个==同优先级==运算符相邻时, 决定先算哪一边
+
+- ==左结合==: 从左往右算, 二元 `*` `/` `%` `+` `-` 都是左结合
+
+<div class="fullborder">
+
+| 表达式 | 等价于 |
+| :-- | :-- |
+| `i - j - k` | `(i - j) - k` |
+| `i * j / k` | `(i * j) / k` |
+
+</div>
+
+- ==右结合==: 从右往左算, 一元 `+` `-` 是右结合: `-+i` 等价于 `-(+i)`
+
+<span class="blue">:fa-lightbulb-o:</span> 本课先记住: ==算术优先于关系, 关系优先于相等==; 拿不准时==加括号==, 意图最清楚
+
+</div>
+
+</div>
 
 ---
 
@@ -376,44 +287,30 @@ int main(void) {
 
 ---
 
+<div style="font-size:0.86em;line-height:1.45;">
+
 先自己心算下面表达式的值——不用编译器, 想清楚:
-
-<div style="font-size:1.05em;">
-
-1. `10 + 20 % 7 * 3`
-
-2. `2 + 3 * 4 / 2 % 3`
-
-3. `-10 / 3`
-
-4. `(10 + 4) / (3 + 1)`
-
-5. `9 - 3 / 2 + 1`
-
-6. `-5 - -3`
-
-7. `-5 + 6 * 4 % 5`
-
-8. `10 - 4 % 3`
 
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 每题问自己两个问题: ==先算谁==? (优先级) 同级的==从左还是从右==? (结合性) 两个 ==-== 挨着是什么意思? (一元负号)
+<div id="p8q" class="fullborder">
 
----
+| 表达式 | 表达式 |
+| :-- | :-- |
+| 1. `10 + 20 % 7 * 3` | 5. `9 - 3 / 2 + 1` |
+| 2. `2 + 3 * 4 / 2 % 3` | 6. `-5 - -3` |
+| 3. `-10 / 3` | 7. `-5 + 6 * 4 % 5` |
+| 4. `(10 + 4) / (3 + 1)` | 8. `10 - 4 % 3` |
 
-<!-- slide data-notes="" -->
+</div>
 
+<span class="blue">:fa-lightbulb-o:</span> 每题问自己两个问题: ==先算谁==? (优先级) 同级的==从左还是从右==? (结合性) 两个 `-` 挨着是什么意思? (一元负号)
 
-##### 动手算一算: 答案
+<details style="font-size:0.8em;margin-top:4px;">
 
----
+<summary style="cursor:pointer;color:#268bd2;">参考答案 (点击展开)</summary>
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.72em;">
-
-<div class="fullborder">
+<div id="p8a" class="fullborder">
 
 | 表达式 | 值 | 为什么 |
 | :-- | :-- | :-- |
@@ -428,47 +325,37 @@ int main(void) {
 
 </div>
 
-</div>
+</details>
 
-<div style="flex:1;">
-
-- 第 1、8 题: ==优先级==——`%` 高于 `+ -`
-
-- 第 2 题: ==结合性==——同级长链全部从左往右
-
-- 第 3、4、5 题: ==截断三连==——负数向零、括号救不了、中间截断
-
-- 第 6、7 题: ==一元负号==——`-3` 是一个数, 不是减号
-
-- 拿不准就==加括号==, 或拆成==多行==——程序是给人读的
-
-</div>
-
-</div>
+<style>#p8q table,#p8a table{margin:0.2rem auto}#p8q table{width:86%}#p8a table{width:97%}#p8q td,#p8a td,#p8a th{padding:0.08rem 0.45rem;font-size:1.0rem;line-height:1.2}</style>
 
 ---
 
 <!-- slide data-notes="" -->
 
 
-##### 位运算: 按位逻辑
+##### 位运算
 
 ---
 
-- 整数在内存里是==二进制==; ==位运算==逐位操作, 把 int 当成 32 根小开关
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="fullborder">
+<div style="flex:1.08;font-size:0.8em;line-height:1.45;">
 
-| 运算符 | 含义 | 示例 (12 = `1100`, 10 = `1010`) | 结果 |
-| :-- | :-- | :-- | :-- |
-| `&` | 按位与: 都是 1 才为 1 | `12 & 10` = `1000` | `8` |
-| `|` | 按位或: 有 1 就为 1 | `12 | 10` = `1110` | `14` |
-| `^` | 按位异或: 不同才为 1 | `12 ^ 10` = `0110` | `6` |
-| `~` | 按位取反: 0 变 1, 1 变 0 | `~12` (32 位) | `-13` (补码) |
+- 整数在内存里是==二进制==; ==位运算==逐位操作, 把 `int` 当成 32 根小开关
+
+<div id="p9" class="fullborder">
+
+| 运算符 | 含义 | 示例 (12 = `1100`, 10 = `1010`) |
+| :-- | :-- | :-- |
+| `&` | 按位与: 都是 1 才为 1 | `12 & 10 = 8` (`1000`) |
+| `|` | 按位或: 有 1 就为 1 | `12 | 10 = 14` (`1110`) |
+| `^` | 按位异或: 不同才为 1 | `12 ^ 10 = 6` (`0110`) |
+| `~` | 按位取反: 0 变 1, 1 变 0 | `~12 = -13` (补码) |
 
 </div>
 
-手算: 两个数==对齐写成二进制==, 竖着一列一列算 (注意 `&`/`|` 是一个符号, 别和 `&&`/`||` 搞混):
+手算: 两个数==对齐写成二进制==, 竖着一列一列算 (`&`/`|` 是一个符号, 别和 `&&`/`||` 搞混):
 
 ```
     1100   (12)
@@ -476,24 +363,19 @@ int main(void) {
     1000   (8)
 ```
 
----
+</div>
 
-<!-- slide data-notes="" -->
+<div style="flex:1;font-size:0.8em;line-height:1.45;">
 
+==移位==: `<<` 左移, `>>` 右移; 所有位整体挪动, 空出来的位置==补 0==
 
-##### 位运算: 移位
+<div id="p9b" class="fullborder">
 
----
-
-`<<` 左移, `>>` 右移: 所有位整体挪动, 空出来的位置==补 0==
-
-<div class="fullborder">
-
-| 表达式 | 二进制过程 | 结果 | 规律 |
-| :-- | :-- | :-- | :-- |
-| `12 << 2` | `1100` → `110000` | `48` | ==乘 4== ($2^2$) |
-| `12 >> 2` | `1100` → `11` | `3` | ==整除 4== ($2^2$) |
-| `1 << 4` | `1` → `10000` | `16` | 第 4 位亮起 |
+| 表达式 | 结果 | 规律 |
+| :-- | :-- | :-- |
+| `12 << 2` | `48` | ==乘 4== ($2^2$), `1100` → `110000` |
+| `12 >> 2` | `3` | ==整除 4== ($2^2$), `1100` → `11` |
+| `1 << 4` | `16` | 第 4 位亮起 |
 
 </div>
 
@@ -502,6 +384,12 @@ int main(void) {
 - 用途举例: `n & 1` 判奇偶 (结果是 1 就是奇数); `n << 1` 是乘 2 的快捷写法
 
 <span class="blue">:fa-lightbulb-o:</span> 了解即可——知道"位运算在动二进制"就够了, 后面复合赋值会用到它们的缩写
+
+</div>
+
+</div>
+
+<style>#p9 table,#p9b table{table-layout:auto;width:92%}#p9 td,#p9 th,#p9b td,#p9b th{padding:0.12rem 0.5rem;font-size:1.05rem;line-height:1.25}#p9 th:first-child,#p9 td:first-child{white-space:nowrap}#p9 table{margin:0.3rem auto}#p9b table{margin:0.3rem auto}</style>
 
 ---
 
@@ -644,9 +532,13 @@ int main(void)
 
 ---
 
-- ==简单赋值==: 把值存进变量 (`=`); ==复合赋值==: 更新已有变量的值 (`+=`)
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-`v = e`先评估表达式`e`的值 (可以是常量、变量或更复杂的表达式), 然后将值复制到`v`中: 
+<div style="flex:1.1;font-size:0.78em;line-height:1.42;">
+
+==简单赋值==把值存进变量 (`=`); ==复合赋值==更新已有变量的值 (`+=`)
+
+`v = e`: 先评估表达式 `e` 的值 (可以是常量、变量或更复杂的表达式), 然后将值复制到 `v` 中: 
 
 ```C{.line-numbers}
 i = 5;            /* i is now 5  */
@@ -656,7 +548,7 @@ k = 10 * i + j;   /* k is now 55 */
 
 如果 ==`v`== 和 ==`e`== 的类型不同, 在赋值时 ==`e`== 的值将转换为 ==`v`== 的类型: 
 
-<div style="font-size:0.8em;">
+<div style="font-size:0.85em;">
 
 ```C
 int i;
@@ -668,32 +560,27 @@ f = 136;      /* f is now 136.0 */
 
 </div>
 
----
+</div>
 
-<!-- slide data-notes="" -->
+<div style="flex:1;font-size:0.78em;line-height:1.42;">
 
+在许多编程语言中, 赋值是一个语句; 而在 ==C== 中, 赋值操作的结果类似运算符, 就像 `+` 一样
 
-##### 简单赋值
-
----
-
-在许多编程语言中, 赋值是一个语句; 而在 ==`C`== 中, 赋值操作的结果类似运算符, 就像运算符 ==`+`== 一样
-
-赋值表达式 ==`v = e`== 的值是赋值后 ==`v`== 的值
+==赋值表达式 `v = e` 的值是赋值后 `v` 的值==
 
 - 表达式 `i = 72.99f` 的值是 ==72==, 而不是 ==72.99==
 
-<span class="yellow">:fa-weixin:</span> 由于 ==赋值== 是一个运算符, 因此可以将多个赋值链接在一起: `i = j = 50 + 3;`
+由于赋值是运算符, 可以将多个赋值链接在一起; ==`=` 是右结合的==
 
 ```C{.line-numbers}
-i = j = k = 0;
+i = j = k = 0;      /* 等价于 i = (j = (k = 0)); */
 ```
 
-==`=`== 运算符是右结合的, 所以这个赋值等价于
+<span class="yellow">:fa-weixin:</span> C 中==任何表达式都可以用作语句==, 其值被丢弃, 只有==副作用==有意义: `i--;` 有用, `i * j - 1;` 没用; 把 `i = j;` 误写成 `i + j;` 会得到一条==什么都不做==的表达式语句
 
-```C{.line-numbers}
-i = (j = (k = 0));
-```
+</div>
+
+</div>
 
 ---
 
@@ -706,11 +593,9 @@ i = (j = (k = 0));
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;">
+<div style="flex:1.05;font-size:0.77em;line-height:1.38;">
 
-使用变量的旧值来计算其新值的赋值很常见
-
-例如: `i = i + 2;`
+使用变量的旧值来计算其新值的赋值很常见, 例如: `i = i + 2;`
 
 使用 ==`+=`== 复合赋值运算符, 可改写为: 
 
@@ -718,55 +603,31 @@ i = (j = (k = 0));
 i += 2;   /* same as i = i + 2; */
 ```
 
-还有其他九个复合赋值运算符, 包括: ==`-= *= /= %=`== 和==位运算的复合形式==(`^= &= >>= <<= |=`), 如 `i &= j` 等价于 `i = i & j`
-
-</div>
-
-<div style="flex:1.1;">
+还有其他九个复合赋值运算符: ==`-=` `*=` `/=` `%=`== 和==位运算的复合形式== (`^=` `&=` `>>=` `<<=` `|=`), 如 `i &= j` 等价于 `i = i & j`
 
 <div class="fullborder">
 
-| v += e | 将v加e, 将结果存储在v中         |
-| :--    | :--                          |
-| v -= e | 将v减e, 将结果存储在v中         |
-| v *= e | 将v乘以e, 将结果存储在v中        |
-| v /= e | 将v除以e, 将结果存储在v中        |
-| v %= e | 计算v除以e的余数, 将结果存储在v中 |
+| 写法 | 含义 |
+| :-- | :-- |
+| `v += e` | 将 v 加 e, 将结果存储在 v 中 |
+| `v -= e` | 将 v 减 e, 将结果存储在 v 中 |
+| `v *= e` | 将 v 乘以 e, 将结果存储在 v 中 |
+| `v /= e` | 将 v 除以 e, 将结果存储在 v 中 |
+| `v %= e` | 计算 v 除以 e 的余数, 将结果存储在 v 中 |
 
 </div>
 
 </div>
 
-</div>
+<div style="flex:1;font-size:0.77em;line-height:1.38;">
 
----
+`v += e` 与 `v = v + e` 可能==不等价==
 
-<!-- slide data-notes="" -->
-
-
-##### 复合赋值
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.25;">
-
-`v += e`与`v = v + e`可能==不等价==
-
-- 一是运算符优先级:  
-
-`i *= j + k` 与 `i = i * j + k` 不等价
+- ==运算符优先级==: `i *= j + k` 等价于 `i = i * (j + k)`, 与 `i = i * j + k` 不等价
 
 - 复合运算符的左边必须是==可修改的左值==; `++i`、`i++` 都不是左值, `++i += e` 这类写法==非法==, 编译直接报错
 
-</div>
-
-<div style="flex:1;">
-
-<span class="blue">:fa-lightbulb-o:</span> 使用复合赋值运算符时, 不要交换构成复合运算符的两个字符
-
-虽然`i =+ j`能编译通过, 但意义不同, 它相当于 `i = (+j)`, 它只是将`j`的值复制到`i`中
+<span class="blue">:fa-lightbulb-o:</span> 不要交换复合运算符的两个字符: `i =+ j` 能编译, 但相当于 `i = (+j)`, 只把 `j` 的值复制到 `i`
 
 </div>
 
@@ -783,83 +644,34 @@ i += 2;   /* same as i = i + 2; */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;">
+<div style="flex:1.12;font-size:0.77em;line-height:1.42;">
 
-对变量最常见的两种操作是 ==自增==(加 `1`)和 ==自减==(减 `1`)
+对变量最常见的两种操作是 ==自增== (加 `1`) 和 ==自减== (减 `1`); C 特别提供了 `++` 和 `--`
 
-可以使用复合赋值运算符进行自增和自减
+- `++` 将操作数加 1; `--` 将操作数减 1
 
-C 特别提供了 `++` 自增 和 `-–` 自减 运算符
+- 有==前缀==运算符 (`++i`、`--i`) 与==后缀==运算符 (`i++`、`i--`)
 
-- ==`++`== 运算符将操作数加1
+- `i = i + 1;` 可写成 `i += 1;`, 最常用 `++i;`
 
-- ==`--`== 运算符将操作数减1
+<div class="fullborder">
 
-- 有前缀运算符(`++i`和`–-i`)或后缀运算符(`i++`和`i--`)
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
-
-```C{.line-numbers}
-i = i + 1;
-j = j - 1;
-```
-
-```C{.line-numbers}
-i += 1;
-j -= 1;
-```
+| 表达式 (执行前 `i = 1`) | 表达式的值 | 执行后 `i` |
+| :-- | :-- | :-- |
+| `++i` | ==2== | 2 |
+| `i++` | ==1== (旧值) | 2 |
+| `--i` | ==0== | 0 |
+| `i--` | ==1== (旧值) | 0 |
 
 </div>
 
-</div>
+- 前缀: ==先加/减, 再使用新值==; 后缀: ==先使用旧值, 再加/减==
 
----
-
-<!-- slide data-notes="" -->
-
-
-##### 自增和自减运算符
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.7em;">
-
-```C{.line-numbers}
-i = 1;
-printf("i is %d\n", ++i);   /* prints "i is 2" */
-printf("i is %d\n", i);     /* prints "i is 2" */
-```
-
-```C{.line-numbers}
-i = 1;
-printf("i is %d\n", i++);   /* prints "i is 1" */
-printf("i is %d\n", i);     /* prints "i is 2" */
-```
-
-```C{.line-numbers}
-i = 1;
-printf("i is %d\n", --i);   /* prints "i is 0" */
-printf("i is %d\n", i);     /* prints "i is 0" */
-i = 1;
-printf("i is %d\n", i--);   /* prints "i is 1" */
-printf("i is %d\n", i);     /* prints "i is 0" */
-```
+- 单独成句时 (`i++;`), 表达式的值被丢弃, 两种写法效果相同; ==区别只在"表达式的值"==
 
 </div>
 
-<div style="flex:1;">
-
-评估表达式`++i` (前缀自增) 的结果是`i + 1`, 副作用是`i`自增`1`:
-
-评估表达式`i++` (后缀自增) 的结果是`i`, 副作用是`i`随后自增`1`:
-
-==`++i`表示立即自增i, 而`i++`表示暂时使用i的旧值, 稍后再自增i==
-
-`--`运算符与`++`运算符相似:
+<div style="flex:1;font-size:0.77em;line-height:1.42;">
 
 <div style="text-align:center;">
 
@@ -902,58 +714,15 @@ printf("i is %d\n", i);     /* prints "i is 0" */
 
 </div>
 
-</div>
+- 多个 `++`/`--` 混在同一个表达式中, 结果通常很难理解: `i=1, j=2` 时, `k = ++i + j++` 得 `k=4`, 而 `k = i++ + j++` 得 `k=3`
+
+- ⚠ ==未定义行为==: 在同一个表达式里既修改又读取同一变量 (如 `printf("%d %d", i++, i)`), 求值顺序未定义, 输出因编译器而异——==永远不要这么写==; 实际编程中尽量==分行写==
 
 </div>
 
-<!-- slide data-notes="" -->
-
-
-##### 自增和自减运算符
+</div>
 
 ---
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.72em;">
-
-```C{.line-numbers}
-i = 1;
-j = 2;
-k = ++i + j++;
-```
-
-```C{.line-numbers}
-i = i + 1;
-k = i + j;
-j = j + 1;
-```
-
-```C{.line-numbers}
-i = 1;
-j = 2;
-k = i++ + j++;
-```
-
-</div>
-
-<div style="flex:1;">
-
-当`++`或`--`在同一个表达式中多次使用时, 结果通常很难理解, 如:
-
-最后一条语句等价于:
-
-i, j和k的最终值分别为 2, 3和4.
-
-相反, 执行语句
-
-`i`、`j`和`k`的值最终为`2`、`3`和`3`
-
-<span class="blue">:fa-lightbulb-o:</span> 多个`++`/`--`混用容易写错, 实际编程中尽量==分行写==
-
-</div>
-
-</div>
 
 <!-- slide data-notes="" -->##### 任务 2: 自增自减追踪
 ---
@@ -1021,84 +790,34 @@ int main(void)
 
 ---
 
-
-<!-- slide data-notes="" -->
-
-
-##### 表达式语句
+<!-- slide data-notes="" -->##### 数学库函数
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;">
-
-C 有一个不寻常的规则, 即任何表达式都可以用作语句
-
-例如 `++i;`: i首先递增, 然后获取i的新值, 然后丢弃
-
-由于它的值被丢弃了, 除非表达式有副作用, 否则将表达式用作语句几乎没有意义
-
-一个无意的编码错误很容易会创建一个 ==什么都不做== 的表达式语句, 如 `i = j;` 误编写为 `i + j;`
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
-
-```C
-++i;
-```
-
-```C
-i = 1;     /* useful */
-i--;       /* useful */
-i * j - 1; /* not useful */
-```
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 数学库函数
-
----
+<div style="flex:1.05;font-size:0.8em;line-height:1.45;">
 
 `+ - * / %` 就这么多, 要==开方、幂、对数、三角==? 调用 C 的==数学库函数==: 先 `#include <math.h>`
 
-<div class="fullborder">
+<div id="p19" class="fullborder">
 
-| 函数                     | 含义                      |
-| :--                      | :--                       |
-| `fabs(x)`                | 浮点数绝对值 (math.h)       |
-| `sqrt(x)`                | x 的平方根                 |
-| `pow(x, y)`              | x 的 y 次方                |
-| `exp(x)` / `log(x)`      | e 的 x 次方 / 自然对数      |
-| `log10(x)`               | 常用对数                   |
+| 函数 | 含义 |
+| :-- | :-- |
+| `fabs(x)` | 浮点数绝对值 |
+| `sqrt(x)` | x 的平方根 |
+| `pow(x, y)` | x 的 y 次方 |
+| `exp(x)` / `log(x)` | e 的 x 次方 / 自然对数 |
+| `log10(x)` | 常用对数 |
 | `sin(x)` / `cos(x)` / `tan(x)` | 三角函数 (x 为==弧度==) |
 
 </div>
 
 - 返回值都是 ==double==, 打印用 `%f` (整数绝对值 `abs(x)` 不同: 它在 `<stdlib.h>` 中声明, 返回 `int`)
 
-- 下一页: 动手用一用
+</div>
 
----
-
-<!-- slide data-notes="" -->
-
-
-##### 数学库函数: 使用
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.15;font-size:0.72em;">
+<div id="p19c" style="flex:1;font-size:0.62em;line-height:1.38;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -1115,10 +834,6 @@ int main(void) {
 }
 ```
 
-</div>
-
-<div style="flex:1;font-size:0.8em;">
-
 运行结果: 
 
 ```
@@ -1129,15 +844,13 @@ sqrt(2) = 1.414
 pow(2, 0.5) = 1.414
 ```
 
-- 函数调用是==表达式==: `sqrt(9.0)` 可以直接放进 `printf` 里算
-
-- `pow(2, 0.5)` 就是 $\sqrt{2}$——==0.5 次方 = 开方==
-
-- 返回 double 用 `%f` 打印; 控制小数位用 `%.3f`
+- 函数调用是==表达式==: `sqrt(9.0)` 可以直接放进 `printf` 里算; `pow(2, 0.5)` 就是 $\sqrt{2}$ (==0.5 次方 = 开方==); 控制小数位用 `%.3f`
 
 </div>
 
 </div>
+
+<style>#p19 table{margin:0.2rem auto}#p19 td,#p19 th{padding:0.1rem 0.5rem;font-size:1.0rem;line-height:1.22}#p19c pre{font-size:0.95rem!important;line-height:1.28!important;margin:0.3rem 0}#p19c pre code{font-size:0.95rem!important;line-height:1.28!important}</style>
 
 ---
 

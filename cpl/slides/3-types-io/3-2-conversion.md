@@ -29,8 +29,6 @@ presentation:
 @import "../../js/anychart/pastel.min.js"
 @import "../../js/anychart/venn-ml.js"
 
-
-
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
@@ -47,41 +45,37 @@ presentation:
 
 #### [yangyibiao@nju.edu.cn](mailto:yangyibiao@nju.edu.cn)
 
-
-
 <!-- slide data-notes="" -->
 
 ##### 提纲
 
 ---
 
-- 表达式求值
+<div style="font-size:0.9em;line-height:1.9;">
 
-- 副作用与左值
+- 表达式求值: 优先级与结合性
 
-- 类型转换
+- 求值顺序、副作用与左值
 
-- 编码实践
+- 类型转换: 隐式与强制
 
-- 演示、习题与小测
+- 演示与任务 4: %f 与转换实验
 
----
+- 编码实践: 四舍五入、数字拆分、时间换算
 
+- 课堂习题与小测
+
+</div>
 
 <!-- slide data-notes="" -->
 
-
-##### 表达式求值
+##### 表达式求值: 优先级与结合性
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>.reveal h5 { margin-bottom: 0.25rem !important; } .reveal pre[class*=language-] { padding: 0.5em 1em !important; } .reveal .prio table { margin: 0.4rem auto !important; } .reveal .prio table th, .reveal .prio table td { font-size: 14pt !important; padding: 0.03em 0.45em !important; }</style>
 
-<div style="flex:1.3;font-size:0.55em;">
-
-到目前为止所涉及的运算符: 
-
-<div class="threelines head-highlight-1 tr-hover">
+<div class="prio">
 
 | 优先级 | 名称       | 符号                           | 结合性 |
 | :--   | :--       | :--                            | :--   |
@@ -97,199 +91,105 @@ presentation:
 
 </div>
 
-</div>
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.62em;line-height:1.65;">
 
-- 单目运算符 (1、2 级) 高于双目算术; 位运算分三层 (5 移位、6-8 按位逻辑), 都在算术之下; 赋值 (9 级) 最低
+- 单目 (1、2 级) 高于双目算术; 移位 (5 级) 与按位与/异或/或 (6-8 级) 都在算术之下; 赋值 (9 级) 最低
 
-- 结合性: 后缀 `++`/`--` 左结合; 前缀、一元 `+`/`-`/`~`、赋值是右结合; 其余左结合
+- 后缀 `++`/`--` 左结合; 前缀、一元 `+`/`-`/`~`、赋值右结合
 
-- 为什么后缀 `++` 高于前缀? 语法里==后缀层贴着操作数==: `-x++` 是 `-(x++)`; 若反过来, `(-x)++` 是对非左值自增, 直接报错
+- 后缀紧贴操作数: `-x++` 是 `-(x++)`; 若反过来, `(-x)++` 对非左值自增, 直接报错
 
-
-<span class="blue">:fa-lightbulb-o:</span> 优先级表可用于给缺少括号的表达式==加括号== (下一页演示)。==拿不准就加括号==, 永远不会错
-
-</div>
+- 给缺少括号的表达式==按优先级逐层加括号== (右例); 拿不准就加括号, 永远不会错
 
 </div>
 
----
+<div style="flex:1.15;font-size:0.58em;">
+
+```C
+a = b += c++ - d + --e / -f
+a = b += (c++) - d + --e / -f
+a = b += (c++) - d + (--e) / (-f)
+a = b += (c++) - d + ((--e) / (-f))
+a = b += (((c++) - d) + ((--e) / (-f)))
+(a = (b += (((c++) - d) + ((--e) / (-f)))))
+```
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
-
-##### 表达式求值
-
----
-
-例子: 
-
-<div class="fullborder">
-
-| `a = b += c++ - d + --e / -f`                 | 排序   |
-| :--                                           | :--   |
-| `a = b += (c++) - d + --e / -f`               | `1`   |
-| `a = b += (c++) - d + (--e) / (-f)`           | `2`   |
-| `a = b += (c++) - d + ((--e) / (-f))`         | `3`   |
-| `a = b += (((c++) - d) + ((--e) / (-f)))`     | `4`   |
-| `(a = (b += (((c++) - d) + ((--e) / (-f)))))` | `5`   |
-
-</div>
-
-- 顺序: 后缀 `++` → 前缀/一元 → 乘除 → 加减 → 赋值 (右结合, 最后整体加)
-
-
+##### 求值顺序、副作用与左值
 
 ---
 
-<!-- slide data-notes="" -->##### 子表达式求值顺序与未定义行为
-
----
+<div style="font-size:0.72em;line-height:1.6;">
 
 表达式的值可能取决于==子表达式的计算顺序==——C 没有定义这个先后 (逻辑与或、条件、逗号运算符除外)
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+</div>
 
-<div style="flex:1.1;font-size:0.75em;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;">
 
-```C{.line-numbers}
+<div style="flex:1.1;">
+
+```C
 a = 5;
-c = (b = a + 2) - (a = 1); /* c 是几? */
+c = (b = a + 2) - (a = 1);   /* c 是几? */
 ```
 
-```C{.line-numbers}
+```C
 i = 2;
-j = i * i++;               /* j 是 4 还是 6? */
+j = i * i++;                 /* j 是 4 还是 6? */
 ```
+
+- 同一表达式里==既读又改==同一变量, 产生==未定义行为==: 结果随编译器、优化级别不同
+
+- 后果可能是: 结果不同 / 崩溃 / =="看起来正常"==——第三种最危险, 换个环境就可能出错
+
+- 规避: ==拆成多条语句==, 每句只做一件事; `b = a + 2; a = 1; c = b - a;` 中 `c` 确定是 `6`
 
 </div>
 
 <div style="flex:1;">
 
-- 同一表达式里==既读又改==同一变量, 产生==未定义的行为==: 结果随编译器不同而不同
+==副作用==: 修改操作数的运算符具有副作用; `i + j` 没有副作用, 而==赋值、自增自减==有
 
-- 后果可能是: 结果不同 / 崩溃 / =="看起来正常"==——第三种最危险, 换个环境就翻车
-
-- 规避: ==拆成多条语句==, 每句只做一件事
+- 表达式 `i = 0` 的==结果==是 `0`, 副作用是把 `0` 存进 `i`; ==嵌入式赋值==语法合法但难读, 不推荐
 
 ```C
-b = a + 2;
-a = 1;
-c = b - a;      /* c 确定是 6 */
-```
-
-</div>
-
-</div>
-
-<span class="blue">:fa-lightbulb-o:</span> 避免在表达式中==访问变量值的同时也修改该变量==
-
----
-
-
-<!-- slide data-notes="" -->
-
-##### 副作用(side effects)
-
----
-
-修改操作数的运算符叫作具有 ==副作用==; `i + j` 没有副作用, 而 ==赋值、自增自减==有
-
-- 表达式 `i = 0` 的==结果==是 `0`, 副作用是把 `0` 存进 `i`
-
-```C{.line-numbers}
 i = 1;
-k = 1 + (j = i);
-printf("%d %d %d\n", i, j, k);
-/* prints "1 1 2" */
+k = 1 + (j = i);             /* k = 2, i = j = 1 */
 ```
 
-- 这种==嵌入式赋值==语法合法, 但难读、易藏错——不推荐
+==左值==: 赋值运算符需要一个左值作为左操作数
 
----
+- ==左值==表示存储在计算机内存中的对象, 不是常量或计算结果; 变量是左值, `10`、`2 * i` 不是
 
+- `12 = i;`、`i + j = 0;`、`-i = j;` 都非法, 编译器报 "invalid lvalue in assignment"
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->
 
-
-##### 左值
-
----
-
-<div style="display:flex;align-items:flex-start;gap:20px;">
-
-<div style="flex:1.15;">
-
-赋值运算符需要一个 ==左值== 作为其左操作数
-
-==左值== 表示存储在计算机内存中的对象, 而不是常量或计算结果
-
-- 变量是左值
-
-- `10`或`2 * i`这样的表达式不是左值
-
-```C{.line-numbers}
-12 = i;      /*** WRONG ***/
-i + j = 0;   /*** WRONG ***/
--i = j;      /*** WRONG ***/
-```
-
-</div>
-
-<div style="flex:1;text-align:center;">
-
-<svg viewBox="0 0 400 175" style="max-width:100%;height:175px;">
-<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-  <text x="65" y="20" font-size="12" fill="#586e75" text-anchor="middle">变量 i</text>
-  <rect x="20" y="32" width="90" height="56" rx="7" fill="#dceaf5" stroke="#268bd2" stroke-width="2.5"/>
-  <text x="65" y="68" font-size="23" fill="#073642" text-anchor="middle">5</text>
-  <text x="65" y="104" font-size="11" fill="#93a1a1" text-anchor="middle">地址 0x7ffc…</text>
-  <text x="65" y="124" font-size="11" fill="#859900" text-anchor="middle">有盒子, 可写</text>
-
-  <text x="200" y="20" font-size="12" fill="#586e75" text-anchor="middle">常量 10</text>
-  <text x="200" y="68" font-size="23" fill="#586e75" text-anchor="middle">10</text>
-  <text x="200" y="104" font-size="11" fill="#93a1a1" text-anchor="middle">没有地址</text>
-  <text x="200" y="124" font-size="11" fill="#dc322f" text-anchor="middle">没有盒子</text>
-
-  <text x="335" y="20" font-size="12" fill="#586e75" text-anchor="middle">表达式 2 * i</text>
-  <rect x="290" y="32" width="90" height="56" rx="7" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2" stroke-dasharray="7 5"/>
-  <text x="335" y="68" font-size="23" fill="#93a1a1" text-anchor="middle">10</text>
-  <text x="335" y="104" font-size="11" fill="#93a1a1" text-anchor="middle">临时结果</text>
-  <text x="335" y="124" font-size="11" fill="#dc322f" text-anchor="middle">无地址, 不可写</text>
-
-  <text x="200" y="151" font-size="12" fill="#dc322f" text-anchor="middle">12 = i;    i + j = 0;    -i = j;</text>
-  <text x="200" y="169" font-size="11" fill="#dc322f" text-anchor="middle">编译错误: invalid lvalue in assignment</text>
-</g>
-</svg>
-
-</div>
-
-</div>
-
-<span class="blue">:fa-lightbulb-o:</span> 编译器将产生一条错误消息, 例如"invalid lvalue in assignment"
+##### 类型转换: 隐式与强制
 
 ---
-
-<!-- slide data-notes="" -->
-
-
-##### 类型转换 - 隐式转换
-
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;">
+<div style="flex:1.05;font-size:0.75em;">
 
 ==隐式转换==: 不同类型混合运算/赋值时, 编译器自动转换
 
 - 赋值: 右值自动转换为左值变量的类型
 
 - 运算: 较低类型提升为较高类型 (`char`/`short` → `int`; `int` + `double` → `double`)
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
 
 ```C
 int i;
@@ -305,11 +205,36 @@ d = i;      /* d 为 3.0 */
 
 </div>
 
+<div style="flex:1;font-size:0.75em;">
+
+==强制转换==: 显式地把值转换为目标类型
+
+```C
+(float) 1 / 2;   /* 0.5 */
+(int) 3.9;       /* 3 */
+```
+
+- 强制转换的优先级很高, 只作用于紧邻的操作数; 需要转换整个表达式时要加括号, 如 ==(int) (3.9 + 1.1)==
+
+- 强制转换还能==避免溢出==: ==先提升, 再运算==
+
+```C
+long i; int j = 1000000;
+i = (long) j * j;      /* 正确: j 先转成 long */
+i = (long) (j * j);    /* 错误: j * j 已在 int 里溢出 */
+```
+
 </div>
 
+</div>
+
+<div style="font-size:0.8em;line-height:1.6;">
+
+<span class="blue">:fa-lightbulb-o:</span> 隐式转换由编译器自动完成, 强制转换由程序员显式写出; 两者都按 C 的类型转换规则执行
+
+</div>
 
 <!-- slide data-notes="" -->
-
 
 ##### 演示: 为什么 %f 打出了奇怪的数?
 
@@ -331,9 +256,7 @@ printf("%f\n", a / b);          /* %f 却收到 int */
 
 ---
 
-
 <!-- slide data-notes="" -->
-
 
 ##### 演示: 为什么 %f 打出了奇怪的数? (实际结果)
 
@@ -368,7 +291,9 @@ printf("%f\n", a / 4.0);        /* 2.250000: 4.0 是 double, 整体提升 */
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 4: 隐式转换与强制转换实验
+<!-- slide data-notes="" -->
+
+##### 任务 4: 隐式转换与强制转换实验
 ---
 <div style="font-size:1.0em;line-height:1.75;">
 
@@ -398,7 +323,9 @@ printf("%f\n", a / 4.0);        /* 2.250000: 4.0 是 double, 整体提升 */
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 4: 参考代码与要点
+<!-- slide data-notes="" -->
+
+##### 任务 4: 参考代码与要点
 ---
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.6em;">
@@ -432,36 +359,7 @@ int main(void)
 
 ---
 
-
 <!-- slide data-notes="" -->
-
-
-##### 类型转换 - 强制转换
-
----
-
-==强制转换==: 显式地把值转换为目标类型
-
-```C
-(float) 1 / 2;   /* 0.5 */
-(int) 3.9;       /* 3 */
-```
-
-<span class="blue">:fa-lightbulb-o:</span> 强制转换的优先级很高, 只作用于紧邻的操作数; 需要转换整个表达式时要加括号, 如 ==(int) (3.9 + 1.1)==
-
-- 强制转换还能==避免溢出==: ==先提升, 再运算==, 而不是算完再提升
-
-```C
-long i; int j = 1000000;
-i = (long) j * j;      /* 正确: j 先转成 long, 乘法不会溢出 */
-i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
-```
-
----
-
-
-<!-- slide data-notes="" -->
-
 
 ##### 动手小练习: 四舍五入
 
@@ -487,9 +385,7 @@ i = (long) (j * j);    /* 错误: j * j 已经在 int 里溢出了 */
 
 ---
 
-
 <!-- slide data-notes="" -->
-
 
 ##### 动手小练习: 四舍五入 (参考代码)
 
@@ -528,8 +424,8 @@ int main(void) {
 </div>
 
 ---
-<!-- slide data-notes="" -->
 
+<!-- slide data-notes="" -->
 
 ##### 编码实践: 数字拆分
 
@@ -551,9 +447,7 @@ int main(void) {
 
 ---
 
-
 <!-- slide data-notes="" -->
-
 
 ##### 编码实践: 数字拆分 (参考代码)
 
@@ -592,9 +486,7 @@ int main(void) {
 
 </div>
 
-
 <!-- slide data-notes="" -->
-
 
 ##### 编码实践: 时间换算
 
@@ -610,9 +502,7 @@ int main(void) {
 
 ---
 
-
 <!-- slide data-notes="" -->
-
 
 ##### 编码实践: 时间换算 (参考代码)
 
@@ -651,14 +541,14 @@ int main(void) {
 </div>
 
 ---
-<!-- slide data-notes="" -->
 
+<!-- slide data-notes="" -->
 
 ##### 课堂习题课
 
 ---
 
-三道题, 限时 10 分钟, 每题都藏着==一个坑== (答案见讲义): 
+三道题, 限时 10 分钟, 每题都藏着==一个坑==: 
 
 1. ==温度转换==: 输入摄氏度 `C`, 输出华氏度 `F = C × 9 / 5 + 32`。检验: `100` 应输出 `212`; 若输出 `132`, 说明踩了整数除法的坑
 
@@ -667,8 +557,8 @@ int main(void) {
 3. (选做) ==XOR 交换==: 用位运算交换两个变量的值, ==不用临时变量==; 试试两个变量相同会怎样
 
 ---
-<!-- slide data-notes="" -->
 
+<!-- slide data-notes="" -->
 
 ##### 课堂小测
 
@@ -680,10 +570,7 @@ int main(void) {
 
 3. 为什么 `j = i * i++;` 的结果不确定？这类表达式应该怎么避免？
 
-
-
 <!-- slide data-notes="" -->
-
 
 #####
 
