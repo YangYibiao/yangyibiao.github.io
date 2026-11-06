@@ -30,6 +30,7 @@ presentation:
 <!-- slide data-notes="" -->
 
 <div class="bottom20"></div>
+<style>.reveal pre code{max-height:none!important}</style>
 
 # 智能程序设计（C语言）
 
@@ -70,9 +71,13 @@ presentation:
 <!-- slide data-notes="" -->
 
 
-##### 什么是排序
+##### 什么是排序 · 为什么需要排序
 
 ---
+
+<div style="display:grid;grid-template-columns:1fr 1.15fr;gap:18px;align-items:start;">
+
+<div>
 
 ==排序==: 把一组数据按某种规则整理成有序
 
@@ -80,23 +85,15 @@ presentation:
 
 - 字符串: 按字典序
 
+- 例: [8,3,5] 升序 → [3,5,8]; 降序 → [8,5,3]
+
 <div style="font-size:0.7em;color:var(--solarized-base00);margin-top:4px;">
 字典序 = 像查字典那样逐字符比较: 先比第一个字符, 相同再比下一个 —— 如 "apple" 排在 "banana" 前, "zhang" 排在 "zhao" 前
 </div>
 
-<div style="margin-top:8px;font-size:0.85em;">
-例: [8, 3, 5] 升序 → [3, 5, 8]; 降序 → [8, 5, 3]
 </div>
 
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 为什么需要排序
-
----
+<div>
 
 成绩排名、字典、电话簿……==有序==的数据才好用
 
@@ -106,7 +103,11 @@ presentation:
 
 - 地基: 去重、统计、合并都建立在有序之上
 
-<span class="blue">:fa-lightbulb-o:</span> 之前把数据装进数组, 今天给它们排队; 开学时 "程序能做什么" 里的排序, 今天实现出来
+</div>
+
+</div>
+
+<span class="blue">:fa-lightbulb-o:</span> 之前把数据装进数组, 今天给它们排队; 开学时说的排序, 今天实现
 
 ---
 
@@ -355,21 +356,38 @@ for (int i = 1; i < n; i++) {
 <!-- slide data-notes="" -->
 
 
-##### 排序与查找
+##### 顺序查找
 
 ---
 
-==排序==: 把数据按大小整理好 —— 今天前半段已经做完
+<div style="font-size:0.8em;color:var(--solarized-base00);margin:0 2rem 2px;text-align:left;">排序之后进入==查找==: 在数据里找到目标。无序只能逐个比 (平均 n/2 次); 有序才能每次砍掉一半 (约 log2(n) 次, 下页) —— 先看顺序查找</div>
 
-==查找==: 在数据里找到目标 —— 今天后半段
+从第一个元素开始==逐个比较==, 找到即停
 
-- 排好序, 查找才能 "快" 起来:
+<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;align-items:center;">
 
-- 无序只能一个个比: 顺序查找, 平均比较 n/2 次
+<div>
 
-- 有序可以每次砍掉一半: 二分查找, 约 log2(n) 次
+```C
+/* 顺序查找: 在 a[0..n-1] 中找 key (约定: 数组已读入 n 个元素) */
+int i;
+for (i = 0; i < n; i++) {
+  if (a[i] == key) {
+    break;                    /* 找到, 提前退出 */
+  }
+}
+if (i < n) {
+  printf("找到, 下标 %d\n", i);
+} else {
+  printf("没找到\n");
+}
+```
 
-<div style="text-align:center;margin-top:6px;">
+</div>
+
+<div>
+
+<div style="text-align:center;">
 <svg viewBox="0 0 400 170" style="max-width:100%;height:165px;">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
     <text x="200" y="18" font-size="11.5" fill="#586e75" text-anchor="middle">100 万个数据中查找一个数 (平均比较次数)</text>
@@ -389,38 +407,13 @@ for (int i = 1; i < n; i++) {
 </svg>
 </div>
 
-<span class="blue">:fa-lightbulb-o:</span> 接下来就用排序的成果, 先看顺序查找, 再学二分查找
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 顺序查找
-
----
-
-从第一个元素开始==逐个比较==, 找到即停
-
-```C
-/* 顺序查找: 在 a[0..n-1] 中找 key (约定: 数组已读入 n 个元素) */
-int i;
-for (i = 0; i < n; i++) {
-  if (a[i] == key) {
-    break;                    /* 找到, 提前退出 */
-  }
-}
-if (i < n) {
-  printf("找到, 下标 %d\n", i);
-} else {
-  printf("没找到\n");
-}
-```
-
 - `i < n` 说明是==提前退出==(找到); `i == n` 说明是==正常结束==(没找到)——之前素数判断用过同样的写法
 
 - 适合无序数据; 平均比较 n/2 次, 最坏 n 次
+
+</div>
+
+</div>
 
 ---
 
@@ -492,9 +485,13 @@ if (low > high) {
 <!-- slide data-notes="" -->
 
 
-##### 众数统计 · 问题
+##### 众数统计 · 问题与现场编码
 
 ---
+
+<div style="display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start;">
+
+<div>
 
 输入 n 个==无序==的数 (1 ≤ n ≤ 100), 输出出现次数最多的数(众数)及其出现次数; 若多个数并列, 输出==最小==的那个
 
@@ -508,25 +505,23 @@ if (low > high) {
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先==排序==, 再观察有序数组里 "相同的数" 有什么特点
 
----
+</div>
 
-
-<!-- slide data-notes="" -->
-
-
-##### 众数统计 · 现场编码
-
----
+<div>
 
 ==现场演示==
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/7-sorting-searching/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (骨架)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/7-sorting-searching/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 打开 skeleton.c (骨架)</a>
 
 1. 思路: 先排序 (任选一种, 正好复习) → 相同的数相邻 → 一遍扫描统计每段长度 → 找最长段
 
 2. 学生先写 10 分钟, 再一起看参考代码
 
 3. 引导提问: 最后一段什么时候 "结算"? 并列时怎么保证输出最小的?
+
+</div>
+
+</div>
 
 ---
 
@@ -559,9 +554,7 @@ for (int i = 1; i <= n; i++) {
 printf("%d %d\n", best, best_cnt);
 ```
 
-- 循环条件 `i <= n`: i == n 时也要==结算最后一段==
-
-- 用 `>` 而不是 `>=`: 升序下从左往右扫, 并列时自然保留==最小==的众数
+- 循环条件 `i <= n`: `i == n` 时也要==结算最后一段==; 用 `>` 而非 `>=`: 升序扫描, 并列时自然保留==最小==
 
 ---
 
