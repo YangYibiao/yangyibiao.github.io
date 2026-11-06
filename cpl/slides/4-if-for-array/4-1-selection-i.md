@@ -57,11 +57,17 @@ presentation:
 
 - 结构化算法与三种基本结构
 
-- if 语句与 else 子句
+- if 语句、else 子句与复合语句
 
 - 关系、判等与逻辑运算
 
+- if 的嵌套与范围判断
+
+- 任务: 判断闰年、三个数排序
+
 - 演示: min、闰年、三角形、奇偶判断
+
+- 课堂习题与小测
 
 ---
 
@@ -156,13 +162,15 @@ presentation:
 ---
 <!-- slide data-notes="" -->
 
-##### if语句
+##### if语句与else子句
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>.tight5 pre code { font-size: 16px !important; line-height: 1.15 !important; }</style>
 
-<div style="flex:1.3;">
+<div class="tight5" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;">
 
 ==if 语句==的形式: `if (表达式) 语句`
 
@@ -170,9 +178,7 @@ presentation:
 
 - <span class="yellow">:fa-weixin:</span> 表达式两边的==圆括号是必须的==——它是 `if` 语句的组成部分
 
-</div>
-
-<div style="flex:1;font-size:0.75em;">
+<div style="font-size:0.72em;">
 
 ```C{.line-numbers}
 /* 之前的猜数字游戏 */
@@ -185,17 +191,17 @@ if (guess == reward) {
 
 </div>
 
----
-<!-- slide data-notes="" -->
+<div style="flex:1.15;">
 
+`if` 语句可以带一个 ==`else`== 子句: `if (表达式) 语句 else 语句`
 
-##### else子句
+- 表达式值为 `0` → 执行 `else` 后面的语句; 非零 → 执行 `if` 后面的语句
 
----
+- 内部语句短时, 可以==写成一行==
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+- `if`/`else` 各控制==一条==语句; 要控制多条, 记得用复合语句 `{ }` (下一页)
 
-<div style="flex:1.2;font-size:0.62em;">
+<div style="font-size:0.62em;">
 
 ```C{.line-numbers}
 if (i > j) {
@@ -211,22 +217,75 @@ if (i > j) max = i; else max = j;
 
 </div>
 
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+##### 复合语句
+
+---
+
+<style>.tight6 pre code { font-size: 16px !important; line-height: 1.15 !important; }</style>
+
+<div class="tight6" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;">
+
+`if` 的模板里 statement 是==单数==: `if (表达式) 语句`
+
+要控制==多条==语句, 用==复合语句==把多条包成"一条": `{ 语句1 语句2 … }`
+
+- 大括号让编译器把一组语句==当作一条语句==
+
+- 内部语句照常带分号; ==复合语句本身没有分号==
+
+<div style="font-size:0.72em;">
+
+```C
+/* 交换两个数: 三条语句包成一条 */
+{ t = a; a = b; b = t; }
+```
+
+```C
+{
+  t = a;
+  a = b;
+  b = t;
+}
+```
+
+</div>
+
+</div>
+
 <div style="flex:1;">
 
-`if` 语句可以带一个 ==`else`== 子句: `if (表达式) 语句 else 语句`
+<div style="font-size:0.72em;">
 
-- 表达式值为 `0` → 执行 `else` 后面的语句; 非零 → 执行 `if` 后面的语句
+```C
+/* 若 a 比 b 大就交换 */
+if (a > b) {
+    int t = a;
+    a = b;
+    b = t;
+}
+```
 
-- 内部语句短时, 可以==写成一行== (如左)
+</div>
 
-- `if`/`else` 各控制==一条==语句; 要控制多条, 记得用复合语句 `{ }` (后面会讲)
+- 条件成立时, 大括号里的==三条语句都执行==; 不加大括号只会执行第一条
 
+- 即使只有一条语句也建议加: 以后往 `if`/`else` 里加语句不用补大括号, 也避免"缩进对齐了、逻辑没对齐"
 
+- 复合语句也用在循环等其他"只接受一条语句"的地方
 
 </div>
 
 </div>
 
+---
 <!-- slide data-notes="" -->
 
 
@@ -255,14 +314,15 @@ if (i > j) max = i; else max = j;
 
 ---
 
-
 <!-- slide data-notes="" -->
 
 ##### 关系运算符
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>.tight8 table { margin: 1rem auto; } .tight8 ul>li>p { margin: 0.7rem 2rem; }</style>
+
+<div class="tight8" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1;">
 
@@ -279,10 +339,6 @@ if (i > j) max = i; else max = j;
 
 </div>
 
-</div>
-
-<div style="flex:1;">
-
 - 比较的结果是整数 `0` (==假==) 或 `1` (==真==)
 
 - 可以比较整数、浮点数, 也允许==混合比较== (`1 < 2.5` 成立)
@@ -293,18 +349,7 @@ if (i > j) max = i; else max = j;
 
 </div>
 
-</div>
-
----
-<!-- slide data-notes="" -->
-
-##### 关系运算符
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.25;">
+<div style="flex:1.1;">
 
 `i < j < k` 看起来像"判断 `j` 是否在 `i` 和 `k` 之间", 语法上==合法==——但==不是那个意思==: 
 
@@ -314,13 +359,9 @@ if (i > j) max = i; else max = j;
 
 `<` 是==左结合==的: 先算 `i < j` 得 `0` 或 `1`, 再拿结果和 `k` 比
 
-</div>
-
-<div style="flex:1;">
-
 - 例: `i = 5, j = 1, k = 2`——数学上 `5 < 1` 已不成立, 应判假; 而 C 算 `(5 < 1) < 2` → `0 < 2` → `1`, ==判了真==
 
-<span class="yellow">:fa-weixin:</span> 正确写法: `i < j && j < k` (逻辑与, 下一页讲)
+<span class="yellow">:fa-weixin:</span> 正确写法: `i < j && j < k` (逻辑与, 后面讲)
 
 </div>
 
@@ -413,7 +454,7 @@ x = 5
 ---
 <!-- slide data-notes="" -->
 
-##### 逻辑运算符
+##### 逻辑运算符: 运算与优先级
 
 ---
 
@@ -435,63 +476,11 @@ x = 5
 
 - ==任何非零值都算真==, `0` 算假; 结果也是 `0` 或 `1`
 
-</div>
-
-<div style="flex:1;">
-
 - `!表达式`: 表达式为 `0` 时结果为 `1` (取反)
 
 - `表达式1 && 表达式2`: ==两个都不为零==才得 `1`
 
 - `表达式1 || 表达式2`: ==任意一个不为零==就得 `1`
-
-</div>
-
-</div>
-
----
-<!-- slide data-notes="" -->
-
-##### 逻辑运算符
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;">
-
-==&&== 和 ==||== 会进行 =="短路"== 计算: 先算左操作数, 若结果已经能定, ==右边就不算了==
-
-```C
-(i != 0) && (j / i > 0)
-```
-
-</div>
-
-<div style="flex:1;">
-
-- 若 `i` 为 `0`: 左边已为假, 整个 `&&` 必定为假 → 右边的 `j / i` ==不会计算==, 避免了除零
-
-- 若 `i` 不为 `0`: 才轮到右边——这正是"==先判除数非零, 再做除法=="的安全写法
-
-</div>
-
-</div>
-
----
-<!-- slide data-notes="" -->
-
-##### 逻辑运算符
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.25;">
-
-因为短路, 表达式里的==副作用可能根本不发生==: `i > 0 && ++j > 0`
-
-- 若 `i > 0` 为假, `++j` 不会执行, `j` 也不自增
 
 </div>
 
@@ -504,6 +493,45 @@ x = 5
 - 即: `(i < j) && (k == m)`
 
 - `!` 右结合; `&&`、`||` 左结合
+
+<span class="blue">:fa-lightbulb-o:</span> 拿不准优先级就==加括号==——可读性优先
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->
+
+##### 逻辑运算符: 短路求值
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;">
+
+==&&== 和 ==||== 会进行 =="短路"== 计算: 先算左操作数, 若结果已经能定, ==右边就不算了==
+
+```C
+(i != 0) && (j / i > 0)
+```
+
+- 若 `i` 为 `0`: 左边已为假, 整个 `&&` 必定为假 → 右边的 `j / i` ==不会计算==, 避免了除零
+
+- 若 `i` 不为 `0`: 才轮到右边——这正是"==先判除数非零, 再做除法=="的安全写法
+
+</div>
+
+<div style="flex:1;">
+
+因为短路, 表达式里的==副作用可能根本不发生==: `i > 0 && ++j > 0`
+
+- 若 `i > 0` 为假, `++j` 不会执行, `j` 也不自增
+
+- 对 `||` 同理: 左边为真时, 右边整个跳过
+
+<span class="yellow">:fa-weixin:</span> 必须执行的赋值或自增, 不要写在 `&&`、`||` 的右边
 
 </div>
 
@@ -533,6 +561,77 @@ if (i < 0 || i >= n) { … }
 <span class="blue">:fa-lightbulb-o:</span> 范围判断是 if 的==最高频用法==: 检查下标、成绩、温度……都长这样
 
 ---
+
+<!-- slide data-notes="" -->
+
+
+##### else子句: 嵌套 if
+
+---
+
+回到 `else` 子句: 前面的例子都只有一层判断, 但 ==`if` 里面还可以再嵌一个 `if`==——判断里还有判断时, 就出现了嵌套
+
+<style>.tight14 > div:last-child { font-size: 0.9em; } .tight14 ul>li>p { margin: 0.45rem 2rem; }</style>
+
+<div class="tight14" style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.52em;">
+
+==缩进对齐版== (不用大括号): 
+
+```C{.line-numbers}
+if (i > j) {
+  if (i > k) {
+    max = i;
+  } else {
+    max = k;
+  }
+} else if (j > k) {
+  max = j;
+} else {
+  max = k;
+}
+```
+
+</div>
+
+<div style="flex:1;font-size:0.52em;">
+
+==大括号版== (层次清晰): 
+
+```C{.line-numbers}
+if (i > j) {
+  if (i > k) {
+    max = i;
+  } else {
+    max = k;
+  }
+} else {
+  if (j > k) {
+    max = j;
+  } else {
+    max = k;
+  }
+}
+```
+
+</div>
+
+<div style="flex:1;">
+
+`if` 语句嵌套在另一个 `if` 里==很普遍==
+
+- 左右两种写法==功能完全一样==
+
+- 靠缩进对齐 `else` 能帮助辨别层次, 但容易写错
+
+- ==大括号==让层次一目了然, 是更稳妥的习惯
+
+- 大括号还便于修改: 以后加语句不用补括号; 也能避免"缩进对齐了、逻辑没对齐" (后面的悬空 `else` 就是典型)
+
+</div>
+
+</div>
 
 <!-- slide data-notes="" -->##### 任务 1: 判断闰年
 
@@ -608,159 +707,6 @@ int main(void) {
 
 ---
 
-<!-- slide data-notes="" -->
-
-##### 复合语句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;">
-
-`if` 的模板里 statement 是==单数==: `if (表达式) 语句`
-
-要控制==多条==语句, 用==复合语句==把多条包成"一条": `{ 语句1 语句2 … }`
-
-- 大括号让编译器把一组语句==当作一条语句==
-
-- 内部语句照常带分号; ==复合语句本身没有分号==
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
-
-```C
-/* 交换两个数: 三条语句包成一条 */
-{ t = a; a = b; b = t; }
-```
-
-```C
-{
-  t = a;
-  a = b;
-  b = t;
-}
-```
-
-</div>
-
-</div>
-
----
-<!-- slide data-notes="" -->
-
-##### 复合语句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.25;font-size:0.75em;">
-
-```C
-/* 若 a 比 b 大就交换 */
-if (a > b) {
-    int t = a;
-    a = b;
-    b = t;
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-- 条件成立时, 大括号里的==三条语句都执行==; 不加大括号只会执行第一条
-
-- 复合语句也用在循环等其他"只接受一条语句"的地方
-
-</div>
-
-</div>
-
----
-<!-- slide data-notes="" -->
-
-
-##### else子句
-
----
-
-回到 `else` 子句: 前面的例子都只有一层判断, 但 ==`if` 里面还可以再嵌一个 `if`==——判断里还有判断时, 就出现了嵌套
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;font-size:0.55em;">
-
-==缩进对齐版== (不用大括号): 
-
-```C{.line-numbers}
-if (i > j) {
-  if (i > k) {
-    max = i;
-  } else {
-    max = k;
-  }
-} else if (j > k) {
-  max = j;
-} else {
-  max = k;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.55em;">
-
-==大括号版== (层次清晰): 
-
-```C{.line-numbers}
-if (i > j) {
-  if (i > k) {
-    max = i;
-  } else {
-    max = k;
-  }
-} else {
-  if (j > k) {
-    max = j;
-  } else {
-    max = k;
-  }
-}
-```
-
-</div>
-
-<div style="flex:1;">
-
-`if` 语句嵌套在另一个 `if` 里==很普遍==
-
-- 左右两种写法==功能完全一样==
-
-- 靠缩进对齐 `else` 能帮助辨别层次, 但容易写错
-
-- ==大括号==让层次一目了然, 是更稳妥的习惯
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-##### else子句
-
----
-
-大括号的优点 (即使只有一条语句也建议加): 
-
-- 程序更易修改——以后往 `if`/`else` 里加语句不用补大括号
-
-- 避免"忘加大括号"类错误——缩进对齐了, 逻辑没对齐 (下一课的"悬空 else"就是典型)
-
----
-
 <!-- slide data-notes="" -->##### 任务 2: 三个数排序
 
 ---
@@ -833,7 +779,6 @@ int main(void) {
 </div>
 
 ---
-
 <!-- slide data-notes="" -->
 
 
@@ -841,23 +786,13 @@ int main(void) {
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;">
+
 ==现场演示==: 输入两个整数, 输出其中较小的一个
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 演示: min of two (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.15;font-size:0.7em;">
 
 ```C
 #include <stdio.h>
@@ -897,27 +832,21 @@ int main() {
 <!-- slide data-notes="" -->
 
 
-##### 演示: min of three
-
----
-
-==现场演示==: 输入三个整数, 输出其中最小的一个
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 演示: min of three (参考代码 1: 嵌套版)
+##### 演示: min of three (嵌套版)
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.6;font-size:0.62em;">
+<div style="flex:1.45;">
+
+==现场演示==: 输入三个整数, 输出其中最小的一个
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+
+<style>.longcode pre code { max-height: none !important; font-size: 14px !important; line-height: 1.15 !important; }</style>
+
+<div class="longcode">
 
 ```C
 #include <stdio.h>
@@ -948,12 +877,15 @@ int main() {
 
 </div>
 
+</div>
+
 <div style="flex:1;">
 
 - 外层 `if (a < b)` 决定先排除谁, 内层再和 `c` 比——==嵌套 if/else== 的经典结构
 
 - 输入 `8 3 5` → `min(8, 3, 5) = 3`
 
+- 三层结构看起来复杂, 但每一层都只是==二选一==
 
 </div>
 
@@ -962,27 +894,17 @@ int main() {
 <!-- slide data-notes="" -->
 
 
-##### 演示: min of three (挑战: 另一种写法)
+##### 演示: min of three (单分支版)
 
 ---
 
-写完了? ==还有另一种写法==——不用嵌套
+写完了? ==还有另一种写法==——不用嵌套; 延续 min of two 的"==先假设, 再修正==": `min` 先取 `a`, 然后逐个比较替换
 
-延续 min of two 的"==先假设, 再修正=="思路: `min` 先取 `a`, 然后逐个比较替换
-
----
-
-
-<!-- slide data-notes="" -->
-
-
-##### 演示: min of three (参考代码 2: 单分支版)
-
----
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;align-self:flex-start;margin:4px 0 10px;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.7em;">
+<div style="flex:1.2;">
 
 ```C
 #include <stdio.h>
@@ -1017,6 +939,7 @@ int main(void) {
 </div>
 
 ---
+
 <!-- slide data-notes="" -->
 
 
@@ -1061,7 +984,11 @@ int main(void) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;">
+
+<style>.longcode pre code { max-height: none !important; font-size: 14px !important; line-height: 1.15 !important; }</style>
+
+<div class="longcode">
 
 ```C
 #include <stdio.h>
@@ -1096,13 +1023,15 @@ int main(void) {
 
 </div>
 
+</div>
+
 <div style="flex:1;">
 
 - 三层嵌套 if/else 对应流程图的==三个判断框==
 
 - `leap` 是==标志变量== (flag/indicator): 先算"是闰年吗"存成 `0`/`1`, 输出时再看标志——"算"和"用"分离, 结构清晰
 
-- 化简版 (一个 `&&`/`||` 复合条件即可实现) 周三 4-2 讲
+- 化简版 (一个 `&&`/`||` 复合条件即可实现) 后面 4-2 讲
 
 - 测试: `2024` → leap year; `1900` → common year; `2000` → leap year
 
@@ -1121,23 +1050,13 @@ int main(void) {
 
 ==现场演示==: 输入三边 `a b c`, 判断能否构成三角形
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;align-self:flex-start;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 规则: ==任意两边之和大于第三边==——三个条件要==同时==成立
 
----
+<div style="display:flex;align-items:flex-start;gap:24px;margin-top:8px;">
 
-
-<!-- slide data-notes="" -->
-
-
-##### 演示: 三角形判定 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.7em;">
+<div style="flex:1.2;">
 
 ```C
 #include <stdio.h>
@@ -1180,23 +1099,17 @@ int main(void) {
 
 ==现场演示==: 输入一个整数, 输出它是奇数还是偶数
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;align-self:flex-start;margin:4px 0 0;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
 <span class="yellow">:fa-weixin:</span> 提示: 除了 `% 2` 的余数, 之前学的==位运算==也能判断——两种方法都想一想
 
----
+<div style="display:flex;align-items:flex-start;gap:24px;margin-top:6px;">
 
+<div style="flex:1.2;">
 
-<!-- slide data-notes="" -->
+<style>.longcode pre code { max-height: none !important; font-size: 14px !important; line-height: 1.15 !important; }</style>
 
-
-##### 演示: 奇偶判断 (参考代码)
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.7em;">
+<div class="longcode">
 
 ```C
 #include <stdio.h>
@@ -1220,6 +1133,8 @@ int main(void) {
     return 0;
 }
 ```
+
+</div>
 
 </div>
 

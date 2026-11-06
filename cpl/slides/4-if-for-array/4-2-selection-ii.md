@@ -57,13 +57,15 @@ presentation:
 
 - 级联式 if 语句
 
+- 案例: 经纪人佣金
+
 - 悬空 else 与条件表达式
 
 - switch 语句与 break
 
-- 布尔值与闰年化简
+- switch 实战: 成绩等级与月份天数
 
-- 案例: 经纪人佣金与月份天数
+- 闰年化简与布尔值
 
 ---
 
@@ -75,40 +77,7 @@ presentation:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.62em;">
-
-```C{.line-numbers}
-if (n < 0) {
-  printf("n is less than 0\n");
-} else if (n == 0) {
-    printf("n is equal to 0\n");
-  } else {
-    printf("n is greater than 0\n");
-  }
-```
-
-</div>
-
-<div style="flex:1;">
-
-"级联" `if` 语句适合==逐级判定==: 一旦某个条件为真就停止, 后面的不再判断
-
-例子: 判断 n 与 0 的关系 (负/零/正)——如左
-
-
-
-</div>
-
-</div>
-
-<!-- slide data-notes="" -->
-
-
-##### 级联式if语句
-
----
+==级联 `if`== 语句适合==逐级判定==: 一旦某个条件为真就停止, 后面的不再判断
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -203,7 +172,7 @@ Commission: $166.00
 
 </div>
 
-<div style="text-align:center;margin-top:6px;">
+<div style="text-align:center;margin-top:2px;line-height:0;">
 <svg viewBox="0 0 400 150" style="max-width:100%;height:150px;">
   <defs>
     <marker id="ar42g" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
@@ -275,31 +244,28 @@ Commission: $166.00
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#broker-code pre{padding-top:5px!important;padding-bottom:5px!important}#broker-code pre code{max-height:none!important;line-height:1.12!important}</style>
+
+<div id="broker-code" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.4;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* Calculates a broker's commission */
 #include <stdio.h>
-int main(void)
-{
+int main(void) {
   float commission, value;
   printf("Enter value of trade: ");
   scanf("%f", &value);
   if (value < 2500.00f) {
     commission = 30.00f + .017f * value;
-  }
-  else if (value < 6250.00f) {
+  } else if (value < 6250.00f) {
     commission = 56.00f + .0066f * value;
-  }
-  else if (value < 20000.00f) {
+  } else if (value < 20000.00f) {
     commission = 76.00f + .0034f * value;
-  }
-  else if (value < 50000.00f) {
+  } else if (value < 50000.00f) {
     commission = 100.00f + .0022f * value;
-  }
-  else if (value < 500000.00f) {
+  } else if (value < 500000.00f) {
     commission = 155.00f + .0011f * value;
   } else {
     commission = 255.00f + .0009f * value;
@@ -549,7 +515,7 @@ switch (grade) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.6em;">
+<div style="flex:1;font-size:0.58em;">
 
 ==没有 break 的版本==: 
 
@@ -566,34 +532,9 @@ switch (grade) {
 
 </div>
 
-</div>
+<div style="flex:1;font-size:0.58em;">
 
-- `break`：==跳出 switch==，接着执行 switch 后面的语句
-
-- switch 怎么工作：先算表达式，==跳到==匹配的 `case`——注意是"跳"不是"挨个查"，跳进去之后==一直往下执行==，直到 switch 结束
-
-- 所以没有 `break` 就会一路"==穿透=="：`grade = 3` 时输出 `GoodAveragePoorFailingIllegal grade`
-
-<!-- slide data-notes="" -->
-
-
-##### break语句的作用
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-穿透有时是==故意==的（如左：4 个等级一起计入 num_passing），但更多时候是==忘了写 break==
-
-- 故意穿透要加注释 ==`/* FALL THROUGH */`==，让别人知道你是==有意的==
-
-- 最后一个 `case` 不需要 `break`，但==建议照写==——以后加新 `case` 时不会忘
-
-</div>
-
-<div style="flex:1.15;font-size:0.72em;">
+==故意穿透== (4 个等级一起计入 `num_passing`):
 
 ```C{.line-numbers}
 switch (grade) {
@@ -609,7 +550,13 @@ switch (grade) {
 
 </div>
 
----
+- `break`：==跳出 switch==，接着执行 switch 后面的语句
+
+- switch 怎么工作：先算表达式，==跳到==匹配的 `case`——注意是"跳"不是"挨个查"，跳进去之后==一直往下执行==，直到 switch 结束或遇到 `break`
+
+- 所以没有 `break` 就会一路"==穿透=="：`grade = 3` 时输出 `GoodAveragePoorFailingIllegal grade`
+
+- 穿透有时是==故意==的（如右），但更多时候是==忘了写 break==；故意穿透要加注释 ==`/* FALL THROUGH */`==，让别人知道你是==有意的==；最后一个 `case` 不需要 `break`，但==建议照写==——以后加新 `case` 时不会忘
 
 <!-- slide data-notes="" -->
 
@@ -654,7 +601,7 @@ switch (表达式) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.2;font-size:0.6em;">
 
 ```C{.line-numbers}
 switch (grade) {
@@ -672,60 +619,21 @@ switch (grade) {
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.66em;">
 
-在每个案例标签之后是任意数量的语句, 语句周围不需要大括号; 每组中的最后一条语句通常是break
+- 每个 `case` 标签之后是任意数量的语句, ==不需要大括号==; 每组最后一条语句通常是 `break`
 
-- 不允许有重复的case标签
+- 一组语句之前可以有==多个 case 标签==; 为节省空间, 可将多个 `case` 写在同一行 (`case 4: case 3: ...`)
+
+- 不允许有==重复的 case 标签==
 
 - `case` 标签的==顺序无关紧要==——它们只是入口标记; `default` 也==不必放在最后== (但惯例放最后更易读)
 
-一组语句之前可以有几个 case 标签:
-
-
+- 若缺少 `default`, 且控制表达式的值与任何 case 都不匹配, 控制传递到 switch 之后的==下一条语句==
 
 </div>
 
 </div>
-
-<!-- slide data-notes="" -->
-
-
-##### switch语句
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-为了节省空间, 可以将多个case标签放在同一行
-
-如果缺少`default`, 且控制表达式的值与任何case都不匹配, 则控制传递到switch之后的下一条语句
-
-</div>
-
-<div style="flex:1.15;font-size:0.72em;">
-
-```C{.line-numbers}
-switch (grade) {
-  case 4: case 3: case 2: case 1:
-    printf("Passing");
-    break;
-  case 0: 
-    printf("Failing");
-    break;
-  default: 
-    printf("Illegal grade");
-    break;
-}
-```
-
-</div>
-
-</div>
-
----
 
 <!-- slide data-notes="" -->##### 任务 3: 成绩等级
 
@@ -811,7 +719,9 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<style>#monthdays-code pre code{max-height:none!important}</style>
+
+<div id="monthdays-code" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.6em;">
 
@@ -942,7 +852,6 @@ leap = true;
 if (leap) …      /* 直接测试 */
 if (!leap) …     /* 测试是否为假 */ {
 ```
-}
 
 - `bool` 变量只能存 `0` 或 `1`: `flag = 5;` 会变成 `1`
 
