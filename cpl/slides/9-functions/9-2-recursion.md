@@ -529,7 +529,7 @@ Segmentation fault (core dumped)
 
 <!-- slide data-notes="" -->
 
-##### 课堂编码 1-3: 基础三题
+##### 课堂编码: 基础三题
 
 ---
 
@@ -582,7 +582,7 @@ Segmentation fault (core dumped)
 </div>
 <!-- slide data-notes="" -->
 
-##### 课堂编码 1-3 · 参考实现
+##### 课堂编码 · 参考实现
 
 ---
 
@@ -649,7 +649,7 @@ void print(int n)
 </div>
 <!-- slide data-notes="" -->
 
-##### 课堂案例 1-2: 递归求最大值与判断回文
+##### 课堂案例: 递归求最大值与判断回文
 
 ---
 
@@ -684,7 +684,7 @@ void print(int n)
 </div>
 <!-- slide data-notes="" -->
 
-##### 课堂案例 1-2 · 参考实现
+##### 课堂案例: 递归求最大值与判断回文 · 参考实现
 
 ---
 
@@ -730,7 +730,7 @@ int is_pal(char s[], int l, int r)
 </div>
 
 </div>
-<!-- slide data-notes="" -->##### 课堂案例 3: 二分查找
+<!-- slide data-notes="" -->##### 课堂案例: 二分查找
 
 ---
 
@@ -748,7 +748,7 @@ int is_pal(char s[], int l, int r)
 
 ---
 
-<!-- slide data-notes="" -->##### 课堂案例 3: 二分查找 · 参考实现
+<!-- slide data-notes="" -->##### 课堂案例: 二分查找 · 参考实现
 
 ---
 
@@ -782,7 +782,7 @@ int bin_search(int a[], int low, int high, int key)
 
 <!-- slide data-notes="" -->
 
-##### 课堂案例 4-5: 组合数与爬楼梯
+##### 课堂案例: 组合数与爬楼梯
 
 ---
 
@@ -815,7 +815,7 @@ int bin_search(int a[], int low, int high, int key)
 </div>
 <!-- slide data-notes="" -->
 
-##### 课堂案例 4-5 · 参考实现
+##### 课堂案例: 组合数与爬楼梯 · 参考实现
 
 ---
 
