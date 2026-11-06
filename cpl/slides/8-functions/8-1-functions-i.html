@@ -59785,39 +59785,19 @@ div.boardhandle > ul > li {
 </div>
 <p>刚才的 <code>is_prime</code> 和 <code>is_palindrome</code> 就是例证: 各写一遍、反复调用——复用、模块化、封装, 一个案例全用上</p>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数">函数 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="函数的定义和调用">函数的定义和调用 </h5>
 <hr>
-<p>函数是<mark>打包在一起并起名字</mark>的一组语句。</p>
-<p>每个函数本质上都是一个自带声明和语句的小程序.</p>
-<p>功能优势:</p>
-<ul>
-<li>
-<p>一个程序可以分成更容易理解和修改的小块.</p>
-
-</li>
-<li>
-<p>可以避免重复编写要多次使用的代码.</p>
-
-</li>
-<li>
-<p>最初属于某个程序的功能可以在其他程序中重用.</p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数的定义和调用">函数的定义和调用 </h5>
-<hr>
+<p><mark>函数</mark>是打包在一起并起名字的一组语句——每个函数本质上都是一个自带声明和语句的小程序; 好处是代码<mark>复用</mark> (同一段逻辑只写一次)、<mark>模块化</mark> (程序分成更容易理解和修改的小块)、可在其他程序中<mark>重用</mark>。</p>
 <p><mark>其实你早就在用函数了</mark>——<code>printf</code> 和 <code>scanf</code> 就是标准库提供的函数, 它们的声明来自头文件:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>format<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>format<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-char">char</span> str<span class="token punctuation">[</span><span class="token number">1024</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
 <span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a + b is : %d"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数定义---语法骨架">函数定义 · 语法骨架 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="函数定义---语法骨架">函数定义 · 语法骨架 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -59850,7 +59830,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="函数定义---参数列表与函数体">函数定义 · 参数列表与函数体 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="函数定义---参数列表与函数体">函数定义 · 参数列表与函数体 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -59873,7 +59853,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="函数定义---空函数体">函数定义 · 空函数体 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="函数定义---空函数体">函数定义 · 空函数体 </h5>
 <hr>
 <p>返回类型为 <code>void</code> 的函数, 函数体可以<mark>为空</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
@@ -59894,7 +59874,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--素数判断">程序: 素数判断 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="程序--素数判断">程序: 素数判断 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -59946,7 +59926,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--素数判断--prime-c">程序: 素数判断 (prime.c) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="程序--素数判断--prime-c">程序: 素数判断 (prime.c) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60003,7 +59983,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="返回类型--void">返回类型: void </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="返回类型--void">返回类型: void </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.7em;">
@@ -60026,7 +60006,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="函数调用">函数调用 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="函数调用">函数调用 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60052,7 +60032,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="函数调用---丢弃返回值">函数调用 · 丢弃返回值 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="函数调用---丢弃返回值">函数调用 · 丢弃返回值 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60072,10 +60052,11 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="函数声明">函数声明 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="函数声明-先调用后定义与隐式声明">函数声明：先调用后定义与隐式声明 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
+<style>.decl-code pre code{font-size:16px !important;line-height:19px !important;max-height:none !important;overflow:visible !important}</style>
+<div class="decl-code" style="flex:1.25;min-width:0;font-size:0.58em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
  
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -60096,89 +60077,74 @@ div.boardhandle > ul > li {
   <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;">
-<p>C不要求函数的定义在其调用之前.</p>
-<p>假设我们重新编排<code>average.c</code>程序, 将average函数的定义放在main函数的定义之后.</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="函数声明">函数声明 </h5>
-<hr>
-<p>main 里调用 average 时编译器没有它的信息: 不报错, 而是假设它返回 <code>int</code>——为该函数创建了<mark>隐式声明</mark></p>
-<hr>
-<p>实参个数与类型也无法检查, 只能默认提升"希望最好"; 后面遇到真实定义 (返回 <code>double</code>) 才会报错</p>
-<hr>
+<div style="flex:1;font-size:0.8em;line-height:1.45;">
+<p>C 不要求函数的定义在调用之前——可以把 <code>average</code> 的定义放在 <code>main</code> 之后; 但 <code>main</code> 调用它时, 编译器没有任何信息.</p>
+<ul>
+<li>
+<p>不报错, 而是假设它返回 <code>int</code>——为该函数创建了<mark>隐式声明</mark>; 实参个数与类型也无法检查</p>
+
+</li>
+<li>
+<p>后面遇到真实定义 (返回 <code>double</code>) 才会报错</p>
+
+</li>
+<li>
 <p>避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读</p>
-<div style="text-align:center;margin-top:2px;">
-<svg viewBox='0 0 400 190' style='max-width:100%;height:170px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='decl-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='decl-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><text x='10' y='16' font-size='11' fill='#dc322f' font-weight='700'>✗ 没有原型：编译器只能猜</text><g font-weight='700'><rect x='8' y='26' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='64' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>main 调用</text><text x='64' y='58' font-size='10' fill='#073642' text-anchor='middle'>average(x, y)</text><rect x='140' y='26' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='202' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>编译器没见过</text><text x='202' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 隐式声明 int</text><rect x='284' y='26' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='338' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>之后遇到定义</text><text x='338' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 类型冲突</text></g><path d='M120 48 H137' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><path d='M264 48 H281' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><text x='10' y='100' font-size='11' fill='#859900' font-weight='700'>✓ 有原型：先声明，后调用</text><g font-weight='700'><rect x='8' y='110' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='70' y='127' font-size='9.5' fill='#073642' text-anchor='middle'>double average</text><text x='70' y='142' font-size='9.5' fill='#073642' text-anchor='middle'>(double, double);</text><rect x='152' y='110' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='208' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>调用前已见过</text><text x='208' y='142' font-size='10' fill='#073642' text-anchor='middle'>按 double 检查</text><rect x='284' y='110' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='338' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>实参 int → double</text><text x='338' y='142' font-size='10' fill='#859900' text-anchor='middle'>→ 正确</text></g><path d='M132 132 H149' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><path d='M264 132 H281' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><text x='10' y='180' font-size='9.5' fill='#586e75'>C99：调用前必须先声明或定义，否则直接报错</text></g></svg>
+
+</li>
+</ul>
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox='0 0 400 190' style='max-width:100%;height:140px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='decl-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='decl-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><text x='10' y='16' font-size='11' fill='#dc322f' font-weight='700'>✗ 没有原型：编译器只能猜</text><g font-weight='700'><rect x='8' y='26' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='64' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>main 调用</text><text x='64' y='58' font-size='10' fill='#073642' text-anchor='middle'>average(x, y)</text><rect x='140' y='26' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='202' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>编译器没见过</text><text x='202' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 隐式声明 int</text><rect x='284' y='26' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='338' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>之后遇到定义</text><text x='338' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 类型冲突</text></g><path d='M120 48 H137' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><path d='M264 48 H281' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><text x='10' y='100' font-size='11' fill='#859900' font-weight='700'>✓ 有原型：先声明，后调用</text><g font-weight='700'><rect x='8' y='110' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='70' y='127' font-size='9.5' fill='#073642' text-anchor='middle'>double average</text><text x='70' y='142' font-size='9.5' fill='#073642' text-anchor='middle'>(double, double);</text><rect x='152' y='110' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='208' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>调用前已见过</text><text x='208' y='142' font-size='10' fill='#073642' text-anchor='middle'>按 double 检查</text><rect x='284' y='110' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='338' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>实参 int → double</text><text x='338' y='142' font-size='10' fill='#859900' text-anchor='middle'>→ 正确</text></g><path d='M132 132 H149' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><path d='M264 132 H281' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><text x='10' y='180' font-size='9.5' fill='#586e75'>C99：调用前必须先声明或定义，否则直接报错</text></g></svg>
+</div>
+</div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="函数声明---原型">函数声明 · 原型 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="函数声明---原型">函数声明 · 原型 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.55em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>返回类型 函数名<span class="token punctuation">(</span>参数<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<style>.proto-code pre code{font-size:18px !important;line-height:21px !important;max-height:none !important;overflow:visible !important}</style>
+<div class="proto-code" style="flex:0 0 50%;min-width:0;font-size:0.56em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* DECLARATION */</span>
+<span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 声明 */</span>
+
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter three numbers: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf%lf%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">,</span> <span class="token operator">&</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average of %g and %g: %g\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> z<span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  …
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average: %g\n"</span><span class="token punctuation">,</span> <span class="token function">average</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  …
 <span class="token punctuation">}</span>
-<span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span>    <span class="token comment">/* DEFINITION */</span>
+
+<span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span>    <span class="token comment">/* 定义 */</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 形参名可省略 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>返回类型 函数名<span class="token punctuation">(</span>参数<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 原型 */</span>
+<span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">/* 旧式声明 */</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.82em;line-height:1.45;">
+<div style="flex:1;min-width:0;font-size:0.82em;line-height:1.35;">
 <ul>
 <li>
-<p>更好的解决方案: 在调用函数之前<mark>声明</mark>它——声明给编译器一份 "简要介绍", 完整定义以后给出</p>
+<p>调用前先<mark>声明</mark>函数, 给编译器一份 "简要介绍"; 声明必须与定义<mark>一致</mark> (返回类型、参数个数与类型)</p>
 
 </li>
 <li>
-<p><mark>声明必须与定义一致</mark> (返回类型、参数个数与类型都对上)</p>
+<p>这类声明称为<mark>函数原型</mark>; 形参名可省略 (如 <code>double average(double, double);</code>), 但<mark>最好写上</mark></p>
 
 </li>
 <li>
-<p>这类声明称为<mark>函数原型</mark>; 原型不必写形参名, 但<mark>最好写上</mark> (便于阅读)</p>
+<p>旧式声明 <code>double average();</code> 是 C89 遗留: 括号为空, 编译器<mark>不检查参数</mark>——尽量不用</p>
+
+</li>
+<li>
+<p><mark>C99 规则</mark>: 调用前必须先<mark>声明或定义</mark>, 否则<mark>出错</mark> (上一页的隐式声明正是反面教材)</p>
 
 </li>
 </ul>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="函数声明---旧式声明与-c99">函数声明 · 旧式声明与 C99 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.65em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 旧式声明: 括号为空, 不写参数 */</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.9em;line-height:1.7;">
-<ul>
-<li>
-<p>旧式声明是 C89 的遗留写法: 括号为空, 编译器<mark>不检查参数</mark>——尽量不用</p>
-
-</li>
-<li>
-<p><mark>C99 规则</mark>: 调用函数之前, 必须先对其进行<mark>声明或定义</mark></p>
-
-</li>
-<li>
-<p>调用时编译器没见过声明或定义 → <mark>出错</mark> (上一页的隐式声明正是反面教材)</p>
-
-</li>
-</ul>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数">实际参数 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="实际参数--上">实际参数 (上) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60221,7 +60187,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="实际参数">实际参数 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="实际参数--下">实际参数 (下) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60252,7 +60218,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="演示--swap-为什么不生效">演示: swap 为什么不生效? </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="演示--swap-为什么不生效">演示: swap 为什么不生效? </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.62em;">
@@ -60295,7 +60261,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="实际参数的转换--1-2">实际参数的转换 (1/2) </h5>
 <hr>
 <p>C 允许实际参数的类型与形式参数的类型<mark>不匹配</mark>: 怎么转换, 取决于调用前编译器<mark>有没有见过原型</mark></p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60324,7 +60290,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="实际参数的转换">实际参数的转换 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数的转换--2-2">实际参数的转换 (2/2) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:0.85;font-size:0.55em;">
@@ -60368,7 +60334,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="return语句">return语句 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="return语句--上">return语句 (上) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -60394,7 +60360,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="return语句">return语句 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="return语句--下">return语句 (下) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60434,7 +60400,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="程序终止">程序终止 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="程序终止">程序终止 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.65em;">
@@ -60464,7 +60430,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="exit函数">exit函数 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="exit函数">exit函数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60499,7 +60465,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 函数定义由哪几部分组成？<code>return</code> 的作用是什么？
@@ -60515,7 +60481,7 @@ div.boardhandle > ul > li {
     <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span>  a <span class="token operator">=</span> b<span class="token punctuation">;</span>  b <span class="token operator">=</span> t<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="31" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

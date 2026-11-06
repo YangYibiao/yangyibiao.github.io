@@ -55,7 +55,7 @@ presentation:
 
 - 经典案例: Fibonacci (弹性)、汉诺塔
 
-- 常见错误与课堂编码 (基础 + 三个经典案例)
+- 常见错误与课堂编码 (基础 3 题 + 案例 5 题)
 
 - 分治与快速排序 (弹性)
 
@@ -94,7 +94,7 @@ int power(int x, int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.92em;line-height:1.45;">
+<div style="flex:1;font-size:0.9em;line-height:1.42;">
 
 - ==两个要素==: ==基准情形== (最简单, 直接给答案) + ==递归情形== (==缩小==后再调用自己)
 
@@ -113,8 +113,7 @@ int power(int x, int n) {
 ---
 
 <!-- slide data-notes="" -->
-
-##### 递归执行过程
+##### 递归执行过程: 压栈与返回
 
 ---
 
@@ -126,7 +125,7 @@ int power(int x, int n) {
 
 </div>
 
-<div style="flex:1;font-size:0.95em;line-height:1.6;">
+<div style="flex:1;font-size:0.9em;line-height:1.52;padding-right:16px;">
 
 fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 
@@ -136,50 +135,17 @@ fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 
 - 递归深度 = 压栈层数; 递归过深 → ==栈溢出==
 
+<div style="margin-top:10px;font-size:0.86em;line-height:1.4;">
+<p style="margin:0.2rem 0;">🎬 ==动画==: 打开调用栈动画, 看阶乘递归的层层压栈与返回</p>
+<p style="margin:0.2rem 0;">🌐 ==Python Tutor==: 把课程中的阶乘代码粘进去, 逐行看栈帧——每调用一次 fact, 栈上多一张便签; 返回时逐层揭掉</p>
 </div>
 
 </div>
 
----
-
-<!-- slide data-notes="" -->##### 递归演示: 层层压栈与返回
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.1;font-size:0.85em;">
-
-```C
-#include <stdio.h>
-
-long long fact(int n)
-{
-  if (n == 0) {            /* 基准: 0! = 1, 唯一的奠基 */
-    return 1;
-  }
-  return n * fact(n - 1);  /* 递归: 1! 由 0! 归纳出来 */
-}
-
-int main(void)
-{
-  printf("%lld\n", fact(5));
-  return 0;
-}
-```
-
 </div>
 
-<div style="flex:1;font-size:0.95em;line-height:1.6;">
-
-- 🎬 ==动画==: 打开调用栈动画, 看阶乘递归的层层压栈与返回
-
-- 🌐 ==Python Tutor==: 把左栏代码粘进去, 逐行看栈帧——每调用一次 fact, 栈上多一张便签; 返回时逐层揭掉
-
+<div style="margin:6px 2rem 0;font-size:0.75em;">
 <a href="../8-functions/function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (function-and-stack.html)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (逐行看栈帧)</a>
-
-</div>
-
 </div>
 
 ---
@@ -237,9 +203,6 @@ int main(void)
 ---
 
 
-<!-- slide data-notes="" -->
-
-
 <!-- slide data-notes="" -->##### Hanoi 塔 · 任务与规则
 
 ---
@@ -248,7 +211,7 @@ int main(void)
 
 <div style="flex:1.1;">
 
-<div style="font-size:0.9em;line-height:1.6;">
+<div style="font-size:0.86em;line-height:1.43;">
 
 ==传说==: 印度教寺庙里有 3 根柱子、64 个金盘, 僧侣昼夜不停地移动; 传说 64 个盘移完之日就是世界末日——放心, 一共要 2⁶⁴ − 1 步, 约 5849 亿年
 
@@ -298,7 +261,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.86em;line-height:1.43;">
 
 ==盘子编号==: 最小的叫 ==盘 1== (叠在最上面), ==往下==依次是 ==盘 2、盘 3……==, 最大的叫 ==盘 n== (最下面; 后面代码输出的就是这些编号)
 
@@ -371,9 +334,11 @@ int main(void)
 
 ---
 
+<style>#hanoi-code pre{padding:0.35em 0.6em!important;margin:0.2rem 0!important}#hanoi-code pre code{font-size:17px!important;line-height:1.2!important;padding:0!important;max-height:none!important}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.6em;">
+<div id="hanoi-code" style="flex:1;font-size:0.6em;">
 
 ```C
 /* hanoi.c: A = 起始柱, B = 辅助柱, C = 目标柱;
@@ -405,7 +370,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1.5;font-size:0.78em;line-height:1.4;">
+<div style="flex:1.5;font-size:0.76em;line-height:1.32;">
 
 <div style="text-align:center;margin-bottom:2px;">
 <svg viewBox="0 0 320 150" style="max-width:100%;height:140px;display:block;margin:0 auto;">
@@ -564,12 +529,17 @@ Segmentation fault (core dumped)
 
 <!-- slide data-notes="" -->
 
-
-##### 课堂编码 1: 递归求幂
+##### 课堂编码 1-3: 基础三题
 
 ---
 
-<div style="font-size:0.9em;line-height:1.6;">
+<style>.mcols{display:flex;align-items:flex-start;gap:18px;margin:0 1.2rem;}.mcols>div{flex:1;min-width:0;}.mcols>div:last-child{padding-right:14px;}.mcols p{margin:0.28rem 0;text-align:left;}.mcols ul{margin:0.1rem 0;padding-left:0.9rem;}.mcols ul>li{margin:0.12rem 0.8rem 0.12rem 0;}.mcols ul>li>p{margin:0.08rem 0;}.mcols .ct{font-weight:700;color:#268bd2;margin-bottom:4px;}.mcols pre{font-size:15px!important;line-height:1.22!important;padding:0.3em 0.2em!important;margin:0.15rem 0!important;max-height:none!important;}.mcols pre code{font-size:15px!important;line-height:1.22!important;padding:0!important;max-height:none!important;}.mcols.two pre,.mcols.two pre code{font-size:16px!important;}</style>
+
+<div class="mcols">
+
+<div style="font-size:0.62em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
+
+<div class="ct">课堂编码 1: 递归求幂</div>
 
 ==任务==: 实现 `int power(int x, int n)`——计算 x 的 n 次方 (开篇"递归是什么"一页提过的例子, 这里把它写完整)
 
@@ -577,17 +547,13 @@ Segmentation fault (core dumped)
 
 ==先想参数==: 哪些量随递归变化、哪些全程不变?
 
-</div>
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/power-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 power-rec.c (只写函数体)</a>
 
----
+</div>
 
-<!-- slide data-notes="" -->##### 课堂编码 2: 递归求和
+<div style="font-size:0.62em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
 
----
-
-<div style="font-size:0.9em;line-height:1.6;">
+<div class="ct">课堂编码 2: 递归求和</div>
 
 ==任务==: 实现 `int sum(int n)`——计算 1 + 2 + … + n
 
@@ -595,17 +561,13 @@ Segmentation fault (core dumped)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
 
-</div>
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/sum-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-rec.c (只写函数体)</a>
 
----
+</div>
 
-<!-- slide data-notes="" -->##### 课堂编码 3: 递归打印整数
+<div style="font-size:0.62em;line-height:1.55;">
 
----
-
-<div style="font-size:0.9em;line-height:1.6;">
+<div class="ct">课堂编码 3: 递归打印整数</div>
 
 ==任务==: 实现 `void print(int n)`——输入 1234, 按位逐个打印
 
@@ -613,101 +575,124 @@ Segmentation fault (core dumped)
 
 <span class="blue">:fa-lightbulb-o:</span> 提示: 先递归打印前面几位, 回来再打印末位——==顺序是本题关键==
 
-</div>
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/print-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 print-rec.c (只写函数体)</a>
 
+</div>
+
+</div>
+<!-- slide data-notes="" -->
+
+##### 课堂编码 1-3 · 参考实现
+
 ---
 
-<!-- slide data-notes="" -->##### 课堂编码 1 · 参考实现: 递归求幂
+<div class="mcols">
 
----
+<div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 
-<div style="font-size:0.85em;">
+<div class="ct">参考实现 1: 递归求幂</div>
 
 ```C
 int power(int x, int n)
 {
-  return n == 0 ? 1 : x * power(x, n - 1);   /* 基准 x^0=1; 递归 x × x^(n-1) */
+  /* 基准 x^0=1; 递归 x × x^(n-1) */
+  return n == 0 ? 1 : x * power(x, n - 1);
 }
 ```
 
-</div>
-
 - ==参数即状态==: 底数 x 全程不变, 指数 n 逐层减 1——两个量都要进参数, 缺一不可
-
 - ==基准情形==: n == 0 → 1; 递归情形把问题缩小成 x^(n-1)
 
----
+</div>
 
-<!-- slide data-notes="" -->##### 课堂编码 · 参考实现: 递归求和
+<div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 
----
-
-<div style="font-size:0.85em;">
+<div class="ct">参考实现 2: 递归求和</div>
 
 ```C
 int sum(int n)
 {
-  return n == 0 ? 0 : n + sum(n - 1);        /* 基准 0; 递归 n + sum(n-1) */
+  /* 基准 0; 递归 n + sum(n-1) */
+  return n == 0 ? 0 : n + sum(n - 1);
 }
 ```
 
-</div>
-
 - ==参数即状态==: 只带 n——"加到几为止"就是子问题的全部状态
-
 - ==基准情形==: n == 0 → 0; 递归情形: sum(n) = n + sum(n-1)
 
----
+</div>
 
-<!-- slide data-notes="" -->##### 课堂编码 · 参考实现: 递归打印整数
+<div style="font-size:0.58em;line-height:1.5;">
 
----
-
-<div style="font-size:0.85em;">
+<div class="ct">参考实现 3: 递归打印整数</div>
 
 ```C
 void print(int n)
 {
   if (n / 10 == 0) {
-    printf("%d", n);              /* 基准: 一位数直接打印 */
+    /* 基准: 一位数直接打印 */
+    printf("%d", n);
   } else {
-    print(n / 10);                /* 先递归打印前面几位 */
-    printf(" %d", n % 10);        /* 回来再打印末位 —— 顺序是本题关键 */
+    /* 先递归打印前面几位 */
+    print(n / 10);
+    /* 回来再打印末位 —— 顺序是本题关键 */
+    printf(" %d", n % 10);
   }
 }
 ```
 
-</div>
-
 - ==参数即状态==: 只带 n; ==顺序是本题关键==——先递归打印 n/10, 回来再打印末位 n%10, 得到正序
-
 - ==基准情形==: 一位数 (n / 10 == 0) 直接打印
 
+</div>
+
+</div>
+<!-- slide data-notes="" -->
+
+##### 课堂案例 1-2: 递归求最大值与判断回文
+
 ---
 
-<!-- slide data-notes="" -->##### 课堂案例 1: 递归求最大值
+<div class="mcols two">
 
----
+<div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
 
-<div style="font-size:0.9em;line-height:1.6;">
+<div class="ct">课堂案例 1: 递归求最大值</div>
 
-==任务==: 实现 `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与第 6 周"先假设再修正"同源)
+==任务==: 实现 `int max_rec(int a[], int n)`——最大值 = `a[n-1]` 与 "前 n-1 个的最大值" 里较大的那个 (与之前"先假设再修正"同源)
 
 样例: `a = {3, 9, 1, 7, 5}` → 输出 `9`
 
-</div>
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/max-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 max-rec.c (只写函数体)</a>
 
+</div>
+
+<div style="font-size:0.64em;line-height:1.55;">
+
+<div class="ct">课堂案例 2: 判断回文</div>
+
+==任务==: 判断字符串是否回文——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
+
+==先想参数==: `int is_pal( ??? )`——子问题是"首尾去掉后剩下的中间一段", 要==几个参数==才能刻画它? 需要复制一个新字符串吗? 想清楚再打开 VS Code 对照
+
+样例: `"level"` → 1, `"hello"` → 0
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (自己设计签名 + 函数体 + main 调用)</a>
+
+</div>
+
+</div>
+<!-- slide data-notes="" -->
+
+##### 课堂案例 1-2 · 参考实现
+
 ---
 
-<!-- slide data-notes="" -->##### 课堂案例 1: 递归求最大值 · 参考实现
+<div class="mcols two">
 
----
+<div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 
-<div style="font-size:0.85em;">
+<div class="ct">案例 1: 递归求最大值</div>
 
 ```C
 int max_rec(int a[], int n)
@@ -721,35 +706,13 @@ int max_rec(int a[], int n)
 }
 ```
 
-</div>
-
 - 递归情形里==先信任== `max_rec(a, n-1)` 是对的, 再拿 `a[n-1]` 和它比——这就是"信任递归"
 
----
-
-<!-- slide data-notes="" -->##### 课堂案例 2: 判断回文
-
----
-
-<div style="font-size:0.9em;line-height:1.6;">
-
-==任务==: 判断字符串是否回文——两端字符相等, 且中间那一段也是回文 (回文用循环双指针更自然; 这题的价值是练习"把递归定义==直接翻译==成代码")
-
-==先想参数==: `int is_pal( ??? )`——子问题是"首尾去掉后剩下的中间一段", 要==几个参数==才能刻画它? 需要复制一个新字符串吗? 想清楚再打开 VS Code 对照
-
-样例: `"level"` → 1, `"hello"` → 0
-
 </div>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/pal-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 pal-rec.c (自己设计签名 + 函数体 + main 调用)</a>
+<div style="font-size:0.58em;line-height:1.5;">
 
----
-
-<!-- slide data-notes="" -->##### 课堂案例 2: 判断回文 · 参考实现
-
----
-
-<div style="font-size:0.85em;">
+<div class="ct">案例 2: 判断回文</div>
 
 ```C
 int is_pal(char s[], int l, int r)
@@ -761,14 +724,12 @@ int is_pal(char s[], int l, int r)
 }
 ```
 
-</div>
-
 - ==参数即状态==: l、r 刻画当前子串——不复制字符串, 只移动两个下标
-
 - ==定义即代码==: 把"首尾相等且中间是回文"逐字翻译出来, 就是函数体
 
----
+</div>
 
+</div>
 <!-- slide data-notes="" -->##### 课堂案例 3: 二分查找
 
 ---
@@ -819,27 +780,50 @@ int bin_search(int a[], int low, int high, int key)
 
 ---
 
-<!-- slide data-notes="" -->##### 课堂案例 4: 组合数
+<!-- slide data-notes="" -->
+
+##### 课堂案例 4-5: 组合数与爬楼梯
 
 ---
 
-<div style="font-size:0.9em;line-height:1.6;">
+<div class="mcols two">
+
+<div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
+
+<div class="ct">课堂案例 4: 组合数</div>
 
 ==任务==: C(m,n) = 从 m 个元素中选出 n 个的==方案数==。实现 `long comb(int m, int n)`——按"选/不选第 m 个元素"分成两类: C(m,n) = C(m-1,n-1) + C(m-1,n); 对比 8-2 用 factorial 的公式算法: 递归定义有时比公式==更直接==
 
 样例: `comb(5, 2)` → 10
 
-</div>
-
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/comb-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 comb-rec.c (只写函数体)</a>
 
+</div>
+
+<div style="font-size:0.64em;line-height:1.55;">
+
+<div class="ct">课堂案例 5: 爬楼梯</div>
+
+==任务==: 有 n 级台阶, 每次可以走 ==1 或 2 级==——从第 0 级走到第 n 级共有==多少种走法==? 实现 `int climb(int n)`
+
+样例: `climb(4)` → 5 (走法: 1111、112、121、211、22)
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/climb-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 climb-rec.c (只写函数体)</a>
+
+</div>
+
+</div>
+<!-- slide data-notes="" -->
+
+##### 课堂案例 4-5 · 参考实现
+
 ---
 
-<!-- slide data-notes="" -->##### 课堂案例 4: 组合数 · 参考实现
+<div class="mcols two">
 
----
+<div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 
-<div style="font-size:0.85em;">
+<div class="ct">案例 4: 组合数</div>
 
 ```C
 long comb(int m, int n)
@@ -851,33 +835,13 @@ long comb(int m, int n)
 }
 ```
 
-</div>
-
 - 同一行里两个递归调用——先展开一层看: "选中第 m 个"与"不选第 m 个"两类, 加起来
 
----
-
-<!-- slide data-notes="" -->##### 课堂案例 5: 爬楼梯
-
----
-
-<div style="font-size:0.9em;line-height:1.6;">
-
-==任务==: 有 n 级台阶, 每次可以走 ==1 或 2 级==——从第 0 级走到第 n 级共有==多少种走法==? 实现 `int climb(int n)`
-
-样例: `climb(4)` → 5 (走法: 1111、112、121、211、22)
-
 </div>
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/climb-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 climb-rec.c (只写函数体)</a>
+<div style="font-size:0.58em;line-height:1.5;">
 
----
-
-<!-- slide data-notes="" -->##### 课堂案例 5: 爬楼梯 · 参考实现
-
----
-
-<div style="font-size:0.85em;">
+<div class="ct">案例 5: 爬楼梯</div>
 
 ```C
 int climb(int n)
@@ -889,15 +853,11 @@ int climb(int n)
 }
 ```
 
-</div>
-
 - 生活问题→递归定义: 走到第 n 级的方法数 = 走到 n-1 的方法数 + 走到 n-2 的方法数
 
----
+</div>
 
-
-<!-- slide data-notes="" -->
-
+</div>
 <!-- slide data-notes="" -->
 
 
@@ -973,9 +933,11 @@ void quicksort(int a[], int low, int high)
 
 ---
 
+<style>#split-code pre{padding:0.35em 0.6em!important;margin:0.2rem 0!important}#split-code pre code{font-size:17px!important;line-height:1.2!important;padding:0!important;max-height:none!important}</style>
+
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div id="split-code" style="flex:1.3;font-size:0.6em;">
 
 ```C{.line-numbers}
 int split(int a[], int low, int high)

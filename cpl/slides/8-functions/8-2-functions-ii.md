@@ -468,24 +468,20 @@ int main(void)
 ---
 
 <!-- slide data-notes="" -->
-
-
-##### 一维数组作参数
+##### 一维数组作参数: 开头位置与长度
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:20px;">
 
-<div style="flex:1.15;">
+<div style="flex:1.12;min-width:0;font-size:0.9em;">
 
-<div style="font-size:0.8em;margin:0;">函数要操作数组, 就把数组传给函数:</div>
-
-<div style="font-size:0.9em;">
+<div style="font-size:0.95em;margin:0 0 2px;">函数要操作数组, 就把数组传给函数:</div>
 
 ```C{.line-numbers}
 /* 求和: 函数版 */
 #include <stdio.h>
-int sum_array(int a[], int n)    /* 1. 形参: int a[], 长度单独传 */
+int sum_array(int a[], int n)    /* 形参: 数组+长度 */
 {
   int sum = 0;
   for (int i = 0; i < n; i++) {
@@ -497,68 +493,35 @@ int main(void)
 {
   int b[5] = {3, 7, 1, 9, 4};
   int c[3] = {10, 20, 30};
-  printf("%d\n", sum_array(b, 5));   /* 2. 调用: 只写数组名 */
-  printf("%d\n", sum_array(c, 3));   /*    同一函数, 换一组数据 */
+  printf("%d\n", sum_array(b, 5));   /* 调用: 只写数组名 */
+  printf("%d\n", sum_array(c, 3));   /* 换一组数据 */
   return 0;
 }
 ```
-
-</div>
-
-<div style="text-align:center;margin:4px 0;">
-<svg viewBox='0 0 400 250' style='max-width:100%;height:158px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr1d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='19' font-size='10.5' fill='#586e75' font-weight='700'>main: int b[5] = {3, 7, 1, 9, 4};</text><g font-size='14.3' fill='#073642' text-anchor='middle' font-weight='700'><rect x='100' y='31' width='36' height='38' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='118' y='58'>3</text><rect x='136' y='31' width='36' height='38' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='154' y='58'>7</text><rect x='172' y='31' width='36' height='38' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='190' y='58'>1</text><rect x='208' y='31' width='36' height='38' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='226' y='58'>9</text><rect x='244' y='31' width='36' height='38' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='262' y='58'>4</text></g><g font-size='9.4' fill='#586e75' text-anchor='middle' font-family='Menlo, monospace'><text x='118' y='90'>1000</text><text x='154' y='90'>1004</text><text x='190' y='90'>1008</text><text x='226' y='90'>1012</text><text x='262' y='90'>1016</text></g><rect x='100' y='118' width='240' height='100' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='110' y='141' font-size='10.5' fill='#268bd2' font-weight='700'>sum_array 的栈帧</text><g font-weight='700'><rect x='112' y='151' width='105' height='33' rx='5' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='164' y='173' font-size='12.1' fill='#073642' text-anchor='middle'>a = 1000</text><rect x='230' y='151' width='98' height='33' rx='5' fill='#fdf6e3' stroke='#586e75' stroke-width='1.5'/><text x='279' y='173' font-size='12.1' fill='#073642' text-anchor='middle'>n = 5</text></g><text x='112' y='205' font-size='9.4' fill='#859900'>函数里 a[i] = 改 b[i]</text><path d='M112 131 H104 V58' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr1d)'/><text x='112' y='105' font-size='9.9' fill='#268bd2'>只传开头地址</text><text x='18' y='241' font-size='10.5' fill='#586e75'>数组名传开头位置，不传长度 → 长度必须单独传 n</text></g></svg>
-</div>
-
-</div>
-
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
-
-- 形参 `int a[]` 只拿到数组的==开头位置==, 不携带长度信息——长度必须由调用者单独传
-
-- ==函数里改数组 = 改原数组==: 排序函数正是这样工作的
-
-- 为什么能改到原数组, 原因在后面的指针部分揭晓 (数组名传的是地址)
 
 <span style="font-size:0.9em;"><a href="code/sum-array-re.c" target="_blank">sum-array-re.c (改造前)</a> · <a href="code/sum-array-func.c" target="_blank">sum-array-func.c (函数版)</a></span>
 
 </div>
 
-</div>
+<div style="flex:1;min-width:0;">
 
-
----
-
-<!-- slide data-notes="" -->##### 一维数组传参: 开头位置与长度
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;text-align:center;">
-
-<div style="text-align:center;margin:4px 0;">
 <svg viewBox='0 0 400 195' style='max-width:100%;height:320px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='arr1d' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker></defs><text x='18' y='15' font-size='12.8' fill='#586e75' font-weight='700'>main: int b[5] = {3, 7, 1, 9, 4};</text><g font-size='17.6' fill='#073642' text-anchor='middle' font-weight='700'><rect x='100' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='118' y='45'>3</text><rect x='136' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='154' y='45'>7</text><rect x='172' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='190' y='45'>1</text><rect x='208' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='226' y='45'>9</text><rect x='244' y='24' width='36' height='30' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='262' y='45'>4</text></g><g font-size='11.5' fill='#586e75' text-anchor='middle' font-family='Menlo, monospace'><text x='118' y='70'>1000</text><text x='154' y='70'>1004</text><text x='190' y='70'>1008</text><text x='226' y='70'>1012</text><text x='262' y='70'>1016</text></g><rect x='100' y='92' width='240' height='78' rx='8' fill='#fdf6e3' stroke='#268bd2' stroke-width='2.5'/><text x='110' y='110' font-size='12.8' fill='#268bd2' font-weight='700'>sum_array 的栈帧</text><g font-weight='700'><rect x='112' y='118' width='105' height='26' rx='5' fill='#dceaf5' stroke='#268bd2' stroke-width='1.5'/><text x='164' y='135' font-size='14.9' fill='#073642' text-anchor='middle'>a = 1000</text><rect x='230' y='118' width='98' height='26' rx='5' fill='#fdf6e3' stroke='#586e75' stroke-width='1.5'/><text x='279' y='135' font-size='14.9' fill='#073642' text-anchor='middle'>n = 5</text></g><text x='112' y='160' font-size='11.5' fill='#859900'>函数里 a[i] = 改 b[i]</text><path d='M112 131 H104 V58' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#arr1d)'/><text x='112' y='82' font-size='12.2' fill='#268bd2'>只传开头地址</text><text x='18' y='188' font-size='12.8' fill='#586e75'>数组名传开头位置，不传长度 → 长度必须单独传 n</text></g></svg>
-</div>
+
+<div style="font-size:0.78em;line-height:1.42;">
+
+- 形参 `int a[]` 只拿到数组的==开头位置== (首元素的地址 1000), 不携带长度——长度必须由调用者==单独传 n==
+
+- 函数里 `a[i]` = 从开头位置==往后数 i 个==——所以改 `a[i]` 就是改 b[i], 这就是 "函数里改数组 = 改原数组" 的由来
+
+- 为什么传进来的是地址, 原因在后面的==指针部分==揭晓 (数组名传的是地址)
 
 </div>
-
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
-
-- 形参 `int a[]` 只拿到数组的==开头位置== (首元素的地址 1000), 不携带任何长度信息
-
-- 函数不知道数组到哪结束——长度必须由调用者==单独传一个参数== (n = 5)
-
-- 函数里 `a[i]` = 从开头位置往后数 i 个——所以改 `a[i]` 就是改 b[i], 这就是 "函数里改数组 = 改原数组" 的由来
-
-- 为什么传进来的是地址, 原因在后面的指针部分揭晓 (数组名传的是地址)
 
 </div>
 
 </div>
 
 ---
-
-
 <!-- slide data-notes="" -->##### 排序封装: 原版
 
 ---
@@ -835,7 +798,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.72em;line-height:1.45;">
+<div style="flex:1;font-size:0.68em;line-height:1.35;">
 
 ==先看效果==: 左上角的小三角叫==滑翔机==——演化一代后, 它移动了一格:
 
@@ -1136,7 +1099,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:start;">
 
 <div style="text-align:center;">
-<svg viewBox="0 0 460 440" style="max-width:100%;height:350px;">
+<svg viewBox="0 0 460 440" style="max-width:100%;height:320px;">
 <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
 <text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
@@ -1173,18 +1136,20 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 ---
 
 
-<!-- slide data-notes="" -->##### 函数调用栈 · 便签上放了什么
+<!-- slide data-notes="" -->
+##### 函数调用栈 · 便签上放了什么
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.1;font-size:0.62em;">
+<style>.stack-code pre{padding:0.5em 1em !important;margin:0.3em 0 !important}.stack-code pre code{font-size:15px !important;line-height:18px !important;max-height:none !important;overflow:visible !important}</style>
+
+<div class="stack-code" style="flex:1.05;min-width:0;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* primes.c 函数版: 两层调用链 */
 #include <stdio.h>
-
 int is_prime(int n) {
   if (n <= 1) return 0;
   for (int d = 2; d <= n / d; d++) {
@@ -1192,7 +1157,6 @@ int is_prime(int n) {
   }
   return 1;
 }
-
 int count_primes(int max) {
   int count = 0;
   for (int i = 2; i <= max; i++) {
@@ -1200,7 +1164,6 @@ int count_primes(int max) {
   }
   return count;
 }
-
 int main(void) {
   printf("%d\n", count_primes(10));
   return 0;
@@ -1209,15 +1172,11 @@ int main(void) {
 
 </div>
 
-<div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;align-self:stretch;">
+<div style="flex:1;min-width:0;font-size:0.9em;line-height:1.5;">
 
-<div style="font-size:0.9em;line-height:1.6;">
+<div style="font-size:0.9em;">primes.c 函数版: main → count_primes → is_prime ==两层调用==, 栈上三张便签</div>
 
-拿刚才的 primes.c 函数版看: main → count_primes → is_prime ==两层调用==, 运行时栈上叠着三张便签
-
-</div>
-
-<svg viewBox="0 0 520 440" style="max-width:100%;height:460px;">
+<svg viewBox="0 0 520 440" style="max-width:100%;height:250px;">
 <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
 <text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
@@ -1257,11 +1216,9 @@ int main(void) {
 
 </div>
 
----
+<style>.stack-sum ul{margin:0 !important;}.stack-sum p{margin:2px 0 !important;}.stack-sum a{padding:4px 10px !important;font-size:0.8em !important}</style>
 
-<!-- slide data-notes="" -->##### 函数调用栈 · 小结
-
----
+<div class="stack-sum" style="font-size:0.78em;line-height:1.4;">
 
 - is_prime 返回时, 栈顶的便签被==撕掉==: 局部变量 d 随之消失, 控制权按 "返回地址" 回到 count_primes
 
@@ -1273,9 +1230,7 @@ int main(void) {
 
 <a href="function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (逐帧压栈/弹栈)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘贴左栏代码, 逐行看栈帧)</a>
 
----
-
-
+</div>
 <!-- slide data-notes="" -->
 
 

@@ -287,33 +287,11 @@ int main(void)
 
 刚才的 `is_prime` 和 `is_palindrome` 就是例证: 各写一遍、反复调用——复用、模块化、封装, 一个案例全用上
 <!-- slide data-notes="" -->
-
-
-##### 函数
-
----
-
-函数是==打包在一起并起名字==的一组语句。
-
-每个函数本质上都是一个自带声明和语句的小程序. 
-
-功能优势: 
-
-- 一个程序可以分成更容易理解和修改的小块. 
-
-- 可以避免重复编写要多次使用的代码. 
-
-- 最初属于某个程序的功能可以在其他程序中重用. 
-
----
-
-
-<!-- slide data-notes="" -->
-
-
 ##### 函数的定义和调用
 
 ---
+
+==函数==是打包在一起并起名字的一组语句——每个函数本质上都是一个自带声明和语句的小程序; 好处是代码==复用== (同一段逻辑只写一次)、==模块化== (程序分成更容易理解和修改的小块)、可在其他程序中==重用==。
 
 ==其实你早就在用函数了==——`printf` 和 `scanf` 就是标准库提供的函数, 它们的声明来自头文件:
 
@@ -325,15 +303,12 @@ int scanf(const char *format, ...);
 ```C
 char str[1024];
 scanf("%s", str);
-
 int a, b;
 scanf("%d%d", &a, &b);
 printf("a + b is : %d", a + b);
 ```
 
 ---
-
-
 <!-- slide data-notes="" -->
 
 
@@ -702,15 +677,15 @@ printf("Hi, Mom!\n"); /* discards return value */
 </div>
 
 <!-- slide data-notes="" -->
-
-
-##### 函数声明
+##### 函数声明：先调用后定义与隐式声明
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<style>.decl-code pre code{font-size:16px !important;line-height:19px !important;max-height:none !important;overflow:visible !important}</style>
+
+<div class="decl-code" style="flex:1.25;min-width:0;font-size:0.58em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -736,131 +711,80 @@ double average(double a, double b)
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:1;font-size:0.8em;line-height:1.45;">
 
-C不要求函数的定义在其调用之前. 
+C 不要求函数的定义在调用之前——可以把 `average` 的定义放在 `main` 之后; 但 `main` 调用它时, 编译器没有任何信息.
 
-假设我们重新编排`average.c`程序, 将average函数的定义放在main函数的定义之后.
+- 不报错, 而是假设它返回 `int`——为该函数创建了==隐式声明==; 实参个数与类型也无法检查
 
+- 后面遇到真实定义 (返回 `double`) 才会报错
 
+- 避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读
 
+<div style="text-align:center;margin-top:6px;">
+<svg viewBox='0 0 400 190' style='max-width:100%;height:140px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='decl-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='decl-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><text x='10' y='16' font-size='11' fill='#dc322f' font-weight='700'>✗ 没有原型：编译器只能猜</text><g font-weight='700'><rect x='8' y='26' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='64' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>main 调用</text><text x='64' y='58' font-size='10' fill='#073642' text-anchor='middle'>average(x, y)</text><rect x='140' y='26' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='202' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>编译器没见过</text><text x='202' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 隐式声明 int</text><rect x='284' y='26' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='338' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>之后遇到定义</text><text x='338' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 类型冲突</text></g><path d='M120 48 H137' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><path d='M264 48 H281' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><text x='10' y='100' font-size='11' fill='#859900' font-weight='700'>✓ 有原型：先声明，后调用</text><g font-weight='700'><rect x='8' y='110' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='70' y='127' font-size='9.5' fill='#073642' text-anchor='middle'>double average</text><text x='70' y='142' font-size='9.5' fill='#073642' text-anchor='middle'>(double, double);</text><rect x='152' y='110' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='208' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>调用前已见过</text><text x='208' y='142' font-size='10' fill='#073642' text-anchor='middle'>按 double 检查</text><rect x='284' y='110' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='338' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>实参 int → double</text><text x='338' y='142' font-size='10' fill='#859900' text-anchor='middle'>→ 正确</text></g><path d='M132 132 H149' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><path d='M264 132 H281' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><text x='10' y='180' font-size='9.5' fill='#586e75'>C99：调用前必须先声明或定义，否则直接报错</text></g></svg>
 </div>
 
 </div>
 
+</div>
+
+---
 <!-- slide data-notes="" -->
-
-
-##### 函数声明
-
----
-
-main 里调用 average 时编译器没有它的信息: 不报错, 而是假设它返回 `int`——为该函数创建了==隐式声明==
-
-
----
-
-实参个数与类型也无法检查, 只能默认提升"希望最好"; 后面遇到真实定义 (返回 `double`) 才会报错
-
-
----
-
-避免方法一: 定义总写在调用之前——可惜有时做不到, 且顺序不自然、难读
-
-<div style="text-align:center;margin-top:2px;">
-<svg viewBox='0 0 400 190' style='max-width:100%;height:170px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='decl-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='decl-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><text x='10' y='16' font-size='11' fill='#dc322f' font-weight='700'>✗ 没有原型：编译器只能猜</text><g font-weight='700'><rect x='8' y='26' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='64' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>main 调用</text><text x='64' y='58' font-size='10' fill='#073642' text-anchor='middle'>average(x, y)</text><rect x='140' y='26' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='202' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>编译器没见过</text><text x='202' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 隐式声明 int</text><rect x='284' y='26' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#dc322f' stroke-width='2'/><text x='338' y='43' font-size='9.5' fill='#586e75' text-anchor='middle'>之后遇到定义</text><text x='338' y='58' font-size='10' fill='#dc322f' text-anchor='middle'>→ 类型冲突</text></g><path d='M120 48 H137' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><path d='M264 48 H281' stroke='#dc322f' stroke-width='2' fill='none' marker-end='url(#decl-red)'/><text x='10' y='100' font-size='11' fill='#859900' font-weight='700'>✓ 有原型：先声明，后调用</text><g font-weight='700'><rect x='8' y='110' width='124' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='70' y='127' font-size='9.5' fill='#073642' text-anchor='middle'>double average</text><text x='70' y='142' font-size='9.5' fill='#073642' text-anchor='middle'>(double, double);</text><rect x='152' y='110' width='112' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='208' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>调用前已见过</text><text x='208' y='142' font-size='10' fill='#073642' text-anchor='middle'>按 double 检查</text><rect x='284' y='110' width='108' height='44' rx='7' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='338' y='127' font-size='9.5' fill='#586e75' text-anchor='middle'>实参 int → double</text><text x='338' y='142' font-size='10' fill='#859900' text-anchor='middle'>→ 正确</text></g><path d='M132 132 H149' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><path d='M264 132 H281' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#decl-green)'/><text x='10' y='180' font-size='9.5' fill='#586e75'>C99：调用前必须先声明或定义，否则直接报错</text></g></svg>
-</div>
-
----
-
-
-<!-- slide data-notes="" --><!-- slide data-notes="" -->
-
 ##### 函数声明 · 原型
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<style>.proto-code pre code{font-size:18px !important;line-height:21px !important;max-height:none !important;overflow:visible !important}</style>
 
-```C
-返回类型 函数名(参数);
-```
+<div class="proto-code" style="flex:0 0 50%;min-width:0;font-size:0.56em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
-double average(double a, double b);   /* DECLARATION */
+double average(double a, double b);   /* 声明 */
+
 int main(void)
 {
   double x, y, z;
-  printf("Enter three numbers: ");
-  scanf("%lf%lf%lf", &x, &y, &z);
-  printf("Average of %g and %g: %g\n", x, y, average(x, y));
-  printf("Average of %g and %g: %g\n", y, z, average(y, z));
-  printf("Average of %g and %g: %g\n", x, z, average(x, z));
-  return 0;
+  …
+  printf("Average: %g\n", average(x, y));
+  …
 }
-double average(double a, double b)    /* DEFINITION */
+
+double average(double a, double b)    /* 定义 */
 {
   return (a + b) / 2;
 }
 ```
 
 ```C
-double average(double, double);    /* 形参名可省略 */
+返回类型 函数名(参数);   /* 原型 */
+double average();        /* 旧式声明 */
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.82em;line-height:1.45;">
+<div style="flex:1;min-width:0;font-size:0.82em;line-height:1.35;">
 
-- 更好的解决方案: 在调用函数之前==声明==它——声明给编译器一份 "简要介绍", 完整定义以后给出
+- 调用前先==声明==函数, 给编译器一份 "简要介绍"; 声明必须与定义==一致== (返回类型、参数个数与类型)
 
-- ==声明必须与定义一致== (返回类型、参数个数与类型都对上)
+- 这类声明称为==函数原型==; 形参名可省略 (如 `double average(double, double);`), 但==最好写上==
 
-- 这类声明称为==函数原型==; 原型不必写形参名, 但==最好写上== (便于阅读)
+- 旧式声明 `double average();` 是 C89 遗留: 括号为空, 编译器==不检查参数==——尽量不用
 
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-##### 函数声明 · 旧式声明与 C99
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.2;font-size:0.65em;">
-
-```C
-double average();    /* 旧式声明: 括号为空, 不写参数 */
-```
-
-</div>
-
-<div style="flex:1;font-size:0.9em;line-height:1.7;">
-
-- 旧式声明是 C89 的遗留写法: 括号为空, 编译器==不检查参数==——尽量不用
-
-- ==C99 规则==: 调用函数之前, 必须先对其进行==声明或定义==
-
-- 调用时编译器没见过声明或定义 → ==出错== (上一页的隐式声明正是反面教材)
+- ==C99 规则==: 调用前必须先==声明或定义==, 否则==出错== (上一页的隐式声明正是反面教材)
 
 </div>
 
 </div>
 
 ---
-
 <!-- slide data-notes="" -->
 
 
-##### 实际参数
+##### 实际参数 (上)
 
 ---
 
@@ -909,7 +833,7 @@ C 里参数是==按值传递==的:
 <!-- slide data-notes="" -->
 
 
-##### 实际参数
+##### 实际参数 (下)
 
 ---
 
@@ -1019,7 +943,7 @@ x = 3, y = 5
 <!-- slide data-notes="" -->
 
 
-##### 实际参数的转换
+##### 实际参数的转换 (1/2)
 
 ---
 
@@ -1063,7 +987,7 @@ int main(void)
 <!-- slide data-notes="" -->
 
 
-##### 实际参数的转换
+##### 实际参数的转换 (2/2)
 
 ---
 
@@ -1117,7 +1041,7 @@ printf("Square: %d\n", square((int) x));
 <!-- slide data-notes="" -->
 
 
-##### return语句
+##### return语句 (上)
 
 ---
 
@@ -1156,7 +1080,7 @@ return 表达式的类型与返回类型不匹配时, 会被==隐式转换==为�
 <!-- slide data-notes="" -->
 
 
-##### return语句
+##### return语句 (下)
 
 ---
 
