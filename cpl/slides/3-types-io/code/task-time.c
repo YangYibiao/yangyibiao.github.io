@@ -1,18 +1,24 @@
 /* task-time.c: 任务 —— 时间换算
-   任务: 输入一个分钟数, 换算成 "几小时几分钟":
-     输入 137 → 2 小时 17 分钟
+   任务: 输入一个秒数 (非负整数), 换算成 "几小时几分几秒"
+   样例:
+     输入: 3671
+     输出: 1 小时 1 分 11 秒
    提示:
-     - 小时 = minutes / 60 (整数除法); 分钟 = minutes % 60 (取余)
+     - 小时 = seconds / 3600
+     - 分钟 = seconds % 3600 / 60
+     - 秒   = seconds % 60
    在 TODO 处补完代码 */
 #include <stdio.h>
 
 int main(void)
 {
-  int minutes;
+  int seconds;
 
-  /* TODO: 读入 minutes */
+  /* TODO: 读入 seconds */
 
-  /* TODO: 计算小时与剩余分钟, 按样例格式输出 */
+  /* TODO: 计算小时、分钟、秒 */
+
+  /* TODO: 按样例格式输出 */
 
   return 0;
 }

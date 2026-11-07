@@ -14,6 +14,6 @@ void Hanoi(int n, char A, char B, char C)
 
 int main(void)
 {
-  Hanoi(32, 'A', 'B', 'C');     /* 3 个盘的完整移法 */
+  Hanoi(3, 'A', 'B', 'C');      /* 3 个盘的完整移法 */
   return 0;
 }

@@ -413,37 +413,20 @@ ops<span class="token punctuation">[</span><span class="token number">1</span><s
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="程序--列三角函数表--参考代码">程序: 列三角函数表 (参考代码) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div class="small-code" style="flex:1.4;min-width:0;font-size:0.34em;">
+<div class="small-code" style="flex:1.4;min-width:0;font-size:0.55em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 列三角函数表: 函数指针作参数 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;math.h&gt;</span></span>
+
 <span class="token keyword keyword-void">void</span> <span class="token function">tabulate</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token punctuation">(</span><span class="token operator">*</span>f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span>
               <span class="token keyword keyword-double">double</span> b<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> step<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">-</span> a<span class="token punctuation">)</span> <span class="token operator">/</span> step <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"     x       f(x)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  -------   -------\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword keyword-double">double</span> x <span class="token operator">=</span> a <span class="token operator">+</span> i <span class="token operator">*</span> step<span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  %7.5f  %7.5f\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入初值: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入终值: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入步长: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>step<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\ncos(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">tabulate</span><span class="token punctuation">(</span>cos<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nsin(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">tabulate</span><span class="token punctuation">(</span>sin<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\ntan(x):\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">tabulate</span><span class="token punctuation">(</span>tan<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> step<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> n <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>b <span class="token operator">-</span> a<span class="token punctuation">)</span> <span class="token operator">/</span> step <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"     x       f(x)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-double">double</span> x <span class="token operator">=</span> a <span class="token operator">+</span> i <span class="token operator">*</span> step<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"  %7.5f  %7.5f\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;min-width:0;font-size:0.64em;">
@@ -454,6 +437,10 @@ ops<span class="token punctuation">[</span><span class="token number">1</span><s
 </li>
 <li>
 <p><code>f(x)</code> 调用指针指向的函数——循环体一模一样, 只换函数</p>
+
+</li>
+<li>
+<p><code>main</code> 只需读入 <code>a</code>、<code>b</code>、<code>step</code>, 再调用三次: <code>tabulate(cos, a, b, step);</code>、<code>tabulate(sin, ...);</code>、<code>tabulate(tan, ...);</code></p>
 
 </li>
 <li>

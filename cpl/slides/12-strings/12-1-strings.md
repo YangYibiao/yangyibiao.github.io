@@ -938,7 +938,7 @@ strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="small-code" style="flex:1.42;min-width:0;font-size:0.36em;">
+<div class="small-code" style="flex:1.42;min-width:0;font-size:0.5em;">
 
 ```C{.line-numbers}
 #define MAX_REMIND 50
@@ -946,25 +946,21 @@ strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回�
 char reminders[MAX_REMIND][MSG_LEN + 3];
 char day_str[3], msg_str[MSG_LEN + 1];
 int day, i, j, num_remind = 0;
+
 for (;;) {
-  printf("输入日期和提醒: ");
-  scanf("%2d", &day);
-  if (day == 0)
-    break;
+  scanf("%2d", &day);               /* 读日期 */
+  if (day == 0) break;              /* 0 结束 */
   sprintf(day_str, "%2d", day);
   read_line(msg_str, MSG_LEN + 1);
-  for (i = 0; i < num_remind; i++)
-    if (strcmp(day_str, reminders[i]) < 0)
-      break;
-  for (j = num_remind; j > i; j--)
+
+  for (i = 0; i < num_remind; i++)  /* 找插入位置 */
+    if (strcmp(day_str, reminders[i]) < 0) break;
+  for (j = num_remind; j > i; j--)  /* 从后往前腾位 */
     strcpy(reminders[j], reminders[j - 1]);
-  strcpy(reminders[i], day_str);
-  strcat(reminders[i], msg_str);
+  strcpy(reminders[i], day_str);    /* 放入日期 */
+  strcat(reminders[i], msg_str);    /* 拼上提醒 */
   num_remind++;
 }
-printf("\n日期  提醒\n");
-for (i = 0; i < num_remind; i++)
-  printf(" %s\n", reminders[i]);
 ```
 
 </div>
@@ -977,6 +973,7 @@ for (i = 0; i < num_remind; i++)
 - 日期先用 `sprintf` 格式化成两位字符串, 再与提醒拼接.
 - 插入时从后向前腾出位置, 保持按日期有序.
 - 使用 `strcmp`、`strcpy`、`strcat`, 需要 `#include <string.h>`.
+- 最后的按顺序打印循环省略了, 见 `remind.c`：`for (i = 0; i < num_remind; i++) printf(" %s\n", reminders[i]);`
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/remind.c" style="display:inline-block;margin-top:5px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 remind.c</a>
 

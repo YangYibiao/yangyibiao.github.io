@@ -59730,12 +59730,12 @@ div.boardhandle > ul > li {
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="任务-1--打印对齐的成绩表">任务 1: 打印对齐的成绩表 </h5>
 <hr>
 <div style="font-size:1.0em;line-height:1.75;">
-<p><mark>任务</mark>: 打印下面的表, 三列<mark>对齐</mark> (科目左对齐, 分数右对齐保留 1 位小数, 等级居中)</p>
+<p><mark>任务</mark>: 打印下面的表, 三列<mark>对齐</mark> (科目左对齐, 分数右对齐保留 1 位小数, 等级右对齐)</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>科目        分数    等级
-语文      <span class="token number">85.5</span>      A
-数学      <span class="token number">92.0</span>      A
-英语      <span class="token number">78.2</span>      B</code></pre>
-<p><mark>提示</mark>: 宽度修饰 <code>%8.1f</code> (总宽 8, 1 位小数, 右对齐); 左对齐用负号 <code>%-8s</code>; 表头与数据行<mark>宽度一致</mark>才对齐</p>
+语文        <span class="token number">85.5</span>       A
+数学        <span class="token number">92.0</span>       A
+英语        <span class="token number">78.2</span>       B</code></pre>
+<p><mark>提示</mark>: 数据列用 <code>%10.1f</code> (总宽 10, 1 位小数) 与 <code>%8c</code>; 中文表头<mark>不要用 <code>%8s</code></mark>——<code>%s</code> 的宽度按<mark>字节</mark>算, 一个汉字 3 字节却只占 2 列, 直接用固定空格对齐表头</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-table.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-table.c (骨架)</a>
 </div>
 <hr>
@@ -59747,7 +59747,7 @@ div.boardhandle > ul > li {
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-8s%10s%8s\n"</span><span class="token punctuation">,</span> <span class="token string">"科目"</span><span class="token punctuation">,</span> <span class="token string">"分数"</span><span class="token punctuation">,</span> <span class="token string">"等级"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"科目        分数    等级\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 中文表头用固定空格 */</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-8s%10.1f%8c\n"</span><span class="token punctuation">,</span> <span class="token string">"语文"</span><span class="token punctuation">,</span> <span class="token number">85.5</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-8s%10.1f%8c\n"</span><span class="token punctuation">,</span> <span class="token string">"数学"</span><span class="token punctuation">,</span> <span class="token number">92.0</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-8s%10.1f%8c\n"</span><span class="token punctuation">,</span> <span class="token string">"英语"</span><span class="token punctuation">,</span> <span class="token number">78.2</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -59761,7 +59761,11 @@ div.boardhandle > ul > li {
 
 </li>
 <li>
-<p><mark>列对齐的前提</mark>: 每一行同一个位置用<mark>相同宽度</mark></p>
+<p><mark>中文表头不要用 <code>%8s</code></mark>: <code>%s</code> 的宽度按<mark>字节</mark>算, 一个汉字 3 字节却只占 2 列; 表头用固定空格, 数据列仍用 <code>%10.1f</code>/<code>%8c</code></p>
+
+</li>
+<li>
+<p><mark>列对齐的前提</mark>: 每一行同一个位置用<mark>相同的显示宽度</mark></p>
 
 </li>
 <li>

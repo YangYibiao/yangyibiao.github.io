@@ -189,6 +189,9 @@ int is_prime(int n)          /* 素数检查: 写一次 */
 {
   int d;
 
+  if (n <= 1) {              /* 1 和 0 不是素数 */
+    return 0;
+  }
   for (d = 2; d <= n / d; d++) {
     if (n % d == 0) {
       return 0;
@@ -241,13 +244,15 @@ int main(void)
 
 <div style="flex:1;">
 
-- 两道检查各写==一遍==; `is_prime` 被调用了 2×(n-m+1) 次, `is_palindrome` (n-m+1)+1 次——==零复制==
+- 两道检查各写==一遍==; `is_prime` 调用 2×(n-m+1) 次, `is_palindrome` 只调用==素数个数 + 1== 次 (`&&` 短路)——==零复制==
 
 - `main` 只剩三个任务的一行行调用, 程序在干什么==一目了然==
 
 - 检查要改? 只改==一处==
 
 - `if (is_prime(i) && is_palindrome(i))`: 函数的返回值可以直接当条件用——这是今天要学的核心玩法
+
+- 顺手补了 `n <= 1` 守卫: 原版把 1 当素数; 用 `1 10` 跑一遍会看到行为变化——==测试发现旧 bug==.
 
 <a href="code/palindrome-prime-re.c" target="_blank">palindrome-prime-re.c</a>
 

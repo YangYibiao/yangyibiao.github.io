@@ -443,39 +443,22 @@ ops[1](i);   /* 调用 g(i) */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="small-code" style="flex:1.4;min-width:0;font-size:0.34em;">
+<div class="small-code" style="flex:1.4;min-width:0;font-size:0.55em;">
 
 ```C{.line-numbers}
 /* 列三角函数表: 函数指针作参数 */
 #include <stdio.h>
 #include <math.h>
+
 void tabulate(double (*f)(double), double a,
               double b, double step)
 {
-    int n = (int)((b - a) / step + 0.5);
-    printf("     x       f(x)\n");
-    printf("  -------   -------\n");
-    for (int i = 0; i <= n; i++) {
-        double x = a + i * step;
-        printf("  %7.5f  %7.5f\n", x, f(x));
-    }
-}
-int main(void)
-{
-    double a, b, step;
-    printf("输入初值: ");
-    scanf("%lf", &a);
-    printf("输入终值: ");
-    scanf("%lf", &b);
-    printf("输入步长: ");
-    scanf("%lf", &step);
-    printf("\ncos(x):\n");
-    tabulate(cos, a, b, step);
-    printf("\nsin(x):\n");
-    tabulate(sin, a, b, step);
-    printf("\ntan(x):\n");
-    tabulate(tan, a, b, step);
-    return 0;
+  int n = (int)((b - a) / step + 0.5);
+  printf("     x       f(x)\n");
+  for (int i = 0; i <= n; i++) {
+    double x = a + i * step;
+    printf("  %7.5f  %7.5f\n", x, f(x));
+  }
 }
 ```
 
@@ -486,6 +469,8 @@ int main(void)
 - ==函数指针== `f` 作参数: `tabulate(f, a, b, step)`——三次调用传 `cos`/`sin`/`tan`
 
 - `f(x)` 调用指针指向的函数——循环体一模一样, 只换函数
+
+- `main` 只需读入 `a`、`b`、`step`, 再调用三次: `tabulate(cos, a, b, step);`、`tabulate(sin, ...);`、`tabulate(tan, ...);`
 
 - 函数指针的典型用途: 把"做什么"也变成参数
 

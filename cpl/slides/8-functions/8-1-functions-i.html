@@ -59696,6 +59696,9 @@ div.boardhandle > ul > li {
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> d<span class="token punctuation">;</span>
 
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>              <span class="token comment">/* 1 和 0 不是素数 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> d <span class="token operator">&lt;=</span> n <span class="token operator">/</span> d<span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> d <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -59746,7 +59749,7 @@ div.boardhandle > ul > li {
 <div style="flex:1;">
 <ul>
 <li>
-<p>两道检查各写<mark>一遍</mark>; <code>is_prime</code> 被调用了 2×(n-m+1) 次, <code>is_palindrome</code> (n-m+1)+1 次——<mark>零复制</mark></p>
+<p>两道检查各写<mark>一遍</mark>; <code>is_prime</code> 调用 2×(n-m+1) 次, <code>is_palindrome</code> 只调用<mark>素数个数 + 1</mark> 次 (<code>&amp;&amp;</code> 短路)——<mark>零复制</mark></p>
 
 </li>
 <li>
@@ -59759,6 +59762,10 @@ div.boardhandle > ul > li {
 </li>
 <li>
 <p><code>if (is_prime(i) &amp;&amp; is_palindrome(i))</code>: 函数的返回值可以直接当条件用——这是今天要学的核心玩法</p>
+
+</li>
+<li>
+<p>顺手补了 <code>n &lt;= 1</code> 守卫: 原版把 1 当素数; 用 <code>1 10</code> 跑一遍会看到行为变化——<mark>测试发现旧 bug</mark>.</p>
 
 </li>
 </ul>

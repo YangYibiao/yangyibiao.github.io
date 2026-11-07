@@ -551,7 +551,7 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 
 ---
 
-<style>#m-reverse .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-reverse .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-reverse .taskpane pre{margin:6px 0!important}#m-reverse .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-reverse .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-reverse .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .codepane pre code{font-size:16px!important;line-height:1.15!important}</style>
+<style>#m-reverse .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-reverse .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-reverse .taskpane pre{margin:6px 0!important}#m-reverse .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-reverse .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-reverse .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .codepane pre code{font-size:16px!important;line-height:1.15!important}details.answer{background:#fdf6e3!important}details.answer:not([open]){display:inline-block;padding:6px 12px}details.answer summary{list-style:none;cursor:pointer;color:#268bd2!important;font-size:0.42em!important;line-height:1.4;padding:2px 0;text-align:left}details.answer summary::-webkit-details-marker{display:none}details.answer summary::before{content:"▶ ";font-size:0.85em}details.answer[open] summary::before{content:"▼ "}</style>
 
 <div id="m-reverse" style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -582,6 +582,9 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 
 <div class="codepane" style="flex:1.4;">
 
+<details class="answer" style="max-height:560px;overflow:auto;border:1px solid rgba(147,161,161,.45);border-radius:6px;padding:6px 10px;background:#fdf6e3;">
+<summary style="cursor:pointer;color:#268bd2;font-weight:700;">参考代码（先自己写，再展开）</summary>
+
 ```C{.line-numbers}
 /* 数列反向 */
 #include <stdio.h>
@@ -606,6 +609,8 @@ int main(void)
   return 0;
 }
 ```
+
+</details>
 
 </div>
 
@@ -720,6 +725,9 @@ int b[] = {[23] = 5};
 
 <div class="codepane" style="flex:1.4;">
 
+<details class="answer" style="max-height:560px;overflow:auto;border:1px solid rgba(147,161,161,.45);border-radius:6px;padding:6px 10px;background:#fdf6e3;">
+<summary style="cursor:pointer;color:#268bd2;font-weight:700;">参考代码（先自己写，再展开）</summary>
+
 ```C{.line-numbers}
 /* 平均分与高于平均分的人数 */
 #include <stdio.h>
@@ -748,6 +756,8 @@ int main(void)
 }
 ```
 
+</details>
+
 </div>
 
 </div>
@@ -756,7 +766,7 @@ int main(void)
 
 ---
 
-<style>#repdigit-task p{font-size:24px!important;line-height:1.3!important;margin:4px 2rem!important}#repdigit-task a{display:block!important;margin-top:8px!important}#repdigit-task pre code{font-size:15px!important;line-height:1.2!important}#repdigit-task + hr{display:none!important}</style>
+<style>#repdigit-task p{font-size:24px!important;line-height:1.3!important;margin:4px 2rem!important}#repdigit-task a{display:inline-block!important;margin-top:8px!important}#repdigit-task pre code{font-size:15px!important;line-height:1.2!important}#repdigit-task + hr{display:none!important}</style>
 
 <div id="repdigit-task">
 
@@ -772,6 +782,9 @@ int main(void)
 ```
 
 <span class="blue">:fa-lightbulb-o:</span> 方向提示: 前面的"拆数字"先用起来; 关键是==怎么记住==哪些数字已经出现过
+
+<details class="answer" style="margin-top:2px;border:1px solid rgba(147,161,161,.45);border-radius:6px;padding:6px 10px;background:#fdf6e3;">
+<summary style="cursor:pointer;color:#268bd2;font-weight:700;">解法图（先自己想，再展开）</summary>
 
 <div style="text-align:center;margin-top:2px;">
 <svg viewBox="0 0 400 180" style="max-width:100%;height:265px;display:block;margin:0 auto;">
@@ -818,6 +831,8 @@ int main(void)
   </g>
 </svg>
 </div>
+
+</details>
 
 </div>
 
@@ -922,6 +937,9 @@ int main(void)
 
 <div class="codepane" style="flex:1.4;">
 
+<details class="answer" style="max-height:560px;overflow:auto;border:1px solid rgba(147,161,161,.45);border-radius:6px;padding:6px 10px;background:#fdf6e3;">
+<summary style="cursor:pointer;color:#268bd2;font-weight:700;">参考代码（先自己写，再展开）</summary>
+
 ```C{.line-numbers}
 /* count_sign.c: 统计正数、负数、零的个数 */
 #include <stdio.h>
@@ -953,6 +971,8 @@ int main(void)
   return 0;
 }
 ```
+
+</details>
 
 </div>
 

@@ -235,16 +235,16 @@ printf("|%-8s|%10.1f|\n", "name", 85.5);
 ---
 <div style="font-size:1.0em;line-height:1.75;">
 
-==任务==: 打印下面的表, 三列==对齐== (科目左对齐, 分数右对齐保留 1 位小数, 等级居中)
+==任务==: 打印下面的表, 三列==对齐== (科目左对齐, 分数右对齐保留 1 位小数, 等级右对齐)
 
-```
+```text
 科目        分数    等级
-语文      85.5      A
-数学      92.0      A
-英语      78.2      B
+语文        85.5       A
+数学        92.0       A
+英语        78.2       B
 ```
 
-==提示==: 宽度修饰 `%8.1f` (总宽 8, 1 位小数, 右对齐); 左对齐用负号 `%-8s`; 表头与数据行==宽度一致==才对齐
+==提示==: 数据列用 `%10.1f` (总宽 10, 1 位小数) 与 `%8c`; 中文表头==不要用 `%8s`==——`%s` 的宽度按==字节==算, 一个汉字 3 字节却只占 2 列, 直接用固定空格对齐表头
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/2-types-io/code/task-table.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-table.c (骨架)</a>
 
@@ -262,7 +262,7 @@ printf("|%-8s|%10.1f|\n", "name", 85.5);
 
 int main(void)
 {
-  printf("%-8s%10s%8s\n", "科目", "分数", "等级");
+  printf("科目        分数    等级\n");   /* 中文表头用固定空格 */
   printf("%-8s%10.1f%8c\n", "语文", 85.5, 'A');
   printf("%-8s%10.1f%8c\n", "数学", 92.0, 'A');
   printf("%-8s%10.1f%8c\n", "英语", 78.2, 'B');
@@ -275,7 +275,9 @@ int main(void)
 
 - 格式: `%[标志][宽度][.精度]转换`——`%-8s` 左对齐, `%10.1f` 右对齐保留 1 位
 
-- ==列对齐的前提==: 每一行同一个位置用==相同宽度==
+- ==中文表头不要用 `%8s`==: `%s` 的宽度按==字节==算, 一个汉字 3 字节却只占 2 列; 表头用固定空格, 数据列仍用 `%10.1f`/`%8c`
+
+- ==列对齐的前提==: 每一行同一个位置用==相同的显示宽度==
 
 - 宽度不够会自动加宽 (不会截断数字); 字符串超宽则照原样输出
 

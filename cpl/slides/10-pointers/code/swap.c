@@ -10,5 +10,5 @@ void swap(int *a, int *b) {
 int main() {
   int x = 10, y = 20;
   swap(&x, &y);
-  printf("x=%d, y=%d", x, y); // 输出：x=10, y=20，没有改变！
+  printf("x=%d, y=%d", x, y); // 输出：x=20, y=10（按地址传递，真的交换了）
 }

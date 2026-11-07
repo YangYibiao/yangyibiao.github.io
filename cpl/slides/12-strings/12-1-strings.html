@@ -727,31 +727,27 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="程序--打印一个月的提醒列表--参考实现">程序: 打印一个月的提醒列表 (参考实现) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div class="small-code" style="flex:1.42;min-width:0;font-size:0.36em;">
+<div class="small-code" style="flex:1.42;min-width:0;font-size:0.5em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MAX_REMIND 50</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> MSG_LEN 60</span>
 <span class="token keyword keyword-char">char</span> reminders<span class="token punctuation">[</span>MAX_REMIND<span class="token punctuation">]</span><span class="token punctuation">[</span>MSG_LEN <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-char">char</span> day_str<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> msg_str<span class="token punctuation">[</span>MSG_LEN <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> day<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> num_remind <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入日期和提醒: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%2d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>day<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>day <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%2d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>day<span class="token punctuation">)</span><span class="token punctuation">;</span>               <span class="token comment">/* 读日期 */</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>day <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>              <span class="token comment">/* 0 结束 */</span>
   <span class="token function">sprintf</span><span class="token punctuation">(</span>day_str<span class="token punctuation">,</span> <span class="token string">"%2d"</span><span class="token punctuation">,</span> day<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token function">read_line</span><span class="token punctuation">(</span>msg_str<span class="token punctuation">,</span> MSG_LEN <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_remind<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>day_str<span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span>
-      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> num_remind<span class="token punctuation">;</span> j <span class="token operator">></span> i<span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_remind<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>  <span class="token comment">/* 找插入位置 */</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>day_str<span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator"><</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> num_remind<span class="token punctuation">;</span> j <span class="token operator">></span> i<span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>  <span class="token comment">/* 从后往前腾位 */</span>
     <span class="token function">strcpy</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcpy</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> day_str<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcat</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> msg_str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> day_str<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 放入日期 */</span>
+  <span class="token function">strcat</span><span class="token punctuation">(</span>reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> msg_str<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 拼上提醒 */</span>
   num_remind<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n日期  提醒\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> num_remind<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %s\n"</span><span class="token punctuation">,</span> reminders<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;min-width:0;font-size:0.6em;">
 <p>下面是 <code>main</code> 的核心代码 (节选), 完整程序见 <code>code/remind.c</code>.</p>
@@ -770,6 +766,10 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </li>
 <li>
 <p>使用 <code>strcmp</code>、<code>strcpy</code>、<code>strcat</code>, 需要 <code>#include &lt;string.h&gt;</code>.</p>
+
+</li>
+<li>
+<p>最后的按顺序打印循环省略了, 见 <code>remind.c</code>：<code>for (i = 0; i &lt; num_remind; i++) printf(" %s\n", reminders[i]);</code></p>
 
 </li>
 </ul>
