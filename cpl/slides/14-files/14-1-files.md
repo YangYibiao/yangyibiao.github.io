@@ -534,9 +534,12 @@ $ ./canopen 不存在.txt
 
 <style>#canopen-ref pre code{font-size:18px!important;line-height:1.15!important}</style>
 
-<div id="canopen-ref" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="canopen-ref" style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.4;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* Checks whether a file can be opened for reading */
@@ -567,6 +570,9 @@ int main(int argc, char *argv[])
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `argc != 2` 先检查参数个数——命令行参数的第一个完整例子
 

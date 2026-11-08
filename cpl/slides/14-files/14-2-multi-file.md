@@ -255,9 +255,12 @@ main函数放入另一个文件calc.c中.
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.15;min-width:0;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <文件名>     /* 尖括号: 搜索系统头文件目录 */
@@ -273,6 +276,9 @@ main函数放入另一个文件calc.c中.
 </div>
 
 <div style="flex:0.85;min-width:0;font-size:0.7em;">
+
+<div class="col-label">要点</div>
+
 
 - `<文件名>` 搜索系统头文件目录; `"文件名"` 先搜源文件所在目录, 再搜系统目录
 
@@ -434,9 +440,12 @@ RPN 计算器示例: `stack.c` 定义 make_empty / is_empty / is_full / push / p
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.52em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 /* stack.c */
@@ -459,6 +468,9 @@ static void stack_error(void)   /* 与 stack.c 中的同名函数互不冲突 */
 </div>
 
 <div style="flex:1;font-size:0.6em;">
+
+<div class="col-label">要点</div>
+
 
 - 文件作用域的 `static` 把名字改为==内部链接==: 只在本==翻译单元== (一个 .c 连同它包含的头文件) 内可见, 链接器看不到.
 

@@ -181,7 +181,7 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 ---
 
 <div style="text-align:center;margin:0;">
-<svg viewBox="0 0 400 200" style="width:100%;max-width:640px;height:auto;display:block;margin:0 auto;">
+<svg viewBox="0 0 400 200" style="width:100%;max-width:580px;height:auto;display:block;margin:0 auto;">
   <defs>
     <marker id="ar62b" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
       <path d="M0,0 L6,3 L0,6 Z" fill="#268bd2"/>
@@ -260,9 +260,12 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 </svg>
 </div>
 
-<div style="display:flex;align-items:flex-start;gap:24px;margin-top:2px;">
+<div style="display:flex;align-items:flex-start;gap:24px;margin-top:2px;" class="split-rule">
 
 <div style="flex:1;font-size:0.6em;line-height:1.55;">
+
+<div class="col-label">要点</div>
+
 
 - ==表格只是模型==: 内存里没有"行"——二维数组==按行连续存放==, 第 0 行存完紧跟第 1 行
 
@@ -276,6 +279,9 @@ m[i,j]     /*** WRONG: 不是二维访问! ***/
 
 <style>.rm62 pre code{font-size:16px!important;line-height:1.15!important}</style>
 <div class="rm62" style="flex:1.05;font-size:0.5em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #define N 10
@@ -348,9 +354,12 @@ int m[5][9] = { {1, 1, 1, 1, 1, 0, 1, 1, 1},
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 /* ① 内层不够填满一行: 该行剩下自动补 0 */
@@ -374,6 +383,9 @@ double ident[2][2] = {[0][0] = 1.0, [1][1] = 1.0};
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - ① 内层不够填满一行时, 该行剩下的元素自动为 `0`
 
@@ -503,7 +515,6 @@ for (int i = 0; i < 5; i++) {
 
 <!-- slide data-notes="" -->
 
-
 ##### 案例: 幻方 (参考代码)
 
 ---
@@ -631,7 +642,6 @@ int main(void)
 
 <!-- slide data-notes="" -->
 
-
 ##### 案例: 生命游戏 (参考代码)
 
 ---
@@ -746,9 +756,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -781,6 +794,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 关系式 `a[i][j] = a[i-1][j-1] + a[i-1][j]` 是二维下标的==经典推演==
 
@@ -822,7 +838,6 @@ int main(void)
 ---
 
 <!-- slide data-notes="" -->
-
 
 ##### 蛇形填数 (参考代码)
 
@@ -906,7 +921,6 @@ Wrong   (有重复)
 ---
 
 <!-- slide data-notes="" -->
-
 
 ##### 数独校验 (参考代码)
 

@@ -70,9 +70,12 @@ presentation:
 
 ==递归==: 函数直接或间接地==自己调用自己==——有些问题的定义本身就是递归的: 阶乘、汉诺塔、目录遍历……
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 /* 阶乘: n! = n × (n-1)! */
@@ -95,6 +98,9 @@ int power(int x, int n) {
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.42;">
+
+<div class="col-label">要点</div>
+
 
 - ==两个要素==: ==基准情形== (最简单, 直接给答案) + ==递归情形== (==缩小==后再调用自己)
 
@@ -157,9 +163,12 @@ fact(3) 的跟踪——==递推==下去, 再==回归==上来:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <stdio.h>
@@ -189,6 +198,9 @@ int main(void)
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - ==两个奠基==: 递推式需要==前两项==, 所以基准情形有两个、返回不同值 (对比阶乘: 只靠 0! 一个奠基就够)
 
@@ -481,9 +493,12 @@ Hanoi(3, A, B, C)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.1;font-size:0.85em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 /* 不规范: 少了基准情形 */
@@ -512,6 +527,9 @@ Segmentation fault (core dumped)
 </div>
 
 <div style="flex:1;font-size:0.95em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - 每一层调用压一张便签; 没有基准情形, 便签就==无限叠高==——谁也不返回, 谁也腾不出空间
 

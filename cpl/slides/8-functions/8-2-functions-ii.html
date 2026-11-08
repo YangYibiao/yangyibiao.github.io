@@ -59411,6 +59411,30 @@ document.addEventListener("DOMContentLoaded", function () {
     max-height: 50vh !important;
     height: auto !important;
 }
+
+/* =========================================================
+   两栏/多栏阅读顺序工具
+   .split-rule: 在相邻栏之间加一条低调竖线
+   .col-label : 栏目标签（代码 / 要点 / 缩进版 / 大括号版）
+   ========================================================= */
+.split-rule {
+    gap: 16px !important;
+    align-items: stretch !important;
+}
+.split-rule > * + * {
+    border-left: 1.5px solid rgba(88, 110, 117, 0.30);
+    padding-left: 16px;
+}
+.col-label {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--solarized-base01);
+    line-height: 1.15;
+    margin: 0 0 4px 0;
+}
+
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59609,8 +59633,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="回顾--形参-实参与按值传递">回顾: 形参、实参与按值传递 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.62em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span> n <span class="token operator">=</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>        <span class="token comment">/* 改的是副本 */</span>
 <span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span> a <span class="token operator">=</span> b<span class="token punctuation">;</span> b <span class="token operator">=</span> t<span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
@@ -59619,6 +59644,7 @@ div.boardhandle > ul > li {
 <span class="token function">swap</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* x、y 都没变 */</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><mark>形式参数</mark>: 定义里的占位名; 进入函数体就是一个<mark>已初始化的局部变量</mark> (拿到实参的副本)</p>
@@ -59677,9 +59703,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="程序--判定素数---函数版">程序: 判定素数 · 函数版 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
-<p>函数版 (main 只剩输入输出):</p>
+<div class="col-label">函数版（main 只剩输入输出）</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -59697,6 +59723,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.85em;line-height:1.5;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>divisor &lt;= n / divisor</code> 是 \(\sqrt{n}\) 的等价写法 (不用 math.h), 不会溢出; 原版的 <code>d * d</code> 写法在 n 近 int 上限时溢出 (有符号溢出是<mark>未定义行为</mark>)——结果为负时条件恒真, 循环停不下来</p>
@@ -59716,8 +59743,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="改造进阶--return-让代码更简洁">改造进阶: return 让代码更简洁 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.3;font-size:0.6em;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
+<div style="flex:1.3;font-size:0.55em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 啰嗦版: 用 if 包装 */</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">is_even</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -59730,7 +59758,8 @@ div.boardhandle > ul > li {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">is_digit</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> c <span class="token operator">&gt;=</span> <span class="token string">'0'</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">&lt;=</span> <span class="token string">'9'</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>  <span class="token comment">/* 数字 */</span>
 <span class="token keyword keyword-double">double</span> <span class="token function">average</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>  <span class="token comment">/* 两个参数, 照样一行 */</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.82em;line-height:1.5;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>判断的结果本身就是 1 或 0——不需要 if 包装, <mark>直接 return 表达式</mark></p>
@@ -60053,8 +60082,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="二维数组作参数">二维数组作参数 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.58em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">sum_matrix</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> rows<span class="token punctuation">)</span>   <span class="token comment">/* 列数 4 不能省 */</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -60070,6 +60100,7 @@ div.boardhandle > ul > li {
 <span class="token function">sum_matrix</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">/* 数组名 + 行数 */</span></code></pre>
 </div>
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>二维数组作参数, <mark>只能省略第一维</mark>——列数必须写出来</p>
@@ -60630,8 +60661,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="演示--局部变量的-垃圾值">演示: 局部变量的"垃圾值" </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.05;font-size:0.85em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>                    <span class="token comment">/* 没有初始化 */</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -60641,6 +60673,7 @@ div.boardhandle > ul > li {
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">32764</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>动态局部变量诞生时<mark>不会自动清零</mark>——里面是内存里残留的"垃圾值"</p>

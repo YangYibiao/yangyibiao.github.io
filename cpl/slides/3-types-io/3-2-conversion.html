@@ -59411,6 +59411,30 @@ document.addEventListener("DOMContentLoaded", function () {
     max-height: 50vh !important;
     height: auto !important;
 }
+
+/* =========================================================
+   两栏/多栏阅读顺序工具
+   .split-rule: 在相邻栏之间加一条低调竖线
+   .col-label : 栏目标签（代码 / 要点 / 缩进版 / 大括号版）
+   ========================================================= */
+.split-rule {
+    gap: 16px !important;
+    align-items: stretch !important;
+}
+.split-rule > * + * {
+    border-left: 1.5px solid rgba(88, 110, 117, 0.30);
+    padding-left: 16px;
+}
+.col-label {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--solarized-base01);
+    line-height: 1.15;
+    margin: 0 0 4px 0;
+}
+
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59664,8 +59688,9 @@ div.boardhandle > ul > li {
 </tbody>
 </table>
 </div>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1;font-size:0.62em;line-height:1.65;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>单目 (1、2 级) 高于双目算术; 移位 (5 级) 与按位与/异或/或 (6-8 级) 都在算术之下; 赋值 (9 级) 最低</p>
@@ -59686,6 +59711,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <div style="flex:1.15;font-size:0.58em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>a <span class="token operator">=</span> b <span class="token operator">+=</span> c<span class="token operator">++</span> <span class="token operator">-</span> d <span class="token operator">+</span> <span class="token operator">--</span>e <span class="token operator">/</span> <span class="token operator">-</span>f
 a <span class="token operator">=</span> b <span class="token operator">+=</span> <span class="token punctuation">(</span>c<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">-</span> d <span class="token operator">+</span> <span class="token operator">--</span>e <span class="token operator">/</span> <span class="token operator">-</span>f
 a <span class="token operator">=</span> b <span class="token operator">+=</span> <span class="token punctuation">(</span>c<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">-</span> d <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">--</span>e<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token operator">-</span>f<span class="token punctuation">)</span>
@@ -59902,8 +59928,9 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="动手小练习--四舍五入--参考代码">动手小练习: 四舍五入 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.7em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
@@ -59915,6 +59942,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>核心一行: <mark><code>(int)(x + 0.5)</code></mark>——先加 <code>0.5</code> 再截断, <code>3.7</code> → 4、<code>3.4</code> → 3</p>
@@ -59956,8 +59984,9 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 </section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="编码实践--数字拆分--参考代码">编码实践: 数字拆分 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.7em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
@@ -59972,6 +60001,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>千位 <code>n / 1000</code>; 百位 <code>n / 100 % 10</code>; 十位 <code>n / 10 % 10</code>; 个位 <code>n % 10</code>——<mark>先除后模</mark>, 一层层剥</p>
@@ -59998,8 +60028,9 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <hr>
 </section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="编码实践--时间换算--参考代码">编码实践: 时间换算 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.7em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> N<span class="token punctuation">;</span>
@@ -60013,6 +60044,7 @@ i <span class="token operator">=</span> <span class="token punctuation">(</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>h = N / 3600</code>: 一共几小时; <code>m = N % 3600 / 60</code>: 扣掉小时<mark>剩下</mark>的秒里取分钟; <code>s = N % 60</code>: 最后剩下的秒</p>

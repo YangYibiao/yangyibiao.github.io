@@ -99,9 +99,12 @@ presentation:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -127,6 +130,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `max` 初始 -1 (成绩都 ≥ 0); 出现更高分时 ==max 更新、count 重置为 1==——这是并列计数的关键
 
@@ -177,9 +183,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -204,6 +213,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 枚举 1 ~ n-1, `n % i == 0` 就是因数——==模运算判断整除==的经典用法
 
@@ -254,9 +266,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -277,6 +292,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 内层 `j` 控制个数 (1 到 i), 打印的内容是==外层变量 i==
 
@@ -325,9 +343,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -352,6 +373,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `max` 初值 -1、`min` 初值 11——比所有可能分数都"更差"的起点
 
@@ -399,9 +423,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -423,6 +450,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 外层枚举所有三位数, 内层每个数==拆分 + 判定==——枚举与拆分的组合
 
@@ -474,9 +504,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -501,6 +534,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `rev = rev * 10 + m % 10` 是==反转构造==的经典一行: 每次把末位"接"到 rev 后面
 
@@ -552,9 +588,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -576,6 +615,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 两个变量 `a`、`b` ==滚动更新==——循环里"记住前两项"的标准模型
 
@@ -630,9 +672,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -653,6 +698,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - ==枚举两个、推导第三个==: c 由 g、h 直接算出, 少一层循环
 
@@ -708,9 +756,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.58em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -738,6 +789,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - ==do-while + switch== 的经典组合: 菜单至少出现一次, 选项用 switch 分发
 
@@ -790,9 +844,12 @@ A: 2  B: 1  C: 1  D: 1  F: 1
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.58em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -818,6 +875,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `score / 10` 把 0~100 映射成 10 个档——switch 的 case 就是档位
 

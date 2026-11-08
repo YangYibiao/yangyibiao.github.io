@@ -59411,6 +59411,30 @@ document.addEventListener("DOMContentLoaded", function () {
     max-height: 50vh !important;
     height: auto !important;
 }
+
+/* =========================================================
+   两栏/多栏阅读顺序工具
+   .split-rule: 在相邻栏之间加一条低调竖线
+   .col-label : 栏目标签（代码 / 要点 / 缩进版 / 大括号版）
+   ========================================================= */
+.split-rule {
+    gap: 16px !important;
+    align-items: stretch !important;
+}
+.split-rule > * + * {
+    border-left: 1.5px solid rgba(88, 110, 117, 0.30);
+    padding-left: 16px;
+}
+.col-label {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--solarized-base01);
+    line-height: 1.15;
+    margin: 0 0 4px 0;
+}
+
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59594,8 +59618,9 @@ div.boardhandle > ul > li {
 </section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="递归是什么">递归是什么 </h5>
 <hr>
 <p><mark>递归</mark>: 函数直接或间接地<mark>自己调用自己</mark>——有些问题的定义本身就是递归的: 阶乘、汉诺塔、目录遍历……</p>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.62em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 阶乘: n! = n × (n-1)! */</span>
 <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-long">long</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> <span class="token keyword keyword-long">long</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -59610,6 +59635,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.9em;line-height:1.42;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><mark>两个要素</mark>: <mark>基准情形</mark> (最简单, 直接给答案) + <mark>递归情形</mark> (<mark>缩小</mark>后再调用自己)</p>
@@ -59666,8 +59692,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="fibonacci-数列">Fibonacci 数列 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.6em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-long">long</span> <span class="token function">fib</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> <span class="token keyword keyword-long">long</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -59689,6 +59716,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><mark>两个奠基</mark>: 递推式需要<mark>前两项</mark>, 所以基准情形有两个、返回不同值 (对比阶乘: 只靠 0! 一个奠基就够)</p>
@@ -59937,8 +59965,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="演示--没有基准情形的栈溢出">演示: 没有基准情形的栈溢出 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.1;font-size:0.85em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 不规范: 少了基准情形 */</span>
 <span class="token keyword keyword-long">long</span> <span class="token keyword keyword-long">long</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -59957,6 +59986,7 @@ div.boardhandle > ul > li {
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/stack-overflow.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 stack-overflow.c (直接编译运行, 看它崩溃)</a>
 </div>
 <div style="flex:1;font-size:0.95em;line-height:1.6;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>每一层调用压一张便签; 没有基准情形, 便签就<mark>无限叠高</mark>——谁也不返回, 谁也腾不出空间</p>

@@ -59413,6 +59413,30 @@ document.addEventListener("DOMContentLoaded", function () {
     max-height: 50vh !important;
     height: auto !important;
 }
+
+/* =========================================================
+   两栏/多栏阅读顺序工具
+   .split-rule: 在相邻栏之间加一条低调竖线
+   .col-label : 栏目标签（代码 / 要点 / 缩进版 / 大括号版）
+   ========================================================= */
+.split-rule {
+    gap: 16px !important;
+    align-items: stretch !important;
+}
+.split-rule > * + * {
+    border-left: 1.5px solid rgba(88, 110, 117, 0.30);
+    padding-left: 16px;
+}
+.col-label {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--solarized-base01);
+    line-height: 1.15;
+    margin: 0 0 4px 0;
+}
+
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59605,8 +59629,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="例题--成绩统计--参考代码">例题: 成绩统计 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.62em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> score<span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -59627,6 +59652,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>max</code> 初始 -1 (成绩都 ≥ 0); 出现更高分时 <mark>max 更新、count 重置为 1</mark>——这是并列计数的关键</p>
@@ -59661,8 +59687,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="例题--完全数判定--参考代码">例题: 完全数判定 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.62em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> i<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -59682,6 +59709,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>枚举 1 ~ n-1, <code>n % i == 0</code> 就是因数——<mark>模运算判断整除</mark>的经典用法</p>
@@ -59716,8 +59744,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="练习--数字三角形--参考代码">练习: 数字三角形 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.62em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
@@ -59733,6 +59762,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>内层 <code>j</code> 控制个数 (1 到 i), 打印的内容是<mark>外层变量 i</mark></p>
@@ -59765,8 +59795,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="练习--跳水评分--参考代码">练习: 跳水评分 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.6em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-double">double</span> score<span class="token punctuation">,</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> min <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">;</span>
@@ -59786,6 +59817,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>max</code> 初值 -1、<code>min</code> 初值 11——比所有可能分数都"更差"的起点</p>
@@ -59817,8 +59849,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="练习--水仙花数--参考代码">练习: 水仙花数 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.6em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> ge<span class="token punctuation">,</span> shi<span class="token punctuation">,</span> bai<span class="token punctuation">;</span>
@@ -59835,6 +59868,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>外层枚举所有三位数, 内层每个数<mark>拆分 + 判定</mark>——枚举与拆分的组合</p>
@@ -59869,8 +59903,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="进阶练习--回文数判定--参考代码">进阶练习: 回文数判定 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.6em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">,</span> rev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -59890,6 +59925,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>rev = rev * 10 + m % 10</code> 是<mark>反转构造</mark>的经典一行: 每次把末位"接"到 rev 后面</p>
@@ -59921,8 +59957,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="进阶练习--斐波那契数列--参考代码">进阶练习: 斐波那契数列 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.6em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> i<span class="token punctuation">,</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> t<span class="token punctuation">;</span>
@@ -59939,6 +59976,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>两个变量 <code>a</code>、<code>b</code> <mark>滚动更新</mark>——循环里"记住前两项"的标准模型</p>
@@ -59973,8 +60011,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="进阶练习--百钱百鸡--参考代码">进阶练习: 百钱百鸡 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.6em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> g<span class="token punctuation">,</span> h<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
@@ -59990,6 +60029,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><mark>枚举两个、推导第三个</mark>: c 由 g、h 直接算出, 少一层循环</p>
@@ -60028,8 +60068,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="组合练习--菜单计算器--参考代码">组合练习: 菜单计算器 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.58em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> choice<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
@@ -60052,6 +60093,7 @@ div.boardhandle > ul > li {
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><mark>do-while + switch</mark> 的经典组合: 菜单至少出现一次, 选项用 switch 分发</p>
@@ -60084,8 +60126,9 @@ A<span class="token operator">:</span> <span class="token number">2</span>  B<sp
 <hr>
 </section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="组合练习--成绩等级统计--参考代码">组合练习: 成绩等级统计 (参考代码) </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.25;font-size:0.58em;">
+<div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> score<span class="token punctuation">,</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> d <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> f <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -60106,6 +60149,7 @@ A<span class="token operator">:</span> <span class="token number">2</span>  B<sp
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>score / 10</code> 把 0~100 映射成 10 个档——switch 的 case 就是档位</p>

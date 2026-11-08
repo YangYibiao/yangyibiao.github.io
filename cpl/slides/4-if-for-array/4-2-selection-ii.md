@@ -134,7 +134,7 @@ else {
 
 <div style="display:flex;align-items:flex-start;gap:22px;">
 
-<div style="flex:1.1;font-size:0.62em;line-height:1.55;">
+<div style="flex:1.1;font-size:0.55em;line-height:1.26;">
 
 <p>股票交易的佣金取决于交易金额, 某经纪人按下表收费:</p>
 
@@ -166,7 +166,7 @@ Commission: $166.00
 </div>
 
 <div style="flex:0 0 auto;">
-<svg viewBox="0 0 300 400" style="width:100%;max-width:460px;height:540px;display:block;" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 300 400" style="width:100%;max-width:360px;height:480px;display:block;" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="ar42g" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#586e75"/></marker>
   </defs>
@@ -237,11 +237,14 @@ Commission: $166.00
 
 ---
 
-<style>#broker-code pre{padding-top:5px!important;padding-bottom:5px!important}#broker-code pre code{max-height:none!important;line-height:1.12!important}</style>
+<style>#broker-code pre{padding-top:5px!important;padding-bottom:5px!important}#broker-code pre code{max-height:none!important;font-size:20px!important;line-height:1.05!important}</style>
 
-<div id="broker-code" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="broker-code" style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.4;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* Calculates a broker's commission */
@@ -274,6 +277,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 六个区间 → 六个分支: 从低到高, 每个条件==只写上限== (`value < 2500.00f` …)
 
@@ -362,9 +368,12 @@ if (y != 0) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ==条件表达式== 根据条件的值产生==两个值之一==
 
@@ -380,6 +389,9 @@ x = (n >= 0) ? n : -n;
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 两个符号 (`?` 和 `:`) ==必须一起使用==; 需要三个操作数, 所以也叫==三元运算符==
 
@@ -592,9 +604,12 @@ switch (表达式) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 switch (grade) {
@@ -613,6 +628,9 @@ switch (grade) {
 </div>
 
 <div style="flex:1;font-size:0.66em;">
+
+<div class="col-label">要点</div>
+
 
 - 每个 `case` 标签之后是任意数量的语句, ==不需要大括号==; 每组最后一条语句通常是 `break`
 
@@ -786,9 +804,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.65em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <stdio.h>
@@ -813,6 +834,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `leap` 直接用布尔表达式赋值——结果就是 `0`/`1`, 不需要 if/else
 

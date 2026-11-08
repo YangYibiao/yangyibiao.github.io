@@ -387,9 +387,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1;font-size:0.85em;line-height:1.7;">
+
+<div class="col-label">要点</div>
+
 
 - `scanf` 按格式串==从左到右==依次匹配; 格式串通常只含转换说明
 
@@ -402,6 +405,9 @@ int main(void)
 </div>
 
 <div style="flex:1.1;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 一次读入两个 int、两个 double:
 
@@ -436,9 +442,12 @@ i=1  j=-20  x=0.3  y=-4000.0
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.05;font-size:0.8em;line-height:1.65;">
+
+<div class="col-label">要点</div>
+
 
 - 输入先进入==缓冲区==; `scanf` 每次从上次读到的位置接着读, 多次调用共享同一条输入流
 
@@ -451,6 +460,9 @@ i=1  j=-20  x=0.3  y=-4000.0
 </div>
 
 <div style="flex:1;font-size:0.66em;">
+
+<div class="col-label">代码</div>
+
 
 <div style="line-height:1.2;text-align:left;margin-left:2rem;">同一个 scanf 调用, 数据从缓冲区来:</div>
 
@@ -490,9 +502,12 @@ scanf("%d%d%lf%lf", &i, &j, &x, &y);
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:20px;">
+<div style="display:flex;align-items:flex-start;gap:20px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 <div style="line-height:1.2;text-align:left;margin-left:2rem;">先看两条 scanf 如何依次读取:</div>
 
@@ -516,6 +531,9 @@ b = 20
 </div>
 
 <div style="flex:1;font-size:0.8em;line-height:1.65;">
+
+<div class="col-label">要点</div>
+
 
 - 输入==先全部进入缓冲区==, 两条 `scanf` 依次"消费": 第一个拿走 `10`, 第二个接着拿走 `20`
 

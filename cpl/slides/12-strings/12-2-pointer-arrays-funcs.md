@@ -441,9 +441,12 @@ ops[1](i);   /* 调用 g(i) */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div class="small-code" style="flex:1.4;min-width:0;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* 列三角函数表: 函数指针作参数 */
@@ -465,6 +468,9 @@ void tabulate(double (*f)(double), double a,
 </div>
 
 <div style="flex:1;min-width:0;font-size:0.64em;">
+
+<div class="col-label">要点</div>
+
 
 - ==函数指针== `f` 作参数: `tabulate(f, a, b, step)`——三次调用传 `cos`/`sin`/`tan`
 

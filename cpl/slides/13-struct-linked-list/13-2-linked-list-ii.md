@@ -174,9 +174,12 @@ for (cur = list, prev = NULL;
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:20px;">
+<div style="display:flex;align-items:flex-start;gap:20px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 把前面的循环与第 2、3 步合起来, 得到完整的删除函数:
 
@@ -199,6 +202,9 @@ struct node *delete_node(struct node *list, int n)
 </div>
 
 <div style="flex:1;font-size:0.6em;">
+
+<div class="col-label">要点</div>
+
 
 - 删除头结点要==更新头指针==; free 之后 cur 不能再解引用
 

@@ -321,9 +321,12 @@ printf("a + b is : %d", a + b);
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 返回类型 函数名(形式参数)
@@ -344,6 +347,9 @@ average(double a, double b)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 函数的 ==返回类型== 是返回值的类型
 
@@ -429,9 +435,12 @@ void sort(int a[], int n)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 开场案例里的 `is_prime`——现在逐行拆解它的定义。之前用循环写过素数判断, 今天把它==函数化==.
 
@@ -459,6 +468,9 @@ int is_prime(int n)
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - ==函数体==由大括号包围, 里面是声明 `int d` 和循环
 
@@ -740,11 +752,14 @@ C 不要求函数的定义在调用之前——可以把 `average` 的定义放�
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <style>.proto-code pre code{font-size:18px !important;line-height:21px !important;max-height:none !important;overflow:visible !important}</style>
 
 <div class="proto-code" style="flex:0 0 50%;min-width:0;font-size:0.56em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -772,6 +787,9 @@ double average();        /* 旧式声明 */
 </div>
 
 <div style="flex:1;min-width:0;font-size:0.82em;line-height:1.35;">
+
+<div class="col-label">要点</div>
+
 
 - 调用前先==声明==函数, 给编译器一份 "简要介绍"; 声明必须与定义==一致== (返回类型、参数个数与类型)
 
@@ -898,9 +916,12 @@ decompose(3.14159, i, d);
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 void swap(int a, int b) {
@@ -928,6 +949,9 @@ x = 3, y = 5
 </div>
 
 <div style="flex:1;font-size:0.95em;line-height:1.7;">
+
+<div class="col-label">要点</div>
+
 
 - 传值调用: `a`、`b` 拿到 `x`、`y` 的==值== (即副本), 函数内交换的是 a、b 的值, 与外面的 x、y ==没有关系==
 
@@ -1050,9 +1074,12 @@ printf("Square: %d\n", square((int) x));
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.65em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 return 表达式;
@@ -1067,6 +1094,9 @@ return n >= 0 ? n : 0;
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - 非 void 函数==必须==用 `return` 指定返回值
 
@@ -1089,9 +1119,12 @@ return 表达式的类型与返回类型不匹配时, 会被==隐式转换==为�
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 return;  /* return in a void function */
@@ -1119,6 +1152,9 @@ void print_count(int n)
 
 <div style="flex:1;font-size:0.95em;line-height:1.7;">
 
+<div class="col-label">要点</div>
+
+
 - 不带表达式的 `return;` 只用于 ==void== 函数, 作用是==提前返回==——左栏 `print_int`: i &lt; 0 时直接返回, 后面的打印不执行
 
 - void 函数末尾的 `return;` 可以写, 但==没必要== (左栏 `print_count`), 函数自然结束
@@ -1138,9 +1174,12 @@ void print_count(int n)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.65em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 int main(void)
@@ -1159,6 +1198,9 @@ main()
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - 通常 main 的返回类型是 `int`
 
@@ -1181,9 +1223,12 @@ main 的返回值是==状态码==: 正常结束返回 0; 异常结束返回==非
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 exit(0);   /* normal termination */
@@ -1208,6 +1253,9 @@ exit(表达式);
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - 结束程序的两种方式: main 里 `return`, 或调用 `<stdlib.h>` 的 `exit`——参数含义相同 (状态码)
 

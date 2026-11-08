@@ -412,9 +412,12 @@ if (a > b) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -440,6 +443,9 @@ x = 5
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `x = 5` 是==赋值表达式==, 它的值就是 `5` (非零 → ==真==), 条件永远成立
 
@@ -573,11 +579,11 @@ if (i < 0 || i >= n) { … }
 
 <style>.tight14 > div:last-child { font-size: 0.9em; } .tight14 ul>li>p { margin: 0.45rem 2rem; }</style>
 
-<div class="tight14" style="display:flex;align-items:flex-start;gap:24px;">
+<div class="tight14 split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1;font-size:0.52em;">
 
-==缩进对齐版== (不用大括号): 
+<div class="col-label">缩进版（不用大括号）</div>
 
 ```C{.line-numbers}
 if (i > j) {
@@ -597,7 +603,7 @@ if (i > j) {
 
 <div style="flex:1;font-size:0.52em;">
 
-==大括号版== (层次清晰): 
+<div class="col-label">大括号版（层次清晰）</div>
 
 ```C{.line-numbers}
 if (i > j) {
@@ -618,6 +624,8 @@ if (i > j) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
 
 `if` 语句嵌套在另一个 `if` 里==很普遍==
 
@@ -786,9 +794,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;">
+
+<div class="col-label">代码</div>
+
 
 ==现场演示==: 输入两个整数, 输出其中较小的一个
 
@@ -816,6 +827,9 @@ int main() {
 
 <div style="flex:1;">
 
+<div class="col-label">要点</div>
+
+
 - `min` 先取 `a`, 若 `b` 更小再换成 `b`——"==先假设, 再修正=="的常用思路
 
 - 输入 `5 3` → `min(5, 3) = 3`
@@ -836,9 +850,12 @@ int main() {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.45;">
+
+<div class="col-label">代码</div>
+
 
 ==现场演示==: 输入三个整数, 输出其中最小的一个
 
@@ -881,6 +898,9 @@ int main() {
 
 <div style="flex:1;">
 
+<div class="col-label">要点</div>
+
+
 - 外层 `if (a < b)` 决定先排除谁, 内层再和 `c` 比——==嵌套 if/else== 的经典结构
 
 - 输入 `8 3 5` → `min(8, 3, 5) = 3`
@@ -902,9 +922,12 @@ int main() {
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/4-if-for-array/code/skeleton.c" style="display:inline-block;align-self:flex-start;margin:4px 0 10px;padding:3px 10px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.75em;text-decoration:none;">⚡ 打开 skeleton.c</a>
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <stdio.h>
@@ -927,6 +950,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 三个 `if` 都是==单分支==——if 不配 else 也合法
 
@@ -982,9 +1008,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.4;">
+
+<div class="col-label">代码</div>
+
 
 <style>.longcode pre code { max-height: none !important; font-size: 14px !important; line-height: 1.15 !important; }</style>
 
@@ -1026,6 +1055,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 三层嵌套 if/else 对应流程图的==三个判断框==
 

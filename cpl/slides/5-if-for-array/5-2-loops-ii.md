@@ -244,9 +244,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.1;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ==省略表达式 1==: 初始化挪到循环前
 
@@ -272,6 +275,9 @@ printf("1+...+%d = %d\n", n, sum);
 
 <div style="flex:1;font-size:0.82em;line-height:1.55;">
 
+<div class="col-label">要点</div>
+
+
 - 表达式 1 的初值==已经在前面算好==时, 位置空着; ==两个分号不能省==; 常见于初值来自前面计算结果的循环
 - 表达式 3 的递增==藏进循环体== (`sum += i++`); 风险: 循环体必须保证条件最终变假——==忘了递增就是死循环==
 - 省 1 又省 3 (`for (; i <= n;)`) 与 `while (i <= n)` 语义等价
@@ -292,9 +298,12 @@ printf("1+...+%d = %d\n", n, sum);
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ==三个表达式全省==: 条件==默认为真==——`for(;;)` 是最常见的无限循环写法
 
@@ -318,6 +327,9 @@ int main(void) {
 
 <div style="flex:1;">
 
+<div class="col-label">要点</div>
+
+
 - 分号不能少: `for(;;)` 里两个分号都在
 
 - 没有 `break`/`return`, 循环永远不停——==试试把 break 删掉再跑==, 用 ==Ctrl+C== 打断
@@ -335,9 +347,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 C99 里, for 的表达式1 可以换成==声明==——循环变量直接在 for 里声明:
 
@@ -356,6 +371,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 变量 `i` 不用提前声明, 在 for 里==声明即用==
 
@@ -377,9 +395,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 循环内声明的变量==出了循环就用不了==:
 
@@ -399,6 +420,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 变量 `i` 的作用域==只在循环内==——循环结束后访问会编译报错 (把注释打开试试)
 
@@ -446,9 +470,12 @@ i = 1, j = 2, k = i + j   /* (i=1), (j=2), (k=i+j) */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.2;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 for 可以一次声明多个变量 (类型相同), 用逗号分隔:
 
@@ -467,6 +494,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 两个变量 `i`、`j` 都在表达式 1 声明, 表达式 3 同时递增 (`i++`、`j += 2`)
 
@@ -514,9 +544,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* 打印平方表 (for 版) */
@@ -540,6 +573,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 三件事搬进三个表达式: `i = 1` → 表达式1; `i <= n` → 表达式2; `i++` → 表达式3
 
@@ -590,9 +626,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 /* stars.c: 打印居中星号塔 */
@@ -620,6 +659,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 外层 `i` 管行数; 两个内层分别管==空格==和==星号==——三层的上限都依赖 `i`
 
@@ -761,9 +803,12 @@ for (int i = 1; i <= n; i++) {
 
 </div>
 
-<div id="prime-merged" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="prime-merged" style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.15;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -792,6 +837,9 @@ int main(void) {
 </div>
 
 <div style="flex:0.85;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">要点</div>
+
 
 - 检查 2 ~ n-1 有没有约数; ==找到第一个约数就可以停==——用 `break` 提前退出
 - 循环两种退法: 找到约数 `break` (==提前退出==) 或跑完 2~n-1 (==正常结束==)——用 `d < n` 区分
@@ -894,9 +942,12 @@ int main(void) {
 
 </div>
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.1;font-size:0.6em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -921,6 +972,9 @@ int main(void) {
 </div>
 
 <div style="flex:0.9;font-size:0.8em;line-height:1.5;">
+
+<div class="col-label">要点</div>
+
 
 - 枚举 1~n; `r = (int) sqrt(i)` 后 `r * r == i` 判断完全平方数——==强制转换在这里兑现==
 - `continue` 跳过完全平方数, 直接进入下一轮——==循环与数学库函数的第一次合作==

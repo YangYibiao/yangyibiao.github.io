@@ -241,9 +241,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* 数列反向（指针版本） */
@@ -266,6 +269,9 @@ int main(void)
 </div>
 
 <div style="flex:1;font-size:0.6em;">
+
+<div class="col-label">要点</div>
+
 
 - 正着读: `p` 从 `a` 到 `a + N` (注意 `p++` 就是下一个元素)
 
@@ -356,9 +362,12 @@ void store_zeros(int a[], int n)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 int find_largest(int *a, int n)
@@ -383,6 +392,9 @@ int *a; /* 编译器仅为指针变量分配空间 */
 </div>
 
 <div style="flex:1;font-size:0.6em;">
+
+<div class="col-label">要点</div>
+
 
 - 数组名传给函数时总被视为指针; ==数组可能被修改== (普通变量传值, 改参数不影响原变量)
 

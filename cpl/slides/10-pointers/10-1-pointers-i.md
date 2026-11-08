@@ -263,9 +263,11 @@ i的声明甚至可以与p的声明合并:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.2;font-size:0.62em;">
+
+<div class="col-label">代码</div>
 
 ```C
 printf("%d\n", *p);
@@ -278,6 +280,8 @@ j = *&i; /* 等同于 j = i; */
 </div>
 
 <div style="flex:1;font-size:0.6em;">
+
+<div class="col-label">说明</div>
 
 一旦指针变量指向一个对象, 就可以使用`*`(间接寻址)运算符来访问对象中存储的内容. 
 

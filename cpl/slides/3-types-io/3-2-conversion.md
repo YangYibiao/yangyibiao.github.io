@@ -91,9 +91,12 @@ presentation:
 
 </div>
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1;font-size:0.62em;line-height:1.65;">
+
+<div class="col-label">要点</div>
+
 
 - 单目 (1、2 级) 高于双目算术; 移位 (5 级) 与按位与/异或/或 (6-8 级) 都在算术之下; 赋值 (9 级) 最低
 
@@ -106,6 +109,9 @@ presentation:
 </div>
 
 <div style="flex:1.15;font-size:0.58em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 a = b += c++ - d + --e / -f
@@ -391,9 +397,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <stdio.h>
@@ -410,6 +419,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 核心一行: ==`(int)(x + 0.5)`==——先加 `0.5` 再截断, `3.7` → 4、`3.4` → 3
 
@@ -453,9 +465,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <stdio.h>
@@ -475,6 +490,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 千位 `n / 1000`; 百位 `n / 100 % 10`; 十位 `n / 10 % 10`; 个位 `n % 10`——==先除后模==, 一层层剥
 
@@ -508,9 +526,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.7em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 #include <stdio.h>
@@ -529,6 +550,9 @@ int main(void) {
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `h = N / 3600`: 一共几小时; `m = N % 3600 / 60`: 扣掉小时==剩下==的秒里取分钟; `s = N % 60`: 最后剩下的秒
 

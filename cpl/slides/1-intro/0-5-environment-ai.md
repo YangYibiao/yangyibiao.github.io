@@ -151,9 +151,12 @@ presentation:
 
 装好后, 先跑通一个最小程序:
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.85em;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.85em;" class="split-rule">
 
 <div style="flex:1.05;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -168,6 +171,9 @@ int main(void)
 </div>
 
 <div style="flex:1;line-height:1.7;">
+
+<div class="col-label">要点</div>
+
 
 - 编辑: 把代码存成 `hello.c` (==扩展名必须是 .c==)
 

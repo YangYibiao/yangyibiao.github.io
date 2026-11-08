@@ -331,9 +331,12 @@ while (i > 0) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* 打印平方表 */
@@ -359,6 +362,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - `i` 从 1 到 n, 循环条件 `i <= n`——==计数循环==用 while 的最常见写法
 
@@ -400,9 +406,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 /* 对数列求和 */
@@ -427,6 +436,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 先读一个数, 不是 `0` 就累加、再读下一个——==读一个, 判一个, 加一个==
 
@@ -670,9 +682,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.65em;">
+
+<div class="col-label">代码</div>
+
 ```C{.line-numbers}
 /* 计算整数的位数 */
 #include <stdio.h>
@@ -697,6 +712,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 思路: 反复除以 `10` 直到变 `0`, ==除的次数就是位数== (60 → 6 → 0, 两次 → 2 位)
 

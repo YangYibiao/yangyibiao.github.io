@@ -384,9 +384,12 @@ for (i = 0; i < N; i++) {
 
 <style>#oob-read pre code{font-size:18px!important;line-height:1.15!important}</style>
 
-<div id="oob-read" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="oob-read" style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.68em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -418,6 +421,9 @@ a[5] = 1
 
 <div style="flex:1;">
 
+<div class="col-label">要点</div>
+
+
 - 下标范围是 0 ~ n-1; `a[4]`、`a[5]` 越界读, C 语言==不检查、不报错==, 程序照跑
 
 - 读到的值是==垃圾值==: 那块内存里的旧数据——每次运行可能都不一样
@@ -437,9 +443,12 @@ a[5] = 1
 
 <style>#oob-write pre code{font-size:18px!important;line-height:1.15!important}</style>
 
-<div id="oob-write" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="oob-write" style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.68em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -470,6 +479,9 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 本机布局: `i` 紧挨在 `a` 前面——`a[-2]` 正好是 `i`, 循环变量被==劫持==
 
@@ -845,9 +857,11 @@ int main(void)
 
 <style>#repdigit-ref pre code{font-size:16px!important;line-height:1.15!important}</style>
 
-<div id="repdigit-ref" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="repdigit-ref" class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.4;font-size:0.55em;">
+
+<div class="col-label">代码</div>
 
 ```C{.line-numbers}
 /* 检查数字中是否有重复的数字 */
@@ -880,6 +894,8 @@ int main(void)
 </div>
 
 <div style="flex:1;">
+
+<div class="col-label">要点</div>
 
 - `digit_seen` 是==标志数组==: 下标是数字 (0~9), 值 0/1 表示"出现过没有"——`{0}` 全 0 初始化, 之前学过
 
@@ -1271,9 +1287,12 @@ int main(void)
 
 <style>#sizevla .leftcol>p{font-size:23px!important;line-height:1.32!important;margin:8px 0!important}#sizevla .leftcol ul{margin:4px 0!important;padding-left:28px!important}#sizevla .leftcol ul>li{margin:0 0 6px 0!important;font-size:18px!important;line-height:1.35!important}#sizevla .leftcol li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#sizevla .leftcol hr{margin:6px 0!important;width:100%!important}#sizevla .codepane pre code{font-size:16px!important;line-height:1.15!important}</style>
 
-<div id="sizevla" style="display:flex;align-items:flex-start;gap:24px;">
+<div id="sizevla" style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div class="leftcol" style="flex:1;">
+
+<div class="col-label">要点</div>
+
 
 - 用 `sizeof` 表达数组长度: `for (i = 0; i < sizeof(a) / sizeof(a[0]); i++)` 清零——==日后改长度, 循环不用改==
 
@@ -1296,6 +1315,9 @@ int main(void)
 </div>
 
 <div class="codepane" style="flex:1.2;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 int n, i;

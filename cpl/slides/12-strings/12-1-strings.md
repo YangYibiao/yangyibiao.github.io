@@ -233,9 +233,11 @@ printf('\n'); /*** 错误的 ***/
 
 ---
 
-<div style="display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:start;">
+<div class="split-rule" style="display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:start;">
 
 <div style="font-size:0.68em;">
+
+<div class="col-label">代码</div>
 
 ```C
 #define STR_LEN 80
@@ -252,6 +254,8 @@ str[2] = '\0';   /* 现在 str 是字符串 "Hi" */
 </div>
 
 <div style="font-size:0.8em;">
+
+<div class="col-label">说明</div>
 
 任何一维字符数组都可以用来存储字符串, 但必须以空字符 `'\0'` 结尾.
 
@@ -538,9 +542,12 @@ if (l > 0 && line[l - 1] == '\n')
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 int read_line(char str[], int n)
@@ -559,6 +566,9 @@ int read_line(char str[], int n)
 </div>
 
 <div style="flex:1;font-size:0.82em;">
+
+<div class="col-label">要点</div>
+
 
 - `getchar` 每次读入一个字符;
 - 循环在换行符或 EOF 处停止, 换行符不存入数组;

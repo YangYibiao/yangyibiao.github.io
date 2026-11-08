@@ -59411,6 +59411,30 @@ document.addEventListener("DOMContentLoaded", function () {
     max-height: 50vh !important;
     height: auto !important;
 }
+
+/* =========================================================
+   两栏/多栏阅读顺序工具
+   .split-rule: 在相邻栏之间加一条低调竖线
+   .col-label : 栏目标签（代码 / 要点 / 缩进版 / 大括号版）
+   ========================================================= */
+.split-rule {
+    gap: 16px !important;
+    align-items: stretch !important;
+}
+.split-rule > * + * {
+    border-left: 1.5px solid rgba(88, 110, 117, 0.30);
+    padding-left: 16px;
+}
+.col-label {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--solarized-base01);
+    line-height: 1.15;
+    margin: 0 0 4px 0;
+}
+
 /* inlined: ../../plugin/customcontrols/style.css */
 #customcontrols {
 	z-index: 40;
@@ -59890,8 +59914,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="scanf-一---按格式串顺序匹配--别忘">scanf（一）: 按格式串顺序匹配, 别忘 & </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1;font-size:0.85em;line-height:1.7;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p><code>scanf</code> 按格式串<mark>从左到右</mark>依次匹配; 格式串通常只含转换说明</p>
@@ -59912,6 +59937,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <div style="flex:1.1;font-size:0.62em;">
+<div class="col-label">代码</div>
 <p>一次读入两个 int、两个 double:</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
 <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
@@ -59926,8 +59952,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="scanf-二---输入先进缓冲区--再逐个消费">scanf（二）: 输入先进缓冲区, 再逐个消费 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.05;font-size:0.8em;line-height:1.65;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>输入先进入<mark>缓冲区</mark>; <code>scanf</code> 每次从上次读到的位置接着读, 多次调用共享同一条输入流</p>
@@ -59948,6 +59975,7 @@ div.boardhandle > ul > li {
 </ul>
 </div>
 <div style="flex:1;font-size:0.66em;">
+<div class="col-label">代码</div>
 <div style="line-height:1.2;text-align:left;margin-left:2rem;">同一个 scanf 调用, 数据从缓冲区来:</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span> <span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
 <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%lf%lf"</span><span class="token punctuation">,</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">&</span>j<span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
@@ -59964,8 +59992,9 @@ div.boardhandle > ul > li {
 <hr>
 </section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="遗留换行---c-会读到上一次的回车">遗留换行: %c 会读到上一次的回车 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:20px;">
+<div style="display:flex;align-items:flex-start;gap:20px;" class="split-rule">
 <div style="flex:1.2;font-size:0.55em;">
+<div class="col-label">代码</div>
 <div style="line-height:1.2;text-align:left;margin-left:2rem;">先看两条 scanf 如何依次读取:</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入两个整数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -59979,6 +60008,7 @@ a <span class="token operator">=</span> <span class="token number">10</span>
 b <span class="token operator">=</span> <span class="token number">20</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.8em;line-height:1.65;">
+<div class="col-label">要点</div>
 <ul>
 <li>
 <p>输入<mark>先全部进入缓冲区</mark>, 两条 <code>scanf</code> 依次"消费": 第一个拿走 <code>10</code>, 第二个接着拿走 <code>20</code></p>

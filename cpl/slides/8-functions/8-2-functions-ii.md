@@ -78,9 +78,12 @@ presentation:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.25;font-size:0.62em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 void f(int n) { n = n + 1; }        /* 改的是副本 */
@@ -94,6 +97,9 @@ swap(x, y);  /* x、y 都没变 */
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - ==形式参数==: 定义里的占位名; 进入函数体就是一个==已初始化的局部变量== (拿到实参的副本)
 
@@ -167,11 +173,11 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 
 <div style="flex:1.3;font-size:0.55em;">
 
-函数版 (main 只剩输入输出):
+<div class="col-label">函数版（main 只剩输入输出）</div>
 
 ```C
 #include <stdio.h>
@@ -195,6 +201,8 @@ int main(void) {
 
 <div style="flex:1;font-size:0.85em;line-height:1.5;">
 
+<div class="col-label">要点</div>
+
 - `divisor <= n / divisor` 是 $\sqrt{n}$ 的等价写法 (不用 math.h), 不会溢出; 原版的 `d * d` 写法在 n 近 int 上限时溢出 (有符号溢出是==未定义行为==)——结果为负时条件恒真, 循环停不下来
 
 - 顺手补上 `n <= 1`——原版对 n = 1 会误判; 改造不只是搬代码, 也顺手修 bug
@@ -211,9 +219,12 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.3;font-size:0.55em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 /* 啰嗦版: 用 if 包装 */
@@ -237,7 +248,10 @@ double average(double a, double b) { return (a + b) / 2; }  /* 两个参数, 照
 
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.6;">
+<div style="flex:1;font-size:0.82em;line-height:1.5;">
+
+<div class="col-label">要点</div>
+
 
 - 判断的结果本身就是 1 或 0——不需要 if 包装, ==直接 return 表达式==
 
@@ -674,9 +688,12 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.3;font-size:0.58em;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 int sum_matrix(int a[][4], int rows)   /* 列数 4 不能省 */
@@ -701,6 +718,9 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 </div>
 
 <div style="flex:1;font-size:1.0em;line-height:1.7;">
+
+<div class="col-label">要点</div>
+
 
 - 二维数组作参数, ==只能省略第一维==——列数必须写出来
 
@@ -1310,9 +1330,12 @@ void f(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
 <div style="flex:1.05;font-size:0.85em;">
+
+<div class="col-label">代码</div>
+
 
 ```C
 void f(void) {
@@ -1331,6 +1354,9 @@ i = 32764
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
 
 - 动态局部变量诞生时==不会自动清零==——里面是内存里残留的"垃圾值"
 

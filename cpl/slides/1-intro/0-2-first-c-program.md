@@ -76,9 +76,12 @@ presentation:
 
 最小的 C 程序长这样:
 
-<div style="display:flex;align-items:flex-start;gap:20px;">
+<div style="display:flex;align-items:flex-start;gap:20px;" class="split-rule">
 
 <div style="flex:1;">
+
+<div class="col-label">代码</div>
+
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -93,6 +96,9 @@ int main(void)
 </div>
 
 <div style="flex:1.1;">
+
+<div class="col-label">要点</div>
+
 
 - ==`#include`==: 预处理指令, 引入标准输入/输出库的头文件*stdio.h*
 
