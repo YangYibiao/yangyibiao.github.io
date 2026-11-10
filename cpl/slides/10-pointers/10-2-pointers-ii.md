@@ -584,40 +584,75 @@ i = 4, *q = 4
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 5: 写一个只读的求和函数
+<!-- slide data-notes="" -->##### 任务 5: 只读求和 (完整示例)
 
 ---
 
-<div style="font-size:0.70em;line-height:1.38;text-align:left;">
+<div style="font-size:0.78em;line-height:1.5;margin:0 0 6px;text-align:left;">
+==任务==: 完成 `sum(const int *a, int n)`, 返回数组元素之和; 再试着取消注释 `a[i] = 0;`, 看编译器报错.
+</div>
 
-==任务==: 完成 `int sum(const int *a, int n)`, 返回数组元素之和; 函数内部不能修改数组.
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-样例:
+<div class="constsum-code" style="flex:1.1;font-size:0.6em;">
 
-```text
-{1, 2, 3, 4, 5} → sum = 15
+<style>.constsum-code pre code{max-height:none!important;font-size:13px;line-height:1.25;}</style>
+
+<div class="col-label">完整代码 · const-sum.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int sum(const int *a, int n)
+{
+    int s = 0;
+    for (int i = 0; i < n; i++) {
+        s += a[i];
+        /* a[i] = 0;  // 错误: a[i] 只读 */
+    }
+    return s;
+}
+
+int main(void)
+{
+    int a[] = {1, 2, 3, 4, 5};
+    printf("sum = %d\n", sum(a, 5));  /* 15 */
+    return 0;
+}
 ```
 
-==提示==:
-
-- `const int *a` 表示"通过 a 不能修改 a[i]"
-- 写完可以试着加一句 `a[i] = 0;`, 看编译器报什么错, 再注释掉
-
-<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<b>完成标准:</b>
-<div>· 参数保持 `const int *a`</div>
-<div>· 返回数组元素之和 15</div>
-<div>· 函数内不修改数组</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/const-sum.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 const-sum.c</a>
 </div>
 
-<div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-const-sum.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-const-sum.c (骨架)</a>
+</div>
+
+<div style="flex:0.9;font-size:0.75em;line-height:1.45;">
+
+<div class="col-label">运行结果</div>
+
+```text
+sum = 15
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+<b>试试:</b> 取消注释 <code>a[i] = 0;</code><br>
+编译器报错: <code>read-only variable is not assignable</code>
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+`const int *a` 表示通过 a 不能修改数组元素; 函数只读, 不会改调用者的数组.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+完成标准: 参数用 `const int *`; 返回 15; 函数内不修改数组.
+</div>
+
 </div>
 
 </div>
 
 ---
-
 
 <!-- slide data-notes="" -->##### 指针作为返回值
 

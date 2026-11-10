@@ -539,31 +539,50 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务-5--写一个只读的求和函数">任务 5: 写一个只读的求和函数 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务-5--只读求和--完整示例">任务 5: 只读求和 (完整示例) </h5>
 <hr>
-<div style="font-size:0.70em;line-height:1.38;text-align:left;">
-<p><mark>任务</mark>: 完成 <code>int sum(const int *a, int n)</code>, 返回数组元素之和; 函数内部不能修改数组.</p>
-<p>样例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span> → sum <span class="token operator">=</span> <span class="token number">15</span></code></pre>
-<p><mark>提示</mark>:</p>
-<ul>
-<li>
-<p><code>const int *a</code> 表示"通过 a 不能修改 a[i]"</p>
-
-</li>
-<li>
-<p>写完可以试着加一句 <code>a[i] = 0;</code>, 看编译器报什么错, 再注释掉</p>
-
-</li>
-</ul>
-<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<b>完成标准:</b>
-<div>· 参数保持 <code>const int *a</code></div>
-<div>· 返回数组元素之和 15</div>
-<div>· 函数内不修改数组</div>
+<div style="font-size:0.78em;line-height:1.5;margin:0 0 6px;text-align:left;">
+<p><mark>任务</mark>: 完成 <code>sum(const int *a, int n)</code>, 返回数组元素之和; 再试着取消注释 <code>a[i] = 0;</code>, 看编译器报错.</p>
 </div>
-<div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-const-sum.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-const-sum.c (骨架)</a>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="constsum-code" style="flex:1.1;font-size:0.6em;">
+<style>.constsum-code pre code{max-height:none!important;font-size:13px;line-height:1.25;}</style>
+<div class="col-label">完整代码 · const-sum.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> s <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        s <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment">/* a[i] = 0;  // 错误: a[i] 只读 */</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> s<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum = %d\n"</span><span class="token punctuation">,</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 15 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/const-sum.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 const-sum.c</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.75em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>sum <span class="token operator">=</span> <span class="token number">15</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+<b>试试:</b> 取消注释 <code>a[i] = 0;</code><br>
+<p>编译器报错: <code>read-only variable is not assignable</code></p>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<p><code>const int *a</code> 表示通过 a 不能修改数组元素; 函数只读, 不会改调用者的数组.</p>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>完成标准: 参数用 <code>const int *</code>; 返回 15; 函数内不修改数组.</p>
+</div>
 </div>
 </div>
 <hr>
