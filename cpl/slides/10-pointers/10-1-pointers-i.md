@@ -608,55 +608,70 @@ printf("%d\n", *p); /* 打印 2 */
 </div>
 
 </div>
-<!-- slide data-notes="" -->##### 间接寻址运算符 * (下)
+
+<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.78em;text-align:left;">
+以上结果的前提是 <b>p 已经指向 i</b>. 如果 p 没有初始化, `*p` 会怎样? 下一张看反例.
+</div>
+
+<!-- slide data-notes="" -->##### 间接寻址运算符 * (下): 未初始化指针
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.85em;">
+<div style="flex:0.95;font-size:0.82em;">
+
+<div class="col-label">反例: p 没有初始化</div>
 
 ```C
-int* p;
-printf("%d", *p); /*** 错误的 ***/
+int *p;                          /* 未初始化: p 里是垃圾值 */
+printf("p  = %p\n", (void *)p);  /* 看看 p 里到底是什么 */
+printf("*p = %d\n", *p);         /* 未定义行为 */
+*p = 1;                          /* 更危险: 可能改写未知内存 */
 ```
 
-```C
-int* p;
-*p = 1; /*** 错误的 ***/
-```
-
-</div>
-
-<div style="flex:1;font-size:0.80em;">
-
-将间接寻址运算符应用于未初始化的指针变量会导致未定义的行为.
-
-给*p赋值是特别危险的:
-
-
-
-
+<div style="margin-top:8px;padding:8px 12px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;font-size:0.88em;line-height:1.5;">
+<b>某次运行的实际输出:</b><br>
+<span style="font-family:Menlo,monospace;color:#586e75;">p  = 0x1f1b34100<br>*p = -239910720<br>Bus error (core dumped)</span><br>
+实际值每次/每台机器可能不同, 也可能是 Segmentation fault.
 </div>
 
 </div>
 
-<svg viewBox="0 0 400 160" width="620" height="248" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<div style="flex:1.05;">
+
+<svg viewBox="0 0 400 160" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrUninitR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
 <rect x="55" y="42" width="100" height="58" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="67" y="60" font-size="12" fill="#268bd2">p</text>
-<text x="105" y="82" font-size="15" fill="#dc322f" text-anchor="middle">???</text>
-<text x="105" y="95" font-size="9" fill="#93a1a1" text-anchor="middle">未初始化的指针</text>
+<text x="67" y="60" font-size="13.5" fill="#268bd2">p</text>
+<text x="105" y="82" font-size="17" fill="#dc322f" text-anchor="middle">???</text>
+<text x="105" y="95" font-size="10.5" fill="#93a1a1" text-anchor="middle">未初始化的指针</text>
 <line x1="157" y1="71" x2="246" y2="71" stroke="#dc322f" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrUninitR)"/>
-<text x="201" y="60" font-size="9.5" fill="#dc322f" text-anchor="middle">指向哪里？</text>
+<text x="201" y="60" font-size="10.5" fill="#dc322f" text-anchor="middle">指向哪里？</text>
 <rect x="250" y="42" width="100" height="58" rx="8" fill="none" stroke="#93a1a1" stroke-width="2" stroke-dasharray="6 4"/>
 <text x="300" y="86" font-size="26" fill="#93a1a1" text-anchor="middle">?</text>
-<text x="300" y="118" font-size="9.5" fill="#93a1a1" text-anchor="middle">未知内存</text>
+<text x="300" y="118" font-size="10.5" fill="#93a1a1" text-anchor="middle">未知内存</text>
 <circle cx="348" cy="40" r="11" fill="#dc322f"/>
 <path d="M344,36 l8,8 M352,36 l-8,8" stroke="#fdf6e3" stroke-width="2" stroke-linecap="round"/>
-<text x="105" y="118" font-size="9.5" fill="#dc322f" text-anchor="middle">垃圾值，不是有效地址</text>
-<text x="200" y="144" font-size="11" fill="#073642" text-anchor="middle">解引用未初始化的指针：写到未知内存，未定义行为</text>
+<text x="105" y="118" font-size="10.5" fill="#dc322f" text-anchor="middle">垃圾值, 不是有效地址</text>
+<text x="200" y="144" font-size="12" fill="#073642" text-anchor="middle">解引用未初始化的指针: 写到未知内存, 未定义行为</text>
 </svg>
+
+<div style="margin-top:8px;font-size:0.8em;line-height:1.6;">
+
+- <b style="color:#dc322f;">崩溃</b> (段错误/总线错误) — 这其实是"最好"的结果
+- <b style="color:#b58900;">读到/写入垃圾值</b> — 程序继续跑, 但结果不可信
+- <b style="color:#dc322f;">悄悄改坏其他变量</b> — 最危险, 很难发现
+
+</div>
+
+</div>
+
+</div>
+
+<div style="margin-top:10px;padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.78em;text-align:left;">
+正确做法: 先 `p = &i;`, 确认 p 指向有效对象, 再使用 `*p`; 声明后未初始化的指针不能解引用.
+</div>
 
 <!-- slide data-notes="" -->
 
