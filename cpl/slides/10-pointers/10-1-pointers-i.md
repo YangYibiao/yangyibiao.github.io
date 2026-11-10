@@ -73,75 +73,76 @@ presentation:
 
 <div style="display:flex;flex-direction:column;gap:10px;">
 
-<svg viewBox="0 0 1000 180" style="max-width:1180px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="整个内存按字节编号, 地址从 0 到 n-1">
+<svg viewBox="0 0 1000 240" style="max-width:1180px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="整个内存按字节编号, 地址从 0 到 n-1">
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="26" y="30" font-size="11" fill="#268bd2">地址</text>
+    <text x="26" y="34" font-size="12" fill="#268bd2">地址</text>
 
-    <text x="126" y="30" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0</text>
-    <text x="208" y="30" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">1</text>
-    <rect x="248" y="8" width="76" height="24" rx="4" fill="#e3eef7" stroke="#268bd2" stroke-width="1.1"/>
-    <text x="286" y="25" font-size="11" fill="#268bd2" text-anchor="middle">门牌 <tspan font-family="Menlo, monospace">2</tspan></text>
-    <line x1="286" y1="32" x2="286" y2="38" stroke="#268bd2" stroke-width="1"/>
-    <text x="372" y="30" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">3</text>
-    <text x="454" y="30" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">4</text>
-    <text x="536" y="30" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">5</text>
-    <text x="618" y="30" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">6</text>
-    <text x="704" y="34" font-size="14" fill="#93a1a1" text-anchor="middle">…</text>
-    <text x="790" y="30" font-size="11" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">n-2</text>
-    <text x="872" y="30" font-size="11" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">n-1</text>
+    <text x="126" y="34" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0</text>
+    <text x="208" y="34" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">1</text>
+    <rect x="254" y="10" width="72" height="32" rx="4" fill="#e3eef7" stroke="#268bd2" stroke-width="1.1"/>
+    <text x="290" y="32" font-size="12" fill="#268bd2" text-anchor="middle">门牌 <tspan font-family="Menlo, monospace">2</tspan></text>
+    <text x="372" y="34" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">3</text>
+    <text x="454" y="34" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">4</text>
+    <text x="536" y="34" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">5</text>
+    <text x="618" y="34" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">6</text>
+    <text x="704" y="38" font-size="18" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="790" y="34" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">n-2</text>
+    <text x="872" y="34" font-size="12" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">n-1</text>
 
-    <rect x="90" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="172" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="254" y="38" width="72" height="46" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.8"/>
-    <rect x="336" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="418" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="500" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="582" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="754" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
-    <rect x="836" y="38" width="72" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="90" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="172" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="254" y="42" width="72" height="72" rx="5" fill="#dceaf5" stroke="#268bd2" stroke-width="1.8"/>
+    <rect x="336" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="418" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="500" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="582" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="754" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="836" y="42" width="72" height="72" rx="5" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
 
-    <text x="126" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01010011</text>
-    <text x="208" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110101</text>
-    <text x="290" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110011</text>
-    <text x="372" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01100001</text>
-    <text x="454" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101110</text>
-    <text x="536" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101111</text>
-    <text x="618" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110111</text>
-    <text x="704" y="66" font-size="16" fill="#93a1a1" text-anchor="middle">…</text>
-    <text x="790" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101001</text>
-    <text x="872" y="66" font-size="9.5" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01000011</text>
+    <text x="126" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01010011</text>
+    <text x="208" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110101</text>
+    <text x="290" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110011</text>
+    <text x="372" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01100001</text>
+    <text x="454" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101110</text>
+    <text x="536" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101111</text>
+    <text x="618" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110111</text>
+    <text x="704" y="84" font-size="18" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="790" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101001</text>
+    <text x="872" y="84" font-size="12" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01000011</text>
 
-    <path d="M90 100 V108 H908 V100" fill="none" stroke="#268bd2" stroke-width="1.5"/>
-    <text x="499" y="130" font-size="13" fill="#073642" text-anchor="middle">整个内存共 n 个字节 → n 个地址: 0 ~ n-1</text>
-    <text x="499" y="155" font-size="11.5" fill="#586e75" text-anchor="middle">地址是编号, 不是字节里存的内容; 相邻字节的地址差 1</text>
+    <path d="M90 134 V142 H908 V134" fill="none" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="499" y="172" font-size="15" fill="#073642" text-anchor="middle">整个内存共 n 个字节 → n 个地址: 0 ~ n-1</text>
+    <text x="499" y="200" font-size="13" fill="#586e75" text-anchor="middle">地址是编号, 不是字节里存的内容; 相邻字节的地址差 1</text>
   </g>
 </svg>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="addr-intro" style="flex:1;font-size:0.86em;line-height:1.55;">
+<div class="addr-intro" style="flex:1;font-size:0.80em;line-height:1.45;">
 
 内存按==字节==划分, 每个字节存 8 位.
 
-给每个字节编一个号, 这个编号就是==地址==.
+每个字节一个编号, 这个编号就是==地址==.
 
-内存共 n 个字节 → 地址 0, 1, 2, …, n-1.
+<div style="margin:8px 2rem 0;padding:7px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;color:#268bd2;font-weight:700;font-size:0.95em;line-height:1.4;">
+n 个字节 → n 个地址 (0 ~ n-1)
+</div>
 
 </div>
 
-<div class="addr-intro" style="flex:1;font-size:0.86em;line-height:1.55;">
+<div class="addr-intro" style="flex:1;font-size:0.80em;line-height:1.45;">
 
 每个字节的地址==唯一==, 相邻字节的地址==差 1==.
 
-地址是"位置", 不是"内容"——回答"住在哪", 不回答"是多少".
+地址是==位置==, 不是==内容==.
 
-实际地址常用十六进制书写, 如 `0x1000`; 编号本身不变, 只是写法不同.
-
-</div>
+实际地址常写成十六进制, 如 `0x1000`.
 
 </div>
 
-<div style="padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;text-align:left;">
+</div>
+
+<div style="margin:0 2rem;padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;text-align:left;">
 一句话: <b>地址 = 字节的编号 (<span style="white-space:nowrap">门牌号</span>)</b>; 编号与字节一一对应.
 </div>
 
