@@ -969,6 +969,55 @@ x = 3, y = 5
 
 ---
 
+<!-- slide data-notes="" -->##### swap 的传址版: 把地址传进去
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.68em;">
+
+<div class="col-label">代码</div>
+
+```C
+void swap(int *a, int *b) {
+    int t = *a;  *a = *b;  *b = t;
+}
+
+int main(void) {
+    int x = 3, y = 5;
+    swap(&x, &y);
+    printf("x = %d, y = %d\n", x, y);  /* x = 5, y = 3 */
+    return 0;
+}
+```
+
+运行结果:
+
+```text
+x = 5, y = 3
+```
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/swap-ptr.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-ptr.c</a>
+
+</div>
+
+<div style="flex:0.85;font-size:0.9em;line-height:1.65;">
+
+- 形参改成 `int *a, int *b`; 调用时传 `&x, &y`
+- `a` 里存 `&x`, `*a` 就是 x; `b` 里存 `&y`, `*b` 就是 y
+- 交换 `*a`、`*b`, 就是交换 main 里的 x、y
+
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+先记住"参数用指针、调用传地址"这个写法; 指针的正式细节在指针章节展开.
+</div>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 

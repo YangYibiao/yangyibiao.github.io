@@ -60300,7 +60300,47 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="实际参数的转换--1-2">实际参数的转换 (1/2) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="swap-的传址版--把地址传进去">swap 的传址版: 把地址传进去 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.15;font-size:0.68em;">
+<div class="col-label">代码</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>  <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token operator">*</span>b<span class="token punctuation">;</span>  <span class="token operator">*</span>b <span class="token operator">=</span> t<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x = %d, y = %d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* x = 5, y = 3 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>运行结果:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">3</span></code></pre>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/swap-ptr.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-ptr.c</a>
+</div>
+<div style="flex:0.85;font-size:0.9em;line-height:1.65;">
+<ul>
+<li>
+<p>形参改成 <code>int *a, int *b</code>; 调用时传 <code>&amp;x, &amp;y</code></p>
+
+</li>
+<li>
+<p><code>a</code> 里存 <code>&amp;x</code>, <code>*a</code> 就是 x; <code>b</code> 里存 <code>&amp;y</code>, <code>*b</code> 就是 y</p>
+
+</li>
+<li>
+<p>交换 <code>*a</code>、<code>*b</code>, 就是交换 main 里的 x、y</p>
+
+</li>
+</ul>
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<p>先记住"参数用指针、调用传地址"这个写法; 指针的正式细节在指针章节展开.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数的转换--1-2">实际参数的转换 (1/2) </h5>
 <hr>
 <p>C 允许实际参数的类型与形式参数的类型<mark>不匹配</mark>: 怎么转换, 取决于调用前编译器<mark>有没有见过原型</mark></p>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60329,7 +60369,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="实际参数的转换--2-2">实际参数的转换 (2/2) </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="实际参数的转换--2-2">实际参数的转换 (2/2) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:0.85;font-size:0.55em;">
@@ -60373,7 +60413,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="return语句--上">return语句 (上) </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="return语句--上">return语句 (上) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.65em;">
@@ -60401,7 +60441,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="return语句--下">return语句 (下) </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="return语句--下">return语句 (下) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60443,7 +60483,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="程序终止">程序终止 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="程序终止">程序终止 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.65em;">
@@ -60475,7 +60515,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="exit函数">exit函数 </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="exit函数">exit函数 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.6em;">
@@ -60512,7 +60552,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 函数定义由哪几部分组成？<code>return</code> 的作用是什么？
@@ -60528,7 +60568,7 @@ div.boardhandle > ul > li {
     <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> a<span class="token punctuation">;</span>  a <span class="token operator">=</span> b<span class="token punctuation">;</span>  b <span class="token operator">=</span> t<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="28" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

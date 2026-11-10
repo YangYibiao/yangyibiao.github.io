@@ -149,61 +149,37 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="先看一个反例--swap-为什么没交换">先看一个反例: swap 为什么没交换? </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="回顾-w8--swap-为什么没交换">回顾 W8: swap 为什么没交换? </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.05;font-size:0.78em;">
-<div class="col-label">代码</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap_by_value</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> temp <span class="token operator">=</span> a<span class="token punctuation">;</span>
-  a <span class="token operator">=</span> b<span class="token punctuation">;</span>
-  b <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  <span class="token function">swap_by_value</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x=%d, y=%d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 1 2 */</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<div style="margin-top:10px;padding:8px 14px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;font-size:0.92em;">
-<p>运行结果: <code>x=1, y=2</code>——没有交换.</p>
+<div style="flex:1.05;font-size:0.86em;line-height:1.6;">
+<div class="col-label">W8 的传值版</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 交换的是副本 */</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">swap</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token comment">/* x、y 仍然是 3、5 */</span></code></pre>
+<div style="margin-top:8px;padding:8px 12px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+<p>形参 <code>a</code>、<code>b</code> 是副本; 函数返回, 副本销毁, main 的 x、y 不受影响.</p>
 </div>
 </div>
-<div style="flex:1.05;">
-<svg viewBox="0 0 460 250" style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="传值调用: 函数拿到的是 x 和 y 的副本">
-  <defs>
-    <marker id="copyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 Z" fill="#93a1a1"/>
-    </marker>
-  </defs>
-  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="230" y="20" font-size="15" fill="#586e75" text-anchor="middle">传值: 函数拿到的是副本</text>
-    <rect x="60" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="72" y="58" font-size="14" fill="#b58900">int x</text>
-    <text x="110" y="84" font-size="20" fill="#073642" text-anchor="middle">1</text>
-    <rect x="180" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="192" y="58" font-size="14" fill="#b58900">int y</text>
-    <text x="230" y="84" font-size="20" fill="#073642" text-anchor="middle">2</text>
-    <line x1="110" y1="96" x2="110" y2="146" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#copyArrow)"/>
-    <line x1="230" y1="96" x2="230" y2="146" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#copyArrow)"/>
-    <text x="120" y="126" font-size="12" fill="#93a1a1">复制</text>
-    <text x="240" y="126" font-size="12" fill="#93a1a1">复制</text>
-    <rect x="60" y="150" width="100" height="56" rx="6" fill="#f2f4f0" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 3"/>
-    <text x="72" y="168" font-size="14" fill="#586e75">int a</text>
-    <text x="110" y="194" font-size="20" fill="#586e75" text-anchor="middle">1</text>
-    <rect x="180" y="150" width="100" height="56" rx="6" fill="#f2f4f0" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 3"/>
-    <text x="192" y="168" font-size="14" fill="#586e75">int b</text>
-    <text x="230" y="194" font-size="20" fill="#586e75" text-anchor="middle">2</text>
-    <text x="230" y="232" font-size="13" fill="#dc322f" text-anchor="middle">交换 a、b 只是交换副本; x、y 仍是 1、2</text>
-  </g>
-</svg>
+<div style="flex:1.05;font-size:0.86em;line-height:1.6;">
+<div class="col-label">W8 末尾预告的传址版</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">/* 这次 x、y 真的交换 */</span></code></pre>
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<p>问题: 为什么 <code>&amp;x</code>、<code>&amp;y</code> 能改到 main 的变量? 这一页把"地址"讲清楚.</p>
 </div>
 </div>
-<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.8em;text-align:left;">
-<p>一句话: 函数收到的是<mark>副本</mark>; 改副本不影响调用者.</p>
+</div>
+<div style="display:flex;gap:12px;margin-top:18px;font-size:0.9em;line-height:1.45;">
+<div style="flex:1;padding:8px 12px;background:#f2f4f0;border-left:4px solid #268bd2;border-radius:4px;">
+<b>① 地址</b><br><code>&amp;x</code> 到底是什么?
+</div>
+<div style="flex:1;padding:8px 12px;background:#f2f4f0;border-left:4px solid #b58900;border-radius:4px;">
+<b>② 指针</b><br><code>int *a</code> 里存什么?
+</div>
+<div style="flex:1;padding:8px 12px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;">
+<b>③ 解引用</b><br><code>*a</code> 怎么改 x?
+</div>
 </div>
 <hr>
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="传址调用--把地址传进去">传址调用: 把地址传进去 </h5>

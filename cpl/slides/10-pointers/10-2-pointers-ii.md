@@ -67,85 +67,62 @@ presentation:
 ---
 
 
-<!-- slide data-notes="" -->##### 先看一个反例: swap 为什么没交换?
+<!-- slide data-notes="" -->##### 回顾 W8: swap 为什么没交换?
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;font-size:0.78em;">
+<div style="flex:1.05;font-size:0.86em;line-height:1.6;">
 
-<div class="col-label">代码</div>
+<div class="col-label">W8 的传值版</div>
 
 ```C
-void swap_by_value(int a, int b)
-{
-  int temp = a;
-  a = b;
-  b = temp;
-}
-
-int main(void)
-{
-  int x = 1, y = 2;
-  swap_by_value(x, y);
-  printf("x=%d, y=%d\n", x, y);  /* 1 2 */
-  return 0;
-}
+void swap(int a, int b);   /* 交换的是副本 */
+...
+swap(x, y);                /* x、y 仍然是 3、5 */
 ```
 
-<div style="margin-top:10px;padding:8px 14px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;font-size:0.92em;">
-运行结果: <code>x=1, y=2</code>——没有交换.
+<div style="margin-top:8px;padding:8px 12px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+形参 `a`、`b` 是副本; 函数返回, 副本销毁, main 的 x、y 不受影响.
 </div>
 
 </div>
 
-<div style="flex:1.05;">
+<div style="flex:1.05;font-size:0.86em;line-height:1.6;">
 
-<svg viewBox="0 0 460 250" style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="传值调用: 函数拿到的是 x 和 y 的副本">
-  <defs>
-    <marker id="copyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 Z" fill="#93a1a1"/>
-    </marker>
-  </defs>
-  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="230" y="20" font-size="15" fill="#586e75" text-anchor="middle">传值: 函数拿到的是副本</text>
+<div class="col-label">W8 末尾预告的传址版</div>
 
-    <rect x="60" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="72" y="58" font-size="14" fill="#b58900">int x</text>
-    <text x="110" y="84" font-size="20" fill="#073642" text-anchor="middle">1</text>
+```C
+void swap(int *a, int *b);
+swap(&x, &y);              /* 这次 x、y 真的交换 */
+```
 
-    <rect x="180" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="192" y="58" font-size="14" fill="#b58900">int y</text>
-    <text x="230" y="84" font-size="20" fill="#073642" text-anchor="middle">2</text>
-
-    <line x1="110" y1="96" x2="110" y2="146" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#copyArrow)"/>
-    <line x1="230" y1="96" x2="230" y2="146" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#copyArrow)"/>
-    <text x="120" y="126" font-size="12" fill="#93a1a1">复制</text>
-    <text x="240" y="126" font-size="12" fill="#93a1a1">复制</text>
-
-    <rect x="60" y="150" width="100" height="56" rx="6" fill="#f2f4f0" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 3"/>
-    <text x="72" y="168" font-size="14" fill="#586e75">int a</text>
-    <text x="110" y="194" font-size="20" fill="#586e75" text-anchor="middle">1</text>
-
-    <rect x="180" y="150" width="100" height="56" rx="6" fill="#f2f4f0" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 3"/>
-    <text x="192" y="168" font-size="14" fill="#586e75">int b</text>
-    <text x="230" y="194" font-size="20" fill="#586e75" text-anchor="middle">2</text>
-
-    <text x="230" y="232" font-size="13" fill="#dc322f" text-anchor="middle">交换 a、b 只是交换副本; x、y 仍是 1、2</text>
-  </g>
-</svg>
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+问题: 为什么 `&x`、`&y` 能改到 main 的变量? 这一页把"地址"讲清楚.
+</div>
 
 </div>
 
 </div>
 
-<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.8em;text-align:left;">
-一句话: 函数收到的是==副本==; 改副本不影响调用者.
+<div style="display:flex;gap:12px;margin-top:18px;font-size:0.9em;line-height:1.45;">
+
+<div style="flex:1;padding:8px 12px;background:#f2f4f0;border-left:4px solid #268bd2;border-radius:4px;">
+<b>① 地址</b><br>`&x` 到底是什么?
+</div>
+
+<div style="flex:1;padding:8px 12px;background:#f2f4f0;border-left:4px solid #b58900;border-radius:4px;">
+<b>② 指针</b><br>`int *a` 里存什么?
+</div>
+
+<div style="flex:1;padding:8px 12px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;">
+<b>③ 解引用</b><br>`*a` 怎么改 x?
+</div>
+
 </div>
 
 ---
-
 
 <!-- slide data-notes="" -->##### 传址调用: 把地址传进去
 
