@@ -39,6 +39,7 @@ window.onload = function() {
                 var title = e.title
                 var author = e.author
                 var link = e.url
+                var defects = e.defects
                 var publisher = e.publisher
                 var year = e.year
                 var volume = e.volume
@@ -109,6 +110,10 @@ window.onload = function() {
                     award_str = ' <span class="venue-award">🏆 ' + award + '</span>';
                 }
 
+                var defects_str = (defects != "" && defects != null)
+                    ? '<br><a href="' + defects + '" class="paper-defects">Defect list →</a>'
+                    : '';
+
                 var row_class = (highlight == true) ? 'publication-row highlight' : 'publication-row ';
 
                 html +=
@@ -119,6 +124,7 @@ window.onload = function() {
                             author_str + '<br>' +
                             '<em>' + suffix + ' ' + tier_str + award_str + '</em>' +
                             (meta_str != "" ? '<br>' + meta_str : '') +
+                            defects_str +
                         '</p>' +
                     '</td>' +
                 '</tr>';
