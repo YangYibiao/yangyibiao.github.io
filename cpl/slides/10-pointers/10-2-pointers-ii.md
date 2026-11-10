@@ -265,43 +265,73 @@ int main(void)
 ---
 
 
-<!-- slide data-notes="" -->##### scanf 与传址
+<!-- slide data-notes="" -->##### scanf 与传址: 完整例子
 
 ---
 
-<style>.scanf-pre pre{margin:0.25rem 0 !important;}</style>
-
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="scanf-pre" style="flex:1.1;font-size:0.76em;">
+<div class="scanf-code" style="flex:1.1;font-size:0.62em;">
 
-<div class="col-label">代码</div>
+<style>.scanf-code pre code{max-height:none!important;font-size:14px;line-height:1.25;}</style>
 
-```C
-int i;
-scanf("%d", &i);    /* 传 i 的地址 */
+<div class="col-label">完整代码 · scanf-demo.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 0;
+    int *p = &i;
+
+    printf("输入一个整数: ");
+    scanf("%d", &i);          /* 方式 1: 传 i 的地址 */
+    printf("i = %d, *p = %d\n", i, *p);
+
+    printf("再输入一个整数: ");
+    scanf("%d", p);           /* 方式 2: p 里已经是 &i */
+    printf("i = %d, *p = %d\n", i, *p);
+
+    /* scanf("%d", &p);  // 错误: &p 是 int ** */
+    return 0;
+}
 ```
 
-```C
-int i, *p = &i;
-scanf("%d", p);     /* p 里已经是地址 */
-```
-
-```C
-scanf("%d", &p);    /* 错误: 传的是 p 的地址 */
-```
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/scanf-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 scanf-demo.c</a>
+</div>
 
 </div>
 
-<div style="flex:1;font-size:0.76em;line-height:1.45;">
+<div style="flex:0.9;font-size:0.72em;line-height:1.45;">
 
-`scanf` 的参数必须是指针: 它要把输入写到那个地址.
+<div class="col-label">样例运行</div>
 
-- `&i` 是 i 的地址 → 输入写进 i
-- `p` 已经保存了 `&i` → 直接用 `p`
-- `&p` 是 p 自己的地址, 类型也不对 → 输入写不进 i
+```text
+输入一个整数: 42
+i = 42, *p = 42
+再输入一个整数: 7
+i = 7, *p = 7
+```
 
-<div style="margin-top:8px;padding:8px 12px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;font-size:0.92em;">
+<div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;font-size:0.9em;">
+
+<div style="padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
+✓ <code>scanf("%d", &amp;i)</code> — 传 i 的地址
+</div>
+
+<div style="padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
+✓ <code>scanf("%d", p)</code> — p 里已经是 &amp;i
+</div>
+
+<div style="padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+✗ <code>scanf("%d", &amp;p)</code> — &amp;p 是 p 自己的地址 (int **), 输入写不进 i
+</div>
+
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;">
 记住: 有 `&` 就传变量地址; 已经是指针就直接传指针.
 </div>
 
@@ -309,42 +339,7 @@ scanf("%d", &p);    /* 错误: 传的是 p 的地址 */
 
 </div>
 
-<svg viewBox="0 0 400 180" width="600" height="270" style="display:block;flex-shrink:0;margin:0 auto;" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<defs><marker id="arrScanB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrScanR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
-<line x1="200" y1="8" x2="200" y2="172" stroke="#93a1a1" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="100" y="20" font-size="11.5" fill="#859900" text-anchor="middle">scanf("%d", p)</text>
-<circle cx="158" cy="16" r="8" fill="#859900"/>
-<path d="M154,16 l3,3 l6,-7" fill="none" stroke="#fdf6e3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="58" y="34" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="68" y="48" font-size="10" fill="#268bd2">p</text>
-<text x="100" y="64" font-size="15" fill="#268bd2" text-anchor="middle">2000</text>
-<line x1="100" y1="80" x2="100" y2="100" stroke="#268bd2" stroke-width="2" marker-end="url(#arrScanB)"/>
-<text x="96" y="94" font-size="8.5" fill="#268bd2" text-anchor="end">p 已保存 &amp;i</text>
-<rect x="58" y="102" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-<text x="68" y="116" font-size="10" fill="#b58900">i</text>
-<text x="100" y="134" font-size="20" fill="#073642" text-anchor="middle">42</text>
-<text x="100" y="166" font-size="10" fill="#859900" text-anchor="middle">scanf 通过 p 写入 i</text>
-<text x="300" y="20" font-size="11.5" fill="#dc322f" text-anchor="middle">scanf("%d", &amp;p)</text>
-<circle cx="360" cy="16" r="8" fill="#dc322f"/>
-<path d="M356,12 l8,8 M364,12 l-8,8" stroke="#fdf6e3" stroke-width="1.8" stroke-linecap="round"/>
-<rect x="258" y="34" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#dc322f" stroke-width="2"/>
-<text x="268" y="48" font-size="10" fill="#dc322f">p</text>
-<text x="300" y="55" font-size="9" fill="#93a1a1" text-anchor="middle">2000</text>
-<line x1="284" y1="55" x2="316" y2="55" stroke="#93a1a1" stroke-width="1.2"/>
-<text x="300" y="72" font-size="15" fill="#dc322f" text-anchor="middle">42</text>
-<text x="398" y="48" font-size="9" fill="#dc322f" text-anchor="end">输入 42</text>
-<line x1="396" y1="52" x2="344" y2="52" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrScanR)"/>
-<line x1="300" y1="80" x2="300" y2="100" stroke="#dc322f" stroke-width="1.6" stroke-dasharray="4 3"/>
-<path d="M295,86 l10,10 M305,86 l-10,10" stroke="#dc322f" stroke-width="2" stroke-linecap="round"/>
-<rect x="258" y="102" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.6"/>
-<text x="268" y="116" font-size="10" fill="#93a1a1">i</text>
-<text x="300" y="130" font-size="16" fill="#93a1a1" text-anchor="middle">?</text>
-<text x="300" y="141" font-size="8.5" fill="#93a1a1" text-anchor="middle">未被写入</text>
-<text x="300" y="166" font-size="10" fill="#dc322f" text-anchor="middle">&amp;p 是 p 自己的地址</text>
-</svg>
-
 ---
-
 
 <!-- slide data-notes="" -->##### 任务 2: 读入两个整数并交换
 
