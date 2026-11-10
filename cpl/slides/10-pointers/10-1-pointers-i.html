@@ -149,156 +149,423 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="指针变量">指针变量 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="内存地址--每个字节一个编号">内存地址: 每个字节一个编号 </h5>
+<hr>
+<style>.addr-intro mark{white-space:nowrap}</style>
+<div style="display:flex;align-items:stretch;gap:24px;">
+<div class="addr-intro" style="flex:0.78;display:flex;flex-direction:column;font-size:0.84em;line-height:1.6;">
+<p>内存按<mark>字节</mark>划分, 每个字节存 8 位. 给每个字节编一个号, 这个编号就是<mark>地址</mark>.</p>
+<div style="margin:16px 2rem 0;padding:12px 16px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<div style="font-size:0.88em;color:#586e75;">内存共 n 个字节</div>
+<div style="font-size:1.05em;font-weight:700;color:#268bd2;margin-top:2px;">地址: 0, 1, 2, …, n-1</div>
+</div>
+<div style="margin:14px 2rem 0;line-height:1.6;">
+<div><span style="color:#859900;">✓</span> 每个字节的地址唯一</div>
+<div><span style="color:#859900;">✓</span> 相邻字节的地址差 1</div>
+<div><span style="color:#859900;">✓</span> 地址是位置, 不是内容</div>
+</div>
+<div style="margin:auto 2rem 0;padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;">
+<p>一句话: <b>地址 = 字节的编号 (<span style="white-space:nowrap">门牌号</span>)</b>; 编号与字节一一对应.</p>
+</div>
+</div>
+<div style="flex:1.22;display:flex;flex-direction:column;justify-content:center;">
+<svg viewBox="0 0 520 260" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="整个内存按字节编号, 地址从 0 到 n-1">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="260" y="20" font-size="13" fill="#073642" text-anchor="middle">整个内存 = 一长排字节, 每个字节一个编号</text>
+    <text x="49" y="52" font-size="11.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0</text>
+    <text x="113" y="52" font-size="11.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">1</text>
+    <rect x="150" y="34" width="54" height="22" rx="4" fill="#e3eef7" stroke="#268bd2" stroke-width="1.1"/>
+    <text x="177" y="49" font-size="10" fill="#268bd2" text-anchor="middle">门牌 <tspan font-family="Menlo, monospace">2</tspan></text>
+    <line x1="177" y1="56" x2="177" y2="62" stroke="#268bd2" stroke-width="1"/>
+    <text x="241" y="52" font-size="11.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">3</text>
+    <text x="309" y="54" font-size="13" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="377" y="52" font-size="9.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">n-2</text>
+    <text x="441" y="52" font-size="9.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">n-1</text>
+    <rect x="20" y="62" width="58" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="84" y="62" width="58" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="148" y="62" width="58" height="46" rx="4" fill="#dceaf5" stroke="#268bd2" stroke-width="1.8"/>
+    <rect x="212" y="62" width="58" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="348" y="62" width="58" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <rect x="412" y="62" width="58" height="46" rx="4" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.2"/>
+    <text x="49" y="90" font-size="9" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01010011</text>
+    <text x="113" y="90" font-size="9" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110101</text>
+    <text x="177" y="90" font-size="9" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01110011</text>
+    <text x="241" y="90" font-size="9" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01100001</text>
+    <text x="309" y="90" font-size="15" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="377" y="90" font-size="9" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01101001</text>
+    <text x="441" y="90" font-size="9" fill="#586e75" text-anchor="middle" font-family="Menlo, monospace">01000011</text>
+    <path d="M20 124 V134 H470 V124" fill="none" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="245" y="158" font-size="12.5" fill="#073642" text-anchor="middle">整个内存共 n 个字节 → n 个地址: 0 ~ n-1</text>
+    <text x="245" y="184" font-size="11" fill="#586e75" text-anchor="middle">地址是编号, 不是字节里存的内容; 相邻字节的地址差 1</text>
+    <text x="245" y="208" font-size="11" fill="#268bd2" text-anchor="middle">实际写法常用十六进制, 如 0x1000</text>
+  </g>
+</svg>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="变量住在内存里--地址">变量住在内存里: 地址 </h5>
+<hr>
+<div style="display:flex;align-items:stretch;gap:24px;">
+<div class="addr-intro" style="flex:0.88;display:flex;flex-direction:column;font-size:0.84em;line-height:1.55;">
+<p>变量 <code>i</code> 也住在这条内存街上, 占了 4 个<mark>连续</mark>字节, 从 <code>0x1000</code> 开始.</p>
+<div style="display:flex;flex-direction:column;gap:8px;margin:14px 2rem 0;">
+<div style="display:flex;align-items:baseline;padding:7px 12px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;">
+<span style="color:#586e75;">i 的值</span>
+<span style="margin-left:auto;font-family:Menlo,monospace;font-size:1.0em;font-weight:700;color:#b58900;">42</span>
+</div>
+<div style="display:flex;align-items:baseline;padding:7px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<span style="color:#586e75;">i 的地址</span>
+<span style="margin-left:auto;font-family:Menlo,monospace;font-size:1.0em;font-weight:700;color:#268bd2;">0x1000</span>
+</div>
+<div style="display:flex;align-items:baseline;padding:7px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<span style="color:#586e75;">i 占的字节</span>
+<span style="margin-left:auto;font-family:Menlo,monospace;font-size:0.95em;color:#586e75;">0x1000 ~ 0x1003</span>
+</div>
+</div>
+<div style="margin:auto 2rem 0;padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;">
+<p>一句话: <b>变量地址 = 第一个字节的地址</b>; <code>0x1000</code>~<code>0x1003</code> 是 <code>i</code> 的 4 个字节, 但 <code>&amp;i</code> 只取 <code>0x1000</code>.</p>
+</div>
+</div>
+<div style="flex:1.12;">
+<svg viewBox="0 0 460 230" style="max-width:640px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="内存字节格与变量 i 的地址">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="230" y="18" font-size="13" fill="#073642" text-anchor="middle">内存 = 一排带门牌的字节格 (只画其中一段)</text>
+    <text x="22" y="45" font-size="9.5" fill="#268bd2">地址</text>
+    <text x="10" y="64" font-size="13" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="430" y="64" font-size="13" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="10" y="96" font-size="13" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="430" y="96" font-size="13" fill="#93a1a1" text-anchor="middle">…</text>
+    <text x="46" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1000</text>
+    <text x="94" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1001</text>
+    <text x="142" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1002</text>
+    <text x="190" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1003</text>
+    <text x="238" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1004</text>
+    <text x="286" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1005</text>
+    <text x="334" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1006</text>
+    <text x="382" y="64" font-size="10.5" fill="#268bd2" text-anchor="middle">0x1007</text>
+    <rect x="24" y="72" width="44" height="36" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <rect x="72" y="72" width="44" height="36" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <rect x="120" y="72" width="44" height="36" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <rect x="168" y="72" width="44" height="36" rx="3" fill="#dceaf5" stroke="#268bd2" stroke-width="1.6"/>
+    <rect x="216" y="72" width="44" height="36" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.4"/>
+    <rect x="264" y="72" width="44" height="36" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.4"/>
+    <rect x="312" y="72" width="44" height="36" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.4"/>
+    <rect x="360" y="72" width="44" height="36" rx="3" fill="#fdf6e3" stroke="#93a1a1" stroke-width="1.4"/>
+    <text x="46" y="96" font-size="15" fill="#073642" text-anchor="middle">2A</text>
+    <text x="94" y="96" font-size="13" fill="#93a1a1" text-anchor="middle">00</text>
+    <text x="142" y="96" font-size="13" fill="#93a1a1" text-anchor="middle">00</text>
+    <text x="190" y="96" font-size="13" fill="#93a1a1" text-anchor="middle">00</text>
+    <text x="238" y="96" font-size="13" fill="#c9c9c9" text-anchor="middle">—</text>
+    <text x="286" y="96" font-size="13" fill="#c9c9c9" text-anchor="middle">—</text>
+    <text x="334" y="96" font-size="13" fill="#c9c9c9" text-anchor="middle">—</text>
+    <text x="382" y="96" font-size="13" fill="#c9c9c9" text-anchor="middle">—</text>
+    <path d="M24 120 V130 H212 V120" fill="none" stroke="#268bd2" stroke-width="1.5"/>
+    <text x="118" y="146" font-size="11.5" fill="#268bd2" text-anchor="middle">i 占 4 个字节</text>
+    <text x="230" y="178" font-size="12.5" fill="#073642" text-anchor="middle"><tspan font-family="Menlo, monospace">int i = 42;</tspan> 的地址 <tspan font-family="Menlo, monospace" fill="#268bd2">&amp;i = 0x1000</tspan></text>
+    <text x="230" y="202" font-size="11" fill="#268bd2" text-anchor="middle">0x1001 是下一个字节的地址, 不是 i 的地址</text>
+  </g>
+</svg>
+<div style="max-width:640px;width:100%;margin:8px auto 0;padding:9px 13px 11px;background:#f8f4e6;border:1px solid #e7ddc2;border-radius:8px;">
+<div style="display:flex;align-items:center;gap:8px;">
+<span style="padding:2px 9px;border-radius:10px;background:#b58900;color:#fff;font-size:0.60em;font-weight:700;">x86 小端</span>
+<span style="font-family:Menlo,monospace;font-size:0.72em;font-weight:700;color:#b58900;">42 = 0x0000002A</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;font-family:Menlo,monospace;font-size:0.72em;">
+<span style="font-family:LXGWWenKai, 'Noto Sans SC', sans-serif;font-size:0.88em;color:#93a1a1;">低地址</span>
+<span><span style="color:#268bd2;font-weight:700;">2A</span> &nbsp; <span style="color:#93a1a1;">00</span> &nbsp; <span style="color:#93a1a1;">00</span> &nbsp; <span style="color:#93a1a1;">00</span></span>
+<span style="font-family:LXGWWenKai, 'Noto Sans SC', sans-serif;font-size:0.88em;color:#93a1a1;">高地址</span>
+</div>
+<div style="margin-top:5px;font-size:0.62em;color:#586e75;line-height:1.45;">
+<p>2A 00 00 00 按地址从低到高拼成 0x0000002A = 42, 不能把字节顺序反过来当成 0x2A000000.</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="指针变量也是变量--它存的是地址">指针变量也是变量: 它存的是地址 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p>理解指针的第一步是在机器级别观察它们表示的内容. 内存按<mark>字节</mark>划分, 每个字节存 8 位:</p>
-<div class="top-2">
-    <img src="figs/11-1.png" width=640px>
-</div>
-<p>每个字节都有<mark>唯一的地址</mark>。</p>
-<p>内存共 n 个字节, 地址就是从 \(0\) 到 \(n-1\) 的编号:</p>
-</div>
-<div style="flex:0 0 337px;">
-<img src="figs/11-2.png" width=320px>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针变量--为什么需要地址">指针变量: 为什么需要地址 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p>程序中的每个变量都占用一个或多个字节的内存. 变量占的第一个字节的地址, 就是<mark>变量的地址</mark>。 下图中变量 i 的地址是 2000:</p>
-<div class="top-2">
-    <img src="figs/11-3.png">
-</div>
-</div>
-<div style="flex:1;">
-<p>地址可以存储在特殊的指针变量中. 把变量 i 的地址存进指针变量 p, 就说 p<mark>指向</mark>i。 图形表示:</p>
-<div class="top-2">
-    <img src="figs/11-4.png">
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="声明指针变量">声明指针变量 </h5>
-<hr>
-<div style="display:flex;flex-direction:column;gap:10px;">
-<div style="display:flex;align-items:center;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.62em;line-height:1.5;">
-<p>声明指针变量时, 名字前面<mark>必须有星号</mark>: p 是一个指针变量, 能够指向 int 类型的<mark>对象</mark> (用"对象"而非"变量", 因 p 可能指向不属于变量的内存区域)</p>
-</div>
-</div>
-<div style="display:flex;align-items:center;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.62em;line-height:1.5;">
-<p>指针变量可以与其他变量<mark>一起声明</mark></p>
-</div>
-</div>
-<div style="display:flex;align-items:center;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span>    <span class="token comment">/* 只指向整数 */</span>
-<span class="token keyword keyword-double">double</span> <span class="token operator">*</span>q<span class="token punctuation">;</span> <span class="token comment">/* 只指向双精度 */</span>
-<span class="token keyword keyword-char">char</span> <span class="token operator">*</span>r<span class="token punctuation">;</span>   <span class="token comment">/* 只指向字符 */</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.62em;line-height:1.5;">
-<p>C 要求每个指针变量<mark>只能指向特定类型</mark>的对象; <code>void *</code> 较特殊: 可存放任意类型对象的地址</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="取地址运算符">取地址运算符 & </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>  <span class="token comment">/* 没有指向特定对象 */</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-…
-p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
-<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.6em;">
-<p>声明指针只给它<mark>留了空间</mark>, 还没指向任何对象:</p>
-<p>在使用p之前需要初始化它.</p>
-<p>初始化指针的一种方法: 把变量的地址赋给它:</p>
-<p>把 i 的地址赋给 p, 让 p 指向 i:</p>
-<div class="top-2">
-    <img src="figs/11-5.png">
-</div>
-<p>也可以在声明时就初始化:</p>
-<p>i的声明甚至可以与p的声明合并:</p>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="间接寻址运算符">间接寻址运算符 * </h5>
-<hr>
-<div class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
-<div class="col-label">代码</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>j <span class="token operator">=</span> <span class="token operator">*</span><span class="token operator">&</span>i<span class="token punctuation">;</span> <span class="token comment">/* 等同于 j = i; */</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.6em;">
-<div class="col-label">说明</div>
-<p>一旦指针变量指向一个对象, 就可以使用<code>*</code>(间接寻址)运算符来访问对象中存储的内容.</p>
-<p>如果p指向i, 我们可以打印i的值如下:</p>
+<div style="flex:1;font-size:0.82em;line-height:1.55;">
+<p><code>int i = 42; int *p = &amp;i;</code> 之后, 内存里<mark>有两个变量</mark>:</p>
 <ul>
 <li>
-<p>对变量用 <code>&amp;</code> 得到它的<mark>地址</mark> (一个指针值); 把该值赋给指针变量后, 指针<mark>指向</mark>该变量</p>
+<p><code>p</code> 自己也在内存里, 住在 <code>0x2000</code></p>
 
 </li>
 <li>
-<p>对指针用 <code>*</code> 则<mark>解引用</mark>: 顺着地址找到原变量, 读写它</p>
+<p><code>p</code> 的<mark>值</mark>是 <code>0x1000</code>——也就是 <code>i</code> 的地址</p>
+
+</li>
+<li>
+<p>所以 <code>&amp;i</code> 和 <code>p</code> 都是 <code>0x1000</code>; <code>&amp;p</code> 是 <code>0x2000</code>; <code>*p</code> 是 <code>42</code></p>
 
 </li>
 </ul>
-<p>只要p指向i, <code>*p</code>就是i的别名. <code>*p</code>与i具有相同的值. 更改<code>*p</code>的值会更改i的值. 下一张幻灯片上的示例说明了<code>*p</code>和i的等价性.</p>
+<div style="margin-top:6px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;font-size:0.9em;">
+<p>一句话: <b>指针变量 = 普通变量, 只是它的值恰好是一个地址.</b></p>
 </div>
 </div>
-<svg viewBox="0 0 420 200" width="620" height="295" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<div style="flex:1.25;">
+<svg viewBox="0 0 460 300" style="max-width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="i 与 p 在内存中的关系">
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="230" y="18" font-size="12" fill="#073642" text-anchor="middle">p 和 i 都在内存里</text>
+    <!-- 门牌: 小圆角地址牌贴住变量框左侧 (右端压在框下, 只露出左段) -->
+    <rect x="42" y="81" width="66" height="22" rx="4" fill="#e3eef7" stroke="#268bd2" stroke-width="1.1"/>
+    <text x="72" y="96" font-size="10.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <rect x="100" y="60" width="190" height="64" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="112" y="82" font-size="13" fill="#b58900">int i</text>
+    <text x="195" y="104" font-size="17" fill="#073642" text-anchor="middle">42</text>
+    <rect x="42" y="231" width="66" height="22" rx="4" fill="#e3eef7" stroke="#268bd2" stroke-width="1.1"/>
+    <text x="72" y="246" font-size="10.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x2000</text>
+    <rect x="100" y="210" width="190" height="64" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="112" y="232" font-size="13" fill="#268bd2">int *p</text>
+    <text x="195" y="254" font-size="14" fill="#268bd2" text-anchor="middle">0x1000</text>
+    <defs>
+      <marker id="ptr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+      </marker>
+    </defs>
+    <path d="M292 242 C 350 242, 350 84, 292 84" fill="none" stroke="#268bd2" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+    <text x="358" y="168" font-size="11.5" fill="#268bd2">p 指向 i</text>
+    <text x="230" y="292" font-size="11" fill="#586e75" text-anchor="middle">p 的值是 i 的地址; p 自己也有地址</text>
+  </g>
+</svg>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="先看一个完整的例子--指针能做什么">先看一个完整的例子: 指针能做什么 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;font-size:0.78em;">
+<div class="col-label">代码</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>          <span class="token comment">/* 声明 p, 让它指向 i */</span>
+
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 读 *p: 输出 42 */</span>
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>               <span class="token comment">/* 写 *p: 把 i 改成 7 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 输出 7 */</span></code></pre>
+<div style="display:flex;gap:10px;margin-top:12px;font-size:0.68em;line-height:1.45;">
+<div style="flex:1;padding:8px 10px;background:#f2f4f0;border-left:3px solid #859900;border-radius:4px;">
+<b>① 声明</b><br><code>int *p = &amp;i;</code>
+</div>
+<div style="flex:1;padding:8px 10px;background:#f2f4f0;border-left:3px solid #268bd2;border-radius:4px;">
+<b>② 读</b><br><code>*p</code> → 42
+</div>
+<div style="flex:1;padding:8px 10px;background:#f2f4f0;border-left:3px solid #b58900;border-radius:4px;">
+<b>③ 写</b><br><code>*p = 7</code> → <code>i = 7</code>
+</div>
+</div>
+</div>
+<div style="flex:1.05;">
+<svg viewBox="0 0 460 230" style="max-width:640px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="指针 p 指向变量 i, 通过 *p 读写 i">
+  <defs>
+    <marker id="p6arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="230" y="18" font-size="12" fill="#073642" text-anchor="middle">p 里存 i 的地址, 顺着地址就能读写 i</text>
+    <rect x="34" y="70" width="130" height="66" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="46" y="90" font-size="13" fill="#268bd2">p</text>
+    <text x="46" y="104" font-size="9" fill="#93a1a1">int *</text>
+    <text x="99" y="120" font-size="15" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <text x="99" y="133" font-size="9" fill="#268bd2" text-anchor="middle">存的是地址</text>
+    <rect x="280" y="70" width="140" height="66" rx="8" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="292" y="90" font-size="13" fill="#b58900">i</text>
+    <text x="292" y="104" font-size="9" fill="#93a1a1">int</text>
+    <text x="350" y="120" font-size="18" fill="#073642" text-anchor="middle">42</text>
+    <text x="350" y="133" font-size="9" fill="#93a1a1" text-anchor="middle">地址是 0x1000</text>
+    <line x1="168" y1="103" x2="276" y2="103" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p6arrow)"/>
+    <text x="222" y="94" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+    <text x="99" y="172" font-size="11" fill="#859900" text-anchor="middle">读 *p 得到 42</text>
+    <text x="350" y="172" font-size="11" fill="#b58900" text-anchor="middle">写 *p = 7, i 变成 7</text>
+    <text x="230" y="208" font-size="10.5" fill="#586e75" text-anchor="middle">*p 与 i 是同一块内存: 读 *p 就是读 i, 写 *p 就是写 i</text>
+  </g>
+</svg>
+</div>
+</div>
+<div style="margin-top:12px;padding:8px 14px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;font-size:0.72em;text-align:left;">
+<b>指针能做什么:</b> 通过地址间接读写变量; 让多个指针指向同一对象 (<code>q = p</code>); 让函数修改实参、遍历数组 (后面细讲).
+</div>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="声明与初始化--让-p-指向-i">声明与初始化: 让 p 指向 i </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:0.95;font-size:0.78em;line-height:1.5;">
+<div class="col-label">声明</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>        <span class="token comment">/* p 存 int 对象的地址 */</span>
+<span class="token keyword keyword-double">double</span> <span class="token operator">*</span>q<span class="token punctuation">;</span>     <span class="token comment">/* 只能指向 double */</span>
+<span class="token keyword keyword-char">char</span> <span class="token operator">*</span>r<span class="token punctuation">;</span>       <span class="token comment">/* 只能指向 char */</span></code></pre>
+<ul>
+<li>
+<p>类型要匹配: <code>int *</code> 只能指向 <code>int</code> 对象</p>
+
+</li>
+<li>
+<p>可以和其他变量一起声明: <code>int i, *p;</code></p>
+
+</li>
+</ul>
+<div class="col-label" style="margin-top:10px;">初始化: 把地址赋给 p</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>   <span class="token comment">/* 声明时初始化 */</span></code></pre>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>        <span class="token comment">/* 先声明, 后赋值 */</span></code></pre>
+</div>
+<div style="flex:1.05;">
+<svg viewBox="0 0 520 300" style="max-width:680px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="指针 p 初始化前后: 从未初始化到指向 i">
+  <defs>
+    <marker id="p7arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="130" y="20" font-size="12" fill="#586e75" text-anchor="middle">声明后: p 还没有指向</text>
+    <rect x="70" y="40" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="1.8"/>
+    <text x="82" y="58" font-size="11" fill="#b58900">int i</text>
+    <text x="130" y="80" font-size="15" fill="#073642" text-anchor="middle">42</text>
+    <rect x="70" y="140" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="1.8"/>
+    <text x="82" y="158" font-size="11" fill="#268bd2">int *p</text>
+    <text x="130" y="180" font-size="15" fill="#dc322f" text-anchor="middle">?</text>
+    <text x="130" y="218" font-size="9.5" fill="#dc322f" text-anchor="middle">未初始化, 不知道指向哪</text>
+    <text x="390" y="20" font-size="12" fill="#586e75" text-anchor="middle">p = &amp;i 后: p 指向 i</text>
+    <rect x="330" y="40" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="1.8"/>
+    <text x="342" y="58" font-size="11" fill="#b58900">int i</text>
+    <text x="390" y="80" font-size="15" fill="#073642" text-anchor="middle">42</text>
+    <rect x="330" y="140" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="1.8"/>
+    <text x="342" y="158" font-size="11" fill="#268bd2">int *p</text>
+    <text x="390" y="180" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <line x1="390" y1="136" x2="390" y2="100" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p7arrow)"/>
+    <text x="402" y="122" font-size="9" fill="#268bd2">指向</text>
+    <text x="390" y="218" font-size="9.5" fill="#268bd2" text-anchor="middle">&amp;i = 0x1000</text>
+    <text x="260" y="260" font-size="10.5" fill="#586e75" text-anchor="middle">声明只给 p 留了空间; 用 &amp;i 取地址并赋给 p 后, p 才指向 i</text>
+    <text x="260" y="285" font-size="10.5" fill="#268bd2" text-anchor="middle">未初始化的指针不能解引用 (比如 *p)</text>
+  </g>
+</svg>
+<div style="margin-top:10px;font-size:0.8em;line-height:1.55;">
+<ul>
+<li>
+<p><code>&amp;i</code> 得到 i 的地址; 赋值后 p 指向 i</p>
+
+</li>
+<li>
+<p>声明只给 p 留了空间; 没有初始化就使用, 行为未定义</p>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="通过指针访问---p-就是-i">通过指针访问: *p 就是 i </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.0;font-size:0.80em;line-height:1.55;">
+<div class="col-label">代码</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
+
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 读 *p: 输出 42 */</span>
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>               <span class="token comment">/* 写 *p: i 变成 7 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 输出 7 */</span></code></pre>
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;line-height:1.55;">
+<p><code>*p</code> 是 i 的<mark>别名</mark>: 读 <code>*p</code> 就是读 i, 写 <code>*p</code> 就是写 i.<br><br> <code>&amp;</code> 取地址, <code>*</code> 解引用; 两者互为逆运算: <code>*&amp;i</code> 就是 i.</p>
+</div>
+<ul>
+<li>
+<p>p 必须已经指向一个有效对象; 未初始化的指针不能解引用</p>
+
+</li>
+<li>
+<p>下一张先看打印地址的程序, 后面的示例逐行演示 <code>*p</code> 如何改变 i</p>
+
+</li>
+</ul>
+</div>
+<div style="flex:1.0;">
+<svg viewBox="0 0 420 200" style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs>
 <marker id="ahAssign" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker>
 <marker id="ahPoint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker>
 </defs>
 <text x="210" y="18" font-size="12" fill="#073642" text-anchor="middle">p 的盒子里存"i 的地址"; 顺着地址就能找到 i</text>
+<text x="106" y="34" font-size="8.5" fill="#586e75" text-anchor="middle">&amp;p = 0x2000 (p 自己的地址)</text>
 <rect x="46" y="40" width="120" height="66" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
 <text x="58" y="58" font-size="12" fill="#268bd2">p</text>
 <text x="58" y="72" font-size="8.5" fill="#93a1a1">int *</text>
-<text x="106" y="86" font-size="16" fill="#268bd2" text-anchor="middle">2000</text>
+<text x="106" y="86" font-size="14" fill="#268bd2" text-anchor="middle">0x1000</text>
 <text x="106" y="99" font-size="9" fill="#268bd2" text-anchor="middle">存的是地址</text>
 <rect x="254" y="40" width="120" height="66" rx="8" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
 <text x="266" y="58" font-size="12" fill="#b58900">i</text>
 <text x="266" y="72" font-size="8.5" fill="#93a1a1">int</text>
-<text x="314" y="86" font-size="18" fill="#073642" text-anchor="middle">1</text>
-<text x="314" y="99" font-size="9" fill="#93a1a1" text-anchor="middle">地址恰好是 2000</text>
+<text x="314" y="86" font-size="18" fill="#073642" text-anchor="middle">42</text>
+<text x="314" y="99" font-size="9" fill="#93a1a1" text-anchor="middle">地址是 0x1000</text>
 <line x1="168" y1="73" x2="250" y2="73" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#ahPoint)"/>
 <text x="209" y="64" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
-<text x="106" y="150" font-size="12" fill="#859900" text-anchor="middle">&amp;i 得到 2000</text>
+<text x="106" y="150" font-size="12" fill="#859900" text-anchor="middle">&amp;i 得到 0x1000</text>
 <text x="106" y="164" font-size="9" fill="#859900" text-anchor="middle">(i 的地址, 是一个值)</text>
 <line x1="106" y1="140" x2="106" y2="110" stroke="#859900" stroke-width="2" marker-end="url(#ahAssign)"/>
 <text x="116" y="128" font-size="10" fill="#859900">赋给 p</text>
-<text x="210" y="188" font-size="10.5" fill="#073642" text-anchor="middle">*p 就是 i (同一块内存): 读 *p 得 1, 写 *p = 2 就把 i 改成 2</text>
+<text x="210" y="188" font-size="10.5" fill="#073642" text-anchor="middle">*p 就是 i (同一块内存): 读 *p 得 42, 写 *p = 7 就把 i 改成 7</text>
 </svg>
+</div>
+</div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="间接寻址运算符----上">间接寻址运算符 * (上) </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="把地址打出来">把地址打出来 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:1.2;font-size:0.68em;">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;i = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" p = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;p = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p = %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:1;font-size:0.85em;line-height:1.65;">
+<p>运行结果 (地址每次运行都不同):</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">&</span>i <span class="token operator">=</span> <span class="token number">0</span>x7ffd5a3c1c
+ p <span class="token operator">=</span> <span class="token number">0</span>x7ffd5a3c1c
+<span class="token operator">&</span>p <span class="token operator">=</span> <span class="token number">0</span>x7ffd5a3c20
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">42</span></code></pre>
+<ul>
+<li>
+<p><code>&amp;i</code> 与 <code>p</code> <mark>相同</mark>: <code>p</code> 里存的就是 <code>i</code> 的地址</p>
+
+</li>
+<li>
+<p><code>&amp;p</code> <mark>不同</mark>: <code>p</code> 自己也有地址, 它住在 <code>0x7ffd5a3c20</code></p>
+
+</li>
+<li>
+<p><code>*p</code> 等于 <code>i</code>: 顺着 <code>p</code> 里的地址找到 <code>i</code></p>
+
+</li>
+<li>
+<p><code>%p</code> 用来打印地址; 地址每次运行可能不同, <mark>不要硬编码比较</mark></p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="间接寻址运算符----上">间接寻址运算符 * (上) </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.2;font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 1 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 1 */</span>
 <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.80em;">
 <p><code>p = &amp;i;</code></p>
 <p><code>i = 1;</code></p>
 <div class="top-2">
@@ -311,16 +578,16 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="间接寻址运算符----下">间接寻址运算符 * (下) </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="间接寻址运算符----下">间接寻址运算符 * (下) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:1.2;font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span><span class="token operator">*</span> p<span class="token punctuation">;</span>
 <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.80em;">
 <p>将间接寻址运算符应用于未初始化的指针变量会导致未定义的行为.</p>
 <p>给*p赋值是特别危险的:</p>
 </div>
@@ -342,36 +609,36 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <text x="200" y="144" font-size="11" fill="#073642" text-anchor="middle">解引用未初始化的指针：写到未知内存，未定义行为</text>
 </svg>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="指针赋值--上">指针赋值 (上) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="指针赋值--上">指针赋值 (上) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.62em;">
+<div style="flex:1.2;font-size:0.69em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p<span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.66em;">
 <p>C 允许使用赋值运算符来复制相同类型的指针. 假设有以下声明:</p>
 <p>q现在指向与p相同的位置:</p>
 <div class="top-2">
-    <img src="figs/11-9.png" width=320px>
+    <img src="figs/11-9.png" width=280px>
 </div>
 <p>如果p和q都指向i, 就可以通过为<code>*p</code>或<code>*q</code>赋一个新值来更改i:</p>
 <div style="display:flex;align-items:flex-start;gap:16px;">
 <div class="top-2">
-    <img src="figs/11-10.png" width=253px>
+    <img src="figs/11-10.png" width=220px>
 </div>
 <div class="top-2">
-    <img src="figs/11-11.png" width=253px>
+    <img src="figs/11-11.png" width=220px>
 </div>
 </div>
 <p>任意数量的指针变量都可以指向同一个对象.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="指针赋值--下---不要混淆-q-p-与--q--p">指针赋值 (下): 不要混淆 q=p 与 *q=*p </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="指针赋值--下---不要混淆-q-p-与--q--p">指针赋值 (下): 不要混淆 q=p 与 *q=*p </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;">
@@ -395,7 +662,7 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务--指针追踪">任务: 指针追踪 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="任务--指针追踪">任务: 指针追踪 </h5>
 <hr>
 <div style="font-size:1.0em;line-height:1.75;">
 <p><mark>任务</mark>: 令 <code>int a = 3, *p = &amp;a;</code>, 打印 <code>a</code>、<code>&amp;a</code>、<code>p</code>、<code>*p</code>; 再执行 <code>*p = 7</code>, 重新打印 <code>a</code> 和 <code>*p</code></p>
@@ -416,10 +683,10 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-pointer-trace.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-pointer-trace.c (骨架)</a>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.1;font-size:0.62em;">
+<div style="flex:1.1;font-size:0.74em;">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
@@ -457,7 +724,7 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 指针变量里存的是什么？<code>int *p;</code> 中 p 的类型是什么？
@@ -470,7 +737,7 @@ i <span class="token operator">=</span> <span class="token number">1</span><span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
