@@ -380,7 +380,7 @@ printf("%d\n", i);    /* 输出 7 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:0.95;font-size:0.78em;line-height:1.5;">
+<div style="flex:0.95;font-size:0.84em;line-height:1.45;">
 
 <div class="col-label">声明</div>
 
@@ -416,32 +416,32 @@ p = &i;        /* 先声明, 后赋值 */
     </marker>
   </defs>
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="130" y="20" font-size="12" fill="#586e75" text-anchor="middle">声明后: p 还没有指向</text>
+    <text x="130" y="20" font-size="13.5" fill="#586e75" text-anchor="middle">声明后: p 还没有指向</text>
     <rect x="70" y="40" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="1.8"/>
-    <text x="82" y="58" font-size="11" fill="#b58900">int i</text>
-    <text x="130" y="80" font-size="15" fill="#073642" text-anchor="middle">42</text>
+    <text x="82" y="58" font-size="12.5" fill="#b58900">int i</text>
+    <text x="130" y="80" font-size="17" fill="#073642" text-anchor="middle">42</text>
     <rect x="70" y="140" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="1.8"/>
-    <text x="82" y="158" font-size="11" fill="#268bd2">int *p</text>
-    <text x="130" y="180" font-size="15" fill="#dc322f" text-anchor="middle">?</text>
-    <text x="130" y="218" font-size="9.5" fill="#dc322f" text-anchor="middle">未初始化, 不知道指向哪</text>
+    <text x="82" y="158" font-size="12.5" fill="#268bd2">int *p</text>
+    <text x="130" y="180" font-size="17" fill="#dc322f" text-anchor="middle">?</text>
+    <text x="130" y="218" font-size="11" fill="#dc322f" text-anchor="middle">未初始化, 不知道指向哪</text>
 
-    <text x="390" y="20" font-size="12" fill="#586e75" text-anchor="middle">p = &amp;i 后: p 指向 i</text>
+    <text x="390" y="20" font-size="13.5" fill="#586e75" text-anchor="middle">p = &amp;i 后: p 指向 i</text>
     <rect x="330" y="40" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="1.8"/>
-    <text x="342" y="58" font-size="11" fill="#b58900">int i</text>
-    <text x="390" y="80" font-size="15" fill="#073642" text-anchor="middle">42</text>
+    <text x="342" y="58" font-size="12.5" fill="#b58900">int i</text>
+    <text x="390" y="80" font-size="17" fill="#073642" text-anchor="middle">42</text>
     <rect x="330" y="140" width="120" height="56" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="1.8"/>
-    <text x="342" y="158" font-size="11" fill="#268bd2">int *p</text>
-    <text x="390" y="180" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <text x="342" y="158" font-size="12.5" fill="#268bd2">int *p</text>
+    <text x="390" y="180" font-size="15" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
     <line x1="390" y1="136" x2="390" y2="100" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p7arrow)"/>
-    <text x="402" y="122" font-size="9" fill="#268bd2">指向</text>
-    <text x="390" y="218" font-size="9.5" fill="#268bd2" text-anchor="middle">&amp;i = 0x1000</text>
+    <text x="402" y="122" font-size="10.5" fill="#268bd2">指向</text>
+    <text x="390" y="218" font-size="11" fill="#268bd2" text-anchor="middle">&amp;i = 0x1000</text>
 
-    <text x="260" y="260" font-size="10.5" fill="#586e75" text-anchor="middle">声明只给 p 留了空间; 用 &amp;i 取地址并赋给 p 后, p 才指向 i</text>
-    <text x="260" y="285" font-size="10.5" fill="#268bd2" text-anchor="middle">未初始化的指针不能解引用 (比如 *p)</text>
+    <text x="260" y="260" font-size="12.5" fill="#586e75" text-anchor="middle">声明只给 p 留了空间; 用 &amp;i 取地址并赋给 p 后, p 才指向 i</text>
+    <text x="260" y="285" font-size="12.5" fill="#268bd2" text-anchor="middle">未初始化的指针不能解引用 (比如 *p)</text>
   </g>
 </svg>
 
-<div style="margin-top:10px;font-size:0.8em;line-height:1.55;">
+<div style="margin-top:10px;font-size:0.86em;line-height:1.5;">
 
 - `&i` 得到 i 的地址; 赋值后 p 指向 i
 - 声明只给 p 留了空间; 没有初始化就使用, 行为未定义
@@ -458,7 +458,7 @@ p = &i;        /* 先声明, 后赋值 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.0;font-size:0.80em;line-height:1.55;">
+<div style="flex:1.0;font-size:0.85em;line-height:1.5;">
 
 <div class="col-label">代码</div>
 
@@ -487,30 +487,30 @@ printf("%d\n", i);    /* 输出 7 */
 <marker id="ahAssign" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker>
 <marker id="ahPoint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker>
 </defs>
-<text x="210" y="18" font-size="12" fill="#073642" text-anchor="middle">p 的盒子里存"i 的地址"; 顺着地址就能找到 i</text>
-<text x="106" y="34" font-size="8.5" fill="#586e75" text-anchor="middle">&amp;p = 0x2000 (p 自己的地址)</text>
+<text x="210" y="18" font-size="13.5" fill="#073642" text-anchor="middle">p 的盒子里存"i 的地址"; 顺着地址就能找到 i</text>
+<text x="106" y="34" font-size="10" fill="#586e75" text-anchor="middle">&amp;p = 0x2000 (p 自己的地址)</text>
 
 <rect x="46" y="40" width="120" height="66" rx="8" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="58" y="58" font-size="12" fill="#268bd2">p</text>
-<text x="58" y="72" font-size="8.5" fill="#93a1a1">int *</text>
-<text x="106" y="86" font-size="14" fill="#268bd2" text-anchor="middle">0x1000</text>
-<text x="106" y="99" font-size="9" fill="#268bd2" text-anchor="middle">存的是地址</text>
+<text x="58" y="58" font-size="13.5" fill="#268bd2">p</text>
+<text x="58" y="72" font-size="9.5" fill="#93a1a1">int *</text>
+<text x="106" y="86" font-size="15.5" fill="#268bd2" text-anchor="middle">0x1000</text>
+<text x="106" y="99" font-size="10.5" fill="#268bd2" text-anchor="middle">存的是地址</text>
 
 <rect x="254" y="40" width="120" height="66" rx="8" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-<text x="266" y="58" font-size="12" fill="#b58900">i</text>
-<text x="266" y="72" font-size="8.5" fill="#93a1a1">int</text>
-<text x="314" y="86" font-size="18" fill="#073642" text-anchor="middle">42</text>
-<text x="314" y="99" font-size="9" fill="#93a1a1" text-anchor="middle">地址是 0x1000</text>
+<text x="266" y="58" font-size="13.5" fill="#b58900">i</text>
+<text x="266" y="72" font-size="9.5" fill="#93a1a1">int</text>
+<text x="314" y="86" font-size="20" fill="#073642" text-anchor="middle">42</text>
+<text x="314" y="99" font-size="10.5" fill="#93a1a1" text-anchor="middle">地址是 0x1000</text>
 
 <line x1="168" y1="73" x2="250" y2="73" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#ahPoint)"/>
-<text x="209" y="64" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+<text x="209" y="64" font-size="11" fill="#268bd2" text-anchor="middle">p 指向 i</text>
 
-<text x="106" y="150" font-size="12" fill="#859900" text-anchor="middle">&amp;i 得到 0x1000</text>
-<text x="106" y="164" font-size="9" fill="#859900" text-anchor="middle">(i 的地址, 是一个值)</text>
+<text x="106" y="150" font-size="13.5" fill="#859900" text-anchor="middle">&amp;i 得到 0x1000</text>
+<text x="106" y="164" font-size="10.5" fill="#859900" text-anchor="middle">(i 的地址, 是一个值)</text>
 <line x1="106" y1="140" x2="106" y2="110" stroke="#859900" stroke-width="2" marker-end="url(#ahAssign)"/>
-<text x="116" y="128" font-size="10" fill="#859900">赋给 p</text>
+<text x="116" y="128" font-size="11.5" fill="#859900">赋给 p</text>
 
-<text x="210" y="188" font-size="10.5" fill="#073642" text-anchor="middle">*p 就是 i (同一块内存): 读 *p 得 42, 写 *p = 7 就把 i 改成 7</text>
+<text x="210" y="188" font-size="12" fill="#073642" text-anchor="middle">*p 就是 i (同一块内存): 读 *p 得 42, 写 *p = 7 就把 i 改成 7</text>
 </svg>
 
 </div>
