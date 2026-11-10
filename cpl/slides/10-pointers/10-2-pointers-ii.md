@@ -382,9 +382,9 @@ i = 7, *p = 7
 
 ---
 
-<div style="font-size:0.70em;line-height:1.38;text-align:left;">
+<div style="font-size:0.65em;line-height:1.36;text-align:left;">
 
-==任务==: 输入 10 个整数, 完成 `max_min`, 通过指针参数一次带回最大值和最小值.
+==任务==: 先把输入的 10 个整数存入数组 `a[10]`, 再完成 `max_min(a, 10, &max, &min)`: 函数遍历数组, 通过指针参数带回最大值和最小值.
 
 样例:
 
@@ -396,14 +396,14 @@ i = 7, *p = 7
 
 ==提示==:
 
-- `return` 只能带回一个值, 两个结果要用指针参数带出
-- 先假设 `a[0]` 既是最大也是最小, 再遍历更新 `*max`、`*min`
+- `max_min(a, n, ...)`: 第一个参数是数组, 第二个是元素个数
+- `return` 只能带回一个值; 最大/最小用 `*max`、`*min` 带回; 先假设 `a[0]` 是最值
 
 <div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· `max_min` 通过 `*max`、`*min` 写回结果</div>
-<div>· 输出最大 9、最小 0</div>
-<div>· 不改变 `main` 的输入/输出结构</div>
+<div>· 输入先存入 `a[10]`</div>
+<div>· `max_min` 通过指针写回最大/最小</div>
+<div>· 输出 9 / 0</div>
 </div>
 
 <div style="margin:10px 2rem 0;">
@@ -452,7 +452,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.7em;line-height:1.6;">
+<div style="flex:1;font-size:0.85em;line-height:1.5;">
 
 - `max_min(b, N, &big, &small)`——把 `big`、`small` 的==地址==传给函数, 函数通过指针把结果写回去
 - `*max = *min = a[0]` 先假设, 遍历中更大/更小就更新
