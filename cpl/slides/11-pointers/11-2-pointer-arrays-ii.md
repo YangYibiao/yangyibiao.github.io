@@ -108,7 +108,7 @@ while (*p != 0)
 
 <div style="flex:1;font-size:0.6em;">
 
-假设a声明如下, 把数组名 a 当指针用的示例:
+W8-2 已经见过: 数组名传的是==首地址==; 这里把 `a+i`、`*(a+i)` 正式接上. 假设 `int a[10];`:
 
 一般情况, `a+i`与`&a[i]`相同, 都表示指向数组a中的元素i的指针. 
 
@@ -402,7 +402,7 @@ int *a; /* 编译器仅为指针变量分配空间 */
 
 - 若 `a` 只是指针，`*a = 0` 会把 0 存到 `a` 指向的地方——不清楚 `a` 指向哪，后果不确定。
 
-- ==之前的悬念在这里揭晓==: 数组作参数为什么能改原数组——传的本来就是地址
+- W8-2 已经见过: 数组作参数传的是==首地址==; 这里把 `int a[]` 与 `int *a` 的等价规则系统整理
 
 <svg viewBox="0 0 400 155" width="480" height="186" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <text x="200" y="16" font-size="11.5" fill="#073642" text-anchor="middle">作声明：两者分配的内存不同</text>
