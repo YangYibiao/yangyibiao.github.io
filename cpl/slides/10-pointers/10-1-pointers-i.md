@@ -686,6 +686,10 @@ printf("*p = %d\n", *p);         /* 未定义行为 */
 实际值每次/每台机器可能不同, 也可能是 Segmentation fault.
 </div>
 
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/uninit-pointer.c" style="display:inline-block;padding:5px 14px;background:#dc322f;color:#fff;border-radius:6px;font-size:0.8em;text-decoration:none;">⚡ 在 VS Code 中打开 uninit-pointer.c (运行会崩溃)</a>
+</div>
+
 </div>
 
 <div style="flex:1.05;">
@@ -803,6 +807,10 @@ printf("%d %d %d\n", i, *p, *q);  /* 2 2 2 */
 - `q = p` 复制的是==地址==, 不是 i 的值
 - 之后 `p`、`q` 指向同一块内存; `*p`、`*q` 都是 i
 - 任意多个指针都可以指向同一个对象; 改一个, 其他都能看到
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/assign-multi.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 assign-multi.c</a>
+</div>
 
 </div>
 
