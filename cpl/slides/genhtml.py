@@ -533,6 +533,9 @@ if _fm:
     _m = re.search(r'^password:\s*["\']?([^"\'\n]+)["\']?\s*$', _fm.group(1), re.M)
     if _m:
         _pwd = _m.group(1).strip()
+# 先移除已有的密码门 (未设置密码时也要清除, 否则重新生成会残留旧遮罩)
+tail_html = re.sub(r'<div id="cpl-gate".*?\n\}\)\(\);\n</script>\n?', '', tail_html, flags=re.S)
+
 if _pwd:
     _GATE = """<div id="cpl-gate" style="position:fixed;inset:0;z-index:2147483647;background:#fdf6e3;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,'PingFang SC',sans-serif;">
 <h2 style="color:#073642;margin:0 0 18px;font-size:26px;">🔒 本课件尚未发布</h2>
@@ -613,8 +616,6 @@ if _pwd:
 })();
 </script>
 """
-    # 先移除已有的密码门 (重新生成时 tail 取自旧 html, 不清除会层层叠加)
-    tail_html = re.sub(r'<div id="cpl-gate".*?\n\}\)\(\);\n</script>\n?', '', tail_html, flags=re.S)
     tail_html = tail_html.replace('</body>', _GATE + '</body>', 1)
 
 open(BASE + name + '.html', 'w', encoding='utf-8').write(head_html + body_out + tail_html)
