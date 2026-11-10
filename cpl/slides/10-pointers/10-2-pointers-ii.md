@@ -109,30 +109,30 @@ int main(void)
     </marker>
   </defs>
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="230" y="20" font-size="13" fill="#586e75" text-anchor="middle">传值: 函数拿到的是副本</text>
+    <text x="230" y="20" font-size="15" fill="#586e75" text-anchor="middle">传值: 函数拿到的是副本</text>
 
     <rect x="60" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="72" y="58" font-size="11" fill="#b58900">int x</text>
-    <text x="110" y="84" font-size="18" fill="#073642" text-anchor="middle">1</text>
+    <text x="72" y="58" font-size="14" fill="#b58900">int x</text>
+    <text x="110" y="84" font-size="20" fill="#073642" text-anchor="middle">1</text>
 
     <rect x="180" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="192" y="58" font-size="11" fill="#b58900">int y</text>
-    <text x="230" y="84" font-size="18" fill="#073642" text-anchor="middle">2</text>
+    <text x="192" y="58" font-size="14" fill="#b58900">int y</text>
+    <text x="230" y="84" font-size="20" fill="#073642" text-anchor="middle">2</text>
 
     <line x1="110" y1="96" x2="110" y2="146" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#copyArrow)"/>
     <line x1="230" y1="96" x2="230" y2="146" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#copyArrow)"/>
-    <text x="120" y="126" font-size="10" fill="#93a1a1">复制</text>
-    <text x="240" y="126" font-size="10" fill="#93a1a1">复制</text>
+    <text x="120" y="126" font-size="12" fill="#93a1a1">复制</text>
+    <text x="240" y="126" font-size="12" fill="#93a1a1">复制</text>
 
     <rect x="60" y="150" width="100" height="56" rx="6" fill="#f2f4f0" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 3"/>
-    <text x="72" y="168" font-size="11" fill="#586e75">int a</text>
-    <text x="110" y="194" font-size="18" fill="#586e75" text-anchor="middle">1</text>
+    <text x="72" y="168" font-size="14" fill="#586e75">int a</text>
+    <text x="110" y="194" font-size="20" fill="#586e75" text-anchor="middle">1</text>
 
     <rect x="180" y="150" width="100" height="56" rx="6" fill="#f2f4f0" stroke="#93a1a1" stroke-width="1.6" stroke-dasharray="5 3"/>
-    <text x="192" y="168" font-size="11" fill="#586e75">int b</text>
-    <text x="230" y="194" font-size="18" fill="#586e75" text-anchor="middle">2</text>
+    <text x="192" y="168" font-size="14" fill="#586e75">int b</text>
+    <text x="230" y="194" font-size="20" fill="#586e75" text-anchor="middle">2</text>
 
-    <text x="230" y="232" font-size="11.5" fill="#dc322f" text-anchor="middle">交换 a、b 只是交换副本; x、y 仍是 1、2</text>
+    <text x="230" y="232" font-size="13" fill="#dc322f" text-anchor="middle">交换 a、b 只是交换副本; x、y 仍是 1、2</text>
   </g>
 </svg>
 
@@ -182,37 +182,37 @@ int main(void)
 
 <div style="flex:1.05;">
 
-<svg viewBox="0 0 460 250" style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="传址调用: a 和 b 分别指向 x 和 y">
+<svg viewBox="0 0 340 250" style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="传址调用: a 和 b 分别指向 x 和 y">
   <defs>
     <marker id="ptrUp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
     </marker>
   </defs>
   <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
-    <text x="230" y="20" font-size="13" fill="#586e75" text-anchor="middle">传址: a、b 里存的是 x、y 的地址</text>
+    <text x="170" y="20" font-size="15" fill="#586e75" text-anchor="middle">传址: a、b 里存的是 x、y 的地址</text>
 
     <rect x="60" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="72" y="58" font-size="11" fill="#b58900">int x</text>
-    <text x="110" y="84" font-size="18" fill="#073642" text-anchor="middle">2</text>
+    <text x="72" y="58" font-size="14" fill="#b58900">int x</text>
+    <text x="110" y="84" font-size="20" fill="#073642" text-anchor="middle">2</text>
 
     <rect x="180" y="40" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
-    <text x="192" y="58" font-size="11" fill="#b58900">int y</text>
-    <text x="230" y="84" font-size="18" fill="#073642" text-anchor="middle">1</text>
+    <text x="192" y="58" font-size="14" fill="#b58900">int y</text>
+    <text x="230" y="84" font-size="20" fill="#073642" text-anchor="middle">1</text>
 
     <rect x="60" y="150" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-    <text x="72" y="168" font-size="11" fill="#268bd2">int *a</text>
-    <text x="110" y="194" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">&amp;x</text>
+    <text x="72" y="168" font-size="14" fill="#268bd2">int *a</text>
+    <text x="110" y="194" font-size="15.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">&amp;x</text>
 
     <rect x="180" y="150" width="100" height="56" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-    <text x="192" y="168" font-size="11" fill="#268bd2">int *b</text>
-    <text x="230" y="194" font-size="14" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">&amp;y</text>
+    <text x="192" y="168" font-size="14" fill="#268bd2">int *b</text>
+    <text x="230" y="194" font-size="15.5" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">&amp;y</text>
 
     <line x1="110" y1="150" x2="110" y2="100" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#ptrUp)"/>
     <line x1="230" y1="150" x2="230" y2="100" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#ptrUp)"/>
-    <text x="120" y="130" font-size="10" fill="#268bd2">指向 x</text>
-    <text x="240" y="130" font-size="10" fill="#268bd2">指向 y</text>
+    <text x="120" y="130" font-size="12" fill="#268bd2">指向 x</text>
+    <text x="240" y="130" font-size="12" fill="#268bd2">指向 y</text>
 
-    <text x="230" y="232" font-size="11.5" fill="#073642" text-anchor="middle">交换 *a、*b 后: x=2, y=1</text>
+    <text x="170" y="232" font-size="13" fill="#073642" text-anchor="middle">交换 *a、*b 后: x=2, y=1</text>
   </g>
 </svg>
 
@@ -227,7 +227,7 @@ int main(void)
 ---
 
 
-<!-- slide data-notes="" -->##### 任务 1: 把 swap 改成传址版
+<!-- slide data-notes="" -->##### 任务 1: 用 swap 轮换三个数
 
 ---
 
@@ -235,24 +235,25 @@ int main(void)
 
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 
-==任务==: `task-swap.c` 里的 `swap` 现在按值传递, 交换的是副本. 修改函数参数与调用, 让 `main` 里的 `x`、`y` 真正交换.
+==任务==: 输入三个整数 `x`、`y`、`z`, 用 `swap` 把它们轮换: `x` 变成原来的 `y`, `y` 变成原来的 `z`, `z` 变成原来的 `x`.
 
 样例:
 
 ```text
-交换后: x=8, y=3
+输入: 1 2 3
+输出: 2 3 1
 ```
 
 ==提示==:
 
-- 函数要改 `main` 的变量 → 参数用指针
-- 调用时传 `&x`、`&y`; 函数里用 `*a`、`*b`
+- 用两次 `swap`: `swap(&x, &y); swap(&y, &z);`
+- 每次交换后变量里已经是新值, 想清楚第二步交换的是哪两个
 
 <div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· 参数改为 `int *a, int *b`</div>
-<div>· 调用改为 `swap(&x, &y)`</div>
-<div>· 输出 `交换后: x=8, y=3`</div>
+<div>· 用两次 `swap` 完成轮换</div>
+<div>· 输入 1 2 3, 输出 2 3 1</div>
+<div>· 不直接写 `x=y; y=z; z=...` 的赋值</div>
 </div>
 
 <div style="margin:10px 2rem 0;">
@@ -321,7 +322,7 @@ scanf("%d", &p);    /* 错误: 传的是 p 的地址 */
 <text x="96" y="94" font-size="8.5" fill="#268bd2" text-anchor="end">p 已保存 &amp;i</text>
 <rect x="58" y="102" width="84" height="44" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
 <text x="68" y="116" font-size="10" fill="#b58900">i</text>
-<text x="100" y="134" font-size="18" fill="#073642" text-anchor="middle">42</text>
+<text x="100" y="134" font-size="20" fill="#073642" text-anchor="middle">42</text>
 <text x="100" y="166" font-size="10" fill="#859900" text-anchor="middle">scanf 通过 p 写入 i</text>
 <text x="300" y="20" font-size="11.5" fill="#dc322f" text-anchor="middle">scanf("%d", &amp;p)</text>
 <circle cx="360" cy="16" r="8" fill="#dc322f"/>
