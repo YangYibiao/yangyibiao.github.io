@@ -62,35 +62,6 @@ password: "cpl2026"
 <!-- slide data-notes="" -->
 
 
-##### 动态内存: malloc 与 free
-
----
-
-链表结点是==运行时逐个创建==的——用 `malloc` 向系统借内存。`struct node` 是下一页要定义的结点类型，这里先看 `malloc` 的用法：
-
-```C
-struct node *new_node;                    /* struct node 下一页定义 */
-new_node = malloc(sizeof(struct node));   /* 借一块刚好放下一个结点的内存 */
-if (new_node == NULL) {                   /* 借不到要检查 */
-  printf("内存不足\n");
-  exit(1);
-}
-```
-
-`exit(1)` 直接终止程序，声明在 `<stdlib.h>` 中。
-
-- `malloc(n)`: 借 n 字节, ==不清零==; 返回通用指针 `void *`; 需要 `<stdlib.h>`
-
-- `free(p)`: 用完==归还==。忘记 free 就是"内存泄漏"——内存越用越多, 程序最终被系统杀掉
-
-- free 之后 p 就是==悬空指针==, 不能再解引用; 习惯上立刻把 p 置为 `NULL`
-
----
-
-
-<!-- slide data-notes="" -->
-
-
 ##### 声明结点类型
 
 ---
@@ -119,6 +90,35 @@ struct node {
 将 `first` 设置为 `NULL` 表示链表最初为空。
 
 </div>
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 动态内存: malloc 与 free
+
+---
+
+链表结点是==运行时逐个创建==的——用 `malloc` 向系统借内存。结点类型已经声明好，现在为它借一块内存：
+
+```C
+struct node *new_node;                    /* 指向新结点的指针 */
+new_node = malloc(sizeof(struct node));   /* 借一块刚好放下一个结点的内存 */
+if (new_node == NULL) {                   /* 借不到要检查 */
+  printf("内存不足\n");
+  exit(1);
+}
+```
+
+`exit(1)` 直接终止程序，声明在 `<stdlib.h>` 中。
+
+- `malloc(n)`: 借 n 字节, ==不清零==; 返回通用指针 `void *`; 需要 `<stdlib.h>`
+
+- `free(p)`: 用完==归还==。忘记 free 就是"内存泄漏"——内存越用越多, 程序最终被系统杀掉
+
+- free 之后 p 就是==悬空指针==, 不能再解引用; 习惯上立刻把 p 置为 `NULL`
 
 ---
 

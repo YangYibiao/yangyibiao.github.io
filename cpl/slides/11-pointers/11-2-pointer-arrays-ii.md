@@ -728,6 +728,76 @@ C将a视为一维数组, 其元素是一维数组.
 
 </div>
 
+<!-- slide data-notes="" -->##### 动态内存初识: malloc 与 free
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.1;font-size:0.62em;">
+
+<div class="col-label">完整代码 · dynamic-array.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    int n;
+    scanf("%d", &n);
+
+    int *a = malloc(n * sizeof(int));   /* 借 n 个 int */
+    if (a == NULL) {
+        printf("内存不足\n");
+        return 1;
+    }
+
+    for (int i = 0; i < n; i++) a[i] = i + 1;
+    for (int i = 0; i < n; i++) printf("%d ", a[i]);
+    printf("\n");
+
+    free(a);                            /* 用完归还 */
+    a = NULL;
+    return 0;
+}
+```
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/dynamic-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 dynamic-array.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">样例运行</div>
+
+```text
+输入: 5
+输出: 1 2 3 4 5
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `malloc(n * sizeof(int))`: 借 n 个 int 的空间, 返回 `void *`, ==不清零==
+- 借不到返回 `NULL`, 必须检查
+- 用完 `free(a)`, 再把 `a = NULL`
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+数组大小可以==运行时决定==: 先读 n, 再借 n 个元素; 不用像 `int a[10]` 那样把长度定死.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+忘记 `free` 就是内存泄漏; `free` 之后不能再解引用 a.
+</div>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 ##### 课堂小测

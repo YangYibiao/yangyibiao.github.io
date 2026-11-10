@@ -163,10 +163,26 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="动态内存--malloc-与-free">动态内存: malloc 与 free </h5>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="声明结点类型">声明结点类型 </h5>
 <hr>
-<p>链表结点是<mark>运行时逐个创建</mark>的——用 <code>malloc</code> 向系统借内存。<code>struct node</code> 是下一页要定义的结点类型，这里先看 <code>malloc</code> 的用法：</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>new_node<span class="token punctuation">;</span>                    <span class="token comment">/* struct node 下一页定义 */</span>
+<style>.node-decl pre{font-size:18px;line-height:1.2;padding:0.5em 1em;}.node-decl pre code{max-height:none;padding:2px 4px;}</style>
+<div class="node-decl">
+<p>建链表, 先要有表示单个结点的结构体。</p>
+<p>结点结构体: 数据 (本例是整数) + 指向下一个结点的指针:</p>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> node <span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> value<span class="token punctuation">;</span>          <span class="token comment">/* data stored in the node  */</span>
+  <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>next<span class="token punctuation">;</span>  <span class="token comment">/* pointer to the next node */</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p><code>node</code> 必须是结构标记, 而不是 <code>typedef</code> 名称, 否则将无法声明 <code>next</code> 的类型。</p>
+<p>还需要一个始终指向<mark>第一个结点</mark>的变量:</p>
+<p><code>struct node *first = NULL;</code></p>
+<p>将 <code>first</code> 设置为 <code>NULL</code> 表示链表最初为空。</p>
+</div>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="动态内存--malloc-与-free">动态内存: malloc 与 free </h5>
+<hr>
+<p>链表结点是<mark>运行时逐个创建</mark>的——用 <code>malloc</code> 向系统借内存。结点类型已经声明好，现在为它借一块内存：</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>new_node<span class="token punctuation">;</span>                    <span class="token comment">/* 指向新结点的指针 */</span>
 new_node <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 借一块刚好放下一个结点的内存 */</span>
 <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>new_node <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>                   <span class="token comment">/* 借不到要检查 */</span>
   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"内存不足\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -187,22 +203,6 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 
 </li>
 </ul>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="声明结点类型">声明结点类型 </h5>
-<hr>
-<style>.node-decl pre{font-size:18px;line-height:1.2;padding:0.5em 1em;}.node-decl pre code{max-height:none;padding:2px 4px;}</style>
-<div class="node-decl">
-<p>建链表, 先要有表示单个结点的结构体。</p>
-<p>结点结构体: 数据 (本例是整数) + 指向下一个结点的指针:</p>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-struct">struct</span> node <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> value<span class="token punctuation">;</span>          <span class="token comment">/* data stored in the node  */</span>
-  <span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>next<span class="token punctuation">;</span>  <span class="token comment">/* pointer to the next node */</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p><code>node</code> 必须是结构标记, 而不是 <code>typedef</code> 名称, 否则将无法声明 <code>next</code> 的类型。</p>
-<p>还需要一个始终指向<mark>第一个结点</mark>的变量:</p>
-<p><code>struct node *first = NULL;</code></p>
-<p>将 <code>first</code> 设置为 <code>NULL</code> 表示链表最初为空。</p>
-</div>
 <hr>
 </section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="创建结点">创建结点 </h5>
 <hr>
