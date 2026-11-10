@@ -506,60 +506,83 @@ int main(void)
 ---
 
 
-<!-- slide data-notes="" -->##### 使用 const 保护参数
+<!-- slide data-notes="" -->##### 使用 const 保护参数: 两种常见写法
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.78em;">
+<div class="const-code" style="flex:1.1;font-size:0.58em;">
 
-<div class="col-label">三种写法</div>
+<style>.const-code pre code{max-height:none!important;font-size:12px;line-height:1.15;}</style>
 
-```C
-void f(const int *p)
+<div class="col-label">完整代码 · const-demo.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
 {
-  *p = 0;   /* 错误: *p 只读 */
-  p = &x;   /* 合法: p 可以改指向 */
+    int i = 1, j = 2;
+
+    const int *p = &i;        /* *p 只读; p 可以改指向 */
+    printf("*p = %d\n", *p);  /* 1 */
+    p = &j;                   /* 合法: 改 p 的指向 */
+    printf("*p = %d\n", *p);  /* 2 */
+
+    int * const q = &i;       /* q 只读; *q 可以改 */
+    *q = 4;                   /* 合法: 改 i */
+    printf("i = %d, *q = %d\n", i, *q);  /* 4 4 */
+
+    /* 下面两句通不过编译:
+       *p = 3;   // *p 只读
+       q = &j;   // q 只读 */
+    return 0;
 }
 ```
 
-```C
-void f(int * const p)
-{
-  *p = 0;   /* 合法: *p 可以改 */
-  p = &x;   /* 错误: p 只读 */
-}
-```
-
-```C
-void f(const int * const p)
-{
-  *p = 0;   /* 错误 */
-  p = &x;   /* 错误 */
-}
-```
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/const-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 const-demo.c</a>
+</div>
 
 </div>
 
-<div style="flex:1;font-size:0.78em;line-height:1.55;">
+<div style="flex:0.9;font-size:0.70em;line-height:1.4;">
 
-- `const int *p`: 锁 `*p`——不能通过 p 修改对象; p 可以改指向
-- `int * const p`: 锁 `p`——p 不能改指向; `*p` 可以修改
-- `const int * const p`: 两个都锁
+<div class="col-label">运行结果</div>
 
-<div style="margin-top:8px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.92em;">
-读法: `const` 在 `*` 左边锁值, 在 `*` 右边锁指针.
+```text
+*p = 1
+*p = 2
+i = 4, *q = 4
+```
+
+<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改所指内容</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改指针指向</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>const int *</code></td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td><td style="padding:3px 6px;color:#859900;">✓ 合法</td></tr>
+<tr><td style="padding:3px 6px;"><code>int * const</code></td><td style="padding:3px 6px;color:#859900;">✓ 合法</td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td></tr>
+<tr><td style="padding:3px 6px;"><code>const int * const</code></td><td style="padding:3px 6px;color:#dc322f;">✗</td><td style="padding:3px 6px;color:#dc322f;">✗</td></tr>
+</table>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;font-size:0.9em;">
+<b>编译器的实际报错:</b><br>
+<code>*p = 3;</code> → read-only variable is not assignable<br>
+<code>q = &amp;j;</code> → cannot assign to variable 'q' with const-qualified type 'int *const'
 </div>
 
-函数参数常用 `const int *a`: 表示函数只读数组, 不会修改它. 当参数是很大的结构/数组时, 传地址能省拷贝, `const` 又能保证"只看不改".
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
+读法: <code>const</code> 在 <code>*</code> 左边锁值, 在 <code>*</code> 右边锁指针.
+</div>
 
 </div>
 
 </div>
 
 ---
-
 
 <!-- slide data-notes="" -->##### 任务 5: 写一个只读的求和函数
 

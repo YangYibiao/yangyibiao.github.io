@@ -483,46 +483,59 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="使用-const-保护参数">使用 const 保护参数 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="使用-const-保护参数--两种常见写法">使用 const 保护参数: 两种常见写法 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.78em;">
-<div class="col-label">三种写法</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">)</span>
+<div class="const-code" style="flex:1.1;font-size:0.58em;">
+<style>.const-code pre code{max-height:none!important;font-size:12px;line-height:1.15;}</style>
+<div class="col-label">完整代码 · const-demo.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* 错误: *p 只读 */</span>
-  p <span class="token operator">=</span> <span class="token operator">&</span>x<span class="token punctuation">;</span>   <span class="token comment">/* 合法: p 可以改指向 */</span>
+    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>        <span class="token comment">/* *p 只读; p 可以改指向 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p = %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 1 */</span>
+    p <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span>                   <span class="token comment">/* 合法: 改 p 的指向 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p = %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 2 */</span>
+
+    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span> <span class="token keyword keyword-const">const</span> q <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>       <span class="token comment">/* q 只读; *q 可以改 */</span>
+    <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>                   <span class="token comment">/* 合法: 改 i */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d, *q = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 4 4 */</span>
+
+    <span class="token comment">/* 下面两句通不过编译:
+       *p = 3;   // *p 只读
+       q = &amp;j;   // q 只读 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span> <span class="token keyword keyword-const">const</span> p<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* 合法: *p 可以改 */</span>
-  p <span class="token operator">=</span> <span class="token operator">&</span>x<span class="token punctuation">;</span>   <span class="token comment">/* 错误: p 只读 */</span>
-<span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span> <span class="token keyword keyword-const">const</span> p<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* 错误 */</span>
-  p <span class="token operator">=</span> <span class="token operator">&</span>x<span class="token punctuation">;</span>   <span class="token comment">/* 错误 */</span>
-<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/const-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 const-demo.c</a>
 </div>
-<div style="flex:1;font-size:0.78em;line-height:1.55;">
-<ul>
-<li>
-<p><code>const int *p</code>: 锁 <code>*p</code>——不能通过 p 修改对象; p 可以改指向</p>
-
-</li>
-<li>
-<p><code>int * const p</code>: 锁 <code>p</code>——p 不能改指向; <code>*p</code> 可以修改</p>
-
-</li>
-<li>
-<p><code>const int * const p</code>: 两个都锁</p>
-
-</li>
-</ul>
-<div style="margin-top:8px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.92em;">
+</div>
+<div style="flex:0.9;font-size:0.70em;line-height:1.4;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">2</span>
+i <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">4</span></code></pre>
+<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改所指内容</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改指针指向</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>const int *</code></td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td><td style="padding:3px 6px;color:#859900;">✓ 合法</td></tr>
+<tr><td style="padding:3px 6px;"><code>int * const</code></td><td style="padding:3px 6px;color:#859900;">✓ 合法</td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td></tr>
+<tr><td style="padding:3px 6px;"><code>const int * const</code></td><td style="padding:3px 6px;color:#dc322f;">✗</td><td style="padding:3px 6px;color:#dc322f;">✗</td></tr>
+</table>
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;font-size:0.9em;">
+<b>编译器的实际报错:</b><br>
+<code>*p = 3;</code> → read-only variable is not assignable<br>
+<code>q = &amp;j;</code> → cannot assign to variable 'q' with const-qualified type 'int *const'
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
 <p>读法: <code>const</code> 在 <code>*</code> 左边锁值, 在 <code>*</code> 右边锁指针.</p>
 </div>
-<p>函数参数常用 <code>const int *a</code>: 表示函数只读数组, 不会修改它. 当参数是很大的结构/数组时, 传地址能省拷贝, <code>const</code> 又能保证"只看不改".</p>
 </div>
 </div>
 <hr>
