@@ -583,50 +583,83 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->##### 间接寻址运算符 * (上)
+<!-- slide data-notes="" -->##### 间接寻址运算符 * (上): 完整例子
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.85em;">
+<div class="deref-code" style="flex:1.15;font-size:0.64em;">
 
-```C
-printf("%d\n", i); /* 打印 1 */
-printf("%d\n", *p); /* 打印 1 */
-*p = 2;
+<style>.deref-code pre code{font-size:14px;line-height:1.2;}</style>
+
+<div class="col-label">完整代码 · deref.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 1;
+    int *p = &i;                         /* p 指向 i */
+
+    printf("i = %d, *p = %d\n", i, *p);  /* 1 1 */
+    *p = 2;                              /* 通过 p 改 i */
+    printf("i = %d, *p = %d\n", i, *p);  /* 2 2 */
+    return 0;
+}
 ```
 
-```C
-printf("%d\n", i); /* 打印 2 */
-printf("%d\n", *p); /* 打印 2 */
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/deref.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 deref.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;">
+
+<div class="col-label">运行结果</div>
+
+```text
+i = 1, *p = 1
+i = 2, *p = 2
 ```
 
+<svg viewBox="0 0 400 190" style="max-width:520px;width:100%;height:auto;display:block;margin:4px auto 0;" role="img" aria-label="p 指向 i, 读 *p 得 1, 写 *p=2 后 i 变成 2">
+  <defs>
+    <marker id="p10arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="18" font-size="12" fill="#073642" text-anchor="middle">p 指向 i: *p 就是 i</text>
+
+    <rect x="30" y="55" width="110" height="62" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="42" y="74" font-size="11" fill="#268bd2">p</text>
+    <text x="42" y="90" font-size="8.5" fill="#586e75">int *</text>
+    <text x="85" y="108" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+
+    <rect x="250" y="55" width="120" height="62" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="262" y="74" font-size="11" fill="#b58900">i</text>
+    <text x="262" y="90" font-size="8.5" fill="#586e75">int</text>
+    <text x="310" y="100" font-size="18" fill="#073642" text-anchor="middle">1 → 2</text>
+
+    <line x1="144" y1="86" x2="246" y2="86" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p10arrow)"/>
+    <text x="195" y="78" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+
+    <text x="200" y="152" font-size="11" fill="#586e75" text-anchor="middle">读 *p 得 1; 写 *p = 2 后, i 和 *p 都变成 2</text>
+  </g>
+</svg>
+
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;">
+一句话: `*p` 与 `i` 是同一块内存; 读 `*p` 就是读 `i`, 写 `*p = 2` 就是写 `i`.
 </div>
 
-<div style="flex:1;font-size:0.80em;">
-
-`p = &i;`
-
-
-
-`i = 1;`
-
-
-
-<div class="top-2">
-  <img src="figs/11-6.png" width=330px>
-</div><div class="top-2">
-  <img src="figs/11-7.png" width=330px>
-</div><div class="top-2">
-  <img src="figs/11-8.png" width=330px>
 </div>
 
 </div>
 
-</div>
-
-<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.78em;text-align:left;">
+<div style="margin-top:6px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.78em;text-align:left;">
 以上结果的前提是 <b>p 已经指向 i</b>. 如果 p 没有初始化, `*p` 会怎样? 下一张看反例.
 </div>
 
@@ -693,62 +726,85 @@ printf("*p = %d\n", *p);         /* 未定义行为 */
 <!-- slide data-notes="" -->
 
 
-##### 指针赋值 (上)
+##### 指针赋值: 多个指针指向同一块内存
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.69em;">
+<div style="flex:1.05;font-size:0.78em;">
+
+<div class="col-label">代码</div>
 
 ```C
-int i, j, *p, *q;
+int i = 1, *p, *q;
+
+p = &i;        /* p 指向 i */
+q = p;         /* q 也指向 i: 复制地址 */
+*p = 1;        /* i = 1 */
+*q = 2;        /* i = 2 */
+printf("%d %d %d\n", i, *p, *q);  /* 2 2 2 */
 ```
 
-```C
-p = &i;
-```
+<table style="width:100%;margin:8px 2rem 0;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">语句</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">p</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">q</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">i</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>p = &amp;i</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;">?</td><td style="padding:3px 6px;">1</td></tr>
+<tr><td style="padding:3px 6px;"><code>q = p</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;">1</td></tr>
+<tr><td style="padding:3px 6px;"><code>*q = 2</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;">2</td></tr>
+</table>
 
-```C
-q = p;
-```
-
-```C
-*p = 1;
-```
-
-```C
-*q = 2;
-```
-
-</div>
-
-<div style="flex:1;font-size:0.66em;">
-
-C 允许使用赋值运算符来复制相同类型的指针. 
-假设有以下声明:
-
-q现在指向与p相同的位置: 
-<div class="top-2">
-    <img src="figs/11-9.png" width=280px>
-</div>
-
-
-如果p和q都指向i, 就可以通过为`*p`或`*q`赋一个新值来更改i:
-
-<div style="display:flex;align-items:flex-start;gap:16px;">
-
-<div class="top-2">
-    <img src="figs/11-10.png" width=220px>
-</div>
-
-<div class="top-2">
-    <img src="figs/11-11.png" width=220px>
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;font-size:0.92em;">
+<b>然后?</b> `q = p` 后, p 和 q 指向同一块内存; `*q = 2` 改的就是 i, 通过 p 看也是 2.
 </div>
 
 </div>
 
-任意数量的指针变量都可以指向同一个对象.
+<div style="flex:0.95;">
+
+<svg viewBox="0 0 460 240" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="p 和 q 指向同一个 i">
+  <defs>
+    <marker id="p12arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="230" y="18" font-size="12" fill="#073642" text-anchor="middle">p、q 都指向 i (同一块内存)</text>
+
+    <rect x="290" y="50" width="140" height="80" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="302" y="70" font-size="12" fill="#b58900">i</text>
+    <text x="302" y="86" font-size="9" fill="#586e75">int</text>
+    <text x="360" y="112" font-size="20" fill="#073642" text-anchor="middle">1 → 2</text>
+
+    <rect x="30" y="60" width="120" height="60" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="42" y="80" font-size="11" fill="#268bd2">p</text>
+    <text x="42" y="96" font-size="8.5" fill="#586e75">int *</text>
+    <text x="90" y="112" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+
+    <rect x="30" y="160" width="120" height="60" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="42" y="180" font-size="11" fill="#268bd2">q</text>
+    <text x="42" y="196" font-size="8.5" fill="#586e75">int *</text>
+    <text x="90" y="212" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+
+    <line x1="154" y1="90" x2="286" y2="90" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p12arrow)"/>
+    <text x="220" y="82" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+
+    <line x1="154" y1="190" x2="286" y2="110" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p12arrow)"/>
+    <text x="220" y="178" font-size="9.5" fill="#268bd2" text-anchor="middle">q = p: 复制地址</text>
+  </g>
+</svg>
+
+<div style="margin-top:8px;font-size:0.8em;line-height:1.55;">
+
+- `q = p` 复制的是==地址==, 不是 i 的值
+- 之后 `p`、`q` 指向同一块内存; `*p`、`*q` 都是 i
+- 任意多个指针都可以指向同一个对象; 改一个, 其他都能看到
+
+</div>
 
 </div>
 
@@ -757,44 +813,71 @@ q现在指向与p相同的位置:
 <!-- slide data-notes="" -->
 
 
-##### 指针赋值 (下): 不要混淆 q=p 与 *q=*p
+##### 指针赋值 (下): q = p 与 *q = *p 的区别
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;">
+<div class="assign-code" style="flex:1.15;font-size:0.58em;">
 
-注意不要混淆
+<style>.assign-code pre code{max-height:none!important;font-size:13px;line-height:1.2;}</style>
 
-```C
-q = p;
+<div class="col-label">完整代码 · assign-compare.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 1, j = 2;
+    int *p = &i, *q = &j;
+
+    /* ① q = p: 复制地址 */
+    q = p;          /* q 改指向 i, 不再指向 j */
+    *q = 3;         /* 改的是 i */
+    printf("q = p 后:   i=%d j=%d *p=%d *q=%d\n", i, j, *p, *q);
+
+    /* ② *q = *p: 复制值 */
+    p = &i; q = &j; i = 1; j = 2;   /* 重置 */
+    *q = *p;        /* 把 i 的值复制给 j */
+    printf("*q = *p 后: i=%d j=%d *p=%d *q=%d\n", i, j, *p, *q);
+
+    return 0;
+}
 ```
-和
-```C
-*q = *p;
-```
-第一条语句是指针赋值, 但第二条不是. 
-下面的示例显示了第二个语句的效果.
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/assign-compare.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 assign-compare.c</a>
+</div>
 
 </div>
 
-<div style="flex:1;">
+<div style="flex:0.85;font-size:0.68em;line-height:1.45;">
 
-```C
-p = &i;
-q = &j;
-i = 1;
+<div class="col-label">运行结果</div>
+
+```text
+q = p 后:   i=3 j=2 *p=3 *q=3
+*q = *p 后: i=1 j=1 *p=1 *q=1
 ```
-<div class="top-2">
-    <img src="figs/11-12.png" width=285px>
+
+<div style="margin-top:8px;display:flex;flex-direction:column;gap:8px;">
+
+<div style="padding:8px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<b style="color:#268bd2;">q = p</b> — 复制==地址==<br>
+q 改指向 i; p、q 指向同一块内存; 改 `*q` 就是改 i; j 不变.
 </div>
 
-```C
-*q = *p;
-```
-<div class="top-2">
-    <img src="figs/11-13.png" width=285px>
+<div style="padding:8px 10px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;">
+<b style="color:#b58900;">*q = *p</b> — 复制==值==<br>
+q 仍指向 j; 把 i 的值写进 j; i、j 是两块不同的内存.
+</div>
+
+</div>
+
+<div style="margin-top:8px;padding:8px 10px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.9em;">
+一句话: `q = p` 改的是 q 的指向; `*q = *p` 改的是 j 的值.
 </div>
 
 </div>

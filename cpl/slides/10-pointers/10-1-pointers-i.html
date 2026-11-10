@@ -565,29 +565,59 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="间接寻址运算符----上">间接寻址运算符 * (上) </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="间接寻址运算符----上---完整例子">间接寻址运算符 * (上): 完整例子 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.85em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 1 */</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 1 */</span>
-<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 打印 2 */</span></code></pre>
+<div class="deref-code" style="flex:1.15;font-size:0.64em;">
+<style>.deref-code pre code{font-size:14px;line-height:1.2;}</style>
+<div class="col-label">完整代码 · deref.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>                         <span class="token comment">/* p 指向 i */</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d, *p = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 1 1 */</span>
+    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>                              <span class="token comment">/* 通过 p 改 i */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i = %d, *p = %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 2 2 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/deref.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 deref.c</a>
 </div>
-<div style="flex:1;font-size:0.80em;">
-<p><code>p = &amp;i;</code></p>
-<p><code>i = 1;</code></p>
-<div class="top-2">
-  <img src="figs/11-6.png" width=330px>
-</div><div class="top-2">
-  <img src="figs/11-7.png" width=330px>
-</div><div class="top-2">
-  <img src="figs/11-8.png" width=330px>
+</div>
+<div style="flex:0.85;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span>
+i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">2</span></code></pre>
+<svg viewBox="0 0 400 190" style="max-width:520px;width:100%;height:auto;display:block;margin:4px auto 0;" role="img" aria-label="p 指向 i, 读 *p 得 1, 写 *p=2 后 i 变成 2">
+  <defs>
+    <marker id="p10arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="200" y="18" font-size="12" fill="#073642" text-anchor="middle">p 指向 i: *p 就是 i</text>
+    <rect x="30" y="55" width="110" height="62" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="42" y="74" font-size="11" fill="#268bd2">p</text>
+    <text x="42" y="90" font-size="8.5" fill="#586e75">int *</text>
+    <text x="85" y="108" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <rect x="250" y="55" width="120" height="62" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="262" y="74" font-size="11" fill="#b58900">i</text>
+    <text x="262" y="90" font-size="8.5" fill="#586e75">int</text>
+    <text x="310" y="100" font-size="18" fill="#073642" text-anchor="middle">1 → 2</text>
+    <line x1="144" y1="86" x2="246" y2="86" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p10arrow)"/>
+    <text x="195" y="78" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+    <text x="200" y="152" font-size="11" fill="#586e75" text-anchor="middle">读 *p 得 1; 写 *p = 2 后, i 和 *p 都变成 2</text>
+  </g>
+</svg>
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.9em;">
+<p>一句话: <code>*p</code> 与 <code>i</code> 是同一块内存; 读 <code>*p</code> 就是读 <code>i</code>, 写 <code>*p = 2</code> 就是写 <code>i</code>.</p>
 </div>
 </div>
 </div>
-<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.78em;text-align:left;">
+<div style="margin-top:6px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.78em;text-align:left;">
 <p>以上结果的前提是 <b>p 已经指向 i</b>. 如果 p 没有初始化, <code>*p</code> 会怎样? 下一张看反例.</p>
 </div>
 <hr>
@@ -645,55 +675,124 @@ p <span class="token operator">=</span> <span class="token operator">&</span>i<s
 <p>正确做法: 先 <code>p = &amp;i;</code>, 确认 p 指向有效对象, 再使用 <code>*p</code>; 声明后未初始化的指针不能解引用.</p>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="指针赋值--上">指针赋值 (上) </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="指针赋值--多个指针指向同一块内存">指针赋值: 多个指针指向同一块内存 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.69em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span></code></pre>
+<div style="flex:1.05;font-size:0.78em;">
+<div class="col-label">代码</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span>
+
+p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>        <span class="token comment">/* p 指向 i */</span>
+q <span class="token operator">=</span> p<span class="token punctuation">;</span>         <span class="token comment">/* q 也指向 i: 复制地址 */</span>
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>        <span class="token comment">/* i = 1 */</span>
+<span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>        <span class="token comment">/* i = 2 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 2 2 2 */</span></code></pre>
+<table style="width:100%;margin:8px 2rem 0;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">语句</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">p</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">q</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">i</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>p = &amp;i</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;">?</td><td style="padding:3px 6px;">1</td></tr>
+<tr><td style="padding:3px 6px;"><code>q = p</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;">1</td></tr>
+<tr><td style="padding:3px 6px;"><code>*q = 2</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;"><code>&amp;i</code></td><td style="padding:3px 6px;">2</td></tr>
+</table>
+<div style="margin-top:8px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;font-size:0.92em;">
+<b>然后?</b> <code>q = p</code> 后, p 和 q 指向同一块内存; <code>*q = 2</code> 改的就是 i, 通过 p 看也是 2.
 </div>
-<div style="flex:1;font-size:0.66em;">
-<p>C 允许使用赋值运算符来复制相同类型的指针. 假设有以下声明:</p>
-<p>q现在指向与p相同的位置:</p>
-<div class="top-2">
-    <img src="figs/11-9.png" width=280px>
 </div>
-<p>如果p和q都指向i, 就可以通过为<code>*p</code>或<code>*q</code>赋一个新值来更改i:</p>
-<div style="display:flex;align-items:flex-start;gap:16px;">
-<div class="top-2">
-    <img src="figs/11-10.png" width=220px>
+<div style="flex:0.95;">
+<svg viewBox="0 0 460 240" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto;" role="img" aria-label="p 和 q 指向同一个 i">
+  <defs>
+    <marker id="p12arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#268bd2"/>
+    </marker>
+  </defs>
+  <g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif">
+    <text x="230" y="18" font-size="12" fill="#073642" text-anchor="middle">p、q 都指向 i (同一块内存)</text>
+    <rect x="290" y="50" width="140" height="80" rx="7" fill="#fdf6e3" stroke="#b58900" stroke-width="2"/>
+    <text x="302" y="70" font-size="12" fill="#b58900">i</text>
+    <text x="302" y="86" font-size="9" fill="#586e75">int</text>
+    <text x="360" y="112" font-size="20" fill="#073642" text-anchor="middle">1 → 2</text>
+    <rect x="30" y="60" width="120" height="60" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="42" y="80" font-size="11" fill="#268bd2">p</text>
+    <text x="42" y="96" font-size="8.5" fill="#586e75">int *</text>
+    <text x="90" y="112" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <rect x="30" y="160" width="120" height="60" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+    <text x="42" y="180" font-size="11" fill="#268bd2">q</text>
+    <text x="42" y="196" font-size="8.5" fill="#586e75">int *</text>
+    <text x="90" y="212" font-size="13" fill="#268bd2" text-anchor="middle" font-family="Menlo, monospace">0x1000</text>
+    <line x1="154" y1="90" x2="286" y2="90" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p12arrow)"/>
+    <text x="220" y="82" font-size="9.5" fill="#268bd2" text-anchor="middle">p 指向 i</text>
+    <line x1="154" y1="190" x2="286" y2="110" stroke="#268bd2" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#p12arrow)"/>
+    <text x="220" y="178" font-size="9.5" fill="#268bd2" text-anchor="middle">q = p: 复制地址</text>
+  </g>
+</svg>
+<div style="margin-top:8px;font-size:0.8em;line-height:1.55;">
+<ul>
+<li>
+<p><code>q = p</code> 复制的是<mark>地址</mark>, 不是 i 的值</p>
+
+</li>
+<li>
+<p>之后 <code>p</code>、<code>q</code> 指向同一块内存; <code>*p</code>、<code>*q</code> 都是 i</p>
+
+</li>
+<li>
+<p>任意多个指针都可以指向同一个对象; 改一个, 其他都能看到</p>
+
+</li>
+</ul>
 </div>
-<div class="top-2">
-    <img src="figs/11-11.png" width=220px>
-</div>
-</div>
-<p>任意数量的指针变量都可以指向同一个对象.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="指针赋值--下---不要混淆-q-p-与--q--p">指针赋值 (下): 不要混淆 q=p 与 *q=*p </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="指针赋值--下---q---p-与--q----p-的区别">指针赋值 (下): q = p 与 *q = *p 的区别 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<p>注意不要混淆</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p<span class="token punctuation">;</span></code></pre>
-<p>和</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span></code></pre>
-<p>第一条语句是指针赋值, 但第二条不是. 下面的示例显示了第二个语句的效果.</p>
+<div class="assign-code" style="flex:1.15;font-size:0.58em;">
+<style>.assign-code pre code{max-height:none!important;font-size:13px;line-height:1.2;}</style>
+<div class="col-label">完整代码 · assign-compare.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">,</span> <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span>
+
+    <span class="token comment">/* ① q = p: 复制地址 */</span>
+    q <span class="token operator">=</span> p<span class="token punctuation">;</span>          <span class="token comment">/* q 改指向 i, 不再指向 j */</span>
+    <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>         <span class="token comment">/* 改的是 i */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"q = p 后:   i=%d j=%d *p=%d *q=%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* ② *q = *p: 复制值 */</span>
+    p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span> q <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>   <span class="token comment">/* 重置 */</span>
+    <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>        <span class="token comment">/* 把 i 的值复制给 j */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*q = *p 后: i=%d j=%d *p=%d *q=%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/assign-compare.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 assign-compare.c</a>
 </div>
-<div style="flex:1;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>i<span class="token punctuation">;</span>
-q <span class="token operator">=</span> <span class="token operator">&</span>j<span class="token punctuation">;</span>
-i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span></code></pre>
-<div class="top-2">
-    <img src="figs/11-12.png" width=285px>
 </div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span></code></pre>
-<div class="top-2">
-    <img src="figs/11-13.png" width=285px>
+<div style="flex:0.85;font-size:0.68em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>q <span class="token operator">=</span> p 后<span class="token operator">:</span>   i<span class="token operator">=</span><span class="token number">3</span> j<span class="token operator">=</span><span class="token number">2</span> <span class="token operator">*</span>p<span class="token operator">=</span><span class="token number">3</span> <span class="token operator">*</span>q<span class="token operator">=</span><span class="token number">3</span>
+<span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">*</span>p 后<span class="token operator">:</span> i<span class="token operator">=</span><span class="token number">1</span> j<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">*</span>p<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">*</span>q<span class="token operator">=</span><span class="token number">1</span></code></pre>
+<div style="margin-top:8px;display:flex;flex-direction:column;gap:8px;">
+<div style="padding:8px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<b style="color:#268bd2;">q = p</b> — 复制<mark>地址</mark><br>
+<p>q 改指向 i; p、q 指向同一块内存; 改 <code>*q</code> 就是改 i; j 不变.</p>
+</div>
+<div style="padding:8px 10px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;">
+<b style="color:#b58900;">*q = *p</b> — 复制<mark>值</mark><br>
+<p>q 仍指向 j; 把 i 的值写进 j; i、j 是两块不同的内存.</p>
+</div>
+</div>
+<div style="margin-top:8px;padding:8px 10px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.9em;">
+<p>一句话: <code>q = p</code> 改的是 q 的指向; <code>*q = *p</code> 改的是 j 的值.</p>
 </div>
 </div>
 </div>
