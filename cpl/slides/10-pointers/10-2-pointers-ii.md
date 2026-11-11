@@ -256,6 +256,77 @@ int main(void)
 ---
 
 
+<!-- slide data-notes="" -->##### 任务 1 参考: 用 swap 轮换三个数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="rotate-code" style="flex:1.1;font-size:0.66em;">
+
+<style>.rotate-code pre code{max-height:none!important;font-size:13px;line-height:1.2;}</style>
+
+<div class="col-label">参考实现 · swap-rotate.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+void swap(int *a, int *b)
+{
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int main(void)
+{
+    int x, y, z;
+    scanf("%d%d%d", &x, &y, &z);
+
+    swap(&x, &y);   /* 1 2 3 -> 2 1 3 */
+    swap(&y, &z);   /* 2 1 3 -> 2 3 1 */
+
+    printf("%d %d %d\n", x, y, z);
+    return 0;
+}
+```
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/swap-rotate.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-rotate.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">每一步的值</div>
+
+<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">步骤</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">x</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">y</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">z</th>
+</tr>
+<tr><td style="padding:3px 6px;">初始</td><td style="padding:3px 6px;">1</td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">3</td></tr>
+<tr><td style="padding:3px 6px;"><code>swap(&amp;x,&amp;y)</code></td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">1</td><td style="padding:3px 6px;">3</td></tr>
+<tr><td style="padding:3px 6px;"><code>swap(&amp;y,&amp;z)</code></td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">3</td><td style="padding:3px 6px;">1</td></tr>
+</table>
+
+- 第一次 `swap(&x,&y)`: x=2, y=1
+- 第二次 `swap(&y,&z)`: y=3, z=1; 结果 x=2, y=3, z=1
+- 两次 swap 都在函数里完成, main 不需要临时变量
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.92em;">
+顺序很重要: 先 `swap(&x,&y)`, 再 `swap(&y,&z)`; 交换的是==当前==变量的值.
+</div>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->##### scanf 与传址: 完整例子
 
 ---

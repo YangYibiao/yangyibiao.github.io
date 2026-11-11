@@ -281,7 +281,70 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="scanf-与传址--完整例子">scanf 与传址: 完整例子 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="任务-1-参考--用-swap-轮换三个数">任务 1 参考: 用 swap 轮换三个数 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="rotate-code" style="flex:1.1;font-size:0.66em;">
+<style>.rotate-code pre code{max-height:none!important;font-size:13px;line-height:1.2;}</style>
+<div class="col-label">参考实现 · swap-rotate.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
+    <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token operator">*</span>b<span class="token punctuation">;</span>
+    <span class="token operator">*</span>b <span class="token operator">=</span> t<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">,</span> <span class="token operator">&</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 1 2 3 -&gt; 2 1 3 */</span>
+    <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>y<span class="token punctuation">,</span> <span class="token operator">&</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 2 1 3 -&gt; 2 3 1 */</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/swap-rotate.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-rotate.c</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div class="col-label">每一步的值</div>
+<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">步骤</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">x</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">y</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">z</th>
+</tr>
+<tr><td style="padding:3px 6px;">初始</td><td style="padding:3px 6px;">1</td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">3</td></tr>
+<tr><td style="padding:3px 6px;"><code>swap(&amp;x,&amp;y)</code></td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">1</td><td style="padding:3px 6px;">3</td></tr>
+<tr><td style="padding:3px 6px;"><code>swap(&amp;y,&amp;z)</code></td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">3</td><td style="padding:3px 6px;">1</td></tr>
+</table>
+<ul>
+<li>
+<p>第一次 <code>swap(&amp;x,&amp;y)</code>: x=2, y=1</p>
+
+</li>
+<li>
+<p>第二次 <code>swap(&amp;y,&amp;z)</code>: y=3, z=1; 结果 x=2, y=3, z=1</p>
+
+</li>
+<li>
+<p>两次 swap 都在函数里完成, main 不需要临时变量</p>
+
+</li>
+</ul>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.92em;">
+<p>顺序很重要: 先 <code>swap(&amp;x,&amp;y)</code>, 再 <code>swap(&amp;y,&amp;z)</code>; 交换的是<mark>当前</mark>变量的值.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="scanf-与传址--完整例子">scanf 与传址: 完整例子 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="scanf-code" style="flex:1.1;font-size:0.62em;">
@@ -332,7 +395,7 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="任务-2--交换数组的首尾元素">任务 2: 交换数组的首尾元素 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="任务-2--交换数组的首尾元素">任务 2: 交换数组的首尾元素 </h5>
 <hr>
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 <p><mark>任务</mark>: 读入 5 个整数存入数组 <code>a[5]</code>, 用 <code>swap</code> 交换 <code>a[0]</code> 与 <code>a[4]</code>, 输出交换后的数组.</p>
@@ -361,7 +424,7 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="任务-3--一次带回最大和最小">任务 3: 一次带回最大和最小 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="任务-3--一次带回最大和最小">任务 3: 一次带回最大和最小 </h5>
 <hr>
 <div style="font-size:0.65em;line-height:1.36;text-align:left;">
 <p><mark>任务</mark>: 先把输入的 10 个整数存入数组 <code>a[10]</code>, 再完成 <code>max_min(a, 10, &amp;max, &amp;min)</code>: 函数遍历数组, 通过指针参数带回最大值和最小值.</p>
@@ -391,7 +454,7 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="任务-3-参考--max_min">任务 3 参考: max_min </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="任务-3-参考--max_min">任务 3 参考: max_min </h5>
 <hr>
 <style>.maxmin-code pre code{max-height:none!important;font-size:14px;line-height:1.25;}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -440,7 +503,7 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="任务-4--再带回一个平均值">任务 4: 再带回一个平均值 </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="任务-4--再带回一个平均值">任务 4: 再带回一个平均值 </h5>
 <hr>
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 <p><mark>任务</mark>: 在 <code>max_min</code> 基础上增加 <code>double *avg</code> 参数, 一次带回最大、最小和平均值.</p>
@@ -470,7 +533,7 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="使用-const-保护参数--两种常见写法">使用 const 保护参数: 两种常见写法 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="使用-const-保护参数--两种常见写法">使用 const 保护参数: 两种常见写法 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="const-code" style="flex:1.1;font-size:0.58em;">
@@ -526,7 +589,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="任务-5--只读求和--完整示例">任务 5: 只读求和 (完整示例) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="任务-5--只读求和--完整示例">任务 5: 只读求和 (完整示例) </h5>
 <hr>
 <div style="font-size:0.78em;line-height:1.5;margin:0 0 6px;text-align:left;">
 <p><mark>任务</mark>: 完成 <code>sum(const int *a, int n)</code>, 返回数组元素之和; 再试着取消注释 <code>a[i] = 0;</code>, 看编译器报错.</p>
@@ -573,7 +636,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="指针作为返回值">指针作为返回值 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="指针作为返回值">指针作为返回值 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.76em;">
@@ -616,7 +679,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="任务-6--返回指向最后一个最大元素的指针">任务 6: 返回指向最后一个最大元素的指针 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务-6--返回指向最后一个最大元素的指针">任务 6: 返回指向最后一个最大元素的指针 </h5>
 <hr>
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 <p><mark>任务</mark>: 完成 <code>int *last_max(int *a, int n)</code>, 返回指向<mark>最后一个</mark>最大元素的指针.</p>
@@ -648,7 +711,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 为什么 <code>swap(int a, int b)</code> 改不了实参？传址版要改哪两处？
@@ -663,7 +726,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="15" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
