@@ -551,7 +551,7 @@ Segmentation fault (core dumped)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
+<div style="flex:0.8;font-size:0.75em;line-height:1.5;">
 
 ==任务==: 实现 `int power(int x, int n)`, 计算 x 的 n 次方.
 
@@ -568,31 +568,85 @@ power(2, 10) = 1024
 - 递归情形: `x^n = x × x^(n-1)`
 - 想清楚: 哪些量随递归变化? 哪些全程不变?
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/power-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 power-rec.c (只写函数体)</a>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;line-height:1.5;text-align:left;">
+<b>递归三问:</b> 出口? 递推? 参数?
+</div>
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/power-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 power-rec.c</a>
 
 </div>
 
-<div style="flex:0.95;">
+<div style="flex:1.2;">
 
-<div class="col-label">先写函数骨架</div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+<div class="col-label" style="margin:0;">在线试跑 · Judge0</div>
+<span id="p12-status" style="font-size:0.7em;color:#586e75;"></span>
+</div>
 
-```C
-int power(int x, int n)
-{
-  /* TODO: 基准情形 + 递归情形 */
-}
-```
+<textarea id="p12-code" spellcheck="false" style="width:100%;height:260px;box-sizing:border-box;font-family:Menlo,'Courier New',monospace;font-size:12px;line-height:1.35;background:#fdf6e3;color:#073642;border:1.5px solid #93a1a1;border-radius:6px;padding:8px 10px;resize:none;outline:none;"></textarea>
 
-<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
-<b>递归三问</b><br>
-① 出口: 什么时候不再递归?<br>
-② 递推: 大问题怎么变成小问题?<br>
-③ 参数: 子问题的参数是什么?
+<div style="display:flex;gap:8px;margin-top:6px;">
+<button id="p12-run" style="padding:5px 16px;background:#268bd2;color:#fff;border:none;border-radius:6px;font-size:0.8em;cursor:pointer;">运行</button>
+<button id="p12-reset" style="padding:5px 14px;background:#93a1a1;color:#fff;border:none;border-radius:6px;font-size:0.8em;cursor:pointer;">重置</button>
+</div>
+
+<div id="p12-out" style="margin-top:6px;height:90px;overflow:auto;background:#073642;color:#eee8d5;border-radius:6px;padding:8px 10px;font-family:Menlo,monospace;font-size:11px;line-height:1.3;white-space:pre-wrap;">运行结果会显示在这里</div>
+
 </div>
 
 </div>
 
-</div>
+<script>
+(function(){
+  var code = document.getElementById('p12-code');
+  var out = document.getElementById('p12-out');
+  var status = document.getElementById('p12-status');
+  var initial = [
+    '#include <stdio.h>',
+    '',
+    'int power(int x, int n)',
+    '{',
+    '    /* TODO: 基准情形 + 递归情形 */',
+    '    return 0;',
+    '}',
+    '',
+    'int main(void)',
+    '{',
+    '    printf("%d\\n", power(5, 3));',
+    '    printf("%d\\n", power(2, 10));',
+    '    return 0;',
+    '}'
+  ].join('\n');
+  code.value = initial;
+  document.getElementById('p12-reset').addEventListener('click', function(){
+    code.value = initial;
+    out.textContent = '运行结果会显示在这里';
+    status.textContent = '';
+  });
+  document.getElementById('p12-run').addEventListener('click', async function(){
+    out.textContent = '运行中...';
+    status.textContent = '';
+    try {
+      var resp = await fetch('https://ce.judge0.com/submissions?base64_encoded=false&wait=true', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({language_id: 50, source_code: code.value, stdin: ''})
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      var data = await resp.json();
+      var text = '';
+      if (data.compile_output) text += data.compile_output;
+      if (data.stderr) text += data.stderr;
+      if (data.stdout) text += data.stdout;
+      if (!text) text = (data.message || (data.status && data.status.description) || '没有输出');
+      out.textContent = text;
+      status.textContent = (data.status && data.status.description) || '';
+    } catch (e) {
+      out.textContent = '请求失败: ' + e.message + '\n请检查网络, 或直接运行 power-rec.c.';
+    }
+  });
+})();
+</script>
 
 ---
 
