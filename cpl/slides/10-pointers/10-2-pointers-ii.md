@@ -318,36 +318,35 @@ i = 7, *p = 7
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 2: 读入两个整数并交换
+<!-- slide data-notes="" -->##### 任务 2: 交换数组的首尾元素
 
 ---
 
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 
-==任务==: 用 `scanf` 读入两个整数, 输出交换前的值; 调用 `swap(&x, &y)` 后, 再输出交换后的值.
+==任务==: 读入 5 个整数存入数组 `a[5]`, 用 `swap` 交换 `a[0]` 与 `a[4]`, 输出交换后的数组.
 
 样例:
 
 ```text
-输入: 3 8
-交换前: x=3, y=8
-交换后: x=8, y=3
+输入: 1 2 3 4 5
+输出: 5 2 3 4 1
 ```
 
 ==提示==:
 
-- `scanf` 的参数要地址: `scanf("%d", &x)`
-- `swap` 的参数也是地址: `swap(&x, &y)`
+- 数组元素也是变量, 传地址用 `&a[i]`
+- 交换首尾: `swap(&a[0], &a[4])`
 
 <div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· 用 `scanf("%d", &x)`、`scanf("%d", &y)` 读入</div>
-<div>· 调用 `swap(&x, &y)`</div>
-<div>· 输出交换前、交换后两行</div>
+<div>· 输入存入数组 `a[5]`</div>
+<div>· 调用 `swap(&a[0], &a[4])`</div>
+<div>· 输出 `5 2 3 4 1`</div>
 </div>
 
 <div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-scanf-swap.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-scanf-swap.c (骨架)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-array-swap.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-array-swap.c (骨架)</a>
 </div>
 
 </div>

@@ -734,7 +734,9 @@ C将a视为一维数组, 其元素是一维数组.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.1;font-size:0.62em;">
+<div class="dyn-code" style="flex:1.1;font-size:0.62em;">
+
+<style>.dyn-code pre code{max-height:none!important;font-size:12px;line-height:1.15;}</style>
 
 <div class="col-label">完整代码 · dynamic-array.c</div>
 
@@ -769,7 +771,7 @@ int main(void)
 
 </div>
 
-<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div style="flex:0.9;font-size:0.72em;line-height:1.4;">
 
 <div class="col-label">样例运行</div>
 
@@ -781,15 +783,16 @@ int main(void)
 <div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
 - `malloc(n * sizeof(int))`: 借 n 个 int 的空间, 返回 `void *`, ==不清零==
 - 借不到返回 `NULL`, 必须检查
-- 用完 `free(a)`, 再把 `a = NULL`
+- 用完 `free(a)`, 再把 `a = NULL`; 忘记 free 就是内存泄漏
 </div>
 
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 数组大小可以==运行时决定==: 先读 n, 再借 n 个元素; 不用像 `int a[10]` 那样把长度定死.
 </div>
 
-<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
-忘记 `free` 就是内存泄漏; `free` 之后不能再解引用 a.
+<div style="margin-top:8px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;text-align:left;">
+<b>动手:</b> 把输出改成==逆序==; 样例 `5 → 5 4 3 2 1`.<br>
+骨架: <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse-array.c">task-reverse-array.c</a>
 </div>
 
 </div>
