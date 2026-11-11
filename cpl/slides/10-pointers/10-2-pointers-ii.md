@@ -217,7 +217,7 @@ int main(void)
 ---
 
 
-<!-- slide data-notes="" -->##### 任务 1: 用 swap 轮换三个数
+<!-- slide data-notes="" -->##### 任务 1: 拆分时间
 
 ---
 
@@ -225,99 +225,92 @@ int main(void)
 
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 
-==任务==: 输入三个整数 `x`、`y`、`z`, 用 `swap` 把它们轮换: `x` 变成原来的 `y`, `y` 变成原来的 `z`, `z` 变成原来的 `x`.
+==任务==: 读入总秒数 `total`, 完成 `split_time`, 把时、分、秒通过指针参数带回.
 
 样例:
 
 ```text
-输入: 1 2 3
-输出: 2 3 1
+输入: 3661
+输出: 1 1 1
 ```
 
 ==提示==:
 
-- 用两次 `swap`: `swap(&x, &y); swap(&y, &z);`
-- 每次交换后变量里已经是新值, 想清楚第二步交换的是哪两个
+- 1 小时 = 3600 秒, 1 分钟 = 60 秒
+- 三个结果都通过指针写回: `*h`、`*m`、`*s`
 
 <div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· 用两次 `swap` 完成轮换</div>
-<div>· 输入 1 2 3, 输出 2 3 1</div>
-<div>· 不直接写 `x=y; y=z; z=...` 的赋值</div>
+<div>· 函数用 `int *h, *m, *s` 三个指针输出</div>
+<div>· 通过 `*h`、`*m`、`*s` 写回</div>
+<div>· 输入 3661, 输出 1 1 1</div>
 </div>
 
 <div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-swap.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-swap.c (骨架)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-split-time.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-split-time.c (骨架)</a>
 </div>
 
 </div>
 
 ---
 
-
-<!-- slide data-notes="" -->##### 任务 1 参考: 用 swap 轮换三个数
+<!-- slide data-notes="" -->##### 任务 1 参考: 拆分时间
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="rotate-code" style="flex:1.1;font-size:0.66em;">
+<div class="split-code" style="flex:1.1;font-size:0.66em;">
 
-<style>.rotate-code pre code{max-height:none!important;font-size:14px;line-height:1.1;}</style>
+<style>.split-code pre code{max-height:none!important;font-size:14px;line-height:1.2;}</style>
 
-<div class="col-label">参考实现 · swap-rotate.c</div>
+<div class="col-label">参考实现 · split-time.c</div>
 
 ```C{.line-numbers}
 #include <stdio.h>
 
-void swap(int *a, int *b)
+void split_time(int total, int *h, int *m, int *s)
 {
-    int t = *a;
-    *a = *b;
-    *b = t;
+    *h = total / 3600;
+    *m = total % 3600 / 60;
+    *s = total % 60;
 }
 
 int main(void)
 {
-    int x, y, z;
-    scanf("%d%d%d", &x, &y, &z);
+    int total, h, m, s;
 
-    swap(&x, &y);   /* 1 2 3 -> 2 1 3 */
-    swap(&y, &z);   /* 2 1 3 -> 2 3 1 */
+    scanf("%d", &total);
+    split_time(total, &h, &m, &s);
+    printf("%d %d %d\n", h, m, s);
 
-    printf("%d %d %d\n", x, y, z);
     return 0;
 }
 ```
 
 <div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/swap-rotate.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-rotate.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/split-time.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 split-time.c</a>
 </div>
 
 </div>
 
 <div style="flex:0.9;font-size:0.78em;line-height:1.5;">
 
-<div class="col-label">每一步的值</div>
+<div class="col-label">运行结果</div>
 
-<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
-<tr style="color:#586e75;">
-<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">步骤</th>
-<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">x</th>
-<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">y</th>
-<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">z</th>
-</tr>
-<tr><td style="padding:3px 6px;">初始</td><td style="padding:3px 6px;">1</td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">3</td></tr>
-<tr><td style="padding:3px 6px;"><code>swap(&amp;x,&amp;y)</code></td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">1</td><td style="padding:3px 6px;">3</td></tr>
-<tr><td style="padding:3px 6px;"><code>swap(&amp;y,&amp;z)</code></td><td style="padding:3px 6px;">2</td><td style="padding:3px 6px;">3</td><td style="padding:3px 6px;">1</td></tr>
-</table>
+```text
+输入: 3661
+输出: 1 1 1
+```
 
-- 第一次 `swap(&x,&y)`: x=2, y=1
-- 第二次 `swap(&y,&z)`: y=3, z=1; 结果 x=2, y=3, z=1
-- 两次 swap 都在函数里完成, main 不需要临时变量
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `total / 3600` → 小时
+- `total % 3600 / 60` → 分钟
+- `total % 60` → 秒
+</div>
 
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.92em;">
-顺序很重要: 先 `swap(&x,&y)`, 再 `swap(&y,&z)`; 交换的是==当前==变量的值.
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+三个结果由 `*h`、`*m`、`*s` 写回; 函数不需要 `return` 多个值.
 </div>
 
 </div>
