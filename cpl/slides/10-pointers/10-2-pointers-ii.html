@@ -185,7 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="传址调用--把地址传进去">传址调用: 把地址传进去 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.05;font-size:0.78em;">
+<div class="swapdemo-code" style="flex:1.05;font-size:0.72em;">
+<style>.swapdemo-code pre code{max-height:none!important;font-size:12px;line-height:1.1;}</style>
 <div class="col-label">代码</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -197,12 +198,20 @@ document.addEventListener("DOMContentLoaded", function () {
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword keyword-int">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x=%d, y=%d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 2 1 */</span>
+  <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">&</span>y<span class="token punctuation">;</span>
+
+  <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>x<span class="token punctuation">,</span> <span class="token operator">&</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">/* 直接传地址 */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"swap(&amp;x,&amp;y): x=%d, y=%d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> y <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>          <span class="token comment">/* 重置 */</span>
+  <span class="token function">swap</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">/* p、q 里就是 &amp;x、&amp;y */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"swap(p,q):   x=%d, y=%d\n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.92em;">
-<p>运行结果: <code>x=2, y=1</code>——交换成功.</p>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.82em;">
+<p>运行结果:<br><br></p>
+<code>swap(&amp;x,&amp;y) → x=2, y=1</code><br>
+<code>swap(p,q)&nbsp;&nbsp; → x=2, y=1</code>
 </div>
 </div>
 <div style="flex:1.05;">
@@ -233,10 +242,13 @@ document.addEventListener("DOMContentLoaded", function () {
     <text x="170" y="232" font-size="13" fill="#073642" text-anchor="middle">交换 *a、*b 后: x=2, y=1</text>
   </g>
 </svg>
+<div style="margin-top:6px;text-align:center;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/swap-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-demo.c</a>
+</div>
 </div>
 </div>
 <div style="margin-top:10px;padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.8em;text-align:left;">
-<p>一句话: 参数是指针 → 函数拿到<mark>地址</mark>, 通过 <code>*a</code>、<code>*b</code> 改的就是 main 里的 <code>x</code>、<code>y</code>.</p>
+<p>一句话: <code>swap(&amp;x, &amp;y)</code> 与 <code>swap(p, q)</code> 等价: p、q 里存的就是 <code>&amp;x</code>、<code>&amp;y</code>.</p>
 </div>
 <hr>
 </section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="任务-1--用-swap-轮换三个数">任务 1: 用 swap 轮换三个数 </h5>

@@ -130,7 +130,9 @@ swap(&x, &y);              /* 这次 x、y 真的交换 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;font-size:0.78em;">
+<div class="swapdemo-code" style="flex:1.05;font-size:0.72em;">
+
+<style>.swapdemo-code pre code{max-height:none!important;font-size:12px;line-height:1.1;}</style>
 
 <div class="col-label">代码</div>
 
@@ -145,14 +147,22 @@ void swap(int *a, int *b)
 int main(void)
 {
   int x = 1, y = 2;
-  swap(&x, &y);
-  printf("x=%d, y=%d\n", x, y);  /* 2 1 */
+  int *p = &x, *q = &y;
+
+  swap(&x, &y);          /* 直接传地址 */
+  printf("swap(&x,&y): x=%d, y=%d\n", x, y);
+
+  x = 1; y = 2;          /* 重置 */
+  swap(p, q);            /* p、q 里就是 &x、&y */
+  printf("swap(p,q):   x=%d, y=%d\n", x, y);
   return 0;
 }
 ```
 
-<div style="margin-top:10px;padding:8px 14px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.92em;">
-运行结果: <code>x=2, y=1</code>——交换成功.
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.82em;">
+运行结果:<br>
+<code>swap(&x,&y) → x=2, y=1</code><br>
+<code>swap(p,q)&nbsp;&nbsp; → x=2, y=1</code>
 </div>
 
 </div>
@@ -193,12 +203,16 @@ int main(void)
   </g>
 </svg>
 
+<div style="margin-top:6px;text-align:center;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/swap-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 swap-demo.c</a>
+</div>
+
 </div>
 
 </div>
 
 <div style="margin-top:10px;padding:8px 14px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.8em;text-align:left;">
-一句话: 参数是指针 → 函数拿到==地址==, 通过 <code>*a</code>、<code>*b</code> 改的就是 main 里的 <code>x</code>、<code>y</code>.
+一句话: `swap(&x, &y)` 与 `swap(p, q)` 等价: p、q 里存的就是 `&x`、`&y`.
 </div>
 
 ---
