@@ -132,7 +132,7 @@ swap(&x, &y);              /* 这次 x、y 真的交换 */
 
 <div class="swapdemo-code" style="flex:1.05;font-size:0.72em;">
 
-<style>.swapdemo-code pre code{max-height:none!important;font-size:12px;line-height:1.1;}</style>
+<style>.swapdemo-code pre code{max-height:none!important;font-size:13.5px;line-height:1.03;}</style>
 
 <div class="col-label">代码</div>
 
@@ -264,7 +264,7 @@ int main(void)
 
 <div class="rotate-code" style="flex:1.1;font-size:0.66em;">
 
-<style>.rotate-code pre code{max-height:none!important;font-size:13px;line-height:1.2;}</style>
+<style>.rotate-code pre code{max-height:none!important;font-size:14px;line-height:1.1;}</style>
 
 <div class="col-label">参考实现 · swap-rotate.c</div>
 
@@ -335,7 +335,7 @@ int main(void)
 
 <div class="scanf-code" style="flex:1.1;font-size:0.62em;">
 
-<style>.scanf-code pre code{max-height:none!important;font-size:14px;line-height:1.25;}</style>
+<style>.scanf-code pre code{max-height:none!important;font-size:15px;line-height:1.15;}</style>
 
 <div class="col-label">完整代码 · scanf-demo.c</div>
 
@@ -480,7 +480,7 @@ i = 7, *p = 7
 
 ---
 
-<style>.maxmin-code pre code{max-height:none!important;font-size:14px;line-height:1.25;}</style>
+<style>.maxmin-code pre code{max-height:none!important;font-size:15px;line-height:1.15;}</style>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -575,7 +575,7 @@ int main(void)
 
 <div class="const-code" style="flex:1.1;font-size:0.58em;">
 
-<style>.const-code pre code{max-height:none!important;font-size:12px;line-height:1.15;}</style>
+<style>.const-code pre code{max-height:none!important;font-size:13.5px;line-height:1.05;}</style>
 
 <div class="col-label">完整代码 · const-demo.c</div>
 
@@ -657,7 +657,7 @@ i = 4, *q = 4
 
 <div class="constsum-code" style="flex:1.1;font-size:0.6em;">
 
-<style>.constsum-code pre code{max-height:none!important;font-size:13px;line-height:1.25;}</style>
+<style>.constsum-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
 
 <div class="col-label">完整代码 · const-sum.c</div>
 
