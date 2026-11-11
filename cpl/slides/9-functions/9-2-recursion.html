@@ -60008,35 +60008,123 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂编码--基础三题">课堂编码: 基础三题 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂编码-1--递归求幂">课堂编码 1: 递归求幂 </h5>
 <hr>
-<style>.mcols{display:flex;align-items:flex-start;gap:18px;margin:0 1.2rem;}.mcols>div{flex:1;min-width:0;}.mcols>div:last-child{padding-right:14px;}.mcols p{margin:0.28rem 0;text-align:left;}.mcols ul{margin:0.1rem 0;padding-left:0.9rem;}.mcols ul>li{margin:0.12rem 0.8rem 0.12rem 0;}.mcols ul>li>p{margin:0.08rem 0;}.mcols .ct{font-weight:700;color:#268bd2;margin-bottom:4px;}.mcols pre{font-size:15px!important;line-height:1.22!important;padding:0.3em 0.2em!important;margin:0.15rem 0!important;max-height:none!important;}.mcols pre code{font-size:15px!important;line-height:1.22!important;padding:0!important;max-height:none!important;}.mcols.two pre,.mcols.two pre code{font-size:16px!important;}</style>
-<div class="mcols">
-<div style="font-size:0.62em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
-<div class="ct">课堂编码 1: 递归求幂</div>
-<p><mark>任务</mark>: 实现 <code>int power(int x, int n)</code>——计算 x 的 n 次方 (开篇"递归是什么"一页提过的例子, 这里把它写完整)</p>
-<p>样例: <code>power(5, 3)</code> → 125; <code>power(2, 10)</code> → 1024</p>
-<p><mark>先想参数</mark>: 哪些量随递归变化、哪些全程不变?</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
+<p><mark>任务</mark>: 实现 <code>int power(int x, int n)</code>, 计算 x 的 n 次方.</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">power</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">125</span>
+<span class="token function">power</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">1024</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>基准情形: <code>n == 0</code> 时, <code>x^0 = 1</code></p>
+
+</li>
+<li>
+<p>递归情形: <code>x^n = x × x^(n-1)</code></p>
+
+</li>
+<li>
+<p>想清楚: 哪些量随递归变化? 哪些全程不变?</p>
+
+</li>
+</ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/power-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 power-rec.c (只写函数体)</a>
 </div>
-<div style="font-size:0.62em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
-<div class="ct">课堂编码 2: 递归求和</div>
-<p><mark>任务</mark>: 实现 <code>int sum(int n)</code>——计算 1 + 2 + … + n</p>
-<p>样例: <code>sum(10)</code> → 55; <code>sum(100)</code> → 5050</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先想清楚<mark>递推关系</mark>和<mark>递归出口</mark>, 再动手写</p>
+<div style="flex:0.95;">
+<div class="col-label">先写函数骨架</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">power</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/* TODO: 基准情形 + 递归情形 */</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
+<b>递归三问</b><br>
+<p>① 出口: 什么时候不再递归?<br><br> ② 递推: 大问题怎么变成小问题?<br><br> ③ 参数: 子问题的参数是什么?</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂编码-2--递归求和">课堂编码 2: 递归求和 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
+<p><mark>任务</mark>: 实现 <code>int sum(int n)</code>, 计算 1 + 2 + … + n.</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">sum</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">55</span>
+<span class="token function">sum</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">5050</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>基准情形: <code>sum(0) = 0</code></p>
+
+</li>
+<li>
+<p>递归情形: <code>sum(n) = n + sum(n-1)</code></p>
+
+</li>
+<li>
+<p>子问题只比原问题少一个 <code>n</code></p>
+
+</li>
+</ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/sum-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-rec.c (只写函数体)</a>
 </div>
-<div style="font-size:0.62em;line-height:1.55;">
-<div class="ct">课堂编码 3: 递归打印整数</div>
-<p><mark>任务</mark>: 实现 <code>void print(int n)</code>——输入 1234, 按位逐个打印</p>
-<p>样例: <code>1234</code> → <code>1 2 3 4</code></p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 先递归打印前面几位, 回来再打印末位——<mark>顺序是本题关键</mark></p>
+<div style="flex:0.95;">
+<div class="col-label">先写函数骨架</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/* TODO: 基准情形 + 递归情形 */</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
+<b>递归三问</b><br>
+<p>① 出口: <code>n</code> 减到什么时候停?<br><br> ② 递推: <code>sum(n)</code> 和 <code>sum(n-1)</code> 差什么?<br><br> ③ 参数: 子问题还需要哪些量?</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂编码-3--递归打印整数">课堂编码 3: 递归打印整数 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
+<p><mark>任务</mark>: 实现 <code>void print(int n)</code>, 把整数的每一位按从左到右的顺序打印, 数字之间一个空格.</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print</span><span class="token punctuation">(</span><span class="token number">182314</span><span class="token punctuation">)</span> → <span class="token number">1</span> <span class="token number">8</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">1</span> <span class="token number">4</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> → <span class="token number">7</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>基准情形: 一位数 (<code>n &lt; 10</code>) 直接打印</p>
+
+</li>
+<li>
+<p>递归情形: 先 <code>print(n / 10)</code> 打印前面几位, 回来再打印 <code>n % 10</code></p>
+
+</li>
+<li>
+<p><mark>顺序是本题关键</mark>: 先递归, 后打印末位, 才是正序</p>
+
+</li>
+</ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/print-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 print-rec.c (只写函数体)</a>
 </div>
+<div style="flex:0.95;">
+<div class="col-label">先写函数骨架</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/* TODO: 基准情形 + 递归情形 */</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
+<b>递归三问</b><br>
+<p>① 出口: 什么时候只剩一位?<br><br> ② 递推: 前面的位怎么交给子问题?<br><br> ③ 顺序: 递归调用和打印末位, 谁先谁后?</p>
+</div>
+</div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="课堂编码---参考实现">课堂编码 · 参考实现 </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂编码---参考实现">课堂编码 · 参考实现 </h5>
 <hr>
+<style>.mcols{display:flex;align-items:flex-start;gap:18px;margin:0 1.2rem;}.mcols>div{flex:1;min-width:0;}.mcols>div:last-child{padding-right:14px;}.mcols p{margin:0.28rem 0;text-align:left;}.mcols ul{margin:0.1rem 0;padding-left:0.9rem;}.mcols ul>li{margin:0.12rem 0.8rem 0.12rem 0;}.mcols ul>li>p{margin:0.08rem 0;}.mcols .ct{font-weight:700;color:#268bd2;margin-bottom:4px;}.mcols pre{font-size:15px!important;line-height:1.22!important;padding:0.3em 0.2em!important;margin:0.15rem 0!important;max-height:none!important;}.mcols pre code{font-size:15px!important;line-height:1.22!important;padding:0!important;max-height:none!important;}.mcols.two pre,.mcols.two pre code{font-size:16px!important;}</style>
 <div class="mcols">
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
 <div class="ct">参考实现 1: 递归求幂</div>
@@ -60101,7 +60189,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文">课堂案例: 递归求最大值与判断回文 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文">课堂案例: 递归求最大值与判断回文 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
@@ -60119,7 +60207,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文---参考实现">课堂案例: 递归求最大值与判断回文 · 参考实现 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文---参考实现">课堂案例: 递归求最大值与判断回文 · 参考实现 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
@@ -60162,7 +60250,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂案例--二分查找">课堂案例: 二分查找 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂案例--二分查找">课堂案例: 二分查找 </h5>
 <hr>
 <div class="ct">课堂案例 6: 二分查找</div>
 <div style="font-size:0.9em;line-height:1.6;">
@@ -60172,7 +60260,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (自己设计签名 + 函数体 + main 调用)</a>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂案例--二分查找---参考实现">课堂案例: 二分查找 · 参考实现 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂案例--二分查找---参考实现">课堂案例: 二分查找 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">bin_search</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> key<span class="token punctuation">)</span>
@@ -60202,7 +60290,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂案例--组合数与爬楼梯">课堂案例: 组合数与爬楼梯 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂案例--组合数与爬楼梯">课堂案例: 组合数与爬楼梯 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
@@ -60219,7 +60307,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂案例--组合数与爬楼梯---参考实现">课堂案例: 组合数与爬楼梯 · 参考实现 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂案例--组合数与爬楼梯---参考实现">课堂案例: 组合数与爬楼梯 · 参考实现 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
@@ -60256,7 +60344,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="分治法">分治法 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="分治法">分治法 </h5>
 <hr>
 <p><mark>分治法</mark> (divide and conquer): 把大问题拆成几个<mark>同类的小问题</mark>, 分别解决, 再合并结果</p>
 <ul>
@@ -60279,7 +60367,7 @@ div.boardhandle > ul > li {
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 递归常常是分治法的<mark>自然结果</mark>——快速排序正是如此</p>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="分治图示--快速排序">分治图示: 快速排序 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="分治图示--快速排序">分治图示: 快速排序 </h5>
 <hr>
 <div style="text-align:center;margin:2px 0;">
 <svg viewBox='0 0 400 210' style='max-width:100%;height:310px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='qk-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='qk-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-size='9' fill='#586e75' text-anchor='end' font-weight='700'><text x='90' y='49'>原数组</text><text x='90' y='111'>划分后</text><text x='90' y='173'>最终</text></g><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='30' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='115' y='50' fill='#fdf6e3'>5</text><rect x='132' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='149' y='50' fill='#073642'>2</text><rect x='166' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='183' y='50' fill='#073642'>9</text><rect x='200' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='217' y='50' fill='#073642'>1</text><rect x='234' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='251' y='50' fill='#073642'>8</text><rect x='268' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='285' y='50' fill='#073642'>3</text></g><path d='M200 60 V88' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#qk-blue)'/><text x='208' y='76' font-size='9' fill='#268bd2'>① 划分</text><g font-weight='700'><rect x='98' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='115' y='112' font-size='11' fill='#073642' text-anchor='middle'>2</text><rect x='132' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='149' y='112' font-size='11' fill='#073642' text-anchor='middle'>1</text><rect x='166' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='183' y='112' font-size='11' fill='#073642' text-anchor='middle'>3</text><rect x='200' y='92' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='112' font-size='11' fill='#fdf6e3' text-anchor='middle'>5</text><rect x='234' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='112' font-size='11' fill='#073642' text-anchor='middle'>9</text><rect x='268' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='112' font-size='11' fill='#073642' text-anchor='middle'>8</text></g><g fill='none' stroke-width='1.5'><path d='M98 90 V86 H200 V90' stroke='#268bd2'/><path d='M200 90 V86 H302 V90' stroke='#859900'/></g><text x='149' y='82' font-size='8.5' fill='#268bd2' text-anchor='middle'>左段（&lt;5）</text><text x='268' y='82' font-size='8.5' fill='#859900' text-anchor='middle'>右段（&gt;5）</text><path d='M200 122 V150' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#qk-green)'/><text x='208' y='140' font-size='9' fill='#859900'>② 各自递归</text><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='115' y='174' fill='#073642'>1</text><rect x='132' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='149' y='174' fill='#073642'>2</text><rect x='166' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='183' y='174' fill='#073642'>3</text><rect x='200' y='154' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='174' fill='#fdf6e3'>5</text><rect x='234' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='174' fill='#073642'>8</text><rect x='268' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='174' fill='#073642'>9</text></g><text x='312' y='49' font-size='9' fill='#b58900' font-weight='700'>基准 = 5</text><text x='312' y='106' font-size='9' fill='#586e75'>5 已就位</text><text x='312' y='120' font-size='9' fill='#859900'>左右各自递归</text><text x='312' y='173' font-size='9' fill='#859900' font-weight='700'>无需合并</text><text x='98' y='202' font-size='9.5' fill='#586e75'>基准位置一次到位 → 左右两段递归即可，不需要合并</text></g></svg>
@@ -60300,7 +60388,7 @@ div.boardhandle > ul > li {
 </ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/qsort-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 自己动手: 打开 qsort-rec.c (框架只有 main)——对照图示写 quicksort 和 split</a>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
 <hr>
 <p>用<mark>递归</mark>做排序: 选一个基准, 小的放左、大的放右, 再对左右递归</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
@@ -60325,7 +60413,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
 <hr>
 <style>#split-code pre{padding:0.35em 0.6em!important;margin:0.2rem 0!important}#split-code pre code{font-size:17px!important;line-height:1.2!important;padding:0!important;max-height:none!important}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60362,7 +60450,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 递归函数必须具备哪两个要素？
@@ -60375,7 +60463,7 @@ div.boardhandle > ul > li {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="24" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

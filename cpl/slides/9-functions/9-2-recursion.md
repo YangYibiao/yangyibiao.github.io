@@ -545,64 +545,166 @@ Segmentation fault (core dumped)
 
 ---
 
-<!-- slide data-notes="" -->
-
-##### 课堂编码: 基础三题
+<!-- slide data-notes="" -->##### 课堂编码 1: 递归求幂
 
 ---
 
-<style>.mcols{display:flex;align-items:flex-start;gap:18px;margin:0 1.2rem;}.mcols>div{flex:1;min-width:0;}.mcols>div:last-child{padding-right:14px;}.mcols p{margin:0.28rem 0;text-align:left;}.mcols ul{margin:0.1rem 0;padding-left:0.9rem;}.mcols ul>li{margin:0.12rem 0.8rem 0.12rem 0;}.mcols ul>li>p{margin:0.08rem 0;}.mcols .ct{font-weight:700;color:#268bd2;margin-bottom:4px;}.mcols pre{font-size:15px!important;line-height:1.22!important;padding:0.3em 0.2em!important;margin:0.15rem 0!important;max-height:none!important;}.mcols pre code{font-size:15px!important;line-height:1.22!important;padding:0!important;max-height:none!important;}.mcols.two pre,.mcols.two pre code{font-size:16px!important;}</style>
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="mcols">
+<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
 
-<div style="font-size:0.62em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
+==任务==: 实现 `int power(int x, int n)`, 计算 x 的 n 次方.
 
-<div class="ct">课堂编码 1: 递归求幂</div>
+样例:
 
-==任务==: 实现 `int power(int x, int n)`——计算 x 的 n 次方 (开篇"递归是什么"一页提过的例子, 这里把它写完整)
+```text
+power(5, 3) = 125
+power(2, 10) = 1024
+```
 
-样例: `power(5, 3)` → 125; `power(2, 10)` → 1024
+==提示==:
 
-==先想参数==: 哪些量随递归变化、哪些全程不变?
+- 基准情形: `n == 0` 时, `x^0 = 1`
+- 递归情形: `x^n = x × x^(n-1)`
+- 想清楚: 哪些量随递归变化? 哪些全程不变?
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/power-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 power-rec.c (只写函数体)</a>
 
 </div>
 
-<div style="font-size:0.62em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
+<div style="flex:0.95;">
 
-<div class="ct">课堂编码 2: 递归求和</div>
+<div class="col-label">先写函数骨架</div>
 
-==任务==: 实现 `int sum(int n)`——计算 1 + 2 + … + n
+```C
+int power(int x, int n)
+{
+  /* TODO: 基准情形 + 递归情形 */
+}
+```
 
-样例: `sum(10)` → 55; `sum(100)` → 5050
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
+<b>递归三问</b><br>
+① 出口: 什么时候不再递归?<br>
+② 递推: 大问题怎么变成小问题?<br>
+③ 参数: 子问题的参数是什么?
+</div>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 先想清楚==递推关系==和==递归出口==, 再动手写
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 2: 递归求和
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
+
+==任务==: 实现 `int sum(int n)`, 计算 1 + 2 + … + n.
+
+样例:
+
+```text
+sum(10) = 55
+sum(100) = 5050
+```
+
+==提示==:
+
+- 基准情形: `sum(0) = 0`
+- 递归情形: `sum(n) = n + sum(n-1)`
+- 子问题只比原问题少一个 `n`
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/sum-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 sum-rec.c (只写函数体)</a>
 
 </div>
 
-<div style="font-size:0.62em;line-height:1.55;">
+<div style="flex:0.95;">
 
-<div class="ct">课堂编码 3: 递归打印整数</div>
+<div class="col-label">先写函数骨架</div>
 
-==任务==: 实现 `void print(int n)`——输入 1234, 按位逐个打印
+```C
+int sum(int n)
+{
+  /* TODO: 基准情形 + 递归情形 */
+}
+```
 
-样例: `1234` → `1 2 3 4`
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
+<b>递归三问</b><br>
+① 出口: `n` 减到什么时候停?<br>
+② 递推: `sum(n)` 和 `sum(n-1)` 差什么?<br>
+③ 参数: 子问题还需要哪些量?
+</div>
 
-<span class="blue">:fa-lightbulb-o:</span> 提示: 先递归打印前面几位, 回来再打印末位——==顺序是本题关键==
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 3: 递归打印整数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;font-size:0.82em;line-height:1.6;">
+
+==任务==: 实现 `void print(int n)`, 把整数的每一位按从左到右的顺序打印, 数字之间一个空格.
+
+样例:
+
+```text
+print(182314) → 1 8 2 3 1 4
+print(7) → 7
+```
+
+==提示==:
+
+- 基准情形: 一位数 (`n < 10`) 直接打印
+- 递归情形: 先 `print(n / 10)` 打印前面几位, 回来再打印 `n % 10`
+- ==顺序是本题关键==: 先递归, 后打印末位, 才是正序
 
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/print-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 print-rec.c (只写函数体)</a>
 
 </div>
 
+<div style="flex:0.95;">
+
+<div class="col-label">先写函数骨架</div>
+
+```C
+void print(int n)
+{
+  /* TODO: 基准情形 + 递归情形 */
+}
+```
+
+<div style="margin-top:10px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.82em;line-height:1.6;">
+<b>递归三问</b><br>
+① 出口: 什么时候只剩一位?<br>
+② 递推: 前面的位怎么交给子问题?<br>
+③ 顺序: 递归调用和打印末位, 谁先谁后?
 </div>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 ##### 课堂编码 · 参考实现
 
 ---
+
+<style>.mcols{display:flex;align-items:flex-start;gap:18px;margin:0 1.2rem;}.mcols>div{flex:1;min-width:0;}.mcols>div:last-child{padding-right:14px;}.mcols p{margin:0.28rem 0;text-align:left;}.mcols ul{margin:0.1rem 0;padding-left:0.9rem;}.mcols ul>li{margin:0.12rem 0.8rem 0.12rem 0;}.mcols ul>li>p{margin:0.08rem 0;}.mcols .ct{font-weight:700;color:#268bd2;margin-bottom:4px;}.mcols pre{font-size:15px!important;line-height:1.22!important;padding:0.3em 0.2em!important;margin:0.15rem 0!important;max-height:none!important;}.mcols pre code{font-size:15px!important;line-height:1.22!important;padding:0!important;max-height:none!important;}.mcols.two pre,.mcols.two pre code{font-size:16px!important;}</style>
 
 <div class="mcols">
 
