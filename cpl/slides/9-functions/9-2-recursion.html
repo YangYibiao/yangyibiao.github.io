@@ -59629,10 +59629,6 @@ div.boardhandle > ul > li {
   <span class="token punctuation">}</span>
   <span class="token keyword keyword-return">return</span> n <span class="token operator">*</span> <span class="token function">f</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* 递归: 1! 由 0! 归纳出来 */</span>
 <span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token comment">/* 求幂: x^n = x × x^(n-1), 可以精简成一行 */</span>
-<span class="token keyword keyword-int">int</span> <span class="token function">power</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-return">return</span> n <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> x <span class="token operator">*</span> <span class="token function">power</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
 </div>
 <div style="flex:1;font-size:0.9em;line-height:1.42;">
 <div class="col-label">要点</div>
@@ -60189,7 +60185,107 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文">课堂案例: 递归求最大值与判断回文 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂编码-4--递归打印二进制">课堂编码 4: 递归打印二进制 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:0.8;font-size:0.75em;line-height:1.5;">
+<p><mark>任务</mark>: 实现 <code>void print_bin(int n)</code>, 把 n 的二进制表示逐位打印.</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> → <span class="token number">1010</span>
+<span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>  → <span class="token number">0</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>基准情形: <code>n &lt; 2</code> 时, 直接打印 <code>n</code></p>
+
+</li>
+<li>
+<p>递归情形: 先 <code>print_bin(n / 2)</code>, 回来再打印 <code>n % 2</code></p>
+
+</li>
+<li>
+<p><mark>顺序是关键</mark>: 先递归、后输出, 才是从高位到低位</p>
+
+</li>
+</ul>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/task-print-bin.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-print-bin.c (只写函数体)</a>
+</div>
+<div style="flex:1.2;">
+<div class="col-label">先写函数骨架</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">/* TODO: 基准情形 + 递归情形 */</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:10px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;font-size:0.82em;line-height:1.6;text-align:left;">
+<b>先递归, 后输出</b><br>
+<p>如果先打印 <code>n % 2</code>, 再递归, 会得到什么顺序? 可以改代码试一下.</p>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;line-height:1.5;text-align:left;">
+<b>递归三问:</b> 出口? 递推? 顺序?
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂编码-4-参考--递归打印二进制">课堂编码 4 参考: 递归打印二进制 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="bin-code" style="flex:1.1;font-size:0.66em;">
+<style>.bin-code pre code{max-height:none!important;font-size:16px;line-height:1.15;}</style>
+<div class="col-label">参考实现 · print-bin.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator"><</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">print_bin</span><span class="token punctuation">(</span>n <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> n <span class="token operator">%</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print_bin</span><span class="token punctuation">(</span><span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/print-bin.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 print-bin.c</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token number">10</span> → <span class="token number">1010</span>
+<span class="token number">0</span>  → <span class="token number">0</span>
+<span class="token number">13</span> → <span class="token number">1101</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p>基准: <code>n &lt; 2</code> 直接打印</p>
+
+</li>
+<li>
+<p>递归: 先 <code>print_bin(n / 2)</code>, 回来打印 <code>n % 2</code></p>
+
+</li>
+<li>
+<p>顺序: 递归在前、输出在后, 所以高位先打印</p>
+
+</li>
+</ul>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>挑战: 把 2 换成任意 <code>b</code>, 写成 <code>print_base(n, b)</code>; 10 以上用 <code>A</code>–<code>F</code>.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文">课堂案例: 递归求最大值与判断回文 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
@@ -60207,7 +60303,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文---参考实现">课堂案例: 递归求最大值与判断回文 · 参考实现 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂案例--递归求最大值与判断回文---参考实现">课堂案例: 递归求最大值与判断回文 · 参考实现 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
@@ -60250,7 +60346,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="课堂案例--二分查找">课堂案例: 二分查找 </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂案例--二分查找">课堂案例: 二分查找 </h5>
 <hr>
 <div class="ct">课堂案例 6: 二分查找</div>
 <div style="font-size:0.9em;line-height:1.6;">
@@ -60260,7 +60356,7 @@ div.boardhandle > ul > li {
 </div>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/bin-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 bin-rec.c (自己设计签名 + 函数体 + main 调用)</a>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂案例--二分查找---参考实现">课堂案例: 二分查找 · 参考实现 </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂案例--二分查找---参考实现">课堂案例: 二分查找 · 参考实现 </h5>
 <hr>
 <div style="font-size:0.85em;">
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token function">bin_search</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> key<span class="token punctuation">)</span>
@@ -60290,7 +60386,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="课堂案例--组合数与爬楼梯">课堂案例: 组合数与爬楼梯 </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="课堂案例--组合数与爬楼梯">课堂案例: 组合数与爬楼梯 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.64em;line-height:1.55;padding-right:16px;border-right:1px solid #eee8d5;">
@@ -60307,7 +60403,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="课堂案例--组合数与爬楼梯---参考实现">课堂案例: 组合数与爬楼梯 · 参考实现 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="课堂案例--组合数与爬楼梯---参考实现">课堂案例: 组合数与爬楼梯 · 参考实现 </h5>
 <hr>
 <div class="mcols two">
 <div style="font-size:0.58em;line-height:1.5;padding-right:12px;border-right:1px solid #eee8d5;">
@@ -60344,7 +60440,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="分治法">分治法 </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="分治法">分治法 </h5>
 <hr>
 <p><mark>分治法</mark> (divide and conquer): 把大问题拆成几个<mark>同类的小问题</mark>, 分别解决, 再合并结果</p>
 <ul>
@@ -60367,7 +60463,7 @@ div.boardhandle > ul > li {
 </ul>
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 递归常常是分治法的<mark>自然结果</mark>——快速排序正是如此</p>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="分治图示--快速排序">分治图示: 快速排序 </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="分治图示--快速排序">分治图示: 快速排序 </h5>
 <hr>
 <div style="text-align:center;margin:2px 0;">
 <svg viewBox='0 0 400 210' style='max-width:100%;height:310px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='qk-blue' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#268bd2'/></marker><marker id='qk-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><g font-size='9' fill='#586e75' text-anchor='end' font-weight='700'><text x='90' y='49'>原数组</text><text x='90' y='111'>划分后</text><text x='90' y='173'>最终</text></g><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='30' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='115' y='50' fill='#fdf6e3'>5</text><rect x='132' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='149' y='50' fill='#073642'>2</text><rect x='166' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='183' y='50' fill='#073642'>9</text><rect x='200' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='217' y='50' fill='#073642'>1</text><rect x='234' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='251' y='50' fill='#073642'>8</text><rect x='268' y='30' width='34' height='30' fill='#fdf6e3' stroke='#93a1a1'/><text x='285' y='50' fill='#073642'>3</text></g><path d='M200 60 V88' stroke='#268bd2' stroke-width='2' fill='none' marker-end='url(#qk-blue)'/><text x='208' y='76' font-size='9' fill='#268bd2'>① 划分</text><g font-weight='700'><rect x='98' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='115' y='112' font-size='11' fill='#073642' text-anchor='middle'>2</text><rect x='132' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='149' y='112' font-size='11' fill='#073642' text-anchor='middle'>1</text><rect x='166' y='92' width='34' height='30' fill='#dceaf5' stroke='#268bd2'/><text x='183' y='112' font-size='11' fill='#073642' text-anchor='middle'>3</text><rect x='200' y='92' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='112' font-size='11' fill='#fdf6e3' text-anchor='middle'>5</text><rect x='234' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='112' font-size='11' fill='#073642' text-anchor='middle'>9</text><rect x='268' y='92' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='112' font-size='11' fill='#073642' text-anchor='middle'>8</text></g><g fill='none' stroke-width='1.5'><path d='M98 90 V86 H200 V90' stroke='#268bd2'/><path d='M200 90 V86 H302 V90' stroke='#859900'/></g><text x='149' y='82' font-size='8.5' fill='#268bd2' text-anchor='middle'>左段（&lt;5）</text><text x='268' y='82' font-size='8.5' fill='#859900' text-anchor='middle'>右段（&gt;5）</text><path d='M200 122 V150' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#qk-green)'/><text x='208' y='140' font-size='9' fill='#859900'>② 各自递归</text><g font-size='11' text-anchor='middle' font-weight='700'><rect x='98' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='115' y='174' fill='#073642'>1</text><rect x='132' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='149' y='174' fill='#073642'>2</text><rect x='166' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='183' y='174' fill='#073642'>3</text><rect x='200' y='154' width='34' height='30' fill='#b58900' stroke='#b58900'/><text x='217' y='174' fill='#fdf6e3'>5</text><rect x='234' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='251' y='174' fill='#073642'>8</text><rect x='268' y='154' width='34' height='30' fill='#fdf6e3' stroke='#859900'/><text x='285' y='174' fill='#073642'>9</text></g><text x='312' y='49' font-size='9' fill='#b58900' font-weight='700'>基准 = 5</text><text x='312' y='106' font-size='9' fill='#586e75'>5 已就位</text><text x='312' y='120' font-size='9' fill='#859900'>左右各自递归</text><text x='312' y='173' font-size='9' fill='#859900' font-weight='700'>无需合并</text><text x='98' y='202' font-size='9.5' fill='#586e75'>基准位置一次到位 → 左右两段递归即可，不需要合并</text></g></svg>
@@ -60388,7 +60484,7 @@ div.boardhandle > ul > li {
 </ul>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/qsort-rec.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 自己动手: 打开 qsort-rec.c (框架只有 main)——对照图示写 quicksort 和 split</a>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="递归排序--快速排序">递归排序: 快速排序 </h5>
 <hr>
 <p>用<mark>递归</mark>做排序: 选一个基准, 小的放左、大的放右, 再对左右递归</p>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-void">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> low<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> high<span class="token punctuation">)</span>
@@ -60413,7 +60509,7 @@ div.boardhandle > ul > li {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="快速排序--划分函数-split">快速排序: 划分函数 split </h5>
 <hr>
 <style>#split-code pre{padding:0.35em 0.6em!important;margin:0.2rem 0!important}#split-code pre code{font-size:17px!important;line-height:1.2!important;padding:0!important;max-height:none!important}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
@@ -60450,7 +60546,7 @@ div.boardhandle > ul > li {
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 递归函数必须具备哪两个要素？
@@ -60463,7 +60559,7 @@ div.boardhandle > ul > li {
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="26" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="28" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

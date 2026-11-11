@@ -88,13 +88,6 @@ long long f(long long n)
 }
 ```
 
-```C
-/* 求幂: x^n = x × x^(n-1), 可以精简成一行 */
-int power(int x, int n) {
-    return n == 0 ? 1 : x * power(x, n - 1);
-}
-```
-
 </div>
 
 <div style="flex:1;font-size:0.9em;line-height:1.42;">
@@ -767,6 +760,128 @@ void print(int n)
 </div>
 
 </div>
+<!-- slide data-notes="" -->##### 课堂编码 4: 递归打印二进制
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:0.8;font-size:0.75em;line-height:1.5;">
+
+==任务==: 实现 `void print_bin(int n)`, 把 n 的二进制表示逐位打印.
+
+样例:
+
+```text
+print_bin(10) → 1010
+print_bin(0)  → 0
+```
+
+==提示==:
+
+- 基准情形: `n < 2` 时, 直接打印 `n`
+- 递归情形: 先 `print_bin(n / 2)`, 回来再打印 `n % 2`
+- ==顺序是关键==: 先递归、后输出, 才是从高位到低位
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/task-print-bin.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-print-bin.c (只写函数体)</a>
+
+</div>
+
+<div style="flex:1.2;">
+
+<div class="col-label">先写函数骨架</div>
+
+```C
+void print_bin(int n)
+{
+  /* TODO: 基准情形 + 递归情形 */
+}
+```
+
+<div style="margin-top:10px;padding:8px 12px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;font-size:0.82em;line-height:1.6;text-align:left;">
+<b>先递归, 后输出</b><br>
+如果先打印 <code>n % 2</code>, 再递归, 会得到什么顺序? 可以改代码试一下.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;line-height:1.5;text-align:left;">
+<b>递归三问:</b> 出口? 递推? 顺序?
+</div>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 4 参考: 递归打印二进制
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="bin-code" style="flex:1.1;font-size:0.66em;">
+
+<style>.bin-code pre code{max-height:none!important;font-size:16px;line-height:1.15;}</style>
+
+<div class="col-label">参考实现 · print-bin.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+void print_bin(int n)
+{
+    if (n < 2) {
+        printf("%d", n);
+        return;
+    }
+    print_bin(n / 2);
+    printf("%d", n % 2);
+}
+
+int main(void)
+{
+    print_bin(10);
+    printf("\n");
+    print_bin(0);
+    printf("\n");
+    print_bin(13);
+    printf("\n");
+    return 0;
+}
+```
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/9-functions/code/print-bin.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 print-bin.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+10 → 1010
+0  → 0
+13 → 1101
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- 基准: `n < 2` 直接打印
+- 递归: 先 `print_bin(n / 2)`, 回来打印 `n % 2`
+- 顺序: 递归在前、输出在后, 所以高位先打印
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+挑战: 把 2 换成任意 `b`, 写成 `print_base(n, b)`; 10 以上用 `A`–`F`.
+</div>
+
+</div>
+
+</div>
+
+---
+
 <!-- slide data-notes="" -->
 
 ##### 课堂案例: 递归求最大值与判断回文
