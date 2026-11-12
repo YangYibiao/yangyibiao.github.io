@@ -52,7 +52,7 @@
 | 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
 | 第8周   | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
 |   ^    | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数 + 函数调用栈 |
-| 第9周   | [递归](slides/9-functions/9-2-recursion.html) | 递归：执行过程、Hanoi 与分治 |
+| 第9周   | [递归](slides/9-functions/9-1-recursion.html) | 递归：执行过程、Hanoi 与分治 |
 | 第10周  | [指针（上）](slides/10-pointers/10-1-pointers-i.html) | 指针（上）：概念、& 与 *、赋值 |
 |   ^    | [指针（下）](slides/10-pointers/10-2-pointers-ii.html) | 指针（下）：传址调用、const 与返回值 |
 | 第11周  | [指针与数组（上）](slides/11-pointers/11-1-pointer-arrays-i.html) | 指针与数组（上）：算术运算、* 与 ++ |
