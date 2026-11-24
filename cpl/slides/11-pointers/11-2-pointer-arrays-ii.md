@@ -1,5 +1,4 @@
 ---
-password: "cpl2026"
 presentation:
   margin: 0
   center: false
@@ -71,6 +70,49 @@ presentation:
 ---
 
 
+<!-- slide data-notes="" -->##### 回顾 11-1: 从 p 遍历到 a 遍历
+
+---
+
+<div class="bridge-wrap" style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+
+<style>.bridge-wrap pre code{font-size:14px;line-height:1.3;}</style>
+
+<div style="flex:1;">
+
+<div class="col-label">11-1: 用指针变量 p 遍历</div>
+
+```C
+int a[N], *p, sum = 0;
+for (p = &a[0]; p < &a[N]; p++)
+    sum += *p;
+```
+
+</div>
+
+<div style="flex:1;">
+
+<div class="col-label">11-2: 把数组名 a 当指针</div>
+
+```C
+int a[N], sum = 0;
+for (int i = 0; i < N; i++)
+    sum += *(a + i);
+```
+
+</div>
+
+</div>
+
+<div style="font-size:0.68em;line-height:1.5;text-align:left;margin-top:6px;">
+
+- 11-1 的重点: 指针算术、比较、`*p++`; 用指针变量 `p` 遍历数组.
+- 11-2 的重点: 数组名 `a` 本身作为指针; `a[i]` ≡ `*(a + i)`; 数组参数、多维数组、动态内存.
+- 同一个求和, 两种写法: 11-2 把 `p` 省略掉, 直接用数组名; 但 `a` 不能自增, 要移动还是用 `p`.
+
+</div>
+
+---
 <!-- slide data-notes="" -->##### 使用数组名称作为指针
 
 ---
@@ -294,6 +336,10 @@ i=5: a[5]=12, *(a+5)=12
 <div>· 指针不走出数组</div>
 </div>
 
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+和 11-1 栈演示一样: `*--p` 先自减, 再取值.
+</div>
+
 <div style="margin-top:10px;">
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-reverse.c (骨架)</a>
 </div>
@@ -515,6 +561,10 @@ int find_largest(int a[], int n);
 <tr><td style="padding:2px 4px;"><code>int a[10]</code>（声明）</td><td style="padding:2px 4px;">10 个 int 的数组</td></tr>
 <tr><td style="padding:2px 4px;"><code>int *a</code>（声明）</td><td style="padding:2px 4px;">一个指针</td></tr>
 </table>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+11-1 课堂编码里的 `find_sum(int *a, int n)` 用的就是这种形参; `int a[]` 只是另一种写法.
+</div>
 
 </div>
 
@@ -764,6 +814,10 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 `a` 不是指向 `a[0][0]` 的指针, 而是指向 `a[0]`（一行）的指针; 所以 `a` 的类型是 `int (*)[NUM_COLS]`.
 </div>
 
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+`a + i` 跳过 i 行; 和 11-1 的 `p + 1` 一样按 `sizeof(*p)` 缩放, 只是这里的元素类型是 `int[NUM_COLS]`.
+</div>
+
 </div>
 
 ---
@@ -844,6 +898,10 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
 - `(*p)` 的括号必需; 否则 `int *p[NUM_COLS]` 是指针数组.
 - `p++` 把 p 移到下一行的开始 (跨过一整行).
 - `(*p)[i]` 选中第 i 列; 括号必需, 否则 `*p[i]` 是 `*(p[i])`.
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+行指针的 `p++` 跨过一整行, 因为 `sizeof(*p) = sizeof(int[NUM_COLS])`; 和 11-1 的指针缩放规则相同.
+</div>
 
 </div>
 
