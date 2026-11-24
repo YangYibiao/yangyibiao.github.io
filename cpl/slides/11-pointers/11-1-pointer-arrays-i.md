@@ -53,152 +53,225 @@ presentation:
 ---
 
 - 指针的算术运算
+  - 指针 + 整数
+  - 指针 - 整数
+  - 两个指针相减
 
 - 比较指针
 
 - 使用指针进行数组处理
 
-- 结合 * 和 ++ 运算符
-
 - 课堂编码
+
+- 结合 * 和 ++ 运算符
 
 - 课堂小测
 
 ---
 
 
-<!-- slide data-notes="" -->
-
-
-##### 指针的算术运算
+<!-- slide data-notes="" -->##### 指针算术: 三种运算
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1.05;font-size:0.7em;line-height:1.55;text-align:left;">
+
+指针指向数组元素后, 可以做==指针算术==:
 
 ```C
 int a[10], *p;
-p = &a[0];
+p = &a[0];   /* p 指向 a[0] */
+*p = 5;      /* a[0] = 5 */
 ```
 
-指针可以指向==数组元素==:
+C 的指针算术只有三种形式:
 
-图示: 
+- 指针 + 整数: `p + j`
+- 指针 - 整数: `p - j`
+- 两个指针相减: `p - q`
 
-<div class="top-2">
-    <img src="figs/13-1.png" width=400px>
+`p + q`、`p * 2` 等写法==不合法==. 比较指针（`<`、`==` 等）不属于算术运算, 后面单独讲.
+
 </div>
 
-</div>
+<div style="flex:0.95;font-size:0.68em;line-height:1.5;">
 
-<div style="flex:1;font-size:0.6em;">
-
-通过 p 可以访问 a[0]——比如把 5 存进 a[0]: 
-
-`*p = 5;`
-
-如下图: 
-
-<div class="top-2">
-    <img src="figs/13-2.png" width=400px>
-</div>
-
-p 指向数组元素时, 对 p 做==指针算术==就能访问其他元素
-
-C支持三种(且只有三种)==指针运算==形式:
-
-- 指针加上整数
-
-- 指针减去整数
-
-- 两个指针相减
+<div class="top-2" style="text-align:center;"><img src="figs/13-1.png" width=360px><br><span style="font-size:0.9em;color:#586e75;">p = &amp;a[0]</span></div>
+<div class="top-2" style="text-align:center;"><img src="figs/13-2.png" width=360px><br><span style="font-size:0.9em;color:#586e75;">*p = 5</span></div>
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->
-
-
-##### 指针加减整数
+---
+<!-- slide data-notes="" -->##### 指针 + 整数
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:0.8;font-size:0.62em;">
+<div style="flex:1;font-size:0.62em;">
 
 ```C
-int a[10], *p, *q, i;
-```
-
-```C
+int a[10], *p, *q;
 p = &a[2];
-q = p + 3;
-p += 6;
+q = p + 3;   /* q 指向 a[5] */
+p += 6;      /* p 指向 a[8] */
 ```
 
-```C
-p = &a[8]; 
-q = p - 3;
-p -= 6;
-```
-
+<div style="margin-top:18px;font-size:1.15em;line-height:1.6;">
+观察:
+<div>· q 指向哪个元素?</div>
+<div>· p += 6 后, p 指向哪个元素?</div>
+<div>· p、q 中保存的地址值怎么变? 下一页说明.</div>
 </div>
 
-<div style="flex:1.2;font-size:0.6em;">
-
-将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后. 
-
-准确地说: p 指向 a[i], 则 p + j 指向 a[i+j]; p 指向 a[i], 则 p - j 指向 a[i-j]。
-
-假设声明如下:
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;">
-
-<div class="top-2"><img src="figs/13-3.png" width=320px></div>
-
-</div>
-
-<div style="flex:1;">
-
-<div class="top-2">
-    <img src="figs/13-4.png" width=320px>
+<div style="margin-top:14px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/pointer-plus.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 pointer-plus.c (现场演示)</a>
 </div>
 
 </div>
 
+<div style="flex:1;text-align:center;">
+<div class="top-2"><img src="figs/13-3.png" width=420px></div>
 </div>
 
 </div>
 
-</div>
-
-<!-- slide data-notes="" -->
-
-
-##### 两个指针相减
+---
+<!-- slide data-notes="" -->##### 指针 - 整数
 
 ---
 
-当一个指针从另一个指针中减去时, 结果是==指针之间的距离==(数组元素的个数). 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
-p 指向 a[i]、q 指向 a[j], 则 $p - q = i - j$。示例: 
+<div style="flex:1;font-size:0.62em;">
+
+```C
+int a[10], *p, *q;
+p = &a[8];
+q = p - 3;   /* q 指向 a[5] */
+p -= 6;      /* p 指向 a[2] */
+```
+
+<div style="margin-top:18px;font-size:1.15em;line-height:1.6;">
+观察:
+<div>· q 指向哪个元素?</div>
+<div>· p -= 6 后, p 指向哪个元素?</div>
+<div>· 地址值的变化和加法一样, 按 sizeof(*p) 缩放; 下一页统一说明.</div>
+</div>
+
+<div style="margin-top:14px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/pointer-minus.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 pointer-minus.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:1;text-align:center;">
+<div class="top-2"><img src="figs/13-4.png" width=420px></div>
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 指针算术: 地址值怎么变
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1;font-size:0.7em;line-height:1.55;text-align:left;">
+
+==公式==:
+
+<div><code>(p + j)</code> 的值 = <code>p</code> 的值 + <code>j × sizeof(*p)</code></div>
+<div style="margin-top:6px;"><code>(p - j)</code> 的值 = <code>p</code> 的值 − <code>j × sizeof(*p)</code></div>
+
+<div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+依据: C 的指针算术以所指对象为单位, 编译器按 <code>sizeof(*p)</code> 缩放.<br>
+不同指针类型的 <code>sizeof(*p)</code> 不同: <code>char *</code> 为 1、<code>int *</code> 为 4、<code>double *</code> 为 8 (常见平台), 所以 <code>p + 1</code> 分别增加 1/4/8 字节.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+注意: <code>p</code> 的值是 p 中保存的地址, 不是指针变量 p 自身的地址 <code>&amp;p</code>.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+结果必须仍指向同一数组(或最后一个元素之后); 移出数组范围是未定义行为.
+</div>
+
+</div>
+
+<div style="flex:1;font-size:0.7em;line-height:1.5;text-align:left;">
+
+<div class="col-label">+ 整数（假设 <code>int *p</code>）</div>
+
+<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">值（地址）</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">指向</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>p</code></td><td style="padding:2px 4px;">0x1008</td><td style="padding:2px 4px;"><code>a[2]</code></td></tr>
+<tr><td style="padding:2px 4px;"><code>p + 3</code></td><td style="padding:2px 4px;">0x1014</td><td style="padding:2px 4px;"><code>a[5]</code></td></tr>
+</table>
+
+<div class="col-label" style="margin-top:12px;">− 整数（假设 <code>int *p</code>）</div>
+
+<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">值（地址）</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">指向</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>p</code></td><td style="padding:2px 4px;">0x1020</td><td style="padding:2px 4px;"><code>a[8]</code></td></tr>
+<tr><td style="padding:2px 4px;"><code>p - 3</code></td><td style="padding:2px 4px;">0x1014</td><td style="padding:2px 4px;"><code>a[5]</code></td></tr>
+</table>
+
+<div style="margin-top:12px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+两个指针相减是同一原理的逆运算: <code>(p - q)</code> 的值 = (p 的值 − q 的值) / <code>sizeof(*p)</code>, 结果是元素个数——下一页.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 两个指针相减
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.05;">
+
+当一个指针从另一个指针中减去时, 结果是==指针之间的距离==(数组元素的个数).
+
+p 指向 a[i]、q 指向 a[j], 则 $p - q = i - j$. 示例:
 
 ```C
 p = &a[5];
 q = &a[1];
 ```
 
-<div style="display:flex;align-items:center;gap:24px;">
-
-<div class="top-2">
-    <img src="figs/13-5.png" width=400px>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.93em;">
+<b>依据:</b> 指针相减和指针加减整数是同一个原理: 地址值之差要除以 <code>sizeof(*p)</code>, 得到元素个数.<br>
+<code>(p - q)</code> 的值 = (p 的值 − q 的值) / <code>sizeof(*p)</code>.<br>
+例如 <code>int *</code>: p 的值 0x1020、q 的值 0x1010, 则 <code>(0x1020 - 0x1010) / 4 = 4</code> 个元素.
 </div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.93em;">
+- 只有两个指针指向同一个数组时, 相减才有意义
+- 对不指向数组元素的指针做算术运算会导致未定义行为
+</div>
+
+</div>
+
+<div style="flex:0.95;text-align:center;">
+
+<div class="top-2"><img src="figs/13-5.png" width=380px></div>
 
 ```C
 i = p - q; /* i is  4 */
@@ -207,14 +280,9 @@ i = q - p; /* i is -4 */
 
 </div>
 
-
-<span class="blue">:fa-lightbulb-o:</span> 对不指向数组元素的指针执行算术运算导致未定义的行为
-
-<span class="blue">:fa-lightbulb-o:</span> 只有两个指针指向同一个数组时, 把它们相减才有意义
+</div>
 
 ---
-
-
 <!-- slide data-notes="" -->
 
 
@@ -324,6 +392,125 @@ for (p = &a[0]; p < &a[N]; p++)
 <!-- slide data-notes="" -->
 
 
+##### 课堂编码
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.15;font-size:0.75em;">
+
+==任务==：用指针遍历数组，实现两个函数。
+
+- `int find_sum(int *a, int n)`：返回数组所有元素之和。
+
+- `int find_max(int *a, int n)`：返回数组元素的最大值。
+
+要求：只用指针 `*p` 访问元素，不使用下标 `a[i]`；循环变量在 `for` 中自声明。
+
+样例输入：`34 82 49 102 7 94 23 11 50 31`
+
+样例输出：`sum = 483`、`max = 102`
+
+<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 只用 `*p` 遍历, 不使用下标 `a[i]`</div>
+<div>· 输出 `sum = 483`、`max = 102`</div>
+<div>· 循环变量在 `for` 中自声明</div>
+</div>
+
+</div>
+
+<div style="flex:1;font-size:0.75em;">
+
+<span class="blue">:fa-lightbulb-o:</span> 提示：求和让 `p` 从 `a` 走到 `a + n`，每次把 `*p` 累加；求最大值先把 `max` 初始化为 `*a`，再从 `a + 1` 开始逐个比较。
+
+==先想参数==：函数需要数组首元素地址 `a` 和元素个数 `n`——指针本身不知道数组有多长。
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
+
+</div>
+
+</div>
+
+---
+
+<!-- slide data-notes="" -->##### 课堂编码 · 参考实现
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="findsummax-code" style="flex:1.1;font-size:0.58em;">
+
+<style>.findsummax-code pre code{max-height:none!important;font-size:13.5px;line-height:1.08;}</style>
+
+<div class="col-label">参考实现 · find-sum-max.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define N 10
+
+int find_sum(int *a, int n)
+{
+    int sum = 0;
+    for (int *p = a; p < a + n; p++)
+        sum += *p;
+    return sum;
+}
+
+int find_max(int *a, int n)
+{
+    int max = *a;
+    for (int *p = a + 1; p < a + n; p++)
+        if (*p > max)
+            max = *p;
+    return max;
+}
+
+int main(void)
+{
+    int b[N] = {34, 82, 49, 102, 7, 94, 23, 11, 50, 31};
+
+    printf("sum = %d\n", find_sum(b, N));   /* 483 */
+    printf("max = %d\n", find_max(b, N));   /* 102 */
+    return 0;
+}
+```
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/find-sum-max.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 find-sum-max.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+sum = 483
+max = 102
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- 两个函数都用指针遍历: `for (int *p = a; p < a + n; p++)`
+- `find_sum` 累加 `*p`; `find_max` 先取 `*a`, 再从 `a + 1` 开始比较
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+两个循环都用 `p < a + n` 作条件, 指针不会走到数组之外; 调用时数组名 `b` 自动作为 `&b[0]` 传入.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->
+
+
 ##### 结合 * 和 ++ 运算符
 
 ---
@@ -371,7 +558,7 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 - (*p)++ 指向的对象自增(p本身不变)
 
 
-\*和++最常见的组合是`*p++`, 在循环中很常用. 上一页的求和 `for` 循环可以改写成左栏的 `while` 版.
+\*和++最常见的组合是`*p++`, 在循环中很常用. 前面「使用指针进行数组处理」的求和 `for` 循环可以改写成左栏的 `while` 版.
 
 
 
@@ -451,109 +638,6 @@ int pop(void)
 </div>
 
 </div>
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂编码
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.15;font-size:0.75em;">
-
-==任务==：用指针遍历数组，实现两个函数。
-
-- `int find_sum(int *a, int n)`：返回数组所有元素之和。
-
-- `int find_max(int *a, int n)`：返回数组元素的最大值。
-
-要求：只用指针 `*p` 访问元素，不使用下标 `a[i]`；循环变量在 `for` 中自声明。
-
-样例输入：`34 82 49 102 7 94 23 11 50 31`
-
-样例输出：`sum = 483`、`max = 102`
-
-</div>
-
-<div style="flex:1;font-size:0.75em;">
-
-<span class="blue">:fa-lightbulb-o:</span> 提示：求和让 `p` 从 `a` 走到 `a + n`，每次把 `*p` 累加；求最大值先把 `max` 初始化为 `*a`，再从 `a + 1` 开始逐个比较。
-
-==先想参数==：函数需要数组首元素地址 `a` 和元素个数 `n`——指针本身不知道数组有多长。
-
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
-
-</div>
-
-</div>
-
----
-
-<!-- slide data-notes="" -->
-
-
-##### 课堂编码 · 参考实现
-
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1;font-size:0.5em;">
-
-```C{.line-numbers}
-int find_sum(int *a, int n)
-{
-  int sum = 0;
-  for (int *p = a; p < a + n; p++)
-    sum += *p;
-  return sum;
-}
-```
-
-</div>
-
-<div style="flex:1;font-size:0.5em;">
-
-```C{.line-numbers}
-int find_max(int *a, int n)
-{
-  int max = *a;
-  for (int *p = a + 1; p < a + n; p++)
-    if (*p > max)
-      max = *p;
-  return max;
-}
-```
-
-</div>
-
-</div>
-
-<div style="font-size:0.5em;">
-
-```C{.line-numbers}
-#include <stdio.h>
-
-int main(void)
-{
-  int b[10] = {34, 82, 49, 102, 7, 94, 23, 11, 50, 31};
-  printf("sum = %d\n", find_sum(b, 10));   /* 期望输出: sum = 483 */
-  printf("max = %d\n", find_max(b, 10));   /* 期望输出: max = 102 */
-  return 0;
-}
-```
-
-</div>
-
-<div style="font-size:0.6em;">
-
-两个循环都用 `p < a + n` 作条件，指针不会走到数组之外；调用时数组名 `b` 自动作为 `&b[0]` 传入。
-
-</div>
-
----
 
 <!-- slide data-notes="" -->
 
