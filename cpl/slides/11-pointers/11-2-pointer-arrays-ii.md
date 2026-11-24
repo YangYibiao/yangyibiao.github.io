@@ -511,13 +511,15 @@ int find_largest(const int a[], int n)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.65em;line-height:1.45;text-align:left;">
 
-<div class="equiv-code" style="flex:1.15;">
+<div style="flex:1.1;">
+
+<div class="col-label">两种写法完全等价</div>
 
 <style>.equiv-code pre code{font-size:14px;line-height:1.2;}</style>
 
-<div class="col-label">两种写法完全等价</div>
+<div class="equiv-code">
 
 ```C{.line-numbers}
 int find_largest(int *a, int n)
@@ -534,36 +536,70 @@ int find_largest(int *a, int n);
 int find_largest(int a[], int n);
 ```
 
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-调用 `find_largest(b, N)` 时, 数组名 `b` 传的是 `&b[0]`; 函数里的 `a` 就是指向 `b[0]` 的指针.
 </div>
 
 </div>
 
-<div style="flex:0.85;">
-
-<div class="col-label">要点</div>
+<div style="flex:0.9;">
 
 - 形参 `int a[]` 与 `int *a` **完全等价**; 编译器都把它当指针.
+- 调用 `find_largest(b, N)` 时, 数组名 `b` 传的是 `&b[0]`; 函数通过指针访问原数组.
 - 数组参数可以被修改; 如果函数只读, 用 `const int a[]`.
-- 数组名传参不复制整个数组, 只传首地址.
 
-<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
-<b>注意区分:</b> 作为<strong>声明</strong>, <code>int a[10]</code> 分配 10 个 int 的空间; <code>int *a</code> 只分配一个指针的空间. 这和"形参等价"是两回事.
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+数组名传参不复制整个数组, 只传首地址.
 </div>
 
-<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 声明 int a[10] 与 int *p 不同
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.05;">
+
+<div class="col-label">作为声明</div>
+
+```C
+int a[10];   /* 10 个 int 的空间 */
+int *p;      /* 1 个指针的空间 */
+```
+
+- `int a[10];`: 分配 10 个 int; `sizeof(a) = 40`; `a` 不能被赋值.
+- `int *p;`: 只分配一个指针; `sizeof(p) = 8`; `p` 可以改指向.
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+不要和“形参等价”混淆: 形参位置的 <code>int a[]</code> 会被编译器调整为 <code>int *a</code>; 声明位置的 <code>int a[10]</code> 和 <code>int *p</code> 是两回事.
+</div>
+
+</div>
+
+<div style="flex:0.95;">
+
+<div class="col-label">对比</div>
+
+<table style="width:100%;font-size:0.9em;border-collapse:collapse;">
 <tr style="color:#586e75;">
 <th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">写法</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">含义</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">分配</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">sizeof</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">可否赋值</th>
 </tr>
-<tr><td style="padding:2px 4px;"><code>int a[]</code> / <code>int *a</code>（形参）</td><td style="padding:2px 4px;">指针</td></tr>
-<tr><td style="padding:2px 4px;"><code>int a[10]</code>（声明）</td><td style="padding:2px 4px;">10 个 int 的数组</td></tr>
-<tr><td style="padding:2px 4px;"><code>int *a</code>（声明）</td><td style="padding:2px 4px;">一个指针</td></tr>
+<tr><td style="padding:2px 4px;"><code>int a[10]</code></td><td style="padding:2px 4px;">10 个 int</td><td style="padding:2px 4px;">40</td><td style="padding:2px 4px;color:#dc322f;">不可</td></tr>
+<tr><td style="padding:2px 4px;"><code>int *p</code></td><td style="padding:2px 4px;">1 个指针</td><td style="padding:2px 4px;">8</td><td style="padding:2px 4px;color:#859900;">可</td></tr>
 </table>
 
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-11-1 课堂编码里的 `find_sum(int *a, int n)` 用的就是这种形参; `int a[]` 只是另一种写法.
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<code>*a = 0</code> 对数组是给 <code>a[0]</code> 赋值; 对未初始化的指针 <code>*p = 0</code> 是未定义行为.
+</div>
+
+<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">
+（常见 64 位平台: int 4 字节, 指针 8 字节）
 </div>
 
 </div>
@@ -814,8 +850,101 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 `a` 不是指向 `a[0][0]` 的指针, 而是指向 `a[0]`（一行）的指针; 所以 `a` 的类型是 `int (*)[NUM_COLS]`.
 </div>
 
+<div style="margin-top:8px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
+<b>什么叫“退化”？</b> 数组名在大多数表达式里会自动转成指向首元素的指针, 长度/类型信息随之丢失; 这个转换俗称“退化”.<br>
+<code>sizeof(a)</code>、<code>&amp;a</code> 不退化; <code>a + 0</code>、<code>f(a)</code>、<code>int *p = a</code> 会退化. 二维数组里 <code>a</code> 退化成行指针 <code>int (*)[NUM_COLS]</code>, <code>a[i]</code> 退化成 <code>int *</code> (<code>&amp;a[i][0]</code>).
+</div>
+
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 `a + i` 跳过 i 行; 和 11-1 的 `p + 1` 一样按 `sizeof(*p)` 缩放, 只是这里的元素类型是 `int[NUM_COLS]`.
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 用 sizeof 看二维数组的表达式类型
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.1;">
+
+<div class="col-label">完整代码 · multidim-type-size.c</div>
+
+<style>.size-code pre code{font-size:13px;line-height:1.2;}</style>
+
+<div class="size-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 4
+
+int main(void)
+{
+    int a[ROWS][COLS] = {0};
+    int (*rowp)[COLS] = a + 0;   /* a + 0 退化成行指针 */
+
+    printf("sizeof(int)      = %zu\n", sizeof(int));
+    printf("sizeof(a)        = %zu  (整个二维数组)\n", sizeof(a));
+    printf("sizeof(a[0])     = %zu  (一行)\n", sizeof(a[0]));
+    printf("sizeof(a[0][0])  = %zu  (一个 int)\n", sizeof(a[0][0]));
+    printf("sizeof(*a)       = %zu  (一行, 不是 int)\n", sizeof(*a));
+    printf("sizeof(rowp)     = %zu  (a + 0 退化成的行指针)\n", sizeof(rowp));
+    printf("sizeof(&a[0][0]) = %zu  (int *)\n", sizeof(&a[0][0]));
+
+    printf("&a        = %p\n", (void *)&a);
+    printf("a         = %p\n", (void *)a);
+    printf("&a[0]     = %p\n", (void *)&a[0]);
+    printf("a[0]      = %p\n", (void *)a[0]);
+    printf("&a[0][0]  = %p\n", (void *)&a[0][0]);
+
+    printf("a + 1        = %p\n", (void *)(a + 1));
+    printf("&a[0][0] + 1 = %p\n", (void *)(&a[0][0] + 1));
+    printf("(a + 1) - a  = %td 行\n", (a + 1) - a);
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-type-size.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-type-size.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">运行结果</div>
+
+```text
+sizeof(int)      = 4
+sizeof(a)        = 48
+sizeof(a[0])     = 16
+sizeof(a[0][0])  = 4
+sizeof(*a)       = 16
+sizeof(rowp)     = 8
+sizeof(&a[0][0]) = 8
+&a = a = &a[0] = a[0] = &a[0][0]  (同一地址)
+a + 1        = 基址 + 16 字节
+&a[0][0] + 1 = 基址 + 4 字节
+(a + 1) - a  = 1 行
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `sizeof(a)` = 整个二维数组; `sizeof(a[0])` = 一行; `sizeof(a[0][0])` = 一个 int.
+- `a[0]` 与 `&a[0][0]` 地址相同, 但 `sizeof` 不同: 前者是数组 (16), 后者是指针 (8).
+- `a + 1` 跳一行; `&a[0][0] + 1` 跳一个 int.
+- `sizeof` 不会让数组退化成指针 (非 VLA), 也不真正求值操作数.
+</div>
+
+<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">
+（常见 64 位平台: int 4 字节, 指针 8 字节）
+</div>
+
 </div>
 
 </div>
@@ -900,7 +1029,8 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
 - `(*p)[i]` 选中第 i 列; 括号必需, 否则 `*p[i]` 是 `*(p[i])`.
 
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-行指针的 `p++` 跨过一整行, 因为 `sizeof(*p) = sizeof(int[NUM_COLS])`; 和 11-1 的指针缩放规则相同.
+行指针的 `p++` 跨过一整行, 因为 `sizeof(*p) = sizeof(int[NUM_COLS])`; 和 11-1 的指针缩放规则相同.<br>
+它也叫==指向数组的指针==; 和 `int *p[N]` (指针数组) 的区别在 12-2 讲.
 </div>
 
 </div>
@@ -1005,6 +1135,71 @@ int main(void)
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 - `(*p)` 先得到一整行, 再 `[i]` 取该行第 i 个元素.
 - `p++` 一次跨过一整行.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 二维数组作参数: int a[][COLS] 与 int (*a)[COLS]
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.1;">
+
+<div class="col-label">完整代码 · matrix-param.c</div>
+
+<style>.matrix-code pre code{font-size:13px;line-height:1.2;}</style>
+
+<div class="matrix-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 4
+
+void print_matrix(int a[][COLS], int rows)
+{
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < COLS; j++)
+            printf("%3d", a[i][j]);
+        printf("\n");
+    }
+}
+
+int main(void)
+{
+    int m[ROWS][COLS] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+    print_matrix(m, ROWS);
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/matrix-param.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 matrix-param.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
+
+- 列数 `COLS` 必须写在形参类型里; 行数另传 `rows`.
+- `int a[][COLS]` 与 `int (*a)[COLS]` **完全等价**; 编译器把 `a` 当行指针.
+- `a[i]` 是第 i 行, 退化成 `int *`; `a[i][j]` 才是元素.
+- 不能写 `int a[][]`; `int **` 不能直接接收二维数组 (内存布局不同).
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+和前面一维数组参数一样: 数组名传的是首地址; 只是这里"首元素"是一整行, 所以形参是行指针.
 </div>
 
 </div>

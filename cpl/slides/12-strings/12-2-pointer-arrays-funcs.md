@@ -54,6 +54,8 @@ presentation:
 
 ---
 
+- 指针家族: 四种声明
+
 - 指向指针的指针
 
 - 指针数组与带参数的 main
@@ -63,6 +65,35 @@ presentation:
 - 指针声明怎么读 (复杂声明的解读小结)
 
 
+<!-- slide data-notes="" -->##### 指针家族: 四种声明
+
+---
+
+<div style="font-size:0.78em;line-height:1.5;text-align:left;">
+
+<table style="width:100%;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:4px 6px;border-bottom:1px solid #d6d6c8;">声明</th>
+<th style="text-align:left;padding:4px 6px;border-bottom:1px solid #d6d6c8;">名称</th>
+<th style="text-align:left;padding:4px 6px;border-bottom:1px solid #d6d6c8;">出现位置</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>int *p</code></td><td style="padding:3px 6px;">指向 int 的指针</td><td style="padding:3px 6px;">10-2 / 11-1</td></tr>
+<tr><td style="padding:3px 6px;"><code>int **p</code></td><td style="padding:3px 6px;">指向指针的指针</td><td style="padding:3px 6px;">12-2 开头 (本节)</td></tr>
+<tr><td style="padding:3px 6px;"><code>int *p[N]</code></td><td style="padding:3px 6px;">指针数组</td><td style="padding:3px 6px;">12-2 的 argv / 函数指针数组</td></tr>
+<tr><td style="padding:3px 6px;"><code>int (*p)[N]</code></td><td style="padding:3px 6px;">指向数组的指针 (行指针)</td><td style="padding:3px 6px;">11-2 二维数组的列</td></tr>
+</table>
+
+<div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+括号的位置决定含义: <code>int *p[N]</code> 先和 <code>[]</code> 结合, 是指针数组; <code>int (*p)[N]</code> 先和 <code>*</code> 结合, 是行指针.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+11-2 处理二维数组的列时已经用过 <code>int (*p)[NUM_COLS]</code>; 本节先看 <code>int **p</code>, 再看指针数组, 最后在声明读法页统一对比.
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 
@@ -521,6 +552,10 @@ void (*pf)(int);    /* pf 是函数指针 */
 </div>
 
 `int *p[10]` 是==指针数组==, `int (*p)[10]` 是==行指针==, 只差一对圆括号: ==加括号让 `*` 从最后结合变成最先结合==.
+
+<div style="margin-top:10px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+11-2 的二维数组列已经用过 `int (*p)[NUM_COLS]`; 这里和 `int *p[10]` 放在一起正式对比.
+</div>
 
 <!-- slide data-notes="" -->##### 指针声明怎么读 · 综合练习
 
