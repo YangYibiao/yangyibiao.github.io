@@ -416,14 +416,75 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="任务-3--一次带回最大和最小">任务 3: 一次带回最大和最小 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="任务-2-参考--交换数组首尾元素">任务 2 参考: 交换数组首尾元素 </h5>
 <hr>
-<div style="font-size:0.65em;line-height:1.36;text-align:left;">
-<p><mark>任务</mark>: 先把输入的 10 个整数存入数组 <code>a[10]</code>, 再完成 <code>max_min(a, 10, &amp;max, &amp;min)</code>: 函数遍历数组, 通过指针参数带回最大值和最小值.</p>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="arrayswap-code" style="flex:1.1;font-size:0.66em;">
+<style>.arrayswap-code pre code{max-height:none!important;font-size:15px;line-height:1.1;}</style>
+<div class="col-label">参考实现 · array-swap.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 5</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> t <span class="token operator">=</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
+    <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token operator">*</span>b<span class="token punctuation">;</span>
+    <span class="token operator">*</span>b <span class="token operator">=</span> t<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">swap</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>N <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/array-swap.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 array-swap.c</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入<span class="token operator">:</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span>
+输出<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">1</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>&amp;a[0]</code>、<code>&amp;a[N-1]</code> 把首尾元素的<mark>地址</mark>传进 <code>swap</code></p>
+
+</li>
+<li>
+<p>函数内 <code>*a</code>、<code>*b</code> 直接改原数组元素</p>
+
+</li>
+</ul>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>数组元素本身是变量; 传地址后, 函数里的修改会写回 main 的数组.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="任务-3--一次带回最大-最小和平均值">任务 3: 一次带回最大、最小和平均值 </h5>
+<hr>
+<div style="font-size:0.68em;line-height:1.36;text-align:left;">
+<p><mark>任务</mark>: 先把输入的 10 个整数存入数组 <code>a[10]</code>, 再完成 <code>max_min(a, 10, &amp;max, &amp;min, &amp;avg)</code>: 函数一次遍历, 通过指针参数带回最大值、最小值和平均值.</p>
 <p>样例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个数<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">2</span> <span class="token number">7</span> <span class="token number">4</span> <span class="token number">6</span> <span class="token number">5</span> <span class="token number">0</span>
 最大<span class="token operator">:</span> <span class="token number">9</span>
-最小<span class="token operator">:</span> <span class="token number">0</span></code></pre>
+最小<span class="token operator">:</span> <span class="token number">0</span>
+平均<span class="token operator">:</span> <span class="token number">4.50</span></code></pre>
+<div style="display:flex;align-items:flex-start;gap:24px;margin-top:4px;">
+<div style="flex:1.05;">
 <p><mark>提示</mark>:</p>
 <ul>
 <li>
@@ -431,101 +492,129 @@ i <span class="token operator">=</span> <span class="token number">7</span><span
 
 </li>
 <li>
-<p><code>return</code> 只能带回一个值; 最大/最小用 <code>*max</code>、<code>*min</code> 带回; 先假设 <code>a[0]</code> 是最值</p>
+<p><code>return</code> 只能带回一个值; 最大/最小/平均用 <code>*max</code>、<code>*min</code>、<code>*avg</code> 带回</p>
+
+</li>
+<li>
+<p>先假设 <code>a[0]</code> 是最值; 遍历时同时累加 <code>sum</code>, 最后 <code>*avg = (double)sum / n</code></p>
 
 </li>
 </ul>
-<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+</div>
+<div style="flex:0.95;">
+<div class="task-criteria" style="margin:0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· 输入先存入 <code>a[10]</code></div>
-<div>· <code>max_min</code> 通过指针写回最大/最小</div>
-<div>· 输出 9 / 0</div>
+<div>· 签名包含 <code>double *avg</code>; 只遍历一次</div>
+<div>· 通过 <code>*max</code>、<code>*min</code>、<code>*avg</code> 写回三个结果</div>
+<div>· 平均值用浮点除法, 输出 <code>4.50</code></div>
 </div>
-<div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/minmax.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 minmax.c (骨架)</a>
+<div style="margin:10px 0 0;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-minmax-avg.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-minmax-avg.c (骨架)</a>
+</div>
+</div>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="任务-3-参考--max_min">任务 3 参考: max_min </h5>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="任务-3-参考--一次带回最大-最小和平均值">任务 3 参考: 一次带回最大、最小和平均值 </h5>
 <hr>
-<style>.maxmin-code pre code{max-height:none!important;font-size:15px;line-height:1.15;}</style>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div class="maxmin-code" style="flex:1.4;font-size:0.5em;">
+<div class="minmaxavg-code" style="flex:1.1;font-size:0.6em;">
+<style>.minmaxavg-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
+<div class="col-label">参考实现 · minmax-avg.c</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
 
-<span class="token keyword keyword-void">void</span> <span class="token function">max_min</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>max<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>min<span class="token punctuation">)</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">max_min</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>max<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>min<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>avg<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token operator">*</span>max <span class="token operator">=</span> <span class="token operator">*</span>min <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token operator">*</span>max<span class="token punctuation">)</span> <span class="token operator">*</span>max <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator"><</span> <span class="token operator">*</span>min<span class="token punctuation">)</span> <span class="token operator">*</span>min <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+    <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token operator">*</span>max <span class="token operator">=</span> <span class="token operator">*</span>min <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token operator">*</span>max<span class="token punctuation">)</span> <span class="token operator">*</span>max <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator"><</span> <span class="token operator">*</span>min<span class="token punctuation">)</span> <span class="token operator">*</span>min <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">*</span>avg <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span>sum <span class="token operator">/</span> n<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> big<span class="token punctuation">,</span> small<span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">max_min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> N<span class="token punctuation">,</span> <span class="token operator">&</span>big<span class="token punctuation">,</span> <span class="token operator">&</span>small<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"最大: %d\n"</span><span class="token punctuation">,</span> big<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"最小: %d\n"</span><span class="token punctuation">,</span> small<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> big<span class="token punctuation">,</span> small<span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> avg<span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入 %d 个数: "</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">max_min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> N<span class="token punctuation">,</span> <span class="token operator">&</span>big<span class="token punctuation">,</span> <span class="token operator">&</span>small<span class="token punctuation">,</span> <span class="token operator">&</span>avg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"最大: %d\n"</span><span class="token punctuation">,</span> big<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* 9 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"最小: %d\n"</span><span class="token punctuation">,</span> small<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 0 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"平均: %.2f\n"</span><span class="token punctuation">,</span> avg<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* 4.50 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.85em;line-height:1.5;">
-<ul>
-<li>
-<p><code>max_min(b, N, &amp;big, &amp;small)</code>——把 <code>big</code>、<code>small</code> 的<mark>地址</mark>传给函数, 函数通过指针把结果写回去</p>
-
-</li>
-<li>
-<p><code>*max = *min = a[0]</code> 先假设, 遍历中更大/更小就更新</p>
-
-</li>
-<li>
-<p>指针参数让函数一次"带回"两个值, 这是 <code>return</code> 单值限制的经典解法</p>
-
-</li>
-</ul>
-<div style="margin-top:8px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.92em;">
-<p><code>*max</code> 就是 main 里的 <code>big</code>, <code>*min</code> 就是 <code>small</code>.</p>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/minmax-avg.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 minmax-avg.c</a>
 </div>
 </div>
-</div>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="任务-4--再带回一个平均值">任务 4: 再带回一个平均值 </h5>
-<hr>
-<div style="font-size:0.70em;line-height:1.38;text-align:left;">
-<p><mark>任务</mark>: 在 <code>max_min</code> 基础上增加 <code>double *avg</code> 参数, 一次带回最大、最小和平均值.</p>
-<p>样例:</p>
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div class="col-label">运行结果</div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入 <span class="token number">10</span> 个数<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">2</span> <span class="token number">7</span> <span class="token number">4</span> <span class="token number">6</span> <span class="token number">5</span> <span class="token number">0</span>
 最大<span class="token operator">:</span> <span class="token number">9</span>
 最小<span class="token operator">:</span> <span class="token number">0</span>
-平均<span class="token operator">:</span> <span class="token number">4.90</span></code></pre>
-<p><mark>提示</mark>:</p>
+平均<span class="token operator">:</span> <span class="token number">4.50</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
 <ul>
 <li>
-<p>遍历时同时累加求和</p>
+<p><code>max_min(b, N, &amp;big, &amp;small, &amp;avg)</code> 一次带回三个结果</p>
 
 </li>
 <li>
-<p><code>*avg = (double)sum / n</code>——注意用浮点除法, 不要写成 <code>sum / n</code></p>
+<p>遍历时同时累加 <code>sum</code>, 最大值/最小值用 <code>*max</code>、<code>*min</code> 更新</p>
 
 </li>
 </ul>
-<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<b>完成标准:</b>
-<div>· 签名增加 <code>double *avg</code>; 最大值、最小值仍用指针带回</div>
-<div>· 平均值用浮点除法, 输出 <code>4.90</code></div>
 </div>
-<div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-minmax-avg.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-minmax-avg.c (骨架)</a>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p><code>*avg = (double)sum / n</code> 必须用浮点除法, 否则 <code>sum / n</code> 会截断为整数.</p>
+</div>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="使用-const-保护参数--两种常见写法">使用 const 保护参数: 两种常见写法 </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="为什么用-const--保护只读参数">为什么用 const: 保护只读参数 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.05;font-size:0.78em;line-height:1.55;text-align:left;">
+<p><mark>问题</mark>: 函数参数写成 <code>int *a</code> 时, 函数内部可以修改调用者的数组; 如果函数只负责读取, 这种修改往往是 bug.</p>
+<p><code>const</code> 把“只读”写进参数类型: 函数内若尝试修改, 编译器直接报错.</p>
+<p><mark>常见用法</mark>: 只读数组参数</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-void">void</span> <span class="token function">print_array</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="flex:0.95;font-size:0.78em;line-height:1.55;text-align:left;">
+<p><mark>两种写法</mark></p>
+<table style="width:100%;margin-top:4px;font-size:0.95em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改所指内容</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改指针指向</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>const int *p</code></td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td><td style="padding:3px 6px;color:#859900;">✓ 合法</td></tr>
+<tr><td style="padding:3px 6px;"><code>int * const q</code></td><td style="padding:3px 6px;color:#859900;">✓ 合法</td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td></tr>
+<tr><td style="padding:3px 6px;"><code>const int * const r</code></td><td style="padding:3px 6px;color:#dc322f;">✗</td><td style="padding:3px 6px;color:#dc322f;">✗</td></tr>
+</table>
+<div style="margin-top:6px;font-size:0.95em;">
+<code>const int *p</code> 与 <code>int const *p</code> 完全等价; 本课统一写 <code>const int *</code>.
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>读法: <code>const</code> 在 <code>*</code> 左边锁值, 在 <code>*</code> 右边锁指针.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="使用-const-保护参数--两种常见写法">使用 const 保护参数: 两种常见写法 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="const-code" style="flex:1.1;font-size:0.58em;">
@@ -581,15 +670,44 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="任务-5--只读求和--完整示例">任务 5: 只读求和 (完整示例) </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="任务-4--只读求和">任务 4: 只读求和 </h5>
 <hr>
-<div style="font-size:0.78em;line-height:1.5;margin:0 0 6px;text-align:left;">
-<p><mark>任务</mark>: 完成 <code>sum(const int *a, int n)</code>, 返回数组元素之和; 再试着取消注释 <code>a[i] = 0;</code>, 看编译器报错.</p>
+<div style="font-size:0.70em;line-height:1.38;text-align:left;">
+<p><mark>任务</mark>: 完成 <code>sum(const int *a, int n)</code>, 返回数组元素之和; 再试着在循环体里写 <code>a[i] = 0;</code>, 观察编译器的报错.</p>
+<p>样例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>数组<span class="token operator">:</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span>
+sum <span class="token operator">=</span> <span class="token number">15</span></code></pre>
+<p><mark>提示</mark>:</p>
+<ul>
+<li>
+<p>用循环遍历数组并累加</p>
+
+</li>
+<li>
+<p><code>const int *a</code> 表示不能通过 a 修改数组元素</p>
+
+</li>
+<li>
+<p>补完循环后, 在循环体里写 <code>a[i] = 0;</code>, 编译器会报 <code>read-only variable is not assignable</code></p>
+
+</li>
+</ul>
+<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 参数用 <code>const int *</code>; 返回 15</div>
+<div>· 函数内不修改数组</div>
 </div>
+<div style="margin:10px 2rem 0;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-const-sum.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-const-sum.c (骨架)</a>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务-4-参考--只读求和">任务 4 参考: 只读求和 </h5>
+<hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="constsum-code" style="flex:1.1;font-size:0.6em;">
 <style>.constsum-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
-<div class="col-label">完整代码 · const-sum.c</div>
+<div class="col-label">参考实现 · const-sum.c</div>
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
@@ -628,7 +746,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="指针作为返回值">指针作为返回值 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="指针作为返回值">指针作为返回值 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.1;font-size:0.76em;">
@@ -671,39 +789,93 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="任务-6--返回指向最后一个最大元素的指针">任务 6: 返回指向最后一个最大元素的指针 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="任务-5--返回指向最后一个最大元素的指针">任务 5: 返回指向最后一个最大元素的指针 </h5>
 <hr>
 <div style="font-size:0.70em;line-height:1.38;text-align:left;">
 <p><mark>任务</mark>: 完成 <code>int *last_max(int *a, int n)</code>, 返回指向<mark>最后一个</mark>最大元素的指针.</p>
 <p>样例:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>数组<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">2</span> <span class="token number">7</span> <span class="token number">4</span> <span class="token number">6</span> <span class="token number">9</span> <span class="token number">0</span>
-最后一个最大值<span class="token operator">:</span> <span class="token number">9</span> <span class="token punctuation">(</span>下标 <span class="token number">8</span><span class="token punctuation">)</span></code></pre>
+最后一个最大值<span class="token operator">:</span> <span class="token number">9</span></code></pre>
 <p><mark>提示</mark>:</p>
 <ul>
 <li>
-<p>用指针遍历: <code>for (int *p = a; p &lt; a + n; p++)</code></p>
+<p>用下标遍历: <code>for (int i = 1; i &lt; n; i++)</code></p>
 
 </li>
 <li>
-<p>用 <code>&gt;=</code> 更新当前最大值, 这样保留最后一个</p>
+<p>用 <code>a[i] &gt;= a[best]</code> 更新当前最大值下标, 这样保留最后一个</p>
 
 </li>
 <li>
-<p>返回指针, 不要返回值</p>
+<p>返回 <code>&amp;a[best]</code>, 不要返回值</p>
 
 </li>
 </ul>
 <div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· 返回 <code>int *</code>, 用 <code>&gt;=</code> 保留最后一个最大值</div>
-<div>· 输出 <code>9 (下标 8)</code></div>
+<div>· 返回 <code>int *</code>, 用 <code>&gt;=</code> 保留最后一个最大值下标</div>
+<div>· 输出 <code>9</code></div>
 </div>
 <div style="margin:10px 2rem 0;">
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-last-max.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-last-max.c (骨架)</a>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="任务-5-参考--返回指向最后一个最大元素的指针">任务 5 参考: 返回指向最后一个最大元素的指针 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="lastmax-code" style="flex:1.1;font-size:0.62em;">
+<style>.lastmax-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
+<div class="col-label">参考实现 · last-max.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span><span class="token function">last_max</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> best <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> a<span class="token punctuation">[</span>best<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            best <span class="token operator">=</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>best<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">last_max</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"最后一个最大值: %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/last-max.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 last-max.c</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>数组<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">8</span> <span class="token number">1</span> <span class="token number">9</span> <span class="token number">2</span> <span class="token number">7</span> <span class="token number">4</span> <span class="token number">6</span> <span class="token number">9</span> <span class="token number">0</span>
+最后一个最大值<span class="token operator">:</span> <span class="token number">9</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>best</code> 记录当前最大元素的下标</p>
+
+</li>
+<li>
+<p>用 <code>a[i] &gt;= a[best]</code> 比较, 遇到相同的最大值继续更新下标, 保留最后一个</p>
+
+</li>
+</ul>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>返回 <code>&amp;a[best]</code>; 指针指向数组元素, 数组仍然存在. main 通过 <code>*p</code> 读取值, 不使用指针算术.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 为什么 <code>swap(int a, int b)</code> 改不了实参？传址版要改哪两处？
@@ -718,7 +890,7 @@ i <span class="token operator">=</span> <span class="token number">4</span><span
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="19" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

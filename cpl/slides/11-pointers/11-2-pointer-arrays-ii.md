@@ -52,88 +52,105 @@ presentation:
 
 ---
 
+- 回顾: 用指针遍历数组
+
 - 数组名作为指针
 
 - 任务: 数组名与指针
 
-- 案例: 数列反向 (指针版)
+- 程序: 数列反向 (指针版)
 
 - 数组型实际参数
 
 - 多维数组与指针
+
+- 动态内存初识: malloc 与 free
 
 - 课堂小测
 
 ---
 
 
-<!-- slide data-notes="" -->
-
-
-##### 使用数组名称作为指针
+<!-- slide data-notes="" -->##### 使用数组名称作为指针
 
 ---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.6em;">
+<div style="flex:1.25;font-size:0.52em;">
 
-```C
-int a[10];
-*a = 7;      /* 将 7 存储在a[0]中 */
-*(a+1) = 12; /* 将 12 存储在a[1]中 */
-```
+<div class="col-label">现场演示 · array-name-pointer.c</div>
 
 ```C{.line-numbers}
-/* 原始版本 */
-for (p = &a[0]; p < &a[N]; p++)
-    sum += *p;
-/* 简化版本 */
-for (p = a; p < a + N; p++)
-    sum += *p;
+#include <stdio.h>
+
+#define N 10
+
+int main(void)
+{
+    int a[N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int *p;
+    int sum = 0;
+
+    *a = 7;          /* a[0] = 7 */
+    *(a + 1) = 12;   /* a[1] = 12 */
+    printf("a[0] = %d, a[1] = %d\n", a[0], a[1]);
+
+    /* 原始写法: 从 &a[0] 走到 &a[N] */
+    for (p = &a[0]; p < &a[N]; p++)
+        sum += *p;
+    printf("sum (p = &a[0]) = %d\n", sum);
+
+    /* 简化写法: 数组名 a 就是首地址 */
+    sum = 0;
+    for (p = a; p < a + N; p++)
+        sum += *p;
+    printf("sum (p = a)      = %d\n", sum);
+
+    /* a 是数组名, 不能自增; a++ 非法 (编译错误) */
+    /* a++; */
+
+    /* 指针变量可以移动: 走到值为 0 的元素 */
+    p = a;
+    while (*p != 0)
+        p++;
+    printf("第一个 0 在 a[%d]\n", (int)(p - a));
+
+    return 0;
+}
 ```
 
-```C
-while (*a != 0)
-    a++; /*** 错误的 ***/
-```
-
-```C
-p = a;
-while (*p != 0)
-    p++;
-```
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/array-name-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 array-name-pointer.c (现场演示)</a>
+</div>
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:0.75;font-size:0.6em;line-height:1.5;">
 
-W8-2 已经见过: 数组名传的是==首地址==; 这里把 `a+i`、`*(a+i)` 正式接上. 假设 `int a[10];`:
+上一节我们用指针 `p` 遍历数组; 这一节看数组名 `a` 本身作为指针的用法. 假设 `int a[10];`:
 
-一般情况, `a+i`与`&a[i]`相同, 都表示指向数组a中的元素i的指针. 
+- `a` 在表达式中就是指向首元素的指针: `a` 与 `&a[0]` 的值相同.
+- 一般情况, `a + i` 与 `&a[i]` 相同, `*(a + i)` 等价于 `a[i]`.
+- 数组名可以像指针一样解引用和参与指针算术.
+- 但 `a` 是数组名, ==不能被赋值==: `a++` 非法; 要移动就复制到 `int *p`.
 
-此外, `*(a+i)`等价于`a[i]`, 两者都代表元素i本身.
-
-
-数组名称可以用作指针这一事实使得编写遍历数组的循环变得更加容易.
-
-尽管数组名可以用作指针, 但==不能为数组名赋新值==. 
-
-试图让数组名指向其他地方是错误的:
-
-可以将a复制到指针变量中, 然后更改指针变量:
-
-
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+运行结果: `a[0] = 7`, `a[1] = 12`; 两种写法的 `sum` 都是 61; 第一个 0 在 `a[9]`.
+</div>
 
 </div>
 
 </div>
 
+---
 <!-- slide data-notes="" -->##### 任务: 数组名与指针
 
 ---
 
-<div style="font-size:0.9em;line-height:1.55;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.4;text-align:left;">
+
+<div style="flex:1.1;">
 
 ==任务==: 令 `int a[6] = {2, 4, 6, 8, 10, 12};`
 
@@ -154,9 +171,24 @@ a = 0x7ffd1a2b, &a[0] = 0x7ffd1a2b
 a + 1 = 0x7ffd1a2f, &a[1] = 0x7ffd1a2f
 ```
 
+</div>
+
+<div style="flex:0.9;">
+
 ==提示==: `a + i` 等价于 `&a[i]`, `*(a + i)` 等价于 `a[i]`; 数组名不能自增 (`a++` 非法), 遍历要用指针变量 `p`
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-array-pointer.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-array-pointer.c (骨架)</a>
+<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 用指针 `p` 遍历, 求和得到 `42`</div>
+<div>· 打印 `a[i]` 与 `*(a + i)` 两列值相同</div>
+<div>· 能说明 `a` 与 `&a[0]` 的关系; 不使用 `a++`</div>
+</div>
+
+<div style="margin-top:10px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-array-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-array-pointer.c (骨架)</a>
+</div>
+
+</div>
 
 </div>
 
@@ -168,7 +200,7 @@ a + 1 = 0x7ffd1a2f, &a[1] = 0x7ffd1a2f
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.1;font-size:0.58em;">
+<div style="flex:1.1;font-size:0.6em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -195,9 +227,28 @@ int main(void)
 }
 ```
 
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/array-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 array-pointer.c</a>
 </div>
 
-<div style="flex:1;font-size:0.9em;line-height:1.7;">
+</div>
+
+<div style="flex:1;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+sum = 42
+i=0: a[0]=2, *(a+0)=2
+...
+i=5: a[5]=12, *(a+5)=12
+```
+
+<div style="margin-top:6px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
+地址依运行环境而变; `a` 与 `&a[0]` 的值始终相同.
+</div>
+
+<div class="col-label">要点</div>
 
 - 数组名 `a` 在表达式中就是指向首元素的指针: `a` 与 `&a[0]` 的值相同
 
@@ -217,6 +268,10 @@ int main(void)
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.4;text-align:left;">
+
+<div style="flex:1.1;">
+
 ==现场演示==: 用==指针==重写之前的数列反向程序——不用下标 `a[i]`, 全部用指针完成
 
 样例:
@@ -226,9 +281,26 @@ int main(void)
 逆序输出: 31 50 11 23 94 7 102 49 82 34
 ```
 
+</div>
+
+<div style="flex:0.9;">
+
 <span class="blue">:fa-lightbulb-o:</span> 提示: 两个循环——一个负责读入, 一个负责倒序输出; 全程不要出现 `a[i]`
 
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-reverse.c (骨架)</a>
+<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 读入和输出都用指针, 不出现 `a[i]`</div>
+<div>· 逆序输出 `31 50 11 23 94 7 102 49 82 34`</div>
+<div>· 指针不走出数组</div>
+</div>
+
+<div style="margin-top:10px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-reverse.c (骨架)</a>
+</div>
+
+</div>
+
+</div>
 
 ---
 
@@ -243,7 +315,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.58em;">
 
 <div class="col-label">代码</div>
 
@@ -266,9 +338,20 @@ int main(void)
 }
 ```
 
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/reverse-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 reverse-pointer.c</a>
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+</div>
+
+<div style="flex:1;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+输入 10 个数: 34 82 49 102 7 94 23 11 50 31
+逆序输出: 31 50 11 23 94 7 102 49 82 34
+```
 
 <div class="col-label">要点</div>
 
@@ -285,16 +368,15 @@ int main(void)
 
 ---
 
-<!-- slide data-notes="" -->
-
-
-##### 数组型实际参数: 数组名被视为指针
+<!-- slide data-notes="" -->##### 数组型实际参数: 数组名被视为指针
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
-<div style="flex:1.3;font-size:0.5em;">
+<div class="arrayparam-code" style="flex:1.2;">
+
+<style>.arrayparam-code pre code{font-size:14px;line-height:1.2;}</style>
 
 ```C{.line-numbers}
 #define N 10
@@ -312,152 +394,167 @@ int find_largest(int a[], int n)
 int main(void) {
     int b[N] = {0}, largest;
     ...
-    /* 此调用导致将指向b的第一个元素的指针赋值给a, 数组本身不会被复制. */
-    largest = find_largest(b, N); /* 调用find_largest */
+    /* 传递的是指向 b[0] 的指针, 数组本身不会被复制 */
+    largest = find_largest(b, N);
     ...
+}
+```
+
+</div>
+
+<div style="flex:0.8;">
+
+<div class="col-label" style="font-size:1.15em;">数组名传参 = 传首地址</div>
+
+- 数组名 `b` 作为实参时, 传递的是指向 `b[0]` 的指针; 数组本身不会被复制.
+- 形参 `int a[]` 收到这个指针, 函数通过 `a` 访问原数组.
+- 所以函数对 `a[i]` 的修改会写回调用者的 `b[i]`.
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+普通变量传值: 改形参不影响实参; 数组是例外——数组名传的是地址.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 数组型实际参数: 修改与 const 保护
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.45;text-align:left;">
+
+<div class="store-code" style="flex:1.1;">
+
+<style>.store-code pre code{font-size:15px;line-height:1.25;}</style>
+
+```C{.line-numbers}
+void store_zeros(int a[], int n)
+{
+    for (int i = 0; i < n; i++)
+        a[i] = 0;
 }
 ```
 
 ```C
 int find_largest(const int a[], int n)
 {
-    …
+    ...
 }
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.56em;">
+<div style="flex:0.9;">
 
-数组名传递给函数时, 总是被视为指针. 例子:
+- `store_zeros(b, N)` 会把调用者的数组清零——数组参数可以被修改.
+- 如果函数只读, 在形参前加 `const`: `const int a[]`; 编译器会检查函数体没有对 `a` 的元素赋值.
+- 这既表达意图, 也能在误改时直接报错.
 
-把数组型形式参数视为指针会产生许多重要的结果: 
-
-- 结果1: 普通变量传给函数时, 其值被复制, 对相应参数的任何更改都不会影响变量. 相反, 用作参数的数组是可能被改变的. 
-
-比如下面这个函数, 把数组每个元素清零:
-
-```C
-void store_zeros(int a[], int n)
-{
-    int i;
-
-    for (i = 0; i < n; i++)
-        a[i] = 0;
-}
-```
-
-为了表明数组参数不会被修改, 我们可以在它的声明中包含单词const:
-
-编译器会检查find_largest函数体没有对a中元素进行赋值.
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+普通变量传值, 改形参不影响原变量; 数组传的是地址, 函数能改原数组——不想被改就加 <code>const</code>.
+</div>
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->
-
-
-##### 数组型实际参数: 形参 int a[] 与 int *a 等价
+---
+<!-- slide data-notes="" -->##### 数组型实际参数: 形参 int a[] 与 int *a 等价
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div class="equiv-code" style="flex:1.15;">
 
-<div class="col-label">代码</div>
+<style>.equiv-code pre code{font-size:14px;line-height:1.2;}</style>
 
+<div class="col-label">两种写法完全等价</div>
 
-```C
+```C{.line-numbers}
 int find_largest(int *a, int n)
 {
-    …
+    int max = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+    return max;
 }
-```
 
-```C
-/* 等价 */
+/* 下面两种声明等价 */
 int find_largest(int *a, int n);
 int find_largest(int a[], int n);
 ```
 
-```C
-/* 不等价 */
-int a[10]; /* 编译器为数组a留出10个整数的空间 */
-int *a; /* 编译器仅为指针变量分配空间 */
-*a = 0; /*** 错误的 ***/
-```
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+调用 `find_largest(b, N)` 时, 数组名 `b` 传的是 `&b[0]`; 函数里的 `a` 就是指向 `b[0]` 的指针.
+</div>
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:0.85;">
 
 <div class="col-label">要点</div>
 
+- 形参 `int a[]` 与 `int *a` **完全等价**; 编译器都把它当指针.
+- 数组参数可以被修改; 如果函数只读, 用 `const int a[]`.
+- 数组名传参不复制整个数组, 只传首地址.
 
-- 数组名传给函数时总被视为指针; ==数组可能被修改== (普通变量传值, 改参数不影响原变量)
-
-- 用 `const` 声明表明不修改: 编译器会检查函数体没有对 a 中元素赋值
-
-- 若 `a` 只是指针，`*a = 0` 会把 0 存到 `a` 指向的地方——不清楚 `a` 指向哪，后果不确定。
-
-- W8-2 已经见过: 数组作参数传的是==首地址==; 这里把 `int a[]` 与 `int *a` 的等价规则系统整理
-
-<svg viewBox="0 0 400 155" width="480" height="186" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<text x="200" y="16" font-size="11.5" fill="#073642" text-anchor="middle">作声明：两者分配的内存不同</text>
-<text x="20" y="36" font-size="11" fill="#073642">int a[10];</text>
-<text x="250" y="36" font-size="11" fill="#073642">int *a;</text>
-<rect x="20" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="38" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="56" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="74" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="92" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="110" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="128" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="146" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="164" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<rect x="182" y="44" width="18" height="30" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
-<text x="110" y="90" font-size="12" fill="#93a1a1" text-anchor="middle">10 个 int 的空间</text>
-<text x="223" y="68" font-size="24" fill="#dc322f" text-anchor="middle">≠</text>
-<rect x="250" y="44" width="70" height="30" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="285" y="64" font-size="12" fill="#268bd2" text-anchor="middle">指针</text>
-<text x="285" y="90" font-size="12" fill="#93a1a1" text-anchor="middle">1 个指针的空间</text>
-<text x="200" y="116" font-size="11" fill="#859900" text-anchor="middle">作形参：int a[] 与 int *a 完全等价</text>
-<text x="200" y="140" font-size="11" fill="#586e75" text-anchor="middle">数组名传参只传首元素地址，不复制整个数组</text>
-</svg>
-
-</div>
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+<b>注意区分:</b> 作为<strong>声明</strong>, <code>int a[10]</code> 分配 10 个 int 的空间; <code>int *a</code> 只分配一个指针的空间. 这和"形参等价"是两回事.
 </div>
 
-<!-- slide data-notes="" -->
+<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">含义</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>int a[]</code> / <code>int *a</code>（形参）</td><td style="padding:2px 4px;">指针</td></tr>
+<tr><td style="padding:2px 4px;"><code>int a[10]</code>（声明）</td><td style="padding:2px 4px;">10 个 int 的数组</td></tr>
+<tr><td style="padding:2px 4px;"><code>int *a</code>（声明）</td><td style="padding:2px 4px;">一个指针</td></tr>
+</table>
 
+</div>
 
-##### 数组型实际参数: 可以传数组的片段
+</div>
+
+---
+<!-- slide data-notes="" -->##### 数组型实际参数: 可以传数组的片段
 
 ---
 
-形参收到的是首元素地址，函数并不知道整个数组有多大——只要给它一段连续元素的起点和长度，它就能正常工作。
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
-- 另一个结果：可以给形式参数为数组的函数传递==数组的片段==——连续的数组元素组成的序列。
+<div style="flex:0.95;">
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+数组名传参的另一个结果: 可以给形参传==数组的片段==——一段连续的元素.
 
-<div style="flex:0.9;">
+<div class="col-label">示例: 传 b[5] ~ b[14]</div>
 
-对 b[5] ~ b[14] 调用 find_largest 的示例: 
+<style>.slice-code pre code{font-size:14px;line-height:1.2;}</style>
 
-```C
+<div class="slice-code">
+
+```C{.line-numbers}
 int b[20] = {0};
-...
+int largest;
 largest = find_largest(&b[5], 10);
 ```
 
 </div>
 
-<div style="flex:1.1;">
+- `&b[5]` 是片段首元素地址
+- `10` 是片段长度
+- `find_largest` 只访问从 `b[5]` 开始的 10 个元素, 不知道原数组有 20 个
 
-<svg viewBox="0 0 400 180" width="620" height="279" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+</div>
+
+<div style="flex:1.05;text-align:center;">
+
+<div class="top-2">
+<svg viewBox="0 0 400 180" width="560" height="252" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrSliceB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker></defs>
 <text x="40" y="18" font-size="12" fill="#073642">int b[20]</text>
 <rect x="40" y="30" width="16" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1"/>
@@ -491,186 +588,267 @@ largest = find_largest(&b[5], 10);
 <text x="128" y="148" font-size="10.5" fill="#586e75">find_largest(&amp;b[5], 10)</text>
 <text x="200" y="170" font-size="9.5" fill="#93a1a1" text-anchor="middle">函数只访问绿色片段，不能越过 n</text>
 </svg>
-
 </div>
 
 </div>
 
+</div>
+
 ---
-
-
-<!-- slide data-notes="" -->
-
-
-##### 使用指针作为数组名
+<!-- slide data-notes="" -->##### 使用指针作为数组名
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
----
-C允许把指针看作数组名进行取下标操作:
+<div style="flex:1.05;">
+
+<div class="col-label">指针也能取下标</div>
+
+<style>.parray-code pre code{font-size:14px;line-height:1.25;}</style>
+
+<div class="parray-code">
 
 ```C{.line-numbers}
+#include <stdio.h>
 #define N 10
-…
-int a[N], sum = 0, *p = a;
-…
-for (int i = 0; i < N; i++)
-    sum += p[i];
+
+int main(void)
+{
+    int a[N] = {11, 34, 82, 7, 64, 98, 47, 18, 79, 20};
+    int *p = a, sum = 0;
+
+    for (int i = 0; i < N; i++)
+        sum += p[i];       /* p[i] 等价于 *(p + i) */
+    printf("sum = %d
+", sum);
+    return 0;
+}
 ```
 
-编译器将p[i]视为*(p+i). 
+</div>
 
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+`p` 指向数组首元素后, `p[i]` 与 `a[i]` 一样使用; 编译器把 `p[i]` 视为 `*(p + i)`.
+</div>
+
+</div>
+
+<div style="flex:0.95;">
+
+<div class="col-label">两种写法对照</div>
+
+<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">等价于</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">说明</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>a[i]</code></td><td style="padding:2px 4px;"><code>*(a + i)</code></td><td style="padding:2px 4px;">数组名当指针</td></tr>
+<tr><td style="padding:2px 4px;"><code>p[i]</code></td><td style="padding:2px 4px;"><code>*(p + i)</code></td><td style="padding:2px 4px;">指针当数组名</td></tr>
+</table>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+`p` 必须指向足够的元素; 这里 `p` 指向 `a[0]`, 所以 `p[0]..p[N-1]` 都合法.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+接下来: 指针也可以指向多维数组的元素——下一节看二维数组的<strong>元素</strong>、<strong>行</strong>、<strong>列</strong>.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 二维数组的存储: 行优先
 
 ---
 
-指针可以指向一维数组的元素, 也可以指向多维数组的元素. 
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
-本节探讨使用指针处理多维数组元素的常用方法.
+<div style="flex:1;">
+
+C 以==行优先==顺序存储二维数组:
+
+- 先存第 0 行, 再存第 1 行, ...
+- 同一行内的元素地址连续
+
+`a[0][0], a[0][1], ..., a[0][COLS-1], a[1][0], ...`
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+所以 `p = &a[0][0]` 后, `p++` 会按行优先顺序依次走过每个元素.
+</div>
+
+</div>
+
+<div style="flex:1;text-align:center;">
+<div class="top-2"><img src="figs/13-7.png" width=480px></div>
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 初始化二维数组: 两种写法
 
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
 
-<!-- slide data-notes="" -->
+<div style="flex:1.2;">
 
+<div class="col-label">两种写法</div>
 
-##### 处理多维数组的元素
+<style>.init2d-code pre code{font-size:14px;line-height:1.2;}</style>
 
----
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
-
-<div style="flex:1.3;font-size:0.55em;">
-
-考虑将以下数组的所有元素初始化为0的问题：
+<div class="init2d-code">
 
 ```C{.line-numbers}
 int a[NUM_ROWS][NUM_COLS];
 
-/* 方法1: 使用嵌套的for循环来进行二维数组的初始化 */
+/* 方法1: 嵌套循环 (标准写法) */
 for (int row = 0; row < NUM_ROWS; row++)
     for (int col = 0; col < NUM_COLS; col++)
         a[row][col] = 0;
 
-/* 方法2: 将a视为一维的整型数组, 单个循环进行初始化 */
-int * p;
-…
+/* 方法2: 按行优先顺序用指针扁平遍历 */
+int *p;
 for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
     *p = 0;
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
-
-之前学过: C 以行优先顺序存储二维数组. 
-
-r行的数组的布局: 
-  
-<div class="top-2">
-    <img src="figs/13-7.png" width=480px>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-elements.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-elements.c (现场演示)</a>
 </div>
 
-p 一开始指向第 0 行第 0 列 ($a[0][0]$), 不断自增 p 就能挨个访问每个元素。
+</div>
 
-严格说, 把二维数组当一维扁平遍历==依赖实现== (标准不保证可移植), 了解思路即可——正规写法是嵌套循环，或用后面介绍的行指针（指向数组的指针）。
+<div style="flex:0.8;">
 
-该方法会损害程序的可读性, 对老的编译器可能产生效率提升. 
+<div class="col-label">要点</div>
 
-对于许多现代编译器, 速度优势通常不存在.
+- 方法1 是标准写法, 可读性好.
+- 方法2 依赖二维数组按行优先连续存储; 把二维数组当一维扁平遍历在标准层面并不完全可移植, 了解思路即可.
+- 现代编译器上, 方法2 通常没有明显速度优势, 还损害可读性.
+- 需要按行处理时, 用后面的行指针更自然.
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->
-
-
-##### 处理多维数组的行
+---
+<!-- slide data-notes="" -->##### 二维数组的行: a[i] 是什么
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="font-size:0.72em;line-height:1.5;text-align:left;">
 
-<div style="flex:1.4;font-size:0.5em;">
+`a[i]` 是第 i 行这个一维数组; 在表达式中它会退化成指向该行首元素的指针 `&a[i][0]`.
 
-```C 
-/* 将p初始化为指向数组a中第i行的元素0 */
+<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">类型</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">含义</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>a</code></td><td style="padding:2px 4px;"><code>int (*)[NUM_COLS]</code></td><td style="padding:2px 4px;">指向一行（退化后）</td></tr>
+<tr><td style="padding:2px 4px;"><code>a + i</code></td><td style="padding:2px 4px;"><code>int (*)[NUM_COLS]</code></td><td style="padding:2px 4px;">第 i 行</td></tr>
+<tr><td style="padding:2px 4px;"><code>a[i]</code></td><td style="padding:2px 4px;"><code>int [NUM_COLS]</code></td><td style="padding:2px 4px;">第 i 行数组；表达式中退化为 <code>int *</code></td></tr>
+<tr><td style="padding:2px 4px;"><code>&amp;a[i][0]</code></td><td style="padding:2px 4px;"><code>int *</code></td><td style="padding:2px 4px;">第 i 行首元素地址</td></tr>
+<tr><td style="padding:2px 4px;"><code>a[i][j]</code></td><td style="padding:2px 4px;"><code>int</code></td><td style="padding:2px 4px;">元素</td></tr>
+</table>
+
+<div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+`a` 不是指向 `a[0][0]` 的指针, 而是指向 `a[0]`（一行）的指针; 所以 `a` 的类型是 `int (*)[NUM_COLS]`.
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 用 a[i] 处理第 i 行
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.65em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.15;">
+
+<div class="col-label">代码</div>
+
+<style>.row-code pre code{font-size:14px;line-height:1.25;}</style>
+
+<div class="row-code">
+
+```C{.line-numbers}
+/* 将 p 初始化为指向第 i 行第 0 个元素 */
 p = &a[i][0];
 
 /* 可简化为 */
 p = a[i];
-```
 
-```C
-int a[NUM_ROWS][NUM_COLS], *p, i;
-…
+/* 遍历第 i 行 */
 for (p = a[i]; p < a[i] + NUM_COLS; p++)
     *p = 0;
-```
 
-```C{.line-numbers}
-int a[NUM_ROWS][NUM_COLS] = {0};
-...
+/* 把第 i 行传给处理一维数组的函数 */
 largest = find_largest(a[i], NUM_COLS);
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-row.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-row.c (现场演示)</a>
+</div>
 
-指针变量p也可用于处理二维数组的一行中的元素. 
+</div>
 
-为访问第i行的元素:
+<div style="flex:0.85;">
 
-对于任何二维数组a, 表达式a[i]是指向第i行第一个元素的指针. 
+- `p = a[i]` 与 `p = &a[i][0]` 等价.
+- `p < a[i] + NUM_COLS` 保证只在第 i 行内遍历.
+- `a[i]` 可以直接传给形参为 `int a[]` 的函数.
 
-为了解原理, 回顾一下: 
-
-- 表达式$a[i]$等价于$*(a + i)$. 
-
-- 因此`&a[i][0]`就是第i行第0个元素的地址. 
-
-- 再由`&*a[i]`等价于$a[i]$, 可得`&a[i][0]` = `&(*(a[i] + 0))` = `&*a[i]` = $a[i]$.
-
-
-对数组a的第i行清零的循环:
-
-由于a[i]是指向第i行第一个元素的指针, 可将它传给处理一维数组的函数——一维数组函数也能处理二维数组的行.
-
-
-用find_largest求二维数组a第i行的最大值:
-
-
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+`a[i]` 是行数组; 用作表达式时退化为行首地址.
+</div>
 
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->
-
-
-##### 处理多维数组的列
+---
+<!-- slide data-notes="" -->##### 二维数组的列: 行指针
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
-<div style="flex:1.15;font-size:0.55em;">
+<div style="flex:1;">
 
-```C{.line-numbers}
-/* 对数组a的第i列清零的循环 */
-int a[NUM_ROWS][NUM_COLS],  (*p)[NUM_COLS], i;
-…
+处理二维数组一列的元素, 需要==行指针==:
+
+<style>.rowptr-code pre code{font-size:14px;line-height:1.3;}</style>
+
+<div class="rowptr-code">
+
+```C
+int (*p)[NUM_COLS];
 for (p = &a[0]; p < &a[NUM_ROWS]; p++)
     (*p)[i] = 0;
 ```
 
-```C
-int a[NUM_ROWS][NUM_COLS];
-```
+</div>
 
-<svg viewBox="0 0 400 184" width="620" height="286" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+- `(*p)` 的括号必需; 否则 `int *p[NUM_COLS]` 是指针数组.
+- `p++` 把 p 移到下一行的开始 (跨过一整行).
+- `(*p)[i]` 选中第 i 列; 括号必需, 否则 `*p[i]` 是 `*(p[i])`.
+
+</div>
+
+<div style="flex:1;text-align:center;">
+<div class="top-2"><svg viewBox="0 0 400 184" width="560" height="258" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
 <defs><marker id="arrColB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrColY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b58900"/></marker><marker id="arrColR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
 <text x="133" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">0</text>
 <text x="175" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">1</text>
@@ -697,38 +875,218 @@ int a[NUM_ROWS][NUM_COLS];
 <text x="288" y="54" font-size="10.5" fill="#dc322f">(*p)[i]</text>
 <line x1="284" y1="50" x2="242" y2="50" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrColR)"/>
 <text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（NUM_COLS 个 int）</text>
-</svg>
-
-</div>
-
-<div style="flex:1;font-size:0.6em;">
-
-处理二维数组一列的元素:
-
-`int (*p)[NUM_COLS];`把p声明为指向长度为NUM_COLS的整型数组的指针
-
-- `(*p)`括号是必需的, 若无括号则编译器将p看作指针数组, 而不是指向数组的指针
-
-- p++把p移到下一行的开始位置
-
-- 在`(*p)[i]`中, *p代表a的一整行, `(*p)[i]`选中该行的第i列的元素
-
-- `(*p)[i]`中的括号是必要的, 无括号编译器会将`*p[i]`解释为`*(p[i])`
-
-
-任何数组的名称都可以用作指针, 不管它有多少维, 但需要注意.
-
-a不是指向a[0][0]的指针, 它是指向a[0]的指针. 
-
-C将a视为一维数组, 其元素是一维数组. 
-
-当用作指针时, a 的类型为int (*)[NUM_COLS] （指向长度为NUM_COLS的整数数组的指针）.
-
+</svg></div>
 </div>
 
 </div>
 
-<!-- slide data-notes="" -->##### 动态内存初识: malloc 与 free
+---
+<!-- slide data-notes="" -->##### 处理第 i 列: 代码与演示
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.1;">
+
+<div class="col-label">完整代码 · multidim-col.c</div>
+
+<style>.col-code pre code{font-size:13.5px;line-height:1.2;}</style>
+
+<div class="col-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 4
+
+int main(void)
+{
+    int a[ROWS][COLS] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+    int (*p)[COLS];
+    int i = 2;
+
+    printf("第 %d 列: ", i);
+    for (p = &a[0]; p < &a[ROWS]; p++)
+        printf("%d ", (*p)[i]);
+    printf("\n");
+
+    for (p = &a[0]; p < &a[ROWS]; p++)
+        (*p)[i] = 0;
+
+    printf("清零后第 %d 列: ", i);
+    for (p = &a[0]; p < &a[ROWS]; p++)
+        printf("%d ", (*p)[i]);
+    printf("\n");
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-col.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-col.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;">
+
+<div class="col-label">运行结果</div>
+
+```text
+第 2 列: 3 7 11
+清零后第 2 列: 0 0 0
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+- `(*p)` 先得到一整行, 再 `[i]` 取该行第 i 个元素.
+- `p++` 一次跨过一整行.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 为什么需要动态内存
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.7em;line-height:1.5;text-align:left;">
+
+<div style="flex:1.05;">
+
+==问题==: `int a[10];` 的大小在编译时固定.
+
+- 运行时读入的 n 可能大于 10, 固定数组放不下
+- n 很小时又会浪费空间
+- 局部数组在函数返回后自动消失, 不能长期保存数据
+
+==动态内存==: 在运行时向堆申请一块内存; 大小由程序决定, 生存期到 `free` 为止.
+
+</div>
+
+<div style="flex:0.95;">
+
+<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">栈上数组 <code>int a[10]</code></th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">堆上 <code>malloc</code></th>
+</tr>
+<tr><td style="padding:2px 4px;">大小编译时固定</td><td style="padding:2px 4px;">大小运行时决定</td></tr>
+<tr><td style="padding:2px 4px;">函数返回自动释放</td><td style="padding:2px 4px;">手动 <code>free</code></td></tr>
+<tr><td style="padding:2px 4px;">大数组可能栈溢出</td><td style="padding:2px 4px;">堆空间更大</td></tr>
+</table>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+动态内存 = 运行时按需申请, 手动归还.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### malloc 的用法
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.05;">
+
+<div class="col-label">函数原型</div>
+
+```C
+#include <stdlib.h>
+void *malloc(size_t size);
+```
+
+- 参数 `size`: 要申请的==字节数==; 申请 n 个 int 要写 `n * sizeof(int)`.
+- 返回 `void *`: 指向申请到的内存首地址; C 中可以直接赋给 `int *`.
+- 失败返回 `NULL`; ==必须检查==.
+- 内存内容==未初始化==, 不能假设为 0.
+
+</div>
+
+<div style="flex:0.95;">
+
+<div class="col-label">典型写法</div>
+
+```C
+#include <stdlib.h>
+
+int *make_array(int n)
+{
+    int *a = malloc(n * sizeof(int));
+    if (a == NULL)
+        return NULL;       /* 申请失败 */
+    return a;              /* 调用者负责 free */
+}
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+常见错误: <code>malloc(n)</code> 只申请 n 个字节, 不是 n 个 int; 应写 <code>n * sizeof(int)</code> (或 <code>n * sizeof(*a)</code>).
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### free 的用法
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.05;">
+
+<div class="col-label">函数原型</div>
+
+```C
+#include <stdlib.h>
+void free(void *ptr);
+```
+
+- 归还 `malloc/calloc/realloc` 申请的内存.
+- `free(NULL)` 是安全的 (什么也不做).
+- 只能 free 一次; 重复 free 是==未定义行为==.
+- free 后指针悬空; 置 `NULL`, 不要再访问.
+
+</div>
+
+<div style="flex:0.95;">
+
+<div class="col-label">正确 / 错误</div>
+
+<table style="width:100%;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">结果</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>free(a); a = NULL;</code></td><td style="padding:2px 4px;color:#859900;">正确</td></tr>
+<tr><td style="padding:2px 4px;"><code>free(a); free(a);</code></td><td style="padding:2px 4px;color:#dc322f;">重复 free, UB</td></tr>
+<tr><td style="padding:2px 4px;">不 free</td><td style="padding:2px 4px;color:#dc322f;">内存泄漏</td></tr>
+<tr><td style="padding:2px 4px;"><code>free(&amp;x)</code> / free 局部数组</td><td style="padding:2px 4px;color:#dc322f;">不是 malloc 的指针</td></tr>
+</table>
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+忘记 free 是内存泄漏; free 后继续访问是悬空指针.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 完整示例: dynamic-array.c
 
 ---
 
@@ -736,7 +1094,7 @@ C将a视为一维数组, 其元素是一维数组.
 
 <div class="dyn-code" style="flex:1.1;font-size:0.62em;">
 
-<style>.dyn-code pre code{max-height:none!important;font-size:12px;line-height:1.15;}</style>
+<style>.dyn-code pre code{max-height:none!important;font-size:13.5px;line-height:1.2;}</style>
 
 <div class="col-label">完整代码 · dynamic-array.c</div>
 
@@ -766,12 +1124,12 @@ int main(void)
 ```
 
 <div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/dynamic-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 dynamic-array.c</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/dynamic-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 dynamic-array.c (示例)</a>
 </div>
 
 </div>
 
-<div style="flex:0.9;font-size:0.72em;line-height:1.4;">
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
 
 <div class="col-label">样例运行</div>
 
@@ -781,18 +1139,13 @@ int main(void)
 ```
 
 <div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-- `malloc(n * sizeof(int))`: 借 n 个 int 的空间, 返回 `void *`, ==不清零==
+- `malloc(n * sizeof(int))` 借 n 个 int
 - 借不到返回 `NULL`, 必须检查
-- 用完 `free(a)`, 再把 `a = NULL`; 忘记 free 就是内存泄漏
+- 用完 `free(a)`, 再把 `a = NULL`
 </div>
 
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-数组大小可以==运行时决定==: 先读 n, 再借 n 个元素; 不用像 `int a[10]` 那样把长度定死.
-</div>
-
-<div style="margin-top:8px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;text-align:left;">
-<b>动手:</b> 把输出改成==逆序==; 样例 `5 → 5 4 3 2 1`.<br>
-骨架: <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse-array.c">task-reverse-array.c</a>
+数组大小可以==运行时决定==, 不用像 `int a[10]` 那样把长度定死.
 </div>
 
 </div>
@@ -800,12 +1153,125 @@ int main(void)
 </div>
 
 ---
+<!-- slide data-notes="" -->##### 动手: 动态数组逆序
 
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.4;text-align:left;">
+
+<div style="flex:1.1;">
+
+==任务==: 读入 n, 用 `malloc` 建 n 个 int 的数组, 填入 1..n, 逆序输出, 最后 `free`.
+
+样例:
+
+```text
+输入: 5
+输出: 5 4 3 2 1
+```
+
+</div>
+
+<div style="flex:0.9;">
+
+==提示==: 参照 `dynamic-array.c`, 把输出循环改成从 n-1 到 0.
+
+<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 用 `malloc` 申请 n 个 int, 检查 `NULL`</div>
+<div>· 填入 1..n, 逆序输出</div>
+<div>· 最后 `free`, 并把指针置 `NULL`</div>
+</div>
+
+<div style="margin-top:10px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-reverse-array.c (骨架)</a>
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 动手参考: 动态数组逆序
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.1;">
+
+<div class="col-label">参考实现 · reverse-array.c</div>
+
+<style>.rev-code pre code{font-size:13.5px;line-height:1.2;}</style>
+
+<div class="rev-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    int n;
+
+    scanf("%d", &n);
+
+    int *a = malloc(n * sizeof(int));
+    if (a == NULL) {
+        printf("内存不足\n");
+        return 1;
+    }
+
+    for (int i = 0; i < n; i++)
+        a[i] = i + 1;
+
+    for (int i = n - 1; i >= 0; i--)
+        printf("%d ", a[i]);
+    printf("\n");
+
+    free(a);
+    a = NULL;
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/reverse-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 reverse-array.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">运行结果</div>
+
+```text
+输入: 5
+输出: 5 4 3 2 1
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `malloc` 申请 n 个 int, 检查 `NULL`
+- 逆序循环从 `n - 1` 到 `0`
+- 用完 `free(a)`, 再把 `a = NULL`
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 ##### 课堂小测
 
 ---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.78em;line-height:1.6;text-align:left;">
+
+<div style="flex:1;">
 
 1. 数组名 `a` 在表达式中等价于什么？`a == &a[0]` 成立吗？
 
@@ -815,9 +1281,21 @@ int main(void)
 
 4. 纠错: `int a[5]; a++;` 错在哪里？想"移动"应该怎么写？
 
+</div>
+
+<div style="flex:1;">
+
+5. `void f(int a[], int n)` 与 `void f(int *a, int n)` 等价吗？数组参数被修改会影响调用者吗？
+
+6. `int a[3][4];` 中 `a[i]` 指向什么？`a[i][j]` 等价于什么？
+
+7. `int *p = malloc(n * sizeof(int));` 之后为什么要检查 `p == NULL`？用完要做什么？
+
+</div>
+
+</div>
+
 ---
-
-
 <!-- slide data-notes="" -->
 
 #####

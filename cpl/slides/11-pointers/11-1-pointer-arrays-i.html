@@ -125,7 +125,17 @@ document.addEventListener("DOMContentLoaded", function () {
 <ul>
 <li>
 <p>指针的算术运算</p>
-
+<ul>
+<li>
+<p>指针 + 整数</p>
+</li>
+<li>
+<p>指针 - 整数</p>
+</li>
+<li>
+<p>两个指针相减</p>
+</li>
+</ul>
 </li>
 <li>
 <p>比较指针</p>
@@ -136,11 +146,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>结合 * 和 ++ 运算符</p>
+<p>课堂编码</p>
 
 </li>
 <li>
-<p>课堂编码</p>
+<p>结合 * 和 ++ 运算符</p>
 
 </li>
 <li>
@@ -149,90 +159,161 @@ document.addEventListener("DOMContentLoaded", function () {
 </li>
 </ul>
 <hr>
-</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="指针的算术运算">指针的算术运算 </h5>
+</section><section data-notes="" lineno="80" class="slide " data-source-line="80" data-h="2" data-v="0"><h5 id="指针算术--三种运算">指针算术: 三种运算 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1.05;font-size:0.7em;line-height:1.55;text-align:left;">
+<p>指针指向数组元素后, 可以做<mark>指针算术</mark>:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>指针可以指向<mark>数组元素</mark>:</p>
-<p>图示:</p>
-<div class="top-2">
-    <img src="figs/13-1.png" width=400px>
-</div>
-</div>
-<div style="flex:1;font-size:0.6em;">
-<p>通过 p 可以访问 a[0]——比如把 5 存进 a[0]:</p>
-<p><code>*p = 5;</code></p>
-<p>如下图:</p>
-<div class="top-2">
-    <img src="figs/13-2.png" width=400px>
-</div>
-<p>p 指向数组元素时, 对 p 做<mark>指针算术</mark>就能访问其他元素</p>
-<p>C支持三种(且只有三种)<mark>指针运算</mark>形式:</p>
+p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">/* p 指向 a[0] */</span>
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>      <span class="token comment">/* a[0] = 5 */</span></code></pre>
+<p>C 的指针算术只有三种形式:</p>
 <ul>
 <li>
-<p>指针加上整数</p>
+<p>指针 + 整数: <code>p + j</code></p>
 
 </li>
 <li>
-<p>指针减去整数</p>
+<p>指针 - 整数: <code>p - j</code></p>
 
 </li>
 <li>
-<p>两个指针相减</p>
+<p>两个指针相减: <code>p - q</code></p>
+
+</li>
+</ul>
+<p><code>p + q</code>、<code>p * 2</code> 等写法<mark>不合法</mark>. 比较指针（<code>&lt;</code>、<code>==</code> 等）不属于算术运算, 后面单独讲.</p>
+</div>
+<div style="flex:0.95;font-size:0.68em;line-height:1.5;">
+<div class="top-2" style="text-align:center;"><img src="figs/13-1.png" width=360px><br><span style="font-size:0.9em;color:#586e75;">p = &amp;a[0]</span></div>
+<div class="top-2" style="text-align:center;"><img src="figs/13-2.png" width=360px><br><span style="font-size:0.9em;color:#586e75;">*p = 5</span></div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针---整数">指针 + 整数 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+q <span class="token operator">=</span> p <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span>   <span class="token comment">/* q 指向 a[5] */</span>
+p <span class="token operator">+=</span> <span class="token number">6</span><span class="token punctuation">;</span>      <span class="token comment">/* p 指向 a[8] */</span></code></pre>
+<div style="margin-top:18px;font-size:1.15em;line-height:1.6;">
+<p>观察:</p>
+<div>· q 指向哪个元素?</div>
+<div>· p += 6 后, p 指向哪个元素?</div>
+<div>· p、q 中保存的地址值怎么变? 下一页说明.</div>
+</div>
+<div style="margin-top:14px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/pointer-plus.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 pointer-plus.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:1;text-align:center;">
+<div class="top-2"><img src="figs/13-3.png" width=420px></div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="指针---整数">指针 - 整数 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;font-size:0.62em;">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+q <span class="token operator">=</span> p <span class="token operator">-</span> <span class="token number">3</span><span class="token punctuation">;</span>   <span class="token comment">/* q 指向 a[5] */</span>
+p <span class="token operator">-=</span> <span class="token number">6</span><span class="token punctuation">;</span>      <span class="token comment">/* p 指向 a[2] */</span></code></pre>
+<div style="margin-top:18px;font-size:1.15em;line-height:1.6;">
+<p>观察:</p>
+<div>· q 指向哪个元素?</div>
+<div>· p -= 6 后, p 指向哪个元素?</div>
+<div>· 地址值的变化和加法一样, 按 sizeof(*p) 缩放; 下一页统一说明.</div>
+</div>
+<div style="margin-top:14px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/pointer-minus.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 pointer-minus.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:1;text-align:center;">
+<div class="top-2"><img src="figs/13-4.png" width=420px></div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="指针算术--地址值怎么变">指针算术: 地址值怎么变 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1;font-size:0.7em;line-height:1.55;text-align:left;">
+<p><mark>公式</mark>:</p>
+<div><code>(p + j)</code> 的值 = <code>p</code> 的值 + <code>j × sizeof(*p)</code></div>
+<div style="margin-top:6px;"><code>(p - j)</code> 的值 = <code>p</code> 的值 − <code>j × sizeof(*p)</code></div>
+<div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<p>依据: C 的指针算术以所指对象为单位, 编译器按 <code>sizeof(*p)</code> 缩放.<br><br> 不同指针类型的 <code>sizeof(*p)</code> 不同: <code>char *</code> 为 1、<code>int *</code> 为 4、<code>double *</code> 为 8 (常见平台), 所以 <code>p + 1</code> 分别增加 1/4/8 字节.</p>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>注意: <code>p</code> 的值是 p 中保存的地址, 不是指针变量 p 自身的地址 <code>&amp;p</code>.</p>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+<p>结果必须仍指向同一数组(或最后一个元素之后); 移出数组范围是未定义行为.</p>
+</div>
+</div>
+<div style="flex:1;font-size:0.7em;line-height:1.5;text-align:left;">
+<div class="col-label">+ 整数（假设 <code>int *p</code>）</div>
+<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">值（地址）</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">指向</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>p</code></td><td style="padding:2px 4px;">0x1008</td><td style="padding:2px 4px;"><code>a[2]</code></td></tr>
+<tr><td style="padding:2px 4px;"><code>p + 3</code></td><td style="padding:2px 4px;">0x1014</td><td style="padding:2px 4px;"><code>a[5]</code></td></tr>
+</table>
+<div class="col-label" style="margin-top:12px;">− 整数（假设 <code>int *p</code>）</div>
+<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">值（地址）</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">指向</th>
+</tr>
+<tr><td style="padding:2px 4px;"><code>p</code></td><td style="padding:2px 4px;">0x1020</td><td style="padding:2px 4px;"><code>a[8]</code></td></tr>
+<tr><td style="padding:2px 4px;"><code>p - 3</code></td><td style="padding:2px 4px;">0x1014</td><td style="padding:2px 4px;"><code>a[5]</code></td></tr>
+</table>
+<div style="margin-top:12px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>两个指针相减是同一原理的逆运算: <code>(p - q)</code> 的值 = (p 的值 − q 的值) / <code>sizeof(*p)</code>, 结果是元素个数——下一页.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="两个指针相减">两个指针相减 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+<div style="flex:1.05;">
+<p>当一个指针从另一个指针中减去时, 结果是<mark>指针之间的距离</mark>(数组元素的个数).</p>
+<p>p 指向 a[i]、q 指向 a[j], 则 \(p - q = i - j\). 示例:</p>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+q <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;font-size:0.93em;">
+<b>依据:</b> 指针相减和指针加减整数是同一个原理: 地址值之差要除以 <code>sizeof(*p)</code>, 得到元素个数.<br>
+<code>(p - q)</code> 的值 = (p 的值 − q 的值) / <code>sizeof(*p)</code>.<br>
+<p>例如 <code>int *</code>: p 的值 0x1020、q 的值 0x1010, 则 <code>(0x1020 - 0x1010) / 4 = 4</code> 个元素.</p>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.93em;">
+<ul>
+<li>
+<p>只有两个指针指向同一个数组时, 相减才有意义</p>
+
+</li>
+<li>
+<p>对不指向数组元素的指针做算术运算会导致未定义行为</p>
 
 </li>
 </ul>
 </div>
 </div>
-<hr>
-</section><section data-notes="" lineno="94" class="slide " data-source-line="94" data-h="3" data-v="0"><h5 id="指针加减整数">指针加减整数 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:0.8;font-size:0.62em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">,</span> i<span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-q <span class="token operator">=</span> p <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span>
-p <span class="token operator">+=</span> <span class="token number">6</span><span class="token punctuation">;</span></code></pre>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
-q <span class="token operator">=</span> p <span class="token operator">-</span> <span class="token number">3</span><span class="token punctuation">;</span>
-p <span class="token operator">-=</span> <span class="token number">6</span><span class="token punctuation">;</span></code></pre>
-</div>
-<div style="flex:1.2;font-size:0.6em;">
-<p>将整数j添加到指针p会产生一个指向第j个元素的指针, 该元素位于p指向的元素之后.</p>
-<p>准确地说: p 指向 a[i], 则 p + j 指向 a[i+j]; p 指向 a[i], 则 p - j 指向 a[i-j]。</p>
-<p>假设声明如下:</p>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;">
-<div class="top-2"><img src="figs/13-3.png" width=320px></div>
-</div>
-<div style="flex:1;">
-<div class="top-2">
-    <img src="figs/13-4.png" width=320px>
-</div>
-</div>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="两个指针相减">两个指针相减 </h5>
-<hr>
-<p>当一个指针从另一个指针中减去时, 结果是<mark>指针之间的距离</mark>(数组元素的个数).</p>
-<p>p 指向 a[i]、q 指向 a[j], 则 \(p - q = i - j\)。示例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-q <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<div style="display:flex;align-items:center;gap:24px;">
-<div class="top-2">
-    <img src="figs/13-5.png" width=400px>
-</div>
+<div style="flex:0.95;text-align:center;">
+<div class="top-2"><img src="figs/13-5.png" width=380px></div>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code>i <span class="token operator">=</span> p <span class="token operator">-</span> q<span class="token punctuation">;</span> <span class="token comment">/* i is  4 */</span>
 i <span class="token operator">=</span> q <span class="token operator">-</span> p<span class="token punctuation">;</span> <span class="token comment">/* i is -4 */</span></code></pre>
 </div>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 对不指向数组元素的指针执行算术运算导致未定义的行为</p>
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 只有两个指针指向同一个数组时, 把它们相减才有意义</p>
+</div>
 <hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="比较指针">比较指针 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="比较指针">比较指针 </h5>
 <hr>
 <p>关系运算符(<, <=, >, >=)和判等运算符(==, !=)进行指针比较.</p>
 <p>使用关系运算符仅对指向同一数组元素的指针有意义. 比较的结果取决于数组中两个元素的相对位置.</p>
@@ -276,7 +357,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="使用指针进行数组处理">使用指针进行数组处理 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="使用指针进行数组处理">使用指针进行数组处理 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;">
 <div style="flex:1.35;">
@@ -309,7 +390,100 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="结合---和----运算符">结合 * 和 ++ 运算符 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="flex:1.15;font-size:0.75em;">
+<p><mark>任务</mark>：用指针遍历数组，实现两个函数。</p>
+<ul>
+<li>
+<p><code>int find_sum(int *a, int n)</code>：返回数组所有元素之和。</p>
+
+</li>
+<li>
+<p><code>int find_max(int *a, int n)</code>：返回数组元素的最大值。</p>
+
+</li>
+</ul>
+<p>要求：只用指针 <code>*p</code> 访问元素，不使用下标 <code>a[i]</code>；循环变量在 <code>for</code> 中自声明。</p>
+<p>样例输入：<code>34 82 49 102 7 94 23 11 50 31</code></p>
+<p>样例输出：<code>sum = 483</code>、<code>max = 102</code></p>
+<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 只用 <code>*p</code> 遍历, 不使用下标 <code>a[i]</code></div>
+<div>· 输出 <code>sum = 483</code>、<code>max = 102</code></div>
+<div>· 循环变量在 <code>for</code> 中自声明</div>
+</div>
+</div>
+<div style="flex:1;font-size:0.75em;">
+<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示：求和让 <code>p</code> 从 <code>a</code> 走到 <code>a + n</code>，每次把 <code>*p</code> 累加；求最大值先把 <code>max</code> 初始化为 <code>*a</code>，再从 <code>a + 1</code> 开始逐个比较。</p>
+<p><mark>先想参数</mark>：函数需要数组首元素地址 <code>a</code> 和元素个数 <code>n</code>——指针本身不知道数组有多长。</p>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="课堂编码---参考实现">课堂编码 · 参考实现 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;">
+<div class="findsummax-code" style="flex:1.1;font-size:0.58em;">
+<style>.findsummax-code pre code{max-height:none!important;font-size:13.5px;line-height:1.08;}</style>
+<div class="col-label">参考实现 · find-sum-max.c</div>
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 10</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">find_sum</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a<span class="token punctuation">;</span> p <span class="token operator"><</span> a <span class="token operator">+</span> n<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+        sum <span class="token operator">+=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">find_max</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> max <span class="token operator">=</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> p <span class="token operator"><</span> a <span class="token operator">+</span> n<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">*</span>p <span class="token operator">></span> max<span class="token punctuation">)</span>
+            max <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> max<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">34</span><span class="token punctuation">,</span> <span class="token number">82</span><span class="token punctuation">,</span> <span class="token number">49</span><span class="token punctuation">,</span> <span class="token number">102</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">94</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum = %d\n"</span><span class="token punctuation">,</span> <span class="token function">find_sum</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 483 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max = %d\n"</span><span class="token punctuation">,</span> <span class="token function">find_max</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> N<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 102 */</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/find-sum-max.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 find-sum-max.c</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>sum <span class="token operator">=</span> <span class="token number">483</span>
+max <span class="token operator">=</span> <span class="token number">102</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p>两个函数都用指针遍历: <code>for (int *p = a; p &lt; a + n; p++)</code></p>
+
+</li>
+<li>
+<p><code>find_sum</code> 累加 <code>*p</code>; <code>find_max</code> 先取 <code>*a</code>, 再从 <code>a + 1</code> 开始比较</p>
+
+</li>
+</ul>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>两个循环都用 <code>p &lt; a + n</code> 作条件, 指针不会走到数组之外; 调用时数组名 <code>b</code> 自动作为 <code>&amp;b[0]</code> 传入.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="结合---和----运算符">结合 * 和 ++ 运算符 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.6em;">
@@ -361,11 +535,11 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 
 </li>
 </ul>
-<p>\*和++最常见的组合是<code>*p++</code>, 在循环中很常用. 上一页的求和 <code>for</code> 循环可以改写成左栏的 <code>while</code> 版.</p>
+<p>\*和++最常见的组合是<code>*p++</code>, 在循环中很常用. 前面「使用指针进行数组处理」的求和 <code>for</code> 循环可以改写成左栏的 <code>while</code> 版.</p>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="结合---和----运算符--续">结合 * 和 ++ 运算符 (续) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="结合---和----运算符--续">结合 * 和 ++ 运算符 (续) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.5em;">
@@ -417,71 +591,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.15;font-size:0.75em;">
-<p><mark>任务</mark>：用指针遍历数组，实现两个函数。</p>
-<ul>
-<li>
-<p><code>int find_sum(int *a, int n)</code>：返回数组所有元素之和。</p>
-
-</li>
-<li>
-<p><code>int find_max(int *a, int n)</code>：返回数组元素的最大值。</p>
-
-</li>
-</ul>
-<p>要求：只用指针 <code>*p</code> 访问元素，不使用下标 <code>a[i]</code>；循环变量在 <code>for</code> 中自声明。</p>
-<p>样例输入：<code>34 82 49 102 7 94 23 11 50 31</code></p>
-<p>样例输出：<code>sum = 483</code>、<code>max = 102</code></p>
-</div>
-<div style="flex:1;font-size:0.75em;">
-<p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示：求和让 <code>p</code> 从 <code>a</code> 走到 <code>a + n</code>，每次把 <code>*p</code> 累加；求最大值先把 <code>max</code> 初始化为 <code>*a</code>，再从 <code>a + 1</code> 开始逐个比较。</p>
-<p><mark>先想参数</mark>：函数需要数组首元素地址 <code>a</code> 和元素个数 <code>n</code>——指针本身不知道数组有多长。</p>
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c (框架已备好)</a>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="课堂编码---参考实现">课堂编码 · 参考实现 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1;font-size:0.5em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">find_sum</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a<span class="token punctuation">;</span> p <span class="token operator"><</span> a <span class="token operator">+</span> n<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-    sum <span class="token operator">+=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> sum<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="flex:1;font-size:0.5em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token function">find_max</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> max <span class="token operator">=</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
-  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> p <span class="token operator"><</span> a <span class="token operator">+</span> n<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">*</span>p <span class="token operator">></span> max<span class="token punctuation">)</span>
-      max <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-  <span class="token keyword keyword-return">return</span> max<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-</div>
-<div style="font-size:0.5em;">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword keyword-int">int</span> b<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">34</span><span class="token punctuation">,</span> <span class="token number">82</span><span class="token punctuation">,</span> <span class="token number">49</span><span class="token punctuation">,</span> <span class="token number">102</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">94</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum = %d\n"</span><span class="token punctuation">,</span> <span class="token function">find_sum</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 期望输出: sum = 483 */</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max = %d\n"</span><span class="token punctuation">,</span> <span class="token function">find_max</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 期望输出: max = 102 */</span>
-  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="font-size:0.6em;">
-<p>两个循环都用 <code>p &lt; a + n</code> 作条件，指针不会走到数组之外；调用时数组名 <code>b</code> 自动作为 <code>&amp;b[0]</code> 传入。</p>
-</div>
-<hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int a[5]; int *p = a;</code> 中 <code>p + 1</code> 表示什么？<code>p + 1</code> 的地址比 p 大多少字节？
@@ -494,7 +604,7 @@ p <span class="token operator">&gt;=</span> q<span class="token punctuation">;</
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="12" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

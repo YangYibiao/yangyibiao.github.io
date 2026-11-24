@@ -19,6 +19,7 @@
 int main(void)
 {
   int a[N] = {2, 4, 6, 8, 10, 12};
+  int sum = 0;
 
   /* TODO: 用指针 p 遍历 a[0] ~ a[N-1], 把 *p 累加进 sum */
 

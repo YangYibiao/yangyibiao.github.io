@@ -431,88 +431,69 @@ i = 7, *p = 7
 ---
 
 
-<!-- slide data-notes="" -->##### 任务 3: 一次带回最大和最小
+<!-- slide data-notes="" -->##### 任务 2 参考: 交换数组首尾元素
 
 ---
-
-<div style="font-size:0.65em;line-height:1.36;text-align:left;">
-
-==任务==: 先把输入的 10 个整数存入数组 `a[10]`, 再完成 `max_min(a, 10, &max, &min)`: 函数遍历数组, 通过指针参数带回最大值和最小值.
-
-样例:
-
-```text
-输入 10 个数: 3 8 1 9 2 7 4 6 5 0
-最大: 9
-最小: 0
-```
-
-==提示==:
-
-- `max_min(a, n, ...)`: 第一个参数是数组, 第二个是元素个数
-- `return` 只能带回一个值; 最大/最小用 `*max`、`*min` 带回; 先假设 `a[0]` 是最值
-
-<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<b>完成标准:</b>
-<div>· 输入先存入 `a[10]`</div>
-<div>· `max_min` 通过指针写回最大/最小</div>
-<div>· 输出 9 / 0</div>
-</div>
-
-<div style="margin:10px 2rem 0;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/minmax.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 minmax.c (骨架)</a>
-</div>
-
-</div>
-
----
-
-
-<!-- slide data-notes="" -->##### 任务 3 参考: max_min
-
----
-
-<style>.maxmin-code pre code{max-height:none!important;font-size:15px;line-height:1.15;}</style>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="maxmin-code" style="flex:1.4;font-size:0.5em;">
+<div class="arrayswap-code" style="flex:1.1;font-size:0.66em;">
+
+<style>.arrayswap-code pre code{max-height:none!important;font-size:15px;line-height:1.1;}</style>
+
+<div class="col-label">参考实现 · array-swap.c</div>
 
 ```C{.line-numbers}
 #include <stdio.h>
-#define N 10
 
-void max_min(int a[], int n, int *max, int *min)
+#define N 5
+
+void swap(int *a, int *b)
 {
-  *max = *min = a[0];
-  for (int i = 1; i < n; i++) {
-    if (a[i] > *max) *max = a[i];
-    else if (a[i] < *min) *min = a[i];
-  }
+    int t = *a;
+    *a = *b;
+    *b = t;
 }
 
 int main(void)
 {
-  int b[N], big, small;
-  for (int i = 0; i < N; i++)
-    scanf("%d", &b[i]);
-  max_min(b, N, &big, &small);
-  printf("最大: %d\n", big);
-  printf("最小: %d\n", small);
-  return 0;
+    int a[N];
+
+    for (int i = 0; i < N; i++)
+        scanf("%d", &a[i]);
+
+    swap(&a[0], &a[N - 1]);
+
+    for (int i = 0; i < N; i++)
+        printf("%d ", a[i]);
+    printf("\n");
+
+    return 0;
 }
 ```
 
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/array-swap.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 array-swap.c</a>
 </div>
 
-<div style="flex:1;font-size:0.85em;line-height:1.5;">
+</div>
 
-- `max_min(b, N, &big, &small)`——把 `big`、`small` 的==地址==传给函数, 函数通过指针把结果写回去
-- `*max = *min = a[0]` 先假设, 遍历中更大/更小就更新
-- 指针参数让函数一次"带回"两个值, 这是 `return` 单值限制的经典解法
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
 
-<div style="margin-top:8px;padding:8px 12px;background:#f2f4f0;border-left:4px solid #859900;border-radius:4px;font-size:0.92em;">
-`*max` 就是 main 里的 `big`, `*min` 就是 `small`.
+<div class="col-label">运行结果</div>
+
+```text
+输入: 1 2 3 4 5
+输出: 5 2 3 4 1
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `&a[0]`、`&a[N-1]` 把首尾元素的==地址==传进 `swap`
+- 函数内 `*a`、`*b` 直接改原数组元素
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+数组元素本身是变量; 传地址后, 函数里的修改会写回 main 的数组.
 </div>
 
 </div>
@@ -520,15 +501,13 @@ int main(void)
 </div>
 
 ---
-
-
-<!-- slide data-notes="" -->##### 任务 4: 再带回一个平均值
+<!-- slide data-notes="" -->##### 任务 3: 一次带回最大、最小和平均值
 
 ---
 
-<div style="font-size:0.70em;line-height:1.38;text-align:left;">
+<div style="font-size:0.68em;line-height:1.36;text-align:left;">
 
-==任务==: 在 `max_min` 基础上增加 `double *avg` 参数, 一次带回最大、最小和平均值.
+==任务==: 先把输入的 10 个整数存入数组 `a[10]`, 再完成 `max_min(a, 10, &max, &min, &avg)`: 函数一次遍历, 通过指针参数带回最大值、最小值和平均值.
 
 样例:
 
@@ -536,29 +515,170 @@ int main(void)
 输入 10 个数: 3 8 1 9 2 7 4 6 5 0
 最大: 9
 最小: 0
-平均: 4.90
+平均: 4.50
 ```
+
+<div style="display:flex;align-items:flex-start;gap:24px;margin-top:4px;">
+
+<div style="flex:1.05;">
 
 ==提示==:
 
-- 遍历时同时累加求和
-- `*avg = (double)sum / n`——注意用浮点除法, 不要写成 `sum / n`
+- `max_min(a, n, ...)`: 第一个参数是数组, 第二个是元素个数
+- `return` 只能带回一个值; 最大/最小/平均用 `*max`、`*min`、`*avg` 带回
+- 先假设 `a[0]` 是最值; 遍历时同时累加 `sum`, 最后 `*avg = (double)sum / n`
 
-<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<b>完成标准:</b>
-<div>· 签名增加 `double *avg`; 最大值、最小值仍用指针带回</div>
-<div>· 平均值用浮点除法, 输出 `4.90`</div>
 </div>
 
-<div style="margin:10px 2rem 0;">
+<div style="flex:0.95;">
+
+<div class="task-criteria" style="margin:0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 签名包含 `double *avg`; 只遍历一次</div>
+<div>· 通过 `*max`、`*min`、`*avg` 写回三个结果</div>
+<div>· 平均值用浮点除法, 输出 `4.50`</div>
+</div>
+
+<div style="margin:10px 0 0;">
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-minmax-avg.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-minmax-avg.c (骨架)</a>
 </div>
 
 </div>
 
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 任务 3 参考: 一次带回最大、最小和平均值
+
 ---
 
+<div style="display:flex;align-items:flex-start;gap:24px;">
 
+<div class="minmaxavg-code" style="flex:1.1;font-size:0.6em;">
+
+<style>.minmaxavg-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
+
+<div class="col-label">参考实现 · minmax-avg.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define N 10
+
+void max_min(int a[], int n, int *max, int *min, double *avg)
+{
+    int sum = a[0];
+    *max = *min = a[0];
+    for (int i = 1; i < n; i++) {
+        sum += a[i];
+        if (a[i] > *max) *max = a[i];
+        if (a[i] < *min) *min = a[i];
+    }
+    *avg = (double)sum / n;
+}
+
+int main(void)
+{
+    int b[N], big, small;
+    double avg;
+
+    printf("输入 %d 个数: ", N);
+    for (int i = 0; i < N; i++) {
+        scanf("%d", &b[i]);
+    }
+    max_min(b, N, &big, &small, &avg);
+    printf("最大: %d\n", big);      /* 9 */
+    printf("最小: %d\n", small);    /* 0 */
+    printf("平均: %.2f\n", avg);    /* 4.50 */
+    return 0;
+}
+```
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/minmax-avg.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 minmax-avg.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+输入 10 个数: 3 8 1 9 2 7 4 6 5 0
+最大: 9
+最小: 0
+平均: 4.50
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `max_min(b, N, &big, &small, &avg)` 一次带回三个结果
+- 遍历时同时累加 `sum`, 最大值/最小值用 `*max`、`*min` 更新
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+`*avg = (double)sum / n` 必须用浮点除法, 否则 `sum / n` 会截断为整数.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 为什么用 const: 保护只读参数
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.05;font-size:0.78em;line-height:1.55;text-align:left;">
+
+==问题==: 函数参数写成 `int *a` 时, 函数内部可以修改调用者的数组; 如果函数只负责读取, 这种修改往往是 bug.
+
+`const` 把“只读”写进参数类型: 函数内若尝试修改, 编译器直接报错.
+
+==常见用法==: 只读数组参数
+
+```C
+void print_array(const int *a, int n)
+{
+    for (int i = 0; i < n; i++)
+        printf("%d ", a[i]);
+}
+```
+
+</div>
+
+<div style="flex:0.95;font-size:0.78em;line-height:1.55;text-align:left;">
+
+==两种写法==
+
+<table style="width:100%;margin-top:4px;font-size:0.95em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">写法</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改所指内容</th>
+<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #d6d6c8;">改指针指向</th>
+</tr>
+<tr><td style="padding:3px 6px;"><code>const int *p</code></td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td><td style="padding:3px 6px;color:#859900;">✓ 合法</td></tr>
+<tr><td style="padding:3px 6px;"><code>int * const q</code></td><td style="padding:3px 6px;color:#859900;">✓ 合法</td><td style="padding:3px 6px;color:#dc322f;">✗ 编译错误</td></tr>
+<tr><td style="padding:3px 6px;"><code>const int * const r</code></td><td style="padding:3px 6px;color:#dc322f;">✗</td><td style="padding:3px 6px;color:#dc322f;">✗</td></tr>
+</table>
+
+<div style="margin-top:6px;font-size:0.95em;">
+<code>const int *p</code> 与 <code>int const *p</code> 完全等价; 本课统一写 <code>const int *</code>.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+读法: <code>const</code> 在 <code>*</code> 左边锁值, 在 <code>*</code> 右边锁指针.
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->##### 使用 const 保护参数: 两种常见写法
 
 ---
@@ -637,13 +757,43 @@ i = 4, *q = 4
 
 ---
 
-<!-- slide data-notes="" -->##### 任务 5: 只读求和 (完整示例)
+<!-- slide data-notes="" -->##### 任务 4: 只读求和
 
 ---
 
-<div style="font-size:0.78em;line-height:1.5;margin:0 0 6px;text-align:left;">
-==任务==: 完成 `sum(const int *a, int n)`, 返回数组元素之和; 再试着取消注释 `a[i] = 0;`, 看编译器报错.
+<div style="font-size:0.70em;line-height:1.38;text-align:left;">
+
+==任务==: 完成 `sum(const int *a, int n)`, 返回数组元素之和; 再试着在循环体里写 `a[i] = 0;`, 观察编译器的报错.
+
+样例:
+
+```text
+数组: 1 2 3 4 5
+sum = 15
+```
+
+==提示==:
+
+- 用循环遍历数组并累加
+- `const int *a` 表示不能通过 a 修改数组元素
+- 补完循环后, 在循环体里写 `a[i] = 0;`, 编译器会报 `read-only variable is not assignable`
+
+<div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· 参数用 `const int *`; 返回 15</div>
+<div>· 函数内不修改数组</div>
 </div>
+
+<div style="margin:10px 2rem 0;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/task-const-sum.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-const-sum.c (骨架)</a>
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 任务 4 参考: 只读求和
+
+---
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -651,7 +801,7 @@ i = 4, *q = 4
 
 <style>.constsum-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
 
-<div class="col-label">完整代码 · const-sum.c</div>
+<div class="col-label">参考实现 · const-sum.c</div>
 
 ```C{.line-numbers}
 #include <stdio.h>
@@ -706,7 +856,6 @@ sum = 15
 </div>
 
 ---
-
 <!-- slide data-notes="" -->##### 指针作为返回值
 
 ---
@@ -758,7 +907,7 @@ int *find_middle(int a[], int n)
 ---
 
 
-<!-- slide data-notes="" -->##### 任务 6: 返回指向最后一个最大元素的指针
+<!-- slide data-notes="" -->##### 任务 5: 返回指向最后一个最大元素的指针
 
 ---
 
@@ -770,19 +919,19 @@ int *find_middle(int a[], int n)
 
 ```text
 数组: 3 8 1 9 2 7 4 6 9 0
-最后一个最大值: 9 (下标 8)
+最后一个最大值: 9
 ```
 
 ==提示==:
 
-- 用指针遍历: `for (int *p = a; p < a + n; p++)`
-- 用 `>=` 更新当前最大值, 这样保留最后一个
-- 返回指针, 不要返回值
+- 用下标遍历: `for (int i = 1; i < n; i++)`
+- 用 `a[i] >= a[best]` 更新当前最大值下标, 这样保留最后一个
+- 返回 `&a[best]`, 不要返回值
 
 <div class="task-criteria" style="margin:8px 2rem 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>完成标准:</b>
-<div>· 返回 `int *`, 用 `>=` 保留最后一个最大值</div>
-<div>· 输出 `9 (下标 8)`</div>
+<div>· 返回 `int *`, 用 `>=` 保留最后一个最大值下标</div>
+<div>· 输出 `9`</div>
 </div>
 
 <div style="margin:10px 2rem 0;">
@@ -794,6 +943,72 @@ int *find_middle(int a[], int n)
 ---
 
 
+<!-- slide data-notes="" -->##### 任务 5 参考: 返回指向最后一个最大元素的指针
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div class="lastmax-code" style="flex:1.1;font-size:0.62em;">
+
+<style>.lastmax-code pre code{max-height:none!important;font-size:14.5px;line-height:1.12;}</style>
+
+<div class="col-label">参考实现 · last-max.c</div>
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define N 10
+
+int *last_max(int *a, int n)
+{
+    int best = 0;
+    for (int i = 1; i < n; i++) {
+        if (a[i] >= a[best])
+            best = i;
+    }
+    return &a[best];
+}
+
+int main(void)
+{
+    int a[N] = {3, 8, 1, 9, 2, 7, 4, 6, 9, 0};
+    int *p = last_max(a, N);
+
+    printf("最后一个最大值: %d\n", *p);
+    return 0;
+}
+```
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/10-pointers/code/last-max.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 last-max.c</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+数组: 3 8 1 9 2 7 4 6 9 0
+最后一个最大值: 9
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `best` 记录当前最大元素的下标
+- 用 `a[i] >= a[best]` 比较, 遇到相同的最大值继续更新下标, 保留最后一个
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+返回 `&a[best]`; 指针指向数组元素, 数组仍然存在. main 通过 `*p` 读取值, 不使用指针算术.
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 ##### 课堂小测

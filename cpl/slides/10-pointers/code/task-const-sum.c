@@ -1,4 +1,4 @@
-/* task-const-sum.c: 任务 5 —— 只读参数
+/* task-const-sum.c: 任务 4 —— 只读参数
    任务: 完成 int sum(const int *a, int n), 返回数组元素之和.
    要求: 函数内部不能修改 a[i];
          可以试着写 a[i] = 0; 看编译器报什么错, 然后注释掉.
