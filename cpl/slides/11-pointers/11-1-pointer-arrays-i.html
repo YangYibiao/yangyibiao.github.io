@@ -539,59 +539,204 @@ max <span class="token operator">=</span> <span class="token number">102</span><
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="结合---和----运算符--续">结合 * 和 ++ 运算符 (续) </h5>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="结合---和-----现场演示">结合 * 和 ++: 现场演示 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div style="flex:1.2;font-size:0.5em;">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> contents<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.15;">
+<div class="col-label">完整代码 · pointer-inc-demo.c</div>
+<style>.pinc-code pre code{font-size:13.5px;line-height:1.2;}</style>
+<div class="pinc-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> v<span class="token punctuation">;</span>
+
+    v <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p++   = %d, p -&gt; a[%d]\n"</span><span class="token punctuation">,</span> v<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>p <span class="token operator">-</span> a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p     = %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    p <span class="token operator">=</span> a<span class="token punctuation">;</span>
+    v <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"(*p)++ = %d, a[0] = %d, p -&gt; a[%d]\n"</span><span class="token punctuation">,</span> v<span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>p <span class="token operator">-</span> a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a[0]   = %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    p <span class="token operator">=</span> a<span class="token punctuation">;</span>
+    v <span class="token operator">=</span> <span class="token operator">*</span><span class="token operator">++</span>p<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*++p   = %d, p -&gt; a[%d]\n"</span><span class="token punctuation">,</span> v<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>p <span class="token operator">-</span> a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    p <span class="token operator">=</span> a<span class="token punctuation">;</span>
+    v <span class="token operator">=</span> <span class="token operator">++</span><span class="token operator">*</span>p<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"++*p   = %d, a[0] = %d\n"</span><span class="token punctuation">,</span> v<span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/pointer-inc-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 pointer-inc-demo.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token operator">*</span>p<span class="token operator">++</span>   <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> p <span class="token operator">-&gt;</span> a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token operator">*</span>p     <span class="token operator">=</span> <span class="token number">20</span>
+<span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token operator">++</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">,</span> p <span class="token operator">-&gt;</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>   <span class="token operator">=</span> <span class="token number">11</span>
+<span class="token operator">*</span><span class="token operator">++</span>p   <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span> p <span class="token operator">-&gt;</span> a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token operator">++</span><span class="token operator">*</span>p   <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">12</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>*p++</code>: 先取值, 再后移</p>
+
+</li>
+<li>
+<p><code>(*p)++</code>: 值加 1, p 不动</p>
+
+</li>
+<li>
+<p><code>*++p</code>: 先后移, 再取值</p>
+
+</li>
+<li>
+<p><code>++*p</code>: 所指值先加 1</p>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="结合---和-----栈的应用">结合 * 和 ++: 栈的应用 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
+<div style="flex:1;">
+<div class="col-label">索引版</div>
+<style>.stackidx-code pre code{font-size:14px;line-height:1.25;}</style>
+<div class="stackidx-code">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 100</span>
+<span class="token keyword keyword-int">int</span> contents<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-int">int</span> top <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 <span class="token keyword keyword-void">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span> contents<span class="token punctuation">[</span>top<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token keyword keyword-int">int</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>   <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> contents<span class="token punctuation">[</span><span class="token operator">--</span>top<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>top_ptr <span class="token operator">=</span> <span class="token operator">&</span>contents<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</div>
+</div>
+<div style="flex:1;">
+<div class="col-label">指针版</div>
+<style>.stackptr-code pre code{font-size:14px;line-height:1.25;}</style>
+<div class="stackptr-code">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>top_ptr <span class="token operator">=</span> contents<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">*</span>top_ptr<span class="token operator">++</span> <span class="token operator">=</span> i<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>   <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> <span class="token operator">*</span><span class="token operator">--</span>top_ptr<span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre>
+</div>
+</div>
+</div>
+<div style="font-size:0.62em;line-height:1.5;text-align:left;margin-top:6px;">
+<ul>
+<li>
+<p><code>top</code> / <code>top_ptr</code> 都指向<mark>下一个空位</mark>.</p>
+
+</li>
+<li>
+<p>push: 先存入, 再后移——<code>contents[top++] = i</code> 对应 <code>*top_ptr++ = i</code>.</p>
+
+</li>
+<li>
+<p>pop: 先前移, 再读取——<code>contents[--top]</code> 对应 <code>*--top_ptr</code>.</p>
+
+</li>
+<li>
+<p><code>*p++</code> 等价于 <code>*(p++)</code>; <code>*--p</code> 等价于 <code>*(--p)</code>.</p>
+
+</li>
+<li>
+<p>这里假设栈不溢出/不下溢; 工程代码要加边界检查 (下一页演示).</p>
+
+</li>
+</ul>
+</div>
+<hr>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="栈的现场演示--stack-demo-c">栈的现场演示: stack-demo.c </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.1;">
+<div class="col-label">完整代码 · stack-demo.c</div>
+<style>.stackdemo-code pre code{font-size:12px;line-height:1.15;}</style>
+<div class="stackdemo-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 5</span>
+
+<span class="token keyword keyword-int">int</span> contents<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>top_ptr <span class="token operator">=</span> contents<span class="token punctuation">;</span>
 
 <span class="token keyword keyword-void">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_full</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token function">stack_overflow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>           <span class="token operator">*</span>top_ptr<span class="token operator">++</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>top_ptr <span class="token operator">==</span> contents <span class="token operator">+</span> N<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"栈满\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">*</span>top_ptr<span class="token operator">++</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token function">stack_underflow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword keyword-else">else</span>            <span class="token keyword keyword-return">return</span> <span class="token operator">*</span><span class="token operator">--</span>top_ptr<span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>top_ptr <span class="token operator">==</span> contents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"栈空\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-return">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> <span class="token operator">*</span><span class="token operator">--</span>top_ptr<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pop = %d\n"</span><span class="token punctuation">,</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pop = %d\n"</span><span class="token punctuation">,</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pop = %d\n"</span><span class="token punctuation">,</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pop = %d\n"</span><span class="token punctuation">,</span> <span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
-<div style="flex:1;font-size:0.6em;">
-<p>\*和<code>--</code>运算符的组合方式与\*和<code>++</code>相同.</p>
-<p>看一个 <code>*</code> 和 <code>--</code> 组合的例子——用数组模拟一个<mark>栈</mark> (后进先出):</p>
-<p>索引版：用整型变量 top 记录 contents 数组的<mark>下一个空位</mark>——push 把元素存到 top 处，再让 top 后移；pop 先让 top 前移，再返回该处的元素（见左栏）。</p>
-<p>指针版：把 top 换成初始指向 contents[0] 的 top_ptr，它同样指向<mark>下一个空位</mark>，新的 push 和 pop 函数见左栏。</p>
-<svg viewBox="0 0 400 170" width="520" height="221" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<defs><marker id="arrStkB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrStkG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
-<rect x="186" y="14" width="74" height="26" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="223" y="31" font-size="10.5" fill="#268bd2" text-anchor="middle">top_ptr</text>
-<line x1="223" y1="40" x2="223" y2="74" stroke="#268bd2" stroke-width="2" marker-end="url(#arrStkB)"/>
-<text x="216" y="62" font-size="11" fill="#268bd2" text-anchor="end">下一空位</text>
-<rect x="48" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
-<text x="73" y="99" font-size="15" fill="#073642" text-anchor="middle">7</text>
-<rect x="98" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
-<text x="123" y="99" font-size="15" fill="#073642" text-anchor="middle">8</text>
-<rect x="148" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
-<text x="173" y="99" font-size="15" fill="#073642" text-anchor="middle">9</text>
-<rect x="198" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
-<rect x="248" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
-<rect x="298" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
-<line x1="246" y1="70" x2="270" y2="70" stroke="#268bd2" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkB)"/>
-<text x="276" y="66" font-size="11" fill="#268bd2">push 后 ++</text>
-<path d="M223,114 L223,122 L173,122 L173,114" fill="none" stroke="#859900" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkG)"/>
-<text x="198" y="140" font-size="10.5" fill="#859900" text-anchor="middle">pop：先 -- 再读</text>
-<text x="200" y="162" font-size="10.5" fill="#586e75" text-anchor="middle">后进先出（LIFO）</text>
-</svg>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/stack-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 stack-demo.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>pop <span class="token operator">=</span> <span class="token number">9</span>
+pop <span class="token operator">=</span> <span class="token number">8</span>
+pop <span class="token operator">=</span> <span class="token number">10</span>
+pop <span class="token operator">=</span> <span class="token number">7</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p>先 push 7、8、9; 两次 pop 得到 9、8.</p>
+
+</li>
+<li>
+<p>再 push 10; 两次 pop 得到 10、7.</p>
+
+</li>
+<li>
+<p><code>*top_ptr++</code> 先写入当前位置, 再自增; <code>*--top_ptr</code> 先自减, 再读取.</p>
+
+</li>
+</ul>
+</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>边界检查: 栈满/栈空时直接返回, 避免越界.</p>
+</div>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li><code>int a[5]; int *p = a;</code> 中 <code>p + 1</code> 表示什么？<code>p + 1</code> 的地址比 p 大多少字节？
@@ -604,7 +749,7 @@ max <span class="token operator">=</span> <span class="token number">102</span><
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="14" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="16" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>
@@ -626,82 +771,4 @@ max <span class="token operator">=</span> <span class="token number">102</span><
     
     
   
-    <div id="cpl-gate" style="position:fixed;inset:0;z-index:2147483647;background:#fdf6e3;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,'PingFang SC',sans-serif;">
-<h2 style="color:#073642;margin:0 0 18px;font-size:26px;">🔒 本课件尚未发布</h2>
-<input id="cpl-pwd" type="password" placeholder="请输入密码" autocomplete="off" style="width:260px;padding:10px 14px;font-size:16px;border:2px solid #93a1a1;border-radius:8px;outline:none;background:#fff;"/>
-<button id="cpl-go" style="margin-top:14px;padding:9px 26px;font-size:16px;background:#268bd2;color:#fff;border:none;border-radius:8px;cursor:pointer;">进入课件</button>
-<div id="cpl-err" style="margin-top:12px;color:#dc322f;font-size:14px;display:none;">密码不正确，请重试</div>
-</div>
-<script>
-(function(){
-  var KEY = 'cpl_unlock_11-1-pointer-arrays-i';
-  var HASH = '052b5ebd041dc6778ff1e045bc31ce907709e1b4650afc4e709627c84884bd16';
-  var g = document.getElementById('cpl-gate');
-  if (!g) return;
-  if (sessionStorage.getItem(KEY) === '1') { g.remove(); return; }
-  function sha256(ascii) {
-    function rightRotate(v, a) { return (v >>> a) | (v << (32 - a)); }
-    var maxWord = Math.pow(2, 32), i, j, result = '';
-    var words = [], len = ascii.length * 8;
-    var hash = sha256.h = sha256.h || [], k = sha256.k = sha256.k || [], pc = k.length;
-    var comp = {};
-    for (var c = 2; pc < 64; c++) {
-      if (!comp[c]) {
-        for (i = 0; i < 313; i += c) comp[i] = c;
-        hash[pc] = (Math.pow(c, .5) * maxWord) | 0;
-        k[pc++] = (Math.pow(c, 1 / 3) * maxWord) | 0;
-      }
-    }
-    ascii += '\x80';
-    while (ascii.length % 64 - 56) ascii += '\x00';
-    for (i = 0; i < ascii.length; i++) {
-      j = ascii.charCodeAt(i);
-      if (j >> 8) return '';
-      words[i >> 2] |= j << ((3 - i) % 4) * 8;
-    }
-    words[words.length] = ((len / maxWord) | 0);
-    words[words.length] = (len);
-    for (j = 0; j < words.length;) {
-      var w = words.slice(j, j += 16), oldHash = hash;
-      hash = hash.slice(0, 8);
-      for (i = 0; i < 64; i++) {
-        var w15 = w[i - 15], w2 = w[i - 2];
-        var a = hash[0], e = hash[4];
-        var temp1 = hash[7] + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
-          + ((e & hash[5]) ^ ((~e) & hash[6])) + k[i]
-          + (w[i] = (i < 16) ? w[i] : (w[i - 16]
-            + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
-            + w[i - 7] + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) | 0);
-        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
-          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
-        hash = [(temp1 + temp2) | 0].concat(hash);
-        hash[4] = (hash[4] + temp1) | 0;
-      }
-      for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
-    }
-    for (i = 0; i < 8; i++) {
-      for (j = 3; j + 1; j--) {
-        var b = (hash[i] >> (j * 8)) & 255;
-        result += ((b < 16) ? 0 : '') + b.toString(16);
-      }
-    }
-    return result;
-  }
-  function tryUnlock() {
-    if (sha256(document.getElementById('cpl-pwd').value) === HASH) {
-      sessionStorage.setItem(KEY, '1');
-      g.remove();
-    } else {
-      var e = document.getElementById('cpl-err');
-      e.style.display = 'block';
-      document.getElementById('cpl-pwd').value = '';
-    }
-  }
-  document.getElementById('cpl-go').onclick = tryUnlock;
-  document.getElementById('cpl-pwd').addEventListener('keydown', function (ev) {
-    if (ev.key === 'Enter') tryUnlock();
-  });
-  document.getElementById('cpl-pwd').focus();
-})();
-</script>
-</body></html>
+    </body></html>

@@ -1,5 +1,4 @@
 ---
-password: "cpl2026"
 presentation:
   margin: 0
   center: false
@@ -566,79 +565,229 @@ C程序员经常结合使用`*`(间接寻址)和`++`运算符.
 
 </div>
 
-<!-- slide data-notes="" -->
-
-
-##### 结合 * 和 ++ 运算符 (续)
+<!-- slide data-notes="" -->##### 结合 * 和 ++: 现场演示
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
 
-<div style="flex:1.2;font-size:0.5em;">
+<div style="flex:1.15;">
+
+<div class="col-label">完整代码 · pointer-inc-demo.c</div>
+
+<style>.pinc-code pre code{font-size:13.5px;line-height:1.2;}</style>
+
+<div class="pinc-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+int main(void)
+{
+    int a[5] = {10, 20, 30, 40, 50};
+    int *p = a;
+    int v;
+
+    v = *p++;
+    printf("*p++   = %d, p -> a[%d]\n", v, (int)(p - a));
+    printf("*p     = %d\n", *p);
+
+    p = a;
+    v = (*p)++;
+    printf("(*p)++ = %d, a[0] = %d, p -> a[%d]\n", v, a[0], (int)(p - a));
+    printf("a[0]   = %d\n", a[0]);
+
+    p = a;
+    v = *++p;
+    printf("*++p   = %d, p -> a[%d]\n", v, (int)(p - a));
+
+    p = a;
+    v = ++*p;
+    printf("++*p   = %d, a[0] = %d\n", v, a[0]);
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/pointer-inc-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 pointer-inc-demo.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">运行结果</div>
+
+```text
+*p++   = 10, p -> a[1]
+*p     = 20
+(*p)++ = 10, a[0] = 11, p -> a[0]
+a[0]   = 11
+*++p   = 20, p -> a[1]
+++*p   = 12, a[0] = 12
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `*p++`: 先取值, 再后移
+- `(*p)++`: 值加 1, p 不动
+- `*++p`: 先后移, 再取值
+- `++*p`: 所指值先加 1
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 结合 * 和 ++: 栈的应用
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
+
+<div style="flex:1;">
+
+<div class="col-label">索引版</div>
+
+<style>.stackidx-code pre code{font-size:14px;line-height:1.25;}</style>
+
+<div class="stackidx-code">
 
 ```C
-int contents[100];
+#define N 100
+int contents[N];
 int top = 0;
 
 void push(int i) { contents[top++] = i; }
 int pop(void)   { return contents[--top]; }
 ```
 
-```C {.line-numbers}
-int *top_ptr = &contents[0];
+</div>
+
+</div>
+
+<div style="flex:1;">
+
+<div class="col-label">指针版</div>
+
+<style>.stackptr-code pre code{font-size:14px;line-height:1.25;}</style>
+
+<div class="stackptr-code">
+
+```C
+int *top_ptr = contents;
+
+void push(int i) { *top_ptr++ = i; }
+int pop(void)   { return *--top_ptr; }
+```
+
+</div>
+
+</div>
+
+</div>
+
+<div style="font-size:0.62em;line-height:1.5;text-align:left;margin-top:6px;">
+
+- `top` / `top_ptr` 都指向==下一个空位==.
+- push: 先存入, 再后移——`contents[top++] = i` 对应 `*top_ptr++ = i`.
+- pop: 先前移, 再读取——`contents[--top]` 对应 `*--top_ptr`.
+- `*p++` 等价于 `*(p++)`; `*--p` 等价于 `*(--p)`.
+- 这里假设栈不溢出/不下溢; 工程代码要加边界检查 (下一页演示).
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 栈的现场演示: stack-demo.c
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.1;">
+
+<div class="col-label">完整代码 · stack-demo.c</div>
+
+<style>.stackdemo-code pre code{font-size:12px;line-height:1.15;}</style>
+
+<div class="stackdemo-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+
+#define N 5
+
+int contents[N];
+int *top_ptr = contents;
 
 void push(int i)
 {
-  if (is_full()) stack_overflow();
-  else           *top_ptr++ = i;
+    if (top_ptr == contents + N) {
+        printf("栈满\n");
+        return;
+    }
+    *top_ptr++ = i;
 }
 
 int pop(void)
 {
-  if (is_empty()) stack_underflow();
-  else            return *--top_ptr;
+    if (top_ptr == contents) {
+        printf("栈空\n");
+        return -1;
+    }
+    return *--top_ptr;
+}
+
+int main(void)
+{
+    push(7);
+    push(8);
+    push(9);
+    printf("pop = %d\n", pop());
+    printf("pop = %d\n", pop());
+    push(10);
+    printf("pop = %d\n", pop());
+    printf("pop = %d\n", pop());
+    return 0;
 }
 ```
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/stack-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 stack-demo.c (现场演示)</a>
+</div>
 
-\*和`--`运算符的组合方式与\*和`++`相同. 
+</div>
 
-看一个 `*` 和 `--` 组合的例子——用数组模拟一个==栈== (后进先出):
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
 
-索引版：用整型变量 top 记录 contents 数组的==下一个空位==——push 把元素存到 top 处，再让 top 后移；pop 先让 top 前移，再返回该处的元素（见左栏）。
+<div class="col-label">运行结果</div>
 
-指针版：把 top 换成初始指向 contents[0] 的 top_ptr，它同样指向==下一个空位==，新的 push 和 pop 函数见左栏。
+```text
+pop = 9
+pop = 8
+pop = 10
+pop = 7
+```
 
-<svg viewBox="0 0 400 170" width="520" height="221" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<defs><marker id="arrStkB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrStkG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#859900"/></marker></defs>
-<rect x="186" y="14" width="74" height="26" rx="6" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="223" y="31" font-size="10.5" fill="#268bd2" text-anchor="middle">top_ptr</text>
-<line x1="223" y1="40" x2="223" y2="74" stroke="#268bd2" stroke-width="2" marker-end="url(#arrStkB)"/>
-<text x="216" y="62" font-size="11" fill="#268bd2" text-anchor="end">下一空位</text>
-<rect x="48" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
-<text x="73" y="99" font-size="15" fill="#073642" text-anchor="middle">7</text>
-<rect x="98" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
-<text x="123" y="99" font-size="15" fill="#073642" text-anchor="middle">8</text>
-<rect x="148" y="76" width="50" height="36" fill="#859900" fill-opacity="0.15" stroke="#859900" stroke-width="1.5"/>
-<text x="173" y="99" font-size="15" fill="#073642" text-anchor="middle">9</text>
-<rect x="198" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
-<rect x="248" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
-<rect x="298" y="76" width="50" height="36" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.4"/>
-<line x1="246" y1="70" x2="270" y2="70" stroke="#268bd2" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkB)"/>
-<text x="276" y="66" font-size="11" fill="#268bd2">push 后 ++</text>
-<path d="M223,114 L223,122 L173,122 L173,114" fill="none" stroke="#859900" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrStkG)"/>
-<text x="198" y="140" font-size="10.5" fill="#859900" text-anchor="middle">pop：先 -- 再读</text>
-<text x="200" y="162" font-size="10.5" fill="#586e75" text-anchor="middle">后进先出（LIFO）</text>
-</svg>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- 先 push 7、8、9; 两次 pop 得到 9、8.
+- 再 push 10; 两次 pop 得到 10、7.
+- `*top_ptr++` 先写入当前位置, 再自增; `*--top_ptr` 先自减, 再读取.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+边界检查: 栈满/栈空时直接返回, 避免越界.
+</div>
 
 </div>
 
 </div>
 
+---
 <!-- slide data-notes="" -->
 
 
