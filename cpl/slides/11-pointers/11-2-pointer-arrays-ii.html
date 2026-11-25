@@ -781,31 +781,50 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="二维数组的行--a-i--是什么">二维数组的行: a[i] 是什么 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="二维数组的行--a-i--是一行">二维数组的行: a[i] 是一行 </h5>
 <hr>
-<div style="font-size:0.72em;line-height:1.5;text-align:left;">
-<p><code>a[i]</code> 是第 i 行这个一维数组; 在表达式中它会退化成指向该行首元素的指针 <code>&amp;a[i][0]</code>.</p>
-<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
-<tr style="color:#586e75;">
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">类型</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">含义</th>
-</tr>
-<tr><td style="padding:2px 4px;"><code>a</code></td><td style="padding:2px 4px;"><code>int (*)[NUM_COLS]</code></td><td style="padding:2px 4px;">指向一行（退化后）</td></tr>
-<tr><td style="padding:2px 4px;"><code>a + i</code></td><td style="padding:2px 4px;"><code>int (*)[NUM_COLS]</code></td><td style="padding:2px 4px;">第 i 行</td></tr>
-<tr><td style="padding:2px 4px;"><code>a[i]</code></td><td style="padding:2px 4px;"><code>int [NUM_COLS]</code></td><td style="padding:2px 4px;">第 i 行数组；表达式中退化为 <code>int *</code></td></tr>
-<tr><td style="padding:2px 4px;"><code>&amp;a[i][0]</code></td><td style="padding:2px 4px;"><code>int *</code></td><td style="padding:2px 4px;">第 i 行首元素地址</td></tr>
-<tr><td style="padding:2px 4px;"><code>a[i][j]</code></td><td style="padding:2px 4px;"><code>int</code></td><td style="padding:2px 4px;">元素</td></tr>
-</table>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.5;text-align:left;">
+<div style="flex:1.05;">
+<p><code>int a[3][4];</code> 可以看成 3 行, 每行是一个一维数组:</p>
+<ul>
+<li>
+<p><code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code> 分别是第 0、1、2 行</p>
+
+</li>
+<li>
+<p><code>a[i]</code> 是第 i 行这个一维数组</p>
+
+</li>
+<li>
+<p><code>a[i][j]</code> 是第 i 行第 j 个元素</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>            <span class="token comment">/* 第 1 行第 2 列 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* p 指向第 1 行第 0 个元素 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 7 */</span></code></pre>
+</div>
+<div style="flex:0.95;">
+<div class="col-label">记住三件事</div>
+<ul>
+<li>
+<p><code>a[i]</code> 是一行, 不是第 i 个 int.</p>
+
+</li>
+<li>
+<p><code>a[i][j]</code> 才是元素.</p>
+
+</li>
+<li>
+<p>把 <code>a[i]</code> 当指针用时, 它就是 <code>&amp;a[i][0]</code>.</p>
+
+</li>
+</ul>
 <div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<p><code>a</code> 不是指向 <code>a[0][0]</code> 的指针, 而是指向 <code>a[0]</code>（一行）的指针; 所以 <code>a</code> 的类型是 <code>int (*)[NUM_COLS]</code>.</p>
+<p>先把这个“行”的模型记牢; 类型写法和 <code>sizeof</code> 的细节放在后面的演示页.</p>
 </div>
-<div style="margin-top:8px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
-<b>什么叫“退化”？</b> 数组名在大多数表达式里会自动转成指向首元素的指针, 长度/类型信息随之丢失; 这个转换俗称“退化”.<br>
-<code>sizeof(a)</code>、<code>&amp;a</code> 不退化; <code>a + 0</code>、<code>f(a)</code>、<code>int *p = a</code> 会退化. 二维数组里 <code>a</code> 退化成行指针 <code>int (*)[NUM_COLS]</code>, <code>a[i]</code> 退化成 <code>int *</code> (<code>&amp;a[i][0]</code>).
-</div>
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<p><code>a + i</code> 跳过 i 行; 和 11-1 的 <code>p + 1</code> 一样按 <code>sizeof(*p)</code> 缩放, 只是这里的元素类型是 <code>int[NUM_COLS]</code>.</p>
 </div>
 </div>
 <hr>
@@ -824,7 +843,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>rowp<span class="token punctuation">)</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* a + 0 退化成行指针 */</span>
+    <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>rowp<span class="token punctuation">)</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* a + 0 变成行指针 */</span>
 
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(int)      = %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a)        = %zu  (整个二维数组)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -878,7 +897,7 @@ a <span class="token operator">+</span> <span class="token number">1</span>     
 
 </li>
 <li>
-<p><code>sizeof</code> 不会让数组退化成指针 (非 VLA), 也不真正求值操作数.</p>
+<p><code>sizeof</code> 不会把数组转成指针 (非 VLA), 也不真正求值操作数.</p>
 
 </li>
 </ul>

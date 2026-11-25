@@ -825,38 +825,42 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 </div>
 
 ---
-<!-- slide data-notes="" -->##### 二维数组的行: a[i] 是什么
+<!-- slide data-notes="" -->##### 二维数组的行: a[i] 是一行
 
 ---
 
-<div style="font-size:0.72em;line-height:1.5;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.5;text-align:left;">
 
-`a[i]` 是第 i 行这个一维数组; 在表达式中它会退化成指向该行首元素的指针 `&a[i][0]`.
+<div style="flex:1.05;">
 
-<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
-<tr style="color:#586e75;">
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">类型</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">含义</th>
-</tr>
-<tr><td style="padding:2px 4px;"><code>a</code></td><td style="padding:2px 4px;"><code>int (*)[NUM_COLS]</code></td><td style="padding:2px 4px;">指向一行（退化后）</td></tr>
-<tr><td style="padding:2px 4px;"><code>a + i</code></td><td style="padding:2px 4px;"><code>int (*)[NUM_COLS]</code></td><td style="padding:2px 4px;">第 i 行</td></tr>
-<tr><td style="padding:2px 4px;"><code>a[i]</code></td><td style="padding:2px 4px;"><code>int [NUM_COLS]</code></td><td style="padding:2px 4px;">第 i 行数组；表达式中退化为 <code>int *</code></td></tr>
-<tr><td style="padding:2px 4px;"><code>&amp;a[i][0]</code></td><td style="padding:2px 4px;"><code>int *</code></td><td style="padding:2px 4px;">第 i 行首元素地址</td></tr>
-<tr><td style="padding:2px 4px;"><code>a[i][j]</code></td><td style="padding:2px 4px;"><code>int</code></td><td style="padding:2px 4px;">元素</td></tr>
-</table>
+`int a[3][4];` 可以看成 3 行, 每行是一个一维数组:
+
+- `a[0]`、`a[1]`、`a[2]` 分别是第 0、1、2 行
+- `a[i]` 是第 i 行这个一维数组
+- `a[i][j]` 是第 i 行第 j 个元素
+
+```C
+int a[3][4];
+
+a[1][2] = 7;            /* 第 1 行第 2 列 */
+int *p = a[1];          /* p 指向第 1 行第 0 个元素 */
+printf("%d\n", p[2]);  /* 7 */
+```
+
+</div>
+
+<div style="flex:0.95;">
+
+<div class="col-label">记住三件事</div>
+
+- `a[i]` 是一行, 不是第 i 个 int.
+- `a[i][j]` 才是元素.
+- 把 `a[i]` 当指针用时, 它就是 `&a[i][0]`.
 
 <div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-`a` 不是指向 `a[0][0]` 的指针, 而是指向 `a[0]`（一行）的指针; 所以 `a` 的类型是 `int (*)[NUM_COLS]`.
+先把这个“行”的模型记牢; 类型写法和 <code>sizeof</code> 的细节放在后面的演示页.
 </div>
 
-<div style="margin-top:8px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
-<b>什么叫“退化”？</b> 数组名在大多数表达式里会自动转成指向首元素的指针, 长度/类型信息随之丢失; 这个转换俗称“退化”.<br>
-<code>sizeof(a)</code>、<code>&amp;a</code> 不退化; <code>a + 0</code>、<code>f(a)</code>、<code>int *p = a</code> 会退化. 二维数组里 <code>a</code> 退化成行指针 <code>int (*)[NUM_COLS]</code>, <code>a[i]</code> 退化成 <code>int *</code> (<code>&amp;a[i][0]</code>).
-</div>
-
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-`a + i` 跳过 i 行; 和 11-1 的 `p + 1` 一样按 `sizeof(*p)` 缩放, 只是这里的元素类型是 `int[NUM_COLS]`.
 </div>
 
 </div>
@@ -885,7 +889,7 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 int main(void)
 {
     int a[ROWS][COLS] = {0};
-    int (*rowp)[COLS] = a + 0;   /* a + 0 退化成行指针 */
+    int (*rowp)[COLS] = a + 0;   /* a + 0 变成行指针 */
 
     printf("sizeof(int)      = %zu\n", sizeof(int));
     printf("sizeof(a)        = %zu  (整个二维数组)\n", sizeof(a));
@@ -938,7 +942,7 @@ a + 1        = 基址 + 16 字节
 - `sizeof(a)` = 整个二维数组; `sizeof(a[0])` = 一行; `sizeof(a[0][0])` = 一个 int.
 - `a[0]` 与 `&a[0][0]` 地址相同, 但 `sizeof` 不同: 前者是数组 (16), 后者是指针 (8).
 - `a + 1` 跳一行; `&a[0][0] + 1` 跳一个 int.
-- `sizeof` 不会让数组退化成指针 (非 VLA), 也不真正求值操作数.
+- `sizeof` 不会把数组转成指针 (非 VLA), 也不真正求值操作数.
 </div>
 
 <div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">
