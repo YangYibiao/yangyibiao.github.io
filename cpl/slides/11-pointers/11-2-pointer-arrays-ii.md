@@ -1343,6 +1343,148 @@ void free(void *ptr);
 </div>
 
 ---
+<!-- slide data-notes="" -->##### 不 free 会怎样: 内存泄漏现场演示
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.15;">
+
+<div class="col-label">完整代码 · malloc-leak.c</div>
+
+<style>.leak-code pre code{font-size:13px;line-height:1.2;}</style>
+
+<div class="leak-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 100000
+
+int main(void)
+{
+    for (int i = 0; i < 10; i++) {
+        int *p = malloc(N * sizeof(int));
+        if (p == NULL) {
+            printf("malloc failed\n");
+            return 1;
+        }
+        p[0] = i;   /* 使用一下, 避免被优化掉 */
+        /* 忘记 free(p) */
+    }
+    printf("done (leaked 10 blocks)\n");
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/malloc-leak.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 malloc-leak.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">终端运行</div>
+
+```text
+$ cc -g malloc-leak.c -o malloc-leak
+$ leaks --atExit -- ./malloc-leak
+...
+Process ...: 10 leaks for 4096000 total leaked bytes.
+STACK OF 10 INSTANCES OF 'ROOT LEAK: <malloc in main>':
+1   malloc-leak   main + 52   malloc-leak.c:11
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- 程序能正常结束, 但 10 块内存没有归还.
+- `leaks` 报告 10 leaks / 4096000 bytes, 栈指向 `malloc` 那一行.
+- 修复: 每轮 `free(p); p = NULL;` (或复用一块).
+- 进程退出 OS 会回收, 但长期运行的服务会持续泄漏.
+- macOS 用 `leaks`; Linux 可用 valgrind/ASan.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### free 后不置 NULL: 悬空指针现场演示
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.15;">
+
+<div class="col-label">完整代码 · use-after-free.c</div>
+
+<style>.uaf-code pre code{font-size:13px;line-height:1.2;}</style>
+
+<div class="uaf-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    int *p = malloc(sizeof(int));
+    if (p == NULL) return 1;
+
+    *p = 42;
+    printf("*p = %d\n", *p);
+
+    free(p);
+    /* p = NULL; 忘记 */
+
+    printf("p after free = %p\n", (void *)p);
+    printf("*p after free = %d\n", *p);   /* use-after-free */
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/use-after-free.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 use-after-free.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">用 AddressSanitizer 运行</div>
+
+```text
+$ cc -g -fsanitize=address use-after-free.c -o uaf
+$ ./uaf
+==ERROR: AddressSanitizer: heap-use-after-free ...
+READ of size 4 ...
+    #0 main use-after-free.c:17
+freed by thread T0 here:
+    #0 free ...
+    #1 main use-after-free.c:13
+SUMMARY: AddressSanitizer: heap-use-after-free use-after-free.c:17 in main
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
+- `free(p)` 不会把 p 变成 NULL; p 中仍是旧地址 (悬空指针).
+- 普通编译可能"看起来正常", 这是未定义行为, 可能随时崩溃或读到脏数据.
+- `p = NULL` 后, 误用会立即 NULL 解引用 (容易定位); 也允许 `free(NULL)`.
+- 规则: free 后立即 `p = NULL`.
+- 这个演示要用 `-fsanitize=address` 才能看到明确报告.
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->##### 完整示例: dynamic-array.c
 
 ---
