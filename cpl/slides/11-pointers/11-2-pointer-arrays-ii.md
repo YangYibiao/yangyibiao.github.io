@@ -1343,7 +1343,7 @@ void free(void *ptr);
 </div>
 
 ---
-<!-- slide data-notes="" -->##### 不 free 会怎样: 内存泄漏现场演示
+<!-- slide data-notes="" -->##### 不 free 会怎样: 内存持续增长
 
 ---
 
@@ -1351,30 +1351,51 @@ void free(void *ptr);
 
 <div style="flex:1.15;">
 
-<div class="col-label">完整代码 · malloc-leak.c</div>
+<div class="col-label">完整代码 · malloc-exhaust.c</div>
 
-<style>.leak-code pre code{font-size:13px;line-height:1.2;}</style>
+<style>.exhaust-code pre code{font-size:13px;line-height:1.2;}</style>
 
-<div class="leak-code">
+<div class="exhaust-code">
 
 ```C{.line-numbers}
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/resource.h>
 
-#define N 100000
+#define BLOCK_MB 1
+#define LIMIT_MB 128
+
+static long rss_mb(void)
+{
+    struct rusage ru;
+    getrusage(RUSAGE_SELF, &ru);
+#ifdef __APPLE__
+    return ru.ru_maxrss / (1024 * 1024);
+#else
+    return ru.ru_maxrss / 1024;
+#endif
+}
 
 int main(void)
 {
-    for (int i = 0; i < 10; i++) {
-        int *p = malloc(N * sizeof(int));
-        if (p == NULL) {
-            printf("malloc failed\n");
-            return 1;
+    int used = 0;
+    for (;;) {
+        if (used >= LIMIT_MB) {
+            printf("已分配 %d MB, 达到演示上限 %d MB\n", used, LIMIT_MB);
+            printf("真实程序会继续增长, 最终 malloc 返回 NULL 或被 OOM 杀死.\n");
+            break;
         }
-        p[0] = i;   /* 使用一下, 避免被优化掉 */
-        /* 忘记 free(p) */
+        unsigned char *p = malloc(BLOCK_MB * 1024 * 1024);
+        if (p == NULL) {
+            printf("malloc failed after %d MB\n", used);
+            break;
+        }
+        memset(p, 0, BLOCK_MB * 1024 * 1024);
+        used += BLOCK_MB;
+        if (used % 16 == 0)
+            printf("allocated %3d MB, RSS ~ %ld MB\n", used, rss_mb());
     }
-    printf("done (leaked 10 blocks)\n");
     return 0;
 }
 ```
@@ -1382,30 +1403,29 @@ int main(void)
 </div>
 
 <div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/malloc-leak.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 malloc-leak.c (现场演示)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/malloc-exhaust.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 malloc-exhaust.c (现场演示)</a>
 </div>
 
 </div>
 
 <div style="flex:0.85;font-size:0.78em;line-height:1.45;">
 
-<div class="col-label">终端运行</div>
+<div class="col-label">运行结果</div>
 
 ```text
-$ cc -g malloc-leak.c -o malloc-leak
-$ leaks --atExit -- ./malloc-leak
+allocated  16 MB, RSS ~ 17 MB
+allocated  32 MB, RSS ~ 33 MB
 ...
-Process ...: 10 leaks for 4096000 total leaked bytes.
-STACK OF 10 INSTANCES OF 'ROOT LEAK: <malloc in main>':
-1   malloc-leak   main + 52   malloc-leak.c:11
+allocated 128 MB, RSS ~ 129 MB
+已分配 128 MB, 达到演示上限 128 MB
+真实程序会继续增长, 最终 malloc 返回 NULL 或被 OOM 杀死.
 ```
 
 <div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-- 程序能正常结束, 但 10 块内存没有归还.
-- `leaks` 报告 10 leaks / 4096000 bytes, 栈指向 `malloc` 那一行.
-- 修复: 每轮 `free(p); p = NULL;` (或复用一块).
-- 进程退出 OS 会回收, 但长期运行的服务会持续泄漏.
-- macOS 用 `leaks`; Linux 可用 valgrind/ASan.
+- 每轮 `malloc` 都不 `free`, 已分配内存无法复用, RSS 持续增长.
+- 为了不拖垮机器, 演示到 128 MB 停止; 真实程序会继续到 `malloc` 失败/OOM.
+- 修复: 每轮 `free(p)` 或复用同一块.
+- 小规模泄漏可以用 `leaks --atExit` 查看.
 </div>
 
 </div>
@@ -1456,28 +1476,35 @@ int main(void)
 
 </div>
 
-<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+<div style="flex:0.85;font-size:0.75em;line-height:1.4;">
 
-<div class="col-label">用 AddressSanitizer 运行</div>
+<div class="col-label">普通编译: 看起来正常</div>
 
 ```text
-$ cc -g -fsanitize=address use-after-free.c -o uaf
+$ cc use-after-free.c -o uaf
 $ ./uaf
+*p = 42
+*p after free = 3     ← 本机; 实际是未定义行为
+```
+
+<div class="col-label" style="margin-top:6px;">AddressSanitizer: 报错</div>
+
+```text
+$ cc -g -fsanitize=address use-after-free.c -o uaf-asan
+$ ./uaf-asan
 ==ERROR: AddressSanitizer: heap-use-after-free ...
 READ of size 4 ...
     #0 main use-after-free.c:17
 freed by thread T0 here:
-    #0 free ...
     #1 main use-after-free.c:13
-SUMMARY: AddressSanitizer: heap-use-after-free use-after-free.c:17 in main
+SUMMARY: AddressSanitizer: heap-use-after-free ...
 ```
 
 <div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
 - `free(p)` 不会把 p 变成 NULL; p 中仍是旧地址 (悬空指针).
-- 普通编译可能"看起来正常", 这是未定义行为, 可能随时崩溃或读到脏数据.
-- `p = NULL` 后, 误用会立即 NULL 解引用 (容易定位); 也允许 `free(NULL)`.
+- 不置 NULL 继续访问是未定义行为: 可能读到 3/42, 也可能崩溃.
+- `p = NULL` 后误用会立即 NULL 解引用 (容易定位); 也允许 `free(NULL)`.
 - 规则: free 后立即 `p = NULL`.
-- 这个演示要用 `-fsanitize=address` 才能看到明确报告.
 </div>
 
 </div>

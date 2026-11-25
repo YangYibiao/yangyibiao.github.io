@@ -1259,65 +1259,82 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="不-free-会怎样--内存泄漏现场演示">不 free 会怎样: 内存泄漏现场演示 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="不-free-会怎样--内存持续增长">不 free 会怎样: 内存持续增长 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
 <div style="flex:1.15;">
-<div class="col-label">完整代码 · malloc-leak.c</div>
-<style>.leak-code pre code{font-size:13px;line-height:1.2;}</style>
-<div class="leak-code">
+<div class="col-label">完整代码 · malloc-exhaust.c</div>
+<style>.exhaust-code pre code{font-size:13px;line-height:1.2;}</style>
+<div class="exhaust-code">
 <pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/resource.h&gt;</span></span>
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> N 100000</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BLOCK_MB 1</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> LIMIT_MB 128</span>
+
+<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-long">long</span> <span class="token function">rss_mb</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-struct">struct</span> rusage ru<span class="token punctuation">;</span>
+    <span class="token function">getrusage</span><span class="token punctuation">(</span>RUSAGE_SELF<span class="token punctuation">,</span> <span class="token operator">&</span>ru<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> __APPLE__</span>
+    <span class="token keyword keyword-return">return</span> ru<span class="token punctuation">.</span>ru_maxrss <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
+    <span class="token keyword keyword-return">return</span> ru<span class="token punctuation">.</span>ru_maxrss <span class="token operator">/</span> <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+<span class="token punctuation">}</span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>N <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc failed\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> used <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>used <span class="token operator">&gt;=</span> LIMIT_MB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"已分配 %d MB, 达到演示上限 %d MB\n"</span><span class="token punctuation">,</span> used<span class="token punctuation">,</span> LIMIT_MB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"真实程序会继续增长, 最终 malloc 返回 NULL 或被 OOM 杀死.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-        p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>   <span class="token comment">/* 使用一下, 避免被优化掉 */</span>
-        <span class="token comment">/* 忘记 free(p) */</span>
+        <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>BLOCK_MB <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc failed after %d MB\n"</span><span class="token punctuation">,</span> used<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">memset</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> BLOCK_MB <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        used <span class="token operator">+=</span> BLOCK_MB<span class="token punctuation">;</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>used <span class="token operator">%</span> <span class="token number">16</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"allocated %3d MB, RSS ~ %ld MB\n"</span><span class="token punctuation">,</span> used<span class="token punctuation">,</span> <span class="token function">rss_mb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"done (leaked 10 blocks)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </div>
 <div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/malloc-leak.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 malloc-leak.c (现场演示)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/malloc-exhaust.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 malloc-exhaust.c (现场演示)</a>
 </div>
 </div>
 <div style="flex:0.85;font-size:0.78em;line-height:1.45;">
-<div class="col-label">终端运行</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>$ cc <span class="token operator">-</span>g malloc<span class="token operator">-</span>leak<span class="token punctuation">.</span>c <span class="token operator">-</span>o malloc<span class="token operator">-</span>leak
-$ leaks <span class="token operator">--</span>atExit <span class="token operator">--</span> <span class="token punctuation">.</span><span class="token operator">/</span>malloc<span class="token operator">-</span>leak
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>allocated  <span class="token number">16</span> MB<span class="token punctuation">,</span> RSS ~ <span class="token number">17</span> MB
+allocated  <span class="token number">32</span> MB<span class="token punctuation">,</span> RSS ~ <span class="token number">33</span> MB
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-Process <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">:</span> <span class="token number">10</span> leaks <span class="token keyword keyword-for">for</span> <span class="token number">4096000</span> total leaked bytes<span class="token punctuation">.</span>
-STACK OF <span class="token number">10</span> INSTANCES OF <span class="token string">'ROOT LEAK: &lt;malloc in main&gt;'</span><span class="token operator">:</span>
-<span class="token number">1</span>   malloc<span class="token operator">-</span>leak   main <span class="token operator">+</span> <span class="token number">52</span>   malloc<span class="token operator">-</span>leak<span class="token punctuation">.</span>c<span class="token operator">:</span><span class="token number">11</span></code></pre>
+allocated <span class="token number">128</span> MB<span class="token punctuation">,</span> RSS ~ <span class="token number">129</span> MB
+已分配 <span class="token number">128</span> MB<span class="token punctuation">,</span> 达到演示上限 <span class="token number">128</span> MB
+真实程序会继续增长<span class="token punctuation">,</span> 最终 malloc 返回 NULL 或被 OOM 杀死<span class="token punctuation">.</span></code></pre>
 <div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
 <ul>
 <li>
-<p>程序能正常结束, 但 10 块内存没有归还.</p>
+<p>每轮 <code>malloc</code> 都不 <code>free</code>, 已分配内存无法复用, RSS 持续增长.</p>
 
 </li>
 <li>
-<p><code>leaks</code> 报告 10 leaks / 4096000 bytes, 栈指向 <code>malloc</code> 那一行.</p>
+<p>为了不拖垮机器, 演示到 128 MB 停止; 真实程序会继续到 <code>malloc</code> 失败/OOM.</p>
 
 </li>
 <li>
-<p>修复: 每轮 <code>free(p); p = NULL;</code> (或复用一块).</p>
+<p>修复: 每轮 <code>free(p)</code> 或复用同一块.</p>
 
 </li>
 <li>
-<p>进程退出 OS 会回收, 但长期运行的服务会持续泄漏.</p>
-
-</li>
-<li>
-<p>macOS 用 <code>leaks</code>; Linux 可用 valgrind/ASan.</p>
+<p>小规模泄漏可以用 <code>leaks --atExit</code> 查看.</p>
 
 </li>
 </ul>
@@ -1355,17 +1372,21 @@ STACK OF <span class="token number">10</span> INSTANCES OF <span class="token st
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/use-after-free.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 use-after-free.c (现场演示)</a>
 </div>
 </div>
-<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
-<div class="col-label">用 AddressSanitizer 运行</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>$ cc <span class="token operator">-</span>g <span class="token operator">-</span>fsanitize<span class="token operator">=</span>address use<span class="token operator">-</span>after<span class="token operator">-</span>free<span class="token punctuation">.</span>c <span class="token operator">-</span>o uaf
+<div style="flex:0.85;font-size:0.75em;line-height:1.4;">
+<div class="col-label">普通编译: 看起来正常</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>$ cc use<span class="token operator">-</span>after<span class="token operator">-</span>free<span class="token punctuation">.</span>c <span class="token operator">-</span>o uaf
 $ <span class="token punctuation">.</span><span class="token operator">/</span>uaf
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">42</span>
+<span class="token operator">*</span>p after free <span class="token operator">=</span> <span class="token number">3</span>     ← 本机<span class="token punctuation">;</span> 实际是未定义行为</code></pre>
+<div class="col-label" style="margin-top:6px;">AddressSanitizer: 报错</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>$ cc <span class="token operator">-</span>g <span class="token operator">-</span>fsanitize<span class="token operator">=</span>address use<span class="token operator">-</span>after<span class="token operator">-</span>free<span class="token punctuation">.</span>c <span class="token operator">-</span>o uaf<span class="token operator">-</span>asan
+$ <span class="token punctuation">.</span><span class="token operator">/</span>uaf<span class="token operator">-</span>asan
 <span class="token operator">==</span>ERROR<span class="token operator">:</span> AddressSanitizer<span class="token operator">:</span> heap<span class="token operator">-</span>use<span class="token operator">-</span>after<span class="token operator">-</span>free <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 READ of size <span class="token number">4</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token macro property"><span class="token directive-hash">#</span>0 main use-after-free.c:17</span>
 freed by thread T0 here<span class="token operator">:</span>
-    <span class="token macro property"><span class="token directive-hash">#</span>0 free ...</span>
     <span class="token macro property"><span class="token directive-hash">#</span>1 main use-after-free.c:13</span>
-SUMMARY<span class="token operator">:</span> AddressSanitizer<span class="token operator">:</span> heap<span class="token operator">-</span>use<span class="token operator">-</span>after<span class="token operator">-</span>free use<span class="token operator">-</span>after<span class="token operator">-</span>free<span class="token punctuation">.</span>c<span class="token operator">:</span><span class="token number">17</span> in main</code></pre>
+SUMMARY<span class="token operator">:</span> AddressSanitizer<span class="token operator">:</span> heap<span class="token operator">-</span>use<span class="token operator">-</span>after<span class="token operator">-</span>free <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
 <div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
 <ul>
 <li>
@@ -1373,19 +1394,15 @@ SUMMARY<span class="token operator">:</span> AddressSanitizer<span class="token 
 
 </li>
 <li>
-<p>普通编译可能"看起来正常", 这是未定义行为, 可能随时崩溃或读到脏数据.</p>
+<p>不置 NULL 继续访问是未定义行为: 可能读到 3/42, 也可能崩溃.</p>
 
 </li>
 <li>
-<p><code>p = NULL</code> 后, 误用会立即 NULL 解引用 (容易定位); 也允许 <code>free(NULL)</code>.</p>
+<p><code>p = NULL</code> 后误用会立即 NULL 解引用 (容易定位); 也允许 <code>free(NULL)</code>.</p>
 
 </li>
 <li>
 <p>规则: free 后立即 <code>p = NULL</code>.</p>
-
-</li>
-<li>
-<p>这个演示要用 <code>-fsanitize=address</code> 才能看到明确报告.</p>
 
 </li>
 </ul>
