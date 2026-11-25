@@ -214,6 +214,10 @@ ch <span class="token operator">=</span> <span class="token string">"abc"</span>
   <span class="token keyword keyword-return">return</span> <span class="token string">"0123456789ABCDEF"</span><span class="token punctuation">[</span>digit<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <p>这里把字符串字面量当作<mark>只读数组</mark>: <code>digit</code> 是下标, 返回值是对应字符.</p>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/digit-to-hex.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 digit-to-hex.c (现场演示)</a>
+</div>
+<div style="margin-top:6px;font-size:0.9em;color:#586e75;">运行结果: 0→0, 9→9, 10→A, …, 15→F.</div>
 </div>
 </div>
 <hr>
@@ -235,7 +239,61 @@ ch <span class="token operator">=</span> <span class="token string">"abc"</span>
 <p>非法调用:</p>
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/*** 错误的 ***/</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="字符串变量--字符数组">字符串变量: 字符数组 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="字符串字面量--现场演示">字符串字面量: 现场演示 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.15;">
+<div class="col-label">完整代码 · string-literal.c</div>
+<style>.strlit-code pre code{font-size:13.5px;line-height:1.2;}</style>
+<div class="strlit-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-char">char</span> ch <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p = %s, p[1] = %c\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">,</span> p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"ch = %c\n"</span><span class="token punctuation">,</span> ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(\"abc\") = %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 4: 含 '\0' */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"strlen(\"abc\") = %zu\n"</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 3: 不含 '\0' */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"one\ntwo\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/string-literal.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 string-literal.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>p <span class="token operator">=</span> abc<span class="token punctuation">,</span> p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> b
+ch <span class="token operator">=</span> b
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">4</span>
+<span class="token function">strlen</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+one
+two</code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>sizeof("abc")</code> = 4: 含结尾 <code>'\0'</code></p>
+
+</li>
+<li>
+<p><code>strlen("abc")</code> = 3: 不含 <code>'\0'</code></p>
+
+</li>
+<li>
+<p><code>"abc"[1]</code> 就是字符 <code>'b'</code></p>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="字符串变量--字符数组">字符串变量: 字符数组 </h5>
 <hr>
 <div class="split-rule" style="display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:start;">
 <div style="font-size:0.68em;">
@@ -270,7 +328,7 @@ str<span class="token punctuation">[</span><span class="token number">2</span><s
 </div>
 <p><code>STR_LEN + 1</code> 的数组可保存长度 0 ~ <code>STR_LEN</code> 的字符串; <mark>实际长度取决于空字符的位置</mark>. 不留空字符空间, 程序执行时可能得到不可预知的结果.</p>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="初始化字符串变量--恰好-过短-过长">初始化字符串变量: 恰好、过短、过长 </h5>
+</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="初始化字符串变量--恰好-过短-过长">初始化字符串变量: 恰好、过短、过长 </h5>
 <hr>
 <div style="font-size:0.8em;">
 <p>声明时可以直接用字符串初始化. 编译器把 <code>"June 14"</code> 当作<mark>字符数组初始化式</mark>的缩写, 并自动补上空字符.</p>
@@ -302,7 +360,72 @@ str<span class="token punctuation">[</span><span class="token number">2</span><s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="字符数组与字符指针">字符数组与字符指针 </h5>
+</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="char-date3-7-----june-14--不是字符串--现场演示">char date3[7] = "June 14" 不是字符串: 现场演示 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.15;">
+<div class="col-label">完整代码 · string-init-demo.c</div>
+<style>.strinit-code pre code{font-size:13px;line-height:1.2;}</style>
+<div class="strinit-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-char">char</span> date1<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span>   <span class="token comment">/* 恰好: 7 个字符 + '\0' */</span>
+    <span class="token keyword keyword-char">char</span> date3<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"June 14"</span><span class="token punctuation">;</span>   <span class="token comment">/* 没有空间存 '\0' */</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"date1: sizeof = %zu, strlen = %zu, s = %s\n"</span><span class="token punctuation">,</span>
+           <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>date1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>date1<span class="token punctuation">)</span><span class="token punctuation">,</span> date1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"date3: sizeof = %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>date3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"date3 的 7 个字节: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">7</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%c"</span><span class="token punctuation">,</span> date3<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* 下面两个操作都要求 date3 以 '\0' 结尾; 否则是未定义行为 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"strlen(date3) = %zu\n"</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>date3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"date3 as string: %s\n"</span><span class="token punctuation">,</span> date3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/string-init-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 string-init-demo.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+<div class="col-label">本机运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>date1<span class="token operator">:</span> <span class="token keyword keyword-sizeof">sizeof</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> strlen <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span> s <span class="token operator">=</span> June <span class="token number">14</span>
+date3<span class="token operator">:</span> <span class="token keyword keyword-sizeof">sizeof</span> <span class="token operator">=</span> <span class="token number">7</span>
+date3 的 <span class="token number">7</span> 个字节<span class="token operator">:</span> June <span class="token number">14</span>
+<span class="token function">strlen</span><span class="token punctuation">(</span>date3<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">8</span>
+date3 as string<span class="token operator">:</span> June <span class="token number">14</span>k</code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>date1[8]</code> 有 7 个字符 + <code>'\0'</code>: <code>strlen = 7</code>, <code>%s</code> 正常.</p>
+
+</li>
+<li>
+<p><code>date3[7]</code> 只存下 7 个字符, <mark>没有 <code>'\0'</code></mark>: <code>sizeof = 7</code>, 但 <code>%s</code>/<code>strlen</code> 会越过数组继续读, 是未定义行为.</p>
+
+</li>
+<li>
+<p>本机 <code>strlen(date3) = 8</code>, <code>%s</code> 多打印了一个字符; 结果依环境而变, 可能更多或崩溃.</p>
+
+</li>
+<li>
+<p>编译器会警告 <code>initializer-string ... too long</code>——这正是“不是字符串”的信号.</p>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="字符数组与字符指针">字符数组与字符指针 </h5>
 <hr>
 <div style="display:grid;grid-template-columns:1.02fr 1fr;gap:24px;align-items:start;">
 <div style="font-size:0.82em;">
@@ -328,7 +451,65 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="178" class="slide " data-source-line="178" data-h="9" data-v="0"><h5 id="写字符串--printf-与-puts">写字符串: printf 与 puts </h5>
+</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="字符数组-vs-字符指针--现场演示">字符数组 vs 字符指针: 现场演示 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.15;">
+<div class="col-label">完整代码 · string-array-vs-pointer.c</div>
+<style>.strarr-code pre code{font-size:13.5px;line-height:1.2;}</style>
+<div class="strarr-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-char">char</span> s<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s = %s, sizeof(s) = %zu, strlen(s) = %zu\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p = %s, sizeof(p) = %zu, strlen(p) = %zu\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'A'</span><span class="token punctuation">;</span>                 <span class="token comment">/* 可以: s 是自己的数组 */</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s[0] = 'A' 后: %s\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* p[0] = 'A';  错误: p 指向只读的字符串字面量 */</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s 的地址 = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p 的值   = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/string-array-vs-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 string-array-vs-pointer.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>s <span class="token operator">=</span> abc<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+p <span class="token operator">=</span> abc<span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'A'</span> 后<span class="token operator">:</span> Abc
+s 的地址 <span class="token operator">=</span> <span class="token number">0</span>x<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+p 的值   <span class="token operator">=</span> <span class="token number">0</span>x<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>sizeof(s) = 4</code>: 数组本身, 含结尾 <code>'\0'</code></p>
+
+</li>
+<li>
+<p><code>sizeof(p) = 8</code>: 指针变量 (64 位)</p>
+
+</li>
+<li>
+<p><code>s[0]</code> 可以改; <code>p</code> 指向只读的字面量, 不能改</p>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="写字符串--printf-与-puts">写字符串: printf 与 puts </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -344,7 +525,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="192" class="slide " data-source-line="192" data-h="10" data-v="0"><h5 id="写字符串--字段宽度">写字符串: 字段宽度 </h5>
+</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="写字符串--字段宽度">写字符串: 字段宽度 </h5>
 <hr>
 <p>转换说明 <mark>%ms</mark> 将在大小为 <mark>m</mark> 的字段内打印字符串.</p>
 <p>如果字符串少于 <mark>m</mark> 个字符, 则会在字段内右对齐输出.</p>
@@ -355,7 +536,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 <pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%10.6s|\n"</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 字段宽 10, 取前 6 个字符, 右对齐 */</span>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%-10.6s|\n"</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 左对齐 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="206" class="slide " data-source-line="206" data-h="11" data-v="0"><h5 id="读字符串--scanf">读字符串: scanf </h5>
+</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="读字符串--scanf">读字符串: scanf </h5>
 <hr>
 <div style="display:grid;grid-template-columns:1.08fr 1fr;gap:24px;align-items:start;">
 <div style="font-size:0.88em;">
@@ -394,7 +575,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="220" class="slide " data-source-line="220" data-h="12" data-v="0"><h5 id="读字符串--为什么不用-gets">读字符串: 为什么不用 gets </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="读字符串--为什么不用-gets">读字符串: 为什么不用 gets </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.25;font-size:0.62em;">
@@ -423,7 +604,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="234" class="slide " data-source-line="234" data-h="13" data-v="0"><h5 id="逐个字符读字符串">逐个字符读字符串 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="逐个字符读字符串">逐个字符读字符串 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.9em;">
@@ -448,7 +629,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="248" class="slide " data-source-line="248" data-h="14" data-v="0"><h5 id="逐个字符读字符串--实现">逐个字符读字符串 (实现) </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="逐个字符读字符串--实现">逐个字符读字符串 (实现) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 <div style="flex:1.3;font-size:0.55em;">
@@ -488,7 +669,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="访问字符串中的字符">访问字符串中的字符 </h5>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="访问字符串中的字符">访问字符串中的字符 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -520,7 +701,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="strcpy-字符串复制">strcpy(字符串复制) </h5>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="strcpy-字符串复制">strcpy(字符串复制) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -541,7 +722,7 @@ p <span class="token operator">=</span> str<span class="token punctuation">;</sp
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="strlen-字符串长度">strlen(字符串长度) </h5>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="strlen-字符串长度">strlen(字符串长度) </h5>
 <hr>
 <p>strlen函数的原型:</p>
 <p><code>size_t strlen(const char *s);</code></p>
@@ -554,7 +735,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 <span class="token function">strcpy</span><span class="token punctuation">(</span>str1<span class="token punctuation">,</span> <span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 len <span class="token operator">=</span> <span class="token function">strlen</span><span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* len is now 3 */</span></code></pre>
 <hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="任务--自己实现-strlen">任务: 自己实现 strlen </h5>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="任务--自己实现-strlen">任务: 自己实现 strlen </h5>
 <hr>
 <div style="font-size:0.9em;line-height:1.55;">
 <p><mark>任务</mark>: 写 <code>int my_strlen(const char *s)</code>, 返回字符串长度 (<mark>不含</mark>结尾的 <code>'\0'</code>), 分别用<mark>下标版</mark>和<mark>指针版</mark>实现</p>
@@ -580,7 +761,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/task-strlen.c" style="display:inline-block;margin-top:3px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-strlen.c (骨架)</a>
 </div>
 <hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="任务--参考代码与要点">任务: 参考代码与要点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="small-code" style="flex:1.08;min-width:0;font-size:0.4em;">
@@ -637,7 +818,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="strcat-字符串拼接">strcat(字符串拼接) </h5>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="strcat-字符串拼接">strcat(字符串拼接) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.6em;">
@@ -666,7 +847,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="strcmp-字符串比较">strcmp(字符串比较) </h5>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="strcmp-字符串比较">strcmp(字符串比较) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.2;font-size:0.62em;">
@@ -685,7 +866,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="程序--打印一个月的提醒列表">程序: 打印一个月的提醒列表 </h5>
+</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="程序--打印一个月的提醒列表">程序: 打印一个月的提醒列表 </h5>
 <hr>
 <div style="display:grid;grid-template-columns:1.12fr 1fr;gap:22px;align-items:start;">
 <div style="font-size:0.48em;">
@@ -728,7 +909,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="程序--打印一个月的提醒列表--参考实现">程序: 打印一个月的提醒列表 (参考实现) </h5>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="程序--打印一个月的提醒列表--参考实现">程序: 打印一个月的提醒列表 (参考实现) </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div class="small-code" style="flex:1.42;min-width:0;font-size:0.5em;">
@@ -781,7 +962,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="字符串惯用法--搜索结尾与复制">字符串惯用法: 搜索结尾与复制 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="字符串惯用法--搜索结尾与复制">字符串惯用法: 搜索结尾与复制 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1.3;font-size:0.55em;">
@@ -817,7 +998,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="402" class="slide " data-source-line="402" data-h="25" data-v="0"><h5 id="字符串数组">字符串数组 </h5>
+</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="字符串数组">字符串数组 </h5>
 <hr>
 <div style="display:grid;grid-template-columns:1.12fr 1fr;gap:22px;align-items:start;">
 <div style="font-size:0.76em;">
@@ -840,7 +1021,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <p style="margin:0.25rem 2rem;"><strong>1. 概念：</strong> <code>"abc"</code> 和 <code>'a'</code> 的区别是什么？<code>"abc"</code> 在内存里占几个字节？</p>
 <p style="margin:0.25rem 2rem;"><strong>2. 概念：</strong> <code>char s[] = "hello";</code> 与 <code>char *p = "hello";</code> 有什么区别？</p>
@@ -860,7 +1041,7 @@ len <span class="token operator">=</span> <span class="token function">strlen</s
 <span class="token function">strcpy</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token string">"hi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </div>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="27" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="30" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

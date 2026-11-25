@@ -197,6 +197,12 @@ char digit_to_hex_char(int digit)
 
 这里把字符串字面量当作==只读数组==: `digit` 是下标, 返回值是对应字符.
 
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/digit-to-hex.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 digit-to-hex.c (现场演示)</a>
+</div>
+
+<div style="margin-top:6px;font-size:0.9em;color:#586e75;">运行结果: 0→0, 9→9, 10→A, …, 15→F.</div>
+
 </div>
 
 </div>
@@ -227,6 +233,70 @@ printf('\n'); /*** 错误的 ***/
 ---
 
 
+<!-- slide data-notes="" -->##### 字符串字面量: 现场演示
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.15;">
+
+<div class="col-label">完整代码 · string-literal.c</div>
+
+<style>.strlit-code pre code{font-size:13.5px;line-height:1.2;}</style>
+
+<div class="strlit-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char *p = "abc";
+    char ch = "abc"[1];
+
+    printf("p = %s, p[1] = %c\n", p, p[1]);
+    printf("ch = %c\n", ch);
+    printf("sizeof(\"abc\") = %zu\n", sizeof("abc"));   /* 4: 含 '\0' */
+    printf("strlen(\"abc\") = %zu\n", strlen("abc"));   /* 3: 不含 '\0' */
+    printf("one\ntwo\n");
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/string-literal.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 string-literal.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">运行结果</div>
+
+```text
+p = abc, p[1] = b
+ch = b
+sizeof("abc") = 4
+strlen("abc") = 3
+one
+two
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `sizeof("abc")` = 4: 含结尾 `'\0'`
+- `strlen("abc")` = 3: 不含 `'\0'`
+- `"abc"[1]` 就是字符 `'b'`
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 ##### 字符串变量: 字符数组
@@ -335,6 +405,78 @@ char date3[7] = "June 14";
 
 </div>
 
+<!-- slide data-notes="" -->##### char date3[7] = "June 14" 不是字符串: 现场演示
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.15;">
+
+<div class="col-label">完整代码 · string-init-demo.c</div>
+
+<style>.strinit-code pre code{font-size:13px;line-height:1.2;}</style>
+
+<div class="strinit-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char date1[8] = "June 14";   /* 恰好: 7 个字符 + '\0' */
+    char date3[7] = "June 14";   /* 没有空间存 '\0' */
+
+    printf("date1: sizeof = %zu, strlen = %zu, s = %s\n",
+           sizeof(date1), strlen(date1), date1);
+
+    printf("date3: sizeof = %zu\n", sizeof(date3));
+    printf("date3 的 7 个字节: ");
+    for (int i = 0; i < 7; i++)
+        printf("%c", date3[i]);
+    printf("\n");
+
+    /* 下面两个操作都要求 date3 以 '\0' 结尾; 否则是未定义行为 */
+    printf("strlen(date3) = %zu\n", strlen(date3));
+    printf("date3 as string: %s\n", date3);
+
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/string-init-demo.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 string-init-demo.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">本机运行结果</div>
+
+```text
+date1: sizeof = 8, strlen = 7, s = June 14
+date3: sizeof = 7
+date3 的 7 个字节: June 14
+strlen(date3) = 8
+date3 as string: June 14k
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `date1[8]` 有 7 个字符 + `'\0'`: `strlen = 7`, `%s` 正常.
+- `date3[7]` 只存下 7 个字符, ==没有 `'\0'`==: `sizeof = 7`, 但 `%s`/`strlen` 会越过数组继续读, 是未定义行为.
+- 本机 `strlen(date3) = 8`, `%s` 多打印了一个字符; 结果依环境而变, 可能更多或崩溃.
+- 编译器会警告 `initializer-string ... too long`——这正是“不是字符串”的信号.
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 ##### 字符数组与字符指针
@@ -371,6 +513,74 @@ p = str;        /* 让 p 指向字符数组 */
 
 </div>
 
+<!-- slide data-notes="" -->##### 字符数组 vs 字符指针: 现场演示
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.15;">
+
+<div class="col-label">完整代码 · string-array-vs-pointer.c</div>
+
+<style>.strarr-code pre code{font-size:13.5px;line-height:1.2;}</style>
+
+<div class="strarr-code">
+
+```C{.line-numbers}
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char s[] = "abc";
+    char *p = "abc";
+
+    printf("s = %s, sizeof(s) = %zu, strlen(s) = %zu\n", s, sizeof(s), strlen(s));
+    printf("p = %s, sizeof(p) = %zu, strlen(p) = %zu\n", p, sizeof(p), strlen(p));
+
+    s[0] = 'A';                 /* 可以: s 是自己的数组 */
+    printf("s[0] = 'A' 后: %s\n", s);
+
+    /* p[0] = 'A';  错误: p 指向只读的字符串字面量 */
+
+    printf("s 的地址 = %p\n", (void *)s);
+    printf("p 的值   = %p\n", (void *)p);
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/string-array-vs-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 string-array-vs-pointer.c (现场演示)</a>
+</div>
+
+</div>
+
+<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
+
+<div class="col-label">运行结果</div>
+
+```text
+s = abc, sizeof(s) = 4, strlen(s) = 3
+p = abc, sizeof(p) = 8, strlen(p) = 3
+s[0] = 'A' 后: Abc
+s 的地址 = 0x...
+p 的值   = 0x...
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `sizeof(s) = 4`: 数组本身, 含结尾 `'\0'`
+- `sizeof(p) = 8`: 指针变量 (64 位)
+- `s[0]` 可以改; `p` 指向只读的字面量, 不能改
+</div>
+
+</div>
+
+</div>
+
+---
 <!-- slide data-notes="" -->
 
 

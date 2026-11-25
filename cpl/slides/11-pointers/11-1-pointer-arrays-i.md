@@ -60,9 +60,11 @@ presentation:
 
 - 使用指针进行数组处理
 
-- 课堂编码
+- 课堂编码: 指针遍历数组
 
 - 结合 * 和 ++ 运算符
+
+- 课堂编码: 补全栈的 push/pop
 
 - 课堂小测
 
@@ -391,7 +393,7 @@ for (p = &a[0]; p < &a[N]; p++)
 <!-- slide data-notes="" -->
 
 
-##### 课堂编码
+##### 课堂编码: 指针遍历数组
 
 ---
 
@@ -434,7 +436,7 @@ for (p = &a[0]; p < &a[N]; p++)
 
 ---
 
-<!-- slide data-notes="" -->##### 课堂编码 · 参考实现
+<!-- slide data-notes="" -->##### 课堂编码参考: 指针遍历数组
 
 ---
 
@@ -696,6 +698,50 @@ int pop(void)   { return *--top_ptr; }
 - pop: 先前移, 再读取——`contents[--top]` 对应 `*--top_ptr`.
 - `*p++` 等价于 `*(p++)`; `*--p` 等价于 `*(--p)`.
 - 这里假设栈不溢出/不下溢; 工程代码要加边界检查 (下一页演示).
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 课堂编码: 补全栈的 push/pop
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.4;text-align:left;">
+
+<div style="flex:1.1;">
+
+==任务==: 打开 `task-stack.c`, 补全 `push` 和 `pop` 里的两条语句, 用 `*` 与 `++/--` 实现栈.
+
+- `push`: 用 `*top_ptr++` 把 `i` 存入当前空位, 再后移
+- `pop`: 用 `*--top_ptr` 先回退, 再返回该位置的值
+
+`main` 和栈满/栈空检查已给出; 运行应输出:
+
+```text
+pop = 9
+pop = 8
+pop = 10
+pop = 7
+```
+
+</div>
+
+<div style="flex:0.9;">
+
+==提示==: `*top_ptr++` 等价于 `*(top_ptr++)`; `*--top_ptr` 等价于 `*(--top_ptr)`.
+
+<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>完成标准:</b>
+<div>· push 用 `*top_ptr++`, pop 用 `*--top_ptr`</div>
+<div>· 输出 `9`、`8`、`10`、`7`</div>
+<div>· 不破坏栈满/栈空检查</div>
+</div>
+
+<div style="margin-top:10px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-stack.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-stack.c (骨架)</a>
+</div>
+
+</div>
 
 </div>
 
