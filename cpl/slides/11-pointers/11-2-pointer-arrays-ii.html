@@ -736,418 +736,11 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="初始化二维数组--两种写法">初始化二维数组: 两种写法 </h5>
+</section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="二维数组的类型-1-3--两个规则">二维数组的类型 1/3: 两个规则 </h5>
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.70em;line-height:1.45;text-align:left;">
-<div style="flex:1.2;">
-<div class="col-label">两种写法</div>
-<style>.init2d-code pre code{font-size:15px;line-height:1.2;}</style>
-<div class="init2d-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>NUM_ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 方法1: 嵌套循环 (标准写法) */</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> row <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> row <span class="token operator"><</span> NUM_ROWS<span class="token punctuation">;</span> row<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> col <span class="token operator"><</span> NUM_COLS<span class="token punctuation">;</span> col<span class="token operator">++</span><span class="token punctuation">)</span>
-        a<span class="token punctuation">[</span>row<span class="token punctuation">]</span><span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 方法2: 按行优先顺序用指针扁平遍历 */</span>
-<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator">&lt;=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>NUM_ROWS<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_COLS<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-elements.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-elements.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.8;">
-<div class="col-label">要点</div>
-<ul>
-<li>
-<p>方法1 是标准写法, 可读性好.</p>
-
-</li>
-<li>
-<p>方法2 依赖二维数组按行优先连续存储; 把二维数组当一维扁平遍历在标准层面并不完全可移植, 了解思路即可.</p>
-
-</li>
-<li>
-<p>现代编译器上, 方法2 通常没有明显速度优势, 还损害可读性.</p>
-
-</li>
-<li>
-<p>需要按行处理时, 用后面的行指针更自然.</p>
-
-</li>
-</ul>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="二维数组的行--a-i--是一行">二维数组的行: a[i] 是一行 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.5;text-align:left;">
-<div style="flex:1.05;">
-<p><code>int a[3][4];</code> 可以看成 3 行, 每行是一个一维数组:</p>
-<ul>
-<li>
-<p><code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code> 分别是第 0、1、2 行</p>
-
-</li>
-<li>
-<p><code>a[i]</code> 是第 i 行这个一维数组</p>
-
-</li>
-<li>
-<p><code>a[i][j]</code> 是第 i 行第 j 个元素</p>
-
-</li>
-</ul>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>            <span class="token comment">/* 第 1 行第 2 列 */</span>
-<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* p 指向第 1 行第 0 个元素 */</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 7 */</span></code></pre>
-</div>
-<div style="flex:0.95;">
-<div class="col-label">记住三件事</div>
-<ul>
-<li>
-<p><code>a[i]</code> 是一行, 不是第 i 个 int.</p>
-
-</li>
-<li>
-<p><code>a[i][j]</code> 才是元素.</p>
-
-</li>
-<li>
-<p>把 <code>a[i]</code> 当指针用时, 它就是 <code>&amp;a[i][0]</code>.</p>
-
-</li>
-</ul>
-<div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<p>先把这个“行”的模型记牢; 类型表和 <code>sizeof</code> 的细节放在后面的自学页.</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="用-sizeof-看二维数组的表达式类型">用 sizeof 看二维数组的表达式类型 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
-<div style="flex:1.1;">
-<div class="col-label">完整代码 · multidim-type-size.c</div>
-<style>.size-code pre code{font-size:13px;line-height:1.2;}</style>
-<div class="size-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> ROWS 3</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> COLS 4</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>rowp<span class="token punctuation">)</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* a + 0 变成行指针 */</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(int)      = %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a)        = %zu  (整个二维数组)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a[0])     = %zu  (一行)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a[0][0])  = %zu  (一个 int)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(*a)       = %zu  (一行, 不是 int)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(rowp)     = %zu  (a + 0 退化成的行指针)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>rowp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(&amp;a[0][0]) = %zu  (int *)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a        = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a         = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a[0]     = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a[0]      = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a[0][0]  = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a + 1        = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a[0][0] + 1 = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"(a + 1) - a  = %td 行\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-type-size.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-type-size.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
-<div class="col-label">运行结果</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span>      <span class="token operator">=</span> <span class="token number">4</span>
-<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>        <span class="token operator">=</span> <span class="token number">48</span>
-<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>     <span class="token operator">=</span> <span class="token number">16</span>
-<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token operator">=</span> <span class="token number">4</span>
-<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>a<span class="token punctuation">)</span>       <span class="token operator">=</span> <span class="token number">16</span>
-<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>rowp<span class="token punctuation">)</span>     <span class="token operator">=</span> <span class="token number">8</span>
-<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">8</span>
-<span class="token operator">&</span>a <span class="token operator">=</span> a <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>  <span class="token punctuation">(</span>同一地址<span class="token punctuation">)</span>
-a <span class="token operator">+</span> <span class="token number">1</span>        <span class="token operator">=</span> 基址 <span class="token operator">+</span> <span class="token number">16</span> 字节
-<span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">=</span> 基址 <span class="token operator">+</span> <span class="token number">4</span> 字节
-<span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> a  <span class="token operator">=</span> <span class="token number">1</span> 行</code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<ul>
-<li>
-<p><code>sizeof(a)</code> = 整个二维数组; <code>sizeof(a[0])</code> = 一行; <code>sizeof(a[0][0])</code> = 一个 int.</p>
-
-</li>
-<li>
-<p><code>a[0]</code> 与 <code>&amp;a[0][0]</code> 地址相同, 但 <code>sizeof</code> 不同: 前者是数组 (16), 后者是指针 (8).</p>
-
-</li>
-<li>
-<p><code>a + 1</code> 跳一行; <code>&amp;a[0][0] + 1</code> 跳一个 int.</p>
-
-</li>
-<li>
-<p><code>sizeof</code> 不会把数组转成指针 (非 VLA), 也不真正求值操作数.</p>
-
-</li>
-</ul>
-</div>
-<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">
-<p>（常见 64 位平台: int 4 字节, 指针 8 字节）</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="用-a-i--处理第-i-行">用 a[i] 处理第 i 行 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.65em;line-height:1.45;text-align:left;">
-<div style="flex:1.15;">
-<div class="col-label">代码</div>
-<style>.row-code pre code{font-size:14px;line-height:1.25;}</style>
-<div class="row-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 将 p 初始化为指向第 i 行第 0 个元素 */</span>
-p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 可简化为 */</span>
-p <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 遍历第 i 行 */</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> NUM_COLS<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-<span class="token comment">/* 把第 i 行传给处理一维数组的函数 */</span>
-largest <span class="token operator">=</span> <span class="token function">find_largest</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> NUM_COLS<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-row.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-row.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.85;">
-<ul>
-<li>
-<p><code>p = a[i]</code> 与 <code>p = &amp;a[i][0]</code> 等价.</p>
-
-</li>
-<li>
-<p><code>p &lt; a[i] + NUM_COLS</code> 保证只在第 i 行内遍历.</p>
-
-</li>
-<li>
-<p><code>a[i]</code> 可以直接传给形参为 <code>int a[]</code> 的函数.</p>
-
-</li>
-</ul>
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<p><code>a[i]</code> 是行数组; 用作表达式时退化为行首地址.</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="二维数组的列--行指针">二维数组的列: 行指针 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
-<div style="flex:1;">
-<p>处理二维数组一列的元素, 需要<mark>行指针</mark>:</p>
-<style>.rowptr-code pre code{font-size:14px;line-height:1.3;}</style>
-<div class="rowptr-code">
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>NUM_COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>NUM_ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
-</div>
-<ul>
-<li>
-<p><code>(*p)</code> 的括号必需; 否则 <code>int *p[NUM_COLS]</code> 是指针数组.</p>
-
-</li>
-<li>
-<p><code>p++</code> 把 p 移到下一行的开始 (跨过一整行).</p>
-
-</li>
-<li>
-<p><code>(*p)[i]</code> 选中第 i 列; 括号必需, 否则 <code>*p[i]</code> 是 <code>*(p[i])</code>.</p>
-
-</li>
-</ul>
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<p>行指针的 <code>p++</code> 跨过一整行, 因为 <code>sizeof(*p) = sizeof(int[NUM_COLS])</code>; 和 11-1 的指针缩放规则相同.<br><br> 它也叫<mark>指向数组的指针</mark>; 和 <code>int *p[N]</code> (指针数组) 的区别在 12-2 讲.</p>
-</div>
-</div>
-<div style="flex:1;text-align:center;">
-<div class="top-2"><svg viewBox="0 0 400 184" width="560" height="258" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
-<defs><marker id="arrColB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrColY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b58900"/></marker><marker id="arrColR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
-<text x="133" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">0</text>
-<text x="175" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">1</text>
-<text x="217" y="24" font-size="12" fill="#268bd2" text-anchor="middle">i</text>
-<text x="259" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">3</text>
-<rect x="112" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="154" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="196" y="34" width="42" height="32" fill="#dc322f" fill-opacity="0.10" stroke="#dc322f" stroke-width="2.6"/>
-<rect x="238" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="112" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="154" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="196" y="66" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
-<rect x="238" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="112" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="154" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<rect x="196" y="98" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
-<rect x="238" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
-<text x="41" y="28" font-size="9" fill="#268bd2" text-anchor="middle">行指针</text>
-<rect x="10" y="35" width="62" height="30" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
-<text x="41" y="55" font-size="14" fill="#268bd2" text-anchor="middle">p</text>
-<line x1="72" y1="50" x2="110" y2="50" stroke="#268bd2" stroke-width="2" marker-end="url(#arrColB)"/>
-<path d="M41,65 C41,100 80,82 108,82" fill="none" stroke="#b58900" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrColY)"/>
-<text x="66" y="118" font-size="10" fill="#b58900" text-anchor="middle">p++ 跨一行</text>
-<text x="288" y="54" font-size="10.5" fill="#dc322f">(*p)[i]</text>
-<line x1="284" y1="50" x2="242" y2="50" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrColR)"/>
-<text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（NUM_COLS 个 int）</text>
-</svg></div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="处理第-i-列--代码与演示">处理第 i 列: 代码与演示 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
-<div style="flex:1.1;">
-<div class="col-label">完整代码 · multidim-col.c</div>
-<style>.col-code pre code{font-size:13.5px;line-height:1.2;}</style>
-<div class="col-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> ROWS 3</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> COLS 4</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
-        <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"第 %d 列: "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"清零后第 %d 列: "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-col.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-col.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.9;">
-<div class="col-label">运行结果</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>第 <span class="token number">2</span> 列<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">7</span> <span class="token number">11</span>
-清零后第 <span class="token number">2</span> 列<span class="token operator">:</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span></code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<ul>
-<li>
-<p><code>(*p)</code> 先得到一整行, 再 <code>[i]</code> 取该行第 i 个元素.</p>
-
-</li>
-<li>
-<p><code>p++</code> 一次跨过一整行.</p>
-
-</li>
-</ul>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="二维数组作参数--int-a---cols--与-int---a--cols">二维数组作参数: int a[][COLS] 与 int (*a)[COLS] </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
-<div style="flex:1.1;">
-<div class="col-label">完整代码 · matrix-param.c</div>
-<style>.matrix-code pre code{font-size:13px;line-height:1.2;}</style>
-<div class="matrix-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> ROWS 3</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> COLS 4</span>
-
-<span class="token keyword keyword-void">void</span> <span class="token function">print_matrix</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> rows<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> COLS<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%3d"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
-        <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token function">print_matrix</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> ROWS<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/matrix-param.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 matrix-param.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
-<ul>
-<li>
-<p>列数 <code>COLS</code> 必须写在形参类型里; 行数另传 <code>rows</code>.</p>
-
-</li>
-<li>
-<p><code>int a[][COLS]</code> 与 <code>int (*a)[COLS]</code> <strong>完全等价</strong>; 编译器把 <code>a</code> 当行指针.</p>
-
-</li>
-<li>
-<p><code>a[i]</code> 是第 i 行, 退化成 <code>int *</code>; <code>a[i][j]</code> 才是元素.</p>
-
-</li>
-<li>
-<p>不能写 <code>int a[][]</code>; <code>int **</code> 不能直接接收二维数组 (内存布局不同).</p>
-
-</li>
-</ul>
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<p>和前面一维数组参数一样: 数组名传的是首地址; 只是这里"首元素"是一整行, 所以形参是行指针.</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="自学-1-3--两个规则--推出类型">自学 1/3: 两个规则, 推出类型 </h5>
-<hr>
-<div style="font-size:0.74em;line-height:1.55;text-align:left;">
-<div style="height:3px;width:90px;background:#268bd2;border-radius:2px;margin:2px 0 12px;"></div>
-<div style="display:flex;align-items:flex-start;gap:26px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.70em;line-height:1.5;text-align:left;">
 <div style="flex:1.12;">
-<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-<div style="display:flex;align-items:center;gap:8px;">
-<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#268bd2;color:#fff;border-radius:50%;font-weight:bold;font-size:0.9em;">1</span>
-<b>声明决定层级</b>
-</div>
-<div style="margin-top:8px;">
+<div class="col-label">规则 1: 声明决定层级</div>
 <p><code>int a[ROWS][COLS];</code> 是:</p>
 <ul>
 <li>
@@ -1159,48 +752,44 @@ largest <span class="token operator">=</span> <span class="token function">find_
 
 </li>
 </ul>
-</div>
-</div>
-<div style="margin-top:12px;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-<div style="display:flex;align-items:center;gap:8px;">
-<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#859900;color:#fff;border-radius:50%;font-weight:bold;font-size:0.9em;">2</span>
-<b>数组转首元素指针</b>
-</div>
-<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
+<div class="col-label" style="margin-top:12px;">规则 2: 数组转首元素指针</div>
+<table style="width:100%;margin-top:4px;font-size:0.9em;border-collapse:collapse;">
+<tr style="color:#586e75;">
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">首元素</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">转成</th>
+<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">指针类型</th>
+</tr>
 <tr><td style="padding:3px 4px;"><code>a</code></td><td style="padding:3px 4px;">首元素 <code>a[0]</code> (一行)</td><td style="padding:3px 4px;">→ <code>&amp;a[0]</code></td><td style="padding:3px 4px;"><code>int (*)[COLS]</code></td></tr>
 <tr><td style="padding:3px 4px;"><code>a[i]</code></td><td style="padding:3px 4px;">首元素 <code>a[i][0]</code> (int)</td><td style="padding:3px 4px;">→ <code>&amp;a[i][0]</code></td><td style="padding:3px 4px;"><code>int *</code></td></tr>
 </table>
-</div>
-<div style="margin-top:12px;padding:8px 12px;background:#eef4e6;border-left:4px solid #859900;border-radius:6px;">
+<div style="margin-top:10px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
 <b>口诀:</b> 降一层, 转首元素指针; 指针 +1 跳一个“所指对象”.
 </div>
 </div>
 <div style="flex:0.88;">
-<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
 <div class="col-label">三层模型</div>
-<div style="margin-top:6px;padding:9px 10px;background:#f7f9fc;border:1px solid #dbe4ee;border-radius:6px;">
-<b>整栋</b> <code>a</code>
-<div style="margin-top:2px;color:#586e75;font-size:0.82em;line-height:1.35;"><code>int [ROWS][COLS]</code> → <code>int (*)[COLS]</code></div>
+<div style="margin-top:4px;padding:8px 10px;background:#f7f9fc;border-left:4px solid #268bd2;border-radius:4px;">
+<b>整栋</b> <code>a</code><br>
+<span style="color:#586e75;font-size:0.85em;"><code>int [ROWS][COLS]</code> → <code>int (*)[COLS]</code></span>
 </div>
-<div style="text-align:center;color:#93a1a1;line-height:1.2;">↓ 取一次下标</div>
-<div style="padding:9px 10px;background:#f6f9f1;border:1px solid #dce6d2;border-radius:6px;">
-<b>一行</b> <code>a[i]</code>
-<div style="margin-top:2px;color:#586e75;font-size:0.82em;line-height:1.35;"><code>int [COLS]</code> → <code>int *</code></div>
+<div style="text-align:center;color:#93a1a1;">↓ 取一次下标</div>
+<div style="padding:8px 10px;background:#f6f9f1;border-left:4px solid #859900;border-radius:4px;">
+<b>一行</b> <code>a[i]</code><br>
+<span style="color:#586e75;font-size:0.85em;"><code>int [COLS]</code> → <code>int *</code></span>
 </div>
-<div style="text-align:center;color:#93a1a1;line-height:1.2;">↓ 再取一次下标</div>
-<div style="padding:9px 10px;background:#fafaf7;border:1px solid #e5e5dc;border-radius:6px;">
-<b>一间</b> <code>a[i][j]</code>
-<div style="margin-top:2px;color:#586e75;font-size:0.82em;line-height:1.35;"><code>int</code></div>
+<div style="text-align:center;color:#93a1a1;">↓ 再取一次下标</div>
+<div style="padding:8px 10px;background:#fafaf7;border-left:4px solid #93a1a1;border-radius:4px;">
+<b>一间</b> <code>a[i][j]</code><br>
+<span style="color:#586e75;font-size:0.85em;"><code>int</code></span>
 </div>
-<div style="margin-top:10px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
-<p>先记这两条和三层模型; 具体类型表见后面的自学 3/3.</p>
-</div>
-</div>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
+<p>先记这两条和三层模型; 具体类型表见 3/3.</p>
 </div>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="自学-2-3--数组转首元素指针">自学 2/3: 数组转首元素指针 </h5>
+</section><section data-notes="" lineno="276" class="slide " data-source-line="276" data-h="16" data-v="0"><h5 id="二维数组的类型-2-3--数组转首元素指针">二维数组的类型 2/3: 数组转首元素指针 </h5>
 <hr>
 <div style="font-size:0.72em;line-height:1.55;text-align:left;">
 <div style="height:3px;width:90px;background:#859900;border-radius:2px;margin:2px 0 12px;"></div>
@@ -1294,7 +883,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="自学-3-3--表达式类型表">自学 3/3: 表达式类型表 </h5>
+</section><section data-notes="" lineno="290" class="slide " data-source-line="290" data-h="17" data-v="0"><h5 id="二维数组的类型-3-3--表达式类型表">二维数组的类型 3/3: 表达式类型表 </h5>
 <hr>
 <div style="font-size:0.72em;line-height:1.5;text-align:left;">
 <div style="height:3px;width:90px;background:#268bd2;border-radius:2px;margin:2px 0 12px;"></div>
@@ -1362,6 +951,406 @@ largest <span class="token operator">=</span> <span class="token function">find_
 <div style="margin-top:10px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 <p>不用背; 记住前两页的两条规则, 表可以现推.</p>
 </div>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="304" class="slide " data-source-line="304" data-h="18" data-v="0"><h5 id="初始化二维数组--两种写法">初始化二维数组: 两种写法 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.70em;line-height:1.45;text-align:left;">
+<div style="flex:1.2;">
+<div class="col-label">两种写法</div>
+<style>.init2d-code pre code{font-size:15px;line-height:1.2;}</style>
+<div class="init2d-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>NUM_ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* 方法1: 嵌套循环 (标准写法) */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> row <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> row <span class="token operator"><</span> NUM_ROWS<span class="token punctuation">;</span> row<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> col <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> col <span class="token operator"><</span> NUM_COLS<span class="token punctuation">;</span> col<span class="token operator">++</span><span class="token punctuation">)</span>
+        a<span class="token punctuation">[</span>row<span class="token punctuation">]</span><span class="token punctuation">[</span>col<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* 方法2: 按行优先顺序用指针扁平遍历 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator">&lt;=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>NUM_ROWS<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_COLS<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-elements.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-elements.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.8;">
+<div class="col-label">要点</div>
+<ul>
+<li>
+<p>方法1 是标准写法, 可读性好.</p>
+
+</li>
+<li>
+<p>方法2 依赖二维数组按行优先连续存储; 把二维数组当一维扁平遍历在标准层面并不完全可移植, 了解思路即可.</p>
+
+</li>
+<li>
+<p>现代编译器上, 方法2 通常没有明显速度优势, 还损害可读性.</p>
+
+</li>
+<li>
+<p>需要按行处理时, 用后面的行指针更自然.</p>
+
+</li>
+</ul>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="318" class="slide " data-source-line="318" data-h="19" data-v="0"><h5 id="二维数组的行--a-i--是一行">二维数组的行: a[i] 是一行 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.5;text-align:left;">
+<div style="flex:1.05;">
+<p><code>int a[3][4];</code> 可以看成 3 行, 每行是一个一维数组:</p>
+<ul>
+<li>
+<p><code>a[0]</code>、<code>a[1]</code>、<code>a[2]</code> 分别是第 0、1、2 行</p>
+
+</li>
+<li>
+<p><code>a[i]</code> 是第 i 行这个一维数组</p>
+
+</li>
+<li>
+<p><code>a[i][j]</code> 是第 i 行第 j 个元素</p>
+
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>            <span class="token comment">/* 第 1 行第 2 列 */</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>          <span class="token comment">/* p 指向第 1 行第 0 个元素 */</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 7 */</span></code></pre>
+</div>
+<div style="flex:0.95;">
+<div class="col-label">记住三件事</div>
+<ul>
+<li>
+<p><code>a[i]</code> 是一行, 不是第 i 个 int.</p>
+
+</li>
+<li>
+<p><code>a[i][j]</code> 才是元素.</p>
+
+</li>
+<li>
+<p>把 <code>a[i]</code> 当指针用时, 它就是 <code>&amp;a[i][0]</code>.</p>
+
+</li>
+</ul>
+<div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<p>先把这个“行”的模型记牢; 类型表和 <code>sizeof</code> 的细节见前面的类型页.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="332" class="slide " data-source-line="332" data-h="20" data-v="0"><h5 id="用-sizeof-看二维数组的表达式类型">用 sizeof 看二维数组的表达式类型 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.1;">
+<div class="col-label">完整代码 · multidim-type-size.c</div>
+<style>.size-code pre code{font-size:13px;line-height:1.2;}</style>
+<div class="size-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> ROWS 3</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> COLS 4</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>rowp<span class="token punctuation">)</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">/* a + 0 变成行指针 */</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(int)      = %zu\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a)        = %zu  (整个二维数组)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a[0])     = %zu  (一行)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(a[0][0])  = %zu  (一个 int)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(*a)       = %zu  (一行, 不是 int)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(rowp)     = %zu  (a + 0 退化成的行指针)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>rowp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sizeof(&amp;a[0][0]) = %zu  (int *)\n"</span><span class="token punctuation">,</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a        = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a         = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a[0]     = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a[0]      = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a[0][0]  = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a + 1        = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp;a[0][0] + 1 = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"(a + 1) - a  = %td 行\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-type-size.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-type-size.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span>      <span class="token operator">=</span> <span class="token number">4</span>
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>        <span class="token operator">=</span> <span class="token number">48</span>
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>     <span class="token operator">=</span> <span class="token number">16</span>
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token operator">=</span> <span class="token number">4</span>
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>a<span class="token punctuation">)</span>       <span class="token operator">=</span> <span class="token number">16</span>
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>rowp<span class="token punctuation">)</span>     <span class="token operator">=</span> <span class="token number">8</span>
+<span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">8</span>
+<span class="token operator">&</span>a <span class="token operator">=</span> a <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>  <span class="token punctuation">(</span>同一地址<span class="token punctuation">)</span>
+a <span class="token operator">+</span> <span class="token number">1</span>        <span class="token operator">=</span> 基址 <span class="token operator">+</span> <span class="token number">16</span> 字节
+<span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">=</span> 基址 <span class="token operator">+</span> <span class="token number">4</span> 字节
+<span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> a  <span class="token operator">=</span> <span class="token number">1</span> 行</code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+<ul>
+<li>
+<p><code>sizeof(a)</code> = 整个二维数组; <code>sizeof(a[0])</code> = 一行; <code>sizeof(a[0][0])</code> = 一个 int.</p>
+
+</li>
+<li>
+<p><code>a[0]</code> 与 <code>&amp;a[0][0]</code> 地址相同, 但 <code>sizeof</code> 不同: 前者是数组 (16), 后者是指针 (8).</p>
+
+</li>
+<li>
+<p><code>a + 1</code> 跳一行; <code>&amp;a[0][0] + 1</code> 跳一个 int.</p>
+
+</li>
+<li>
+<p><code>sizeof</code> 不会把数组转成指针 (非 VLA), 也不真正求值操作数.</p>
+
+</li>
+</ul>
+</div>
+<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">
+<p>（常见 64 位平台: int 4 字节, 指针 8 字节）</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="346" class="slide " data-source-line="346" data-h="21" data-v="0"><h5 id="用-a-i--处理第-i-行">用 a[i] 处理第 i 行 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.65em;line-height:1.45;text-align:left;">
+<div style="flex:1.15;">
+<div class="col-label">代码</div>
+<style>.row-code pre code{font-size:14px;line-height:1.25;}</style>
+<div class="row-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token comment">/* 将 p 初始化为指向第 i 行第 0 个元素 */</span>
+p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* 可简化为 */</span>
+p <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* 遍历第 i 行 */</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> NUM_COLS<span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* 把第 i 行传给处理一维数组的函数 */</span>
+largest <span class="token operator">=</span> <span class="token function">find_largest</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> NUM_COLS<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-row.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-row.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.85;">
+<ul>
+<li>
+<p><code>p = a[i]</code> 与 <code>p = &amp;a[i][0]</code> 等价.</p>
+
+</li>
+<li>
+<p><code>p &lt; a[i] + NUM_COLS</code> 保证只在第 i 行内遍历.</p>
+
+</li>
+<li>
+<p><code>a[i]</code> 可以直接传给形参为 <code>int a[]</code> 的函数.</p>
+
+</li>
+</ul>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p><code>a[i]</code> 是行数组; 用作表达式时退化为行首地址.</p>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="360" class="slide " data-source-line="360" data-h="22" data-v="0"><h5 id="二维数组的列--行指针">二维数组的列: 行指针 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+<div style="flex:1;">
+<p>处理二维数组一列的元素, 需要<mark>行指针</mark>:</p>
+<style>.rowptr-code pre code{font-size:14px;line-height:1.3;}</style>
+<div class="rowptr-code">
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>NUM_COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>NUM_ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></code></pre>
+</div>
+<ul>
+<li>
+<p><code>(*p)</code> 的括号必需; 否则 <code>int *p[NUM_COLS]</code> 是指针数组.</p>
+
+</li>
+<li>
+<p><code>p++</code> 把 p 移到下一行的开始 (跨过一整行).</p>
+
+</li>
+<li>
+<p><code>(*p)[i]</code> 选中第 i 列; 括号必需, 否则 <code>*p[i]</code> 是 <code>*(p[i])</code>.</p>
+
+</li>
+</ul>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>行指针的 <code>p++</code> 跨过一整行, 因为 <code>sizeof(*p) = sizeof(int[NUM_COLS])</code>; 和 11-1 的指针缩放规则相同.<br><br> 它也叫<mark>指向数组的指针</mark>; 和 <code>int *p[N]</code> (指针数组) 的区别在 12-2 讲.</p>
+</div>
+</div>
+<div style="flex:1;text-align:center;">
+<div class="top-2"><svg viewBox="0 0 400 184" width="560" height="258" xmlns="http://www.w3.org/2000/svg" font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<defs><marker id="arrColB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#268bd2"/></marker><marker id="arrColY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b58900"/></marker><marker id="arrColR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc322f"/></marker></defs>
+<text x="133" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">0</text>
+<text x="175" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">1</text>
+<text x="217" y="24" font-size="12" fill="#268bd2" text-anchor="middle">i</text>
+<text x="259" y="24" font-size="10" fill="#93a1a1" text-anchor="middle">3</text>
+<rect x="112" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="154" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="196" y="34" width="42" height="32" fill="#dc322f" fill-opacity="0.10" stroke="#dc322f" stroke-width="2.6"/>
+<rect x="238" y="34" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="112" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="154" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="196" y="66" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
+<rect x="238" y="66" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="112" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="154" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<rect x="196" y="98" width="42" height="32" fill="#268bd2" fill-opacity="0.13" stroke="#268bd2" stroke-width="1.4"/>
+<rect x="238" y="98" width="42" height="32" fill="#eee8d5" stroke="#93a1a1" stroke-width="1.2"/>
+<text x="41" y="28" font-size="9" fill="#268bd2" text-anchor="middle">行指针</text>
+<rect x="10" y="35" width="62" height="30" rx="7" fill="#fdf6e3" stroke="#268bd2" stroke-width="2"/>
+<text x="41" y="55" font-size="14" fill="#268bd2" text-anchor="middle">p</text>
+<line x1="72" y1="50" x2="110" y2="50" stroke="#268bd2" stroke-width="2" marker-end="url(#arrColB)"/>
+<path d="M41,65 C41,100 80,82 108,82" fill="none" stroke="#b58900" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrColY)"/>
+<text x="66" y="118" font-size="10" fill="#b58900" text-anchor="middle">p++ 跨一行</text>
+<text x="288" y="54" font-size="10.5" fill="#dc322f">(*p)[i]</text>
+<line x1="284" y1="50" x2="242" y2="50" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrColR)"/>
+<text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（NUM_COLS 个 int）</text>
+</svg></div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="374" class="slide " data-source-line="374" data-h="23" data-v="0"><h5 id="处理第-i-列--代码与演示">处理第 i 列: 代码与演示 </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
+<div style="flex:1.1;">
+<div class="col-label">完整代码 · multidim-col.c</div>
+<style>.col-code pre code{font-size:13.5px;line-height:1.2;}</style>
+<div class="col-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> ROWS 3</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> COLS 4</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"第 %d 列: "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"清零后第 %d 列: "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>p <span class="token operator">=</span> <span class="token operator">&</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> p <span class="token operator"><</span> <span class="token operator">&</span>a<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-col.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-col.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.9;">
+<div class="col-label">运行结果</div>
+<pre data-role="codeBlock" data-info="C" class="language-c C"><code>第 <span class="token number">2</span> 列<span class="token operator">:</span> <span class="token number">3</span> <span class="token number">7</span> <span class="token number">11</span>
+清零后第 <span class="token number">2</span> 列<span class="token operator">:</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span></code></pre>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<ul>
+<li>
+<p><code>(*p)</code> 先得到一整行, 再 <code>[i]</code> 取该行第 i 个元素.</p>
+
+</li>
+<li>
+<p><code>p++</code> 一次跨过一整行.</p>
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section><section data-notes="" lineno="388" class="slide " data-source-line="388" data-h="24" data-v="0"><h5 id="二维数组作参数--int-a---cols--与-int---a--cols">二维数组作参数: int a[][COLS] 与 int (*a)[COLS] </h5>
+<hr>
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="flex:1.1;">
+<div class="col-label">完整代码 · matrix-param.c</div>
+<style>.matrix-code pre code{font-size:13px;line-height:1.2;}</style>
+<div class="matrix-code">
+<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> ROWS 3</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> COLS 4</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">print_matrix</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> rows<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator"><</span> COLS<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%3d"</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> m<span class="token punctuation">[</span>ROWS<span class="token punctuation">]</span><span class="token punctuation">[</span>COLS<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">print_matrix</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> ROWS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/matrix-param.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 matrix-param.c (现场演示)</a>
+</div>
+</div>
+<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
+<ul>
+<li>
+<p>列数 <code>COLS</code> 必须写在形参类型里; 行数另传 <code>rows</code>.</p>
+
+</li>
+<li>
+<p><code>int a[][COLS]</code> 与 <code>int (*a)[COLS]</code> <strong>完全等价</strong>; 编译器把 <code>a</code> 当行指针.</p>
+
+</li>
+<li>
+<p><code>a[i]</code> 是第 i 行, 退化成 <code>int *</code>; <code>a[i][j]</code> 才是元素.</p>
+
+</li>
+<li>
+<p>不能写 <code>int a[][]</code>; <code>int **</code> 不能直接接收二维数组 (内存布局不同).</p>
+
+</li>
+</ul>
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+<p>和前面一维数组参数一样: 数组名传的是首地址; 只是这里"首元素"是一整行, 所以形参是行指针.</p>
 </div>
 </div>
 </div>
