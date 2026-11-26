@@ -361,7 +361,7 @@ i=5: a[5]=12, *(a+5)=12
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.58em;">
+<div style="flex:1.15;font-size:0.58em;">
 
 <div class="col-label">代码</div>
 
@@ -377,7 +377,8 @@ int main(void)
   for (p = a; p < a + N; p++)
     scanf("%d", p);
   printf("逆序输出:");
-  for (p = a + N; p != a; )       /* 先回退再打印, p 不会走出数组 */
+  /* 先回退再打印 */
+  for (p = a + N; p != a; )
     printf(" %d", *--p);
   printf("\n");
   return 0;
@@ -390,7 +391,7 @@ int main(void)
 
 </div>
 
-<div style="flex:1;font-size:0.78em;line-height:1.5;">
+<div style="flex:1.2;font-size:0.78em;line-height:1.5;">
 
 <div class="col-label">运行结果</div>
 
@@ -475,7 +476,7 @@ int main(void) {
 
 <style>.store-code pre code{font-size:15px;line-height:1.25;}</style>
 
-```C{.line-numbers}
+```C
 void store_zeros(int a[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -779,13 +780,13 @@ C 以==行优先==顺序存储二维数组:
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.62em;line-height:1.45;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.70em;line-height:1.45;text-align:left;">
 
 <div style="flex:1.2;">
 
 <div class="col-label">两种写法</div>
 
-<style>.init2d-code pre code{font-size:14px;line-height:1.2;}</style>
+<style>.init2d-code pre code{font-size:15px;line-height:1.2;}</style>
 
 <div class="init2d-code">
 
@@ -858,7 +859,7 @@ printf("%d\n", p[2]);  /* 7 */
 - 把 `a[i]` 当指针用时, 它就是 `&a[i][0]`.
 
 <div style="margin-top:10px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-先把这个“行”的模型记牢; 类型写法和 <code>sizeof</code> 的细节放在后面的演示页.
+先把这个“行”的模型记牢; 类型表和 <code>sizeof</code> 的细节放在后面的自学页.
 </div>
 
 </div>
@@ -1204,6 +1205,218 @@ int main(void)
 
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
 和前面一维数组参数一样: 数组名传的是首地址; 只是这里"首元素"是一整行, 所以形参是行指针.
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 自学 1/3: 两个规则, 推出类型
+
+---
+
+<div style="font-size:0.74em;line-height:1.55;text-align:left;">
+
+<div style="height:3px;width:90px;background:#268bd2;border-radius:2px;margin:2px 0 12px;"></div>
+
+<div style="display:flex;align-items:flex-start;gap:26px;">
+
+<div style="flex:1.12;">
+
+<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div style="display:flex;align-items:center;gap:8px;">
+<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#268bd2;color:#fff;border-radius:50%;font-weight:bold;font-size:0.9em;">1</span>
+<b>声明决定层级</b>
+</div>
+<div style="margin-top:8px;">
+`int a[ROWS][COLS];` 是:
+
+- `ROWS` 个元素的数组
+- 每个元素是 `int[COLS]` —— 也就是“一行”
+</div>
+</div>
+
+<div style="margin-top:12px;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div style="display:flex;align-items:center;gap:8px;">
+<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#859900;color:#fff;border-radius:50%;font-weight:bold;font-size:0.9em;">2</span>
+<b>数组转首元素指针</b>
+</div>
+<table style="width:100%;margin-top:8px;font-size:0.9em;border-collapse:collapse;">
+<tr><td style="padding:3px 4px;"><code>a</code></td><td style="padding:3px 4px;">首元素 <code>a[0]</code> (一行)</td><td style="padding:3px 4px;">→ <code>&amp;a[0]</code></td><td style="padding:3px 4px;"><code>int (*)[COLS]</code></td></tr>
+<tr><td style="padding:3px 4px;"><code>a[i]</code></td><td style="padding:3px 4px;">首元素 <code>a[i][0]</code> (int)</td><td style="padding:3px 4px;">→ <code>&amp;a[i][0]</code></td><td style="padding:3px 4px;"><code>int *</code></td></tr>
+</table>
+</div>
+
+<div style="margin-top:12px;padding:8px 12px;background:#eef4e6;border-left:4px solid #859900;border-radius:6px;">
+<b>口诀:</b> 降一层, 转首元素指针; 指针 +1 跳一个“所指对象”.
+</div>
+
+</div>
+
+<div style="flex:0.88;">
+
+<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div class="col-label">三层模型</div>
+
+<div style="margin-top:6px;padding:9px 10px;background:#f7f9fc;border:1px solid #dbe4ee;border-radius:6px;">
+<b>整栋</b> <code>a</code>
+<div style="margin-top:2px;color:#586e75;font-size:0.82em;line-height:1.35;"><code>int [ROWS][COLS]</code> → <code>int (*)[COLS]</code></div>
+</div>
+<div style="text-align:center;color:#93a1a1;line-height:1.2;">↓ 取一次下标</div>
+<div style="padding:9px 10px;background:#f6f9f1;border:1px solid #dce6d2;border-radius:6px;">
+<b>一行</b> <code>a[i]</code>
+<div style="margin-top:2px;color:#586e75;font-size:0.82em;line-height:1.35;"><code>int [COLS]</code> → <code>int *</code></div>
+</div>
+<div style="text-align:center;color:#93a1a1;line-height:1.2;">↓ 再取一次下标</div>
+<div style="padding:9px 10px;background:#fafaf7;border:1px solid #e5e5dc;border-radius:6px;">
+<b>一间</b> <code>a[i][j]</code>
+<div style="margin-top:2px;color:#586e75;font-size:0.82em;line-height:1.35;"><code>int</code></div>
+</div>
+
+<div style="margin-top:10px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
+先记这两条和三层模型; 具体类型表见后面的自学 3/3.
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 自学 2/3: 数组转首元素指针
+
+---
+
+<div style="font-size:0.72em;line-height:1.55;text-align:left;">
+
+<div style="height:3px;width:90px;background:#859900;border-radius:2px;margin:2px 0 12px;"></div>
+
+<div style="padding:8px 12px;background:#eef4e6;border-left:4px solid #859900;border-radius:6px;">
+<b>一句话:</b> 数组名在大多数表达式里 → 指向第一个元素的指针; 第一个元素是什么类型, 指针就指向什么类型.
+</div>
+
+<div style="display:flex;gap:24px;margin-top:12px;">
+
+<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #268bd2;">
+<div class="col-label">一维: 元素是 int</div>
+<div style="margin-top:6px;"><code>int b[5];</code></div>
+<div style="margin-top:8px;">
+- `b` 本身: `int [5]`
+- 表达式里: → `&b[0]`, `int *`
+- `b + 1` → 下一个 int
+</div>
+</div>
+
+<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #859900;">
+<div class="col-label">二维: 元素是一行</div>
+<div style="margin-top:6px;"><code>int a[3][4];</code></div>
+<div style="margin-top:8px;">
+- `a` 的元素: `int [4]`
+- 首元素 `a[0]` → `&a[0]`, `int (*)[4]`
+- `a + 1` → 下一行 (4 个 int)
+</div>
+</div>
+
+</div>
+
+<div style="display:flex;gap:24px;margin-top:12px;">
+
+<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #859900;">
+<div class="col-label">a[i] 也一样</div>
+<div style="margin-top:8px;">
+- `a[i]` 本身: `int [4]`
+- 首元素 `a[i][0]` → `&a[i][0]`, `int *`
+- `a[i] + 1` → 下一个 int
+</div>
+</div>
+
+<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #b58900;">
+<div class="col-label">两个例外: 不转换</div>
+<div style="margin-top:8px;">
+- `sizeof(a)` = `3 * 4 * 4` = 48 字节
+- `&a` → 指向整个二维数组
+- `sizeof(a[0])` = 一行
+</div>
+</div>
+
+</div>
+
+<div style="margin-top:12px;padding:7px 12px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;text-align:center;">
+<code>a</code> 的首元素是“一行” → 行指针; <code>a[i]</code> 的首元素是“一个 int” → int 指针.
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 自学 3/3: 表达式类型表
+
+---
+
+<div style="font-size:0.72em;line-height:1.5;text-align:left;">
+
+<div style="height:3px;width:90px;background:#268bd2;border-radius:2px;margin:2px 0 12px;"></div>
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.25;">
+
+<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<thead>
+<tr style="background:#f2f4f0;color:#586e75;">
+<th style="text-align:left;padding:6px 8px;">表达式</th>
+<th style="text-align:left;padding:6px 8px;">本身的类型</th>
+<th style="text-align:left;padding:6px 8px;">表达式中转成</th>
+<th style="text-align:left;padding:6px 8px;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background:#fff;"><td style="padding:6px 8px;"><code>a</code></td><td style="padding:6px 8px;"><code>int [ROWS][COLS]</code></td><td style="padding:6px 8px;"><code>int (*)[COLS]</code></td><td style="padding:6px 8px;">指向一行</td></tr>
+<tr style="background:#fafaf7;"><td style="padding:6px 8px;"><code>a + i</code></td><td style="padding:6px 8px;">—</td><td style="padding:6px 8px;"><code>int (*)[COLS]</code></td><td style="padding:6px 8px;">第 i 行</td></tr>
+<tr style="background:#fff;"><td style="padding:6px 8px;"><code>*(a + i)</code></td><td style="padding:6px 8px;"><code>int [COLS]</code></td><td style="padding:6px 8px;"><code>int *</code></td><td style="padding:6px 8px;">第 i 行数组</td></tr>
+<tr style="background:#fafaf7;"><td style="padding:6px 8px;"><code>a[i]</code></td><td style="padding:6px 8px;"><code>int [COLS]</code></td><td style="padding:6px 8px;"><code>int *</code></td><td style="padding:6px 8px;">第 i 行数组</td></tr>
+<tr style="background:#fff;"><td style="padding:6px 8px;"><code>&amp;a[i][0]</code></td><td style="padding:6px 8px;">—</td><td style="padding:6px 8px;"><code>int *</code></td><td style="padding:6px 8px;">行首元素地址</td></tr>
+<tr style="background:#fafaf7;"><td style="padding:6px 8px;"><code>a[i][j]</code></td><td style="padding:6px 8px;">—</td><td style="padding:6px 8px;"><code>int</code></td><td style="padding:6px 8px;">元素</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<div style="flex:0.85;">
+
+<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div class="col-label">怎么用这张表</div>
+<div style="margin-top:8px;">
+- `a` 和 `a[i]` 本身是数组; 在表达式里才转成指针.
+- `a + 1` 跳一行; `a[i] + 1` 跳一个 int.
+- `sizeof` 不转换:
+  - `sizeof(a) = ROWS * COLS * 4`
+  - `sizeof(a[0]) = COLS * 4`
+  - `sizeof(&a[0][0]) = 8`
+</div>
+</div>
+
+<div style="margin-top:12px;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div class="col-label">小例子</div>
+<style>.types-code pre code{font-size:13px;line-height:1.25;}</style>
+<div class="types-code">
+
+```C
+int (*pr)[COLS] = a;   /* 指向一行 */
+int *pi = a[1];        /* 指向 a[1][0] */
+```
+
+</div>
+</div>
+
+<div style="margin-top:10px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+不用背; 记住前两页的两条规则, 表可以现推.
+</div>
+
 </div>
 
 </div>
