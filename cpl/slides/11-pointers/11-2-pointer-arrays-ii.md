@@ -57,7 +57,7 @@ presentation:
 
 - 任务: 数组名与指针
 
-- 程序: 数列反向 (指针版)
+- 任务: 数列反向 (指针版)
 
 - 数组型实际参数
 
@@ -117,68 +117,56 @@ for (int i = 0; i < N; i++)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
-<div style="flex:1.25;font-size:0.52em;">
+<div style="flex:1.15;">
 
-<div class="col-label">现场演示 · array-name-pointer.c</div>
+<div class="col-label">代码节选 · array-name-pointer.c</div>
+
+<style>.array-name-code pre code{font-size:14px;line-height:1.25;}</style>
+
+<div class="array-name-code">
 
 ```C{.line-numbers}
-#include <stdio.h>
-
 #define N 10
+int a[N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+int *p, sum = 0;
 
-int main(void)
-{
-    int a[N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    int *p;
-    int sum = 0;
+*a = 7;             /* a[0] = 7 */
+*(a + 1) = 12;      /* a[1] = 12 */
 
-    *a = 7;          /* a[0] = 7 */
-    *(a + 1) = 12;   /* a[1] = 12 */
-    printf("a[0] = %d, a[1] = %d\n", a[0], a[1]);
+for (p = a; p < a + N; p++)   /* a 就是 &a[0] */
+    sum += *p;
 
-    /* 原始写法: 从 &a[0] 走到 &a[N] */
-    for (p = &a[0]; p < &a[N]; p++)
-        sum += *p;
-    printf("sum (p = &a[0]) = %d\n", sum);
+p = a;
+while (*p != 0)     /* 第一个 0 */
+    p++;
 
-    /* 简化写法: 数组名 a 就是首地址 */
-    sum = 0;
-    for (p = a; p < a + N; p++)
-        sum += *p;
-    printf("sum (p = a)      = %d\n", sum);
-
-    /* a 是数组名, 不能自增; a++ 非法 (编译错误) */
-    /* a++; */
-
-    /* 指针变量可以移动: 走到值为 0 的元素 */
-    p = a;
-    while (*p != 0)
-        p++;
-    printf("第一个 0 在 a[%d]\n", (int)(p - a));
-
-    return 0;
-}
+/* a++;  非法: 数组名不能被赋值 */
 ```
 
+</div>
+
 <div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/array-name-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:1.0em;text-decoration:none;">⚡ 在 VS Code 中打开 array-name-pointer.c (现场演示)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/array-name-pointer.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 array-name-pointer.c (完整代码)</a>
 </div>
 
 </div>
 
-<div style="flex:0.75;font-size:0.6em;line-height:1.5;">
+<div style="flex:0.85;font-size:0.78em;line-height:1.5;">
 
-上一节我们用指针 `p` 遍历数组; 这一节看数组名 `a` 本身作为指针的用法. 假设 `int a[10];`:
+<div class="col-label">要点</div>
 
-- `a` 在表达式中就是指向首元素的指针: `a` 与 `&a[0]` 的值相同.
-- 一般情况, `a + i` 与 `&a[i]` 相同, `*(a + i)` 等价于 `a[i]`.
-- 数组名可以像指针一样解引用和参与指针算术.
-- 但 `a` 是数组名, ==不能被赋值==: `a++` 非法; 要移动就复制到 `int *p`.
+- `a` 与 `&a[0]` 的值相同; `a + i` 等价于 `&a[i]`.
+- `*(a + i)` 等价于 `a[i]`.
+- `a` 是数组名, ==不能自增/赋值==; 要移动指针就复制到 `int *p`.
 
 <div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-运行结果: `a[0] = 7`, `a[1] = 12`; 两种写法的 `sum` 都是 61; 第一个 0 在 `a[9]`.
+运行结果: `a[0] = 7`, `a[1] = 12`; `sum = 61`; 第一个 0 在 `a[9]`.
+</div>
+
+<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+`a` 是“数组名”, 不是指针变量; `p = a` 只是把首地址复制给 p.
 </div>
 
 </div>
@@ -236,7 +224,7 @@ a + 1 = 0x7ffd1a2f, &a[1] = 0x7ffd1a2f
 
 ---
 
-<!-- slide data-notes="" -->##### 任务: 参考代码与要点
+<!-- slide data-notes="" -->##### 任务参考: 数组名与指针
 
 ---
 
@@ -306,7 +294,7 @@ i=5: a[5]=12, *(a+5)=12
 
 ---
 
-<!-- slide data-notes="" -->##### 程序: 数列反向(指针版)
+<!-- slide data-notes="" -->##### 任务: 数列反向(指针版)
 
 ---
 
@@ -355,7 +343,7 @@ i=5: a[5]=12, *(a+5)=12
 <!-- slide data-notes="" -->
 
 
-##### 程序: 数列反向(指针版 参考代码)
+##### 任务参考: 数列反向(指针版)
 
 ---
 
@@ -470,7 +458,7 @@ int main(void) {
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.45;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
 <div class="store-code" style="flex:1.1;">
 
@@ -752,6 +740,10 @@ int main(void)
 
 ---
 
+<div style="margin-bottom:8px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
+从一维到二维: 二维数组本质是“数组的数组”.
+</div>
+
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
 <div style="flex:1;">
@@ -776,13 +768,15 @@ C 以==行优先==顺序存储二维数组:
 </div>
 
 ---
-<!-- slide data-notes="" -->##### 二维数组的类型 1/3: 两个规则
+<!-- slide data-notes="" -->##### 二维数组的类型 1/3: 声明决定层级
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.70em;line-height:1.5;text-align:left;">
+<div style="max-width:1200px;margin:0 auto;">
 
-<div style="flex:1.12;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.66em;line-height:1.5;text-align:left;">
+
+<div style="flex:1.1;">
 
 <div class="col-label">规则 1: 声明决定层级</div>
 
@@ -791,46 +785,44 @@ C 以==行优先==顺序存储二维数组:
 - `ROWS` 个元素的数组
 - 每个元素是 `int[COLS]` —— 也就是“一行”
 
-<div class="col-label" style="margin-top:12px;">规则 2: 数组转首元素指针</div>
+<div style="margin-top:10px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
+读法: 先看“有多少个什么”, 再往里看一层.
+</div>
 
-<table style="width:100%;margin-top:4px;font-size:0.9em;border-collapse:collapse;">
-<tr style="color:#586e75;">
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">表达式</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">首元素</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">转成</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">指针类型</th>
-</tr>
-<tr><td style="padding:3px 4px;"><code>a</code></td><td style="padding:3px 4px;">首元素 <code>a[0]</code> (一行)</td><td style="padding:3px 4px;">→ <code>&amp;a[0]</code></td><td style="padding:3px 4px;"><code>int (*)[COLS]</code></td></tr>
-<tr><td style="padding:3px 4px;"><code>a[i]</code></td><td style="padding:3px 4px;">首元素 <code>a[i][0]</code> (int)</td><td style="padding:3px 4px;">→ <code>&amp;a[i][0]</code></td><td style="padding:3px 4px;"><code>int *</code></td></tr>
-</table>
+<div class="col-label" style="margin-top:14px;">降一层</div>
+
+- 一整栋 `a`: 整个二维数组
+- 一层 `a[i]`: 第 i 行, 类型 `int [COLS]`
+- 一间 `a[i][j]`: 第 i 行第 j 个 int
 
 <div style="margin-top:10px;padding:6px 10px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
-<b>口诀:</b> 降一层, 转首元素指针; 指针 +1 跳一个“所指对象”.
+口诀: 先降层——一整栋 → 一层 → 一间.<br>
+这一页只看声明和下标; 数组名怎么变成指针, 下一页讲.
 </div>
 
 </div>
 
-<div style="flex:0.88;">
+<div style="flex:0.9;">
 
 <div class="col-label">三层模型</div>
 
 <div style="margin-top:4px;padding:8px 10px;background:#f7f9fc;border-left:4px solid #268bd2;border-radius:4px;">
-<b>整栋</b> <code>a</code><br>
-<span style="color:#586e75;font-size:0.85em;"><code>int [ROWS][COLS]</code> → <code>int (*)[COLS]</code></span>
+<b>一整栋</b> <code>a</code><br>
+<span style="color:#586e75;font-size:0.9em;"><code>int [ROWS][COLS]</code></span>
 </div>
-<div style="text-align:center;color:#93a1a1;">↓ 取一次下标</div>
+<div style="text-align:center;color:#93a1a1;font-size:0.9em;">↓ 取一次下标 (得到一层)</div>
 <div style="padding:8px 10px;background:#f6f9f1;border-left:4px solid #859900;border-radius:4px;">
-<b>一行</b> <code>a[i]</code><br>
-<span style="color:#586e75;font-size:0.85em;"><code>int [COLS]</code> → <code>int *</code></span>
+<b>一层</b> <code>a[i]</code><br>
+<span style="color:#586e75;font-size:0.9em;"><code>int [COLS]</code></span>
 </div>
-<div style="text-align:center;color:#93a1a1;">↓ 再取一次下标</div>
+<div style="text-align:center;color:#93a1a1;font-size:0.9em;">↓ 再取一次下标 (得到一个元素)</div>
 <div style="padding:8px 10px;background:#fafaf7;border-left:4px solid #93a1a1;border-radius:4px;">
 <b>一间</b> <code>a[i][j]</code><br>
-<span style="color:#586e75;font-size:0.85em;"><code>int</code></span>
+<span style="color:#586e75;font-size:0.9em;"><code>int</code></span>
 </div>
 
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;font-size:0.9em;">
-先记这两条和三层模型; 具体类型表见 3/3.
+<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">↓ = 取下标</div>
+
 </div>
 
 </div>
@@ -842,17 +834,19 @@ C 以==行优先==顺序存储二维数组:
 
 ---
 
-<div style="font-size:0.72em;line-height:1.55;text-align:left;">
+<div style="max-width:1200px;margin:0 auto;">
 
-<div style="height:3px;width:90px;background:#859900;border-radius:2px;margin:2px 0 12px;"></div>
+<div style="font-size:0.66em;line-height:1.5;text-align:left;">
 
-<div style="padding:8px 12px;background:#eef4e6;border-left:4px solid #859900;border-radius:6px;">
-<b>一句话:</b> 数组名在大多数表达式里 → 指向第一个元素的指针; 第一个元素是什么类型, 指针就指向什么类型.
+<div style="padding:8px 12px;background:#eef4e6;border-left:4px solid #859900;border-radius:4px;">
+<b>规则 2:</b> 数组名在大多数表达式里 → 指向第一个元素的指针; 第一个元素是什么类型, 指针就指向什么类型.
 </div>
 
-<div style="display:flex;gap:24px;margin-top:12px;">
+<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">上一页: 声明决定层级; 这一页: 数组名在表达式里转成指针.</div>
 
-<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #268bd2;">
+<div style="display:flex;align-items:flex-start;gap:20px;margin-top:12px;">
+
+<div style="flex:1;padding:10px 12px;background:#f7f9fc;border-left:4px solid #268bd2;border-radius:4px;">
 <div class="col-label">一维: 元素是 int</div>
 <div style="margin-top:6px;"><code>int b[5];</code></div>
 <div style="margin-top:8px;">
@@ -862,7 +856,7 @@ C 以==行优先==顺序存储二维数组:
 </div>
 </div>
 
-<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #859900;">
+<div style="flex:1;padding:10px 12px;background:#f6f9f1;border-left:4px solid #859900;border-radius:4px;">
 <div class="col-label">二维: 元素是一行</div>
 <div style="margin-top:6px;"><code>int a[3][4];</code></div>
 <div style="margin-top:8px;">
@@ -874,9 +868,9 @@ C 以==行优先==顺序存储二维数组:
 
 </div>
 
-<div style="display:flex;gap:24px;margin-top:12px;">
+<div style="display:flex;align-items:flex-start;gap:20px;margin-top:12px;">
 
-<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #859900;">
+<div style="flex:1;padding:10px 12px;background:#f6f9f1;border-left:4px solid #859900;border-radius:4px;">
 <div class="col-label">a[i] 也一样</div>
 <div style="margin-top:8px;">
 - `a[i]` 本身: `int [4]`
@@ -885,7 +879,7 @@ C 以==行优先==顺序存储二维数组:
 </div>
 </div>
 
-<div style="flex:1;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-top:3px solid #b58900;">
+<div style="flex:1;padding:10px 12px;background:#fdf6e3;border-left:4px solid #b58900;border-radius:4px;">
 <div class="col-label">两个例外: 不转换</div>
 <div style="margin-top:8px;">
 - `sizeof(a)` = `3 * 4 * 4` = 48 字节
@@ -902,21 +896,22 @@ C 以==行优先==顺序存储二维数组:
 
 </div>
 
+</div>
+
 ---
 <!-- slide data-notes="" -->##### 二维数组的类型 3/3: 表达式类型表
 
 ---
 
-<div style="font-size:0.72em;line-height:1.5;text-align:left;">
+<div style="max-width:1200px;margin:0 auto;">
 
-<div style="height:3px;width:90px;background:#268bd2;border-radius:2px;margin:2px 0 12px;"></div>
-
-<div style="display:flex;align-items:flex-start;gap:24px;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.66em;line-height:1.5;text-align:left;">
 
 <div style="flex:1.25;">
 
-<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-<table style="width:100%;font-size:0.92em;border-collapse:collapse;">
+<div style="padding:10px 12px;background:#fff;border:1px solid #e5e5dc;border-radius:6px;">
+
+<table style="width:100%;font-size:0.94em;border-collapse:collapse;">
 <thead>
 <tr style="background:#f2f4f0;color:#586e75;">
 <th style="text-align:left;padding:6px 8px;">表达式</th>
@@ -934,13 +929,14 @@ C 以==行优先==顺序存储二维数组:
 <tr style="background:#fafaf7;"><td style="padding:6px 8px;"><code>a[i][j]</code></td><td style="padding:6px 8px;">—</td><td style="padding:6px 8px;"><code>int</code></td><td style="padding:6px 8px;">元素</td></tr>
 </tbody>
 </table>
+
 </div>
 
 </div>
 
 <div style="flex:0.85;">
 
-<div style="padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div style="padding:10px 12px;background:#f7f9fc;border-left:4px solid #268bd2;border-radius:4px;">
 <div class="col-label">怎么用这张表</div>
 <div style="margin-top:8px;">
 - `a` 和 `a[i]` 本身是数组; 在表达式里才转成指针.
@@ -952,7 +948,7 @@ C 以==行优先==顺序存储二维数组:
 </div>
 </div>
 
-<div style="margin-top:12px;padding:12px 14px;background:#fff;border:1px solid #e5e5dc;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+<div style="margin-top:12px;padding:10px 12px;background:#fafaf7;border-left:4px solid #93a1a1;border-radius:4px;">
 <div class="col-label">小例子</div>
 <style>.types-code pre code{font-size:13px;line-height:1.25;}</style>
 <div class="types-code">
@@ -980,7 +976,7 @@ int *pi = a[1];        /* 指向 a[1][0] */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.70em;line-height:1.45;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
 <div style="flex:1.2;">
 
@@ -991,16 +987,16 @@ int *pi = a[1];        /* 指向 a[1][0] */
 <div class="init2d-code">
 
 ```C{.line-numbers}
-int a[NUM_ROWS][NUM_COLS];
+int a[ROWS][COLS];
 
 /* 方法1: 嵌套循环 (标准写法) */
-for (int row = 0; row < NUM_ROWS; row++)
-    for (int col = 0; col < NUM_COLS; col++)
+for (int row = 0; row < ROWS; row++)
+    for (int col = 0; col < COLS; col++)
         a[row][col] = 0;
 
 /* 方法2: 按行优先顺序用指针扁平遍历 */
 int *p;
-for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
+for (p = &a[0][0]; p <= &a[ROWS-1][COLS-1]; p++)
     *p = 0;
 ```
 
@@ -1030,7 +1026,7 @@ for (p = &a[0][0]; p <= &a[NUM_ROWS-1][NUM_COLS-1]; p++)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.72em;line-height:1.5;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.5;text-align:left;">
 
 <div style="flex:1.05;">
 
@@ -1071,52 +1067,37 @@ printf("%d\n", p[2]);  /* 7 */
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="max-width:1200px;margin:0 auto;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
 
 <div style="flex:1.1;">
 
-<div class="col-label">完整代码 · multidim-type-size.c</div>
+<div class="col-label">代码节选 · multidim-type-size.c</div>
 
-<style>.size-code pre code{font-size:13px;line-height:1.2;}</style>
+<style>.size-code pre code{font-size:14px;line-height:1.25;}</style>
 
 <div class="size-code">
 
 ```C{.line-numbers}
-#include <stdio.h>
+int a[ROWS][COLS] = {0};
+int (*rowp)[COLS] = a + 0;
 
-#define ROWS 3
-#define COLS 4
+printf("sizeof(a)        = %zu\n", sizeof(a));
+printf("sizeof(a[1])     = %zu\n", sizeof(a[1]));
+printf("sizeof(a[0][0])  = %zu\n", sizeof(a[0][0]));
+printf("sizeof(*a)       = %zu\n", sizeof(*a));
+printf("sizeof(rowp)     = %zu\n", sizeof(rowp));
+printf("sizeof(&a[0][0]) = %zu\n", sizeof(&a[0][0]));
 
-int main(void)
-{
-    int a[ROWS][COLS] = {0};
-    int (*rowp)[COLS] = a + 0;   /* a + 0 变成行指针 */
-
-    printf("sizeof(int)      = %zu\n", sizeof(int));
-    printf("sizeof(a)        = %zu  (整个二维数组)\n", sizeof(a));
-    printf("sizeof(a[0])     = %zu  (一行)\n", sizeof(a[0]));
-    printf("sizeof(a[0][0])  = %zu  (一个 int)\n", sizeof(a[0][0]));
-    printf("sizeof(*a)       = %zu  (一行, 不是 int)\n", sizeof(*a));
-    printf("sizeof(rowp)     = %zu  (a + 0 退化成的行指针)\n", sizeof(rowp));
-    printf("sizeof(&a[0][0]) = %zu  (int *)\n", sizeof(&a[0][0]));
-
-    printf("&a        = %p\n", (void *)&a);
-    printf("a         = %p\n", (void *)a);
-    printf("&a[0]     = %p\n", (void *)&a[0]);
-    printf("a[0]      = %p\n", (void *)a[0]);
-    printf("&a[0][0]  = %p\n", (void *)&a[0][0]);
-
-    printf("a + 1        = %p\n", (void *)(a + 1));
-    printf("&a[0][0] + 1 = %p\n", (void *)(&a[0][0] + 1));
-    printf("(a + 1) - a  = %td 行\n", (a + 1) - a);
-    return 0;
-}
+printf("a + 1        = %p\n", (void *)(a + 1));
+printf("&a[0][0] + 1 = %p\n", (void *)(&a[0][0] + 1));
 ```
 
 </div>
 
 <div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-type-size.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-type-size.c (现场演示)</a>
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-type-size.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-type-size.c (完整代码)</a>
 </div>
 
 </div>
@@ -1126,28 +1107,90 @@ int main(void)
 <div class="col-label">运行结果</div>
 
 ```text
-sizeof(int)      = 4
 sizeof(a)        = 48
-sizeof(a[0])     = 16
+sizeof(a[1])     = 16
 sizeof(a[0][0])  = 4
 sizeof(*a)       = 16
 sizeof(rowp)     = 8
 sizeof(&a[0][0]) = 8
-&a = a = &a[0] = a[0] = &a[0][0]  (同一地址)
 a + 1        = 基址 + 16 字节
 &a[0][0] + 1 = 基址 + 4 字节
-(a + 1) - a  = 1 行
 ```
 
 <div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-- `sizeof(a)` = 整个二维数组; `sizeof(a[0])` = 一行; `sizeof(a[0][0])` = 一个 int.
-- `a[0]` 与 `&a[0][0]` 地址相同, 但 `sizeof` 不同: 前者是数组 (16), 后者是指针 (8).
+- `sizeof(a)` = 整个二维数组; `sizeof(a[1])` = 一行; `sizeof(a[0][0])` = 一个 int.
+- `a[1]` 与 `&a[1][0]` 地址相同, 但 `sizeof` 不同: 前者是数组 (16), 后者是指针 (8).
 - `a + 1` 跳一行; `&a[0][0] + 1` 跳一个 int.
-- `sizeof` 不会把数组转成指针 (非 VLA), 也不真正求值操作数.
+- 数组形参的 `sizeof` 见下一页.
 </div>
 
-<div style="margin-top:6px;font-size:0.85em;color:#93a1a1;">
-（常见 64 位平台: int 4 字节, 指针 8 字节）
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- slide data-notes="" -->##### 补充: 数组形参的 sizeof
+
+---
+
+<div style="max-width:1200px;margin:0 auto;">
+
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
+
+<div style="flex:1.1;">
+
+<div class="col-label">代码节选 · multidim-type-size.c</div>
+
+<style>.param-size-code pre code{font-size:13.5px;line-height:1.25;}</style>
+
+<div class="param-size-code">
+
+```C{.line-numbers}
+int find_largest(int a[], int n)
+{
+    int max = a[0];
+    printf("sizeof(a) = %zu\n", sizeof(a));  /* 8: 形参是指针 */
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+    return max;
+}
+
+int main(void)
+{
+    int b[10] = {0};
+    printf("sizeof(b) = %zu\n", sizeof(b));  /* 40: 数组本身 */
+    find_largest(b, 10);
+    return 0;
+}
+```
+
+</div>
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/multidim-type-size.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 multidim-type-size.c (完整代码)</a>
+</div>
+
+</div>
+
+<div style="flex:0.9;font-size:0.78em;line-height:1.5;">
+
+<div class="col-label">运行结果</div>
+
+```text
+sizeof(b) = 40
+sizeof(a) = 8
+```
+
+<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
+- `b` 是数组, `sizeof(b) = 40`.
+- 形参 `int a[]` 会调整为 `int *`; `sizeof(a) = 8`.
+- 编译器可能警告 `-Wsizeof-array-argument`; 这里故意保留, 用来看清“数组形参不是数组”.
+- `sizeof` 不会把 main 里的数组转成指针; 但形参已经是指针.
+</div>
+
 </div>
 
 </div>
@@ -1177,11 +1220,11 @@ p = &a[i][0];
 p = a[i];
 
 /* 遍历第 i 行 */
-for (p = a[i]; p < a[i] + NUM_COLS; p++)
+for (p = a[i]; p < a[i] + COLS; p++)
     *p = 0;
 
 /* 把第 i 行传给处理一维数组的函数 */
-largest = find_largest(a[i], NUM_COLS);
+largest = find_largest(a[i], COLS);
 ```
 
 </div>
@@ -1195,7 +1238,7 @@ largest = find_largest(a[i], NUM_COLS);
 <div style="flex:0.85;">
 
 - `p = a[i]` 与 `p = &a[i][0]` 等价.
-- `p < a[i] + NUM_COLS` 保证只在第 i 行内遍历.
+- `p < a[i] + COLS` 保证只在第 i 行内遍历.
 - `a[i]` 可以直接传给形参为 `int a[]` 的函数.
 
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
@@ -1222,19 +1265,19 @@ largest = find_largest(a[i], NUM_COLS);
 <div class="rowptr-code">
 
 ```C
-int (*p)[NUM_COLS];
-for (p = &a[0]; p < &a[NUM_ROWS]; p++)
+int (*p)[COLS];
+for (p = &a[0]; p < &a[ROWS]; p++)
     (*p)[i] = 0;
 ```
 
 </div>
 
-- `(*p)` 的括号必需; 否则 `int *p[NUM_COLS]` 是指针数组.
+- `(*p)` 的括号必需; 否则 `int *p[COLS]` 是指针数组.
 - `p++` 把 p 移到下一行的开始 (跨过一整行).
 - `(*p)[i]` 选中第 i 列; 括号必需, 否则 `*p[i]` 是 `*(p[i])`.
 
 <div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-行指针的 `p++` 跨过一整行, 因为 `sizeof(*p) = sizeof(int[NUM_COLS])`; 和 11-1 的指针缩放规则相同.<br>
+行指针的 `p++` 跨过一整行, 因为 `sizeof(*p) = sizeof(int[COLS])`; 和 11-1 的指针缩放规则相同.<br>
 它也叫==指向数组的指针==; 和 `int *p[N]` (指针数组) 的区别在 12-2 讲.
 </div>
 
@@ -1267,7 +1310,7 @@ for (p = &a[0]; p < &a[NUM_ROWS]; p++)
 <text x="66" y="118" font-size="10" fill="#b58900" text-anchor="middle">p++ 跨一行</text>
 <text x="288" y="54" font-size="10.5" fill="#dc322f">(*p)[i]</text>
 <line x1="284" y1="50" x2="242" y2="50" stroke="#dc322f" stroke-width="1.4" marker-end="url(#arrColR)"/>
-<text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（NUM_COLS 个 int）</text>
+<text x="112" y="178" font-size="10.5" fill="#586e75">p++ 一次跨过一整行（COLS 个 int）</text>
 </svg></div>
 </div>
 
@@ -1351,13 +1394,13 @@ int main(void)
 
 ---
 
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
+<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.66em;line-height:1.45;text-align:left;">
 
 <div style="flex:1.1;">
 
 <div class="col-label">完整代码 · matrix-param.c</div>
 
-<style>.matrix-code pre code{font-size:13px;line-height:1.2;}</style>
+<style>.matrix-code pre code{font-size:13.5px;line-height:1.2;}</style>
 
 <div class="matrix-code">
 
@@ -1780,7 +1823,7 @@ int main(void)
 </div>
 
 ---
-<!-- slide data-notes="" -->##### 动手: 动态数组逆序
+<!-- slide data-notes="" -->##### 任务: 动态数组逆序
 
 ---
 
@@ -1819,7 +1862,7 @@ int main(void)
 </div>
 
 ---
-<!-- slide data-notes="" -->##### 动手参考: 动态数组逆序
+<!-- slide data-notes="" -->##### 任务参考: 动态数组逆序
 
 ---
 
