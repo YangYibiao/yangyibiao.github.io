@@ -1,288 +1,405 @@
-<!DOCTYPE html><html><head>
-      <title>智能程序设计（C语言）2026秋 - 杨已彪</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
-      
-      
-      
-      
-      
-      <style>
-      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-
-      </style>
-      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script></head><body for="html-export">
-    
-    
-      <div class="crossnote markdown-preview  ">
-      
-<p><link rel="stylesheet" href="../shared/css/theme/solarized.css"><br>
-<link rel="stylesheet" href="../shared/css/index.css"></p>
-<h2 id="智能程序设计c语言-span-stylefont-weight9002026span-秋">智能程序设计（C语言）<span style="font-weight:900">2026</span> 秋 </h2>
-<hr>
-<h4 id="概况">概况 </h4>
-<p>授课：杨已彪 <em><a href="mailto:yangyibiao@nju.edu.cn">yangyibiao@nju.edu.cn</a></em></p>
-<ul>
-<li><strong>2026学年：60 学时理论，第 1 ~ 15 周，每周两次（周二、周三各 2 节，每节 50 分钟）</strong></li>
-<li><strong>放假调休：中秋 9/25 ~ 9/27；国庆 10/1 ~ 10/7；9/20（周日）、10/10（周六）为调休上课日，课程按节次顺序进行</strong></li>
-<li><strong>第一学期：2026/8/24 ~ 2027/1/10（上课至 12/27，考试周 12/28 ~ 1/10）</strong></li>
-</ul>
-<div class="top-2"></div>
-<h4 id="考核">考核 </h4>
-<p>平时成绩 20%：课堂代码实操 + 在线OJ系统闯关</p>
-<p>期末项目 20%：跨学科智能应用开发（代码 + 答辩 + 技术文档）</p>
-<p>课程考试 60%：闭卷机试（语法基础、算法设计和智能应用）</p>
-<h4 id="课件">课件 </h4>
-<p>在线浏览，Space 翻页，Esc 导航，可能需<mark>科学上网</mark>才能打开</p>
-<p>课件按教学周陆续发布</p>
-<div class="threelines outline head-highlight">
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:left">讲义</th>
-<th style="text-align:left">内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center" rowspan="6">第1周</td>
-<td style="text-align:left"><a href="slides/1-intro/0-0-intro.html">课程介绍</a></td>
-<td style="text-align:left">课程介绍</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/1-intro/0-1-programming-and-c.html">入门</a></td>
-<td style="text-align:left">程序设计与C语言入门（课前阅读）</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/1-intro/0-2-first-c-program.html">初识C程序</a></td>
-<td style="text-align:left">初识C程序：Hello World 与 C 程序结构</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/1-intro/0-3-c-and-ai.html">C 语言历史与 AI</a></td>
-<td style="text-align:left">C 语言历史与人工智能（自学）</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/1-intro/0-4-variable-and-assignment.html">变量与基本数据类型</a></td>
-<td style="text-align:left">变量与基本数据类型</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/1-intro/0-5-environment-ai.html">上手: 开发环境与 AI 工具</a></td>
-<td style="text-align:left">开发环境与 AI 工具（安装、编译运行、调试、AI 规范）—— <mark>上机课 / 课后自学</mark></td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第2周</td>
-<td style="text-align:left"><a href="slides/2-types-io/2-1-types-deep-dive.html">数据类型深化</a></td>
-<td style="text-align:left">数据类型深化</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/2-types-io/2-2-formatted-io.html">格式化输入输出</a></td>
-<td style="text-align:left">格式化输入输出</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第3周</td>
-<td style="text-align:left"><a href="slides/3-types-io/3-1-operators-expressions.html">运算符和表达式</a></td>
-<td style="text-align:left">运算符和表达式</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/3-types-io/3-2-conversion.html">类型转换与未定义行为</a></td>
-<td style="text-align:left">类型转换与未定义行为</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第4周</td>
-<td style="text-align:left"><a href="slides/4-if-for-array/4-1-selection-i.html">选择结构 (上)</a></td>
-<td style="text-align:left">选择结构 (上)</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/4-if-for-array/4-2-selection-ii.html">选择结构 (下)</a></td>
-<td style="text-align:left">选择结构 (下)</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="3">第5周</td>
-<td style="text-align:left"><a href="slides/5-if-for-array/5-1-loops-i.html">循环结构 (上)</a></td>
-<td style="text-align:left">循环结构 (上)</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/5-if-for-array/5-2-loops-ii.html">循环结构 (下)</a></td>
-<td style="text-align:left">循环结构 (下)</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/5-if-for-array/5-3-loops-practice.html">循环习题课</a></td>
-<td style="text-align:left">循环习题/课后练习</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第6周</td>
-<td style="text-align:left"><a href="slides/6-arrays/6-1-arrays-i.html">一维数组</a></td>
-<td style="text-align:left">一维数组（与循环配合）</td>
-</tr>
-<tr>
-
-<td style="text-align:left"><a href="slides/6-arrays/6-2-arrays-2d.html">二维数组与矩阵运算</a></td>
-<td style="text-align:left">二维数组与矩阵运算</td>
-</tr>
-<tr>
-<tr>
-<td style="text-align:center" rowspan="1">第7周</td>
-<td style="text-align:left"><a href="slides/7-sorting-searching/7-1-sorting.html">排序与查找</a></td>
-<td style="text-align:left">排序、顺序查找、二分查找</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第8周</td>
-<td style="text-align:left"><a href="slides/8-functions/8-1-functions-i.html">函数 (上)</a></td>
-<td style="text-align:left">函数 (上)</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/8-functions/8-2-functions-ii.html">函数 (下)</a></td>
-<td style="text-align:left">函数：函数化改造 + 数组作参数（生命游戏选学）</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="1">第9周</td>
-<td style="text-align:left"><a href="slides/9-functions/9-1-recursion.html">递归</a></td>
-<td style="text-align:left">递归：函数调用栈、作用域、执行过程、Hanoi 与分治</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第10周</td>
-<td style="text-align:left"><a href="slides/10-pointers/10-1-pointers-i.html">指针（上）</a></td>
-<td style="text-align:left">指针（上）：概念、&amp; 与 *、赋值</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/10-pointers/10-2-pointers-ii.html">指针（下）</a></td>
-<td style="text-align:left">指针（下）：传址调用、const 与返回值</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第11周</td>
-<td style="text-align:left"><a href="slides/11-pointers/11-1-pointer-arrays-i.html">指针与数组（上）</a></td>
-<td style="text-align:left">指针与数组（上）：算术运算、* 与 ++</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/11-pointers/11-2-pointer-arrays-ii.html">指针与数组（下）</a></td>
-<td style="text-align:left">指针与数组（下）：数组名、数组实参、多维数组</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第12周</td>
-<td style="text-align:left"><a href="slides/12-strings/12-1-strings.html">字符指针与字符串处理</a></td>
-<td style="text-align:left">字符指针与字符串处理</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/12-strings/12-2-pointer-arrays-funcs.html">指针数组与函数指针</a></td>
-<td style="text-align:left">指针数组与函数指针（函数指针选学）</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="3">第13周</td>
-<td style="text-align:left"><a href="slides/13-struct-linked-list/13-0-dynamic-memory.html">动态内存</a></td>
-<td style="text-align:left">动态内存：malloc/free、泄漏与悬空指针</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/13-struct-linked-list/13-1-struct.html">结构体</a></td>
-<td style="text-align:left">结构体</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/13-struct-linked-list/13-2-linked-list-i.html">链表（一）</a></td>
-<td style="text-align:left">链表（一）：结点与建表</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="4">第14周</td>
-<td style="text-align:left"><a href="slides/13-struct-linked-list/13-2-linked-list-ii.html">链表（二）</a></td>
-<td style="text-align:left">链表（二）：插入、删除与遍历</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/13-struct-linked-list/13-2-linked-list-iii.html">链表（三）</a></td>
-<td style="text-align:left">链表（三）：综合案例（约瑟夫问题等）</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/14-files/14-1-files.html">文件操作</a></td>
-<td style="text-align:left">文件操作</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/14-files/14-2-multi-file.html">预处理命令与多文件组织</a></td>
-<td style="text-align:left">预处理与多文件（自学/选学）</td>
-</tr>
-<tr>
-<td style="text-align:center" rowspan="2">第15周</td>
-<td style="text-align:left"><a href="slides/15-project-review/15-1-project.html">期末项目指导</a></td>
-<td style="text-align:left">期末项目指导</td>
-</tr>
-<tr>
-<td style="text-align:left"><a href="slides/15-project-review/15-2-review.html">总复习与答疑</a></td>
-<td style="text-align:left">总复习与答疑</td>
-</tr>
-
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="课程案例主线成绩管理">课程案例主线：成绩管理 </h4>
-<p>用一个“成绩管理”小案例贯穿前半程；语法仍用最小例子讲，每讲用 10–15 分钟回到案例。</p>
-<ul>
-<li>第1–2周：输入/输出一条成绩记录</li>
-<li>第3–5周：总分/平均分、菜单与循环</li>
-<li>第6–7周：数组保存多条成绩、排序与查找</li>
-<li>第8–9周：把功能函数化</li>
-<li>第10–12周：指针遍历数组、字符串姓名</li>
-<li>第13–14周：结构体、链表、文件保存</li>
-<li>第15周：完整项目与答辩</li>
-</ul>
-<h4 id="阶段检查点">阶段检查点 </h4>
-<ul>
-<li>第4周：能写菜单和分支</li>
-<li>第7周：能对数组排序、查找并输出统计</li>
-<li>第9周：能把程序拆成函数，并用递归解决一个小问题</li>
-<li>第12周：能用指针和字符串处理姓名</li>
-<li>第14周：能把记录保存到文件并恢复</li>
-</ul>
-<h4 id="教材">教材 </h4>
-<p>《C语言程序设计教程》 姜恒远主编，高等教育出版社，2010（ISBN 9787040302769）</p>
-<h4 id="参考教材">参考教材 </h4>
-<p><a href="book/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95-%E7%AC%AC%E4%BA%8C%E7%89%88.pdf"><em>C语言程序设计现代方法 第二版 修订版</em></a> <br>K.N. King 著，吕秀峰、黄倩 译</p>
-<h4 id="在线评测系统">在线评测系统 </h4>
-<p><a href="http://172.28.223.3/">http://172.28.223.3/</a>（仅校园网内访问，请用学号注册，<a href="OJ平台使用说明.pdf">使用说明</a>）</p>
-
-      </div>
-      <div class="md-sidebar-toc">
-<div class="md-toc">
-<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#智能程序设计c语言-span-stylefont-weight9002026span-秋" class="md-toc-link">
-            <p>智能程序设计（C语言）<span style="font-weight:900">2026</span> 秋</p>
-
-          </a></div>
-</div>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
-    
-    
-    
-    
-    
-    
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>智能程序设计（C语言）2026 秋 - 杨已彪</title>
+<link rel="stylesheet" href="../shared/css/font.css">
+<style>
+  :root {
+    --base03: #002b36;
+    --base02: #073642;
+    --base01: #586e75;
+    --base00: #657b83;
+    --base0: #839496;
+    --base1: #93a1a1;
+    --base2: #eee8d5;
+    --base3: #fdf6e3;
+    --yellow: #b58900;
+    --orange: #cb4b16;
+    --red: #dc322f;
+    --magenta: #d33682;
+    --violet: #6c71c4;
+    --blue: #268bd2;
+    --cyan: #2aa198;
+    --green: #859900;
   }
-})
-</script>
-      
-  
-    </body></html>
+  * { box-sizing: border-box; }
+  html { background: var(--base3); }
+  body {
+    margin: 0;
+    background: var(--base3);
+    color: var(--base01);
+    font-family: LXGWWenKai, "Noto Sans SC", "PingFang SC", sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  .page {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 56px 28px 80px;
+  }
+  header {
+    border-bottom: 1px solid rgba(88, 110, 117, 0.28);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .eyebrow {
+    font-family: Ysabeau, "Noto Sans SC", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--base1);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: Ysabeau, "Noto Sans SC", sans-serif;
+    font-size: clamp(30px, 4.6vw, 46px);
+    line-height: 1.15;
+    color: var(--base02);
+    margin: 0 0 12px;
+    letter-spacing: 0.01em;
+  }
+  .subtitle {
+    font-size: 19px;
+    color: var(--base00);
+    margin: 0 0 18px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--base01);
+    background: rgba(88, 110, 117, 0.08);
+    border: 1px solid rgba(88, 110, 117, 0.20);
+    border-radius: 999px;
+    padding: 3px 12px;
+  }
+  .chip.blue { color: var(--blue); border-color: rgba(38,139,210,0.32); background: rgba(38,139,210,0.07); }
+  .chip.green { color: var(--green); border-color: rgba(133,153,0,0.32); background: rgba(133,153,0,0.07); }
+  section { margin: 38px 0; }
+  h2 {
+    font-size: 24px;
+    color: var(--base02);
+    margin: 0 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid rgba(38, 139, 210, 0.28);
+  }
+  h3 {
+    font-size: 18px;
+    color: var(--base01);
+    margin: 22px 0 8px;
+  }
+  p { margin: 10px 0; }
+  a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(38,139,210,0.25); }
+  a:hover { color: var(--orange); border-bottom-color: rgba(203,75,22,0.35); }
+  ul { margin: 8px 0 8px 1.2em; padding: 0; }
+  li { margin: 5px 0; }
+  li::marker { color: var(--yellow); }
+  .lead {
+    font-size: 18px;
+    color: var(--base00);
+    background: rgba(38, 139, 210, 0.055);
+    border-left: 4px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 18px 0;
+  }
+  .card {
+    background: rgba(88, 110, 117, 0.05);
+    border: 1px solid rgba(88, 110, 117, 0.16);
+    border-radius: 9px;
+    padding: 14px 16px;
+  }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: var(--base02);
+  }
+  .card p, .card li { font-size: 14.5px; line-height: 1.65; }
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid rgba(88, 110, 117, 0.18);
+    border-radius: 9px;
+    margin: 16px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 760px;
+  }
+  th, td {
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(88, 110, 117, 0.14);
+    vertical-align: top;
+  }
+  th {
+    background: rgba(7, 54, 66, 0.06);
+    color: var(--base02);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(38, 139, 210, 0.045); }
+  td.week { text-align: center; color: var(--base1); font-family: Operator, monospace; }
+  code {
+    font-family: Operator, "JetBrains Mono", Consolas, monospace;
+    font-size: 0.92em;
+    background: rgba(88, 110, 117, 0.08);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--base02);
+  }
+  .note {
+    font-size: 14px;
+    color: var(--base1);
+    margin-top: 10px;
+  }
+  footer {
+    margin-top: 52px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(88, 110, 117, 0.22);
+    font-size: 13px;
+    color: var(--base1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  @media (max-width: 820px) {
+    .page { padding: 36px 18px 60px; }
+    .grid { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+
+  /* 课程页密码门：仅防“顺手点开链接”，不是安全边界 */
+  #cpp-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--base3);
+    padding: 24px;
+  }
+  #cpp-gate .gate-card {
+    width: 100%;
+    max-width: 430px;
+    background: rgba(238, 232, 213, 0.72);
+    border: 1px solid rgba(88, 110, 117, 0.24);
+    border-radius: 16px;
+    padding: 34px 34px 26px;
+    box-shadow: 0 24px 70px rgba(0, 43, 54, 0.12);
+    text-align: center;
+  }
+  #cpp-gate .gate-eyebrow {
+    font-family: Ysabeau, "Noto Sans SC", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--base1);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  #cpp-gate h2 {
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 25px;
+    color: var(--base02);
+    margin: 0 0 8px;
+    border: none;
+    padding: 0;
+  }
+  #cpp-gate p {
+    font-size: 14px;
+    color: var(--base00);
+    margin: 6px 0;
+  }
+  #cpp-gate form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  #cpp-gate input {
+    width: 100%;
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 16px;
+    color: var(--base02);
+    background: rgba(253, 246, 227, 0.9);
+    border: 1.5px solid rgba(88, 110, 117, 0.35);
+    border-radius: 8px;
+    padding: 10px 12px;
+    outline: none;
+  }
+  #cpp-gate input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(38,139,210,0.12); }
+  #cpp-gate button {
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--blue);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+  #cpp-gate button:hover { background: #1a6fa8; }
+  #cpp-gate #cpp-err {
+    display: none;
+    color: var(--red);
+    font-size: 13px;
+    margin: 12px 0 0;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="eyebrow">Nanjing University · Computer Science</div>
+  <h1>智能程序设计（C语言）</h1>
+  <p class="subtitle">从 C 语言基础到程序设计思维与智能应用</p>
+  <div class="meta">
+    <span class="chip blue">2026 年秋</span>
+    <span class="chip">15 周 × 60 学时</span>
+    <span class="chip">计算机学院 · 大一</span>
+    <span class="chip green">C17 · 零基础起点</span>
+    <span class="chip">任务驱动 · 代码补全</span>
+  </div>
+</header>
+
+<section>
+  <h2>课程简介</h2>
+  <p class="lead">
+    本课程从零基础出发，逐步建立程序设计与 C 语言的基本功。
+    课程不追求罗列全部语法，而是围绕<strong>程序基础</strong>、<strong>数据组织</strong>、<strong>指针与工程</strong>三条主线展开，
+    每周用多个短小的代码补全任务，把知识点落到可运行的代码上。
+  </p>
+  <div class="grid">
+    <div class="card">
+      <h3>程序基础</h3>
+      <p>类型、表达式、选择与循环、函数。先能写出正确的程序，再追求更好的结构。</p>
+    </div>
+    <div class="card">
+      <h3>数据组织</h3>
+      <p>数组、字符串、结构体、链表。学会用合适的数据结构表示现实问题。</p>
+    </div>
+    <div class="card">
+      <h3>指针、内存与工程</h3>
+      <p>指针、动态内存、文件、多文件组织。理解地址、生命周期和资源管理。</p>
+    </div>
+  </div>
+  <p>
+    每讲围绕 2–4 个课堂任务：先补全、再纠错、最后独立实现。任务页只给骨架、样例和验收标准，参考实现单独成页；
+    其余时间用于现场编码、调试和 OJ 练习。
+  </p>
+</section>
+
+<section>
+  <h2>课程安排</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>周次</th><th>课件</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="week">1</td><td><a href="slides/1-intro/0-0-intro.html">课程介绍</a><br><a href="slides/1-intro/0-2-first-c-program.html">初识 C 程序</a><br><a href="slides/1-intro/0-4-variable-and-assignment.html">变量与基本类型</a></td><td>课程定位、第一个 C 程序、编译运行、变量与赋值<br><span class="note">0-1 课前阅读；0-3 / 0-5 自学</span></td></tr>
+        <tr><td class="week">2</td><td><a href="slides/2-types-io/2-1-types-deep-dive.html">数据类型深化</a><br><a href="slides/2-types-io/2-2-formatted-io.html">格式化输入输出</a></td><td>整数/浮点/字符表示、溢出、格式化 I/O</td></tr>
+        <tr><td class="week">3</td><td><a href="slides/3-types-io/3-1-operators-expressions.html">运算符和表达式</a><br><a href="slides/3-types-io/3-2-conversion.html">类型转换与未定义行为</a></td><td>算术/关系/逻辑运算、优先级、类型转换、UB</td></tr>
+        <tr><td class="week">4</td><td><a href="slides/4-if-for-array/4-1-selection-i.html">选择结构（上）</a><br><a href="slides/4-if-for-array/4-2-selection-ii.html">选择结构（下）</a></td><td><code>if</code> / <code>switch</code>、条件表达式、常见错误</td></tr>
+        <tr><td class="week">5</td><td><a href="slides/5-if-for-array/5-1-loops-i.html">循环结构（上）</a><br><a href="slides/5-if-for-array/5-2-loops-ii.html">循环结构（下）</a></td><td><code>while</code> / <code>do</code> / <code>for</code>、嵌套循环、<code>break/continue</code><br><span class="note">5-3 循环习题为课后练习</span></td></tr>
+        <tr><td class="week">6</td><td><a href="slides/6-arrays/6-1-arrays-i.html">一维数组</a><br><a href="slides/6-arrays/6-2-arrays-2d.html">二维数组与矩阵</a></td><td>数组与循环、下标、二维数组、矩阵运算</td></tr>
+        <tr><td class="week">7</td><td><a href="slides/7-sorting-searching/7-1-sorting.html">排序与查找</a></td><td>选择/冒泡/插入排序、顺序查找、二分查找</td></tr>
+        <tr><td class="week">8</td><td><a href="slides/8-functions/8-1-functions-i.html">函数（上）</a><br><a href="slides/8-functions/8-2-functions-ii.html">函数（下）</a></td><td>定义/声明/调用、参数传递、数组作参数、函数化改造<br><span class="note">生命游戏为选学</span></td></tr>
+        <tr><td class="week">9</td><td><a href="slides/9-functions/9-1-recursion.html">递归</a></td><td>函数调用栈、作用域与生命期、递归执行、Hanoi、分治</td></tr>
+        <tr><td class="week">10</td><td><a href="slides/10-pointers/10-1-pointers-i.html">指针（上）</a><br><a href="slides/10-pointers/10-2-pointers-ii.html">指针（下）</a></td><td>地址与 <code>&amp;</code>/<code>*</code>、指针赋值、传址调用、const</td></tr>
+        <tr><td class="week">11</td><td><a href="slides/11-pointers/11-1-pointer-arrays-i.html">指针与数组（上）</a><br><a href="slides/11-pointers/11-2-pointer-arrays-ii.html">指针与数组（下）</a></td><td>指针算术、<code>*</code> 与 <code>++</code>、数组名、数组实参、多维数组</td></tr>
+        <tr><td class="week">12</td><td><a href="slides/12-strings/12-1-strings.html">字符指针与字符串</a><br><a href="slides/12-strings/12-2-pointer-arrays-funcs.html">指针数组与函数指针</a></td><td>字符数组、字符串库、指针数组<br><span class="note">函数指针为选学</span></td></tr>
+        <tr><td class="week">13</td><td><a href="slides/13-struct-linked-list/13-0-dynamic-memory.html">动态内存</a><br><a href="slides/13-struct-linked-list/13-1-struct.html">结构体</a><br><a href="slides/13-struct-linked-list/13-2-linked-list-i.html">链表（一）</a></td><td><code>malloc/free</code>、泄漏与悬空指针、结构体、结点与建表</td></tr>
+        <tr><td class="week">14</td><td><a href="slides/13-struct-linked-list/13-2-linked-list-ii.html">链表（二）</a><br><a href="slides/13-struct-linked-list/13-2-linked-list-iii.html">链表（三）</a><br><a href="slides/14-files/14-1-files.html">文件操作</a><br><a href="slides/14-files/14-2-multi-file.html">多文件组织</a></td><td>插入/删除/遍历、综合案例、文件读写<br><span class="note">多文件与预处理为自学/选学</span></td></tr>
+        <tr><td class="week">15</td><td><a href="slides/15-project-review/15-1-project.html">期末项目指导</a><br><a href="slides/15-project-review/15-2-review.html">总复习与答疑</a></td><td>项目设计、测试、答辩、知识地图与模拟题</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">在线浏览：Space 翻页，Esc 进入概览。课件按教学进度发布。</p>
+</section>
+
+<section>
+  <h2>课堂任务设计</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>补全代码</h3>
+      <p>给骨架和 TODO，补条件、循环体、表达式或函数体；运行样例和隐藏测试。</p>
+    </div>
+    <div class="card">
+      <h3>纠错与预测</h3>
+      <p>找 bug、预测输出、画出变量/指针/数组的变化；先想清楚再运行。</p>
+    </div>
+    <div class="card">
+      <h3>独立实现</h3>
+      <p>从空文件写一个小函数或小工具，按验收标准自测，再对照参考实现。</p>
+    </div>
+  </div>
+  <h3>每周节奏</h3>
+  <ul>
+    <li>概念讲解 + 最小示例：约 15 分钟</li>
+    <li>课堂任务 1（补全）：约 20 分钟</li>
+    <li>课堂任务 2（纠错/预测）：约 15 分钟</li>
+    <li>课堂任务 3（独立实现）：约 20 分钟</li>
+    <li>总结、常见错误、OJ 布置：约 10 分钟</li>
+  </ul>
+  <h3>阶段检查点</h3>
+  <ul>
+    <li><strong>第 4 周</strong>：能独立写分支、循环和菜单</li>
+    <li><strong>第 7 周</strong>：能用数组 + 循环完成统计、排序、查找</li>
+    <li><strong>第 9 周</strong>：能把程序拆成函数，并解释调用栈</li>
+    <li><strong>第 12 周</strong>：能用指针和字符串完成文本处理</li>
+    <li><strong>第 14 周</strong>：能用结构体、链表、文件完成一个小工具</li>
+  </ul>
+</section>
+
+<section>
+  <h2>考核</h2>
+  <div class="grid">
+    <div class="card"><h3>平时 20%</h3><p>课堂代码实操 + 在线 OJ 系统闯关。</p></div>
+    <div class="card"><h3>期末项目 20%</h3><p>跨学科智能应用开发：代码 + 答辩 + 技术文档。</p></div>
+    <div class="card"><h3>课程考试 60%</h3><p>闭卷机试：语法基础、算法设计、智能应用。</p></div>
+  </div>
+  <p class="note">具体提交方式与截止时间以课程通知为准。</p>
+</section>
+
+<section>
+  <h2>教材与在线评测</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>教材</h3>
+      <p>《C语言程序设计教程》，姜恒远主编，高等教育出版社，2010。</p>
+      <p>参考：K.N. King，《C语言程序设计：现代方法（第2版·修订版）》。</p>
+    </div>
+    <div class="card">
+      <h3>在线评测系统（OJ）</h3>
+      <p><a href="http://172.28.223.3/">http://172.28.223.3/</a></p>
+      <p>仅校园网内访问，请用学号注册；使用说明见 <a href="OJ平台使用说明.pdf">OJ 平台使用说明</a>。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>南京大学计算机学院 · 智能程序设计（C语言）</span>
+  <span>杨已彪 · yangyibiao@nju.edu.cn</span>
+</footer>
+
+</div>
+</body>
+</html>
