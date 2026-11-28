@@ -97,19 +97,19 @@ presentation:
 **没有构造函数的世界**
 
 ```cpp
-class Task {
+class Target {
 public:
     int id;
-    std::string title;
+    std::string name;
     int priority;
-    bool done;
+    bool built;
 };
 
-Task t;              // 数据成员是什么？
+Target t;              // 数据成员是什么？
 t.id = 1;
-t.title = "写作业";
+t.name = "main.o";
 t.priority = 2;
-t.done = false;      // 很容易漏掉
+t.built = false;      // 很容易漏掉
 ```
 
 <div class="pitfall">
@@ -152,22 +152,22 @@ t.done = false;      // 很容易漏掉
 <div class="col">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task() {                 // 默认构造函数
+    Target() {                 // 默认构造函数
         id_ = 0;
         priority_ = 1;
     }
 
-    Task(int id, std::string title, int priority)
-        : id_(id), title_(std::move(title)),
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)),
           priority_(priority) {}
 
 private:
     int id_ = 0;
-    std::string title_;
+    std::string name_;
     int priority_ = 1;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -188,7 +188,7 @@ private:
 
 <div class="tip">
 <span class="label">默认构造函数</span>
-不带参数，或所有参数都有默认值的构造函数。`Task() = default;` 让编译器生成一个。
+不带参数，或所有参数都有默认值的构造函数。`Target() = default;` 让编译器生成一个。
 </div>
 
 </div>
@@ -197,7 +197,7 @@ private:
 
 <div class="question">
 <span class="label">思考</span>
-`Task t;` 与 `Task t();` 有什么区别？后者为什么没有创建对象？
+`Target t;` 与 `Target t();` 有什么区别？后者为什么没有创建对象？
 </div>
 
 ---
@@ -235,10 +235,10 @@ class B {
 **显式要求或禁止**
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task() = default;              // 要求生成
-    Task(int id) : id_(id) {}
+    Target() = default;              // 要求生成
+    Target(int id) : id_(id) {}
 private:
     int id_ = 0;
 };
@@ -258,7 +258,7 @@ private:
 
 <div class="pitfall">
 <span class="label">陷阱</span>
-一旦声明了任何构造函数，编译器就不再生成默认构造函数。<code>Task t;</code> 会编译失败，除非你显式写 <code>Task() = default;</code>。
+一旦声明了任何构造函数，编译器就不再生成默认构造函数。<code>Target t;</code> 会编译失败，除非你显式写 <code>Target() = default;</code>。
 </div>
 
 ---
@@ -275,16 +275,16 @@ private:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority)
-        : id_(id), title_(std::move(title)),
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)),
           priority_(priority) {}
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -302,10 +302,10 @@ private:
 
 ```cpp
 // 初始化：直接构造成员
-Task(...) : id_(id) {}
+Target(...) : id_(id) {}
 
 // 赋值：先默认构造，再赋值
-Task(...) { id_ = id; }
+Target(...) { id_ = id; }
 ```
 
 对于 `int` 差别不大；对于 `std::string`、成员对象，函数体赋值会多一次默认构造 + 赋值。
@@ -338,7 +338,7 @@ Task(...) { id_ = id; }
 class Config {
 public:
     Config(int id)
-        : id_(id), name_("task"), ref_(id_) {}
+        : id_(id), name_("target"), ref_(id_) {}
 private:
     int id_;
     const std::string name_;  // 常量成员
@@ -445,12 +445,12 @@ warning: 'Bad::a_' will be initialized after 'Bad::b_'</div>
 **就地初始化** <span class="std cxx11">C++11</span>
 
 ```cpp
-class Task {
+class Target {
 private:
     int id_ = 0;
-    std::string title_ = "untitled";
+    std::string name_ = "unnamed";
     int priority_ = 1;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -465,18 +465,18 @@ private:
 **委托构造** <span class="std cxx11">C++11</span>
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task() : Task(0, "untitled", 1) {}
+    Target() : Target(0, "unnamed", 1) {}
 
-    Task(int id, std::string title, int priority)
-        : id_(id), title_(std::move(title)),
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)),
           priority_(priority) {}
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -505,9 +505,9 @@ private:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    ~Task() {
+    ~Target() {
         // 释放对象持有的资源
         // 例如：关闭文件、delete 动态内存
     }
@@ -565,9 +565,9 @@ public:
 
 ```cpp
 void demo() {
-    Task a(1, "栈", 1);        // 构造
-    Task* p = new Task(2, "堆", 2); // 构造
-    Task b = Task(3, "临时", 3);    // 构造（可能被优化）
+    Target a(1, "栈", 1);        // 构造
+    Target* p = new Target(2, "堆", 2); // 构造
+    Target b = Target(3, "临时", 3);    // 构造（可能被优化）
 
     // ...
 }   // a、b 析构；p 指向的对象仍在 -> 泄漏
@@ -841,18 +841,18 @@ private:
 <div class="col-55">
 
 ```cpp
-Task tasks[3] = {
-    Task(1, "A", 1),
-    Task(2, "B", 2),
-    Task(3, "C", 3)
+Target targets[3] = {
+    Target(1, "A", 1),
+    Target(2, "B", 2),
+    Target(3, "C", 3)
 };
 ```
 
-- 依次构造 `tasks[0]`、`tasks[1]`、`tasks[2]`
+- 依次构造 `targets[0]`、`targets[1]`、`targets[2]`
 - 数组离开作用域时，按**逆序**析构
 
 ```cpp
-Task* p = new Task[3];  // 需要默认构造函数
+Target* p = new Target[3];  // 需要默认构造函数
 // ...
 delete[] p;             // 依次析构每个元素
 ```
@@ -894,15 +894,15 @@ delete[] p;             // 依次析构每个元素
 <div class="col-55">
 
 ```cpp
-Task make_task() {
-    return Task(1, "临时任务", 2);
+Target make_target() {
+    return Target(1, "临时目标", 2);
 }
 
-void print_task(const Task& t);  // 常量引用可以绑定临时对象
+void print_target(const Target& t);  // 常量引用可以绑定临时对象
 
 int main() {
-    Task t = make_task();   // 返回值优化，通常不拷贝
-    print_task(Task(2, "一次性", 3)); // 临时对象在表达式结束后销毁
+    Target t = make_target();   // 返回值优化，通常不拷贝
+    print_target(Target(2, "一次性", 3)); // 临时对象在表达式结束后销毁
 }
 ```
 
@@ -922,8 +922,8 @@ int main() {
 
 <div class="pitfall">
 <span class="label">常见错误</span>
-<code>const Task&amp; r = make_task();</code> 是安全的（生命周期延长）；<br>
-<code>const Task&amp; r = *new Task(...);</code> 会泄漏，且引用与对象生命周期脱节。
+<code>const Target&amp; r = make_target();</code> 是安全的（生命周期延长）；<br>
+<code>const Target&amp; r = *new Target(...);</code> 会泄漏，且引用与对象生命周期脱节。
 </div>
 
 </div>
@@ -996,7 +996,7 @@ public:
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`TaskList` 的资源管理
+##### 主线案例：`TargetList` 的资源管理
 
 ---
 
@@ -1005,18 +1005,18 @@ public:
 <div class="col-55">
 
 ```cpp
-class TaskList {
+class TargetList {
 public:
-    TaskList() = default;
+    TargetList() = default;
 
-    void add(Task t) {
-        tasks_.push_back(std::move(t));
+    void add(Target t) {
+        targets_.push_back(std::move(t));
     }
 
-    std::size_t size() const { return tasks_.size(); }
+    std::size_t size() const { return targets_.size(); }
 
 private:
-    std::vector<Task> tasks_;
+    std::vector<Target> targets_;
 };
 ```
 
@@ -1028,9 +1028,9 @@ private:
 
 <div class="card-title">不需要手写析构</div>
 
-- `std::vector<Task>` 自己管理内存
-- `TaskList` 销毁时，`vector` 析构，依次销毁所有 `Task`
-- `Task` 的 `std::string` 也会自动释放
+- `std::vector<Target>` 自己管理内存
+- `TargetList` 销毁时，`vector` 析构，依次销毁所有 `Target`
+- `Target` 的 `std::string` 也会自动释放
 
 </div>
 
@@ -1040,7 +1040,7 @@ private:
 </div>
 
 <div class="small muted mt1">
-`add(Task t)` 按值接收，再用 `std::move` 放入容器；移动语义下一单元展开。
+`add(Target t)` 按值接收，再用 `std::move` 放入容器；移动语义下一单元展开。
 </div>
 
 </div>
@@ -1195,7 +1195,7 @@ int main() {
 - 忘记初始化成员 → 值不确定
 - 初始化列表顺序与声明顺序不一致 → 未定义行为
 - 在构造函数体里赋值，而不是初始化
-- `Task t();` 声明了函数而非对象
+- `Target t();` 声明了函数而非对象
 - 构造函数抛异常后仍假设析构函数会执行
 
 </div>
@@ -1228,7 +1228,7 @@ int main() {
 
 ---
 
-1. 构造函数与普通成员函数相比，有哪些特殊规则？`Task t;` 与 `Task t();` 的区别是什么？
+1. 构造函数与普通成员函数相比，有哪些特殊规则？`Target t;` 与 `Target t();` 的区别是什么？
 
 2. 为什么 `const` 成员和引用成员必须在初始化列表中初始化？
 

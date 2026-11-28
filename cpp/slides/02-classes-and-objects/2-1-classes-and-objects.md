@@ -93,19 +93,19 @@ presentation:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
     // 成员函数：对象能做什么
-    void complete();
-    bool is_done() const;
+    void build();
+    bool is_built() const;
     void print() const;
 
 private:
     // 数据成员：对象有哪些状态
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -152,13 +152,13 @@ private:
 **类内定义**（默认建议内联）
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool is_done() const {
-        return done_;
+    bool is_built() const {
+        return built_;
     }
 private:
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -171,19 +171,19 @@ private:
 **类外定义**（声明与实现分离）
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool is_done() const;   // 声明
+    bool is_built() const;   // 声明
 private:
-    bool done_ = false;
+    bool built_ = false;
 };
 
-bool Task::is_done() const {  // 定义
-    return done_;
+bool Target::is_built() const {  // 定义
+    return built_;
 }
 ```
 
-`Task::` 限定表明它是 `Task` 的成员，不是全局函数。
+`Target::` 限定表明它是 `Target` 的成员，不是全局函数。
 
 </div>
 
@@ -218,14 +218,14 @@ bool Task::is_done() const {  // 定义
 <div class="col">
 
 ```cpp
-class Task {
+class Target {
 public:
-    void complete();          // 任何人可调用
+    void build();          // 任何人可调用
 protected:
     void log_change();        // 派生类可用
 private:
     int id_;                  // 仅本类可用
-    std::string title_;
+    std::string name_;
 };
 ```
 
@@ -269,8 +269,8 @@ private:
 **应该公开**
 
 - 构造对象所需的操作
-- 业务语义明确的动作：`complete()`、`rename()`
-- 查询状态且不修改对象的函数：`is_done() const`
+- 业务语义明确的动作：`build()`、`rename()`
+- 查询状态且不修改对象的函数：`is_built() const`
 - 稳定的、调用方真正需要的接口
 
 </div>
@@ -294,7 +294,7 @@ private:
 
 <div class="question">
 <span class="label">判断</span>
-`Task` 的 `id_` 应不应该提供 `set_id(int)`？如果任务编号在创建后不应改变，这个 setter 会带来什么风险？
+`Target` 的 `id_` 应不应该提供 `set_id(int)`？如果目标编号在创建后不应改变，这个 setter 会带来什么风险？
 </div>
 
 ---
@@ -313,18 +313,18 @@ private:
 **1. 栈对象（自动对象）**
 
 ```cpp
-Task t(1, "写作业", 2);
-t.complete();
+Target t(1, "main.o", 2);
+t.build();
 // 离开作用域自动销毁
 ```
 
 **2. 对象数组**
 
 ```cpp
-Task tasks[3] = {
-    Task(1, "A", 1),
-    Task(2, "B", 2),
-    Task(3, "C", 3)
+Target tasks[3] = {
+    Target(1, "A", 1),
+    Target(2, "B", 2),
+    Target(3, "C", 3)
 };
 ```
 
@@ -335,15 +335,15 @@ Task tasks[3] = {
 **3. 动态对象（堆对象）**
 
 ```cpp
-Task* p = new Task(1, "写作业", 2);
-p->complete();
+Target* p = new Target(1, "main.o", 2);
+p->build();
 delete p;          // 必须配对
 ```
 
 动态对象数组：
 
 ```cpp
-Task* q = new Task[3];  // 需要默认构造函数
+Target* q = new Target[3];  // 需要默认构造函数
 // ...
 delete[] q;             // 不能写成 delete q
 ```
@@ -372,15 +372,15 @@ delete[] q;             // 不能写成 delete q
 
 ```cpp
 void demo() {
-    Task stack_task(1, "栈对象", 2);
-    Task* heap_task = new Task(2, "堆对象", 3);
+    Target stack_target(1, "栈对象", 2);
+    Target* heap_target = new Target(2, "堆对象", 3);
 
-    stack_task.complete();
-    heap_task->complete();
+    stack_target.build();
+    heap_target->build();
 
     // 函数结束：
-    // stack_task 自动销毁
-    // heap_task 仍然存在，但指针丢失 -> 泄漏
+    // stack_target 自动销毁
+    // heap_target 仍然存在，但指针丢失 -> 泄漏
 }
 ```
 
@@ -389,9 +389,9 @@ void demo() {
 <div class="col-45">
 
 <div class="timeline">
-<div class="tl-row"><span class="tl-label">栈</span><div class="tl-track"><div class="tl-bar b1" style="left:0;width:58%;">stack_task 生存</div></div></div>
-<div class="tl-row"><span class="tl-label">堆</span><div class="tl-track"><div class="tl-bar b2" style="left:8%;width:88%;">heap_task 指向的对象</div></div></div>
-<div class="tl-row"><span class="tl-label">指针</span><div class="tl-track"><div class="tl-bar b3" style="left:8%;width:50%;">heap_task 变量</div></div></div>
+<div class="tl-row"><span class="tl-label">栈</span><div class="tl-track"><div class="tl-bar b1" style="left:0;width:58%;">stack_target 生存</div></div></div>
+<div class="tl-row"><span class="tl-label">堆</span><div class="tl-track"><div class="tl-bar b2" style="left:8%;width:88%;">heap_target 指向的对象</div></div></div>
+<div class="tl-row"><span class="tl-label">指针</span><div class="tl-track"><div class="tl-bar b3" style="left:8%;width:50%;">heap_target 变量</div></div></div>
 </div>
 
 <div class="small muted">
@@ -421,14 +421,14 @@ void demo() {
 <div class="col">
 
 ```cpp
-Task t(1, "写作业", 2);
-Task* p = &t;
+Target t(1, "main.o", 2);
+Target* p = &t;
 
-p->complete();      // 通过指针调用
+p->build();      // 通过指针调用
 (*p).print();       // 等价写法
 
-Task& r = t;        // 引用是对象的别名
-r.complete();       // 像对象一样使用
+Target& r = t;        // 引用是对象的别名
+r.build();       // 像对象一样使用
 ```
 
 </div>
@@ -456,7 +456,7 @@ r.complete();       // 像对象一样使用
 
 <div class="question">
 <span class="label">思考</span>
-`Task* p = new Task(...); p->print();` 中，`print()` 怎么知道操作的是 `p` 指向的对象，而不是别的对象？
+`Target* p = new Target(...); p->print();` 中，`print()` 怎么知道操作的是 `p` 指向的对象，而不是别的对象？
 </div>
 
 ---
@@ -475,7 +475,7 @@ r.complete();       // 像对象一样使用
 **你写的代码**
 
 ```cpp
-class Task {
+class Target {
 public:
     void set_priority(int p) {
         priority_ = p;
@@ -484,7 +484,7 @@ private:
     int priority_ = 0;
 };
 
-Task a, b;
+Target a, b;
 a.set_priority(1);
 b.set_priority(2);
 ```
@@ -492,12 +492,12 @@ b.set_priority(2);
 **编译器看到的世界（简化）**
 
 ```cpp
-void Task::set_priority(Task* const this, int p) {
+void Target::set_priority(Target* const this, int p) {
     this->priority_ = p;
 }
 
-Task::set_priority(&a, 1);
-Task::set_priority(&b, 2);
+Target::set_priority(&a, 1);
+Target::set_priority(&b, 2);
 ```
 
 </div>
@@ -509,7 +509,7 @@ Task::set_priority(&b, 2);
 <div class="card-title">要点</div>
 
 - 每个非静态成员函数都有一个隐藏的 `this`
-- `this` 的类型是 `Task* const`（指针本身不可改指向）
+- `this` 的类型是 `Target* const`（指针本身不可改指向）
 - `this` 指向“当前被调用的那个对象”
 - 静态成员函数没有 `this`
 
@@ -540,17 +540,17 @@ Task::set_priority(&b, 2);
 **1. 区分同名参数与成员**
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task(int id, std::string title)
-        : id_(id), title_(std::move(title)) {}
+    Target(int id, std::string name)
+        : id_(id), name_(std::move(name)) {}
 
-    void rename(const std::string& title) {
-        this->title_ = title;
+    void rename(const std::string& name) {
+        this->name_ = name;
     }
 private:
     int id_;
-    std::string title_;
+    std::string name_;
 };
 ```
 
@@ -597,10 +597,10 @@ c.add(5).sub(2).add(10);
 <div class="col-55 code-sm">
 
 ```cpp
-void log_task(const Task* t);
+void log_target(const Target* t);
 
-void Task::report() const {
-    log_task(this);   // 把“我自己”传出去
+void Target::report() const {
+    log_target(this);   // 把“我自己”传出去
 }
 ```
 
@@ -624,7 +624,7 @@ void Task::report() const {
 
 <div class="pitfall">
 <span class="label">注意 const</span>
-在 <code>const</code> 成员函数中，<code>this</code> 的类型是 <code>const Task*</code>，不能通过它修改成员；把 <code>this</code> 传给接收 <code>Task*</code> 的函数会编译失败。
+在 <code>const</code> 成员函数中，<code>this</code> 的类型是 <code>const Target*</code>，不能通过它修改成员；把 <code>this</code> 传给接收 <code>Target*</code> 的函数会编译失败。
 </div>
 
 ---
@@ -639,22 +639,22 @@ void Task::report() const {
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool is_done() const { return done_; }
+    bool is_built() const { return built_; }
     int priority() const { return priority_; }
 
-    void complete() { done_ = true; }  // 非 const
+    void build() { built_ = true; }  // 非 const
 private:
     int priority_ = 0;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
 ```cpp
-void print(const Task& t) {
-    t.is_done();        // OK
-    t.complete();       // 编译错误
+void print(const Target& t) {
+    t.is_built();        // OK
+    t.build();       // 编译错误
 }
 ```
 
@@ -698,26 +698,26 @@ void print(const Task& t) {
 同一个函数名可以有两个版本，按对象的常量性选择：
 
 ```cpp
-class TaskList {
+class TargetList {
 public:
-    Task& at(int i) {          // 非 const
-        return tasks_[i];
+    Target& at(int i) {          // 非 const
+        return targets_[i];
     }
 
-    const Task& at(int i) const { // const
-        return tasks_[i];
+    const Target& at(int i) const { // const
+        return targets_[i];
     }
 private:
-    std::vector<Task> tasks_;
+    std::vector<Target> targets_;
 };
 ```
 
 ```cpp
-TaskList list;
-list.at(0).complete();        // 调用非 const 版本
+TargetList list;
+list.at(0).build();        // 调用非 const 版本
 
-const TaskList& clist = list;
-clist.at(0).complete();       // 错误：返回 const Task&
+const TargetList& clist = list;
+clist.at(0).build();       // 错误：返回 const Target&
 ```
 
 </div>
@@ -756,15 +756,15 @@ clist.at(0).complete();       // 错误：返回 const Task&
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool is_done() const {
+    bool is_built() const {
         ++query_count_;       // 允许：mutable
-        return done_;
+        return built_;
     }
     int query_count() const { return query_count_; }
 private:
-    bool done_ = false;
+    bool built_ = false;
     mutable int query_count_ = 0;
 };
 ```
@@ -806,21 +806,22 @@ private:
 <div class="col-55 code-sm">
 
 ```cpp
-class Date {
+class FileStamp {
 public:
-    Date(int y, int m, int d) : y_(y), m_(m), d_(d) {}
+    explicit FileStamp(long mtime) : mtime_(mtime) {}
+    long mtime() const { return mtime_; }
 private:
-    int y_, m_, d_;
+    long mtime_;
 };
 
-class DeadlineTask {
+class FileTarget {
 public:
-    DeadlineTask(int id, const std::string& title, Date due)
-        : id_(id), title_(title), due_(due) {}
+    FileTarget(int id, const std::string& name, FileStamp stamp)
+        : id_(id), name_(name), stamp_(stamp) {}
 private:
     int id_;
-    std::string title_;
-    Date due_;        // 成员对象
+    std::string name_;
+    FileStamp stamp_;        // 成员对象
 };
 ```
 
@@ -832,7 +833,7 @@ private:
 
 <div class="card-title">构造与析构</div>
 
-- 创建 `DeadlineTask` 时，先构造成员对象 `due_`，再执行自身构造函数体
+- 创建 `FileTarget` 时，先构造成员对象 `stamp_`，再执行自身构造函数体
 - 销毁时顺序相反：先执行自身析构函数体，再析构成员对象
 - 成员对象的构造顺序按**声明顺序**，与初始化列表书写顺序无关
 
@@ -840,7 +841,7 @@ private:
 
 <div class="tip">
 <span class="label">这是“组合”</span>
-<code>DeadlineTask</code> <strong>有一个</strong> <code>Date</code>，不是“是一种” <code>Date</code>。这是组合关系，不是继承。
+<code>FileTarget</code> <strong>有一个</strong> <code>FileStamp</code>，不是“是一种” <code>FileStamp</code>。这是组合关系，不是继承。
 </div>
 
 </div>
@@ -860,10 +861,10 @@ private:
 
 | 形式 | 写法 | 是否拷贝 | 能否修改实参 | 适用场景 |
 | :-- | :-- | :--: | :--: | :-- |
-| 传值 | `void f(Task t)` | 是 | 否（改的是副本） | 小对象、需要独立副本 |
-| 传引用 | `void f(Task& t)` | 否 | 是 | 需要修改调用方对象 |
-| 传常量引用 | `void f(const Task& t)` | 否 | 否 | 只读、大对象 |
-| 传指针 | `void f(Task* t)` | 否 | 可 | 可空、需要改指向 |
+| 传值 | `void f(Target t)` | 是 | 否（改的是副本） | 小对象、需要独立副本 |
+| 传引用 | `void f(Target& t)` | 否 | 是 | 需要修改调用方对象 |
+| 传常量引用 | `void f(const Target& t)` | 否 | 否 | 只读、大对象 |
+| 传指针 | `void f(Target* t)` | 否 | 可 | 可空、需要改指向 |
 
 </div>
 
@@ -872,9 +873,9 @@ private:
 <div class="col">
 
 ```cpp
-void complete_all(std::vector<Task>& tasks) {
-    for (Task& t : tasks) {
-        t.complete();          // 修改原对象
+void build_all(std::vector<Target>& tasks) {
+    for (Target& t : tasks) {
+        t.build();          // 修改原对象
     }
 }
 ```
@@ -884,8 +885,8 @@ void complete_all(std::vector<Task>& tasks) {
 <div class="col">
 
 ```cpp
-void print_all(const std::vector<Task>& tasks) {
-    for (const Task& t : tasks) {
+void print_all(const std::vector<Target>& tasks) {
+    for (const Target& t : tasks) {
         t.print();             // 只读，不拷贝
     }
 }
@@ -968,22 +969,22 @@ void h() {
 
 <div class="col code-xs">
 
-**task.h**
+**target.h**
 
 ```cpp
 #pragma once
 #include <string>
 
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority);
-    void complete();
+    Target(int id, std::string name, int priority);
+    void build();
     void print() const;
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -991,22 +992,22 @@ private:
 
 <div class="col code-xs">
 
-**task.cpp**
+**target.cpp**
 
 ```cpp
-#include "task.h"
+#include "target.h"
 #include <iostream>
 #include <utility>
 
-Task::Task(int id, std::string title, int priority)
-    : id_(id), title_(std::move(title)),
+Target::Target(int id, std::string name, int priority)
+    : id_(id), name_(std::move(name)),
       priority_(priority) {}
 
-void Task::complete() { done_ = true; }
+void Target::build() { built_ = true; }
 
-void Task::print() const {
-    std::cout << "[" << id_ << "] " << title_
-              << (done_ ? " done" : " todo") << "\n";
+void Target::print() const {
+    std::cout << "[" << id_ << "] " << name_ << " "
+              << (built_ ? "built" : "todo") << "\n";
 }
 ```
 
@@ -1024,7 +1025,7 @@ void Task::print() const {
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`Task` 的接口（task.h）
+##### 主线案例：`Target` 的接口（target.h）
 
 ---
 
@@ -1033,25 +1034,25 @@ void Task::print() const {
 <div class="col-55 code-xs">
 
 ```cpp{.line-numbers}
-// task.h
+// target.h
 #pragma once
 #include <string>
 
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority);
+    Target(int id, std::string name, int priority);
 
-    void complete();
-    void rename(const std::string& title);
-    bool is_done() const;
+    void build();
+    void rename(const std::string& name);
+    bool is_built() const;
     int priority() const;
     void print() const;
 
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -1064,15 +1065,15 @@ private:
 <div class="card-title">接口设计要点</div>
 
 - 构造函数建立合法状态
-- `complete` / `rename` 是修改操作
-- `is_done` / `priority` / `print` 是只读操作，全部 `const`
+- `build` / `rename` 是修改操作
+- `is_built` / `priority` / `print` 是只读操作，全部 `const`
 - 数据成员私有，表示方式可替换
 
 </div>
 
 <div class="tip">
 <span class="label">头文件职责</span>
-只放声明和必要的类型定义；实现细节放在 <code>task.cpp</code>，减少编译依赖。
+只放声明和必要的类型定义；实现细节放在 <code>target.cpp</code>，减少编译依赖。
 </div>
 
 </div>
@@ -1084,7 +1085,7 @@ private:
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`Task` 的实现（task.cpp）
+##### 主线案例：`Target` 的实现（target.cpp）
 
 ---
 
@@ -1093,28 +1094,28 @@ private:
 <div class="col-60 code-xs">
 
 ```cpp{.line-numbers}
-// task.cpp
-#include "task.h"
+// target.cpp
+#include "target.h"
 #include <iostream>
 #include <utility>
 
-Task::Task(int id, std::string title, int priority)
-    : id_(id), title_(std::move(title)),
+Target::Target(int id, std::string name, int priority)
+    : id_(id), name_(std::move(name)),
       priority_(priority) {}
 
-void Task::complete() { done_ = true; }
+void Target::build() { built_ = true; }
 
-void Task::rename(const std::string& title) {
-    if (!title.empty()) title_ = title;
+void Target::rename(const std::string& name) {
+    if (!name.empty()) name_ = name;
 }
 
-bool Task::is_done() const { return done_; }
-int Task::priority() const { return priority_; }
+bool Target::is_built() const { return built_; }
+int Target::priority() const { return priority_; }
 
-void Task::print() const {
-    std::cout << "[" << id_ << "] " << title_
+void Target::print() const {
+    std::cout << "[" << id_ << "] " << name_
               << " (p=" << priority_ << ") "
-              << (done_ ? "done" : "todo") << "\n";
+              << (built_ ? "built" : "todo") << "\n";
 }
 ```
 
@@ -1127,14 +1128,14 @@ void Task::print() const {
 <div class="card-title">实现要点</div>
 
 - `std::move` 避免一次字符串拷贝
-- `rename` 拒绝空标题，维护不变量
+- `rename` 拒绝空名称，维护不变量
 - 只读函数不修改状态
 - 输出格式集中在一个函数中
 
 </div>
 
-<div class="out mt1">[1] 写作业 (p=2) todo
-[2] 复习 (p=3) done</div>
+<div class="out mt1">[1] main.o (p=2) todo
+[2] util.o (p=3) built</div>
 
 <div class="small muted mt1">
 完整可编译版本见本章 <code>code/</code> 目录。
@@ -1147,7 +1148,7 @@ void Task::print() const {
 ---
 <!-- slide data-notes="" -->
 
-##### 课堂任务 2：给 `Task` 增加状态查询
+##### 课堂任务 2：给 `Target` 增加状态查询
 
 ---
 
@@ -1159,15 +1160,15 @@ void Task::print() const {
 
 <div class="card-title">任务</div>
 
-在上一讲的 `Task` 类基础上增加：
+在上一讲的 `Target` 类基础上增加：
 
-1. `int id() const`：返回任务编号
+1. `int id() const`：返回目标编号
 2. `bool is_high_priority() const`：优先级 ≥ 4 返回 `true`
-3. `void postpone()`：把优先级加 1，最高为 5
+3. `void raise_priority()`：把优先级加 1，最高为 5
 4. `void print() const` 输出格式：
-   `[1] 写作业 p=2 todo`
+   `[1] main.o p=2 todo`
 
-在 `main` 中创建 3 个任务，调用 `postpone()` 与 `complete()`，打印全部任务。
+在 `main` 中创建 3 个目标，调用 `raise_priority()` 与 `build()`，打印全部目标。
 
 </div>
 
@@ -1181,7 +1182,7 @@ void Task::print() const {
 
 - 所有不修改对象的函数都加 `const`
 - 数据成员保持 `private`
-- `postpone()` 不能把优先级加到 6
+- `raise_priority()` 不能把优先级加到 6
 - 编译无警告：`-Wall -Wextra`
 - 不使用全局变量
 
@@ -1189,7 +1190,7 @@ void Task::print() const {
 
 <div class="tip">
 <span class="label">提示</span>
-先写接口，再写实现；<code>postpone()</code> 可以在类内定义，短小函数更适合放头文件。
+先写接口，再写实现；<code>raise_priority()</code> 可以在类内定义，短小函数更适合放头文件。
 </div>
 
 </div>
@@ -1201,7 +1202,7 @@ void Task::print() const {
 
 <!-- slide data-notes="" -->
 
-##### 任务 2 参考实现（一）：类定义
+##### 课堂任务 2 参考实现（一）：类定义
 
 ---
 
@@ -1214,33 +1215,33 @@ void Task::print() const {
 #include <string>
 #include <utility>
 
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority)
-        : id_(id), title_(std::move(title)),
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)),
           priority_(priority) {}
 
     int id() const { return id_; }
-    bool is_done() const { return done_; }
+    bool is_built() const { return built_; }
     bool is_high_priority() const { return priority_ >= 4; }
 
-    void complete() { done_ = true; }
+    void build() { built_ = true; }
 
-    void postpone() {
+    void raise_priority() {
         if (priority_ < 5) ++priority_;
     }
 
     void print() const {
-        std::cout << "[" << id_ << "] " << title_
+        std::cout << "[" << id_ << "] " << name_
                   << " p=" << priority_ << " "
-                  << (done_ ? "done" : "todo") << "\n";
+                  << (built_ ? "built" : "todo") << "\n";
     }
 
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -1254,14 +1255,14 @@ private:
 
 - 构造函数建立合法状态
 - 查询函数全部 `const`
-- `postpone()` 把优先级限制在 `1..5`
+- `raise_priority()` 把优先级限制在 `1..5`
 - 数据保持私有，接口足够表达业务
 
 </div>
 
 <div class="tip">
 <span class="label">检查</span>
-如果把 <code>priority_</code> 改成 <code>public</code>，<code>postpone()</code> 的不变量还有意义吗？
+如果把 <code>priority_</code> 改成 <code>public</code>，<code>raise_priority()</code> 的不变量还有意义吗？
 </div>
 
 </div>
@@ -1273,7 +1274,7 @@ private:
 
 <!-- slide data-notes="" -->
 
-##### 任务 2 参考实现（二）：main 与输出
+##### 课堂任务 2 参考实现（二）：main 与输出
 
 ---
 
@@ -1283,18 +1284,18 @@ private:
 
 ```cpp{.line-numbers}
 #include <vector>
-// 假设 Task 定义在 task.h 中（见上一页）
+// 假设 Target 定义在 target.h 中（见上一页）
 
 int main() {
-    std::vector<Task> tasks;
-    tasks.emplace_back(1, "写作业", 2);
-    tasks.emplace_back(2, "复习", 4);
-    tasks.emplace_back(3, "锻炼", 5);
+    std::vector<Target> tasks;
+    tasks.emplace_back(1, "main.o", 2);
+    tasks.emplace_back(2, "util.o", 4);
+    tasks.emplace_back(3, "app", 5);
 
-    tasks[0].postpone();
-    tasks[1].complete();
+    tasks[0].raise_priority();
+    tasks[1].build();
 
-    for (const Task& t : tasks) {
+    for (const Target& t : tasks) {
         t.print();
     }
 }
@@ -1306,18 +1307,18 @@ int main() {
 
 **运行结果**
 
-<div class="out">[1] 写作业 p=3 todo
-[2] 复习 p=4 done
-[3] 锻炼 p=5 todo</div>
+<div class="out">[1] main.o p=3 todo
+[2] util.o p=4 built
+[3] app p=5 todo</div>
 
 <div class="small mt1">
 
 **要点**
 
 - `emplace_back` 直接在容器中构造对象
-- `const Task&` 遍历，不拷贝、不修改
-- `postpone()` 与 `complete()` 的调用顺序影响输出
-- 若 `Task` 没有默认构造函数，`vector<Task> v(n)` 不能编译
+- `const Target&` 遍历，不拷贝、不修改
+- `raise_priority()` 与 `build()` 的调用顺序影响输出
+- 若 `Target` 没有默认构造函数，`vector<Target> v(n)` 不能编译
 
 </div>
 

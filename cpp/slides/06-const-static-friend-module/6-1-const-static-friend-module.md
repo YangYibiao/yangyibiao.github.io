@@ -93,22 +93,22 @@ presentation:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool is_done() const { return done_; }
+    bool is_built() const { return built_; }
     int priority() const { return priority_; }
 
-    void complete() { done_ = true; }
+    void build() { built_ = true; }
 private:
     int priority_ = 0;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
 ```cpp
-void print(const Task& t) {
-    t.is_done();      // OK
-    t.complete();     // 编译错误
+void print(const Target& t) {
+    t.is_built();      // OK
+    t.build();     // 编译错误
 }
 ```
 
@@ -201,26 +201,26 @@ private:
 <div class="col-55 code-sm">
 
 ```cpp
-class TaskList {
+class TargetList {
 public:
-    Task& at(int i) {
-        return tasks_[i];
+    Target& at(int i) {
+        return targets_[i];
     }
 
-    const Task& at(int i) const {
-        return tasks_[i];
+    const Target& at(int i) const {
+        return targets_[i];
     }
 private:
-    std::vector<Task> tasks_;
+    std::vector<Target> targets_;
 };
 ```
 
 ```cpp
-TaskList list;
-list.at(0).complete();       // 非 const 版本
+TargetList list;
+list.at(0).build();       // 非 const 版本
 
-const TaskList& clist = list;
-clist.at(0).complete();      // 错误：const 版本
+const TargetList& clist = list;
+clist.at(0).build();      // 错误：const 版本
 ```
 
 </div>
@@ -259,15 +259,15 @@ clist.at(0).complete();      // 错误：const 版本
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool is_done() const {
+    bool is_built() const {
         ++query_count_;       // 允许修改 mutable
-        return done_;
+        return built_;
     }
     int query_count() const { return query_count_; }
 private:
-    bool done_ = false;
+    bool built_ = false;
     mutable int query_count_ = 0;
 };
 ```
@@ -309,18 +309,18 @@ private:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task() { ++count_; }
-    Task(const Task&) { ++count_; }
-    ~Task() { --count_; }
+    Target() { ++count_; }
+    Target(const Target&) { ++count_; }
+    ~Target() { --count_; }
 
     static int count() { return count_; }
 private:
     static int count_;   // 声明
 };
 
-int Task::count_ = 0;    // 定义（C++17 之前）
+int Target::count_ = 0;    // 定义（C++17 之前）
 ```
 
 </div>
@@ -334,7 +334,7 @@ int Task::count_ = 0;    // 定义（C++17 之前）
 - 所有对象共享同一份 `count_`
 - 必须在类外定义并初始化（C++17 之前）
 - 生命周期从程序开始到结束
-- 可通过 `Task::count()` 访问，不需要对象
+- 可通过 `Target::count()` 访问，不需要对象
 
 </div>
 
@@ -361,7 +361,7 @@ int Task::count_ = 0;    // 定义（C++17 之前）
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
     static int count() {
         return count_;
@@ -374,8 +374,8 @@ private:
 ```
 
 ```cpp
-int n = Task::count();   // 不需要对象
-Task t;
+int n = Target::count();   // 不需要对象
+Target t;
 int m = t.count();       // 也可以通过对象调用
 ```
 
@@ -421,15 +421,15 @@ int m = t.count();       // 也可以通过对象调用
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
     friend std::ostream& operator<<(std::ostream& os,
-                                    const Task& t);
-    friend class TaskList;
-    friend void Scheduler::dispatch(const Task&);
+                                    const Target& t);
+    friend class TargetList;
+    friend void Scheduler::dispatch(const Target&);
 
 private:
     int id_;
-    std::string title_;
+    std::string name_;
 };
 ```
 
@@ -523,20 +523,20 @@ class B {
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task(int id, std::string title)
-        : id_(id), title_(std::move(title)) {}
+    Target(int id, std::string name)
+        : id_(id), name_(std::move(name)) {}
 
     friend std::ostream& operator<<(std::ostream& os,
-                                    const Task& t);
+                                    const Target& t);
 private:
     int id_;
-    std::string title_;
+    std::string name_;
 };
 
-std::ostream& operator<<(std::ostream& os, const Task& t) {
-    return os << "[" << t.id_ << "] " << t.title_;
+std::ostream& operator<<(std::ostream& os, const Target& t) {
+    return os << "[" << t.id_ << "] " << t.name_;
 }
 ```
 
@@ -549,7 +549,7 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 <div class="card-title">为什么用友元</div>
 
 - `<<` 的左操作数是 `std::ostream`，不能写成成员函数
-- 需要访问 `Task` 的私有数据
+- 需要访问 `Target` 的私有数据
 - 返回 `ostream&` 支持链式输出
 
 </div>
@@ -590,9 +590,9 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 
 <div class="card-title">C++ 的类模块</div>
 
-- `Task.h`：类定义、函数声明、常量
-- `Task.cpp`：成员函数定义、静态成员定义
-- `main.cpp`：`#include "Task.h"`
+- `target.h`：类定义、函数声明、常量
+- `target.cpp`：成员函数定义、静态成员定义
+- `main.cpp`：`#include "target.h"`
 
 </div>
 
@@ -603,10 +603,10 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 <div class="fig">
 <svg viewBox="0 0 420 220" width="400">
   <rect x="20" y="20" width="150" height="70" rx="8" fill="#fdf6e3" stroke="#268bd2"/>
-  <text x="95" y="48" font-size="15" text-anchor="middle" fill="#268bd2">Task.h</text>
+  <text x="95" y="48" font-size="15" text-anchor="middle" fill="#268bd2">target.h</text>
   <text x="95" y="68" font-size="12" text-anchor="middle" fill="#657b83">接口：声明</text>
   <rect x="250" y="20" width="150" height="70" rx="8" fill="#fdf6e3" stroke="#859900"/>
-  <text x="325" y="48" font-size="15" text-anchor="middle" fill="#859900">Task.cpp</text>
+  <text x="325" y="48" font-size="15" text-anchor="middle" fill="#859900">target.cpp</text>
   <text x="325" y="68" font-size="12" text-anchor="middle" fill="#657b83">实现：定义</text>
   <rect x="135" y="140" width="150" height="60" rx="8" fill="#fdf6e3" stroke="#b58900"/>
   <text x="210" y="168" font-size="15" text-anchor="middle" fill="#b58900">main.cpp</text>
@@ -642,10 +642,10 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 **传统写法：include guard**
 
 ```cpp
-#ifndef TASK_H
-#define TASK_H
+#ifndef TARGET_H
+#define TARGET_H
 
-class Task {
+class Target {
     // ...
 };
 
@@ -664,7 +664,7 @@ class Task {
 ```cpp
 #pragma once
 
-class Task {
+class Target {
     // ...
 };
 ```
@@ -757,25 +757,25 @@ private:
 <div class="col-55">
 
 ```cpp
-// task.h
-namespace taskflow {
+// target.h
+namespace minibuild {
 
-class Task {
+class Target {
     // ...
 };
 
-void print(const Task& t);
+void print(const Target& t);
 
-}  // namespace taskflow
+}  // namespace minibuild
 ```
 
 ```cpp
 // main.cpp
-#include "task.h"
+#include "target.h"
 
 int main() {
-    taskflow::Task t(1, "写作业", 2);
-    taskflow::print(t);
+    minibuild::Target t(1, "main.o", 2);
+    minibuild::print(t);
 }
 ```
 
@@ -819,9 +819,9 @@ int main() {
 **单独编译，统一链接**
 
 ```bash
-g++ -std=c++17 -c task.cpp -o task.o
+g++ -std=c++17 -c target.cpp -o target.o
 g++ -std=c++17 -c main.cpp -o main.o
-g++ task.o main.o -o app
+g++ target.o main.o -o app
 ```
 
 - 每个 `.cpp` 是一个翻译单元
@@ -845,7 +845,7 @@ g++ task.o main.o -o app
 
 <div class="pitfall">
 <span class="label">典型错误</span>
-<code>undefined reference to Task::Task(...)</code>：声明了但没链接实现；<br>
+<code>undefined reference to Target::Target(...)</code>：声明了但没链接实现；<br>
 <code>multiple definition of ...</code>：头文件里写了非 inline 的函数定义。
 </div>
 
@@ -854,7 +854,7 @@ g++ task.o main.o -o app
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：把 `Task` 拆成模块
+##### 主线案例：把 `Target` 拆成模块
 
 ---
 
@@ -863,29 +863,29 @@ g++ task.o main.o -o app
 <div class="col-55 code-xs">
 
 ```cpp{.line-numbers}
-// task.h
+// target.h
 #pragma once
 #include <iosfwd>
 #include <string>
 
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority);
-    ~Task();
+    Target(int id, std::string name, int priority);
+    ~Target();
 
-    void complete();
-    bool is_done() const;
+    void build();
+    bool is_built() const;
     int id() const;
 
     static int count();
 
     friend std::ostream& operator<<(std::ostream& os,
-                                    const Task& t);
+                                    const Target& t);
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
     static int count_;
 };
 ```
@@ -919,7 +919,7 @@ private:
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`task.cpp`
+##### 主线案例：`target.cpp`
 
 ---
 
@@ -928,29 +928,29 @@ private:
 <div class="col-60 code-xs">
 
 ```cpp{.line-numbers}
-// task.cpp
-#include "task.h"
+// target.cpp
+#include "target.h"
 #include <iostream>
 #include <utility>
 
-int Task::count_ = 0;
+int Target::count_ = 0;
 
-Task::Task(int id, std::string title, int priority)
-    : id_(id), title_(std::move(title)),
+Target::Target(int id, std::string name, int priority)
+    : id_(id), name_(std::move(name)),
       priority_(priority) {
     ++count_;
 }
 
-Task::~Task() { --count_; }
+Target::~Target() { --count_; }
 
-void Task::complete() { done_ = true; }
-bool Task::is_done() const { return done_; }
-int Task::id() const { return id_; }
-int Task::count() { return count_; }
+void Target::build() { built_ = true; }
+bool Target::is_built() const { return built_; }
+int Target::id() const { return id_; }
+int Target::count() { return count_; }
 
-std::ostream& operator<<(std::ostream& os, const Task& t) {
-    return os << "[" << t.id_ << "] " << t.title_
-              << (t.done_ ? " done" : " todo");
+std::ostream& operator<<(std::ostream& os, const Target& t) {
+    return os << "[" << t.id_ << "] " << t.name_
+              << (t.built_ ? " built" : " todo");
 }
 ```
 
@@ -964,7 +964,7 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 
 - 静态成员在 `.cpp` 中定义
 - 构造函数/析构函数维护 `count_`
-- 友元函数可以访问 `id_`、`title_`、`done_`
+- 友元函数可以访问 `id_`、`name_`、`built_`
 - `operator<<` 返回 `os` 支持链式输出
 
 </div>
@@ -983,7 +983,7 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 
 <!-- slide data-notes="" -->
 
-##### 课堂任务 6：模块化 `Task`
+##### 课堂任务 6：模块化 `Target`
 
 ---
 
@@ -995,18 +995,18 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 
 <div class="card-title">任务</div>
 
-把 `Task` 拆成三个文件：
+把 `Target` 拆成三个文件：
 
-- `task.h`：类定义、`static int count()`、友元 `operator<<`
-- `task.cpp`：构造函数、析构函数、成员函数、静态成员定义
-- `main.cpp`：创建 3 个 `Task`，打印 `Task::count()`，输出每个任务
+- `target.h`：类定义、`static int count()`、友元 `operator<<`
+- `target.cpp`：构造函数、析构函数、成员函数、静态成员定义
+- `main.cpp`：创建 3 个 `Target`，打印 `Target::count()`，输出每个任务
 
 要求：
 
 1. 使用 `#pragma once`
 2. 静态成员 `count_` 记录存活对象数
-3. `operator<<` 输出 `[id] title todo/done`
-4. 用 `g++ task.cpp main.cpp -o app` 编译
+3. `operator<<` 输出 `[id] name todo/built`
+4. 用 `g++ target.cpp main.cpp -o app` 编译
 
 </div>
 
@@ -1019,8 +1019,8 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 <div class="card-title">验收标准</div>
 
 - 三个文件可以独立编译、统一链接
-- `Task::count()` 在创建/销毁后正确变化
-- `std::cout << task` 能输出正确格式
+- `Target::count()` 在创建/销毁后正确变化
+- `std::cout << target` 能输出正确格式
 - 头文件中没有函数定义（`inline` 除外）
 - 头文件中没有 `using namespace std;`
 
@@ -1049,24 +1049,24 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 <div class="col-55 code-xs">
 
 ```cpp{.line-numbers}
-// task.h
+// target.h
 #pragma once
 #include <iosfwd>
 #include <string>
 
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority);
-    ~Task();
+    Target(int id, std::string name, int priority);
+    ~Target();
 
     static int count();
     friend std::ostream& operator<<(std::ostream& os,
-                                    const Task& t);
+                                    const Target& t);
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
     static int count_;
 };
 ```
@@ -1076,24 +1076,24 @@ private:
 <div class="col-45 code-xs">
 
 ```cpp{.line-numbers}
-// task.cpp（节选）
-#include "task.h"
+// target.cpp（节选）
+#include "target.h"
 #include <ostream>
 #include <utility>
 
-int Task::count_ = 0;
+int Target::count_ = 0;
 
-Task::Task(int id, std::string title, int priority)
-    : id_(id), title_(std::move(title)),
+Target::Target(int id, std::string name, int priority)
+    : id_(id), name_(std::move(name)),
       priority_(priority) {
     ++count_;
 }
 
-Task::~Task() { --count_; }
-int Task::count() { return count_; }
+Target::~Target() { --count_; }
+int Target::count() { return count_; }
 
-std::ostream& operator<<(std::ostream& os, const Task& t) {
-    return os << "[" << t.id_ << "] " << t.title_;
+std::ostream& operator<<(std::ostream& os, const Target& t) {
+    return os << "[" << t.id_ << "] " << t.name_;
 }
 ```
 

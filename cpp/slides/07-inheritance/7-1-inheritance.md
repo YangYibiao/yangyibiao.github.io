@@ -97,20 +97,20 @@ presentation:
 **代码复用**
 
 ```cpp
-class Task {
+class Target {
 public:
-    void complete() { done_ = true; }
-    bool is_done() const { return done_; }
+    void build() { built_ = true; }
+    bool is_built() const { return built_; }
     // 公共数据与操作
 };
 
-class DeadlineTask {
-    // 希望拥有 Task 的全部能力
-    // 再增加截止日期
+class FileTarget {
+    // 希望拥有 Target 的全部能力
+    // 再增加文件时间戳
 };
 ```
 
-复制粘贴一份 `Task` 的代码，会产生两个互相独立的类型，修改时容易不一致。
+复制粘贴一份 `Target` 的代码，会产生两个互相独立的类型，修改时容易不一致。
 
 </div>
 
@@ -121,11 +121,11 @@ class DeadlineTask {
 <div class="fig">
 <svg viewBox="0 0 360 210" width="360">
   <rect x="110" y="15" width="140" height="46" rx="8" fill="#fdf6e3" stroke="#268bd2"/>
-  <text x="180" y="43" font-size="16" text-anchor="middle" fill="#268bd2">Task</text>
+  <text x="180" y="43" font-size="16" text-anchor="middle" fill="#268bd2">Target</text>
   <rect x="15" y="125" width="150" height="46" rx="8" fill="#fdf6e3" stroke="#859900"/>
-  <text x="90" y="153" font-size="14" text-anchor="middle" fill="#859900">DeadlineTask</text>
+  <text x="90" y="153" font-size="14" text-anchor="middle" fill="#859900">FileTarget</text>
   <rect x="195" y="125" width="150" height="46" rx="8" fill="#fdf6e3" stroke="#b58900"/>
-  <text x="270" y="153" font-size="14" text-anchor="middle" fill="#b58900">RecurringTask</text>
+  <text x="270" y="153" font-size="14" text-anchor="middle" fill="#b58900">CommandTarget</text>
   <line x1="150" y1="61" x2="90" y2="125" stroke="#93a1a1" marker-end="url(#inh)"/>
   <line x1="210" y1="61" x2="270" y2="125" stroke="#93a1a1" marker-end="url(#inh)"/>
   <text x="105" y="92" font-size="11" fill="#93a1a1">is-a</text>
@@ -134,7 +134,7 @@ class DeadlineTask {
 </svg>
 </div>
 
-`DeadlineTask` **是一种** `Task`，可以出现在任何需要 `Task` 的地方。
+`FileTarget` **是一种** `Target`，可以出现在任何需要 `Target` 的地方。
 
 </div>
 
@@ -142,7 +142,7 @@ class DeadlineTask {
 
 <div class="pitfall">
 <span class="label">前提</span>
-继承表达 <strong>is-a</strong>。如果两个类只是“有”的关系（如 `Scheduler` 有 `TaskList`），应该用组合，而不是继承。
+继承表达 <strong>is-a</strong>。如果两个类只是“有”的关系（如 `Scheduler` 有 `TargetList`），应该用组合，而不是继承。
 </div>
 
 ---
@@ -159,22 +159,22 @@ class DeadlineTask {
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    void complete() { done_ = true; }
+    void build() { built_ = true; }
     void print() const;
 protected:
-    std::string title_;
+    std::string name_;
 private:
     int id_ = 0;
-    bool done_ = false;
+    bool built_ = false;
 };
 
-class DeadlineTask : public Task {
+class FileTarget : public Target {
 public:
-    void set_due(Date d) { due_ = d; }
+    void set_stamp(FileStamp s) { stamp_ = s; }
 private:
-    Date due_;
+    FileStamp stamp_;
 };
 ```
 
@@ -232,9 +232,9 @@ private:
 **public 继承：is-a**
 
 ```cpp
-class DeadlineTask : public Task {
-    // 外界可以把 DeadlineTask
-    // 当作 Task 使用
+class FileTarget : public Target {
+    // 外界可以把 FileTarget
+    // 当作 Target 使用
 };
 ```
 
@@ -274,19 +274,19 @@ class Queue : private LinearList {
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 protected:
-    std::string title_;   // 派生类可直接使用
+    std::string name_;   // 派生类可直接使用
 public:
     void print() const;
 private:
     int id_ = 0;           // 派生类也不可直接访问
 };
 
-class DeadlineTask : public Task {
+class FileTarget : public Target {
 public:
     void rename(const std::string& t) {
-        title_ = t;        // OK
+        name_ = t;        // OK
         // id_ = 1;        // 错误：private
     }
 };
@@ -384,22 +384,23 @@ int main() { Derived d; }
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task(int id, std::string title)
-        : id_(id), title_(std::move(title)) {}
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)), priority_(priority) {}
 private:
     int id_;
-    std::string title_;
+    std::string name_;
+    int priority_;
 };
 
-class DeadlineTask : public Task {
+class FileTarget : public Target {
 public:
-    DeadlineTask(int id, std::string title, Date due)
-        : Task(id, std::move(title)),   // 基类构造
-          due_(due) {}
+    FileTarget(int id, std::string name, int priority, FileStamp stamp)
+        : Target(id, std::move(name), priority),   // 基类构造
+          stamp_(stamp) {}
 private:
-    Date due_;
+    FileStamp stamp_;
 };
 ```
 
@@ -420,7 +421,7 @@ private:
 
 <div class="tip">
 <span class="label">顺序提醒</span>
-即使把 <code>Task(...)</code> 写在 <code>due_</code> 后面，基类仍然先构造。
+即使把 <code>Target(...)</code> 写在 <code>stamp_</code> 后面，基类仍然先构造。
 </div>
 
 </div>
@@ -552,18 +553,18 @@ d.Base::f(1);      // OK：显式限定
 <div class="col-55">
 
 ```cpp
-class Task { /* ... */ };
-class DeadlineTask : public Task { /* ... */ };
+class Target { /* ... */ };
+class FileTarget : public Target { /* ... */ };
 
-DeadlineTask d(1, "写作业", Date(2026, 12, 1));
+FileTarget d(1, "main.o", 1, FileStamp(1700000000));
 
-Task a = d;          // OK：切片，只复制 Task 部分
-Task& r = d;         // OK：引用绑定到基类子对象
-Task* p = &d;        // OK：指针指向基类子对象
+Target a = d;          // OK：切片，只复制 Target 部分
+Target& r = d;         // OK：引用绑定到基类子对象
+Target* p = &d;        // OK：指针指向基类子对象
 
-void f(Task t);      // 按值：切片
-void g(Task& t);     // 引用：不切片
-void h(Task* t);     // 指针：不切片
+void f(Target t);      // 按值：切片
+void g(Target& t);     // 引用：不切片
+void h(Target* t);     // 指针：不切片
 ```
 
 </div>
@@ -859,12 +860,12 @@ class Company {
 - 通常用对象成员表示
 
 ```cpp
-class TaskList {
-    std::vector<Task> tasks_;
+class TargetList {
+    std::vector<Target> targets_;
 };
 ```
 
-`TaskList` 销毁，任务也销毁。
+`TargetList` 销毁，目标也销毁。
 
 </div>
 
@@ -944,7 +945,7 @@ public:
 
 | 问题 | 是 → 继承 | 否 → 组合 |
 | :-- | :-- | :-- |
-| B 是 A 的一种吗？ | `DeadlineTask` 是 `Task` | `Scheduler` 不是 `TaskList` |
+| B 是 A 的一种吗？ | `FileTarget` 是 `Target` | `Scheduler` 不是 `TargetList` |
 | 需要把 B 传给接受 A 的函数吗？ | 需要子类型替换 | 不需要 |
 | B 需要访问 A 的 protected 成员吗？ | 可能需要继承 | 用 public 接口 |
 | 只是为了复用 A 的代码吗？ | 不应继承 | 用组合 |
@@ -961,7 +962,7 @@ public:
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`DeadlineTask`
+##### 主线案例：`FileTarget`
 
 ---
 
@@ -970,25 +971,26 @@ public:
 <div class="col-55 code-sm">
 
 ```cpp
-class Date {
+class FileStamp {
 public:
-    Date(int y, int m, int d) : y_(y), m_(m), d_(d) {}
+    explicit FileStamp(long mtime) : mtime_(mtime) {}
+    long mtime() const { return mtime_; }
 private:
-    int y_, m_, d_;
+    long mtime_;
 };
 
-class DeadlineTask : public Task {
+class FileTarget : public Target {
 public:
-    DeadlineTask(int id, std::string title,
-                 int priority, Date due)
-        : Task(id, std::move(title), priority),
-          due_(due) {}
+    FileTarget(int id, std::string name,
+                 int priority, FileStamp stamp)
+        : Target(id, std::move(name), priority),
+          stamp_(stamp) {}
 
-    void print_deadline() const {
-        std::cout << "due: " << due_ << "\n";
+    void print_stamp() const {
+        std::cout << "mtime: " << stamp_.mtime() << "\n";
     }
 private:
-    Date due_;
+    FileStamp stamp_;
 };
 ```
 
@@ -1000,16 +1002,16 @@ private:
 
 <div class="card-title">关系</div>
 
-- `DeadlineTask` **是一种** `Task`
-- 继承 `Task` 的 `complete()`、`is_done()`、`id()`
-- 增加 `due_` 成员与 `print_deadline()`
-- 构造时先构造 `Task`，再构造 `due_`
+- `FileTarget` **是一种** `Target`
+- 继承 `Target` 的 `build()`、`is_built()`、`id()`
+- 增加 `stamp_` 成员与 `print_stamp()`
+- 构造时先构造 `Target`，再构造 `stamp_`
 
 </div>
 
 <div class="tip">
 <span class="label">设计选择</span>
-如果只是“任务带一个截止日期”，也可以把 `Date` 作为 `Task` 的成员（组合）。只有确实需要“截止日期任务是一种任务”并参与多态时，才建立继承。
+如果只是“文件目标带一个时间戳”，也可以把 `FileStamp` 作为 `Target` 的成员（组合）。只有确实需要“文件目标是构建目标”并参与多态时，才建立继承。
 </div>
 
 </div>
@@ -1021,7 +1023,7 @@ private:
 
 <!-- slide data-notes="" -->
 
-##### 课堂任务 7：设计 `RecurringTask`
+##### 课堂任务 7：设计 `CommandTarget`
 
 ---
 
@@ -1033,15 +1035,15 @@ private:
 
 <div class="card-title">任务</div>
 
-设计 `RecurringTask`，继承 `Task`：
+设计 `CommandTarget`，继承 `Target`：
 
-- 新增 `int interval_days_`（重复间隔天数）
-- 构造函数：`RecurringTask(int id, std::string title, int priority, int interval_days)`
-- 新增 `int interval_days() const`
-- 新增 `void postpone_one_cycle()`：把间隔天数加 1
-- 重定义 `print()`，在基类输出后追加 `[every N days]`
+- 新增 `std::string command_`（要执行的命令）
+- 构造函数：`CommandTarget(int id, std::string name, int priority, std::string command)`
+- 新增 `const std::string& command() const`
+- 新增 `void append_arg(const std::string& arg)`：追加一个参数
+- 重定义 `print()`，在基类输出后追加 `[cmd: ...]`
 
-在 `main` 中创建 `DeadlineTask` 与 `RecurringTask`，分别调用基类接口与自己的接口。
+在 `main` 中创建 `FileTarget` 与 `CommandTarget`，分别调用基类接口与自己的接口。
 
 </div>
 
@@ -1053,9 +1055,9 @@ private:
 
 <div class="card-title">验收标准</div>
 
-- 构造函数正确调用 `Task` 的构造函数
+- 构造函数正确调用 `Target` 的构造函数
 - 基类 `private` 成员不直接被访问
-- `RecurringTask` 可以传给接受 `const Task&` 的函数
+- `CommandTarget` 可以传给接受 `const Target&` 的函数
 - 输出格式统一
 - 编译无警告
 
@@ -1063,7 +1065,7 @@ private:
 
 <div class="tip">
 <span class="label">提示</span>
-如果基类的 <code>print()</code> 不是虚函数，派生类的同名函数会隐藏它；在派生类中可以用 <code>Task::print()</code> 显式调用基类版本。
+如果基类的 <code>print()</code> 不是虚函数，派生类的同名函数会隐藏它；在派生类中可以用 <code>Target::print()</code> 显式调用基类版本。
 </div>
 
 </div>
@@ -1084,29 +1086,28 @@ private:
 <div class="col-55 code-sm">
 
 ```cpp{.line-numbers}
-class RecurringTask : public Task {
+class CommandTarget : public Target {
 public:
-    RecurringTask(int id, std::string title,
-                  int priority, int interval_days)
-        : Task(id, std::move(title), priority),
-          interval_days_(interval_days) {}
+    CommandTarget(int id, std::string name,
+                  int priority, std::string command)
+        : Target(id, std::move(name), priority),
+          command_(std::move(command)) {}
 
-    int interval_days() const {
-        return interval_days_;
+    const std::string& command() const {
+        return command_;
     }
 
-    void postpone_one_cycle() {
-        ++interval_days_;
+    void append_arg(const std::string& arg) {
+        command_ += " " + arg;
     }
 
     void print() const {
-        Task::print();   // 调用基类版本
-        std::cout << " [every "
-                  << interval_days_ << " days]\n";
+        Target::print();   // 调用基类版本
+        std::cout << " [cmd: " << command_ << "]\n";
     }
 
 private:
-    int interval_days_;
+    std::string command_;
 };
 ```
 
@@ -1117,12 +1118,12 @@ private:
 **使用**
 
 ```cpp
-RecurringTask r(1, "背单词", 2, 3);
-r.complete();          // 继承自 Task
-r.print();
+CommandTarget c(1, "app", 2, "g++ main.o util.o -o app");
+c.build();          // 继承自 Target
+c.print();
 
-void show(const Task& t) {
-    t.print();         // 静态绑定：Task::print
+void show(const Target& t) {
+    t.print();         // 静态绑定：Target::print
 }
 ```
 
@@ -1130,9 +1131,9 @@ void show(const Task& t) {
 
 **观察**
 
-- `r.complete()` 来自基类
-- `r.print()` 调用派生类版本
-- 通过 `const Task&` 调用时，仍执行 `Task::print`——因为 `print` 不是虚函数
+- `c.build()` 来自基类
+- `c.print()` 调用派生类版本
+- 通过 `const Target&` 调用时，仍执行 `Target::print`——因为 `print` 不是虚函数
 - 下一单元用 `virtual` 解决这个问题
 
 </div>
@@ -1198,7 +1199,7 @@ void show(const Task& t) {
 
 3. 什么是对象切片？为什么多态必须通过指针或引用？
 
-4. `Scheduler` 需要管理一个 `TaskList`，应该用继承还是组合？请说明理由。
+4. `Scheduler` 需要管理一个 `TargetList`，应该用继承还是组合？请说明理由。
 
 ---
 

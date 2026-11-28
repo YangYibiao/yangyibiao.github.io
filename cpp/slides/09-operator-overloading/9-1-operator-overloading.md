@@ -349,15 +349,15 @@ a += b;          // 修改 a
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    bool operator==(const Task& other) const {
+    bool operator==(const Target& other) const {
         return id_ == other.id_;
     }
-    bool operator!=(const Task& other) const {
+    bool operator!=(const Target& other) const {
         return !(*this == other);
     }
-    bool operator<(const Task& other) const {
+    bool operator<(const Target& other) const {
         return priority_ < other.priority_;
     }
 private:
@@ -377,9 +377,9 @@ private:
 ```cpp
 #include <compare>
 
-class Task {
+class Target {
 public:
-    auto operator<=>(const Task&) const = default;
+    auto operator<=>(const Target&) const = default;
 };
 ```
 
@@ -633,19 +633,19 @@ auto n = std::count_if(v.begin(), v.end(), gt);
 <div class="col-55">
 
 ```cpp
-class TaskPtr {
+class TargetPtr {
 public:
-    explicit TaskPtr(Task* p) : p_(p) {}
-    Task* operator->() { return p_; }
-    Task& operator*() { return *p_; }
+    explicit TargetPtr(Target* p) : p_(p) {}
+    Target* operator->() { return p_; }
+    Target& operator*() { return *p_; }
 private:
-    Task* p_;
+    Target* p_;
 };
 
-Task t(1, "写作业", 2);
-TaskPtr p(&t);
-p->complete();     // 等价于 p.operator->()->complete()
-(*p).print();      // 等价于 p.operator*().print()
+Target t(1, "main.o", 2);
+TargetPtr p(&t);
+p->priority();  // 等价于 p.operator->()->priority()
+(*p).name();       // 等价于 p.operator*().name()
 ```
 
 </div>
@@ -748,7 +748,7 @@ public:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
     static void* operator new(std::size_t size) {
         std::cout << "allocate " << size << "\n";
@@ -854,23 +854,23 @@ double x = static_cast<double>(f);  // OK
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task(int id, std::string title)
-        : id_(id), title_(std::move(title)) {}
+    Target(int id, std::string name)
+        : id_(id), name_(std::move(name)) {}
 
     friend std::ostream& operator<<(std::ostream& os,
-                                    const Task& t);
+                                    const Target& t);
 private:
     int id_;
-    std::string title_;
+    std::string name_;
 };
 
-std::ostream& operator<<(std::ostream& os, const Task& t) {
-    return os << "[" << t.id_ << "] " << t.title_;
+std::ostream& operator<<(std::ostream& os, const Target& t) {
+    return os << "[" << t.id_ << "] " << t.name_;
 }
 
-std::cout << t << "\n";   // [1] 写作业
+std::cout << t << "\n";   // [1] main.o
 ```
 
 </div>
@@ -881,7 +881,7 @@ std::cout << t << "\n";   // [1] 写作业
 
 <div class="card-title">为什么不能是成员</div>
 
-`a << b` 如果写成成员，左操作数必须是 `Task`；但 `std::cout << t` 的左操作数是 `ostream`，所以只能写成非成员。
+`a << b` 如果写成成员，左操作数必须是 `Target`；但 `std::cout << t` 的左操作数是 `ostream`，所以只能写成非成员。
 
 </div>
 
@@ -938,7 +938,7 @@ std::cout << t << "\n";   // [1] 写作业
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`Task` 的运算符
+##### 主线案例：`Target` 的运算符
 
 ---
 
@@ -947,26 +947,26 @@ std::cout << t << "\n";   // [1] 写作业
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
     int id() const { return id_; }
     int priority() const { return priority_; }
-    const std::string& title() const { return title_; }
+    const std::string& name() const { return name_; }
 
-    bool operator==(const Task& other) const {
+    bool operator==(const Target& other) const {
         return id_ == other.id_;
     }
-    bool operator<(const Task& other) const {
+    bool operator<(const Target& other) const {
         return priority_ < other.priority();
     }
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
 };
 
-std::ostream& operator<<(std::ostream& os, const Task& t) {
-    return os << "[" << t.id() << "] " << t.title()
+std::ostream& operator<<(std::ostream& os, const Target& t) {
+    return os << "[" << t.id() << "] " << t.name()
               << " p=" << t.priority();
 }
 ```
@@ -987,7 +987,7 @@ std::ostream& operator<<(std::ostream& os, const Task& t) {
 
 <div class="tip">
 <span class="label">访问方式</span>
-这里通过 public 的 <code>id()</code> / <code>title()</code> 访问，不需要友元；只有需要直接访问私有数据时才用友元。
+这里通过 public 的 <code>id()</code> / <code>name()</code> 访问，不需要友元；只有需要直接访问私有数据时才用友元。
 </div>
 
 <div class="small muted mt1">

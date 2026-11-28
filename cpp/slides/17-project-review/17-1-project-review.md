@@ -146,22 +146,22 @@ presentation:
 **结构化绑定** <span class="std cxx17">C++17</span>
 
 ```cpp
-std::map<int, Task> by_id;
+std::map<int, Target> by_id;
 
-for (const auto& [id, task] : by_id) {
-    std::cout << id << ": " << task << "\n";
+for (const auto& [id, target] : by_id) {
+    std::cout << id << ": " << target << "\n";
 }
 
 auto [it, inserted] =
-    by_id.emplace(3, Task(3, "新任务", 2));
+    by_id.emplace(3, Target(3, "新目标", 2));
 ```
 
 **`std::optional`** <span class="std cxx17">C++17</span>
 
 ```cpp
-std::optional<Task> find_task(int id);
+std::optional<Target> find_target(int id);
 
-if (auto t = find_task(1)) {
+if (auto t = find_target(1)) {
     t->print();
 } else {
     std::cout << "not found\n";
@@ -177,7 +177,7 @@ if (auto t = find_task(1)) {
 ```cpp
 namespace fs = std::filesystem;
 
-if (!fs::exists("tasks.txt")) {
+if (!fs::exists("targets.txt")) {
     std::cout << "no data file\n";
 }
 
@@ -194,7 +194,7 @@ void print_name(std::string_view name) {
     std::cout << name << "\n";
 }
 
-print_name("TaskFlow");
+print_name("MiniBuild");
 ```
 
 </div>
@@ -210,7 +210,7 @@ print_name("TaskFlow");
 
 <!-- slide data-notes="" -->
 
-##### 项目：TaskFlow 任务管理器
+##### 项目：MiniBuild 构建系统
 
 ---
 
@@ -220,13 +220,13 @@ print_name("TaskFlow");
 
 **功能需求**
 
-1. 添加/删除/完成/查询任务
-2. 支持普通、截止日期、周期任务
-3. 按优先级调度执行
-4. 保存到文件、启动时恢复
-5. 多线程执行任务
-6. 记录事件日志
-7. 命令行交互
+1. 解析 Buildfile：目标、依赖、命令
+2. 构建依赖 DAG，检测环与缺失依赖
+3. 时间戳增量构建：只重建过期目标
+4. 拓扑排序 + `-j N` 并行构建
+5. 构建日志、错误上下文与事件
+6. 命令行：`target`、`-j`、`clean`、`--dry-run`
+7. 单元测试与端到端测试
 
 **非功能需求**
 
@@ -276,9 +276,9 @@ print_name("TaskFlow");
 
 <div class="card-title">领域模型</div>
 
-- `Task`：抽象任务接口
-- `PrintTask` / `DeadlineTask` / `RecurringTask`
-- `TaskList`：任务集合
+- `Target`：抽象目标接口
+- `PrintTarget` / `FileTarget` / `CommandTarget`
+- `Graph`：目标集合
 
 </div>
 
@@ -287,7 +287,7 @@ print_name("TaskFlow");
 <div class="card-title">服务</div>
 
 - `Scheduler`：按优先级执行
-- `TaskRepository`：持久化
+- `TargetRepository`：持久化
 - `EventLoop`：事件分发
 
 </div>
@@ -301,11 +301,11 @@ print_name("TaskFlow");
   <rect x="150" y="10" width="160" height="40" rx="7" fill="#fdf6e3" stroke="#268bd2"/>
   <text x="230" y="35" font-size="14" text-anchor="middle" fill="#268bd2">Scheduler</text>
   <rect x="20" y="95" width="140" height="40" rx="7" fill="#fdf6e3" stroke="#859900"/>
-  <text x="90" y="120" font-size="14" text-anchor="middle" fill="#859900">TaskList</text>
+  <text x="90" y="120" font-size="14" text-anchor="middle" fill="#859900">Graph</text>
   <rect x="300" y="95" width="140" height="40" rx="7" fill="#fdf6e3" stroke="#b58900"/>
   <text x="370" y="120" font-size="14" text-anchor="middle" fill="#b58900">Repository</text>
   <rect x="20" y="190" width="140" height="40" rx="7" fill="#fdf6e3" stroke="#dc322f"/>
-  <text x="90" y="215" font-size="14" text-anchor="middle" fill="#dc322f">Task 接口</text>
+  <text x="90" y="215" font-size="14" text-anchor="middle" fill="#dc322f">Target 接口</text>
   <rect x="300" y="190" width="140" height="40" rx="7" fill="#fdf6e3" stroke="#6c71c4"/>
   <text x="370" y="215" font-size="14" text-anchor="middle" fill="#6c71c4">EventLoop</text>
   <line x1="200" y1="50" x2="120" y2="95" stroke="#93a1a1"/>
@@ -316,7 +316,7 @@ print_name("TaskFlow");
 </div>
 
 <div class="small muted center">
-`Scheduler` 依赖 `TaskList` 与 `Task` 接口；`Repository` 负责存取；`EventLoop` 负责通知。
+`Scheduler` 依赖 `Graph` 与 `Target` 接口；`Repository` 负责存取；`EventLoop` 负责通知。
 </div>
 
 </div>
@@ -337,30 +337,30 @@ print_name("TaskFlow");
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
-    virtual ~Task() = default;
+    virtual ~Target() = default;
     virtual void run() = 0;
     virtual std::string describe() const = 0;
     virtual int id() const = 0;
     virtual int priority() const = 0;
 };
 
-class TaskList {
+class Graph {
 public:
-    void add(std::unique_ptr<Task> t);
+    void add(std::unique_ptr<Target> t);
     bool remove(int id);
-    Task* find(int id);
+    Target* find(int id);
     std::size_t size() const;
 private:
-    std::vector<std::unique_ptr<Task>> tasks_;
+    std::vector<std::unique_ptr<Target>> targets_;
 };
 
-class TaskRepository {
+class TargetRepository {
 public:
-    explicit TaskRepository(std::string path);
-    std::vector<std::unique_ptr<Task>> load() const;
-    void save(const TaskList& list) const;
+    explicit TargetRepository(std::string path);
+    std::vector<std::unique_ptr<Target>> load() const;
+    void save(const Graph& list) const;
 private:
     std::string path_;
 };
@@ -374,10 +374,10 @@ private:
 
 <div class="card-title">设计检查</div>
 
-- 谁拥有任务？`TaskList` 通过 `unique_ptr` 独占
-- 外部如何“借用”？返回 `Task*`，不转移所有权
-- 持久化如何知道类型？文件中记录类型标签
-- 扩展新任务类型要改哪里？只改工厂/加载逻辑
+- 谁拥有目标？`Graph` 通过 `unique_ptr` 独占
+- 外部如何“借用”？返回 `Target*`，不转移所有权
+- Buildfile 如何描述目标？记录名称、依赖和命令
+- 扩展新目标类型要改哪里？只改工厂/加载逻辑
 
 </div>
 
@@ -407,10 +407,10 @@ private:
 
 <div class="card-title">里程碑 1：可运行骨架</div>
 
-- `Task` / `TaskList`
-- 命令行菜单
-- 添加、列出、完成任务
-- 内存中使用，不持久化
+- `Target` / `Graph`
+- 解析最简单的 Buildfile
+- 串行构建，无并行
+- 能打印依赖与执行顺序
 
 </div>
 
@@ -418,9 +418,9 @@ private:
 
 <div class="card-title">里程碑 2：类型与调度</div>
 
-- 抽象基类 + 三种任务
-- 优先级排序
-- `Scheduler` 统一执行
+- 依赖图、环检测、拓扑排序
+- `FileTarget` / `CommandTarget` 多态执行
+- `Scheduler` 统一调度
 
 </div>
 
@@ -432,9 +432,9 @@ private:
 
 <div class="card-title">里程碑 3：持久化与健壮性</div>
 
-- 文件保存/加载
-- 异常处理与错误提示
-- 单元测试覆盖核心逻辑
+- 时间戳增量构建
+- 异常处理与错误上下文
+- 单元测试覆盖解析、图与调度
 
 </div>
 
@@ -442,9 +442,9 @@ private:
 
 <div class="card-title">里程碑 4：并发与完善</div>
 
-- 多线程执行
-- 事件日志
-- 性能与内存检查
+- `-j N` 并行构建
+- 构建事件/日志
+- ASan、TSan、性能检查
 - 文档与演示
 
 </div>
@@ -470,10 +470,10 @@ private:
 
 | 层次 | 测什么 | 工具/方法 |
 | :-- | :-- | :-- |
-| 单元测试 | `Task`、`TaskList`、`parse` | 断言、测试框架、`assert` |
-| 边界测试 | 空列表、满优先级、非法输入 | 手工用例 + 参数化 |
-| 异常测试 | 文件不存在、格式错误 | 构造坏文件、捕获异常 |
-| 集成测试 | 添加→保存→加载→执行 | 端到端脚本 |
+| 单元测试 | `Target`、`Graph`、Buildfile 解析 | 断言、测试框架、`assert` |
+| 边界测试 | 空图、缺失依赖、环、非法 Buildfile | 手工用例 + 参数化 |
+| 异常测试 | 文件不存在、格式错误、命令失败 | 构造坏文件、捕获异常 |
+| 集成测试 | 解析→建图→拓扑→构建 | 端到端脚本 |
 | 内存/并发 | 泄漏、越界、数据竞争 | ASan、UBSan、TSan |
 
 </div>
@@ -495,11 +495,11 @@ private:
 
 **至少覆盖**
 
-- 添加/删除/查找
-- 空容器操作
-- 文件不存在
-- 非法优先级
-- 多线程执行结果一致
+- 解析、拓扑排序、环检测
+- 空图、缺失依赖
+- 时间戳增量判断
+- 命令失败传播
+- 并行构建结果一致
 
 </div>
 
@@ -523,7 +523,7 @@ private:
 ```bash
 g++ -std=c++17 -Wall -Wextra -Wpedantic \
     -fsanitize=address,undefined \
-    -g main.cpp task.cpp -o app
+    -g main.cpp target.cpp -o app
 ```
 
 - 警告全部处理
@@ -584,7 +584,7 @@ valgrind --leak-check=full ./app
 ```bash
 git init
 git add .
-git commit -m "feat: add TaskList"
+git commit -m "feat: add Graph"
 git log --oneline
 ```
 
@@ -750,15 +750,15 @@ git log --oneline
 
 **需求片段**
 
-> 系统需要支持多种任务；每种任务都能执行并描述自己；任务按优先级调度；任务可以保存到文件并在下次启动时恢复。
+> 系统需要支持多个构建目标；每个目标声明依赖和命令；按依赖图拓扑调度；支持增量构建、并行执行和构建事件。
 
 **抽象步骤**
 
-1. 找名词：任务、任务列表、调度器、仓库
-2. 找动词：执行、描述、添加、删除、保存、加载
-3. 定职责：谁拥有任务？谁负责排序？谁负责 I/O？
-4. 定接口：`Task::run()`、`Task::describe()`、`TaskList::add()`
-5. 定关系：`Scheduler` 组合 `TaskList`；`TaskList` 组合 `unique_ptr<Task>`
+1. 找名词：目标、依赖图、调度器、Buildfile、TargetRepository
+2. 找动词：解析、建图、拓扑排序、增量判断、执行、记录事件
+3. 定职责：谁拥有目标？谁负责拓扑排序？谁负责命令执行与日志？
+4. 定接口：`Target::run()`、`Target::describe()`、`Graph::add()`
+5. 定关系：`Scheduler` 组合 `Graph`；`Graph` 组合 `unique_ptr<Target>`
 
 </div>
 
@@ -766,7 +766,7 @@ git log --oneline
 
 <div class="cds" style="flex-direction:column;gap:10px;align-items:stretch;width:100%;margin:0;">
 <div class="cls blue">
-<div class="cls-title">Task «interface»</div>
+<div class="cls-title">Target «interface»</div>
 <div class="cls-body">
 <div class="fn">+ run() = 0</div>
 <div class="fn">+ describe() const = 0</div>
@@ -775,9 +775,9 @@ git log --oneline
 </div>
 </div>
 <div class="cls green">
-<div class="cls-title">TaskList</div>
+<div class="cls-title">Graph</div>
 <div class="cls-body">
-<div class="fn">+ add(unique_ptr&lt;Task&gt;)</div>
+<div class="fn">+ add(unique_ptr&lt;Target&gt;)</div>
 <div class="fn">+ remove(int)</div>
 <div class="fn">+ find(int)</div>
 </div>
@@ -786,7 +786,7 @@ git log --oneline
 <div class="cls-title">Scheduler</div>
 <div class="cls-body">
 <div class="fn">+ run_all()</div>
-<div class="fn">- TaskList tasks_</div>
+<div class="fn">- Graph targets_</div>
 </div>
 </div>
 </div>
@@ -809,33 +809,33 @@ git log --oneline
 <div class="col-55 code-xs">
 
 ```cpp{.line-numbers}
-class Task {
+class Target {
 public:
-    virtual ~Task() = default;
+    virtual ~Target() = default;
     virtual void run() = 0;
     virtual std::string describe() const = 0;
     virtual int id() const = 0;
     virtual int priority() const = 0;
 };
 
-class TaskList {
+class Graph {
 public:
-    void add(std::unique_ptr<Task> t) {
-        tasks_.push_back(std::move(t));
+    void add(std::unique_ptr<Target> t) {
+        targets_.push_back(std::move(t));
     }
 
-    Task* find(int id) {
-        for (auto& t : tasks_) {
+    Target* find(int id) {
+        for (auto& t : targets_) {
             if (t->id() == id) return t.get();
         }
         return nullptr;
     }
 
     void run_all() {
-        for (auto& t : tasks_) t->run();
+        for (auto& t : targets_) t->run();
     }
 private:
-    std::vector<std::unique_ptr<Task>> tasks_;
+    std::vector<std::unique_ptr<Target>> targets_;
 };
 ```
 
@@ -847,17 +847,17 @@ private:
 
 <div class="card-title">设计点</div>
 
-- `Task` 定义稳定接口
-- `TaskList` 独占拥有任务
+- `Target` 定义稳定接口
+- `Graph` 独占拥有目标
 - `find` 返回借用指针，不转移所有权
 - `run_all` 通过虚函数动态分派
-- 新增任务类型不需要修改 `TaskList`
+- 新增目标类型不需要修改 `Graph`
 
 </div>
 
 <div class="pitfall">
 <span class="label">注意</span>
-<code>Task</code> 还需要 <code>id()</code>；示例省略了构造与具体派生类。完整项目应把接口、实现、测试分开。
+<code>Target</code> 还需要 <code>id()</code>；示例省略了构造与具体派生类。完整项目应把接口、实现、测试分开。
 </div>
 
 </div>

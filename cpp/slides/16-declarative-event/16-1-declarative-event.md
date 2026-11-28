@@ -725,7 +725,7 @@ s.notify(42);
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：TaskFlow 的事件调度
+##### 主线案例：MiniBuild 的事件调度
 
 ---
 
@@ -734,25 +734,25 @@ s.notify(42);
 <div class="col-55 code-sm">
 
 ```cpp
-enum class EventType { Added, Completed, Removed };
+enum class EventType { Started, Finished, Failed };
 
 struct Event {
     EventType type;
-    int task_id;
+    int target_id;
 };
 
 EventLoop loop;
 
-loop.on(EventType::Added, [](const Event& e) {
-    std::cout << "task added: " << e.task_id << "\n";
+loop.on(EventType::Started, [](const Event& e) {
+    std::cout << "target started: " << e.target_id << "\n";
 });
 
-loop.on(EventType::Completed, [](const Event& e) {
-    std::cout << "task done: " << e.task_id << "\n";
+loop.on(EventType::Finished, [](const Event& e) {
+    std::cout << "target finished: " << e.target_id << "\n";
 });
 
-loop.dispatch({EventType::Added, 1});
-loop.dispatch({EventType::Completed, 1});
+loop.dispatch({EventType::Started, 1});
+loop.dispatch({EventType::Finished, 1});
 ```
 
 </div>
@@ -796,12 +796,12 @@ loop.dispatch({EventType::Completed, 1});
 
 <div class="card-title">任务</div>
 
-给定 `std::vector<Task> tasks`，用声明式风格完成：
+给定 `std::vector<Target> targets`，用声明式风格完成：
 
-1. 过滤出未完成任务
-2. 提取标题
-3. 按标题排序
-4. 统计标题总长度
+1. 过滤出未构建目标
+2. 提取名称
+3. 按名称排序
+4. 统计名称总长度
 5. 输出前 3 条
 
 要求：
@@ -856,28 +856,28 @@ Ranges 的 <code>views::filter</code> / <code>views::transform</code> 是惰性�
 #include <ranges>
 #include <vector>
 
-auto undone = tasks
-    | std::views::filter([](const Task& t) {
-          return !t.is_done();
+auto unbuilt = targets
+    | std::views::filter([](const Target& t) {
+          return !t.is_built();
       })
-    | std::views::transform([](const Task& t) {
-          return t.title();
+    | std::views::transform([](const Target& t) {
+          return t.name();
       });
 
-std::vector<std::string> titles(
-    undone.begin(), undone.end());
+std::vector<std::string> names(
+    unbuilt.begin(), unbuilt.end());
 
-std::sort(titles.begin(), titles.end());
+std::sort(names.begin(), names.end());
 
 int total_len = std::accumulate(
-    titles.begin(), titles.end(), 0,
+    names.begin(), names.end(), 0,
     [](int acc, const std::string& s) {
         return acc + static_cast<int>(s.size());
     });
 
 for (std::size_t i = 0;
-     i < titles.size() && i < 3; ++i) {
-    std::cout << titles[i] << "\n";
+     i < names.size() && i < 3; ++i) {
+    std::cout << names[i] << "\n";
 }
 ```
 

@@ -58,7 +58,7 @@ presentation:
 
 - 课程定位与知识地图
 - 工具链与代码规范
-- 主线案例：TaskFlow 任务管理器
+- 主线案例：MiniBuild 构建系统
 
 </div>
 
@@ -434,7 +434,7 @@ int main() {
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：TaskFlow 任务管理器
+##### 主线案例：MiniBuild 构建系统
 
 ---
 
@@ -444,13 +444,13 @@ int main() {
 
 **需求（逐步扩展）**
 
-1. 表示一个任务：编号、标题、优先级、是否完成
-2. 管理一组任务：添加、删除、查找、统计
-3. 支持不同类型的任务：普通任务、截止日期任务、周期任务
-4. 按优先级调度执行
-5. 把任务保存到文件、从文件恢复
-6. 多线程并行执行任务
-7. 用声明式风格筛选、排序、统计
+1. 表示一个构建目标：名称、依赖、命令、是否已构建
+2. 管理目标依赖图：添加、查找、检测环
+3. 支持不同类型的规则：文件目标、命令目标、伪目标
+4. 按依赖关系和优先级调度
+5. 增量构建：只重建过期目标
+6. 并行构建：`-j N`
+7. 构建日志、事件与声明式统计
 
 </div>
 
@@ -460,16 +460,16 @@ int main() {
 
 <div class="card-title">为什么选这个案例</div>
 
-- 贴近学生日常：作业、DDL、复习计划
-- 能自然长成继承体系与接口
-- 能承载 STL、智能指针、并发
-- 规模可控，不需要图形界面
+- 学生每天编译，但不一定知道 make 内部怎么工作
+- 依赖图、拓扑排序、并发、事件都能自然长出来
+- 命令行程序，规模可控，不需要图形界面
+- 能承载继承、模板、智能指针、异常
 
 </div>
 
 <div class="tip">
 <span class="label">使用方式</span>
-每章只扩展一小步。案例不是“一次性大作业”，而是贯穿知识点的<strong>连续实验对象</strong>。
+每章只扩展一小步。MiniBuild 是贯穿 17 周的<strong>连续实验对象</strong>；本讲先用一个更小的 <code>Task</code> 记录作为讲类语法的辅助例子。
 </div>
 
 </div>
@@ -481,7 +481,9 @@ int main() {
 
 <!-- slide data-notes="" -->
 
-##### 第一版：用 C 的结构体与函数管理任务
+##### 辅助例子：用 C 的结构体与函数管理任务
+
+> 先用一个小的 <code>Task</code> 记录讲“数据与操作分离”；MiniBuild 的 <code>Target</code> 会把同样的思想用在构建目标上。
 
 ---
 
@@ -1327,12 +1329,12 @@ execute(b);           // 执行周期任务
 <div class="fig">
 <svg viewBox="0 0 360 180" width="330">
   <rect x="30" y="40" width="120" height="90" rx="8" fill="#fdf6e3" stroke="#268bd2"/>
-  <text x="90" y="65" font-size="14" text-anchor="middle" fill="#268bd2">Task</text>
+  <text x="90" y="65" font-size="14" text-anchor="middle" fill="#268bd2">Target</text>
   <line x1="45" y1="75" x2="135" y2="75" stroke="#93a1a1"/>
   <text x="90" y="92" font-size="12" text-anchor="middle" fill="#657b83">数据 + 操作</text>
   <text x="90" y="110" font-size="12" text-anchor="middle" fill="#657b83">public 接口</text>
   <rect x="210" y="40" width="120" height="90" rx="8" fill="#fdf6e3" stroke="#859900"/>
-  <text x="270" y="65" font-size="14" text-anchor="middle" fill="#859900">TaskList</text>
+  <text x="270" y="65" font-size="14" text-anchor="middle" fill="#859900">Graph</text>
   <line x1="225" y1="75" x2="315" y2="75" stroke="#93a1a1"/>
   <text x="270" y="92" font-size="12" text-anchor="middle" fill="#657b83">数据 + 操作</text>
   <text x="270" y="110" font-size="12" text-anchor="middle" fill="#657b83">public 接口</text>
@@ -1419,7 +1421,7 @@ execute(b);           // 执行周期任务
 
 一个类只负责一件事。
 
-`Task` 表示任务，`TaskList` 管理集合，`TaskRepository` 负责持久化，不要把三者塞进一个类。
+`Target` 表示构建目标，`Graph` 管理依赖关系，`TargetRepository` 负责持久化，不要把三者塞进一个类。
 
 </div>
 
@@ -1447,7 +1449,7 @@ execute(b);           // 执行周期任务
 
 能用“有”表达的关系，不要用“是”表达。
 
-`Scheduler` **有一个** `TaskList`，不必继承 `TaskList`。
+`Scheduler` **有一个** `Graph`，不必继承 `Graph`。
 
 </div>
 
@@ -1529,7 +1531,7 @@ for (const auto& x : v)
 
 **命名与风格**
 
-- 类型：`Task`、`TaskList`（大驼峰）
+- 类型：`Target`、`Graph`（大驼峰）
 - 函数/变量：`add_task`、`task_count`（小写下划线）
 - 成员变量：`id_`、`title_`（尾部下划线）
 - 常量：`kMaxTasks`、`kCapacity`
@@ -1622,7 +1624,7 @@ g++ -std=c++17 -Wall -Wextra -Wpedantic \
 
 <!-- slide data-notes="" -->
 
-##### 课堂任务 1：把 C 的 Task 改造成类
+##### 课堂任务 1：把 C 的 Task 辅助例子改造成类
 
 ---
 
@@ -1772,7 +1774,7 @@ int main() {
 
 3. 为什么“把所有成员都设为 public”会破坏封装？封装保护的是什么？
 
-4. 继承表达 is-a 关系。`Scheduler` 与 `TaskList` 之间应该是继承还是组合？为什么？
+4. 继承表达 is-a 关系。`Scheduler` 与 `Graph` 之间应该是继承还是组合？为什么？
 
 ---
 

@@ -95,26 +95,26 @@ presentation:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
     void run() const {
-        std::cout << "Task::run\n";
+        std::cout << "Target::run\n";
     }
 };
 
-class PrintTask : public Task {
+class PrintTarget : public Target {
 public:
     void run() const {
-        std::cout << "PrintTask::run\n";
+        std::cout << "PrintTarget::run\n";
     }
 };
 
-void execute(const Task& t) {
+void execute(const Target& t) {
     t.run();          // 调用哪个版本？
 }
 
-PrintTask p;
-execute(p);           // 输出：Task::run
+PrintTarget p;
+execute(p);           // 输出：Target::run
 ```
 
 </div>
@@ -125,7 +125,7 @@ execute(p);           // 输出：Task::run
 
 <div class="card-title">为什么</div>
 
-编译器看到的是 `const Task&`，只知道 `Task::run`。它不会去猜“运行时引用实际指向谁”。
+编译器看到的是 `const Target&`，只知道 `Target::run`。它不会去猜“运行时引用实际指向谁”。
 
 <div class="small muted mt1">
 默认采用<strong>静态绑定</strong>：调用哪个函数由表达式的<strong>静态类型</strong>在编译时决定。
@@ -156,25 +156,25 @@ execute(p);           // 输出：Task::run
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
     virtual void run() const {
-        std::cout << "Task::run\n";
+        std::cout << "Target::run\n";
     }
-    virtual ~Task() = default;
+    virtual ~Target() = default;
 };
 
-class PrintTask : public Task {
+class PrintTarget : public Target {
 public:
     void run() const override {
-        std::cout << "PrintTask::run\n";
+        std::cout << "PrintTarget::run\n";
     }
 };
 
-void execute(const Task& t) { t.run(); }
+void execute(const Target& t) { t.run(); }
 
-PrintTask p;
-execute(p);           // 输出：PrintTask::run
+PrintTarget p;
+execute(p);           // 输出：PrintTarget::run
 ```
 
 </div>
@@ -225,9 +225,9 @@ execute(p);           // 输出：PrintTask::run
 <div class="col">
 
 ```cpp
-void f(Task& t)  { t.run(); }  // 动态
-void g(Task* p)  { p->run(); } // 动态
-void h(Task t)   { t.run(); }  // 静态 + 切片
+void f(Target& t)  { t.run(); }  // 动态
+void g(Target* p)  { p->run(); } // 动态
+void h(Target t)   { t.run(); }  // 静态 + 切片
 ```
 
 </div>
@@ -493,15 +493,15 @@ Derived d;   // 输出：Base::f
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    virtual ~Task() = default;
+    virtual ~Target() = default;
 
     virtual void run() const = 0;     // 纯虚函数
     virtual std::string name() const = 0;
 };
 
-// Task t;   // 错误：抽象类不能实例化
+// Target t;   // 错误：抽象类不能实例化
 ```
 
 <div class="small muted mt1">
@@ -559,7 +559,7 @@ public:
     virtual void print(std::ostream&) const = 0;
 };
 
-class Task : public Serializable, public Printable {
+class Target : public Serializable, public Printable {
 public:
     // 实现两个接口
 };
@@ -729,9 +729,9 @@ void draw_all(const std::vector<Figure*>& figures) {
 <div class="col-55">
 
 ```cpp
-void maybe_postpone(Task* t) {
-    if (auto* r = dynamic_cast<RecurringTask*>(t)) {
-        r->postpone_one_cycle();   // 安全向下转型
+void maybe_add_arg(Target* t) {
+    if (auto* r = dynamic_cast<CommandTarget*>(t)) {
+        r->append_arg("--verbose");   // 安全向下转型
     }
 }
 ```
@@ -821,7 +821,7 @@ by_value(d);        // 输出 Base
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：抽象 `Task` 与统一执行
+##### 主线案例：抽象 `Target` 与统一执行
 
 ---
 
@@ -830,16 +830,16 @@ by_value(d);        // 输出 Base
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
-    virtual ~Task() = default;
+    virtual ~Target() = default;
     virtual void run() const = 0;
     virtual std::string describe() const = 0;
 };
 
-class PrintTask : public Task {
+class PrintTarget : public Target {
 public:
-    explicit PrintTask(std::string text)
+    explicit PrintTarget(std::string text)
         : text_(std::move(text)) {}
     void run() const override {
         std::cout << text_ << "\n";
@@ -857,16 +857,16 @@ private:
 <div class="col-45">
 
 ```cpp
-void execute_all(const std::vector<Task*>& tasks) {
-    for (Task* t : tasks) {
+void execute_all(const std::vector<Target*>& targets) {
+    for (Target* t : targets) {
         t->run();          // 动态绑定
     }
 }
 
-PrintTask p("hello");
-RecurringTask r(...);
-std::vector<Task*> tasks{&p, &r};
-execute_all(tasks);
+PrintTarget p("hello");
+CommandTarget c("g++ main.o util.o -o app");
+std::vector<Target*> targets{&p, &c};
+execute_all(targets);
 ```
 
 <div class="keypoint">
@@ -883,7 +883,7 @@ execute_all(tasks);
 
 <!-- slide data-notes="" -->
 
-##### 课堂任务 8：为任务体系加入 `describe()`
+##### 课堂任务 8：为目标体系加入 `describe()`
 
 ---
 
@@ -895,19 +895,19 @@ execute_all(tasks);
 
 <div class="card-title">任务</div>
 
-在抽象基类 `Task` 上增加：
+在抽象基类 `Target` 上增加：
 
 ```cpp
 virtual std::string describe() const = 0;
 ```
 
-为 `PrintTask`、`RecurringTask`、`DeadlineTask` 分别实现：
+为 `PrintTarget`、`CommandTarget`、`FileTarget` 分别实现：
 
-- `PrintTask`：`"print: <text>"`
-- `RecurringTask`：`"recurring every N days"`
-- `DeadlineTask`：`"deadline: <date>"`
+- `PrintTarget`：`"print: <text>"`
+- `CommandTarget`：`"command: <command>"`
+- `FileTarget`：`"file: <name> @ <mtime>"`
 
-实现 `print_all(const std::vector<Task*>&)`，对每个任务输出 `describe()`。
+实现 `print_all(const std::vector<Target*>&)`，对每个目标输出 `describe()`。
 
 </div>
 
@@ -919,10 +919,10 @@ virtual std::string describe() const = 0;
 
 <div class="card-title">验收标准</div>
 
-- `Task` 不能实例化
+- `Target` 不能实例化
 - 每个派生类都实现 `describe()`
 - `print_all` 不含 `switch` / `dynamic_cast`
-- 新增一个任务类型时，`print_all` 不需要修改
+- 新增一个目标类型时，`print_all` 不需要修改
 - 所有派生类析构函数正确执行
 
 </div>
@@ -950,16 +950,16 @@ virtual std::string describe() const = 0;
 <div class="col-55 code-xs">
 
 ```cpp{.line-numbers}
-class Task {
+class Target {
 public:
-    virtual ~Task() = default;
+    virtual ~Target() = default;
     virtual void run() const = 0;
     virtual std::string describe() const = 0;
 };
 
-class PrintTask : public Task {
+class PrintTarget : public Target {
 public:
-    explicit PrintTask(std::string text)
+    explicit PrintTarget(std::string text)
         : text_(std::move(text)) {}
     void run() const override {
         std::cout << text_ << "\n";
@@ -971,21 +971,23 @@ private:
     std::string text_;
 };
 
-class RecurringTask : public Task {
+class CommandTarget : public Target {
 public:
-    RecurringTask(std::string title, int interval)
-        : title_(std::move(title)),
-          interval_(interval) {}
+    explicit CommandTarget(std::string command)
+        : command_(std::move(command)) {}
+
+    void append_arg(const std::string& arg) {
+        command_ += " " + arg;
+    }
+
     void run() const override {
-        std::cout << "run " << title_ << "\n";
+        std::cout << "run " << command_ << "\n";
     }
     std::string describe() const override {
-        return "recurring every " +
-               std::to_string(interval_) + " days";
+        return "command: " + command_;
     }
 private:
-    std::string title_;
-    int interval_;
+    std::string command_;
 };
 ```
 
@@ -994,28 +996,28 @@ private:
 <div class="col-45 code-xs">
 
 ```cpp{.line-numbers}
-void print_all(const std::vector<Task*>& tasks) {
-    for (Task* t : tasks) {
+void print_all(const std::vector<Target*>& targets) {
+    for (Target* t : targets) {
         std::cout << t->describe() << "\n";
     }
 }
 
 int main() {
-    PrintTask p("hello");
-    RecurringTask r("背单词", 3);
+    PrintTarget p("hello");
+    CommandTarget c("g++ main.o util.o -o app");
 
-    std::vector<Task*> tasks{&p, &r};
-    print_all(tasks);
-    for (Task* t : tasks) {
+    std::vector<Target*> targets{&p, &c};
+    print_all(targets);
+    for (Target* t : targets) {
         t->run();
     }
 }
 ```
 
 <div class="out mt1">print: hello
-recurring every 3 days
+command: g++ main.o util.o -o app
 hello
-run 背单词</div>
+run g++ main.o util.o -o app</div>
 
 <div class="small mt1">
 `print_all` 只依赖抽象接口；新增任务类型不需要修改它。

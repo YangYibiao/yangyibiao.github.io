@@ -260,13 +260,13 @@ std::cout << std::setfill('0')
 
 ```cpp
 int id;
-std::string title;
+std::string name;
 
 std::cout << "id: ";
 std::cin >> id;                 // 读取 42，留下 '\n'
 
-std::cout << "title: ";
-std::getline(std::cin, title);  // 读到空串！
+std::cout << "name: ";
+std::getline(std::cin, name);  // 读到空串！
 ```
 
 修正：
@@ -275,7 +275,7 @@ std::getline(std::cin, title);  // 读到空串！
 std::cin >> id;
 std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
                 '\n');
-std::getline(std::cin, title);
+std::getline(std::cin, name);
 ```
 
 </div>
@@ -329,11 +329,11 @@ std::getline(std::cin, title);
 #include <string>
 
 int id = 42;
-std::string title = "写作业";
+std::string name = "main.o";
 
 std::ostringstream oss;
-oss << id << "," << title << ",2";
-std::string line = oss.str();   // "42,写作业,2"
+oss << id << "," << name << ",2";
+std::string line = oss.str();   // "42,main.o,2"
 
 std::istringstream iss(line);
 std::string token;
@@ -382,22 +382,22 @@ while (std::getline(iss, token, ',')) {
 ```cpp
 #include <fstream>
 
-std::ofstream out("tasks.txt");       // 默认 ios::out
+std::ofstream out("targets.txt");       // 默认 ios::out
 if (!out) {
     std::cerr << "cannot open file\n";
     return 1;
 }
-out << "1 写作业 2\n";
-out << "2 复习 4\n";
+out << "1 main.o 2\n";
+out << "2 util.o 4\n";
 out.close();
 
-std::ifstream in("tasks.txt");
+std::ifstream in("targets.txt");
 if (!in) { /* ... */ }
 
 int id, priority;
-std::string title;
-while (in >> id >> title >> priority) {
-    std::cout << id << " " << title << "\n";
+std::string name;
+while (in >> id >> name >> priority) {
+    std::cout << id << " " << name << "\n";
 }
 ```
 
@@ -534,7 +534,7 @@ if (in.eof()) {
 
 <!-- slide data-notes="" -->
 
-##### 为 `Task` 重载 `<<` 与 `>>`
+##### 为 `Target` 重载 `<<` 与 `>>`
 
 ---
 
@@ -543,17 +543,17 @@ if (in.eof()) {
 <div class="col-55 code-sm">
 
 ```cpp
-std::ostream& operator<<(std::ostream& os, const Task& t) {
+std::ostream& operator<<(std::ostream& os, const Target& t) {
     return os << t.id() << ' '
-              << t.title() << ' '
+              << t.name() << ' '
               << t.priority();
 }
 
-std::istream& operator>>(std::istream& is, Task& t) {
+std::istream& operator>>(std::istream& is, Target& t) {
     int id, priority;
-    std::string title;
-    if (is >> id >> title >> priority) {
-        t = Task(id, title, priority);
+    std::string name;
+    if (is >> id >> name >> priority) {
+        t = Target(id, name, priority);
     }
     return is;
 }
@@ -570,13 +570,13 @@ std::istream& operator>>(std::istream& is, Task& t) {
 - 返回流引用，支持链式
 - 输入失败时不修改对象，或保持对象有效
 - 格式与 `operator<<` 对应
-- 标题含空格时改用 `getline` + 分隔符
+- 名称含空格时改用 `getline` + 分隔符
 
 </div>
 
 <div class="pitfall">
 <span class="label">注意</span>
-<code>&gt;&gt;</code> 读取 <code>title</code> 时遇到空格就停；如果标题是 <code>"write report"</code>，只会读到 <code>"write"</code>。需要整行读取时用 <code>getline</code>。
+<code>&gt;&gt;</code> 读取 <code>name</code> 时遇到空格就停；如果名称是 <code>"write report"</code>，只会读到 <code>"write"</code>。需要整行读取时用 <code>getline</code>。
 </div>
 
 </div>
@@ -588,7 +588,7 @@ std::istream& operator>>(std::istream& is, Task& t) {
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`TaskRepository` 的保存与加载
+##### 主线案例：`TargetRepository` 的保存与加载
 
 ---
 
@@ -597,27 +597,27 @@ std::istream& operator>>(std::istream& is, Task& t) {
 <div class="col-55 code-sm">
 
 ```cpp
-class TaskRepository {
+class TargetRepository {
 public:
-    explicit TaskRepository(std::string path)
+    explicit TargetRepository(std::string path)
         : path_(std::move(path)) {}
 
-    bool save(const std::vector<Task>& tasks) const {
+    bool save(const std::vector<Target>& targets) const {
         std::ofstream out(path_);
         if (!out) return false;
-        for (const Task& t : tasks) {
+        for (const Target& t : targets) {
             out << t << '\n';
         }
         return static_cast<bool>(out);
     }
 
-    std::vector<Task> load() const {
-        std::vector<Task> tasks;
+    std::vector<Target> load() const {
+        std::vector<Target> targets;
         std::ifstream in(path_);
-        if (!in) return tasks;
-        Task t(0, "", 0);
-        while (in >> t) tasks.push_back(t);
-        return tasks;
+        if (!in) return targets;
+        Target t(0, "", 0);
+        while (in >> t) targets.push_back(t);
+        return targets;
     }
 private:
     std::string path_;
@@ -665,9 +665,9 @@ private:
 
 <div class="card-title">任务</div>
 
-实现 `save_tasks` 与 `load_tasks`：
+实现 `save_targets` 与 `load_targets`：
 
-- 文件格式：每行 `id|title|priority`
+- 文件格式：每行 `id|name|priority`
 - 标题可以包含空格
 - 保存时检查文件是否成功打开
 - 加载时跳过空行与格式错误的行
@@ -685,7 +685,7 @@ private:
 
 <div class="card-title">验收标准</div>
 
-- 标题含空格也能正确保存/加载
+- 名称含空格也能正确保存/加载
 - 文件不存在时不会崩溃
 - 格式错误行被跳过，不进入死循环
 - 保存后立即读取，内容一致
@@ -720,39 +720,39 @@ private:
 #include <sstream>
 #include <string>
 #include <vector>
-bool save_tasks(const std::string& path,
-                const std::vector<Task>& tasks) {
+bool save_targets(const std::string& path,
+                const std::vector<Target>& targets) {
     std::ofstream out(path);
     if (!out) return false;
-    for (const Task& t : tasks) {
-        out << t.id() << '|' << t.title()
+    for (const Target& t : targets) {
+        out << t.id() << '|' << t.name()
             << '|' << t.priority() << '\n';
     }
     return static_cast<bool>(out);
 }
 
-std::vector<Task> load_tasks(const std::string& path) {
-    std::vector<Task> tasks;
+std::vector<Target> load_targets(const std::string& path) {
+    std::vector<Target> targets;
     std::ifstream in(path);
-    if (!in) return tasks;
+    if (!in) return targets;
 
     std::string line;
     while (std::getline(in, line)) {
         if (line.empty()) continue;
         std::istringstream iss(line);
-        std::string id_s, title, prio_s;
+        std::string id_s, name, prio_s;
         if (!std::getline(iss, id_s, '|')) continue;
-        if (!std::getline(iss, title, '|')) continue;
+        if (!std::getline(iss, name, '|')) continue;
         if (!std::getline(iss, prio_s, '|')) continue;
         try {
             int id = std::stoi(id_s);
             int p = std::stoi(prio_s);
-            tasks.emplace_back(id, title, p);
+            targets.emplace_back(id, name, p);
         } catch (const std::exception&) {
             // 跳过格式错误的行
         }
     }
-    return tasks;
+    return targets;
 }
 ```
 
@@ -768,12 +768,12 @@ std::vector<Task> load_tasks(const std::string& path) {
 - `stringstream` 按 `|` 切分
 - `stoi` 转换，失败抛异常
 - `try/catch` 跳过坏行
-- 返回 `vector<Task>`，由调用方决定后续
+- 返回 `vector<Target>`，由调用方决定后续
 
 </div>
 
 <div class="small muted mt1">
-更严格的实现会记录错误行号，或返回 <code>expected&lt;vector&lt;Task&gt;, Error&gt;</code>；异常处理单元会讨论。
+更严格的实现会记录错误行号，或返回 <code>expected&lt;vector&lt;Target&gt;, Error&gt;</code>；异常处理单元会讨论。
 </div>
 
 </div>
@@ -798,7 +798,7 @@ std::vector<Task> load_tasks(const std::string& path) {
 - `>>` 后直接 `getline`，读到空串
 - 用 `while (!eof())` 导致重复处理最后一条
 - 不检查 `cin` 失败，变量保持旧值
-- 标题含空格却用 `>>` 读取
+- 名称含空格却用 `>>` 读取
 
 </div>
 

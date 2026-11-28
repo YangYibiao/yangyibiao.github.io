@@ -1,18 +1,25 @@
 # 可运行示例
 
-本目录保存课件中主线案例的完整可编译版本，便于课堂演示、课后练习与后续项目扩展。
+本目录保存课件中案例的完整可编译版本。`minibuild/` 是 MiniBuild 主线起始代码；`taskflow/` 是旧版 TaskFlow 参考。
 
 ## 目录
 
 | 目录 | 内容 | 对应课件 |
 | :-- | :-- | :-- |
-| `taskflow/` | 值语义的 `Task`：封装、构造/析构、静态计数、`operator<<`、STL 排序 | 第 2、3、6、9、13 周 |
+| `minibuild/` | MiniBuild 起始版：`Target` 类、构造/析构、静态计数、`operator<<`、STL 排序 | 第 2、3、6、9、13 周（主线） |
+| `taskflow/` | 旧版 `Task` 示例：封装、构造/析构、静态计数、`operator<<`、STL 排序 | 旧版参考 |
 | `polymorphic_tasks/` | 抽象 `Task` 接口、`PrintTask` / `RecurringTask`、`TaskList` 独占所有权、多态执行 | 第 8、14、17 周 |
 
 ## 构建与运行
 
 ```bash
-cd taskflow
+cd minibuild
+g++ -std=c++17 -Wall -Wextra -Wpedantic \
+    -fsanitize=address,undefined -g \
+    target.cpp main.cpp -o minibuild_demo
+./minibuild_demo
+
+cd ../taskflow
 g++ -std=c++17 -Wall -Wextra -Wpedantic \
     -fsanitize=address,undefined -g \
     task.cpp main.cpp -o taskflow_demo
@@ -27,7 +34,12 @@ g++ -std=c++17 -Wall -Wextra -Wpedantic \
 
 ## 设计说明
 
-### `taskflow/`
+### `minibuild/`
+
+- `Target` 是 MiniBuild 主线的起始类：名称、优先级、是否已构建。
+- 与旧版 `Task` 相比，下一周会把名称/优先级扩展为依赖和命令，并引入 `Graph`。
+
+### `taskflow/`（旧版参考）
 
 - `Task` 自己管理 `std::string`，不需要手写 `delete`。
 - 为了演示 `static` 计数，自定义了拷贝构造与拷贝赋值；真实工程中若不需要计数，优先使用编译器生成的版本（Rule of Zero）。
@@ -45,5 +57,5 @@ g++ -std=c++17 -Wall -Wextra -Wpedantic \
 编译产物未提交；如需清理：
 
 ```bash
-rm -f taskflow/taskflow_demo polymorphic_tasks/poly_tasks_demo
+rm -f minibuild/minibuild_demo taskflow/taskflow_demo polymorphic_tasks/poly_tasks_demo
 ```

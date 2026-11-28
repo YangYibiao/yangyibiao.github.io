@@ -97,23 +97,23 @@ presentation:
 **1. 用已有对象初始化新对象**
 
 ```cpp
-Task a(1, "写作业", 2);
-Task b = a;      // 拷贝构造
-Task c(a);       // 拷贝构造
+Target a(1, "main.o", 2);
+Target b = a;      // 拷贝构造
+Target c(a);       // 拷贝构造
 ```
 
 **2. 按值传参**
 
 ```cpp
-void print_task(Task t);  // 创建形参副本
-print_task(a);
+void print_target(Target t);  // 创建形参副本
+print_target(a);
 ```
 
 **3. 按值返回**
 
 ```cpp
-Task make_task() {
-    Task t(1, "临时", 1);
+Target make_target() {
+    Target t(1, "临时", 1);
     return t;     // 可能调用拷贝/移动构造
 }
 ```
@@ -127,7 +127,7 @@ Task make_task() {
 <div class="card-title">注意区分</div>
 
 ```cpp
-Task b = a;   // 初始化：拷贝构造
+Target b = a;   // 初始化：拷贝构造
 b = a;        // 赋值：operator=
 ```
 
@@ -161,22 +161,22 @@ b = a;        // 赋值：operator=
 <div class="col-55 code-sm">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task(int id, std::string title, int priority)
-        : id_(id), title_(std::move(title)),
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)),
           priority_(priority) {}
 
     // 拷贝构造函数
-    Task(const Task& other)
-        : id_(other.id_), title_(other.title_),
-          priority_(other.priority_), done_(other.done_) {}
+    Target(const Target& other)
+        : id_(other.id_), name_(other.name_),
+          priority_(other.priority_), built_(other.built_) {}
 
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 ```
 
@@ -188,7 +188,7 @@ private:
 
 <div class="card-title">识别</div>
 
-- 参数是本类对象的引用：`const Task&`
+- 参数是本类对象的引用：`const Target&`
 - 通常加 `const`，因为拷贝不应修改源对象
 - 没有返回值
 - 一个类只能有一个拷贝构造函数
@@ -197,7 +197,7 @@ private:
 
 <div class="pitfall">
 <span class="label">为什么必须传引用</span>
-如果写成 <code>Task(Task other)</code>，传参本身又要拷贝，会无限递归。
+如果写成 <code>Target(Target other)</code>，传参本身又要拷贝，会无限递归。
 </div>
 
 </div>
@@ -218,24 +218,24 @@ private:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
     // 没有自定义拷贝构造
 };
 
-Task a(1, "写作业", 2);
-Task b = a;
+Target a(1, "main.o", 2);
+Target b = a;
 ```
 
 编译器生成的拷贝构造等价于：
 
 ```cpp
-Task(const Task& other)
-    : id_(other.id_), title_(other.title_),
-      priority_(other.priority_), done_(other.done_) {}
+Target(const Target& other)
+    : id_(other.id_), name_(other.name_),
+      priority_(other.priority_), built_(other.built_) {}
 ```
 
 </div>
@@ -255,7 +255,7 @@ Task(const Task& other)
 
 <div class="tip">
 <span class="label">结论</span>
-如果所有成员都能安全地“按值复制”，默认拷贝构造就够用。<code>Task</code> 的 <code>std::string</code> 会自己深拷贝，所以安全。
+如果所有成员都能安全地“按值复制”，默认拷贝构造就够用。<code>Target</code> 的 <code>std::string</code> 会自己深拷贝，所以安全。
 </div>
 
 </div>
@@ -431,15 +431,15 @@ private:
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
 public:
-    Task& operator=(const Task& other) {
+    Target& operator=(const Target& other) {
         if (this == &other) return *this;  // 自赋值
 
         id_ = other.id_;
-        title_ = other.title_;
+        name_ = other.name_;
         priority_ = other.priority_;
-        done_ = other.done_;
+        built_ = other.built_;
         return *this;
     }
     // ...
@@ -447,8 +447,8 @@ public:
 ```
 
 ```cpp
-Task a(1, "A", 1);
-Task b(2, "B", 2);
+Target a(1, "A", 1);
+Target b(2, "B", 2);
 b = a;      // 调用 operator=
 ```
 
@@ -764,15 +764,15 @@ private:
 **按值传参：一次拷贝**
 
 ```cpp
-void print_task(Task t);   // 拷贝构造
-print_task(a);
+void print_target(Target t);   // 拷贝构造
+print_target(a);
 ```
 
 **传常量引用：零拷贝**
 
 ```cpp
-void print_task(const Task& t);
-print_task(a);
+void print_target(const Target& t);
+print_target(a);
 ```
 
 </div>
@@ -782,11 +782,11 @@ print_task(a);
 **返回对象：通常零拷贝**
 
 ```cpp
-Task make_task() {
-    return Task(1, "临时", 1);
+Target make_target() {
+    return Target(1, "临时", 1);
 }
 
-Task t = make_task();
+Target t = make_target();
 ```
 
 <div class="card mt1">
@@ -811,7 +811,7 @@ Task t = make_task();
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`Task` 需要自定义拷贝吗？
+##### 主线案例：`Target` 需要自定义拷贝吗？
 
 ---
 
@@ -820,17 +820,23 @@ Task t = make_task();
 <div class="col-55">
 
 ```cpp
-class Task {
+class Target {
+public:
+    Target(int id, std::string name, int priority)
+        : id_(id), name_(std::move(name)), priority_(priority) {}
+
+    void rename(const std::string& name) { name_ = name; }
+
 private:
     int id_;
-    std::string title_;
+    std::string name_;
     int priority_;
-    bool done_ = false;
+    bool built_ = false;
 };
 
-Task a(1, "写作业", 2);
-Task b = a;      // 默认拷贝：安全
-b.rename("复习"); // b 的 title_ 独立
+Target a(1, "main.o", 2);
+Target b = a;      // 默认拷贝：安全
+b.rename("util.o"); // b 的 name_ 独立
 ```
 
 </div>
@@ -841,7 +847,7 @@ b.rename("复习"); // b 的 title_ 独立
 
 <div class="card-title">判断依据</div>
 
-`Task` 的成员：
+`Target` 的成员：
 
 - `int`、`bool`：值复制
 - `std::string`：自己的拷贝构造做深拷贝
@@ -1059,7 +1065,7 @@ int main() {
 
 ---
 
-1. `Task b = a;` 与 `b = a;` 分别调用哪个函数？如果 `Task` 没有自定义拷贝构造，编译器会做什么？
+1. `Target b = a;` 与 `b = a;` 分别调用哪个函数？如果 `Target` 没有自定义拷贝构造，编译器会做什么？
 
 2. 默认拷贝构造对指针成员执行的是深拷贝还是浅拷贝？会产生哪些后果？
 

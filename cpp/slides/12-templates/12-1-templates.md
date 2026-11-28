@@ -99,7 +99,7 @@ presentation:
 ```cpp
 void sort(int a[], int n);
 void sort(double a[], int n);
-void sort(Task a[], int n);
+void sort(Target a[], int n);
 ```
 
 实现完全一样，只是元素类型不同。
@@ -678,7 +678,7 @@ void print_all(const std::vector<T>& v) {
 ```cpp
 Stack<int> a;
 Stack<double> b;
-Stack<Task> c;
+Stack<Target> c;
 ```
 
 每个实例都会生成一份成员函数代码。二进制体积增大，编译时间变长。
@@ -736,7 +736,7 @@ private:
     std::vector<T> items_;
 };
 
-Repository<Task> tasks;
+Repository<Target> tasks;
 Repository<std::string> names;
 ```
 
@@ -791,7 +791,7 @@ Repository<std::string> names;
 2. `print_all<T>(const std::vector<T>& v)`：
    - 逐行输出元素，要求 `T` 支持 `operator<<`
 
-在 `main` 中用 `Repository<Task>` 与 `Repository<int>` 测试。
+在 `main` 中用 `Repository<Target>` 与 `Repository<int>` 测试。
 
 </div>
 
@@ -803,10 +803,10 @@ Repository<std::string> names;
 
 <div class="card-title">验收标准</div>
 
-- `Repository<Task>` 与 `Repository<int>` 都能实例化
+- `Repository<Target>` 与 `Repository<int>` 都能实例化
 - `print_all` 对两种类型都能工作
 - 模板定义放在头文件中
-- 不给 `Task` 增加 `operator<<` 时，`print_all<Task>` 编译失败（这是正确的约束）
+- 不给 `Target` 增加 `operator<<` 时，`print_all<Target>` 编译失败（这是正确的约束）
 - 编译无警告
 
 </div>
@@ -872,8 +872,8 @@ void print_all(const std::vector<T>& v) {
 **使用**
 
 ```cpp
-Repository<Task> tasks;
-tasks.add(Task(1, "写作业", 2));
+Repository<Target> tasks;
+tasks.add(Target(1, "main.o", 2));
 print_all(tasks.items());
 
 Repository<int> nums;
@@ -882,7 +882,7 @@ nums.add(20);
 print_all(nums.items());
 ```
 
-<div class="out">[1] 写作业 p=2
+<div class="out">[1] main.o p=2
 10
 20</div>
 
@@ -892,7 +892,7 @@ print_all(nums.items());
 
 - 两个实例互不影响
 - `T` 的要求由模板体隐式决定
-- `Task` 需要 `operator<<` 才能被 `print_all` 打印
+- `Target` 需要 `operator<<` 才能被 `print_all` 打印
 - 定义在头文件，供使用点实例化
 
 </div>

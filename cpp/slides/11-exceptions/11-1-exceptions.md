@@ -421,21 +421,21 @@ catch (...) {
 <div class="col-55">
 
 ```cpp
-class TaskError : public std::runtime_error {
+class BuildError : public std::runtime_error {
 public:
-    explicit TaskError(const std::string& message)
+    explicit BuildError(const std::string& message)
         : std::runtime_error(message) {}
 };
 
-class TaskNotFound : public TaskError {
+class TargetNotFound : public BuildError {
 public:
-    explicit TaskNotFound(int id)
-        : TaskError("task not found: " +
+    explicit TargetNotFound(int id)
+        : BuildError("target not found: " +
                     std::to_string(id)) {}
 };
 
-void find_task(int id) {
-    if (!exists(id)) throw TaskNotFound(id);
+void find_target(int id) {
+    if (!exists(id)) throw TargetNotFound(id);
 }
 ```
 
@@ -456,7 +456,7 @@ void find_task(int id) {
 
 <div class="tip">
 <span class="label">捕获</span>
-调用方可以捕获 <code>TaskNotFound</code> 做精确处理，也可以捕获 <code>TaskError</code> 或 <code>std::exception</code> 统一处理。
+调用方可以捕获 <code>TargetNotFound</code> 做精确处理，也可以捕获 <code>BuildError</code> 或 <code>std::exception</code> 统一处理。
 </div>
 
 </div>
@@ -721,7 +721,7 @@ lldb ./main
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`TaskRepository` 的错误处理
+##### 主线案例：`TargetRepository` 的错误处理
 
 ---
 
@@ -730,23 +730,23 @@ lldb ./main
 <div class="col-55 code-sm">
 
 ```cpp
-class TaskError : public std::runtime_error {
+class BuildError : public std::runtime_error {
 public:
-    explicit TaskError(const std::string& msg)
+    explicit BuildError(const std::string& msg)
         : std::runtime_error(msg) {}
 };
 
-class TaskRepository {
+class TargetRepository {
 public:
-    explicit TaskRepository(std::string path)
+    explicit TargetRepository(std::string path)
         : path_(std::move(path)) {}
 
-    std::vector<Task> load() const {
+    std::vector<Target> load() const {
         std::ifstream in(path_);
         if (!in) {
-            throw TaskError("cannot open: " + path_);
+            throw BuildError("cannot open: " + path_);
         }
-        // ... 解析，格式错误抛 TaskError
+        // ... 解析，格式错误抛 BuildError
     }
 private:
     std::string path_;

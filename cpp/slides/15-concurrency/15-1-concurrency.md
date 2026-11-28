@@ -642,7 +642,7 @@ std::scoped_lock lock(m1, m2);  // 原子地锁住两个
 
 std::mutex m;
 std::condition_variable cv;
-std::queue<Task> q;
+std::queue<Target> q;
 bool done = false;
 
 // 消费者
@@ -652,7 +652,7 @@ void consume() {
         return !q.empty() || done;
     });
     if (!q.empty()) {
-        Task t = q.front();
+        Target t = q.front();
         q.pop();
         // ...
     }
@@ -700,7 +700,7 @@ void producer(int n) {
     for (int i = 0; i < n; ++i) {
         {
             std::lock_guard<std::mutex> lock(m);
-            q.push(Task(i, "job", 1));
+            q.push(Target(i, "job", 1));
         }
         cv.notify_one();
     }
@@ -718,7 +718,7 @@ void consumer() {
             return !q.empty() || done;
         });
         if (q.empty() && done) break;
-        Task t = q.front();
+        Target t = q.front();
         q.pop();
         lock.unlock();
         t.run();       // 耗时操作放在锁外
@@ -971,7 +971,7 @@ bool stop = false;
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`TaskRunner` 的接口
+##### 主线案例：`Scheduler` 的接口
 
 ---
 
@@ -980,7 +980,7 @@ bool stop = false;
 <div class="col-55 code-xs">
 
 ```cpp{.line-numbers}
-class TaskRunner {
+class Scheduler {
 public:
     void submit(std::function<void()> job) {
         {
@@ -1046,7 +1046,7 @@ private:
 
 <!-- slide data-notes="" -->
 
-##### 主线案例：`TaskRunner` 的工作线程
+##### 主线案例：`Scheduler` 的工作线程
 
 ---
 
@@ -1055,7 +1055,7 @@ private:
 <div class="col-55 code-sm">
 
 ```cpp{.line-numbers}
-void TaskRunner::worker() {
+void Scheduler::worker() {
     while (true) {
         std::function<void()> job;
         {

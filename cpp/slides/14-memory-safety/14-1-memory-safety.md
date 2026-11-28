@@ -352,7 +352,7 @@ std::cout << *p;   // UAF：读取已释放内存
 更隐蔽的版本：
 
 ```cpp
-Task* t = new Task(1, "A", 2);
+Target* t = new Target(1, "A", 2);
 delete t;
 t->print();        // 对象已销毁，虚表指针可能已失效
 ```
@@ -451,13 +451,13 @@ void leak() {
 }
 
 void early_return(bool bad) {
-    Task* t = new Task(1, "A", 1);
+    Target* t = new Target(1, "A", 1);
     if (bad) return;   // 提前返回，泄漏
     delete t;
 }
 
 void exception_path() {
-    Task* t = new Task(1, "A", 1);
+    Target* t = new Target(1, "A", 1);
     may_throw();       // 抛异常，delete 执行不到
     delete t;
 }
@@ -689,9 +689,9 @@ freed by thread T0 here:
 **裸指针的问题**
 
 ```cpp
-Task* create();
-void use(Task* t);
-void destroy(Task* t);
+Target* create();
+void use(Target* t);
+void destroy(Target* t);
 ```
 
 仅看类型，无法知道：
@@ -740,15 +740,15 @@ void destroy(Task* t);
 ```cpp
 #include <memory>
 
-auto p = std::make_unique<Task>(1, "写作业", 2);
-p->complete();
+auto p = std::make_unique<Target>(1, "main.o", 2);
+p->build();
 p->print();
 
 // p 离开作用域时自动 delete
 ```
 
 ```cpp
-std::unique_ptr<Task> q(new Task(2, "复习", 3));
+std::unique_ptr<Target> q(new Target(2, "util.o", 3));
 // 不推荐直接 new；make_unique 更安全
 ```
 
@@ -764,7 +764,7 @@ std::unique_ptr<Task> q(new Task(2, "复习", 3));
 - 不能拷贝，只能移动
 - 大小通常与裸指针相同
 - 析构时自动 `delete`
-- 支持多态：`unique_ptr<Task>` 可持有派生类对象
+- 支持多态：`unique_ptr<Target>` 可持有派生类对象
 
 </div>
 
@@ -791,7 +791,7 @@ std::unique_ptr<Task> q(new Task(2, "复习", 3));
 <div class="col-55">
 
 ```cpp
-auto p = std::make_unique<Task>(1, "A", 1);
+auto p = std::make_unique<Target>(1, "A", 1);
 
 // auto q = p;              // 错误：不能拷贝
 auto q = std::move(p);      // 所有权转移
@@ -802,11 +802,11 @@ if (!p) {
 ```
 
 ```cpp
-std::unique_ptr<Task> make_task() {
-    return std::make_unique<Task>(1, "A", 1);
+std::unique_ptr<Target> make_target() {
+    return std::make_unique<Target>(1, "A", 1);
 }
 
-auto t = make_task();   // 移动（或省略）
+auto t = make_target();   // 移动（或省略）
 ```
 
 </div>
@@ -848,14 +848,14 @@ auto t = make_task();   // 移动（或省略）
 <div class="col-55 code-sm">
 
 ```cpp
-std::vector<std::unique_ptr<Task>> tasks;
+std::vector<std::unique_ptr<Target>> targets;
 
-tasks.push_back(
-    std::make_unique<PrintTask>("hello"));
-tasks.push_back(
-    std::make_unique<RecurringTask>("背单词", 3));
+targets.push_back(
+    std::make_unique<PrintTarget>("hello"));
+targets.push_back(
+    std::make_unique<CommandTarget>("g++ main.o -o app"));
 
-for (const auto& t : tasks) {
+for (const auto& t : targets) {
     t->run();          // 动态绑定
 }
 // 容器销毁时，每个 unique_ptr 自动 delete
@@ -878,7 +878,7 @@ for (const auto& t : tasks) {
 
 <div class="pitfall">
 <span class="label">前提</span>
-基类必须有<strong>虚析构函数</strong>，否则通过 <code>unique_ptr&lt;Task&gt;</code> 删除派生对象时，派生类析构不会执行。
+基类必须有<strong>虚析构函数</strong>，否则通过 <code>unique_ptr&lt;Target&gt;</code> 删除派生对象时，派生类析构不会执行。
 </div>
 
 </div>
@@ -899,7 +899,7 @@ for (const auto& t : tasks) {
 <div class="col-55 code-sm">
 
 ```cpp
-auto a = std::make_shared<Task>(1, "A", 1);
+auto a = std::make_shared<Target>(1, "A", 1);
 auto b = a;              // 引用计数 2
 auto c = b;              // 引用计数 3
 
@@ -1154,27 +1154,27 @@ arr[0] = 42;
 <div class="col-55 code-sm">
 
 ```cpp
-class TaskList {
+class TargetList {
 public:
-    void add(std::unique_ptr<Task> task) {
-        tasks_.push_back(std::move(task));
+    void add(std::unique_ptr<Target> target) {
+        targets_.push_back(std::move(target));
     }
 
     void run_all() const {
-        for (const auto& t : tasks_) {
+        for (const auto& t : targets_) {
             t->run();
         }
     }
 
-    std::size_t size() const { return tasks_.size(); }
+    std::size_t size() const { return targets_.size(); }
 
 private:
-    std::vector<std::unique_ptr<Task>> tasks_;
+    std::vector<std::unique_ptr<Target>> targets_;
 };
 
-TaskList list;
-list.add(std::make_unique<PrintTask>("hello"));
-list.add(std::make_unique<RecurringTask>("背单词", 3));
+TargetList list;
+list.add(std::make_unique<PrintTarget>("hello"));
+list.add(std::make_unique<CommandTarget>("g++ main.o -o app"));
 list.run_all();
 ```
 
@@ -1186,9 +1186,9 @@ list.run_all();
 
 <div class="card-title">所有权链</div>
 
-`TaskList` → `vector` → `unique_ptr<Task>` → 具体任务对象
+`TargetList` → `vector` → `unique_ptr<Target>` → 具体任务对象
 
-- `TaskList` 拥有任务
+- `TargetList` 拥有任务
 - 容器析构时逐个 `delete`
 - 任务对象通过虚析构正确销毁
 - 调用方通过 `std::move` 明确移交所有权
@@ -1197,7 +1197,7 @@ list.run_all();
 
 <div class="tip">
 <span class="label">对比裸指针版</span>
-不需要写 <code>~TaskList() { for (...) delete p; }</code>；不会因为提前 <code>return</code> 或异常而泄漏。
+不需要写 <code>~TargetList() { for (...) delete p; }</code>；不会因为提前 <code>return</code> 或异常而泄漏。
 </div>
 
 </div>
@@ -1224,19 +1224,19 @@ list.run_all();
 下面这段代码存在泄漏与潜在 UAF：
 
 ```cpp
-class TaskList {
+class TargetList {
 public:
-    void add(Task* t) { tasks_.push_back(t); }
-    ~TaskList() { /* 没有 delete */ }
+    void add(Target* t) { targets_.push_back(t); }
+    ~TargetList() { /* 没有 delete */ }
 private:
-    std::vector<Task*> tasks_;
+    std::vector<Target*> targets_;
 };
 ```
 
 改造为：
 
-1. `std::vector<std::unique_ptr<Task>>`
-2. `add(std::unique_ptr<Task>)`，用 `std::move` 放入
+1. `std::vector<std::unique_ptr<Target>>`
+2. `add(std::unique_ptr<Target>)`，用 `std::move` 放入
 3. 删除手写析构函数
 4. 增加 `run_all()`，通过基类指针调用 `run()`
 5. 用 ASan 验证无泄漏、无 UAF
@@ -1251,17 +1251,17 @@ private:
 
 <div class="card-title">验收标准</div>
 
-- `TaskList` 析构后 ASan 无泄漏报告
-- 不能从 `TaskList` 外部删除任务
-- 新增任务类型不需要修改 `TaskList`
-- 基类 `Task` 有虚析构函数
+- `TargetList` 析构后 ASan 无泄漏报告
+- 不能从 `TargetList` 外部删除任务
+- 新增任务类型不需要修改 `TargetList`
+- 基类 `Target` 有虚析构函数
 - 不使用裸 `new` / `delete`
 
 </div>
 
 <div class="tip">
 <span class="label">提示</span>
-<code>add</code> 的签名改为 <code>void add(std::unique_ptr&lt;Task&gt; task)</code>；调用方用 <code>std::make_unique</code> 构造，<code>std::move</code> 传入。
+<code>add</code> 的签名改为 <code>void add(std::unique_ptr&lt;Target&gt; target)</code>；调用方用 <code>std::make_unique</code> 构造，<code>std::move</code> 传入。
 </div>
 
 </div>
@@ -1285,32 +1285,32 @@ private:
 #include <memory>
 #include <utility>
 #include <vector>
-// 假设 Task/PrintTask/RecurringTask 已定义
+// 假设 Target/PrintTarget/CommandTarget 已定义
 
-class TaskList {
+class TargetList {
 public:
-    void add(std::unique_ptr<Task> task) {
-        tasks_.push_back(std::move(task));
+    void add(std::unique_ptr<Target> target) {
+        targets_.push_back(std::move(target));
     }
 
     void run_all() const {
-        for (const auto& t : tasks_) {
+        for (const auto& t : targets_) {
             t->run();
         }
     }
 
     std::size_t size() const {
-        return tasks_.size();
+        return targets_.size();
     }
 
 private:
-    std::vector<std::unique_ptr<Task>> tasks_;
+    std::vector<std::unique_ptr<Target>> targets_;
 };
 
 int main() {
-    TaskList list;
-    list.add(std::make_unique<PrintTask>("hello"));
-    list.add(std::make_unique<RecurringTask>("背单词", 3));
+    TargetList list;
+    list.add(std::make_unique<PrintTarget>("hello"));
+    list.add(std::make_unique<CommandTarget>("g++ main.o -o app"));
     list.run_all();
 }
 ```
@@ -1326,14 +1326,14 @@ int main() {
 - `unique_ptr` 独占所有权
 - `std::move` 明确移交
 - `vector` 析构自动释放所有任务
-- `Task` 的虚析构保证派生类析构执行
+- `Target` 的虚析构保证派生类析构执行
 - ASan 验证：`g++ -fsanitize=address`
 
 </div>
 
 <div class="pitfall">
 <span class="label">不要</span>
-在 <code>TaskList</code> 外部保存任务的裸指针并继续使用；对象生命周期由 <code>TaskList</code> 拥有，外部只能“借用”。
+在 <code>TargetList</code> 外部保存任务的裸指针并继续使用；对象生命周期由 <code>TargetList</code> 拥有，外部只能“借用”。
 </div>
 
 </div>

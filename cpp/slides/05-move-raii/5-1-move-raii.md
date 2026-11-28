@@ -717,7 +717,7 @@ void critical() {
 **裸指针**
 
 ```cpp
-Task* p = new Task(1, "A", 1);
+Target* p = new Target(1, "A", 1);
 // ...
 delete p;   // 可能忘记
 ```
@@ -725,7 +725,7 @@ delete p;   // 可能忘记
 **智能指针** <span class="std cxx11">C++11</span>
 
 ```cpp
-auto p = std::make_unique<Task>(1, "A", 1);
+auto p = std::make_unique<Target>(1, "A", 1);
 // 离开作用域自动 delete
 ```
 
