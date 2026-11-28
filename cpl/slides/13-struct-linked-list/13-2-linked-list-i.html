@@ -128,10 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>动态内存: malloc 与 free</p>
-
-</li>
-<li>
 <p>结点类型与创建结点</p>
 
 </li>
@@ -179,32 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p>将 <code>first</code> 设置为 <code>NULL</code> 表示链表最初为空。</p>
 </div>
 <hr>
-</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="动态内存--malloc-与-free">动态内存: malloc 与 free </h5>
-<hr>
-<p>链表结点是<mark>运行时逐个创建</mark>的——用 <code>malloc</code> 向系统借内存。结点类型已经声明好，现在为它借一块内存：</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token keyword keyword-struct">struct</span> node <span class="token operator">*</span>new_node<span class="token punctuation">;</span>                    <span class="token comment">/* 指向新结点的指针 */</span>
-new_node <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 借一块刚好放下一个结点的内存 */</span>
-<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>new_node <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>                   <span class="token comment">/* 借不到要检查 */</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"内存不足\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p><code>exit(1)</code> 直接终止程序，声明在 <code>&lt;stdlib.h&gt;</code> 中。</p>
-<ul>
-<li>
-<p><code>malloc(n)</code>: 借 n 字节, <mark>不清零</mark>; 返回通用指针 <code>void *</code>; 需要 <code>&lt;stdlib.h&gt;</code></p>
-
-</li>
-<li>
-<p><code>free(p)</code>: 用完<mark>归还</mark>。忘记 free 就是"内存泄漏"——内存越用越多, 程序最终被系统杀掉</p>
-
-</li>
-<li>
-<p>free 之后 p 就是<mark>悬空指针</mark>, 不能再解引用; 习惯上立刻把 p 置为 <code>NULL</code></p>
-
-</li>
-</ul>
-<hr>
-</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="创建结点">创建结点 </h5>
+</section><section data-notes="" lineno="108" class="slide " data-source-line="108" data-h="4" data-v="0"><h5 id="创建结点">创建结点 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;">
 <div style="flex:1;font-size:0.75em;">
@@ -219,14 +190,14 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="运算符"><code>-&gt;</code> 运算符 </h5>
+</section><section data-notes="" lineno="122" class="slide " data-source-line="122" data-h="5" data-v="0"><h5 id="运算符"><code>-&gt;</code> 运算符 </h5>
 <hr>
 <div style="font-size:0.85em;line-height:1.5;">
 <p>为了便于使用指针访问结构体的成员, C 提供了名为<mark>右箭头选择 (<code>-&gt;</code>)</mark> 的运算符: <code>new_node-&gt;value = 10;</code> 来代替 <code>(*new_node).value = 10;</code></p>
 <p><code>-&gt;</code> 运算符产生一个左值, 可以在任何允许普通变量的地方使用它。scanf 调用中的示例: <code>scanf("%d", &amp;new_node-&gt;value);</code>——<code>&amp;</code> 运算符仍然是必需的, 即使 new_node 是一个指针。</p>
 </div>
 <hr>
-</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
+</section><section data-notes="" lineno="136" class="slide " data-source-line="136" data-h="6" data-v="0"><h5 id="课堂编码">课堂编码 </h5>
 <hr>
 <p><mark>现场演示</mark></p>
 <ol>
@@ -238,7 +209,7 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 <p><span class="blue"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span> 提示: 头插只要两条语句 (<code>new_node-&gt;next = first; first = new_node;</code>); 尾插要<mark>先找尾</mark>再改两个指针</p>
 <a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/13-struct-linked-list/code/skeleton.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 skeleton.c</a>
 <hr>
-</section><section data-notes="" lineno="164" class="slide " data-source-line="164" data-h="8" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="150" class="slide " data-source-line="150" data-h="7" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <ol>
 <li>概念: 链表的一个 "结点" 至少包含哪两部分？
@@ -251,7 +222,7 @@ new_node <span class="token operator">=</span> <span class="token function">mall
 </li>
 </ol>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="9" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="8" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

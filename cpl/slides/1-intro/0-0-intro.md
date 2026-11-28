@@ -272,42 +272,6 @@ presentation:
 
 <!-- slide data-notes="" -->
 
-##### 课程教材
-
----
-
-课程事务说完, 再看教材:
-
-<div class="top-2">
-  <img src="book/C语言程序设计-姜恒远.jpg" width=240px>
-</div>
-
-- 书名: ==C语言程序设计教程== (主编: ==姜恒远==)
-
-- 出版社: 高等教育出版社, 2010年8月 第一版
-
-- ISBN: 9787040302769
-
-<!-- slide data-notes="" -->
-
-##### 参考书目
-
----
-
-教材之外, 再推荐一本参考书:
-
-<div class="top-2">
-  <img src="book/cpm.jpg" width=200px height=270px>
-</div>
-
-- 书名: C语言程序设计 现代方法 第2版·修订版 (吕秀锋, 黄倩 译)
-
-- 作者: K.N.King
-
-- 出版: 人民邮电出版社
-
-<!-- slide data-notes="" -->
-
 ##### 不必焦虑: 多数同学零基础
 
 ---

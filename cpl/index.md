@@ -33,9 +33,9 @@
 |        |              讲义                | 内容                           |
 | :----: | :--                             | :--                            |
 | 第1周   | [课程介绍](slides/1-intro/0-0-intro.html)           |     课程介绍   |
-|   ^    | [入门](slides/1-intro/0-1-programming-and-c.html)        | 程序设计与C语言入门                    |
+|   ^    | [入门](slides/1-intro/0-1-programming-and-c.html)        | 程序设计与C语言入门（课前阅读）                    |
 |   ^    | [初识C程序](slides/1-intro/0-2-first-c-program.html)        | 初识C程序：Hello World 与 C 程序结构                    |
-|   ^    | [C 语言历史与 AI](slides/1-intro/0-3-c-and-ai.html)        | C 语言历史与人工智能                    |
+|   ^    | [C 语言历史与 AI](slides/1-intro/0-3-c-and-ai.html)        | C 语言历史与人工智能（自学）                    |
 |   ^    | [变量与基本数据类型](slides/1-intro/0-4-variable-and-assignment.html)        | 变量与基本数据类型                    |
 |   ^    | [上手: 开发环境与 AI 工具](slides/1-intro/0-5-environment-ai.html) | 开发环境与 AI 工具（安装、编译运行、调试、AI 规范）—— ==上机课 / 课后自学== |
 | 第2周   | [数据类型深化](slides/2-types-io/2-1-types-deep-dive.html)   | 数据类型深化                    |
@@ -46,29 +46,50 @@
 |   ^    | [选择结构 (下)](slides/4-if-for-array/4-2-selection-ii.html) | 选择结构 (下) |
 | 第5周   | [循环结构 (上)](slides/5-if-for-array/5-1-loops-i.html) | 循环结构 (上) |
 |   ^    | [循环结构 (下)](slides/5-if-for-array/5-2-loops-ii.html) | 循环结构 (下) |
-|   ^    | [循环习题课](slides/5-if-for-array/5-3-loops-practice.html) | 循环习题课 |
+|   ^    | [循环习题课](slides/5-if-for-array/5-3-loops-practice.html) | 循环习题/课后练习 |
 | 第6周   | [一维数组](slides/6-arrays/6-1-arrays-i.html) | 一维数组（与循环配合） |
 |   ^    | [二维数组与矩阵运算](slides/6-arrays/6-2-arrays-2d.html) | 二维数组与矩阵运算 |
-| 第7周   | [排序](slides/7-sorting-searching/7-1-sorting.html) | 排序 |
+| 第7周   | [排序与查找](slides/7-sorting-searching/7-1-sorting.html) | 排序、顺序查找、二分查找 |
 | 第8周   | [函数 (上)](slides/8-functions/8-1-functions-i.html) | 函数 (上) |
-|   ^    | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数 + 函数调用栈 |
-| 第9周   | [递归](slides/9-functions/9-1-recursion.html) | 递归：执行过程、Hanoi 与分治 |
+|   ^    | [函数 (下)](slides/8-functions/8-2-functions-ii.html) | 函数：函数化改造 + 数组作参数（生命游戏选学） |
+| 第9周   | [递归](slides/9-functions/9-1-recursion.html) | 递归：函数调用栈、作用域、执行过程、Hanoi 与分治 |
 | 第10周  | [指针（上）](slides/10-pointers/10-1-pointers-i.html) | 指针（上）：概念、& 与 *、赋值 |
 |   ^    | [指针（下）](slides/10-pointers/10-2-pointers-ii.html) | 指针（下）：传址调用、const 与返回值 |
 | 第11周  | [指针与数组（上）](slides/11-pointers/11-1-pointer-arrays-i.html) | 指针与数组（上）：算术运算、* 与 ++ |
 |   ^    | [指针与数组（下）](slides/11-pointers/11-2-pointer-arrays-ii.html) | 指针与数组（下）：数组名、数组实参、多维数组 |
 | 第12周  | [字符指针与字符串处理](slides/12-strings/12-1-strings.html) | 字符指针与字符串处理 |
-|   ^    | [指针数组与函数指针](slides/12-strings/12-2-pointer-arrays-funcs.html) | 指针数组与函数指针 |
-| 第13周  | [结构体](slides/13-struct-linked-list/13-1-struct.html) | 结构体 |
-|   ^    | [链表（一）](slides/13-struct-linked-list/13-2-linked-list-i.html) | 链表（一）：动态内存 malloc/free 与建表 |
-|   ^    | [链表（二）](slides/13-struct-linked-list/13-2-linked-list-ii.html) | 链表（二）：插入、删除与遍历 |
+|   ^    | [指针数组与函数指针](slides/12-strings/12-2-pointer-arrays-funcs.html) | 指针数组与函数指针（函数指针选学） |
+| 第13周  | [动态内存](slides/13-struct-linked-list/13-0-dynamic-memory.html) | 动态内存：malloc/free、泄漏与悬空指针 |
+|   ^    | [结构体](slides/13-struct-linked-list/13-1-struct.html) | 结构体 |
+|   ^    | [链表（一）](slides/13-struct-linked-list/13-2-linked-list-i.html) | 链表（一）：结点与建表 |
+| 第14周  | [链表（二）](slides/13-struct-linked-list/13-2-linked-list-ii.html) | 链表（二）：插入、删除与遍历 |
 |   ^    | [链表（三）](slides/13-struct-linked-list/13-2-linked-list-iii.html) | 链表（三）：综合案例（约瑟夫问题等） |
-| 第14周  | [文件操作](slides/14-files/14-1-files.html) | 文件操作 |
-|   ^    | [预处理命令与多文件组织](slides/14-files/14-2-multi-file.html) | 预处理命令与多文件组织 |
+|   ^    | [文件操作](slides/14-files/14-1-files.html) | 文件操作 |
+|   ^    | [预处理命令与多文件组织](slides/14-files/14-2-multi-file.html) | 预处理与多文件（自学/选学） |
 | 第15周  | [期末项目指导](slides/15-project-review/15-1-project.html) | 期末项目指导 |
 |   ^    | [总复习与答疑](slides/15-project-review/15-2-review.html) | 总复习与答疑 |
 
 </div>
+
+#### 课程案例主线：成绩管理
+
+用一个“成绩管理”小案例贯穿前半程；语法仍用最小例子讲，每讲用 10–15 分钟回到案例。
+
+- 第1–2周：输入/输出一条成绩记录
+- 第3–5周：总分/平均分、菜单与循环
+- 第6–7周：数组保存多条成绩、排序与查找
+- 第8–9周：把功能函数化
+- 第10–12周：指针遍历数组、字符串姓名
+- 第13–14周：结构体、链表、文件保存
+- 第15周：完整项目与答辩
+
+#### 阶段检查点
+
+- 第4周：能写菜单和分支
+- 第7周：能对数组排序、查找并输出统计
+- 第9周：能把程序拆成函数，并用递归解决一个小问题
+- 第12周：能用指针和字符串处理姓名
+- 第14周：能把记录保存到文件并恢复
 
 #### 教材
 

@@ -148,10 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </li>
 <li>
-<p>动态内存初识: malloc 与 free</p>
-
-</li>
-<li>
 <p>课堂小测</p>
 
 </li>
@@ -722,7 +718,7 @@ largest <span class="token operator">=</span> <span class="token function">find_
 <hr>
 </section><section data-notes="" lineno="262" class="slide " data-source-line="262" data-h="15" data-v="0"><h5 id="二维数组的类型-1-3--声明决定层级">二维数组的类型 1/3: 声明决定层级 </h5>
 <hr>
-<div style="max-width:1200px;margin:0 auto;">
+<div style="width:100%;margin:0;padding:0 32px;box-sizing:border-box;">
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.66em;line-height:1.5;text-align:left;">
 <div style="flex:1.1;">
 <div class="col-label">规则 1: 声明决定层级</div>
@@ -1384,424 +1380,26 @@ largest <span class="token operator">=</span> <span class="token function">find_
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="为什么需要动态内存">为什么需要动态内存 </h5>
+<!-- slide
 <hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.7em;line-height:1.5;text-align:left;">
-<div style="flex:1.05;">
-<p><mark>问题</mark>: <code>int a[10];</code> 的大小在编译时固定.</p>
+</section><section data-notes="" lineno="416" class="slide " data-source-line="416" data-h="26" data-v="0"><h5 id="下一站--动态内存">下一站: 动态内存 </h5>
+<hr>
 <ul>
 <li>
-<p>运行时读入的 n 可能大于 10, 固定数组放不下</p>
+<p>动态数组的大小在运行时决定，需要 <code>malloc/free</code></p>
 
 </li>
 <li>
-<p>n 很小时又会浪费空间</p>
+<p>动态内存、结构体与链表安排在第 13 周</p>
 
 </li>
 <li>
-<p>局部数组在函数返回后自动消失, 不能长期保存数据</p>
+<p>本周先把指针与二维数组的访问方式打牢</p>
 
 </li>
 </ul>
-<p><mark>动态内存</mark>: 在运行时向堆申请一块内存; 大小由程序决定, 生存期到 <code>free</code> 为止.</p>
-</div>
-<div style="flex:0.95;">
-<table style="width:100%;margin-top:8px;font-size:0.92em;border-collapse:collapse;">
-<tr style="color:#586e75;">
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">栈上数组 <code>int a[10]</code></th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">堆上 <code>malloc</code></th>
-</tr>
-<tr><td style="padding:2px 4px;">大小编译时固定</td><td style="padding:2px 4px;">大小运行时决定</td></tr>
-<tr><td style="padding:2px 4px;">函数返回自动释放</td><td style="padding:2px 4px;">手动 <code>free</code></td></tr>
-<tr><td style="padding:2px 4px;">大数组可能栈溢出</td><td style="padding:2px 4px;">堆空间更大</td></tr>
-</table>
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<p>动态内存 = 运行时按需申请, 手动归还.</p>
-</div>
-</div>
-</div>
 <hr>
-</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="malloc-的用法">malloc 的用法 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
-<div style="flex:1.05;">
-<div class="col-label">函数原型</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
-<p>参数 <code>size</code>: 要申请的<mark>字节数</mark>; 申请 n 个 int 要写 <code>n * sizeof(int)</code>.</p>
-
-</li>
-<li>
-<p>返回 <code>void *</code>: 指向申请到的内存首地址; C 中可以直接赋给 <code>int *</code>.</p>
-
-</li>
-<li>
-<p>失败返回 <code>NULL</code>; <mark>必须检查</mark>.</p>
-
-</li>
-<li>
-<p>内存内容<mark>未初始化</mark>, 不能假设为 0.</p>
-
-</li>
-</ul>
-</div>
-<div style="flex:0.95;">
-<div class="col-label">典型写法</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token operator">*</span><span class="token function">make_array</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> NULL<span class="token punctuation">)</span>
-        <span class="token keyword keyword-return">return</span> NULL<span class="token punctuation">;</span>       <span class="token comment">/* 申请失败 */</span>
-    <span class="token keyword keyword-return">return</span> a<span class="token punctuation">;</span>              <span class="token comment">/* 调用者负责 free */</span>
-<span class="token punctuation">}</span></code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
-<p>常见错误: <code>malloc(n)</code> 只申请 n 个字节, 不是 n 个 int; 应写 <code>n * sizeof(int)</code> (或 <code>n * sizeof(*a)</code>).</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="444" class="slide " data-source-line="444" data-h="28" data-v="0"><h5 id="free-的用法">free 的用法 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.45;text-align:left;">
-<div style="flex:1.05;">
-<div class="col-label">函数原型</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token keyword keyword-void">void</span> <span class="token function">free</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>
-<p>归还 <code>malloc/calloc/realloc</code> 申请的内存.</p>
-
-</li>
-<li>
-<p><code>free(NULL)</code> 是安全的 (什么也不做).</p>
-
-</li>
-<li>
-<p>只能 free 一次; 重复 free 是<mark>未定义行为</mark>.</p>
-
-</li>
-<li>
-<p>free 后指针悬空; 置 <code>NULL</code>, 不要再访问.</p>
-
-</li>
-</ul>
-</div>
-<div style="flex:0.95;">
-<div class="col-label">正确 / 错误</div>
-<table style="width:100%;font-size:0.9em;border-collapse:collapse;">
-<tr style="color:#586e75;">
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">写法</th>
-<th style="text-align:left;padding:2px 4px;border-bottom:1px solid #d6d6c8;">结果</th>
-</tr>
-<tr><td style="padding:2px 4px;"><code>free(a); a = NULL;</code></td><td style="padding:2px 4px;color:#859900;">正确</td></tr>
-<tr><td style="padding:2px 4px;"><code>free(a); free(a);</code></td><td style="padding:2px 4px;color:#dc322f;">重复 free, UB</td></tr>
-<tr><td style="padding:2px 4px;">不 free</td><td style="padding:2px 4px;color:#dc322f;">内存泄漏</td></tr>
-<tr><td style="padding:2px 4px;"><code>free(&amp;x)</code> / free 局部数组</td><td style="padding:2px 4px;color:#dc322f;">不是 malloc 的指针</td></tr>
-</table>
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<p>忘记 free 是内存泄漏; free 后继续访问是悬空指针.</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="458" class="slide " data-source-line="458" data-h="29" data-v="0"><h5 id="不-free-会怎样--内存持续增长">不 free 会怎样: 内存持续增长 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
-<div style="flex:1.15;">
-<div class="col-label">完整代码 · malloc-exhaust.c</div>
-<style>.exhaust-code pre code{font-size:13px;line-height:1.2;}</style>
-<div class="exhaust-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/resource.h&gt;</span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> BLOCK_MB 1</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> LIMIT_MB 128</span>
-
-<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-long">long</span> <span class="token function">rss_mb</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-struct">struct</span> rusage ru<span class="token punctuation">;</span>
-    <span class="token function">getrusage</span><span class="token punctuation">(</span>RUSAGE_SELF<span class="token punctuation">,</span> <span class="token operator">&</span>ru<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> __APPLE__</span>
-    <span class="token keyword keyword-return">return</span> ru<span class="token punctuation">.</span>ru_maxrss <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
-    <span class="token keyword keyword-return">return</span> ru<span class="token punctuation">.</span>ru_maxrss <span class="token operator">/</span> <span class="token number">1024</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> used <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>used <span class="token operator">&gt;=</span> LIMIT_MB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"已分配 %d MB, 达到演示上限 %d MB\n"</span><span class="token punctuation">,</span> used<span class="token punctuation">,</span> LIMIT_MB<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"真实程序会继续增长, 最终 malloc 返回 NULL 或被 OOM 杀死.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>BLOCK_MB <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc failed after %d MB\n"</span><span class="token punctuation">,</span> used<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token function">memset</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> BLOCK_MB <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        used <span class="token operator">+=</span> BLOCK_MB<span class="token punctuation">;</span>
-        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>used <span class="token operator">%</span> <span class="token number">16</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"allocated %3d MB, RSS ~ %ld MB\n"</span><span class="token punctuation">,</span> used<span class="token punctuation">,</span> <span class="token function">rss_mb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/malloc-exhaust.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 malloc-exhaust.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.85;font-size:0.78em;line-height:1.45;">
-<div class="col-label">运行结果</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>allocated  <span class="token number">16</span> MB<span class="token punctuation">,</span> RSS ~ <span class="token number">17</span> MB
-allocated  <span class="token number">32</span> MB<span class="token punctuation">,</span> RSS ~ <span class="token number">33</span> MB
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-allocated <span class="token number">128</span> MB<span class="token punctuation">,</span> RSS ~ <span class="token number">129</span> MB
-已分配 <span class="token number">128</span> MB<span class="token punctuation">,</span> 达到演示上限 <span class="token number">128</span> MB
-真实程序会继续增长<span class="token punctuation">,</span> 最终 malloc 返回 NULL 或被 OOM 杀死<span class="token punctuation">.</span></code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<ul>
-<li>
-<p>每轮 <code>malloc</code> 都不 <code>free</code>, 已分配内存无法复用, RSS 持续增长.</p>
-
-</li>
-<li>
-<p>为了不拖垮机器, 演示到 128 MB 停止; 真实程序会继续到 <code>malloc</code> 失败/OOM.</p>
-
-</li>
-<li>
-<p>修复: 每轮 <code>free(p)</code> 或复用同一块.</p>
-
-</li>
-<li>
-<p>小规模泄漏可以用 <code>leaks --atExit</code> 查看.</p>
-
-</li>
-</ul>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="472" class="slide " data-source-line="472" data-h="30" data-v="0"><h5 id="free-后不置-null--悬空指针现场演示">free 后不置 NULL: 悬空指针现场演示 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
-<div style="flex:1.15;">
-<div class="col-label">完整代码 · use-after-free.c</div>
-<style>.uaf-code pre code{font-size:13px;line-height:1.2;}</style>
-<div class="uaf-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>p <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
-    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p = %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* p = NULL; 忘记 */</span>
-
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"p after free = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*p after free = %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* use-after-free */</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/use-after-free.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.95em;text-decoration:none;">⚡ 在 VS Code 中打开 use-after-free.c (现场演示)</a>
-</div>
-</div>
-<div style="flex:0.85;font-size:0.75em;line-height:1.4;">
-<div class="col-label">普通编译: 看起来正常</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>$ cc use<span class="token operator">-</span>after<span class="token operator">-</span>free<span class="token punctuation">.</span>c <span class="token operator">-</span>o uaf
-$ <span class="token punctuation">.</span><span class="token operator">/</span>uaf
-<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">42</span>
-<span class="token operator">*</span>p after free <span class="token operator">=</span> <span class="token number">3</span>     ← 本机<span class="token punctuation">;</span> 实际是未定义行为</code></pre>
-<div class="col-label" style="margin-top:6px;">AddressSanitizer: 报错</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>$ cc <span class="token operator">-</span>g <span class="token operator">-</span>fsanitize<span class="token operator">=</span>address use<span class="token operator">-</span>after<span class="token operator">-</span>free<span class="token punctuation">.</span>c <span class="token operator">-</span>o uaf<span class="token operator">-</span>asan
-$ <span class="token punctuation">.</span><span class="token operator">/</span>uaf<span class="token operator">-</span>asan
-<span class="token operator">==</span>ERROR<span class="token operator">:</span> AddressSanitizer<span class="token operator">:</span> heap<span class="token operator">-</span>use<span class="token operator">-</span>after<span class="token operator">-</span>free <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-READ of size <span class="token number">4</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token macro property"><span class="token directive-hash">#</span>0 main use-after-free.c:17</span>
-freed by thread T0 here<span class="token operator">:</span>
-    <span class="token macro property"><span class="token directive-hash">#</span>1 main use-after-free.c:13</span>
-SUMMARY<span class="token operator">:</span> AddressSanitizer<span class="token operator">:</span> heap<span class="token operator">-</span>use<span class="token operator">-</span>after<span class="token operator">-</span>free <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#fff4f2;border-left:4px solid #dc322f;border-radius:4px;">
-<ul>
-<li>
-<p><code>free(p)</code> 不会把 p 变成 NULL; p 中仍是旧地址 (悬空指针).</p>
-
-</li>
-<li>
-<p>不置 NULL 继续访问是未定义行为: 可能读到 3/42, 也可能崩溃.</p>
-
-</li>
-<li>
-<p><code>p = NULL</code> 后误用会立即 NULL 解引用 (容易定位); 也允许 <code>free(NULL)</code>.</p>
-
-</li>
-<li>
-<p>规则: free 后立即 <code>p = NULL</code>.</p>
-
-</li>
-</ul>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="486" class="slide " data-source-line="486" data-h="31" data-v="0"><h5 id="完整示例--dynamic-array-c">完整示例: dynamic-array.c </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;">
-<div class="dyn-code" style="flex:1.1;font-size:0.62em;">
-<style>.dyn-code pre code{max-height:none!important;font-size:13.5px;line-height:1.2;}</style>
-<div class="col-label">完整代码 · dynamic-array.c</div>
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">/* 借 n 个 int */</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"内存不足\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">free</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>                            <span class="token comment">/* 用完归还 */</span>
-    a <span class="token operator">=</span> NULL<span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/dynamic-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 dynamic-array.c (示例)</a>
-</div>
-</div>
-<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
-<div class="col-label">样例运行</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入<span class="token operator">:</span> <span class="token number">5</span>
-输出<span class="token operator">:</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">4</span> <span class="token number">5</span></code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<ul>
-<li>
-<p><code>malloc(n * sizeof(int))</code> 借 n 个 int</p>
-
-</li>
-<li>
-<p>借不到返回 <code>NULL</code>, 必须检查</p>
-
-</li>
-<li>
-<p>用完 <code>free(a)</code>, 再把 <code>a = NULL</code></p>
-
-</li>
-</ul>
-</div>
-<div style="margin-top:8px;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<p>数组大小可以<mark>运行时决定</mark>, 不用像 <code>int a[10]</code> 那样把长度定死.</p>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="500" class="slide " data-source-line="500" data-h="32" data-v="0"><h5 id="任务--动态数组逆序">任务: 动态数组逆序 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.68em;line-height:1.4;text-align:left;">
-<div style="flex:1.1;">
-<p><mark>任务</mark>: 读入 n, 用 <code>malloc</code> 建 n 个 int 的数组, 填入 1..n, 逆序输出, 最后 <code>free</code>.</p>
-<p>样例:</p>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入<span class="token operator">:</span> <span class="token number">5</span>
-输出<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">4</span> <span class="token number">3</span> <span class="token number">2</span> <span class="token number">1</span></code></pre>
-</div>
-<div style="flex:0.9;">
-<p><mark>提示</mark>: 参照 <code>dynamic-array.c</code>, 把输出循环改成从 n-1 到 0.</p>
-<div class="task-criteria" style="margin:8px 0 0;padding:6px 10px;background:#f2f4f0;border-left:4px solid #93a1a1;border-radius:4px;">
-<b>完成标准:</b>
-<div>· 用 <code>malloc</code> 申请 n 个 int, 检查 <code>NULL</code></div>
-<div>· 填入 1..n, 逆序输出</div>
-<div>· 最后 <code>free</code>, 并把指针置 <code>NULL</code></div>
-</div>
-<div style="margin-top:10px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/task-reverse-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 task-reverse-array.c (骨架)</a>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="514" class="slide " data-source-line="514" data-h="33" data-v="0"><h5 id="任务参考--动态数组逆序">任务参考: 动态数组逆序 </h5>
-<hr>
-<div style="display:flex;align-items:flex-start;gap:24px;font-size:0.6em;line-height:1.45;text-align:left;">
-<div style="flex:1.1;">
-<div class="col-label">参考实现 · reverse-array.c</div>
-<style>.rev-code pre code{font-size:13.5px;line-height:1.2;}</style>
-<div class="rev-code">
-<pre data-role="codeBlock" data-info="C{.line-numbers}" class="language-c C line-numbers"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-
-<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword keyword-int">int</span> n<span class="token punctuation">;</span>
-
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>n <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>a <span class="token operator">==</span> NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"内存不足\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
-    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">free</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    a <span class="token operator">=</span> NULL<span class="token punctuation">;</span>
-    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-</div>
-<div style="margin-top:8px;">
-<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/11-pointers/code/reverse-array.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 reverse-array.c</a>
-</div>
-</div>
-<div style="flex:0.9;font-size:0.78em;line-height:1.45;">
-<div class="col-label">运行结果</div>
-<pre data-role="codeBlock" data-info="C" class="language-c C"><code>输入<span class="token operator">:</span> <span class="token number">5</span>
-输出<span class="token operator">:</span> <span class="token number">5</span> <span class="token number">4</span> <span class="token number">3</span> <span class="token number">2</span> <span class="token number">1</span></code></pre>
-<div style="margin-top:8px;padding:6px 10px;background:#fdf6e3;border-left:4px solid #268bd2;border-radius:4px;">
-<ul>
-<li>
-<p><code>malloc</code> 申请 n 个 int, 检查 <code>NULL</code></p>
-
-</li>
-<li>
-<p>逆序循环从 <code>n - 1</code> 到 <code>0</code></p>
-
-</li>
-<li>
-<p>用完 <code>free(a)</code>, 再把 <code>a = NULL</code></p>
-
-</li>
-</ul>
-</div>
-</div>
-</div>
-<hr>
-</section><section data-notes="" lineno="528" class="slide " data-source-line="528" data-h="34" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
+</section><section data-notes="" lineno="430" class="slide " data-source-line="430" data-h="27" data-v="0"><h5 id="课堂小测">课堂小测 </h5>
 <hr>
 <div style="display:flex;align-items:flex-start;gap:24px;font-size:0.78em;line-height:1.6;text-align:left;">
 <div style="flex:1;">
@@ -1822,13 +1420,11 @@ SUMMARY<span class="token operator">:</span> AddressSanitizer<span class="token 
 </li>
 <li><code>int a[3][4];</code> 中 <code>a[i]</code> 指向什么？<code>a[i][j]</code> 等价于什么？
 </li>
-<li><code>int *p = malloc(n * sizeof(int));</code> 之后为什么要检查 <code>p == NULL</code>？用完要做什么？
-</li>
 </ol>
 </div>
 </div>
 <hr>
-</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="35" data-v="0"><hr>
+</section><section data-notes="" lineno="999" class="slide " data-source-line="999" data-h="28" data-v="0"><hr>
 <div class="bottom20"></div>
 <hr class="width50 center">
 <h2 id="未完待续">未完待续 </h2>

@@ -49,6 +49,9 @@ presentation:
 
 ---
 
+- 函数调用栈: 栈帧、返回地址
+- 作用域与生命期: 局部变量何时诞生、何时消失
+
 - 递归是什么 (两个要素、信任递归)
 
 - 递归执行过程 (层层递推与回归)
@@ -62,6 +65,277 @@ presentation:
 - 课堂小测
 
 ---
+<!-- slide data-notes="" -->##### 函数调用栈 · 概念
+
+---
+
+<div style="font-size:0.85em;line-height:1.5;">
+
+函数不执行的时候是什么? 编译后它只是==代码区==里静静躺着的一段指令——像书架上的菜谱, 不做事也不占台面; 一被调用, 系统才为==这一次调用==在栈上放一张便签。同一张菜谱能反复做菜——同一个函数每次调用都是独立的一次:
+
+</div>
+
+先想一个问题: 函数返回之后, 它里面的局部变量==去了哪里==? 下次再调用, 为什么又是全新的?
+
+<div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:16px;align-items:start;">
+
+<div style="text-align:center;">
+<svg viewBox="0 0 460 440" style="max-width:100%;height:320px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
+<text x="130" y="381" font-size="11" fill="#586e75" text-anchor="middle">局部变量</text>
+<text x="130" y="396" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="286" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="304" font-size="18" fill="#073642" text-anchor="middle">f</text>
+<text x="130" y="321" font-size="11" fill="#586e75" text-anchor="middle">参数 · 局部变量</text>
+<text x="130" y="336" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="226" width="200" height="60" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="130" y="244" font-size="18" fill="#073642" text-anchor="middle">g</text>
+<text x="130" y="261" font-size="11" fill="#586e75" text-anchor="middle">参数 · 局部变量</text>
+<text x="130" y="276" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="130" y1="226" x2="130" y2="206" stroke="#268bd2" stroke-width="2"/>
+<text x="130" y="199" font-size="14" fill="#268bd2" text-anchor="middle">栈顶: g 正在执行</text>
+</g>
+</svg>
+</div>
+
+<div style="font-size:0.85em;line-height:1.6;">
+
+- 每次函数调用, 系统在==调用栈== (call stack) 上放一张 "便签"——术语叫==栈帧== (stack frame): 记下==返回地址==、==参数==、==局部变量==
+
+- ==返回地址==: 函数结束后, 回到调用处==继续执行的下一行==
+
+- 函数返回时揭掉这张便签——局部变量 "出了函数就没了", 就是这个原因
+
+- 栈是==后进先出==: 最后调用的函数最先返回——像一摞便签, 后放的压在最上面, 只能先揭最上面那张
+
+</div>
+
+</div>
+
+---
+
+
+<!-- slide data-notes="" -->
+##### 函数调用栈 · 便签上放了什么
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<style>.stack-code pre{padding:0.5em 1em !important;margin:0.3em 0 !important}.stack-code pre code{font-size:15px !important;line-height:18px !important;max-height:none !important;overflow:visible !important}</style>
+
+<div class="stack-code" style="flex:1.05;min-width:0;font-size:0.62em;">
+
+```C{.line-numbers}
+/* primes.c 函数版: 两层调用链 */
+#include <stdio.h>
+int is_prime(int n) {
+  if (n <= 1) return 0;
+  for (int d = 2; d <= n / d; d++) {
+    if (n % d == 0) return 0;
+  }
+  return 1;
+}
+int count_primes(int max) {
+  int count = 0;
+  for (int i = 2; i <= max; i++) {
+    if (is_prime(i)) count++;
+  }
+  return count;
+}
+int main(void) {
+  printf("%d\n", count_primes(10));
+  return 0;
+}
+```
+
+</div>
+
+<div style="flex:1;min-width:0;font-size:0.9em;line-height:1.5;">
+
+<div style="font-size:0.9em;">primes.c 函数版: main → count_primes → is_prime ==两层调用==, 栈上三张便签</div>
+
+<svg viewBox="0 0 520 440" style="max-width:100%;height:250px;">
+<g font-family="LXGWWenKai, 'Noto Sans SC', sans-serif" font-weight="700">
+<rect x="30" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
+<text x="130" y="381" font-size="11" fill="#586e75" text-anchor="middle">无局部变量</text>
+<text x="130" y="396" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="286" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="130" y="304" font-size="18" fill="#073642" text-anchor="middle">count_primes</text>
+<text x="130" y="321" font-size="11" fill="#586e75" text-anchor="middle">参数 max · 局部 i, count</text>
+<text x="130" y="336" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="30" y="226" width="200" height="60" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="130" y="244" font-size="18" fill="#073642" text-anchor="middle">is_prime</text>
+<text x="130" y="261" font-size="11" fill="#586e75" text-anchor="middle">参数 n · 局部 d</text>
+<text x="130" y="276" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="130" y1="226" x2="130" y2="206" stroke="#268bd2" stroke-width="2"/>
+<text x="130" y="199" font-size="14" fill="#268bd2" text-anchor="middle">栈顶</text>
+<rect x="290" y="346" width="200" height="60" rx="8" fill="#fdf6e3" stroke="#93a1a1" stroke-width="2"/>
+<text x="390" y="364" font-size="18" fill="#073642" text-anchor="middle">main</text>
+<text x="390" y="381" font-size="11" fill="#586e75" text-anchor="middle">无局部变量</text>
+<text x="390" y="396" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<rect x="290" y="286" width="200" height="60" rx="8" fill="#dceaf5" stroke="#268bd2" stroke-width="3"/>
+<text x="390" y="304" font-size="18" fill="#073642" text-anchor="middle">count_primes</text>
+<text x="390" y="321" font-size="11" fill="#586e75" text-anchor="middle">参数 max · 局部 i, count</text>
+<text x="390" y="336" font-size="11" fill="#586e75" text-anchor="middle">返回地址</text>
+<line x1="420" y1="226" x2="420" y2="206" stroke="#268bd2" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="420" y="199" font-size="14" fill="#b58900" text-anchor="middle">已撕掉</text>
+<path d="M 232 262 L 286 300" stroke="#586e75" stroke-width="2" fill="none" marker-end="url(#arr4)"/>
+<text x="259" y="294" font-size="12" fill="#586e75" text-anchor="middle">返回</text>
+<defs>
+<marker id="arr4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M 0 0 L 8 4 L 0 8 z" fill="#586e75"/>
+</marker>
+</defs>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<style>.stack-sum ul{margin:0 !important;}.stack-sum p{margin:2px 0 !important;}.stack-sum a{padding:4px 10px !important;font-size:0.8em !important}</style>
+
+<div class="stack-sum" style="font-size:0.78em;line-height:1.4;">
+
+- is_prime 返回时, 栈顶的便签被==撕掉==: 局部变量 d 随之消失, 控制权按 "返回地址" 回到 count_primes
+
+- count_primes 的循环一次次调用 is_prime, 每次都放一张==全新的便签==——所以每次的局部变量都是新的
+
+- 数组作参数时, 便签上记的不是整个数组, 而是数组的==开头位置==——函数顺着位置改到原数组; 普通参数记的是==值的副本==——这就是 "数组是例外" 的原因
+
+<span class="blue">:fa-lightbulb-o:</span> 后面的递归课: 函数一层层调用自己, 栈上便签一层层叠高——今天先记住这张图
+
+<a href="function-and-stack.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🎬 打开调用栈动画 (逐帧压栈/弹栈)</a> <a href="https://pythontutor.com/c.html" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#859900;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">🌐 在 Python Tutor 中演示 (粘贴左栏代码, 逐行看栈帧)</a>
+
+</div>
+<!-- slide data-notes="" -->
+
+
+##### 标识符的作用域
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;">
+
+<div style="flex:1.3;font-size:0.7em;">
+
+```C
+int x = 0;            /* 文件作用域 */
+void f(void)
+{
+  int x = 1;        /* 块作用域, 屏蔽全局 x */
+  printf("%d", x);  /* 打印 1 */
+}
+```
+
+<div style="text-align:center;margin:2px 0;">
+<svg viewBox='0 0 400 214' style='max-width:100%;height:360px;display:block;margin:0 auto;'><g font-family='LXGWWenKai, Noto Sans SC, sans-serif'><defs><marker id='scope-red' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#dc322f'/></marker><marker id='scope-green' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0 0 L8 4 L0 8 z' fill='#859900'/></marker></defs><rect x='14' y='14' width='372' height='180' rx='10' fill='#fdf6e3' stroke='#93a1a1' stroke-width='2' stroke-dasharray='6 4'/><text x='28' y='34' font-size='14.0' fill='#586e75' font-weight='700'>文件作用域（整个 .c 文件）</text><rect x='28' y='44' width='150' height='32' rx='6' fill='#eee8d5' stroke='#b58900' stroke-width='2'/><text x='103' y='65' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 0;（全局）</text><rect x='50' y='88' width='300' height='90' rx='8' fill='#dceaf5' stroke='#268bd2' stroke-width='2.5'/><text x='205' y='108' font-size='13.3' fill='#268bd2' text-anchor='middle' font-weight='700'>f 的函数体（块作用域）</text><rect x='65' y='128' width='150' height='32' rx='6' fill='#fdf6e3' stroke='#dc322f' stroke-width='2.5'/><text x='140' y='149' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>int x = 1;（局部）</text><rect x='240' y='128' width='95' height='32' rx='6' fill='#fdf6e3' stroke='#859900' stroke-width='2'/><text x='287' y='149' font-size='15.4' fill='#073642' text-anchor='middle' font-weight='700'>printf → 1</text><path d='M100 128 V84' stroke='#dc322f' stroke-width='2' stroke-dasharray='5 3' fill='none' marker-end='url(#scope-red)'/><text x='96' y='106' font-size='12.6' fill='#dc322f' text-anchor='end'>遮蔽全局 x</text><path d='M215 144 H236' stroke='#859900' stroke-width='2' fill='none' marker-end='url(#scope-green)'/><text x='28' y='208' font-size='13.3' fill='#586e75'>全局变量整个文件可见；局部变量出了函数就不可见</text></g></svg>
+</div>
+
+</div>
+
+<div style="flex:1;">
+
+==作用域==: 标识符可以被使用的那段代码范围
+
+- ==块作用域==: 函数体内 {} 覆盖的范围——局部变量、形式参数
+
+- ==文件作用域==: 从定义位置到文件末尾——全局变量
+
+- 内层屏蔽外层: 内层同名变量会==遮蔽==外层的
+
+==局部变量==: 定义在函数内, 出了函数就不可见
+
+- ==全局变量==: 定义在函数外, 整个文件可见; 少用为妙 (谁都可能改它)
+
+</div>
+
+</div>
+
+<!-- slide data-notes="" -->
+
+
+##### 变量的生命期
+
+---
+
+- ==动态变量==(默认): 函数被调用时诞生, 函数返回时消亡
+
+- ==动态变量与递归==: 递归的每一层调用都是一次独立的函数调用——各层的参数和局部变量==随层生、随层亡==, 互不干扰 (上一页"每层一套自己变量"的底层原因就在这里)
+
+- ==静态变量==(static): 与程序同生共死, 函数返回后==保留原值==
+
+```C
+void f(void)
+{
+  static int count = 0;  /* 只初始化一次 */
+  count++;
+  printf("第 %d 次调用\n", count);
+}
+```
+
+- static 局部变量 = 带记忆的局部变量 (下次调用接着用上次的值)
+
+
+---
+
+
+<!-- slide data-notes="" -->
+
+
+##### 演示: 局部变量的"垃圾值"
+
+---
+
+<div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
+
+<div style="flex:1.05;font-size:0.85em;">
+
+<div class="col-label">代码</div>
+
+
+```C
+void f(void) {
+    int i;                    /* 没有初始化 */
+    printf("i = %d\n", i);
+}
+int main(void) { f(); return 0; }
+```
+
+一次运行的结果 (每次可能不同!):
+
+```
+i = 32764
+```
+
+</div>
+
+<div style="flex:1;font-size:0.9em;line-height:1.6;">
+
+<div class="col-label">要点</div>
+
+
+- 动态局部变量诞生时==不会自动清零==——里面是内存里残留的"垃圾值"
+
+- 每次运行、每台机器都可能不同; 调试器里恰好是 `0` 只是假象
+
+- 教训: ==局部变量必须初始化后再使用==; 编译加 `-Wall` 有时能提示 "used uninitialized"
+
+- 后面讲递归时也一样: 每层调用的局部变量各自独立, 忘初始化同样读到垃圾值
+
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/8-functions/code/garbage.c" style="display:inline-block;margin-top:8px;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.85em;text-decoration:none;">⚡ 在 VS Code 中打开 garbage.c</a>
+
+</div>
+
+</div>
+
+---
+
+
 <!-- slide data-notes="" -->
 
 ##### 递归是什么
@@ -1222,6 +1496,8 @@ int split(int a[], int low, int high)
 ##### 课堂小测
 
 ---
+
+1. 概念: 函数调用时栈上发生了什么? 局部变量在函数返回后会怎样?
 
 1. 概念: 递归函数必须具备哪两个要素？
 
