@@ -143,7 +143,7 @@ x = MAX(p + q, r + s);
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 C 程序可分割成任意数量的==源文件== (扩展名 `.c`), 每个源文件包含程序的一部分 (主要是函数和变量的定义); 其中一个必须包含 `main` 函数, 作为程序的起点.
 
@@ -219,7 +219,7 @@ main函数放入另一个文件calc.c中.
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 程序拆成几个源文件后, 随之而来的问题:
 
@@ -257,7 +257,7 @@ main函数放入另一个文件calc.c中.
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.15;min-width:0;font-size:0.55em;">
+<div style="flex:1.15;min-width:0;font-size:0.64em;">
 
 <div class="col-label">代码</div>
 
@@ -302,7 +302,7 @@ main函数放入另一个文件calc.c中.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.5;font-size:0.5em;">
+<div style="flex:1.5;font-size:0.56em;">
 
 ```C
 #include 标记            /* 标记是宏名, 展开后须形如 <文件名> 或 "文件名" */
@@ -322,7 +322,7 @@ main函数放入另一个文件calc.c中.
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 `#include` 后面也可以是一个宏名: 预处理器先展开宏, 再按展开结果包含文件.
 
@@ -345,7 +345,7 @@ main函数放入另一个文件calc.c中.
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;min-width:0;font-size:0.52em;">
+<div style="flex:1.05;min-width:0;font-size:0.58em;">
 
 ```C{.line-numbers}
 /* boolean.h —— 宏版 */
@@ -397,7 +397,7 @@ typedef int Bool;
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.64em;">
 
 ```C{.line-numbers}
 /* stack.h */
@@ -410,7 +410,7 @@ int pop(void);
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 左列以 stack.h 为例. 源文件调用另一个文件里定义的函数时, 不声明会直接报错——C99 起==标准不再支持隐式声明==; 现代 GCC 14+/Clang 16+ 默认报错, 旧版本仅警告. 即使编译通过, 编译器对返回类型与默认实参提升的假设也可能在运行时出错.
 
@@ -442,7 +442,7 @@ RPN 计算器示例: `stack.c` 定义 make_empty / is_empty / is_full / push / p
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.52em;">
+<div style="flex:1.3;font-size:0.58em;">
 
 <div class="col-label">代码</div>
 
@@ -467,7 +467,7 @@ static void stack_error(void)   /* 与 stack.c 中的同名函数互不冲突 */
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 <div class="col-label">要点</div>
 
@@ -493,7 +493,7 @@ static void stack_error(void)   /* 与 stack.c 中的同名函数互不冲突 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.64em;">
 
 ```C
 /* foo.h */
@@ -520,7 +520,7 @@ extern long i;            /* 与 foo.h 中 int 的类型不一致! */
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 共享函数: 定义放在一个源文件, 声明放在头文件中供其他文件包含; 共享外部变量的方式相同——`extern` 声明放进头文件 (如 foo.h), 定义 (`int i;`) 只在一个 .c 文件中; 定义文件也包含 foo.h, 编译器才能核对类型.
 
@@ -556,7 +556,7 @@ Bool is_full(void);
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 头文件可能包含 `#include` 指令.
 
@@ -583,7 +583,7 @@ stack.h 里的原型:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.64em;">
 
 ```C{.line-numbers}
 /* file3.h (未加保护) */
@@ -594,7 +594,7 @@ typedef int Bool;
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 如果一个源文件两次包含相同的头文件, 可能会导致编译错误.
 
@@ -621,7 +621,7 @@ typedef int Bool;
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.64em;">
 
 ```C{.line-numbers}
 /* file3.h */
@@ -637,7 +637,7 @@ typedef int Bool;
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 把文件的内容包在 `#ifndef` - `#endif` 对里:
 
@@ -697,7 +697,7 @@ typedef int Bool;
 
 
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 设计程序需确定程序需要什么函数并将函数分为逻辑相关的组. 
 
@@ -806,7 +806,7 @@ main所在的文件中也可以有其他函数, 只要程序中的其他文件�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.64em;">
 
 ```
 calc: calc.o stack.o token.o
@@ -821,7 +821,7 @@ token.o: token.c token.h
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 为了更容易构建大型程序, UNIX 发明 makefile 的概念.
 
@@ -853,7 +853,7 @@ makefile 不仅列出了作为程序一部分的文件, 而且还描述了文件
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.64em;">
 
 ```
 calc: calc.o stack.o token.o
@@ -864,7 +864,7 @@ calc: calc.o stack.o token.o
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 在第一条规则中, calc (最终可执行文件) 是目标 (target):
 
@@ -933,7 +933,7 @@ $ ./calc
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.05;min-width:0;font-size:0.55em;">
+<div style="flex:1.05;min-width:0;font-size:0.64em;">
 
 拆分后的文件清单:
 
@@ -1009,7 +1009,7 @@ Makefile 三条要点:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.15;font-size:0.5em;">
+<div style="flex:1.15;font-size:0.56em;">
 
 ```C
 /* a.c */
@@ -1026,7 +1026,7 @@ static int n = 2;
 
 </div>
 
-<div style="flex:1;font-size:0.6em;">
+<div style="flex:1;font-size:0.64em;">
 
 **概念 1**: 头文件里通常放什么？源文件 (.c) 里放什么？
 
