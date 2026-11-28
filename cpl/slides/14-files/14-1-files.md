@@ -663,7 +663,7 @@ $ ./fcopy a.txt b.txt
 
 ---
 
-<style>#fcopy-ref pre code{font-size:13px!important;line-height:1.15!important}</style>
+<style>#fcopy-ref pre code{font-size:14px!important;line-height:1.15!important}</style>
 
 <div id="fcopy-ref" style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -803,7 +803,7 @@ fgets 是更通用、更安全的版本, 可以从任意流中读取, 并限制�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.2;font-size:0.5em;">
+<div style="flex:1.2;font-size:0.6em;">
 
 ```C
 fwrite(a, sizeof(a[0]), sizeof(a) / sizeof(a[0]), fp);
