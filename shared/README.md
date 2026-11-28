@@ -16,4 +16,4 @@
 - `cpp/slides/01-topic/x.html` → `../../../shared/css/main.css`
 - `datamining/slides/x.html` → `../../shared/css/main.css`
 
-不要再把 `css/`、`fonts/`、`plugin/` 等复制回课程目录。`datamining/css/main.css`、`datamining.css` 是课程覆盖，保留在课程目录；`datamining/slides/revealjs_deps/` 是 datamining 专用 bundle，也保留。
+不要再把 `css/`、`fonts/`、`plugin/` 等复制回课程目录。datamining 也使用 `shared/css`；`datamining/slides/revealjs_deps/` 是 datamining 专用 bundle，保留。

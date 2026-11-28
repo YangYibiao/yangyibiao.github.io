@@ -9,14 +9,13 @@ presentation:
   math: false
 ---
 
-@import "../css/theme/solarized.css"
-@import "../css/logo.css"
-@import "../css/font.css"
-@import "../css/color.css"
-@import "../css/margin.css"
-@import "../css/table.css"
-@import "../css/main.css"
-@import "../css/datamining.css"
+@import "../../shared/css/theme/solarized.css"
+@import "../../shared/css/logo.css"
+@import "../../shared/css/font.css"
+@import "../../shared/css/color.css"
+@import "../../shared/css/margin.css"
+@import "../../shared/css/table.css"
+@import "../../shared/css/main.css"
 
 # @import "../../plugin/zoom/zoom.js"
 # @import "../../plugin/customcontrols/plugin.js"
