@@ -117,7 +117,7 @@ swap(x, y);  /* x、y 都没变 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 原版 (判断逻辑埋在 main 里):
 
@@ -171,7 +171,7 @@ int main(void) {
 
 <div class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 <div class="col-label">函数版（main 只剩输入输出）</div>
 
@@ -217,7 +217,7 @@ int main(void) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 <div class="col-label">代码</div>
 
@@ -267,7 +267,7 @@ double average(double a, double b) { return (a + b) / 2; }  /* 两个参数, 照
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 统计 2~max 的素数个数 (非函数版):
 
@@ -324,7 +324,7 @@ int main() {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C
 /* 函数版: is_prime + count_primes 两层 */
@@ -387,7 +387,7 @@ int main() {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C
 #include <stdio.h>
@@ -433,7 +433,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* 求两组数据的和: 非函数版 */
@@ -538,7 +538,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 之前学过的选择排序 (非函数版):
 
@@ -643,7 +643,7 @@ sort(b, 5);      /* 同一段逻辑, 换个数组再用 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
 /* 求 m 的元素之和: 非函数版 */
@@ -686,7 +686,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.58em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 <div class="col-label">代码</div>
 
@@ -724,7 +724,7 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 - 调用: 传==数组名 + 行数==——写法朴素, 但数组传的是开头位置, 函数能改到原数组 (和标量不同)
 
-<div style="font-size:0.55em;line-height:1.3;margin-top:2px;"><a href="code/sum-matrix-re.c" target="_blank">sum-matrix-re.c (改造前)</a> · <a href="code/sum-matrix-func.c" target="_blank">sum-matrix-func.c (函数版)</a></div>
+<div style="font-size:0.62em;line-height:1.3;margin-top:2px;"><a href="code/sum-matrix-re.c" target="_blank">sum-matrix-re.c (改造前)</a> · <a href="code/sum-matrix-func.c" target="_blank">sum-matrix-func.c (函数版)</a></div>
 
 </div>
 
@@ -771,7 +771,7 @@ sum_matrix(m, 3);       /* 数组名 + 行数 */
 
 <div style="display:flex;align-items:flex-start;gap:20px;">
 
-<div style="flex:1.25;font-size:0.45em;">
+<div style="flex:1.25;font-size:0.52em;">
 
 ```C{.line-numbers}
 /* 演化一代: 数邻居 + 套规则 + 打印, 全在 main 里 */
@@ -852,7 +852,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.5em;">
+<div style="flex:1.3;font-size:0.58em;">
 
 ```C{.line-numbers}
 int count_neighbors(int board[][SIZE + 2], int i, int j)
@@ -914,7 +914,7 @@ void next_generation(int board[][SIZE + 2])
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.5em;">
+<div style="flex:1.3;font-size:0.58em;">
 
 ```C{.line-numbers}
 void print_board(int board[][SIZE + 2])
@@ -974,7 +974,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 求每个学生的总分 (非函数版):
 
@@ -1074,7 +1074,7 @@ row_sums(scores, 5, totals);    /* totals 里是 5 个学生的总分 */
 
 ==函数化四步==: ① 找输入 ② 定返回/输出参数 ③ 搬代码 ④ 改调用——今天的例子全部按这四步走; 标量返回==值==, 数组靠==输出参数== (改原数组/写进另一个数组):
 
-<div style="font-size:0.5em;">
+<div style="font-size:0.58em;">
 
 | 例子 | 输入 | 返回 / 输出参数 | 调用 |
 |------|------|----------------|------|
