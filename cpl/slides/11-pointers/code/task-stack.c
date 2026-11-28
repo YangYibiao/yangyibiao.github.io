@@ -21,6 +21,9 @@ void push(int i)
         return;
     }
     /* TODO: 用 *top_ptr++ 把 i 存入当前空位, 再后移 */
+    // *top_ptr = i;
+    // top_ptr = top_ptr + 1;
+    *top_ptr++ = i;
 }
 
 int pop(void)
@@ -30,7 +33,9 @@ int pop(void)
         return -1;
     }
     /* TODO: 用 *--top_ptr 先回退, 再返回该位置的值 */
-    return -1;
+    // top_ptr = top_ptr - 1;
+    // return *top_ptr;
+    return *--top_ptr;
 }
 
 int main(void)

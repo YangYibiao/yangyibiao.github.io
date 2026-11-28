@@ -4,6 +4,7 @@
 #define ROWS 3
 #define COLS 4
 
+// int find_largest(int *a, int n)
 int find_largest(int a[], int n)
 {
     int max = a[0];
@@ -16,18 +17,23 @@ int find_largest(int a[], int n)
 
 int main(void)
 {
-    int b[10] = {0};
-    printf("sizeof(b): %zu\n", sizeof(b));
-    find_largest(b, 10);
+    // int b[10] = {0};
+    // printf("sizeof(b): %zu\n", sizeof(b));
+    // find_largest(b, 10);
 
     int a[ROWS][COLS] = {0}; /* 3 * 4 */
-    int (*rowp)[COLS] = a + 0;   /* a + 0 变成行指针 */
+    int (*rowp)[COLS];
+    rowp = a + 0;   /* a + 0 变成行指针 */
+
+    printf("rowp: %p\n", rowp);
+    printf("rowp + 1: %p\n", rowp+1);
 
     printf("sizeof(int)      = %zu\n", sizeof(int));
     printf("sizeof(a)        = %zu  (整个二维数组)\n", sizeof(a));
     printf("sizeof(a[1])     = %zu  (一行)\n", sizeof(a[1]));
     printf("sizeof(a[0][0])  = %zu  (一个 int)\n", sizeof(a[0][0]));
     printf("sizeof(*a)       = %zu  (一行, 不是 int)\n", sizeof(*a));
+    printf("sizeof(**a)       = %zu\n", sizeof(**a));
     printf("sizeof(rowp)     = %zu  (a + 0 退化成的行指针)\n", sizeof(rowp));
     printf("sizeof(&a[0][0]) = %zu  (int *)\n", sizeof(&a[0][0]));
 

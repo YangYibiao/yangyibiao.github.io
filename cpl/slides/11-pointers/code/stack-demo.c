@@ -29,9 +29,13 @@ int main(void)
     push(7);
     push(8);
     push(9);
+    push(10);
+    push(11);
+    push(12);
     printf("pop = %d\n", pop());
     printf("pop = %d\n", pop());
     push(10);
+    printf("pop = %d\n", pop());
     printf("pop = %d\n", pop());
     printf("pop = %d\n", pop());
     return 0;

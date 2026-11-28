@@ -16,8 +16,10 @@ int main(void)
         return 1;
     }
 
-    for (int i = 0; i < n; i++) a[i] = i + 1;
-    for (int i = 0; i < n; i++) printf("%d ", a[i]);
+    for (int i = 0; i < n; i++) 
+        *(a + i) = i + 1;
+    for (int i = 0; i < n; i++)
+        printf("%d ", *(a + i));
     printf("\n");
 
     free(a);                            /* 用完归还 */

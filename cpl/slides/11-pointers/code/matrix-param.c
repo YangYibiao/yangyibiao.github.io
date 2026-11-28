@@ -4,12 +4,14 @@
 #define ROWS 3
 #define COLS 4
 
-void print_matrix(int a[][COLS], int rows)
+void print_matrix(int (*a)[COLS], int rows)
 {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < COLS; j++)
-            printf("%3d", a[i][j]);
+            printf("%3d", *((*(a + i)) + j));
         printf("\n");
+        // *(a + i): a[i]
+        // a[i][j]
     }
 }
 

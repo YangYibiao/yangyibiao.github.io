@@ -17,7 +17,7 @@ int main(void)
 
     printf("第 %d 列: ", i);
     for (p = &a[0]; p < &a[ROWS]; p++)
-        printf("%d ", (*p)[i]);
+        printf("%d ", (*p)[2]);
     printf("\n");
 
     /* 把第 i 列清零 */

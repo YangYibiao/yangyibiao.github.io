@@ -9,17 +9,24 @@
 
 #define N 10
 
-int *last_max(int *a, int n)
+int *last_max(int *a, int n, int *best)
 {
   /* TODO: 返回指向最后一个最大元素的指针 */
-  return a;
+  *best = 0;
+  for (int i = 0; i < n; i++) {
+    if (*(a + *best) <= *(a + i)) {
+      *best = i;
+    }
+  }
+  return &a[*best];
 }
 
 int main(void)
 {
   int a[N] = {3, 8, 1, 9, 2, 7, 4, 6, 9, 0};
-  int *p = last_max(a, N);
+  int index;
+  int *p = last_max(a, N, &index);
 
-  printf("最后一个最大值: %d\n", *p);
+  printf("最后一个最大值(index:%d): %d\n", index, *p);
   return 0;
 }

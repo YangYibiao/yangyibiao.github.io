@@ -18,11 +18,20 @@ int main(void)
   printf("输入 %d 个数: ", N);
 
   /* TODO: 用指针 p 读入 N 个整数 */
-
+  for (p = a; p < a + N; p++) {
+    scanf("%d", p); // scanf("%d", &a[i]);
+  }
+  printf("a: %p, p: %p", a, p);
   printf("逆序输出:");
 
   /* TODO: 用指针 p 从后往前打印 N 个整数 */
-
+  // for (p = a + N - 1; p >= a; p--) {
+  //   printf("%d ", *p);
+  // }
+  p = a;
+  for (int i = N - 1; i >= 0; i--) {
+    printf("%d ", *(a + i));
+  }
   printf("\n");
   return 0;
 }

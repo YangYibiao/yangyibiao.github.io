@@ -10,7 +10,12 @@
 int sum(const int *a, int n)
 {
   /* TODO: 累加 a[0]..a[n-1] 并返回 */
-  return 0;
+  int sum = 0;
+  for (int i = 0; i < n; i++) {
+    sum += a[i];
+    a[i] = i; // *(a + i)
+  }
+  return sum;
 }
 
 int main(void)

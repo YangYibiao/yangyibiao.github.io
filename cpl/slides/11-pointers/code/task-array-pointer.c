@@ -22,10 +22,19 @@ int main(void)
   int sum = 0;
 
   /* TODO: 用指针 p 遍历 a[0] ~ a[N-1], 把 *p 累加进 sum */
+  for (int *p = a; p < a + N; p++) {
+    sum += *p;
+  }
+  printf("sum: %d\n", sum);
 
   /* TODO: 对 i = 0 .. N-1 打印 a[i] 与 *(a + i) */
-
+  sum = 0;
+  for (int i = 0; i < N; i++) {
+    printf("a[%d]: %d, *(a + %d); %d\n", i, a[i], i, *(a + i));
+  }
+  
   /* TODO: 打印 a、&a[0]、a + 1、&a[1] (地址用 %p) */
+  printf("a: %p, &a[0]: %p, a+1: %p, &a[1]: %p\n", a, &a[0], a+1, &a[1]);
 
   return 0;
 }

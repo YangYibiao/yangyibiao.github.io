@@ -21,19 +21,19 @@ int main(void)
         {2, 7, 4, 6},
         {5, 0, 9, 9}
     };
-    int *p;
 
     printf("第 1 行: ");
-    for (p = a[1]; p < a[1] + COLS; p++)
-        printf("%d ", *p);
+    int *p = a[2];
+    for (int i = 0; i < COLS; i++)
+        printf("%d ", *(p+i));
     printf("\n");
 
     /* 把第 1 行清零 */
-    for (p = a[1]; p < a[1] + COLS; p++)
+    for (int *p = a[1]; p < a[1] + COLS; p++)
         *p = 0;
 
     printf("清零后第 1 行: ");
-    for (p = &a[1][0]; p < &a[1][0] + COLS; p++)
+    for (int *p = &a[1][0]; p < &a[1][0] + COLS; p++)
         printf("%d ", *p);
     printf("\n");
 
