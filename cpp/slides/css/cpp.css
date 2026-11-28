@@ -1,0 +1,570 @@
+/* =========================================================
+   高级程序设计（C++）课件专用样式
+   与 slides-cpl 的 solarized 主题、字体、版式保持一致，
+   只补充 C++ 教学所需的图示、代码尺寸与提示框。
+   ========================================================= */
+
+/* 让整页内容按自然高度排布，避免 flex 压缩代码块 */
+.reveal .slides section > div,
+.reveal .slides section > pre {
+    flex-shrink: 0;
+}
+
+/* ---------- 排版工具 ---------- */
+.reveal .kicker {
+    font-family: var(--sans);
+    font-size: 0.52em;
+    letter-spacing: 0.12em;
+    color: var(--solarized-base01);
+    text-transform: uppercase;
+    margin: 1.1rem 2rem 0.1rem 2rem;
+    font-weight: 700;
+}
+
+.reveal .lead {
+    font-size: 0.92em;
+    line-height: 1.6;
+}
+
+.reveal .small { font-size: 0.86em; }
+.reveal .xsmall { font-size: 0.76em; }
+.reveal .tiny { font-size: 0.66em; }
+.reveal .muted { color: var(--solarized-base01); }
+.reveal .dim { opacity: 0.72; }
+.reveal .mono {
+    font-family: Operator, "JetBrains Mono", monospace;
+    font-size: 0.92em;
+}
+
+.reveal .cols {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+    width: calc(100% - 4rem);
+    margin: 0 2rem;
+}
+.reveal .cols > * { min-width: 0; }
+.reveal .cols.vcenter { align-items: center; }
+.reveal .cols.stretch { align-items: stretch; }
+.reveal .cols.gap-lg { gap: 40px; }
+.reveal .col { flex: 1; }
+.reveal .col-40 { flex: 0 0 40%; }
+.reveal .col-45 { flex: 0 0 45%; }
+.reveal .col-55 { flex: 0 0 55%; }
+.reveal .col-60 { flex: 0 0 60%; }
+.reveal .col-65 { flex: 0 0 65%; }
+
+.reveal .tight { line-height: 1.42; }
+.reveal .tight li { margin: 0.18em 0; }
+.reveal .loose li { margin: 0.45em 0; }
+.reveal .no-bullet li::marker { content: ""; }
+.reveal .center { text-align: center; }
+.reveal .right { text-align: right; }
+.reveal .mt0 { margin-top: 0 !important; }
+.reveal .mt1 { margin-top: 0.6rem; }
+.reveal .mt2 { margin-top: 1.2rem; }
+.reveal .mb0 { margin-bottom: 0 !important; }
+
+/* ---------- 代码块尺寸（覆盖 font.css 的固定字号） ---------- */
+.reveal .code-lg pre { font-size: 1.25rem; }
+.reveal .code-md pre { font-size: 1.02rem; }
+.reveal .code-sm pre { font-size: 0.88rem; }
+.reveal .code-xs pre { font-size: 0.78rem; }
+.reveal .code-xxs pre { font-size: 0.70rem; }
+
+.reveal .code-pane {
+    background: rgba(88, 110, 117, 0.055);
+    border: 1px solid rgba(88, 110, 117, 0.14);
+    border-radius: 10px;
+    padding: 2px 4px 6px 4px;
+    margin: 0.35rem 0;
+    overflow: hidden;
+}
+.reveal .code-pane pre {
+    margin: 0 !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+.reveal .code-pane pre code {
+    padding: 8px 15px !important;
+    line-height: 1.38;
+}
+.reveal .code-pane .code-label {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    color: var(--solarized-base01);
+    padding: 5px 12px 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reveal .out {
+    background: rgba(147, 161, 161, 0.10);
+    border-left: 3px solid var(--solarized-base1);
+    border-radius: 0 6px 6px 0;
+    padding: 6px 14px;
+    font-family: Operator, monospace;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    color: var(--solarized-base01);
+}
+
+.reveal pre.term {
+    background: var(--solarized-base03) !important;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--solarized-base0);
+    font-family: Operator, monospace;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    width: calc(100% - 4rem);
+    margin: 0.3rem 2rem;
+    box-sizing: border-box;
+}
+.reveal pre.term .ok { color: var(--solarized-green); }
+.reveal pre.term .err { color: var(--solarized-red); }
+
+/* ---------- 标签与徽章 ---------- */
+.reveal .std {
+    display: inline-block;
+    font-family: Operator, monospace;
+    font-size: 0.56em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--solarized-base3);
+    background: var(--solarized-blue);
+    border-radius: 4px;
+    padding: 0.08em 0.45em;
+    vertical-align: 0.12em;
+}
+.reveal .std.cxx98 { background: var(--solarized-base01); }
+.reveal .std.cxx11 { background: var(--solarized-blue); }
+.reveal .std.cxx14 { background: var(--solarized-cyan); }
+.reveal .std.cxx17 { background: var(--solarized-green); }
+.reveal .std.cxx20 { background: var(--solarized-violet); }
+.reveal .std.cxx23 { background: var(--solarized-magenta); }
+
+.reveal .tag {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 0.58em;
+    font-weight: 700;
+    color: var(--solarized-base01);
+    background: rgba(88, 110, 117, 0.10);
+    border: 1px solid rgba(88, 110, 117, 0.22);
+    border-radius: 999px;
+    padding: 0.05em 0.6em;
+    margin: 0 0.15em;
+    vertical-align: 0.1em;
+}
+.reveal .tag.blue { color: var(--solarized-blue); border-color: rgba(38,139,210,0.35); background: rgba(38,139,210,0.08); }
+.reveal .tag.green { color: var(--solarized-green); border-color: rgba(133,153,0,0.35); background: rgba(133,153,0,0.08); }
+.reveal .tag.red { color: var(--solarized-red); border-color: rgba(220,50,47,0.35); background: rgba(220,50,47,0.08); }
+
+/* ---------- 提示框 ---------- */
+.reveal .card {
+    background: rgba(88, 110, 117, 0.06);
+    border: 1px solid rgba(88, 110, 117, 0.16);
+    border-radius: 8px;
+    padding: 0.55rem 0.95rem;
+    box-sizing: border-box;
+}
+.reveal .card h6,
+.reveal .card .card-title {
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 0.72em;
+    font-weight: 700;
+    color: var(--solarized-base01);
+    letter-spacing: 0.04em;
+    margin: 0 0 0.25rem 0;
+}
+
+.reveal .keypoint,
+.reveal .tip,
+.reveal .pitfall,
+.reveal .question {
+    border-radius: 0 6px 6px 0;
+    padding: 0.48rem 0.9rem;
+    margin: 0.45rem 2rem;
+    box-sizing: border-box;
+    line-height: 1.45;
+}
+.reveal .keypoint { border-left: 4px solid var(--solarized-blue); background: rgba(38, 139, 210, 0.07); }
+.reveal .tip      { border-left: 4px solid var(--solarized-green); background: rgba(133, 153, 0, 0.075); }
+.reveal .pitfall  { border-left: 4px solid var(--solarized-red); background: rgba(220, 50, 47, 0.07); }
+.reveal .question { border-left: 4px solid var(--solarized-yellow); background: rgba(181, 137, 0, 0.07); }
+.reveal .keypoint .label,
+.reveal .tip .label,
+.reveal .pitfall .label,
+.reveal .question .label {
+    font-weight: 700;
+    font-size: 0.72em;
+    letter-spacing: 0.06em;
+    margin-right: 0.35em;
+}
+.reveal .keypoint .label { color: var(--solarized-blue); }
+.reveal .tip .label { color: var(--solarized-green); }
+.reveal .pitfall .label { color: var(--solarized-red); }
+.reveal .question .label { color: var(--solarized-yellow); }
+
+/* ---------- 类图 ---------- */
+.reveal .cds {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    justify-content: center;
+    width: calc(100% - 4rem);
+    margin: 0.5rem 2rem;
+}
+.reveal .cds.vcenter { align-items: center; }
+.reveal .cls {
+    border: 1.8px solid var(--solarized-base01);
+    border-radius: 7px;
+    background: rgba(253, 246, 227, 0.6);
+    min-width: 170px;
+    overflow: hidden;
+    font-family: Operator, "Noto Sans SC", monospace;
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+.reveal .cls.blue { border-color: var(--solarized-blue); }
+.reveal .cls.green { border-color: var(--solarized-green); }
+.reveal .cls.violet { border-color: var(--solarized-violet); }
+.reveal .cls.orange { border-color: var(--solarized-orange); }
+.reveal .cls-title {
+    background: var(--solarized-base02);
+    color: var(--solarized-base3);
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 4px 10px;
+}
+.reveal .cls-body { padding: 6px 11px; color: var(--solarized-base01); }
+.reveal .cls-body .sep {
+    border-top: 1px dashed rgba(88, 110, 117, 0.45);
+    margin: 4px 0;
+}
+.reveal .cls-body .fn { color: var(--solarized-blue); }
+.reveal .cls-body .abs { font-style: italic; }
+.reveal .cls-note {
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 0.75rem;
+    color: var(--solarized-base01);
+    text-align: center;
+    margin-top: 4px;
+}
+
+/* 继承箭头（竖向） */
+.reveal .inherit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--solarized-base01);
+    font-size: 0.66rem;
+    font-family: var(--sans);
+    padding: 0 4px;
+}
+.reveal .inherit::before {
+    content: "▲";
+    color: var(--solarized-base01);
+    font-size: 0.72rem;
+    line-height: 1;
+}
+.reveal .inherit::after {
+    content: "";
+    width: 2px;
+    height: 26px;
+    background: var(--solarized-base01);
+}
+
+/* ---------- 流程 / 步骤 ---------- */
+.reveal .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    width: calc(100% - 4rem);
+    margin: 0.5rem 2rem;
+}
+.reveal .flow-step {
+    flex: 1;
+    border: 1.5px solid rgba(88, 110, 117, 0.35);
+    background: rgba(88, 110, 117, 0.05);
+    border-radius: 7px;
+    padding: 7px 9px;
+    text-align: center;
+    font-size: 0.76rem;
+    line-height: 1.35;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.reveal .flow-arrow {
+    align-self: center;
+    color: var(--solarized-base1);
+    font-size: 1.0rem;
+    padding: 0 7px;
+}
+.reveal .flow-step strong { display: block; color: var(--solarized-base02); font-size: 0.78rem; }
+
+.reveal .steps { counter-reset: step; margin: 0.3rem 2rem; }
+.reveal .steps > div {
+    position: relative;
+    padding-left: 2.0rem;
+    margin: 0.42rem 0;
+    line-height: 1.45;
+}
+.reveal .steps > div::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.02rem;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    background: var(--solarized-blue);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.35rem;
+}
+
+/* ---------- 内存布局 ---------- */
+.reveal .mem {
+    border: 1.5px solid rgba(88, 110, 117, 0.35);
+    border-radius: 7px;
+    overflow: hidden;
+    font-family: Operator, monospace;
+    font-size: 0.70rem;
+    line-height: 1.45;
+    background: rgba(253, 246, 227, 0.5);
+}
+.reveal .mem-head {
+    background: var(--solarized-base02);
+    color: var(--solarized-base3);
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    text-align: center;
+}
+.reveal .mem-row {
+    display: grid;
+    grid-template-columns: 5.4rem 1fr;
+    border-top: 1px solid rgba(88, 110, 117, 0.18);
+}
+.reveal .mem-row .addr {
+    color: var(--solarized-base1);
+    padding: 2px 8px;
+    border-right: 1px solid rgba(88, 110, 117, 0.18);
+    text-align: right;
+}
+.reveal .mem-row .val { padding: 2px 9px; color: var(--solarized-base01); }
+.reveal .mem-row.hot .val { color: var(--solarized-red); font-weight: 700; }
+.reveal .mem-row.new .val { color: var(--solarized-green); font-weight: 700; }
+
+/* ---------- 时间线 / 线程 ---------- */
+.reveal .timeline {
+    width: calc(100% - 4rem);
+    margin: 0.4rem 2rem;
+    font-family: Operator, monospace;
+    font-size: 0.66rem;
+}
+.reveal .tl-row {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    align-items: center;
+    margin: 3px 0;
+}
+.reveal .tl-label { color: var(--solarized-base01); text-align: right; padding-right: 10px; }
+.reveal .tl-track { position: relative; height: 1.35rem; border-left: 2px solid var(--solarized-base1); }
+.reveal .tl-bar {
+    position: absolute;
+    top: 3px;
+    height: 0.95rem;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 0.56rem;
+    line-height: 0.95rem;
+    text-align: center;
+    padding: 0 5px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+.reveal .tl-bar.b1 { background: var(--solarized-blue); }
+.reveal .tl-bar.b2 { background: var(--solarized-green); }
+.reveal .tl-bar.b3 { background: var(--solarized-orange); }
+.reveal .tl-bar.b4 { background: var(--solarized-violet); }
+.reveal .tl-bar.bad { background: var(--solarized-red); }
+
+/* ---------- 表格 ---------- */
+.reveal table.small-table th,
+.reveal table.small-table td {
+    font-size: 1.0rem;
+    padding: 4px 9px;
+    line-height: 1.35;
+}
+.reveal table.xsmall-table th,
+.reveal table.xsmall-table td {
+    font-size: 0.82rem;
+    padding: 3px 7px;
+    line-height: 1.3;
+}
+.reveal table td code { font-size: 0.92em; }
+
+/* ---------- 图与图注 ---------- */
+.reveal .fig { text-align: center; margin: 0.2rem 0; }
+.reveal .fig svg { max-width: 100%; height: auto; }
+.reveal .caption {
+    font-size: 0.62em;
+    color: var(--solarized-base1);
+    text-align: center;
+    margin-top: 0.2rem;
+}
+
+/* ---------- 引用/口诀 ---------- */
+.reveal .motto {
+    font-family: LXGWWenKai, "Noto Sans SC", sans-serif;
+    font-size: 0.95em;
+    color: var(--solarized-base01);
+    border-left: 4px solid var(--solarized-yellow);
+    padding: 0.4rem 0 0.4rem 1rem;
+    margin: 0.7rem 2rem;
+}
+
+/* ---------- 首页/结束页 ---------- */
+.reveal .title-rule {
+    width: 38%;
+    height: 2px;
+    background: var(--solarized-base1);
+    border: none;
+    margin: 0.6rem auto;
+}
+.reveal .course-mark {
+    font-family: Ysabeau, "Noto Sans SC", sans-serif;
+    font-size: 0.58em;
+    letter-spacing: 0.18em;
+    color: var(--solarized-base1);
+}
+
+/* ---------- 打印 ---------- */
+@media print {
+    .reveal .code-pane { break-inside: avoid; }
+}
+
+/* =========================================================
+   紧凑基线：C++ 课件信息密度较高，在保持字号可读的前提下
+   压缩段间距与标题间距，确保整页落在 1280x720 内。
+   ========================================================= */
+.reveal .slides section h5 {
+    font-size: 1.08em;
+    margin: 0.72rem 2rem 0.28rem 2rem;
+}
+.reveal .slides section p {
+    font-size: 0.74em;
+    line-height: 1.45;
+    margin: 0.42rem 2rem;
+}
+.reveal .slides section ul > li {
+    font-size: 0.64em;
+    line-height: 1.42;
+}
+.reveal .slides section ol > li {
+    font-size: 0.60em;
+    line-height: 1.42;
+}
+.reveal .slides section .card p,
+.reveal .slides section .card li {
+    font-size: 0.62em;
+}
+.reveal .slides section .keypoint,
+.reveal .slides section .tip,
+.reveal .slides section .pitfall,
+.reveal .slides section .question {
+    font-size: 0.92em;
+    padding: 0.38rem 0.85rem;
+    margin-top: 0.34rem;
+    margin-bottom: 0.34rem;
+}
+.reveal .slides section .motto {
+    font-size: 0.88em;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.reveal .slides section .card { padding: 0.45rem 0.8rem; }
+.reveal .slides section .cols { gap: 20px; }
+.reveal .slides section .code-pane { margin: 0.22rem 0; }
+.reveal .slides section .code-pane pre code { padding: 6px 12px !important; line-height: 1.34; }
+.reveal .slides section .flow-step { font-size: 0.66rem; padding: 7px 9px; }
+.reveal .slides section .cls { font-size: 0.67rem; }
+.reveal .slides section .cls-body { padding: 5px 10px; }
+.reveal .slides section .mem { font-size: 0.65rem; }
+
+/* 代码块不裁切；提示框左对齐（reveal 默认让 section 文本居中） */
+.reveal .slides section pre code {
+    max-height: none !important;
+    overflow: visible !important;
+}
+.reveal .slides section .keypoint,
+.reveal .slides section .tip,
+.reveal .slides section .pitfall,
+.reveal .slides section .question,
+.reveal .slides section .card,
+.reveal .slides section .cls,
+.reveal .slides section .mem,
+.reveal .slides section .out,
+.reveal .slides section pre.term,
+.reveal .slides section .flow-step,
+.reveal .slides section .motto,
+.reveal .slides section .cds,
+.reveal .slides section .steps {
+    text-align: left;
+}
+
+/* 提示框/卡片内的段落不要继承正文的 2rem 外边距 */
+.reveal .slides section .keypoint p,
+.reveal .slides section .tip p,
+.reveal .slides section .pitfall p,
+.reveal .slides section .question p,
+.reveal .slides section .card p,
+.reveal .slides section .cls p,
+.reveal .slides section .mem p {
+    margin: 0.12rem 0;
+    text-align: left;
+}
+.reveal .slides section .keypoint .label,
+.reveal .slides section .tip .label,
+.reveal .slides section .pitfall .label,
+.reveal .slides section .question .label {
+    display: block;
+    margin: 0 0 0.12rem 0;
+}
+.reveal .slides section .keypoint ul,
+.reveal .slides section .tip ul,
+.reveal .slides section .pitfall ul,
+.reveal .slides section .question ul,
+.reveal .slides section .card ul {
+    margin: 0.1rem 0 0 1rem;
+}
+
+/* 表格紧凑包装类（md 里无法直接给 table 加 class，用父级 div 控制） */
+.reveal .slides section .xsmall-table table th,
+.reveal .slides section .xsmall-table table td {
+    font-size: 0.82rem;
+    padding: 3px 7px;
+    line-height: 1.3;
+}
+.reveal .slides section .small-table table th,
+.reveal .slides section .small-table table td {
+    font-size: 1.0rem;
+    padding: 4px 9px;
+    line-height: 1.35;
+}

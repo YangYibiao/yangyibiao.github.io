@@ -1,0 +1,257 @@
+\documentclass[11pt,a4paper]{ctexart}
+
+\newcommand{\StudentName}{请填写姓名}
+\newcommand{\StudentID}{请填写学号}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage[breakable]{tcolorbox}
+
+\setlist{nosep, topsep=3pt}
+
+\lstset{
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{blue!70!black},
+  commentstyle=\color{green!42!black},
+  frame=single,
+  rulecolor=\color{black!25},
+  backgroundcolor=\color{black!2},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true
+}
+
+\newenvironment{problem}[1]{%
+  \vspace{0.8em}%
+  \noindent{\Large\bfseries #1}\par\vspace{0.35em}%
+}{\par\vspace{0.3em}}
+
+\newenvironment{solution}[1]{%
+  \vspace{0.8em}%
+  \noindent{AI Usage: #1}\par\noindent{\bfseries Solution}\par\vspace{0.35em}%
+}{\par\vspace{0.3em}}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries 平时作业 1}\\[0.6em]
+  {\normalsize \textbf{姓名：}\StudentName \qquad \textbf{学号：}\StudentID}
+\end{center}
+\vspace{0.4em}
+
+\subsection*{1. 提交规范}
+\begin{itemize}
+  \item 本次作业提供 \texttt{hw1.md}、\texttt{hw1.tex}、\texttt{hw1.typ} 三份内容相同的模版。请任选一种格式直接在各题的\textbf{作答区}内填写解答，并将修改后的\textbf{源文件}命名为 \texttt{姓名-学号.md}（或 \texttt{.tex} / \texttt{.typ}）提交至\href{https://cslab-cms.nju.edu.cn/}{南京大学在线实验平台}，无需导出 PDF 或上传代码目录。
+  \item \textbf{选做题说明}：标有 Optional 的题目为选做拓展题，不要求作答，且其中涉及的内容均为课堂未讲授的课外拓展知识，供学有余力的同学了解。
+  \item \textbf{AI 使用标注}：作业中可能包含少量课上尚未展开的语法、工具细节或背景概念，遇到不熟悉的内容时，可以自行查阅资料或询问 AI 辅助理解。每道题均设有 \textbf{AI Usage} 栏，请如实填写是否使用了 AI；若使用了 AI，须具体写明用途。
+  \item 如果提交格式不正确，或没有诚实填写 AI 使用说明，可能会影响分数。
+\end{itemize}
+
+\subsection*{2. CMake 构建指南}
+开始编写代码前，请先确认本机已安装 C++ 编译器与 CMake：
+\begin{itemize}
+  \item \textbf{Windows}：安装 Visual Studio / CLion（已内置编译器与 CMake），或通过 MSYS2 / MinGW-w64 安装 \texttt{g++} 与 \texttt{cmake}，或在 WSL 中通过 Linux 包管理器安装。
+  \item \textbf{macOS}：终端执行 \texttt{xcode-select --install} 安装命令行工具，并通过 Homebrew（\texttt{brew install cmake}）或官网安装包安装 CMake。
+  \item \textbf{Linux}：通过包管理器安装，例如 Debian 下执行 \texttt{sudo apt update \&\& sudo apt install build-essential cmake}。
+\end{itemize}
+
+\medskip
+\noindent 在终端进入 \texttt{attachments/} 目录后，使用以下三条标准命令完成配置、编译与测试：
+\begin{lstlisting}[language=bash]
+cmake -B build                              # 在 build/ 目录生成构建配置（首次执行即可）
+cmake --build build                         # 编译并链接生成可执行程序（每次改完代码后执行）
+ctest --test-dir build --output-on-failure  # 运行全部测试；失败时会输出断言所在行号
+\end{lstlisting}
+若只想单独运行 Problem 2 或 Problem 4 的测试，可使用 \texttt{-R} 参数过滤测试名：
+\begin{lstlisting}[language=bash]
+ctest --test-dir build -R p2 --output-on-failure
+ctest --test-dir build -R p4 --output-on-failure
+\end{lstlisting}
+
+当然，你也可以在 IDE（如 VS Code）中直接使用 CMake 插件进行构建和测试。
+
+\newpage
+
+\begin{problem}{Problem 1}
+课上我们介绍了过程抽象与数据封装的区别，以及``类（Class）''与``对象（Object）''的基本概念。对尚未接触过 C++ 面向对象语法的同学，可以先了解以下三条基础规则：
+\begin{enumerate}
+  \item \textbf{引用参数}：C++ 函数参数默认只传递副本；若在类型后加上 \texttt{\&}（如 \texttt{int \&v}），则形参 \texttt{v} 成为调用方实参的引用，在函数内修改 \texttt{v} 会直接修改外部实参。
+  \item \textbf{访问控制}：\texttt{class} 中位于 \texttt{public:} 下的成员可被外部代码直接调用或访问；位于 \texttt{private:} 下的成员仅允许本类的成员函数访问，外部直接访问会在编译阶段报错。
+  \item \textbf{构造函数与只读成员函数}：与类同名的成员函数为构造函数，在创建对象时自动执行以完成数据初始化；成员函数声明末尾的 \texttt{const}表示该函数承诺不修改对象的任何成员变量。
+\end{enumerate}
+
+\medskip
+现在，请阅读下方程序：
+
+\begin{lstlisting}[language=C++]
+#include <iostream>
+
+void reset(int v) {
+    v = 0;
+}
+
+int main() {
+    int x = 42;
+    reset(x);
+    std::cout << x << "\n";
+    return 0;
+}
+\end{lstlisting}
+
+请写出程序运行输出的结果；若希望调用 \texttt{reset(x)} 后 \texttt{x} 的值变为 \texttt{0}，应如何修改？
+
+\begin{solution}{未使用}
+\end{solution}
+
+\newpage
+
+下方 \texttt{BoundedCounter} 类希望封装一个计数值始终保持在 \texttt{[0, limit\_]} 范围内的计数器：
+\begin{lstlisting}[language=C++]
+class BoundedCounter {
+  private:
+    int count_;
+
+  public:
+    int limit_;
+
+    // Constructor, initialize count_ to 0 and limit_ to the given limit
+    BoundedCounter(int limit) : count_(0), limit_(limit) {}
+
+    void increment() {
+        if (count_ < limit_) {
+            ++count_;
+        }
+    }
+
+    int get() const {
+        return count_;
+    }
+};
+
+int main() {
+    BoundedCounter c(5); // Create a BoundedCounter object with limit 5
+    c.increment();
+    c.count_ = 100;      // Statement 1
+    c.limit_ = -3;       // Statement 2
+    return 0;
+}
+\end{lstlisting}
+
+\texttt{main} 函数中的\textbf{Statement 1} 和\textbf{Statement 2} 哪一句会导致编译报错？哪一句能通过编译但破坏了计数器的设计约束？应如何调整 \texttt{BoundedCounter} 的类定义以消除该隐患？
+
+\begin{solution}{未使用}
+\end{solution}
+
+\end{problem}
+
+\newpage
+
+\begin{problem}{Problem 2}
+与栈的``后进先出（LIFO）''不同，队列遵循``先进先出（FIFO）''原则。若用普通数组实现队列并在每次出队时将后续元素整体前移，开销较大；工程上通常采用\textbf{循环数组}——当下标推进到数组末尾 \texttt{CAPACITY - 1} 后，下一个位置通过取模运算 \texttt{(index + 1) \% CAPACITY} 折返至下标 \texttt{0}。
+
+\medskip
+附件 \texttt{attachments/queue.hpp} 定义了固定容量 \texttt{CAPACITY = 8} 的整型队列类 \texttt{Queue}，其私有成员在任意时刻均须满足以下条件：
+\begin{itemize}
+  \item \texttt{data\_[CAPACITY]}：存放元素的底层定长数组，有效下标为 \texttt{0} 至 \texttt{CAPACITY - 1}。
+  \item \texttt{count\_}：当前队列中的元素个数，始终满足 \texttt{0 <= count\_ <= CAPACITY}。
+  \item \texttt{head\_}：当队列非空时，\texttt{data\_[head\_]} 为最早入队的队头元素。
+  \item \texttt{tail\_}：当队列未满时，\texttt{data\_[tail\_]} 为下一个新元素的写入槽位。
+\end{itemize}
+
+\medskip
+\texttt{queue.cpp} 中已给出构造函数以及 \texttt{empty()}、\texttt{full()}、\texttt{size()} 的实现。请按以下实现细节补全剩余三个成员函数，并粘贴在此处：
+\begin{itemize}
+  \item \texttt{bool push(int x)}：
+  \begin{enumerate}
+    \item 若队列已满（\texttt{full()} 为 \texttt{true}），不修改队列状态，直接返回 \texttt{false}；
+    \item 将 \texttt{x} 存入 \texttt{data\_[tail\_]}；
+    \item 更新 \texttt{tail\_} 和 \texttt{count\_}，返回 \texttt{true}。
+  \end{enumerate}
+  \item \texttt{bool pop(int \&out)}：
+  \begin{enumerate}
+    \item 若队列为空（\texttt{empty()} 为 \texttt{true}），不修改 \texttt{out}，直接返回 \texttt{false}；
+    \item 将队头元素 \texttt{data\_[head\_]} 赋值给引用参数 \texttt{out}；
+    \item 更新 \texttt{head\_} 和 \texttt{count\_}，返回 \texttt{true}。
+  \end{enumerate}
+  \item \texttt{bool front(int \&out) const}：
+  \begin{enumerate}
+    \item 若队列为空，不修改 \texttt{out}，直接返回 \texttt{false}；
+    \item 将 \texttt{data\_[head\_]} 赋值给 \texttt{out} 并返回 \texttt{true}。
+  \end{enumerate}
+\end{itemize}
+
+\begin{solution}{未使用}
+\end{solution}
+
+\newpage
+
+在循环数组中，队列为空和队列装满时都会出现 \texttt{head\_ == tail\_}。本类的实现是如何区分这两种状态的？如果去掉成员变量 \texttt{count\_}，仅保留 \texttt{head\_}、\texttt{tail\_} 和长度为 \texttt{CAPACITY} 的数组，还能否区分空与满？如果能，请给出如何实现；如果不能，请说明理由。
+
+\begin{solution}{未使用}
+\end{solution}
+
+\end{problem}
+
+\newpage
+
+\begin{problem}{Problem 3}
+假设在 Problem 2 中，类的设计者图方便将 \texttt{data\_}、\texttt{head\_}、\texttt{tail\_} 全部放在 \texttt{public:} 下，而某段外部代码直接编写了遍历 \texttt{q.data\_} 下标的循环来打印队列元素。当后续我们需要将 \texttt{Queue} 的内部存储改为单链表时，这会对外部代码造成什么影响？若外部确实需要``按序查看队列中所有元素''，符合数据封装原则的设计方式是什么？
+
+\begin{solution}{未使用}
+\end{solution}
+
+\end{problem}
+
+\newpage
+
+\begin{problem}{Problem 4 (Optional)}
+在设计诸如``弹出并返回队头元素''的接口时，函数需要同时表达两种可能的结果：\textbf{成功取得一个元素}，或\textbf{因队列为空而无值可返}。传统写法通常有三种方案，但各有明显局限：
+\begin{itemize}
+  \item \textbf{内部终止或抛异常}：如空队列直接 \texttt{exit(-1)}，这可能会导致程序异常终止；
+  \item \textbf{返回特殊哨兵值}：例如定义 \texttt{int pop()} 并在队列为空时返回 \texttt{-1}。这会造成\textbf{值域冲突}——数据本身可能包含 \texttt{-1}；
+  \item \textbf{布尔返回值配合引用输出参数}：即 Problem 2 采用的 \texttt{bool pop(int \&out)}。它消除了值域冲突，但调用方每次都必须先在外部声明一个占位变量，不仅代码略显繁琐，而且可能造成变量作用域泄露。当元素类型没有默认构造函数时，甚至无法轻易声明占位变量。
+\end{itemize}
+
+为了在类型层面干净地解决这一问题，现代编程语言普遍引入了\textbf{可选值类型}。C++17 也在标准库头文件 \texttt{<optional>} 中引入了类模板 \texttt{std::optional<T>}：一个 \texttt{std::optional<int>} 对象在语义上要么含有一个合法的 \texttt{int} 值，要么处于显式的无值状态 \texttt{std::nullopt}。其核心用法如下：
+\begin{lstlisting}[language=C++]
+#include <optional>
+
+std::optional<int> make_sample(bool ok) {
+    if (!ok) {
+        return std::nullopt;   // 显式返回“无值”状态
+    }
+    return -1;                 // 自动包装为“有值”的 optional，其值为 -1
+}
+
+void demo() {
+    // 写法 A：利用 if 初始化语句将变量 s 的作用域严格限制在分支内部
+    if (std::optional<int> s = make_sample(true)) {
+        int val = *s;           // 通过 *s 或 s.value() 取出内部包含的整数
+    }
+
+    // 写法 B：显式查询是否有值
+    auto empty_res = make_sample(false);
+    bool has = empty_res.has_value(); // 返回 false
+}
+\end{lstlisting}
+
+\medskip
+
+请打开 \texttt{attachments/queue.cpp}，补全成员函数 \texttt{Queue::try\_pop} 并粘贴在此处。
+
+\begin{solution}{未使用}
+\end{solution}
+
+\newpage
+
+查阅 \href{https://cppreference.com/}{C++ 标准库文档}或编写几行测试验证：当 \texttt{std::optional<int> opt = std::nullopt;} 处于无值状态时，若未判空便直接调用 \texttt{opt.value()}，程序会发生什么行为？这与直接解引用 \texttt{*opt} 有何不同？
+
+\begin{solution}{未使用}
+\end{solution}
+
+\end{problem}
+
+\end{document}
