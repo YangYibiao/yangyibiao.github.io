@@ -204,7 +204,7 @@ struct {
 
 </div>
 
-<div style="flex:1;font-size:0.5em;line-height:1.35;">
+<div style="flex:1;font-size:0.58em;line-height:1.35;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -432,7 +432,7 @@ if (a == b)             /* 编译错误! C 不提供整体比较 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.58em;">
 
 ```C{.line-numbers}
 struct part {
@@ -458,7 +458,7 @@ part2 = part1; /* legal; both parts have the same type */
 
 </div>
 
-<div style="flex:1;font-size:0.5em;line-height:1.22;">
+<div style="flex:1;font-size:0.56em;line-height:1.22;">
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -530,7 +530,7 @@ Part的使用方式与内置类型相同:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.6em;">
 
 ```C
 int s;   /* s will store a suit */
@@ -574,7 +574,7 @@ s = 2;   /* 2 represents "hearts" */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.6em;">
 
 ```C
 SUIT s;
@@ -638,11 +638,11 @@ Suit s1, s2;
 
 ---
 
-<style>.enum-int pre{font-size:15px;line-height:1.25;padding:6px 10px;margin:4px 0;}.enum-int pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
+<style>.enum-int pre{font-size:16px;line-height:1.25;padding:6px 10px;margin:4px 0;}.enum-int pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="enum-int" style="flex:1.25;font-size:0.55em;">
+<div class="enum-int" style="flex:1.25;font-size:0.6em;">
 
 ```C
 enum suit {CLUBS = 1, DIAMONDS = 2,
@@ -671,7 +671,7 @@ i = s + 2;      /* i is now 3            */
 
 </div>
 
-<div style="flex:1;font-size:0.55em;">
+<div style="flex:1;font-size:0.6em;">
 
 在系统内部, C 将枚举变量和常量视为整数: 默认从 0 开始, 依次加 1——花色枚举中 CLUBS、DIAMONDS、HEARTS、SPADES 分别为 0、1、2、3.
 
@@ -736,7 +736,7 @@ const 与 `#define` 不同: 宏只做==文本替换==（没有类型、没有作
 
 ---
 
-<style>.struct-param pre{font-size:15px;line-height:1.25;padding:6px 10px;margin:4px 0;}.struct-param pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
+<style>.struct-param pre{font-size:16px;line-height:1.25;padding:6px 10px;margin:4px 0;}.struct-param pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -887,34 +887,25 @@ struct student {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.6em;">
 
 ```C
 struct dialing_code {
   char *country;
   int code;
 };
-```
 
-```C
 const struct dialing_code country_codes[] =
   { {"Argentina",            54}, {"Bangladesh",      880},
-   {"Brazil",               55}, {"Burma (Myanmar)",  95},
-   {"China",                86}, {"Colombia",         57},
-   {"Congo, Dem. Rep. of", 243}, {"Egypt",            20},
-   {"Ethiopia",            251}, {"France",           33},
-   {"Germany",              49}, {"India",            91},
-   {"Indonesia",            62}, {"Iran",             98},
-   {"Italy",                39}, {"Japan",            81},
-   {"Mexico",               52}, {"Nigeria",         234},
-   {"Pakistan",             92}, {"Philippines",      63},
-   {"Poland",               48}, {"Russia",            7},
-   {"South Africa",         27}, {"South Korea",      82},
-   {"Spain",                34}, {"Sudan",           249},
-   {"Thailand",             66}, {"Turkey",           90},
-   {"Ukraine",             380}, {"United Kingdom",   44},
-   {"United States",         1}, {"Vietnam",          84} };
+    {"Brazil",               55}, {"China",            86},
+    {"France",               33}, {"Germany",          49},
+    {"India",                91}, {"Japan",             81},
+    {"Mexico",               52}, {"Russia",             7},
+    {"South Korea",          82}, {"United Kingdom",    44},
+    {"United States",         1}, {"Vietnam",           84} };
 ```
+
+
 
 </div>
 
@@ -961,11 +952,11 @@ struct part inventory[100] =
 
 ---
 
-<style>.io34 pre{font-size:13.5px;line-height:1.18;padding:8px 10px;margin:0;}.io34 pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
+<style>.io34 pre{font-size:15px;line-height:1.18;padding:8px 10px;margin:0;}.io34 pre code{max-height:none;padding:2px 4px;overflow:hidden!important;}</style>
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="io34" style="flex:1.15;font-size:0.46em;">
+<div class="io34" style="flex:1.15;font-size:0.58em;">
 
 ```
 Enter operation code: i
@@ -973,33 +964,13 @@ Enter part number: 528
 Enter part name: Disk drive
 Enter quantity on hand: 10
 
-Enter operation code: s
-Enter part number: 528
-Part name: Disk drive
-Quantity on hand: 10
-
-Enter operation code: s
-Enter part number: 914
-Part not found.
-
-Enter operation code: i
-Enter part number: 914
-Enter part name: Printer cable
-Enter quantity on hand: 5
-
 Enter operation code: u
 Enter part number: 528
 Enter change in quantity on hand: -2
 
-Enter operation code: s
-Enter part number: 528
-Part name: Disk drive
-Quantity on hand: 8
-
 Enter operation code: p
 Part Number   Part Name             Quantity on Hand
    528       Disk drive                    8
-   914       Printer cable                 5
 
 Enter operation code: q
 ```
