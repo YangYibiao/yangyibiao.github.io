@@ -358,7 +358,7 @@ str[2] = '\0';   /* 现在 str 是字符串 "Hi" */
 <div>
 <div style="font-size:0.8em;color:#268bd2;"><strong>恰好</strong></div>
 
-<div style="font-size:0.46em;">
+<div style="font-size:0.58em;">
 
 ```C
 char date1[8] = "June 14";
@@ -374,7 +374,7 @@ char date1[8] = "June 14";
 <div>
 <div style="font-size:0.8em;color:#268bd2;"><strong>过短</strong></div>
 
-<div style="font-size:0.46em;">
+<div style="font-size:0.58em;">
 
 ```C
 char date2[9] = "June 14";
@@ -390,7 +390,7 @@ char date2[9] = "June 14";
 <div>
 <div style="font-size:0.8em;color:#268bd2;"><strong>过长</strong></div>
 
-<div style="font-size:0.46em;">
+<div style="font-size:0.58em;">
 
 ```C
 char date3[7] = "June 14";
@@ -754,7 +754,7 @@ if (l > 0 && line[l - 1] == '\n')
 
 <div style="display:flex;align-items:flex-start;gap:24px;" class="split-rule">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 <div class="col-label">代码</div>
 
@@ -956,11 +956,9 @@ len = strlen(str1);   /* len is now 3 */
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="small-code" style="flex:1.08;min-width:0;font-size:0.4em;">
+<div class="small-code" style="flex:1.08;min-width:0;font-size:0.60em;">
 
 ```C{.line-numbers}
-#include <stdio.h>
-
 int my_strlen_index(const char *s)
 {
   int n = 0;
@@ -968,6 +966,7 @@ int my_strlen_index(const char *s)
     n++;
   return n;
 }
+
 int my_strlen_pointer(const char *s)
 {
   const char *p = s;
@@ -975,19 +974,13 @@ int my_strlen_pointer(const char *s)
     p++;
   return (int)(p - s);
 }
-
-int main(void)
-{
-  const char *tests[] = {"abc", "", "hello world"};
-  for (int i = 0; i < 3; i++)
-    printf("\"%s\" 的长度 = %d / %d\n", tests[i],
-           my_strlen_index(tests[i]),
-           my_strlen_pointer(tests[i]));
-  return 0;
-}
 ```
 
-</div>
+
+
+<div style="margin-top:8px;">
+<a href="vscode://file/Users/yangyibiao/Documents/Seafile/GitRepo/yangyibiao.github.io/cpl/slides/12-strings/code/task-strlen.c" style="display:inline-block;padding:5px 14px;background:#268bd2;color:#fff;border-radius:6px;font-size:0.9em;text-decoration:none;">⚡ 在 VS Code 中打开 task-strlen.c (完整代码)</a>
+</div></div>
 
 <div style="flex:1;min-width:0;font-size:0.66em;line-height:1.55;">
 
@@ -1110,7 +1103,7 @@ strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回�
 
 <div style="display:grid;grid-template-columns:1.12fr 1fr;gap:22px;align-items:start;">
 
-<div style="font-size:0.48em;">
+<div style="font-size:0.55em;">
 
 ```
 输入日期和提醒: 24 妈妈的生日
@@ -1158,7 +1151,7 @@ strcmp比较字符串s1和s2, 根据s1是小于、等于还是大于s2, 返回�
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div class="small-code" style="flex:1.42;min-width:0;font-size:0.5em;">
+<div class="small-code" style="flex:1.42;min-width:0;font-size:0.54em;">
 
 ```C{.line-numbers}
 #define MAX_REMIND 50
@@ -1210,7 +1203,7 @@ for (;;) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.55em;">
+<div style="flex:1.3;font-size:0.62em;">
 
 ```C{.line-numbers}
 size_t strlen(const char *s)
