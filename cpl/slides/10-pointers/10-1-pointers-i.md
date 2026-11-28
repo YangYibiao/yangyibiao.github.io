@@ -591,7 +591,7 @@ int main(void)
 
 <div class="deref-code" style="flex:1.15;font-size:0.64em;">
 
-<style>.deref-code pre code{font-size:14px;line-height:1.2;}</style>
+<style>.deref-code pre code{font-size:15px;line-height:1.2;}</style>
 
 <div class="col-label">完整代码 · deref.c</div>
 
@@ -829,7 +829,7 @@ printf("%d %d %d\n", i, *p, *q);  /* 2 2 2 */
 
 <div class="assign-code" style="flex:1.15;font-size:0.58em;">
 
-<style>.assign-code pre code{max-height:none!important;font-size:13px;line-height:1.2;}</style>
+<style>.assign-code pre code{max-height:none!important;font-size:15px;line-height:1.2;}</style>
 
 <div class="col-label">完整代码 · assign-compare.c</div>
 
