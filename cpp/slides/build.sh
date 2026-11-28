@@ -1,5 +1,5 @@
 #!/bin/bash
-# 构建 slides-cpp 下全部课件：md -> html
+# 构建 slides 下全部课件：md -> html
 # 用法: ./build.sh [课件名]
 set -e
 cd "$(dirname "$0")"

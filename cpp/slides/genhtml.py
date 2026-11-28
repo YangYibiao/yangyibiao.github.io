@@ -29,7 +29,7 @@ html_path = BASE + name + '.html'
 try:
     html = open(html_path, encoding='utf-8').read()
 except FileNotFoundError:
-    # 新课件: 使用 slides-cpp/template.html 作为 head/tail 模板
+    # 新课件: 使用 slides/template.html 作为 head/tail 模板
     tmpl = os.path.join(here, 'template.html')
     if not os.path.exists(tmpl):
         print('no template:', tmpl)

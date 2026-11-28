@@ -10,7 +10,7 @@
 ## 目录结构
 
 ```text
-slides-cpp/
+slides/
 ├── README.md                     # 本文件
 ├── build.sh                      # 一键构建全部课件
 ├── genhtml.py                    # Markdown -> HTML（复用并扩展 slides-cpl）
@@ -53,7 +53,7 @@ NN-topic/
 └── N-1-topic.html    # 生成的单文件 HTML（可直接双击打开）
 ```
 
-HTML 已内联主题 CSS；reveal.js 与演讲者笔记脚本使用 `slides-cpp/js`、`slides-cpp/revealjs_deps` 下的本地文件，字体、插件等引用 `cpp/css`、`cpp/plugin` 下的共享资源。因此**不要单独拷贝 HTML 到其他目录**，否则相对路径会失效。
+HTML 已内联主题 CSS；reveal.js 与演讲者笔记脚本使用 `slides/js/reveal.js`、`shared/revealjs_deps` 下的本地文件，字体、插件等引用 `shared/css`、`shared/plugin` 下的共享资源。因此**不要单独拷贝 HTML 到其他目录**，否则相对路径会失效。
 
 ## 构建
 
@@ -67,7 +67,7 @@ HTML 已内联主题 CSS；reveal.js 与演讲者笔记脚本使用 `slides-cpp/
 构建全部课件：
 
 ```bash
-cd slides-cpp
+cd slides
 ./build.sh
 ```
 
@@ -147,7 +147,7 @@ g++ -std=c++20 -Wall -Wextra -fsyntax-only example.cpp
 ### 溢出检查
 
 ```bash
-cd slides-cpp
+cd slides
 python3 tools/check_overflow.py 02-classes-and-objects/2-1-classes-and-objects.html
 ```
 
@@ -166,7 +166,7 @@ done
 ### 代码检查
 
 ```bash
-cd slides-cpp
+cd slides
 python3 tools/check_code.py
 ```
 
@@ -180,10 +180,10 @@ python3 tools/check_code.py
 
 | 项目 | 来源 | 说明 |
 | :-- | :-- | :-- |
-| `genhtml.py` | `slides-cpl/genhtml.py` | 扩展了 C++ 关键字、`::`、`->*` 等运算符高亮；模板查找改为 `slides-cpp/template.html` |
+| `genhtml.py` | `slides-cpl/genhtml.py` | 扩展了 C++ 关键字、`::`、`->*` 等运算符高亮；模板查找改为 `slides/template.html` |
 | `template.html` | `slides-cpl` 的成品 deck | 只取 head/tail；已把 `revealjs_deps/notes.js` 路径改为 `../revealjs_deps/notes.js` |
 | `revealjs_deps/notes.js` | `slides-cpl` | 演讲者笔记插件 |
-| CSS / 字体 / 插件 | `cpp/css`、`cpp/plugin` | 与 C 语言课程共用站点资源 |
+| CSS / 字体 / 插件 | `shared/css`、`shared/plugin` | 与 C 语言课程共用站点资源 |
 | 视觉风格 | `slides-cpl` | solarized 浅色主题、标题/代码/两栏版式一致 |
 
 `slides-cpl/` 与 `ppt/` 均为只读参考，不应在本课件构建中修改。
@@ -214,4 +214,4 @@ python3 tools/check_code.py
 
 `index.html` 目前为手写页面（本机未配置 mpe2html）。修改 `index.md` 后，请同步更新 `index.html` 中对应的课程表格与链接。
 
-首页链接指向 `slides-cpp/NN-topic/N-1-topic.html`；新增/重命名课件时，两处都要更新。
+首页链接指向 `slides/NN-topic/N-1-topic.html`；新增/重命名课件时，两处都要更新。
