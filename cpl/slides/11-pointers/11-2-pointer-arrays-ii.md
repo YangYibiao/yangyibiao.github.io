@@ -1454,7 +1454,7 @@ int main(void)
 </div>
 
 ---
-<!-- slide<!-- slide data-notes="" -->
+<!-- slide data-notes="" -->
 
 ##### 下一站: 动态内存
 
