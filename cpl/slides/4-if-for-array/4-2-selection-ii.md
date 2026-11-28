@@ -300,7 +300,7 @@ int main(void) {
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.55em;">
+<div style="flex:1;font-size:0.6em;">
 
 ==缩进暗示的版本== (程序员想配外层): 
 
@@ -314,7 +314,7 @@ if (y != 0)
 
 </div>
 
-<div style="flex:1;font-size:0.55em;">
+<div style="flex:1;font-size:0.6em;">
 
 ==C 的实际配对== (else 属于最近的 if): 
 
@@ -454,7 +454,7 @@ printf 的实参也可以直接写条件表达式 (如左最后一行)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1;font-size:0.55em;">
+<div style="flex:1;font-size:0.58em;">
 
 ==级联 if 版==: 
 
@@ -476,7 +476,7 @@ if (grade == 4) {
 
 </div>
 
-<div style="flex:1;font-size:0.55em;">
+<div style="flex:1;font-size:0.58em;">
 
 ==switch 版==: 
 
