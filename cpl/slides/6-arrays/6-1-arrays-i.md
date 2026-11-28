@@ -563,7 +563,7 @@ printf("%d", n[i]);  /* 想要第几个都行 */
 
 ---
 
-<style>#m-reverse .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-reverse .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-reverse .taskpane pre{margin:6px 0!important}#m-reverse .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-reverse .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-reverse .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .codepane pre code{font-size:16px!important;line-height:1.15!important}details.answer{background:#fdf6e3!important}details.answer:not([open]){display:inline-block;padding:6px 12px}details.answer summary{list-style:none;cursor:pointer;color:#268bd2!important;font-size:0.42em!important;line-height:1.4;padding:2px 0;text-align:left}details.answer summary::-webkit-details-marker{display:none}details.answer summary::before{content:"▶ ";font-size:0.85em}details.answer[open] summary::before{content:"▼ "}</style>
+<style>#m-reverse .taskpane>p{font-size:24px!important;line-height:1.32!important;margin:6px 0!important}#m-reverse .taskpane>a{font-size:20px!important;margin-top:6px!important}#m-reverse .taskpane pre{margin:6px 0!important}#m-reverse .taskpane pre code{font-size:15px!important;line-height:1.2!important}#m-reverse .taskpane ul{margin:4px 0!important;padding-left:28px!important}#m-reverse .taskpane ul>li{margin:0 0 4px 0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .taskpane li p{margin:0!important;font-size:18px!important;line-height:1.35!important}#m-reverse .codepane pre code{font-size:16px!important;line-height:1.15!important}details.answer{background:#fdf6e3!important}details.answer:not([open]){display:inline-block;padding:6px 12px}details.answer summary{list-style:none;cursor:pointer;color:#268bd2!important;font-size:0.62em!important;line-height:1.4;padding:2px 0;text-align:left}details.answer summary::-webkit-details-marker{display:none}details.answer summary::before{content:"▶ ";font-size:0.85em}details.answer[open] summary::before{content:"▼ "}</style>
 
 <div id="m-reverse" style="display:flex;align-items:flex-start;gap:24px;">
 
@@ -859,7 +859,7 @@ int main(void)
 
 <div id="repdigit-ref" class="split-rule" style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.4;font-size:0.55em;">
+<div style="flex:1.4;font-size:0.62em;">
 
 <div class="col-label">代码</div>
 
