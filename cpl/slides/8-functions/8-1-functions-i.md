@@ -96,62 +96,29 @@ presentation:
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.48em;">
+<style>#no-func pre code{max-height:none!important;overflow:visible!important;line-height:1.35!important;}</style>
+<div id="no-func" style="flex:1.3;font-size:0.58em;">
 
 ```C{.line-numbers}
-/* 三个任务: 不用函数 */
-#include <stdio.h>
-
 int main(void)
 {
-  int m, n, i, d, rev, t;
-  int count = 0;
-
-  printf("输入 m n (m<=n): ");
+  int m, n, i, d, rev, t, count = 0;
   scanf("%d%d", &m, &n);
 
   for (i = m; i <= n; i++) {
     /* 任务 1: 输出回文素数 */
-    /*   素数检查 (第一次) */
     int is_prime = 1;
-    for (d = 2; d <= i / d; d++) {
-      if (i % d == 0) {
-        is_prime = 0;
-        break;
-      }
-    }
-    /*   回文检查 (第一次) */
+    for (d = 2; d <= i / d; d++) { ... }   /* 第 1 次素数检查 */
     t = i; rev = 0;
-    while (t > 0) { rev = rev * 10 + t % 10; t = t / 10; }
-    if (is_prime && rev == i) {
-      printf("%d ", i);
-    }
+    while (t > 0) { rev = rev * 10 + t % 10; t /= 10; }
+    if (is_prime && rev == i) printf("%d ", i);
 
     /* 任务 2: 统计素数个数 */
-    /*   素数检查 (第二次, 一字不差) */
     is_prime = 1;
-    for (d = 2; d <= i / d; d++) {
-      if (i % d == 0) {
-        is_prime = 0;
-        break;
-      }
-    }
-    if (is_prime) {
-      count++;
-    }
+    for (d = 2; d <= i / d; d++) { ... }   /* 第 2 次, 一字不差 */
+    if (is_prime) count++;
   }
-  printf("\n素数个数: %d\n", count);
-
-  /* 任务 3: 判断 n 是不是回文数 */
-  /*   回文检查 (第二次, 一字不差) */
-  t = n; rev = 0;
-  while (t > 0) { rev = rev * 10 + t % 10; t = t / 10; }
-  if (rev == n) {
-    printf("%d 是回文数\n", n);
-  } else {
-    printf("%d 不是回文数\n", n);
-  }
-  return 0;
+  /* 任务 3 的回文检查同样重复 */
 }
 ```
 
@@ -179,65 +146,29 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:1.3;font-size:0.52em;">
+<style>#func-ref pre code{max-height:none!important;overflow:visible!important;line-height:1.35!important;}</style>
+<div id="func-ref" style="flex:1.3;font-size:0.58em;">
 
 ```C{.line-numbers}
-/* 三个任务: 用函数 */
-#include <stdio.h>
-
-int is_prime(int n)          /* 素数检查: 写一次 */
+int is_prime(int n)                 /* 素数检查: 写一次 */
 {
-  int d;
-
-  if (n <= 1) {              /* 1 和 0 不是素数 */
-    return 0;
-  }
-  for (d = 2; d <= n / d; d++) {
-    if (n % d == 0) {
-      return 0;
-    }
-  }
+  if (n <= 1) return 0;
+  for (int d = 2; d <= n / d; d++)
+    if (n % d == 0) return 0;
   return 1;
 }
 
-int is_palindrome(int n)     /* 回文检查: 写一次 */
+int is_palindrome(int n)            /* 回文检查: 写一次 */
 {
-  int rev = 0, t = n;
-
-  while (t > 0) {
+  int rev = 0;
+  for (int t = n; t > 0; t /= 10)
     rev = rev * 10 + t % 10;
-    t = t / 10;
-  }
   return rev == n;
 }
 
-int main(void)
-{
-  int m, n, i, count = 0;
-
-  printf("输入 m n (m<=n): ");
-  scanf("%d%d", &m, &n);
-
-  for (i = m; i <= n; i++) {
-    /* 任务 1: 输出回文素数 */
-    if (is_prime(i) && is_palindrome(i)) {
-      printf("%d ", i);
-    }
-    /* 任务 2: 统计素数个数 */
-    if (is_prime(i)) {
-      count++;
-    }
-  }
-  printf("\n素数个数: %d\n", count);
-
-  /* 任务 3: 判断 n 是不是回文数 */
-  if (is_palindrome(n)) {
-    printf("%d 是回文数\n", n);
-  } else {
-    printf("%d 不是回文数\n", n);
-  }
-  return 0;
-}
+/* main 中: 每个任务只剩一行调用 */
+if (is_prime(i) && is_palindrome(i)) printf("%d ", i);
+if (is_prime(i)) count++;
 ```
 
 </div>
@@ -1071,7 +1002,7 @@ int main(void)
 
 <div style="display:flex;align-items:flex-start;gap:24px;">
 
-<div style="flex:0.85;font-size:0.55em;">
+<div style="flex:0.85;font-size:0.6em;">
 
 ```C{.line-numbers}
 #include <stdio.h>
